@@ -1,0 +1,45 @@
+{
+  "workshoptitle": "Converged Database with Oracle Analytics Server",
+  "help": "livelabs-help-license_us@oracle.com",
+  "tutorials": [
+    {
+      "title": "Introduction",
+      "description": "This lab provides an overview of Oracle Identity Manager.",
+      "filename": "../../intro/intro.md"
+    },
+    {
+      "title": "Get Started with noVNC Remote Desktop",
+      "description": "Using noVNC Remote Desktop",
+      "filename": "https://raw.githubusercontent.com/oracle/learning-library/master/common/labs/remote-desktop/using-novnc-remote-desktop.md"
+    },
+    {
+      "title": "Lab 1: Initialize Environment",
+      "description": "Connect to OAS Instance",
+      "publisheddate": "11/09/2020",
+      "filename": "../../initialize-environment/initialize-environment.md"
+    },
+    {
+      "title": "Lab 2: Data Visualization",
+      "description": "OAS Data Visualization",
+      "publisheddate": "11/09/2020",
+      "filename": "../../data-visualizations/data-visualizations.md"
+    },
+    {
+      "title": "Lab 3: Augmented Analytics",
+      "description": "OAS Augmented Analytics",
+      "publisheddate": "11/09/2020",
+      "filename": "../../augmented-analytics/augmented-analytics.md"
+    },
+    {
+      "title": "Lab 4: Predictive Analytics",
+      "description": "OAS Predictive Analytics",
+      "publisheddate": "11/09/2020",
+      "filename": "../../predictive-analytics/predictive-analytics.md"
+    },
+    {
+      "title": "Need Help?",
+      "description": "Solutions to Common Problems and Directions for Receiving Live Help",
+      "filename": "https://raw.githubusercontent.com/oracle/learning-library/master/common/labs/need-help/need-help-livelabs.md"
+    }
+  ]
+}
