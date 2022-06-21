@@ -1,4 +1,4 @@
-# Deploy the Grabdish Application and Logon
+# Deploy the grabdish application and logon
 
 ## Introduction
 

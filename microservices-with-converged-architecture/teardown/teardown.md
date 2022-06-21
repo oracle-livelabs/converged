@@ -1,4 +1,4 @@
-# Teardown
+# Tear down
 
 ## Introduction
 
