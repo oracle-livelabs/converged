@@ -66,6 +66,7 @@ In this lab we showcase the microservices written in the PL/SQL programming lang
 When a button is clicked in the user interface, the appropriate data is composed into a JSON document and a web request is made through the load balancer to a service hosted in ORDS.  Here is the user interface code that makes the web request (code extract from [index.html](https://github.com/oracle/microservices-datadriven/blob/main/workshops/dcms-db/grabdish/web/index.html)):
 
 ```JavaScript
+<copy>
 this.lab9PlaceOrderAction = function (event, vm) {
   vm.inProgress(true);
   var order = {
@@ -88,11 +89,13 @@ this.lab9PlaceOrderAction = function (event, vm) {
     });
   });
 };
+</copy>
 ```
 
 The place order service interface is written in PL/SQL and exposed by ORDS using a mechanism called Auto PLSQL.  Here is the PL/SQL code that implements the Place Order service interface (code extract from [order-plsql.sql](https://github.com/oracle/microservices-datadriven/blob/main/workshops/dcms-db/grabdish/order/order-plsql/order-plsql.sql)):
 
 ```sql
+<copy>
 create or replace procedure place_order (
   orderid in out varchar2,
   itemid in out varchar2,
@@ -106,6 +109,7 @@ is
 begin
 .
 .
+</copy>
 ```
 
 Each input (in) parameter is mapped to a JSON attribute in the incoming request and the procedure is execute.  In response, a JSON document is constructed with each output (out) parameter corresponding to a JSON attribute.
@@ -117,6 +121,7 @@ The frontend application is communicating with the order service to place an ord
 Implementing the messaging queue inside the Oracle database provides a unique capability of performing the event sourcing actions (manipulating data and sending an event message) atomically within the same database transaction. The benefit of this approach is that it provides a guaranteed once delivery, and it doesn’t require writing additional application logic to handle possible duplicate message deliveries, as it would be the case with solutions using separate datastores and event messaging platforms(code extract from [order-plsql.sql](https://github.com/oracle/microservices-datadriven/blob/main/workshops/dcms-db/grabdish/order/order-plsql/order-plsql.sql)):
 
 ```sql
+<copy>
   -- insert the order object
   order_collection.insert_order(order_jo);
 
@@ -125,11 +130,13 @@ Implementing the messaging queue inside the Oracle database provides a unique ca
 
   -- commit
   commit;
+  </copy>
 ```
 
 In this example, once the order was inserted into the Oracle database, an event message was also sent to the interested parties, which in this case is the inventory service. The inventory service receives the message and checks the inventory database, modifies the inventory if necessary, and sends back a message if the inventory exists or not. The inventory message is picked up by the order service which based on the outcome message, sends back to the frontend a successful or failed order status.  Here is the order message consumer code which is part of the inventory service (code extract from [inventory-db-plsql.sql](https://github.com/oracle/microservices-datadriven/blob/main/workshops/dcms-db/grabdish/inventory/inventory-plsql/inventory-db-plsql.sql)):
 
 ```sql
+<copy>
 create or replace procedure order_message_consumer
   authid current_user
 is
@@ -156,11 +163,13 @@ begin
 
   end loop;
 end;
+</copy>
 ```
 
 And here is the business logic which decides how to fulfill the order (code extract from [inventory-db-plsql.sql](https://github.com/oracle/microservices-datadriven/blob/main/workshops/dcms-db/grabdish/inventory/inventory-plsql/inventory-db-plsql.sql)):
 
 ```sql
+<copy>
 create or replace function fulfill_order(in_order_jo in json_object_t) return json_object_t
   authid current_user
 is
@@ -188,6 +197,7 @@ begin
 
   return inv_msg_jo;
 end;
+</copy>
 ```
 
 The services do not talk directly to each other, as each service is isolated and accesses its own datastore, while the only communication path is through the messaging PLSQLInsertOrderEnqueueMessage.

@@ -46,6 +46,7 @@ As you expect, the user interface code remains the same when we change the micro
 When implementing the service interface is JavaScript interface is written in a PL/SQL wrapper and exposed by ORDS using the same Auto PLSQL functionality.  Here is the PL/SQL code that implements the Place Order service interface wrapper (code extract from [order-js-wrapper.sql](https://github.com/oracle/microservices-datadriven/blob/main/workshops/dcms-db/grabdish/order/order-js/order-js-wrapper.sql)):
 
 ```sql
+<copy>
 create or replace procedure place_order (
   orderid in out varchar2,
   itemid in out varchar2,
@@ -88,6 +89,7 @@ begin
   orderid :=           order_jo.get_string('orderid');
   itemid :=            order_jo.get_string('itemid');
   deliverylocation :=  order_jo.get_string('deliverylocation');
+</copy>
 ```
 
 Each input (in) parameter is mapped to a JSON attribute in the incoming request and the procedure is execute.  In response, a JSON document is constructed with each output (out) parameter corresponding to a JSON attribute.
@@ -95,6 +97,7 @@ Each input (in) parameter is mapped to a JSON attribute in the incoming request 
 The wrapper code calls the place order implementation written in JavaScript (code extract from [order.js](https://github.com/oracle/microservices-datadriven/blob/main/workshops/dcms-db/grabdish/order/order-js/order.js)):
 
 ```javascript
+<copy>
 function placeOrder(order) {
   try {
     order.status = "pending";
@@ -117,12 +120,13 @@ function placeOrder(order) {
     throw error;
   }
 }
-
+</copy>
 ```
 
 The order message consumer code is also implemented in JavaScript (code extract from [inventory.js](https://github.com/oracle/microservices-datadriven/blob/main/workshops/dcms-db/grabdish/inventory/inventory-js/inventory.js)):
 
 ```javascript
+<copy>
 function orderMessageConsumer() {
   let order = null;
   let invMsg = null;
@@ -143,11 +147,13 @@ function orderMessageConsumer() {
 
   // commit
   conn.commit;
+</copy>
 ```
 
 As is the fulfillment business logic (code extract from [inventory.js](https://github.com/oracle/microservices-datadriven/blob/main/workshops/dcms-db/grabdish/inventory/inventory-js/inventory.js)):
 
 ```javascript
+<copy>
 function fulfillOrder(order) {
   let invMsg = {orderid: order.orderid, itemid: order.itemid, suggestiveSale: "beer"};
 
@@ -170,6 +176,7 @@ function fulfillOrder(order) {
 
   return invMsg;
 }
+</copy>
 ```
    You may now [move on to Lab 5](#next).
 
