@@ -1,4 +1,4 @@
-# Walkthrough the Grabdish Functionality Implemented in PL/SQL
+# Walkthrough the grabdish functionality implemented in PL/SQL
 
 ## Introduction
 

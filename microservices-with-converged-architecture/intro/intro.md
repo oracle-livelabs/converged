@@ -8,9 +8,9 @@ This workshop will help you understand the technical capabilities inside the Ora
 
 Microservices written in either PL/SQL or JavaScript will be deployed within an Oracle Autonomous Transaction Processing database. Web interfaces and messaging are used for communication. A secure Javascript application, running in the browser, will showcase the microservice functionality. Order data is stored as a JSON collection, and Inventory data is stored on relational tables.
 
-![Microservices Architecture](./images/TwoTier.png "Two Tier Application Architecture")
+![Two-tier Microservices Architecture](./images/TwoTier.png "Two Tier Application Architecture")
 
-Estimated Workshop Time: 30 mins
+Estimated Workshop Time: 45 mins
 
 ### Objectives
 

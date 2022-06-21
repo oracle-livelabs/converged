@@ -1,4 +1,4 @@
-# Switch to the MLE JavaScript Microservice Implementation
+# Switch to the MLE JavaScript microservice implementation
 
 ## Introduction
 
