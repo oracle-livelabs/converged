@@ -26,13 +26,13 @@ This lab presumes you have already completed the earlier labs.
 
   ![GitHub Settings](images/repo_settings.png " ")
 
-2. Select "New GitHub App" (Confirm Password, if prompted).
+2. Select `New GitHub App` (Confirm Password, if prompted).
 
   ![New GitHub App](images/new_gihubapp.png " ")
 
 3. Register a new GitHub Application and, unless other specified below, leave the defaults.
 
-     GitHub App name: Jenkins - < Github Account Name >
+     GitHub App name: `Jenkins - < Github Account Name >`
 
       ![GitHub Name](images/githubapp_name.png " ")
 
@@ -64,21 +64,21 @@ This lab presumes you have already completed the earlier labs.
 
         ![Webhook URL](images/webhook_url.png " ")
 
-     For "Where can this GitHub App be installed?" setting, check "Only on this account" option and click on "Create GitHub App"
+     For `Where can this GitHub App be installed?` setting, check `Only on this account` option and click on `Create GitHub App`
 
       ![Save GitHubApp](images/save_githubapp.png " ")
 
      > **Note:** Record the App ID to be used later.
 
-6. Scroll down to "Private keys" and generate a private key by clicking "Generate a private key" button (will be prompted to save, save it to a safe location).
+6. Scroll down to `Private keys` and generate a private key by clicking `Generate a private key` button (will be prompted to save, save it to a safe location).
 
      ![Webhook URL](images/generate_privatekey.png " ")
 
-7. Scroll back up the page and click "Install App" and click "Install" next to your GitHub account name.
+7. Scroll back up the page and click `Install App` and click `Install` next to your GitHub account name.
 
      ![Install GitHubApp](images/install_githubapp.png " ")
 
-     On the next screen, choose "Only select repositories" options and pick <your GitHub Repository Name>/<repo_name> from the drop down list.
+     On the next screen, choose `Only select repositories` options and pick <your GitHub Repository Name>/<repo_name> from the drop down list.
 
       ![Install GitHubApp Repo](images/install_githubapp_repo.png " ")
        
@@ -98,7 +98,7 @@ This lab presumes you have already completed the earlier labs.
 
   ![Oracle Cloud Infrastructure Cloud Shell Opening](images/open-cloud-shell.png " ")
 
-3. Either drag and drop the file from your local machine into the Cloud Shell window, or use the "Upload" button from the Cloud Shell hamburger menu.
+3. Either drag and drop the file from your local machine into the Cloud Shell window, or use the `Upload` button from the Cloud Shell hamburger menu.
 
   ![Cloud Shell File Upload](images/cloud_shell_file.png " ")
 
@@ -106,67 +106,67 @@ This lab presumes you have already completed the earlier labs.
 
 ## Task 3: Add Jenkins Credentials
 
-1. Open a new browser tab and login into your Jenkins Controller (Jenkins URL is being created during infrastructure setup and used in the previous lab) as ADMIN user and the password specified.
+1. Open a new browser tab and login into your Jenkins console (Jenkins URL is being created during infrastructure setup and used in the previous lab) as ADMIN user and the password specified.
    
      `https://jenkins.example.com`
 
-2. Navigate to: Manage Jenkins > Manage Credentials.
+2. Navigate to `Manage Jenkins` and then click `Manage Credentials`.
 
      ![Jenkins Credentials](images/jenkins_creds_1.png " ")
 
-3. Under "Stores scoped to Jenkins", click "Jenkins".
+3. Under `Stores scoped to Jenkins`, click `Jenkins`.
 
      ![Jenkins Credentials](images/jenkins_creds_2.png " ")
      
-4. Click "Global credentials (unrestricted)".
+4. Click `Global credentials (unrestricted)`.
 
      ![Jenkins Credentials](images/global_creds.png " ")
 
-5. Click "Add Credentials" in the Left Hand Navigation bar.
+5. Click `Add Credentials` in the left hand navigation bar.
 
      ![GitHubAppDemo Credentials](images/githubappdemo_creds.png " ")
 
-     - Kind: GitHub App
-     - ID: GitHubAppDemo
+     - Kind: `GitHub App`
+     - ID: `GitHubAppDemo`
      - App ID: < App ID > (Recorded above)
      - Key: < Contents of converted-github-app.pem created above >
 
-6. Click "Test Connection" which should be successful.
+6. Click `Test Connection` which should be successful.
 
      ![GitHubAppDemo Connection Test](images/githubappdemo_creds_test.png " ")
 
-7. Click "OK".
+7. Click `OK`.
 
 ## Task 4: Add Database Credentials
 
-1. On Jenkins Dasboard, navigate to: Manage Jenkins > Manage Credentials.
+1. On Jenkins Dasboard, navigate to `Manage Jenkins` and click on `Manage Credentials`.
 
      ![Jenkins Credentials](images/jenkins_creds_1.png " ")
 
-2. Under "Stores scoped to Jenkins", click "Jenkins".
+2. Under `Stores scoped to Jenkins`, click `Jenkins`.
 
      ![Jenkins Credentials](images/jenkins_creds_2.png " ")
      
-3. Click "Global credentials (unrestricted)".
+3. Click `Global credentials (unrestricted)`.
 
      ![Jenkins Credentials](images/global_creds.png " ")
 
-4. Click "Add Credentials" in the Left Hand Navigation bar.
+4. Click `Add Credentials` in the left hand navigation bar.
 
      ![Database Credentials](images/db_creds.png " ")
 
-     - Kind: Username with password
-     - Username: ADMIN
+     - Kind: `Username with password`
+     - Username: `ADMIN`
      - Password: <Password for ADB Admin Account>
-     - ID: JENKINSDB_ADMIN
+     - ID: `JENKINSDB_ADMIN`
 
-9. Click "OK".
+9. Click `OK`.
 
 ## Task 5: Add an Multibranch Pipeline
 
-1. On Jenkins Dasboard, click on "New Item" and enter the name for the item: "Demonstration".
+1. On Jenkins Dasboard, click on `New Item` and enter the name for the item: `Demonstration`.
 
-2. Select "Multibranch Pipeline" and click "OK".
+2. Select `Multibranch Pipeline` and click `OK`.
 
      ![New Item](images/jenkins_new_item.png " ")
 
@@ -174,18 +174,18 @@ This lab presumes you have already completed the earlier labs.
 
      ![New Item](images/jenkins_new_item.png " ")
 
-     - Display Name: Demonstration
-     - Branch Source: GitHub
-     - Credentials: GitHubAppDemo
+     - Display Name: `Demonstration`
+     - Branch Source: `GitHub`
+     - Credentials: `GitHubAppDemo`
      - Repository HTTPS URL: < Link to GitHub Repo; example: https://github.com/<your GitHub Repository Name>/oci-liquibase-jenkins>
 
-4. Click "Validate" under the "Repository HTTPS URL" field.
+4. Click `Validate` under the `Repository HTTPS URL` field.
 
-5. Response should be: "Credentials ok. Connected to <GitHub Repo>."
+5. Response should be: `Credentials ok. Connected to <GitHub Repo>.`
 
-6. Scroll down and "Save".
+6. Scroll down and `Save`.
 
-7. A "Scan Repository Log" screen will appear with "Finished: SUCCESS".
+7. A `Scan Repository Log` screen will appear with `Finished: SUCCESS`.
    
 You may now **proceed to the next lab.**.
 

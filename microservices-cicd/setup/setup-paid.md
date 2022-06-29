@@ -246,5 +246,5 @@ The setup will provision the following resources in your tenancy:
 
 ## Acknowledgements
 
-* **Authors** - Irina Granat, Consulting Member of Technical Staff, Oracle MAA and Exadata
+* **Authors** - Irina Granat, Consulting Member of Technical Staff, Oracle MAA and Exadata; Paul Parkinson, Developer Evangelist; Richard Exley, Consulting Member of Technical Staff, Oracle MAA and Exadata
 * **Last Updated By/Date** - Irina Granat, June 2022

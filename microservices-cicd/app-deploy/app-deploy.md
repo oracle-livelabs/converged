@@ -108,5 +108,5 @@ Quick walk through on how to deploy the microservices on your Kubernetes cluster
  You may now **proceed to the next lab.**
 
 ## Acknowledgements
-* **Authors** - Irina Granat, Consulting Member of Technical Staff, Oracle MAA and Exadata
+* **Authors** - Irina Granat, Consulting Member of Technical Staff, Oracle MAA and Exadata; Paul Parkinson, Developer Evangelist; Richard Exley, Consulting Member of Technical Staff, Oracle MAA and Exadata
 * **Last Updated By/Date** - Irina Granat, June 2022

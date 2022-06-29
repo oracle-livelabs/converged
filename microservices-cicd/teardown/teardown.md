@@ -42,5 +42,5 @@ You may now proceed to the next lab.
 
 ## Acknowledgements
 
-* **Authors** - Irina Granat, Consulting Member of Technical Staff, Oracle MAA and Exadata
+* **Authors** - Irina Granat, Consulting Member of Technical Staff, Oracle MAA and Exadata; Richard Exley, Consulting Member of Technical Staff, Oracle MAA and Exadata
 * **Last Updated By/Date** - Irina Granat, June 2022

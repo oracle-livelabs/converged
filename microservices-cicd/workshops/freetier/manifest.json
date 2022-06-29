@@ -15,31 +15,23 @@
         "filename": "../../setup/setup.md"
       },
       {
-        "title": "Lab 2: Data-Centric Microservices Walkthrough with Helidon MP",
-        "filename": "../../walkthrough-helidon/walkthrough-helidon.md"
+        "title": "Lab 2: Deploy and Test Data-centric Microservices Application",
+        "filename": "../../app-deploy/app-deploy.md"
       },
       {
-        "title": "Lab 3: Polyglot Microservices",
-        "filename": "../../polyglot/polyglot.md"
+        "title": "Lab 3: Build CI/CD Pipeline by Using Jenkins and Oracle Cloud Infrastracture",
+        "filename": "../../jenkins-oke-flow/jenkins-oke-flow.md"
       },
       {
-        "title": "Lab 4: Scaling",
-        "filename": "../../scaling/scaling.md"
+        "title": "Lab 4: Integrate GitHub Repository with Jenkins for Liquibase with SQLcl Use Case",
+        "filename": "../../liquibase-jenkins-int/liquibase-jenkins-int.md"
       },
       {
-        "title": "Lab 5: Observability",
-        "filename": "../../observability/observability.md"
+        "title": "Lab 5: CI/CD Workflow using Liquibase with SQLcl",
+        "filename": "../../liquibase-jenkins-flow/liquibase-jenkins-flow.md"
       },
       {
-        "title": "Lab 6: Create an APEX App to View and Update Data",
-        "filename": "../../apex/apex.md"
-      },
-      {
-        "title": "Lab 7: Transactional Tests: Compare MongoDB, Postgres, and Kafka to Oracle DB with TEQ/AQ",
-        "filename": "../../transactional/transactional.md"
-      },
-      {
-        "title": "Lab 8: Tear Down",
+        "title": "Lab 6: Tear Down",
         "filename": "../../teardown/teardown.md"
       },
       {
