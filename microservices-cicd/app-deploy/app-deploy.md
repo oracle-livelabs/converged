@@ -22,7 +22,7 @@ Quick walk through on how to deploy the microservices on your Kubernetes cluster
 
 ## Task 1: Deploy all the microservices and the FrontEnd UI
 
-1.  Run the deploy script. This will create the deployment and pod for all the java images in the OKE cluster `msdataworkshop` namespace:
+1. Run the deploy script. This will create the deployment and pod for all the java images in the OKE cluster `msdataworkshop` namespace:
 
     ```
     <copy>cd $GRABDISH_HOME;./deploy.sh</copy>
@@ -30,7 +30,7 @@ Quick walk through on how to deploy the microservices on your Kubernetes cluster
 
    ![Deploy All](images/deploy-all.png " ")
 
-2.  Once successfully created, check that the services are running:
+2. Once successfully created, check that the services are running:
 
     ```
     <copy>kubectl get pods --all-namespaces</copy>
@@ -53,7 +53,7 @@ Quick walk through on how to deploy the microservices on your Kubernetes cluster
 
 ## Task 2: Access the FrontEnd UI
 
-1.  Open a new browser tab and enter the external IP URL:
+1. Open a new browser tab and enter the external IP URL:
 
     `https://<EXTERNAL-IP>`
 

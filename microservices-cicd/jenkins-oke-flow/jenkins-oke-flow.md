@@ -2,24 +2,20 @@
 
 ## Introduction
 
-This lab will demonstrate how to integrate Jenkins with Oracle Kubernetes and build a pipeline.
-
-GitHub provides web hook integration, so Jenkins starts running automated builds and tests after each code check-in. A sample web application Grabdish is modified and re-deployed as part of CI/CD pipeline, which end users can access from the Container Engine for Kubernetes cluster. 
-
+This lab will walk you through CI/CD workflow using the pipeline built in the previous lab.
 Estimated Time: 20 minutes
 
 ### Objectives
 
-* Execute GitHub Configuration
-* Execute Jenkins Configuration
-* Configure a Pipeline
 * CI/CD Workflow Walkthrough
   
 ### Prerequisites
 
 This lab presumes you have already completed the earlier labs.
 
-As this is a demonstration of Jenkins/GitHub integration for CI/CD, **you must use your own GitHub account to run it. Please fork or copy the microservices repository into your own GitHub account before continuing https://github.com/oracle/microservices-datadriven**.
+Pracle Cloud Infrastructure Services, like OKE cluster and the Autonomous Transaction Processing databases that you created in Lab 1, Github 
+
+> **Note:** As this is a demonstration of Jenkins/GitHub integration for CI/CD, **you must use your own GitHub account to run it. Please fork or copy the microservices repository into your own GitHub account before continuing https://github.com/oracle/microservices-datadriven**.
 
 ## Task 1: CI/CD Workflow Walkthrough
 
@@ -50,5 +46,6 @@ As this is a demonstration of Jenkins/GitHub integration for CI/CD, **you must u
 You may now **proceed to the next lab.**.
 
 ## Acknowledgements
-* **Authors** - Irina Granat, Consulting Member of Technical Staff, Oracle MAA and Exadata
+
+* **Authors** - Irina Granat, Consulting Member of Technical Staff, Oracle MAA and Exadata; Norman Aberin, Member of Technical Staff
 * **Last Updated By/Date** - Irina Granat, June 2022

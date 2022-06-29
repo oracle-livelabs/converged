@@ -81,7 +81,7 @@ Cloud Shell is a small virtual machine running a "bash" shell which you access t
 
 	```
 	<copy>
-	git clone -b 22..6.4 --single-branch https://github.com/oracle/microservices-datadriven.git
+	git clone -b --single-branch https://github.com/renagranat/microservices-datadriven.git
 	</copy>
 	```
     You should now see the directory `microservices-datadriven` in the directory that you created.
