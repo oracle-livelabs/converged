@@ -1,39 +1,55 @@
-# Diagnosability and Debugging Use Case
+# Build CI/CD Pipeline by Using Jenkins and Oracle Cloud Infrastracture
 
 ## Introduction
 
-This lab will show you how to determine when an exception/failure occurs in the system and allow you to diagnose and debug the issue.
+This lab will demonstrate how to integrate Jenkins with Oracle Kubernetes and build a pipeline.
+
+GitHub provides web hook integration, so Jenkins starts running automated builds and tests after each code check-in. A sample web application Grabdish is modified and re-deployed as part of CI/CD pipeline, which end users can access from the Container Engine for Kubernetes cluster. 
 
 Estimated Time: 20 minutes
 
 ### Objectives
 
--   Observe propagation health status
--   Induce propagation failure and notice `DOWN` health status.
--   Re-enable propagation and notice `UP` health status. 
+* Execute GitHub Configuration
+* Execute Jenkins Configuration
+* Configure a Pipeline
+* CI/CD Workflow Walkthrough
   
 ### Prerequisites
 
 This lab presumes you have already completed the earlier labs.
 
-## Task 1: Jenkins Configuration
+As this is a demonstration of Jenkins/GitHub integration for CI/CD, you must use your own GitHub account to run it. Please fork or copy the microservices repository into your own GitHub account before continuing https://github.com/oracle/microservices-datadriven.
 
-1. Retrieve Credentials and Setup accounts
+## Task 1: Configure Jenkins Pipeline
 
-  • A service account is needed to allow Jenkins to update the grabdish kubernetes cluster. Run apply on the service-account.yaml
- kubectl apply -f $DCMS_CICD_SETUP_DIR/kubernetes/service-account.yaml`
- • Retrieve secret and create Jenkins credentials
- kubectl -n kube-system describe secret $(kubectl -n kube-system get secret | grep kube-cicd | awk '{print $1}')
- • Copy Token from the result above
+1. Retrieve Credentials and Setup Accounts
 
-2. Connect to Jenkins console
+  - A service account is needed to allow Jenkins to update the grabdish kubernetes cluster. Run apply on the service-account.yaml. Connect to cloud shell and run the following statement:
+    
+     ```
+     <copy>
+     kubectl apply -f $DCMS_CICD_SETUP_DIR/kubernetes/service-account.yaml
+     </copy>
+     ```
 
- • Retrieve Jenkins IP address - you can manually retrieve the IP address through the console:
- Check the public VM's public IP otherwise
- Check the Load Balancer jenkins-load-balancer's public IP if a load balancer was provisioned. 
- • Login into Jenkins console. The username defaults to admin, then provide the jenkins-password you supplied earlier.
+   - Retrieve secret and create Jenkins credentials:
 
-3. For the Jenkins credentials
+     ```
+     <copy>
+     kubectl -n kube-system describe secret $(kubectl -n kube-system get secret | grep kube-cicd | awk '{print $1}')
+     </copy>
+     ```
+     - Copy token from the result above
+
+2. Connect to Jenkins Console
+
+    - Retrieve Jenkins IP address - you can manually retrieve the IP address through the console:
+    - Check the public VM's public IP otherwise
+    - Check the Load Balancer jenkins-load-balancer's public IP if a load balancer was provisioned. 
+   - Login into Jenkins console. The username defaults to admin, then provide the jenkins-password you supplied earlier.
+
+3. Add Jenkins Credentials
   Select Secret Text
   Paste the secret
   Add and copy the credentials ID
@@ -59,7 +75,7 @@ This lab presumes you have already completed the earlier labs.
   On GitHub settings - add a WebHook with the IP address of Jenkins console: http://<ip-address>/github-webhook/
 
 
-## Task 2: AppDev CI/CD Pipeline Walkthrough
+## Task 2: CI/CD Workflow Walkthrough
 
 1. Connect to cloud shell
  kubectl get pods --all-namespaces

@@ -2,7 +2,11 @@
 
 ## Introduction
 
-In this lab, we will provision and setup the resources to execute microservices in your tenancy.  
+In this lab, we will provision and setup the reference architecture. 
+
+![Reference Architecture](images/reference_architecture.png " ")
+
+In this reference architecture, Jenkins is hosted on Oracle Cloud Infrastructure to centralize build automation and scale the deployment by using Oracle Cloud Infrastructure Registry, Oracle Kubernetes and Oracle Converged Database. GitHub is used to manage source code.
 
 Estimated Time: 25 minutes
 

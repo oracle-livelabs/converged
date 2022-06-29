@@ -1,4 +1,4 @@
-# Integrating GitHub Repository with Jenkins for Liquibase with SQLcl Use Case
+# Integrate GitHub Repository with Jenkins for Liquibase with SQLcl Use Case
 
 ## Introduction
 
@@ -104,7 +104,7 @@ This lab presumes you have already completed the earlier labs.
 
 4. Run the above openssl command in the Cloud Shell - it will create a converted private key converted-github-app.pem in your home directory you can use later for configuring Jenkins.
 
-## Task 3: Add Jenkins Credential
+## Task 3: Add Jenkins Credentials
 
 1. Open a new browser tab and login into your Jenkins Controller (Jenkins URL is being created during infrastructure setup and used in the previous lab) as ADMIN user and the password specified.
    
