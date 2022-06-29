@@ -1,5 +1,5 @@
 {
-  "workshoptitle": "Simplify Microservices with Converged Oracle Database",
+  "workshoptitle": "Modern CI/CD Pipelines for App Dev with converged Oracle Database",
   "help": "livelabs-help-db_us@oracle.com",
 	"tutorials": [
       {
@@ -20,18 +20,22 @@
       },
       {
         "title": "Lab 3: Build CI/CD Pipeline by Using Jenkins and Oracle Cloud Infrastracture",
+        "filename": "../../jenkins-oke-int/jenkins-oke-int.md"
+      },
+      {
+        "title": "Lab 4: CI/CD Workflow Using Jenkins and Oracle Cloud Infrastracture Walkthrough",
         "filename": "../../jenkins-oke-flow/jenkins-oke-flow.md"
       },
       {
-        "title": "Lab 4: Integrate GitHub Repository with Jenkins for Liquibase with SQLcl Use Case",
+        "title": "Lab 5: Integrate GitHub Repository with Jenkins for Liquibase with SQLcl Use Case",
         "filename": "../../liquibase-jenkins-int/liquibase-jenkins-int.md"
       },
       {
-        "title": "Lab 5: CI/CD Workflow using Liquibase with SQLcl",
+        "title": "Lab 6: CI/CD Workflow using Liquibase with SQLcl Walkthrough",
         "filename": "../../liquibase-jenkins-flow/liquibase-jenkins-flow.md"
       },
       {
-        "title": "Lab 6: Tear Down",
+        "title": "Lab 7: Tear Down",
         "filename": "../../teardown/teardown.md"
       },
       {
