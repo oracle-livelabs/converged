@@ -164,5 +164,6 @@ You should see the new column populated with the current date in the INVENTORY.I
 You may now **proceed to the next lab.**.
 
 ## Acknowledgements
-* **Authors** - Irina Granat, Consulting Member of Technical Staff, Oracle MAA and Exadata
+
+* **Authors** - John Lathouwers, Developer Evangelist; Irina Granat, Consulting Member of Technical Staff, Oracle MAA and Exadata
 * **Last Updated By/Date** - Irina Granat, June 2022

@@ -190,5 +190,6 @@ This lab presumes you have already completed the earlier labs.
 You may now **proceed to the next lab.**.
 
 ## Acknowledgements
-* **Authors** - Irina Granat, Consulting Member of Technical Staff, Oracle MAA and Exadata
+
+* **Authors** - John Lathouwers, Developer Evangelist; Irina Granat, Consulting Member of Technical Staff, Oracle MAA and Exadata
 * **Last Updated By/Date** - Irina Granat, June 2022
