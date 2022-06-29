@@ -1,4 +1,4 @@
-# CI/CD Workflow using Liquibase with SQLcl
+# CI/CD Workflow using Liquibase with SQLcl Walkthrough
 
 ## Introduction
 
