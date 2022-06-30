@@ -16,13 +16,9 @@ Estimated Time:  15 minutes
 
 This lab presumes you have already completed the earlier labs. 
 
-## Task 1: Log in to the GitHub Account
+## Task 1: Create the GitHub App
 
-1. Log in into your GitHub Account.
-
-## Task 2: Create the GitHub App
-
-1. In your Github Account, navigate to Settings -> Developer settings -> GitHub Apps.
+1. Log in into your GitHub Account. In your Github Account, navigate to Settings -> Developer settings -> GitHub Apps.
 
   ![GitHub Settings](images/repo_settings.png " ")
 
@@ -137,7 +133,7 @@ This lab presumes you have already completed the earlier labs.
 
 7. Click `OK`.
 
-## Task 4: Add Database Credentials
+## Task 3: Add Database Credentials
 
 1. On Jenkins Dasboard, navigate to `Manage Jenkins` and click on `Manage Credentials`.
 
@@ -162,7 +158,7 @@ This lab presumes you have already completed the earlier labs.
 
 9. Click `OK`.
 
-## Task 5: Add an Multibranch Pipeline
+## Task 4: Add an Multibranch Pipeline
 
 1. On Jenkins Dasboard, click on `New Item` and enter the name for the item: `Demonstration`.
 
