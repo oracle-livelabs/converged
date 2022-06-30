@@ -181,6 +181,16 @@ Cloud Shell is a small virtual machine running a "bash" shell which you access t
 
     > **Note:** Cloud shell may disconnect after a period of inactivity. If that happens, you can reconnect and then run the command to resume the setup.
 
+9. The setup will ask for you to enter your user's OCID.  
+
+	Be sure to provide the user OCID and not the user name or tenancy OCID. The user OCID will look something like:
+
+	`ocid1.user.oc1....<unique_ID>`
+
+	> **Note:** Notice the format of "ocid1.user" prefix.
+
+	It also will ask you to provide a compartment OCID, region value, create a password for Jenkins admin user and run type (enter 1 or 2)  
+	
     The setup process will typically take around 10 minutes to complete.
 
 ## Task 8: Monitor the Setup

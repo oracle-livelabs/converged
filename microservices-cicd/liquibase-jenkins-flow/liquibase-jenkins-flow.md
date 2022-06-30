@@ -2,15 +2,15 @@
 
 ## Introduction
 
-This lab will demonstrate the integration of Liquibase (via SQLcl) and Jenkins for CI/CD flow using Oracle Cloud Infrastructure Resources (OCI).
+This lab will walk you through CI/CD workflow using the pipeline built in the previous lab.
+
+![CI/CD Flow](images/CICD_Github_Jenkins.png " ")
 
 Estimated Time:  20 minutes
 
 ### Objectives
 
-* Execute GitHub Configuration
-* Execute Jenkins Configuration
-* Configure a Multibranch Pipeline
+* CI/CD Workflow Walkthrough
   
   
 ### Prerequisites
@@ -19,15 +19,23 @@ This lab presumes you have already completed the earlier labs. At this stage, yo
 A brief note: This demonstration creates an isolated development environment in a different schema on the same database. This is to reduce the infrastructure required to run the demo. Using a different database (incl. OCI Autonomous Database), a different PDB, a Sparse Clone, etc. are interchangeable solutions to the isolated schema approach.
 
 
-## Task 1: Step 1: New Issue is Raised
+## Task 1: New Issue is Raised
+
 A new issue is created in your GitHub repository to track the lifecycle of the change. This is often a bug report, new feature, or enhancement request.
 
 1. Log into GitHub and click on the repository which has been integrated with Jenkins.
-2. Create a New Issue
-3. If you do not see the Issue tab, click on "Settings" and scroll down to "Issues"; check the
-4. Title: Add LAST_UPDATED Column to Inventory Table
-5. Write: Add a new column to the inventory table to track the last time the inventory was updated.
-6. Submit Issue  
+
+      - Create a New Issue
+
+      ![New Issue](images/new_issue.png " ")
+
+      > **Note:** If you do not see the Issue tab, click on "Settings" and scroll down to "Issues" and check the box. Issues tab will appear.
+
+      ![Submit New Issue](images/submit_new_issue.png " ")
+
+      - Title: Add LAST_UPDATED Column to Inventory Table
+      - Write A Comment: Add a new column to the inventory table to track the last time the inventory was updated.
+      - Submit Issue  
 
 
 ## Task 2: Issue is Assigned and Branch Created
@@ -43,16 +51,20 @@ The Jenkins build will create a new schema using Liquibase and code from GitHub.
 7. Click on "Last Build.."
 8. Click Console Output
 
-
 ## Task 3: Development Workflow
-The DBA/Developer will work on the issue in the newly created isolated schema. Depending on their preference, this can be done directly in the database or directly in the Liquibase code. Once the developer is happy with the changes, they commit and push them to the remote "feature" branch.
-The push will trigger a new build in Jenkins. The build will integrate the new code into their schema using Liquibase. Any additional tests, linting, etc. can be run during this build. This process continues until the developer is satisfied with the changes.
+The DBA/Developer will work on the issue in the newly created isolated schema. Depending on their preference, this can be done directly in the database or directly in the Liquibase code. Once the developer is happy with the changes, they commit and push them to the remote "feature" branch. The push will trigger a new build in Jenkins. The build will integrate the new code into their schema using Liquibase. Any additional tests, linting, etc. can be run during this build. This process continues until the developer is satisfied with the changes.
 
-In the OCI Console, Navigate to the Autonomous Database and click on Database Actions > SQL.
-Add the new column and run:
-ALTER TABLE INVENTORY1.INVENTORY ADD LAST_UPDATED TIMESTAMP;
+1. In the OCI Console, navigate to the Autonomous Database and click on Database Actions > SQL. 
 
-1. Export Schema Changes
+    - Add the new column and run:
+      ```
+     <copy>
+     ALTER TABLE INVENTORYUSER1.INVENTORY ADD LAST_UPDATED TIMESTAMP
+     </copy>
+     ```
+    
+2. Export Schema Changes - **need to discuss this step !!!** 
+
  In Cloud Shell, navigate to your repositories liquibase directory. This directory contains the Liquibase ChangeSets which define the "Production" schema.
  Ensure you are in the git "feature" branch for your change:
  $ git fetch
@@ -76,11 +88,13 @@ ALTER TABLE INVENTORY1.INVENTORY ADD LAST_UPDATED TIMESTAMP;
 
  * 1-add-last_updated-column-to-inventory-table
   main
-  Export the change made in the INVENTORY1 schema into the liquidbase directory of your repository:
+
+3. Export the change made in the INVENTORYUSER1 schema into the liquidbase directory of your repository:
+
  $ cd liquidbase
  $ sql /nolog
  SQL> set cloudconfig ../wallet/JENKINSDB_wallet.zip
- SQL> connect INVENTORY1/<password>@JENKINSDB_HIGH
+ SQL> connect INVENTORYUSER1/<password>@JENKINSDB_HIGH
  SQL> lb genschema -split
  SQL> exit
  After exporting, one file would have changed which will represent the change to the schema:

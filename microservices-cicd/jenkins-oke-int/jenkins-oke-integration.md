@@ -22,17 +22,17 @@ As this is a demonstration of Jenkins/GitHub integration for CI/CD, **you must u
 
 > **Note:** As this is a demonstration of Jenkins/GitHub integration for CI/CD, **you must use your own GitHub account to run it. Please fork or copy the microservices repository into your own GitHub account before continuing https://github.com/renagranat/microservices-datadriven**.
 
+
 ## Task 1: Configure Jenkins Pipeline
 
-1. A service account is needed to allow Jenkins to update the grabdish kubernetes cluster. To create a service account, connect to cloud shell and execute the following command:
-    
+1. A service account is needed to allow Jenkins to update the grabdish kubernetes cluster. To create a service account, connect to cloud shell and execute the following command.
+
      ```
      <copy>
      kubectl apply -f $DCMS_CICD_SETUP_DIR/kubernetes/service-account.yaml
      </copy>
      ```
-
-   - Kubernetes will create a secret token bound to the service account. Using below command retrieve the secret:
+    - Kubernetes will create a secret token bound to the service account. Using below command retrieve the secret:
 
      ```
      <copy>
@@ -43,7 +43,7 @@ As this is a demonstration of Jenkins/GitHub integration for CI/CD, **you must u
 
 2. Open a new browser tab and login into your Jenkins console (Jenkins URL is being created during infrastructure setupb). 
    
-   - Retrieve Jenkins IP address through the console:
+   - Retrieve Jenkins IP address through the console.
    - Check the public VM's public IP otherwise or check the Load Balancer jenkins-load-balancer's public IP if a load balancer was provisioned. 
    - Login into Jenkins console using username `admin` and password you created in the Setup lab.
 
@@ -110,7 +110,7 @@ As this is a demonstration of Jenkins/GitHub integration for CI/CD, **you must u
        
 ## Task 4: Add GitHub WebHook
 
-1. Log in into your GitHub Account. In your Github account, navigate to Settings -> Webhooks.
+1.  Log into GitHub and click on the repository which has been integrated with Jenkins. Navigate to Settings -> Webhooks.
 
      ![New Item](images/github_webhooks.png " ")
 
