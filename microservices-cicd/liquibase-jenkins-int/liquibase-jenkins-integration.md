@@ -14,7 +14,8 @@ Estimated Time:  15 minutes
   
 ### Prerequisites
 
-This lab presumes you have already completed the earlier labs. 
+* This lab presumes you have already completed the earlier labs.
+* As this is a demonstration of Jenkins/GitHub integration for CI/CD, **you must use your own GitHub account to run it.** We assume you completed this step in Setup lab.
 
 ## Task 1: Create the GitHub App
 
