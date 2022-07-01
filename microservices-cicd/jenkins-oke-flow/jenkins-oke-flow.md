@@ -15,12 +15,19 @@ Estimated Time: 20 minutes
 * Oracle Cloud Infrastructure Services, like OKE cluster, OCIR and the Autonomous Transaction Processing databases, GitHub and Jenkins that you created and configred in earlier labs
 * The latest version of Git, GitHub Desktop (https://desktop.github.com/) and your preferred editor, such as Visual Studio Code, or IntelliJ Idea installed locally on your computer.
 
+<<<<<<< HEAD
 a clone is a copy of your forked repository that lives on your local computer instead of on GitHub Web UI.
 
 ## Task 1: Clone Forked Repository
+=======
+Oracle Cloud Infrastructure Services, like OKE cluster and the Autonomous Transaction Processing databases that you created in Lab 1, Github
+
+> **Note:** As this is a demonstration of Jenkins/GitHub integration for CI/CD, **you must use your own GitHub account to run it. Please fork or copy the microservices repository into your own GitHub account before continuing [https://github.com/oracle/microservices-datadriven](https://github.com/oracle/microservices-datadriven)**.
+>>>>>>> f7c3c3136c6503380802975ed963c2d1d0102122
 
 A clone is a copy of your forked repository that lives on your local computer instead of on GitHub Web UI. When you clone your forked repository, you can edit the files in your preferred editor, such as  Visual Studio Code, or IntelliJ Idea and use the GitHub Desktop client to keep track of your changes without having to be online.
 
+<<<<<<< HEAD
 To clone the forked repository:
 
 1. Open your GitHub Desktop application and log in using your GitHub account.
@@ -54,13 +61,31 @@ You can use Github Desktop to synchronize the changes that you have made in your
 ## Task 2: CI/CD Workflow Walkthrough 
  
 1. Update the grabdish/frontend-helidon/...version.txt
+=======
+1. Connect to cloud shell
+    kubectl get pods --all-namespaces
+    kubectl get services --all-namespaces
+
+    @cloudshell:grabdish (us-sanjose-1)$ kubectl get pods --all-namespaces
+
+    You are ready to access the frontend page. Open a new browser tab and enter the external IP URL:
+    `https://<EXTERNAL-IP>`  
+    Note: For convenience a self-signed certificate is used to secure this https address and so it is likely you will be prompted by the browser to allow access.  
+    You will be prompted to authenticate to access the Front End microservices. The user is grabdish and the password is the one you entered in Lab 1.  
+    Make Application Changes (DevOps experience)  
+       - Open Visual Studio Code  
+       - Navigate to grabdish/frontend-helidon/...spatial.html  
+    <p class="oj-text-color-secondary oj-typography-subheading-xs">Data-driven Microservices with Converged Oracle Databases</p>
+    </div>
+
+2. Update the grabdish/frontend-helidon/...version.txt
+>>>>>>> f7c3c3136c6503380802975ed963c2d1d0102122
 3. Save all
 4. Open Github Desktop
-5. Check Repository Setting - https://github.com/renagranat/microservices-datadriven.git
+5. Check Repository Setting - `https://github.com/<your_account>/microservices-datadriven.git`
 6. Save and Push to github Repository
 7. Check Jenkins pipeline, observe Jenkins job created – review the log
 
-  
 You may now **proceed to the next lab.**.
 
 ## Acknowledgements
