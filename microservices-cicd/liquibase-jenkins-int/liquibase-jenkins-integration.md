@@ -157,7 +157,7 @@ Estimated Time:  15 minutes
      * Kind: `Username with password`
      * Username: `ADMIN`
      * Password: `<Password for ADB Admin Account>`
-     * ID: `JENKINSDB_ADMIN`
+     * ID: `ADB_ADMIN`
 
 5. Click `OK`.
 
@@ -177,6 +177,7 @@ Estimated Time:  15 minutes
      * Branch Source: `GitHub`
      * Credentials: `GitHubAppDemo`
      * Repository HTTPS URL: < Link to GitHub Repo; example: `https://github.com/<your GitHub Repository Name>/microservices-datadriven`
+     * Script Path: workshops/dcms-cicd/jenkins/jenkinslab2/Jenkinsfile
 
 4. Click `Validate` under the `Repository HTTPS URL` field.
 
