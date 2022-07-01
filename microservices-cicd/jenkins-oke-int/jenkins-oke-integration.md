@@ -16,11 +16,16 @@ Estimated Time: 20 minutes
 
 ### Prerequisites
 
+<<<<<<< HEAD
 This lab presumes you have already completed the earlier labs.
 
 As this is a demonstration of Jenkins/GitHub integration for CI/CD, **you must use your own GitHub account to run it.**
 
 > **Note:** As this is a demonstration of Jenkins/GitHub integration for CI/CD, **you must use your own GitHub account to run it. Please fork or copy the microservices repository into your own GitHub account before continuing `https://github.com/renagranat/microservices-datadriven`**.
+=======
+* This lab presumes you have already completed the earlier labs.
+* As this is a demonstration of Jenkins/GitHub integration for CI/CD, **you must use your own GitHub account to run it.** We assume you completed this step in Setup lab.
+>>>>>>> dac48a420efc3700be9378af31de9cff8e71d9a0
 
 ## Task 1: Configure Jenkins Pipeline
 

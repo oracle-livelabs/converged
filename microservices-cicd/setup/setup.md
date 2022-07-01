@@ -15,17 +15,30 @@ Estimated Time: 25 minutes
 * Clone the setup and microservices code
 * Execute setup
 
-## Task 1: Log in to the Oracle Cloud Console
+### Prerequisites
+
+* An Oracle Cloud paid account or free trial. To sign up for a trial account with $300 in credits for 30 days, click [Sign Up](http://oracle.com/cloud/free).
+* As this is a demonstration of Jenkins/GitHub integration for CI/CD, **you must use your own GitHub account to run it.**
+
+## Task 1: Copy the workshop microservices repository into your own GitHub account
+
+1. Open a browser and navigate to `https://github.com/oracle/microservices-datadriven`.
+
+   - Copy or fork `https://github.com/oracle/microservices-datadriven` into your own GitHub account.
+
+     ![Main Repository](images/main_repo.png " ")
+
+## Task 2: Log in to the Oracle Cloud Console and Launch the Cloud Shell
 
 1. If you haven't already, sign in to your Oracle Cloud Infrastructure account.
 
-## Task 2: Select the Home Region
+## Task 3: Select the Home Region
 
 1. Be sure to select the **home region** of your tenancy. Setup will only work in the home region.
 
   ![Oracle Cloud Infrastructure Home Region](images/home-region.png " ")
 
-## Task 3: Check Your Tenancy Service Limits
+## Task 4: Check Your Tenancy Service Limits
 
 If you have a **fresh** free trial account with credits then you can be sure that you have enough quota and you can proceed to the next step.
 
@@ -45,7 +58,7 @@ If, however, you have already used up some quota on your tenancy, perhaps while 
   ![Oracle Cloud Infrastructure Show Subcompartments](images/show-subcompartments.png " ")
   It may be necessary to delete some resources to make space to run the workshop. Once you have enough space you may proceed to the next step.
 
-## Task 4: Launch Cloud Shell
+## Task 5: Launch Cloud Shell
 
 Cloud Shell is a small virtual machine running a "bash" shell which you access through the Oracle Cloud Console. Cloud Shell comes with a pre-authenticated command line interface in the tenancy region. It also provides up-to-date tools and utilities.
 
@@ -55,7 +68,7 @@ Cloud Shell is a small virtual machine running a "bash" shell which you access t
 
   > **Note:** Cloud Shell uses websockets to communicate between your browser and the service. If your browser has websockets disabled or uses a corporate proxy that has websockets disabled you will see an error message ("An unexpected error occurred") when attempting to start Cloud Shell from the console. You also can change the browser cookies settings for a specific site to allow the traffic from *.oracle.com
 
-## Task 5: Create a Folder to Contain the Workshop Code
+## Task 6: Create a Folder to Contain the Workshop Code
 
 1. Create a directory to contain the workshop code. The directory name is used to create a compartment of the same name in your tenancy. The directory name must have between 1 and 13 characters, contain only letters or numbers, and start with a letter. Make sure that a compartment of the same name does not already exist in your tenancy or the setup will fail. For example:
 
@@ -75,19 +88,19 @@ Cloud Shell is a small virtual machine running a "bash" shell which you access t
   </copy>
   ```
 
-## Task 6: Make a Clone of the Workshop Setup Script and Source Code
+## Task 7: Make a Clone of the Workshop Setup Script and Source Code
 
-1. To work with the application code, you need to make a clone from the GitHub repository using the following command.  
+1. 1. To work with the application code, you need to make a clone from the GitHub repository you copiedor forked into your own GitHub account in the previous setup step. 
 
     ```bash
     <copy>
-    git clone -b 22.6.4 --single-branch https://github.com/oracle/microservices-datadriven.git
+    git clone https://github.com/<your_name>/microservices-datadriven.git
     </copy>
     ```
 
     You should now see the directory `microservices-datadriven` in the directory that you created.
 
-## Task 7: Start the Setup
+## Task 8: Start the Setup
 
 1. Execute the following sequence of commands to start the setup.  
 
@@ -171,7 +184,15 @@ Cloud Shell is a small virtual machine running a "bash" shell which you access t
 
 7. The setup will also ask you to enter a UI password that will be used to enter the microservice frontend user interface. Make a note of the password as you will need it later.  The UI password must be 8 to 30 characters.
 
-8. In parallel, while grabdish infra setup is running, you can start the setup for CI/CD components. Open the new browser window or tab, click the Cloud Shell icon in the top-right corner of the Console or start OCI Cloud Shell command line and execute the following sequence of commands to start the setup.
+8. The status of the builds can be monitored with this command:
+
+    ```bash
+    <copy>
+    status
+    </copy>
+    ```
+
+9. Upon grabdish infra setup completion, you can start the setup for CI/CD components. Open the new browser window or tab, click the Cloud Shell icon in the top-right corner of the Console o start OCI Cloud Shell command line and execute the following sequence of commands to start the setup.  
 
     ```bash
     <copy>
@@ -182,9 +203,15 @@ Cloud Shell is a small virtual machine running a "bash" shell which you access t
 
     > **Note:** Cloud shell may disconnect after a period of inactivity. If that happens, you can reconnect and then run the command to resume the setup.
 
-  The setup process will typically take around 10 minutes to complete.
+10. The setup will ask for you to enter your region value, a value for deployment type and create a password for Jenkins admin user and run type.
 
-## Task 8: Monitor the Setup
+    * Please enter the name of the region that you are connected to: `OCI_REGION`
+    * Please select Jenkins deployment type: `1`
+    * Enter the password to be used for Jenkins: `<ADMIN_PASSWORD>`
+
+    The setup process will typically take around 5 minutes to complete.
+
+## Task 9: Monitor the Setup
 
 The setup will provision the following resources in your tenancy:
 
@@ -205,7 +232,7 @@ The setup will provision the following resources in your tenancy:
 
     > **Note:** Cloud Shell sessions have a maximum length of 24 hours, and time out after 20 minutes of inactivity.
 
-## Task 9: Complete the Setup
+## Task 10: Complete the Setup
 
 1. The setup will provide a summary of the setup status as it proceeds. Once everything has completed you will see the message: **SETUP COMPLETED**.
 
