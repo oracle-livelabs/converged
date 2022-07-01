@@ -75,9 +75,11 @@ Estimated Time:  15 minutes
 
      ![Install GitHubApp](images/install_githubapp.png " ")
 
-     On the next screen, choose `Only select repositories` options and pick `<your GitHub Repository Name>/<repo_name>` from the drop down list.
+     On the next screen, choose `Only select repositories` options and pick `<your GitHub Repository Name>/microservices-datadriven` from the drop down list.
 
       ![Install GitHubApp Repo](images/install_githubapp_repo.png " ")
+
+6. On the next screen, click "App settings" and record the App ID for later use.
 
 ## Task 2: Convert the Private Key
 
@@ -174,7 +176,7 @@ Estimated Time:  15 minutes
      * Display Name: `Demonstration`
      * Branch Source: `GitHub`
      * Credentials: `GitHubAppDemo`
-     * Repository HTTPS URL: < Link to GitHub Repo; example: `https://github.com/<your GitHub Repository Name>/oci-liquibase-jenkins>`
+     * Repository HTTPS URL: < Link to GitHub Repo; example: `https://github.com/<your GitHub Repository Name>/microservices-datadriven`
 
 4. Click `Validate` under the `Repository HTTPS URL` field.
 
