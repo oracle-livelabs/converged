@@ -24,7 +24,7 @@ Estimated Time: 25 minutes
 
 1. Open a browser and navigate to `https://github.com/oracle/microservices-datadriven`.
 
-   - Copy or fork `https://github.com/oracle/microservices-datadriven` into your own GitHub account.
+   * Fork `https://github.com/oracle/microservices-datadriven` into your own GitHub account.
 
      ![Main Repository](images/main_repo.png " ")
 
@@ -90,7 +90,7 @@ Cloud Shell is a small virtual machine running a "bash" shell which you access t
 
 ## Task 7: Make a Clone of the Workshop Setup Script and Source Code
 
-1. 1. To work with the application code, you need to make a clone from the GitHub repository you copiedor forked into your own GitHub account in the previous setup step. 
+1. To work with the application code, you need to make a clone from the GitHub repository you copiedor forked into your own GitHub account in the previous setup step.
 
     ```bash
     <copy>
@@ -115,7 +115,7 @@ Cloud Shell is a small virtual machine running a "bash" shell which you access t
 
     The setup process will typically take around 20 minutes to complete.  
 
-2. The setup will ask you to confirm that there are no other un-terminated OKE clusters exist in your tenancy.
+2. (Conditional) The setup may ask you to confirm that there are no other un-terminated OKE clusters exist in your tenancy.
 
     ```bash
     <copy>
