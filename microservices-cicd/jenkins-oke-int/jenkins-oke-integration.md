@@ -16,16 +16,8 @@ Estimated Time: 20 minutes
 
 ### Prerequisites
 
-<<<<<<< HEAD
-This lab presumes you have already completed the earlier labs.
-
-As this is a demonstration of Jenkins/GitHub integration for CI/CD, **you must use your own GitHub account to run it.**
-
-> **Note:** As this is a demonstration of Jenkins/GitHub integration for CI/CD, **you must use your own GitHub account to run it. Please fork or copy the microservices repository into your own GitHub account before continuing `https://github.com/renagranat/microservices-datadriven`**.
-=======
 * This lab presumes you have already completed the earlier labs.
 * As this is a demonstration of Jenkins/GitHub integration for CI/CD, **you must use your own GitHub account to run it.** We assume you completed this step in Setup lab.
->>>>>>> dac48a420efc3700be9378af31de9cff8e71d9a0
 
 ## Task 1: Configure Jenkins Pipeline
 
@@ -47,9 +39,9 @@ As this is a demonstration of Jenkins/GitHub integration for CI/CD, **you must u
 
     * Copy the secret token - you will use it in the next steps when creating a secret credential.
 
-2. Open a new browser tab and login into your Jenkins console (Jenkins URL is being created during infrastructure setupb).
+2. Open a new browser tab and login into your Jenkins console (Jenkins URL is being created during infrastructure setup).
    * Retrieve Jenkins IP address through the console.
-   * Check the public VM's public IP otherwise or check the Load Balancer jenkins-load-balancer's public IP if a load balancer was provisioned. 
+   * Check the public VM's public IP otherwise or check the Load Balancer jenkins-load-balancer's public IP if a load balancer was provisioned.
    * Login into Jenkins console using username `admin` and password you created in the Setup lab.
 
     `https://jenkins.example.com`
@@ -61,7 +53,7 @@ As this is a demonstration of Jenkins/GitHub integration for CI/CD, **you must u
 4. Under `Stores scoped to Jenkins`, click `Jenkins`.
 
      ![Jenkins Credentials](images/jenkins_creds_2.png " ")
-     
+
 5. Click `Global credentials (unrestricted)`.
 
      ![Jenkins Credentials](images/global_creds.png " ")
@@ -109,17 +101,17 @@ As this is a demonstration of Jenkins/GitHub integration for CI/CD, **you must u
 
       * Under `environment` section of Jenkinsfile, supply the missing values:
 
-       ocir_credentials_id = ""
-       region = ""
-       namespace = ""     
-       
+        ocir_credentials_id = ""
+        region = ""
+        namespace = ""
+
 ## Task 4: Add GitHub WebHook
 
-1.  Log into GitHub and click on the repository which has been integrated with Jenkins. Navigate to Settings -> Webhooks.
+1. Log into GitHub and click on the repository which has been integrated with Jenkins. Navigate to Settings -> Webhooks.
 
      ![New Item](images/github_webhooks.png " ")
 
-2. On GitHub settings - add a WebHook with the IP address of Jenkins console: http://jenkins.example.com/github-webhook/
+2. On GitHub settings - add a WebHook with the IP address of Jenkins console: `http://jenkins.example.com/github-webhook/`
 
 > **Note:** Replace the Jenkins example with Jenkins public IP address. **The trailing slash is important**
 

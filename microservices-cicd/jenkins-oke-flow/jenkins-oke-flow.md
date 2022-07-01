@@ -13,9 +13,9 @@ Estimated Time: 20 minutes
 
 This lab presumes you have already completed the earlier labs.
 
-Pracle Cloud Infrastructure Services, like OKE cluster and the Autonomous Transaction Processing databases that you created in Lab 1, Github
+Oracle Cloud Infrastructure Services, like OKE cluster and the Autonomous Transaction Processing databases that you created in Lab 1, Github
 
-> **Note:** As this is a demonstration of Jenkins/GitHub integration for CI/CD, **you must use your own GitHub account to run it. Please fork or copy the microservices repository into your own GitHub account before continuing `https://github.com/oracle/microservices-datadriven`**.
+> **Note:** As this is a demonstration of Jenkins/GitHub integration for CI/CD, **you must use your own GitHub account to run it. Please fork or copy the microservices repository into your own GitHub account before continuing [https://github.com/oracle/microservices-datadriven](https://github.com/oracle/microservices-datadriven)**.
 
 ## Task 1: CI/CD Workflow Walkthrough
 
@@ -38,7 +38,7 @@ Pracle Cloud Infrastructure Services, like OKE cluster and the Autonomous Transa
 2. Update the grabdish/frontend-helidon/...version.txt
 3. Save all
 4. Open Github Desktop
-5. Check Repository Setting - `https://github.com/renagranat/microservices-datadriven.git`
+5. Check Repository Setting - `https://github.com/<your_account>/microservices-datadriven.git`
 6. Save and Push to github Repository
 7. Check Jenkins pipeline, observe Jenkins job created – review the log
 
