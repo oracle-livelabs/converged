@@ -162,6 +162,7 @@ Estimated Time:  15 minutes
 5. Click `OK`.
 
 ## Task 5: Add Global Variable for Database
+
 1. In the OCI Console, navigate to Oracle Database -> Autonomous Database
 
 2. Click on "DB2"
@@ -172,7 +173,7 @@ Estimated Time:  15 minutes
 
 5. Scroll down to "Global Properties" and click "Add"
 
-    * Name:  ADB_NAM
+    * Name:  ADB_NAME
     * Value: `<DB Name as found in OCI>`
 
 ## Task 6: Add an Multibranch Pipeline

@@ -22,7 +22,7 @@ A brief note: This demonstration creates an isolated development environment in 
 
 A new issue is created in your GitHub repository to track the lifecycle of the change. This is often a bug report, new feature, or enhancement request.
 
-1. Log into GitHub and click on the repository which has been integrated with Jenkins.
+1. Log into GitHub and click on the forked microservices-datadriven repository which has been integrated with Jenkins.
 
       * Create a New Issue
 
