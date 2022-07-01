@@ -136,7 +136,7 @@ Estimated Time:  15 minutes
 
 7. Click `OK`.
 
-## Task 3: Add Database Credentials
+## Task 4: Add Database Credentials
 
 1. On Jenkins Dasboard, navigate to `Manage Jenkins` and click on `Manage Credentials`.
 
@@ -161,7 +161,21 @@ Estimated Time:  15 minutes
 
 5. Click `OK`.
 
-## Task 4: Add an Multibranch Pipeline
+## Task 5: Add Global Variable for Database
+1. In the OCI Console, navigate to Oracle Database -> Autonomous Database
+
+2. Click on "DB2"
+
+3. Record the value of "Database Name:"
+
+4. On Jenkins Dasboard, navigate to `Manage Jenkins` and click on `Configure System`.
+
+5. Scroll down to "Global Properties" and click "Add"
+
+    * Name:  ADB_NAM
+    * Value: `<DB Name as found in OCI>`
+
+## Task 6: Add an Multibranch Pipeline
 
 1. On Jenkins Dasboard, click on `New Item` and enter the name for the item: `Demonstration`.
 
