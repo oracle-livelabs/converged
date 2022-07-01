@@ -22,7 +22,7 @@ Quick walk through to tear down the resources created in your tenancy and the di
 
 1. Run the following command to delete the resources created in you tenancy. It will delete everything except the compartment. It will take several minutes to run. The script will delete the Object Storage bucket, 'Oracle Cloud Infrastructure Registry repositories, OKE cluster, listeners, VCN and databases.
 
-    ```
+    ```bash
     <copy>teardown</copy>
     ```
 
@@ -30,7 +30,7 @@ Quick walk through to tear down the resources created in your tenancy and the di
 
 1. Delete the directory in your cloud shell where you installed the workshop.
 
-    ```
+    ```bash
     <copy>rm -rf <directory name></copy>
     ```
 

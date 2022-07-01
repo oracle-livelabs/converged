@@ -4,7 +4,7 @@
 
 This lab will demonstrate how to integrate Jenkins with GitHub and Oracle Cloud Insrastructure Services, and build a pipeline.
 
-GitHub provides web hook integration, so Jenkins starts running automated builds and tests after each code check-in. A sample web application Grabdish is modified and re-deployed as part of CI/CD pipeline, which end users can access from the Container Engine for Kubernetes cluster. 
+GitHub provides web hook integration, so Jenkins starts running automated builds and tests after each code check-in. A sample web application Grabdish is modified and re-deployed as part of CI/CD pipeline, which end users can access from the Container Engine for Kubernetes cluster.
 
 Estimated Time: 20 minutes
 
@@ -23,25 +23,26 @@ Estimated Time: 20 minutes
 
 1. A service account is needed to allow Jenkins to update the grabdish kubernetes cluster. To create a service account, connect to cloud shell and execute the following command.
 
-     ```
+     ```bash
      <copy>
      kubectl apply -f $DCMS_CICD_SETUP_DIR/kubernetes/service-account.yaml
      </copy>
      ```
-    - Kubernetes will create a secret token bound to the service account. Using below command retrieve the secret:
 
-     ```
+    * Kubernetes will create a secret token bound to the service account. Using below command retrieve the secret:
+
+     ```bash
      <copy>
      kubectl -n kube-system describe secret $(kubectl -n kube-system get secret | grep kube-cicd | awk '{print $1}')
      </copy>
      ```
-     - Copy the secret token - you will use it in the next steps when creating a secret credential.
 
-2. Open a new browser tab and login into your Jenkins console (Jenkins URL is being created during infrastructure setupb). 
-   
-   - Retrieve Jenkins IP address through the console.
-   - Check the public VM's public IP otherwise or check the Load Balancer jenkins-load-balancer's public IP if a load balancer was provisioned. 
-   - Login into Jenkins console using username `admin` and password you created in the Setup lab.
+    * Copy the secret token - you will use it in the next steps when creating a secret credential.
+
+2. Open a new browser tab and login into your Jenkins console (Jenkins URL is being created during infrastructure setup).
+   * Retrieve Jenkins IP address through the console.
+   * Check the public VM's public IP otherwise or check the Load Balancer jenkins-load-balancer's public IP if a load balancer was provisioned.
+   * Login into Jenkins console using username `admin` and password you created in the Setup lab.
 
     `https://jenkins.example.com`
 
@@ -52,7 +53,7 @@ Estimated Time: 20 minutes
 4. Under `Stores scoped to Jenkins`, click `Jenkins`.
 
      ![Jenkins Credentials](images/jenkins_creds_2.png " ")
-     
+
 5. Click `Global credentials (unrestricted)`.
 
      ![Jenkins Credentials](images/global_creds.png " ")
@@ -61,17 +62,17 @@ Estimated Time: 20 minutes
 
      ![Jenkins Secret](images/jenkins_secret_creds.png " ")
 
-      - Kind: `Secret text`
-      - Scope: `Global`
-      - Secret: < Paste content of service account secret token created above >
-      - Click `OK`
+      * Kind: `Secret text`
+      * Scope: `Global`
+      * Secret: < Paste content of service account secret token created above >
+      * Click `OK`
 
      Add another credential by clicking `Add Credentials` in the left hand navigation bar.
 
-      - Kind: `Username with password`
-      - Username: Set Username
-      - Password: < Paste auth token as password - Retrieve docker auth token through logs >
-      - Click `OK`
+      * Kind: `Username with password`
+      * Username: Set Username
+      * Password: < Paste auth token as password - Retrieve docker auth token through logs >
+      * Click `OK`
 
      > **Note:** Note the "Username with password" credential's ID for the next steps.
 
@@ -81,8 +82,8 @@ Estimated Time: 20 minutes
 
      ![Jenkins Tool Configuration](images/jenkins_tool_config.png " ")
 
-      - Under `Maven > Maven Installation`, add Maven with name `maven3`
-      - Click `Save`
+      * Under `Maven > Maven Installation`, add Maven with name `maven3`
+      * Click `Save`
 
 ## Task 3: Create a New Pipeline
 
@@ -98,19 +99,19 @@ Estimated Time: 20 minutes
 
      ![Jenkinsfile](images/jenkins_pipeline_file.png " ")
 
-      - Under `environment` section of Jenkinsfile, supply the missing values:
+      * Under `environment` section of Jenkinsfile, supply the missing values:
 
-       ocir_credentials_id = ""
-       region = ""
-       namespace = ""     
-       
+        ocir_credentials_id = ""
+        region = ""
+        namespace = ""
+
 ## Task 4: Add GitHub WebHook
 
-1.  Log into GitHub and click on the repository which has been integrated with Jenkins. Navigate to Settings -> Webhooks.
+1. Log into GitHub and click on the repository which has been integrated with Jenkins. Navigate to Settings -> Webhooks.
 
      ![New Item](images/github_webhooks.png " ")
 
-2. On GitHub settings - add a WebHook with the IP address of Jenkins console: http://jenkins.example.com/github-webhook/
+2. On GitHub settings - add a WebHook with the IP address of Jenkins console: `http://jenkins.example.com/github-webhook/`
 
 > **Note:** Replace the Jenkins example with Jenkins public IP address. **The trailing slash is important**
 

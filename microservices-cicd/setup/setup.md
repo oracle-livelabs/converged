@@ -2,7 +2,7 @@
 
 ## Introduction
 
-In this lab, we will provision and setup the reference architecture. 
+In this lab, we will provision and setup the reference architecture.
 
 ![Reference Architecture](images/reference_architecture.png " ")
 
@@ -24,13 +24,13 @@ Estimated Time: 25 minutes
 
 1. Open a browser and navigate to `https://github.com/oracle/microservices-datadriven`.
 
-   - Copy or fork `https://github.com/oracle/microservices-datadriven` into your own GitHub account.
+   * Fork `https://github.com/oracle/microservices-datadriven` into your own GitHub account.
 
      ![Main Repository](images/main_repo.png " ")
 
 ## Task 2: Log in to the Oracle Cloud Console and Launch the Cloud Shell
 
-1. If you haven't already, sign in to your account.
+1. If you haven't already, sign in to your Oracle Cloud Infrastructure account.
 
 ## Task 3: Select the Home Region
 
@@ -53,13 +53,9 @@ If, however, you have already used up some quota on your tenancy, perhaps while 
 | LbaaS            | Region | 100Mbps Load Balancer Count                           | **3**     | 3                  |
 
 1. Quota usage and limits can be check through the console: **Limits, Quotas and Usage** in the **Governance & Administration** section , For example:
-
   ![Oracle Cloud Infrastructure Service Limit Example](images/service-limit-example.png " ")
-
 2. The Tenancy Explorer is used to locate existing resources: **Governance & Administration** --> **Governance** --> **Tenancy Explorer**. Use the "Show resources in subcompartments" feature to locate all the resources in your tenancy:
-
   ![Oracle Cloud Infrastructure Show Subcompartments](images/show-subcompartments.png " ")
-
   It may be necessary to delete some resources to make space to run the workshop. Once you have enough space you may proceed to the next step.
 
 ## Task 5: Launch Cloud Shell
@@ -76,55 +72,58 @@ Cloud Shell is a small virtual machine running a "bash" shell which you access t
 
 1. Create a directory to contain the workshop code. The directory name is used to create a compartment of the same name in your tenancy. The directory name must have between 1 and 13 characters, contain only letters or numbers, and start with a letter. Make sure that a compartment of the same name does not already exist in your tenancy or the setup will fail. For example:
 
-	```
-	<copy>
-	mkdir grabdish
-	</copy>
-	```
+    ```bash
+    <copy>
+    mkdir grabdish
+    </copy>
+    ```
 
-   All the resources created by the setup are created in this compartment. This will let you to quickly delete and cleanup afterward.  
+    All the resources created by the setup are created in this compartment. This will let you to quickly delete and cleanup afterward.
 
 2. Change directory to the directory that you have created. The setup will fail if you do not complete this step. For example:
 
-	```
-	<copy> 
-	cd grabdish
-	</copy>
-	```
+  ```bash
+  <copy> 
+  cd grabdish
+  </copy>
+  ```
 
 ## Task 7: Make a Clone of the Workshop Setup Script and Source Code
 
-1. 1. To work with the application code, you need to make a clone from the GitHub repository you copiedor forked into your own GitHub account in the previous setup step. 
+1. To work with the application code, you need to make a clone from the GitHub repository you copiedor forked into your own GitHub account in the previous setup step.
 
-	```
-	<copy>
-	git clone https://github.com/<your_name>/microservices-datadriven.git
-	</copy>
-	```
+    ```bash
+    <copy>
+    git clone https://github.com/<your_name>/microservices-datadriven.git
+    </copy>
+    ```
+
+    You should now see the directory `microservices-datadriven` in the directory that you created.
 
 ## Task 8: Start the Setup
 
 1. Execute the following sequence of commands to start the setup.  
 
+    ```bash
+    <copy>
+    source microservices-datadriven/workshops/dcms-oci/source.env
+    setup
+    </copy>
     ```
-	<copy>
-	source microservices-datadriven/workshops/dcms-oci/source.env
-	setup
-	</copy>
-	```
 
     > **Note:** Cloud shell may disconnect after a period of inactivity. If that happens, you can reconnect and then run the command to resume the setup.
 
     The setup process will typically take around 20 minutes to complete.  
 
-2. The setup will ask you to confirm that there are no other un-terminated OKE clusters exist in your tenancy.
+2. (Conditional) The setup may ask you to confirm that there are no other un-terminated OKE clusters exist in your tenancy.
 
+    ```bash
+    <copy>
+    You are limited to only one OKE cluster in this tenancy. This workshop will create one additional OKE cluster and so any other OKE clusters must be terminated.
+    Please confirm that no other un-terminated OKE clusters exist in this tenancy and then hit [RETURN]?
+    </copy>
     ```
-	<copy>
-	You are limited to only one OKE cluster in this tenancy. This workshop will create one additional OKE cluster and so any other OKE clusters must be terminated.
-	Please confirm that no other un-terminated OKE clusters exist in this tenancy and then hit [RETURN]?
-	</copy>
-	```
+
     To confirm that there are no other un-terminated OKE clusters, click the Navigation Menu in the upper left of Oracle Cloud Console, navigate to Developer Services and click on Kubernetes Clusters (OKE).
 
     ![Oracle Cloud Infrastructure Developer Services Screen](images/dev-services-menu.png " ")
@@ -134,7 +133,6 @@ Cloud Shell is a small virtual machine running a "bash" shell which you access t
     If there are any un-terminated OKE clusters, please delete them and continue with setup steps.
 
     ![Review Oracle Cloud Infrastructure Kubernetes Cluster Details](images/get-oke-details.png " ")
-
 
 3. The setup will create the workshop resources in a compartment within your tenancy. You will be prompted to enter the compartment information.  You may choose to use an existing compartment or create a new one.
 
@@ -146,41 +144,41 @@ Cloud Shell is a small virtual machine running a "bash" shell which you access t
 
     To get the OCID of an existing compartment, click on the Navigation Menu in the upper left of Cloud Console, navigate to **Identity & Security** and click on **Compartments**:
 
-	![Navigate to Oracle Cloud Infrastructure Compartments Screen](images/compartments.png " ")
+    ![Navigate to Oracle Cloud Infrastructure Compartments Screen](images/compartments.png " ")
 
-	Click on the link in the **OCID column** of the compartment, and click **Copy**:
+    Click on the link in the **OCID column** of the compartment, and click **Copy**:
 
-	![Obtain Oracle Cloud Infrastructure Compartment OCID](images/compartment-ocid.png " ")
+    ![Obtain Oracle Cloud Infrastructure Compartment OCID](images/compartment-ocid.png " ")
 
 4. The setup will ask for you to enter your user's OCID.  
 
-	Be sure to provide the user OCID and not the user name or tenancy OCID. The user OCID will look something like:
+    Be sure to provide the user OCID and not the user name or tenancy OCID. The user OCID will look something like:
 
-	`ocid1.user.oc1....<unique_ID>`
+    `ocid1.user.oc1....<unique_ID>`
 
-	> **Note:** Notice the format of "ocid1.user" prefix.
+    > **Note:** Notice the format of "ocid1.user" prefix.
 
-	Locate your menu bar in the Cloud Console and click the person icon at the far upper right. From the drop-down menu, select your user's name. Note, sometimes the name link is missing in which case select the **User Settings** link. Do not select the **Tenancy** link.
+    Locate your menu bar in the Cloud Console and click the person icon at the far upper right. From the drop-down menu, select your user's name. Note, sometimes the name link is missing in which case select the **User Settings** link. Do not select the **Tenancy** link.
 
-	![Obtain Oracle Cloud Infrastructure User OCID](images/get-user-ocid.png " ")
+    ![Obtain Oracle Cloud Infrastructure User OCID](images/get-user-ocid.png " ")
 
-	Click Show to see the details and then click Copy to copy the user OCID to the clipboard, paste in the copied data in console.
+    Click Show to see the details and then click Copy to copy the user OCID to the clipboard, paste in the copied data in console.
 
-	![Oracle Cloud Infrastructure User OCID Example](images/example-user-ocid.png " ")
+    ![Oracle Cloud Infrastructure User OCID Example](images/example-user-ocid.png " ")
 
 5. The setup will automatically upload an Auth Token to your tenancy so that docker can log in to the Oracle Cloud Infrastructure Registry. If there is no space for a new Auth Token, the setup will ask you to remove an existing token to make room. This is done through the Oracle Cloud Console.
 
-	Locate your menu bar and click the person icon at the far upper right. From the drop-down menu, select your user's name.
+    Locate your menu bar and click the person icon at the far upper right. From the drop-down menu, select your user's name.
 
-	![Obtain Oracle Cloud Infrastructure User Name](images/get-user-ocid.png " ")
+    ![Obtain Oracle Cloud Infrastructure User Name](images/get-user-ocid.png " ")
 
-	On the User Details console, click Auth Tokens under Resources.
+    On the User Details console, click Auth Tokens under Resources.
 
-	![Review Oracle Cloud Infrastructure User Auth Token Screen](images/auth-token.png " ")
+    ![Review Oracle Cloud Infrastructure User Auth Token Screen](images/auth-token.png " ")
 
-	On the Auth Tokens screen, highlight the existing token(s) and delete by clicking Delete from the drop-down menu.
+    On the Auth Tokens screen, highlight the existing token(s) and delete by clicking Delete from the drop-down menu.
 
-	![Delete Oracle Cloud Infrastructure User Auth Token](images/delete-auth-token.png " ")
+    ![Delete Oracle Cloud Infrastructure User Auth Token](images/delete-auth-token.png " ")
 
 6. The setup will ask you to enter an admin password for the databases. For simplicity, the same password will be used for both the order and inventory databases. Database passwords must be 12 to 30 characters and contain at least one uppercase letter, one lowercase letter, and one number. The password cannot contain the double quote (") character or the word "admin".
 
@@ -188,30 +186,30 @@ Cloud Shell is a small virtual machine running a "bash" shell which you access t
 
 8. The status of the builds can be monitored with this command:
 
-	```
-	<copy>
-	status
-	</copy>
-	```
+    ```bash
+    <copy>
+    status
+    </copy>
+    ```
 
 9. Upon grabdish infra setup completion, you can start the setup for CI/CD components. Open the new browser window or tab, click the Cloud Shell icon in the top-right corner of the Console o start OCI Cloud Shell command line and execute the following sequence of commands to start the setup.  
 
+    ```bash
+    <copy>
+    source microservices-datadriven/workshops/dcms-cicd/source.env
+    jenkins-setup
+    </copy>
     ```
-	<copy>
-	source microservices-datadriven/workshops/dcms-cicd/source.env
-	jenkins-setup
-	</copy>
-	```
 
     > **Note:** Cloud shell may disconnect after a period of inactivity. If that happens, you can reconnect and then run the command to resume the setup.
 
 10. The setup will ask for you to enter your region value, a value for deployment type and create a password for Jenkins admin user and run type.
 
-    - Please enter the name of the region that you are connected to: `OCI_REGION`
-	- Please select Jenkins deployment type: `1`
-	- Enter the password to be used for Jenkins: `<ADMIN_PASSWORD>`
+    * Please enter the name of the region that you are connected to: `OCI_REGION`
+    * Please select Jenkins deployment type: `1`
+    * Enter the password to be used for Jenkins: `<ADMIN_PASSWORD>`
 
-	The setup process will typically take around 5 minutes to complete.
+    The setup process will typically take around 5 minutes to complete.
 
 ## Task 9: Monitor the Setup
 
@@ -226,13 +224,13 @@ The setup will provision the following resources in your tenancy:
 
 1. You should monitor the setup progress from a different browser window or tab.  It is best not to use the original browser window or not to refresh it as this may disturb the setup or you might lose your shell session. Most browsers have a "duplicate" feature that will allow you to quickly created a second window or tab.
 
-	![Duplicate Browser](images/duplicate-browser-tab.png " ")
+    ![Duplicate Browser](images/duplicate-browser-tab.png " ")
 
 2. From the new browser window or tab, navigate around the console to view the resources within the new compartment. The table includes the console navigation for each resource. For example, here we show the database resources:
 
-	![Database Resources](images/db-example.png " ")
+    ![Database Resources](images/db-example.png " ")
 
-	> **Note:** Cloud Shell sessions have a maximum length of 24 hours, and time out after 20 minutes of inactivity.
+    > **Note:** Cloud Shell sessions have a maximum length of 24 hours, and time out after 20 minutes of inactivity.
 
 ## Task 10: Complete the Setup
 
@@ -240,37 +238,37 @@ The setup will provision the following resources in your tenancy:
 
 2. While the background setup jobs are running you can monitor their progress with the following command.
 
-	```
-	<copy>
-	ps -ef
-	</copy>
-	```
+    ```bash
+    <copy>
+    ps -ef
+    </copy>
+    ```
 
 3. You can monitor log files located in the $GRABDISH_LOG directory.
 
-	```
-	<copy>
-	ls -al $GRABDISH_LOG
-	</copy>
-	```
+    ```bash
+    <copy>
+    ls -al $GRABDISH_LOG
+    </copy>
+    ```
 
-   	Once the setup has completed you are ready to [move on to Lab 2](#next). 
+    Once the setup has completed you are ready to [move on to Lab 2](#next).
 
-   	> **Note:** Builds may continue to run even after the setup has completed. 
- 
+    > **Note:** Builds may continue to run even after the setup has completed.
+
 4. The status of the builds can be monitored with this command:
 
-	```
-	<copy>
-	status
-	</copy>
-	```
+    ```bash
+    <copy>
+    status
+    </copy>
+    ```
 
-	```
-	<copy>
-	jenkins-status
-	</copy>
-	```
+    ```bash
+    <copy>
+    jenkins-status
+    </copy>
+    ```
 
  You may now **proceed to the next lab.**
 
