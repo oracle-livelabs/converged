@@ -24,7 +24,7 @@ There are multiple ways to create an Oracle Wallet for ADB.  We will be using Or
 1.  Before starting this section make sure you have exited out of your compute instance and are back in your cloudshell home.  
 
       If you did not copy your autonomous\_database\_ocid, select **Resource Manager** > **Stacks** and select your stack.
-      ![](https://objectstorage.us-phoenix-1.oraclecloud.com/p/SJgQwcGUvQ4LqtQ9xGsxRcgoSN19Wip9vSdk-D_lBzi7bhDP6eG1zMBl0I21Qvaz/n/c4u02/b/common/o/images/console/developer-resmgr-stacks.png " ")
+      ![](https://oracle-livelabs.github.io/common/images/console/developer-resmgr-stacks.png " ")
       ![](./images/select-stack.png " ")
 
       Select your apply job and select **Outputs**. 
@@ -81,7 +81,7 @@ There are multiple ways to create an Oracle Wallet for ADB.  We will be using Or
 
 ## Task 3: Connect to SQL Developer and Create Credentials
 1.  Go back to your ATP screen by clicking on the Hamburger Menu -> **Autonomous Transaction Processing**
-      ![](https://objectstorage.us-phoenix-1.oraclecloud.com/p/SJgQwcGUvQ4LqtQ9xGsxRcgoSN19Wip9vSdk-D_lBzi7bhDP6eG1zMBl0I21Qvaz/n/c4u02/b/common/o/images/console/database-atp.png " ")
+      ![](https://oracle-livelabs.github.io/common/images/console/database-atp.png " ")
 
 2.  Click on the **Display Name** to go to your ADB main page.
       ![](./images/display-name.png " ")
