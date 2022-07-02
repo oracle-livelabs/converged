@@ -14,6 +14,7 @@ Visit [LiveLabs](https://developer.oracle.com/livelabs) now to get started.  Wor
 - [Oracle's Converged Database - On Premises Edition](https://apexapps.oracle.com/pls/apex/dbpm/r/livelabs/view-workshop?p180_id=613)
 - [Building Java Cloud Applications with Micronaut and OCI](https://apexapps.oracle.com/pls/apex/dbpm/r/livelabs/view-workshop?p180_id=667)
 - [Building Microservices with Oracle Converged DB](https://apexapps.oracle.com/pls/apex/dbpm/r/livelabs/view-workshop?wid=637)
+- [Unified Observability in Grafana with converged Oracle Database](https://apexapps.oracle.com/pls/apex/dbpm/r/livelabs/view-workshop?wid=921)
 - [Building an Application from a Spreadsheet](https://apexapps.oracle.com/pls/apex/dbpm/r/livelabs/view-workshop?p180_id=631)
 - [Deploying OKE Using Oracle Cloud Shell](https://apexapps.oracle.com/pls/apex/dbpm/r/livelabs/view-workshop?p180_id=649)
 - [Database 21c on DB Systems](https://apexapps.oracle.com/pls/apex/dbpm/r/livelabs/view-workshop?wid=737)
