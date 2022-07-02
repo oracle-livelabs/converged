@@ -68,7 +68,7 @@ Watch the video below for a quick walk through of the lab.
 
       ![Grafana Login](images/grafana_login_screen.png " ")
 
-   #### Note that if the Grafana console is not used for a period of time, when attempting to access the url again you may encounter a `invalid username or password` error in which case you will need to clear the history/cache for the Grafana console (prom-operator) user to log in again.
+   #### Note that if the Grafana console is not used for a period of time, when attempting to access the url again you may encounter a `invalid username or password` error in which case you will need to clear the history/cache for the Grafana console (admin user) to log in again.
 
 5. View pre-configured Prometheus data source:
 
