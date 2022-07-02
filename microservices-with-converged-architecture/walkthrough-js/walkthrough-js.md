@@ -13,7 +13,7 @@ Estimated Time: 10 minutes
 
 ### Prerequisites
 
-* The Grabdish application you deployed in Lab 2
+* The Grabdish application you deployed in **Deploy the grabdish application and logon**
 
 ## Task 1: Switch the Microservices to the JavaScript Implementation
 
@@ -31,13 +31,13 @@ Estimated Time: 10 minutes
     * Deploys the Order microservice in the database
     * Deploys the Inventory microservice in the database
 
-4.  Once the switch script has successfully completed the status will be displayed.
+4.  Once the switch script has completed execution the status will be displayed.
 
    ![GrabDish is DEPLOYED Status is Displayed](images/switched.png " ")
 
 ## Task 2: Verify the Order and Inventory Functionality of GrabDish Store
 
-   1. Navigate back to the GrabDish UI and confirm that the functionality is the same with the JavaScript implementation.  Use different order numbers this time.
+Navigate back to the GrabDish UI and confirm that the functionality remains the same with the JavaScript implementation.  Use different order numbers this time.
 
 ## Task 3: Learn about the JavaScript Implementation
 
@@ -92,7 +92,7 @@ begin
 </copy>
 ```
 
-Each input (in) parameter is mapped to a JSON attribute in the incoming request and the procedure is execute.  In response, a JSON document is constructed with each output (out) parameter corresponding to a JSON attribute.
+Each input (in) parameter is mapped to a JSON attribute in the incoming request and the procedure executes.  In response, a JSON document is constructed with each output (out) parameter corresponding to a JSON attribute.
 
 The wrapper code calls the place order implementation written in JavaScript (code extract from [order.js](https://github.com/oracle/microservices-datadriven/blob/main/workshops/dcms-db/grabdish/order/order-js/order.js)):
 
@@ -178,7 +178,7 @@ function fulfillOrder(order) {
 }
 </copy>
 ```
-   You may now [move on to Lab 5](#next).
+   You may now **proceed to the next lab**.
 
 ## Acknowledgements
 * **Author** - Richard Exley, Consulting Member of Technical Staff, Oracle MAA and Exadata
