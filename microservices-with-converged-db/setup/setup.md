@@ -8,7 +8,7 @@ Estimated Time: 25 minutes
 
 Watch the video below for a quick walk through of the lab.
 
-[](youtube:yqCbkHh9EVA)
+[](youtube:KB9q2ADkjBc) 
 
 ### Objectives
 
