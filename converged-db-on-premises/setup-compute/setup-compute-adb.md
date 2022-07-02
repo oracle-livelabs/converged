@@ -36,7 +36,7 @@ If you already have a VCN setup, please visit the appendix to see how to optiona
 
   ![](./images/em-oci-landing.png " ")
 
-  ![](https://objectstorage.us-phoenix-1.oraclecloud.com/p/SJgQwcGUvQ4LqtQ9xGsxRcgoSN19Wip9vSdk-D_lBzi7bhDP6eG1zMBl0I21Qvaz/n/c4u02/b/common/o/images/console/developer-resmgr-stacks.png " ")
+  ![](https://oracle-livelabs.github.io/common/images/console/developer-resmgr-stacks.png " ")
 
   ![](./images/em-create-stack.png " ")
 
@@ -131,7 +131,7 @@ Choose the environment where you created your ssh-key in the previous lab (Gener
 
 2.  If you didn't jot down your compute instance public IP address, click the **Navigation Menu** in the upper left, navigate to **Compute**, select **Instances** and select the instance you created (make sure you choose the correct compartment)
 
-  ![](https://objectstorage.us-phoenix-1.oraclecloud.com/p/SJgQwcGUvQ4LqtQ9xGsxRcgoSN19Wip9vSdk-D_lBzi7bhDP6eG1zMBl0I21Qvaz/n/c4u02/b/common/o/images/console/compute-instances.png " ")
+  ![](https://oracle-livelabs.github.io/common/images/console/compute-instances.png " ")
   ![](./images/em-click-instance.png " ")
 
 3.  On the instance homepage, find the Public IP address for your instance.
