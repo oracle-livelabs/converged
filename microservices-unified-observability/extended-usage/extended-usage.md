@@ -8,6 +8,10 @@ You can extend the observability functionality provided here in a number of ways
 
 Estimated Time:  15 minutes
 
+The following is a quick demonstration of an alert that is created for the case where dequeue rate is less than half of enqueue rate for a given period of time.
+
+[](youtube:3RTQCu7AacM)
+
 ### Objectives
 
 -   Understand the concepts of unified observability and modify the configuration of exporters, etc. in order to see various metrics, logs, and tracing from both the application and database tier.
