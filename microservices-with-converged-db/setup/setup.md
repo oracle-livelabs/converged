@@ -8,7 +8,7 @@ Estimated Time: 25 minutes
 
 Watch the video below for a quick walk through of the lab.
 
-[](youtube:yqCbkHh9EVA)
+[](youtube:KB9q2ADkjBc) 
 
 ### Objectives
 
@@ -85,7 +85,7 @@ Cloud Shell is a small virtual machine running a "bash" shell which you access t
 
 	```
 	<copy>
-	git clone -b 22.6.2 --single-branch https://github.com/oracle/microservices-datadriven.git
+	git clone -b 22.7.1 --single-branch https://github.com/oracle/microservices-datadriven.git
 	</copy>
 	```
     You should now see the directory `microservices-datadriven` in the directory that you created.
