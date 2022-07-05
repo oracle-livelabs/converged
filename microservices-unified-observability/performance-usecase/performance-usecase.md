@@ -8,6 +8,7 @@ This lab will show you how to set up alerts for metrics conditions and trigger t
 
 Estimated Time:  10 minutes
 
+
 ### Objectives
 
 -   Configure alert for when `PlaceOrder` average response time exceeds a given value.
@@ -46,11 +47,15 @@ Estimated Time:  10 minutes
 
     ![Test Rule](images/definealertcondition.png " ")
 
-6. Optionally, add details for the alert.
+6. Click `Preview alerts` button to test the alert based on the result of the running query.
+
+    ![Test Rule](images/previewalert.png " ")
+
+7. Optionally, add details for the alert.
 
     ![Test Rule](images/adddetailsforalert.png " ")
        
-7. Click `Save and exit` 
+8. Click `Save and exit` 
 
 
 ## Task 2:  Run load test. Notice metrics and Slack message from alert due to rule condition being exceeded.
