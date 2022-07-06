@@ -11,13 +11,13 @@ Estimated Time: 20 minutes
   
 ### Prerequisites
 
-* This lab presumes you have already completed the earlier labs and setup a workshop repository in your own GitHub account.
 * Oracle Cloud Infrastructure Services, like OKE cluster, OCIR and the Autonomous Transaction Processing databases, GitHub and Jenkins that you created and configred in earlier labs
 * The latest version of Git, GitHub Desktop (https://desktop.github.com/) and your preferred editor, such as Visual Studio Code, or IntelliJ Idea installed locally on your computer.
+* This lab presumes you setup a workshop repository in your own GitHub account.
 
-Oracle Cloud Infrastructure Services, like OKE cluster and the Autonomous Transaction Processing databases that you created in Lab 1, Github
+> **Note:** As this is a demonstration of Jenkins/GitHub integration for CI/CD, **you must use your own GitHub account to run it. Please fork or copy the microservices repository into your own GitHub account before continuing [https://github.com/oracle/microservices-datadriven]**.
 
-> **Note:** As this is a demonstration of Jenkins/GitHub integration for CI/CD, **you must use your own GitHub account to run it. Please fork or copy the microservices repository into your own GitHub account before continuing [https://github.com/oracle/microservices-datadriven](https://github.com/oracle/microservices-datadriven)**.
+## Task 1: Clone the Forked Repository
 
 A clone is a copy of your forked repository that lives on your local computer instead of on GitHub Web UI. When you clone your forked repository, you can edit the files in your preferred editor, such as  Visual Studio Code, or IntelliJ Idea and use the GitHub Desktop client to keep track of your changes without having to be online.
 
@@ -29,7 +29,7 @@ To clone the forked repository:
 
    ![GitHub Desktop Repo Clone](images/ggit_hub_desktop_clone_repo.png " ")
 
-3. Select your repository such as your account/repo from your epositories. In this example, select arabellayao/goldengate. Under Local Path, select the local path on your machine where the repository is going to be cloned (copied). This is where the repository files get copied to your local file system. Click Clone.
+3. Select your repository such as your account/repo from your repositories. In this example, select <your_name>/microservices-datadriven. Under Local Path, select the local path on your machine where the repository is going to be cloned (copied). This is where the repository files get copied to your local file system. Click Clone.
 
     ![Clone](images/clone.png " ")
 
@@ -53,7 +53,8 @@ You can use Github Desktop to synchronize the changes that you have made in your
 
 ## Task 2: CI/CD Workflow Walkthrough 
  
-1. Update the grabdish/frontend-helidon/...version.txt
+1. Open 
+2. Update the grabdish/frontend-helidon/...version.txt
 3. Save all
 4. Open Github Desktop
 5. Check Repository Setting - `https://github.com/<your_account>/microservices-datadriven.git`
