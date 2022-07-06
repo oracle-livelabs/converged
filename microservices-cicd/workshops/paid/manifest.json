@@ -28,7 +28,7 @@
       },
       {
         "title": "Lab 5: Integrate GitHub Repository with Jenkins for Liquibase with SQLcl Use Case",
-        "filename": "../../liquibase-jenkins-int/liquibase-jenkins-int.md"
+        "filename": "../../liquibase-jenkins-int/liquibase-jenkins-integration.md"
       },
       {
         "title": "Lab 6: CI/CD Workflow using Liquibase with SQLcl Walkthrough",

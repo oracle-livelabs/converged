@@ -3,6 +3,9 @@
 ## Introduction
 
 This lab will walk you through CI/CD workflow using the pipeline built in the previous lab.
+
+![CI/CD Flow](images/cicd_jenkins_flow.png " ")
+
 Estimated Time: 20 minutes
 
 ### Objectives
@@ -53,8 +56,22 @@ You can use Github Desktop to synchronize the changes that you have made in your
 
 ## Task 2: CI/CD Workflow Walkthrough 
  
-1. Open 
-2. Update the grabdish/frontend-helidon/...version.txt
+1. Launch IntelliJ IDEA (or Visual Studio Code) on your computer and select miroservices-datadriven project in your local path.
+
+2. Under miroservices-datadriven folder, navigate to grabdish > frontend-helidon > src > resources > web folder.
+
+   ![GitHub Desktop Synch](images/spatial.png " ")
+
+3. Open spatial.html file and navigate to the following area of the code
+ 
+   ![GitHub Desktop Synch](images/spatial_code.png " ")
+
+4. Change the following text from **Data-driven Microservices with converged Oracle Database** to **Datadriven Microservices with Converged Oracle Database** and save your changes.
+
+   ![GitHub Desktop Synch](images/spatial_edit.png " ")
+
+4. Under miroservices-datadriven folder, navigate to grabdish > frontend-helidon folder and open version.txt file.
+
 3. Save all
 4. Open Github Desktop
 5. Check Repository Setting - `https://github.com/<your_account>/microservices-datadriven.git`

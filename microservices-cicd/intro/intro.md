@@ -2,8 +2,6 @@
 
 ## About this Workshop
 
-[](youtube:v0nYRueADbo)
-
 CI/CD is a key ingredient for agile application development and deployment on the cloud. Tools like Github and Jenkins give DevOps team members the ability to automate an entire end-to-end CI/CD pipeline while Liquibase provides a solution to address database schema change management challenges.
 
 This workshop illustrates how you can leverage the services like Autonomous Database using Jenkins and Liquibase to provide an end-to-end continuous integration and delivery experience.
