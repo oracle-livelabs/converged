@@ -11,7 +11,7 @@ Estimated Time: 25 minutes
 
 Watch the video below for a quick walk through of the lab.
 
-[](youtube:MuoMHJ54PHE)
+[](youtube:hg2gihhblZ8)
 
 ### Objectives
 
@@ -31,7 +31,7 @@ Watch the video below for a quick walk through of the lab.
     <copy>cd $GRABDISH_HOME/observability;./install.sh</copy>
     ```
 
-You will see some warning messages related to versions, etc. that may safely be ignored.
+   You will see some warning messages related to versions, .kube/config, etc. that may safely be ignored.
 
 
 2. Run the `/createMonitorsAndExporters.sh` script. This will do the following:
@@ -44,11 +44,11 @@ You will see some warning messages related to versions, etc. that may safely be 
     <copy>cd $GRABDISH_HOME/observability;./createMonitorsAndExporters.sh</copy>
     ```
 
-You will see some warning messages related to configmaps not existing, as this is the initial setup, that may safely be ignored.
+   You will see some warning messages related to configmaps not existing, as this is the initial setup, that may safely be ignored.
 
 ## Task 2: Configure Grafana
 
-1. Identify the EXTERNAL-IP address of the Grafana LoadBalancer by executing the following command:
+1. Identify the EXTERNAL-IP address of the `ingress-nginx-controller` service by executing the following command:
 
        ```
        <copy>services</copy>
@@ -58,17 +58,19 @@ You will see some warning messages related to configmaps not existing, as this i
 
      Note, it will take a few minutes for the LoadBalancer to provision during which time it will be in a `pending` state
 
-2. Open a new browser tab and enter the external IP URL:
+2. Open a new browser tab and enter the external IP of the `ingress-nginx-controller` appended with the `grafana` path as the URL :
 
-     `https://<EXTERNAL-IP>`
+   `https://<EXTERNAL-IP>/grafana`
 
       Note, for convenience a self-signed certificate is used to secure this https address and so you will be prompted by the browser to allow access.
 
-3. Login using the default username `admin` and password `prom-operator`
+3. Login using the default username `admin` and password `prom-operator` . Do not save the login as part of browser settings if prompted. 
 
       ![Grafana Login](images/grafana_login_screen.png " ")
 
-4. View pre-configured Prometheus data source:
+   #### Note that if the Grafana console is not used for a period of time, when attempting to access the url again you may encounter a `invalid username or password` error in which case you will need to clear the history/cache for the Grafana console (admin user) to log in again.
+
+5. View pre-configured Prometheus data source:
 
     Select the `Configuration` gear icon on the left-hand side and select `Data Sources`.
 
@@ -88,7 +90,7 @@ You will see some warning messages related to configmaps not existing, as this i
 
     Click the `Back` button.
 
-5. Select the `Data sources` tab and select `Jaeger`
+6. Select the `Data sources` tab and select `Jaeger`
 
     Click `Add data source`.
 
@@ -111,7 +113,7 @@ You will see some warning messages related to configmaps not existing, as this i
 
     Click the `Back` button.
 
-6. Add and configure Loki data source:
+7. Add and configure Loki data source:
 
     Click `Add data source`.
 
@@ -181,7 +183,7 @@ You will see some warning messages related to configmaps not existing, as this i
 
     Click the `Back` button.
 
-7. Install the GrabDish Dashboard
+8. Install the GrabDish Dashboard
 
      Select the `+` icon on the left-hand side and select `Import`
 
@@ -235,17 +237,20 @@ You will see some warning messages related to configmaps not existing, as this i
 3. Click the chain icon on either panel. This will result in the Prometheus metrics on the left and Loki logs on the right are of the same time-span.
       ![Sync chain](images/syncchain.png " ")
 
-4. Click the `Log browser` drop-down list on the right-hand panel and select the `app` label under "1. Select labels to search in"
+4. Click the `Code` option in the upper-right hand corner of the Loki query panel.
+      ![Log browswer](images/selectcodeoption.png " ")
+
+5. Click the `Log browser` drop-down list on the right-hand panel and select the `app` label under "1. Select labels to search in"
       ![Log browswer](images/logbrowser.png " ")
 
-5. Select the `order` (microservice) and `db-log-exporter-orderpdb` values under "2. Find values for selected label" and click `Show logs` button.
+6. Select the `order` (microservice) and `db-log-exporter-orderpdb` values under "2. Find values for selected label" and click `Show logs` button.
       ![Order label](images/ordermslabel.png " ")
       ![DB log exporter](images/dblogexporterorderpdblabel.png " ")
 
-6. Select one of the green info log entries to expand it. Notice the `Jaeger` button next to the trace id.
+7. Select one of the green info log entries to expand it. Notice the `Jaeger` button next to the trace id.
       ![Jaeger](images/spanreportedlogentry.png " ")
 
-7. Click the `Jaeger` to view the corresponding trace information and drill down into detail.
+8. Click the `Jaeger` to view the corresponding trace information and drill down into detail.
       ![Jaeger trace](images/traceinfo.png " ")
 
 ## Task 5: Install and Study the AQ/TEQ Dashboard Screen and Metrics

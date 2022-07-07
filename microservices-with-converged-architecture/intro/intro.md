@@ -14,16 +14,12 @@ Estimated Workshop Time: 45 mins
 
 ### Objectives
 
-- Learn about the Oracle Database's unique ability to provide native support for modern data types, languages, security, and the latest development paradigms like JSON for document stores, event queues, loose coupling and many more.
-- Learn about a two tier microservice architecture - the application tier, and the database tier - bringing agility, scalability, and robustness to enterprise applications.
+- Learn about the Oracle Database's unique ability to provide native support for modern data types, languages, security, and the latest development paradigms such as JSON for document stores, event queues, and loose coupling.
+- Learn about a two-tier microservice architecture - the application tier, and the database tier - bringing agility, scalability, and robustness to enterprise applications.
 
 ### Prerequisites
 
  - An Oracle Cloud Account - Please view this workshop's LiveLabs landing page to see which environments are supported.
-
-  > **Note:** If you have a **Free Trial** account, when your Free Trial expires your account will be converted to an **Always Free** account. You will not be able to conduct Free Tier workshops unless the Always Free environment is available.
- **[Free Tier FAQ page.](https://www.oracle.com/cloud/free/faq.html)**
-
 
 ## Want to Learn More?
 

@@ -2,7 +2,7 @@
 
 ## Introduction
 
-In this lab, we will provision and setup the resources to execute microservices in your tenancy.  
+In this lab, we will provision and configure the resources to execute microservices in your tenancy.  
 
 Estimated Time: 10 minutes
 
@@ -24,7 +24,7 @@ Estimated Time: 10 minutes
 
 ## Task 3: Launch Cloud Shell
 
-Cloud Shell is a small virtual machine running a "bash" shell which you access through the Oracle Cloud Console. Cloud Shell comes with a pre-authenticated command line interface in the tenancy region. It also provides up-to-date tools and utilities.
+Cloud Shell is a small virtual machine running a "bash" shell that you access through the Oracle Cloud Console. Cloud Shell comes with a pre-authenticated command-line interface in the tenancy region. It also provides up-to-date tools and utilities.
 
 1. Click the Cloud Shell icon in the top-right corner of the Console.
 
@@ -42,9 +42,9 @@ Cloud Shell is a small virtual machine running a "bash" shell which you access t
    </copy>
    ```
 
-   All the resources created by the setup are created in this compartment. This will let you to quickly delete and cleanup afterward.  
+   All the resources created by the setup are created in this compartment. This will let you quickly delete and clean up afterward.  
 
-2. Change directory to the directory that you have created. For example:
+2. Change the directory to the directory that you have created. For example:
 
    ```
    <copy>
@@ -94,7 +94,7 @@ Cloud Shell is a small virtual machine running a "bash" shell which you access t
 
 3. The setup will ask for you to enter your user's OCID.  
 
-  Be sure to provide the user OCID and not the user name or tenancy OCID. The user OCID will look something like:
+  Be sure to provide the user OCID and not the user name or tenancy OCID. The user OCID will appear something like the following:
 
   `ocid1.user.oc1....<unique_ID>`
 
@@ -104,7 +104,7 @@ Cloud Shell is a small virtual machine running a "bash" shell which you access t
 
   ![Obtain Oracle Cloud Infrastructure User OCID](images/get-user-ocid.png " ")
 
-  Click Show to see the details and then click Copy to copy the user OCID to the clipboard, paste in the copied data in console.
+  Click Show to see the details and then click Copy to copy the user OCID to the clipboard, and then paste the copied data into the console.
 
   ![Oracle Cloud Infrastructure User OCID Example](images/example-user-ocid.png " ")
 
@@ -129,7 +129,7 @@ The setup will provision the following resources in your tenancy:
 
 ## Task 8: Complete the Setup
 
-1. The setup will provide a summary of the setup status as it proceeds. Once everything has completed you will see the message: **SETUP COMPLETED**.
+1. The setup will provide a summary of the setup status as it proceeds. Once everything has completed execution you will see the message: **SETUP COMPLETED**.
 
 2. While the background setup jobs are running you can monitor their progress with the following command.
 
@@ -139,7 +139,7 @@ The setup will provision the following resources in your tenancy:
    </copy>
    ```
 
-   Once the setup has completed you are ready to [move on to Lab 2](#next).
+   Once the setup has completed execution you are ready to **proceed to the next lab**.
 
 
 ## Acknowledgements

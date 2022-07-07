@@ -15,10 +15,10 @@ Oracle Big Data SQL enables organizations to immediately analyze data across Apa
 The goal for the workshop is to give you an understanding of how Big Data SQL works. Specifically, the focus is on Big Data SQL functional capabilities: how to access data from different sources (hdfs & hive), running queries on these sources.
 
 Click on one of our workshops below to access the content. 
-[![](./images/converged-database.png)](https://oracle.github.io/learning-library/data-management-library/database/multitenant/freetier/index.html)  
+[![](./images/converged-database.png)](https://oracle-livelabs.github.io/database/multitenant-new/workshops/freetier/index.html)  
 
-- [I have a Freetier or Oracle Cloud account](https://oracle.github.io/learning-library/data-management-library/database/multitenant/freetier/index.html)
-- [I have an account from LiveLabs](https://oracle.github.io/learning-library/data-management-library/database/multitenant/ssworkshop/index.html)
+- [I have a Freetier or Oracle Cloud account](https://oracle-livelabs.github.io/database/multitenant-new/workshops/freetier/index.html)
+- [I have an account from LiveLabs](https://oracle-livelabs.github.io/database/multitenant-new/workshops/ssworkshop/index.html)
 
 
 ## Get an Oracle Cloud Trial Account for Free!
