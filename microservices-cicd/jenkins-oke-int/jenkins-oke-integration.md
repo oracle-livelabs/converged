@@ -40,6 +40,7 @@ Estimated Time: 15 minutes
     * Copy the secret token - you will use it in the next steps when creating a secret credential.
 
 2. Open a new browser tab and login into your Jenkins console (Jenkins URL is being created during infrastructure setup).
+
    * Retrieve Jenkins IP address through the console.
    * Check the public VM's public IP otherwise or check the Load Balancer jenkins-load-balancer's public IP if a load balancer was provisioned.
    * Login into Jenkins console using username `admin` and password you created in the Setup lab.
@@ -67,7 +68,7 @@ Estimated Time: 15 minutes
       * Secret: < Paste content of service account secret token created above >
       * Click `OK`
 
-     Add another credential by clicking `Add Credentials` in the left hand navigation bar.
+    Add another credential by clicking **Add Credentials** in the left hand navigation bar.
 
       * Kind: `Username with password`
       * Username: Set Username
@@ -82,7 +83,7 @@ Estimated Time: 15 minutes
 
      ![Jenkins Tool Configuration](images/jenkins_tool_config.png " ")
 
-      * Under `Maven > Maven Installation`, add Maven with name `maven3`
+      * Under `Maven > Maven Installation`, add Maven with name **maven3**
       * Click `Save`
 
 ## Task 3: Create a New Pipeline
@@ -93,7 +94,7 @@ Estimated Time: 15 minutes
 
      ![Jenkins Pipeline ](images/jenkins_pipeline.png " ")
 
-3. Under `Build Triggers`, `select GitHub hook trigger for GITScm polling`.
+3. Under `Build Triggers`, select `GitHub hook trigger for GITScm polling`.
 
 4. Copy and Paste Jenkinsfile from the repository workshops/dcms-cicd/jenkins/Jenkinsfile
 

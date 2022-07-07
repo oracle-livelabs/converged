@@ -14,8 +14,6 @@ Helidon microservices with Javascript front-end will be deployed on Oracle Cloud
 
 Jenkins is hosted on Oracle Cloud Infrastructure to centralize build automation and scale the deployment by using Oracle Cloud Infrastructure Registry and Container Engine for Kubernetes. GitHub is being used for source code management.
 
-![Microservices Architecture](./images/architecture.png " ")
-
 ### Objectives
 
 * Learn how to automate the continuous integration (CI) and continuous delivery and deployment (CD) pipelines for your application development using Jenkins.
@@ -29,9 +27,14 @@ Jenkins is hosted on Oracle Cloud Infrastructure to centralize build automation 
 > **Note:** If you have a **Free Trial** account, when your Free Trial expires your account will be converted to an **Always Free** account. You will not be able to conduct Free Tier workshops unless the Always Free environment is available.
  **[Click here for the Free Tier FAQ page.](https://www.oracle.com/cloud/free/faq.html)**
 
- The "GrabDish" application and related infrastructure used in the Simplify Microservices with converged Oracle Database Workshop and shown below will be reused for this workshop, however, the focus will be on observability.
+ Upcoming versions of this workshop will include the following.
+ - Use of Edition-based redefinition (EBR) functionality of Oracle database for enabling online application upgrade with uninterrupted availability of the application. 
+ - Integration with GitHub Actions
+ - More details on usage and use cases.
+ 
+ The "GrabDish" application and related infrastructure used in the [Simplify Microservices with converged Oracle Database Workshop](http://bit.ly/bettermicroservices) and shown below will be reused for this workshop, however, the focus will be on CI/CD flow. 
 
- We encourage you to check out the other workshop if you are interested in learning more about the technical capabilities inside and outside the Oracle converged database to support scalable data and event-driven microservices architectures, polyglot microservices, data and transaction patterns, etc.
+We encourage you to check out the other workshop if you are interested in learning more about the technical capabilities inside and outside the Oracle converged database to support scalable data and event-driven microservices architectures, polyglot microservices, data and transaction patterns, etc.
 
  You may now **proceed to the next lab.**
 

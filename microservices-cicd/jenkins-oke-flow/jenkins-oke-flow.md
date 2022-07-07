@@ -15,10 +15,10 @@ Estimated Time: 20 minutes
 ### Prerequisites
 
 * Oracle Cloud Infrastructure Services, like OKE cluster, OCIR and the Autonomous Transaction Processing databases, GitHub and Jenkins that you created and configred in earlier labs
-* The latest version of Git, GitHub Desktop (https://desktop.github.com/) and your preferred editor, such as Visual Studio Code, or IntelliJ Idea installed locally on your computer.
+* The latest version of Git, [GitHub Desktop] (https://desktop.github.com/) and your preferred editor, such as Visual Studio Code, or IntelliJ Idea installed locally on your computer.
 * This lab presumes you setup a workshop repository in your own GitHub account.
 
-> **Note:** As this is a demonstration of Jenkins/GitHub integration for CI/CD, **you must use your own GitHub account to run it. Please fork or copy the microservices repository into your own GitHub account before continuing [https://github.com/oracle/microservices-datadriven]**.
+> **Note:** As this is a demonstration of Jenkins/GitHub integration for CI/CD, **you must use your own GitHub account to run it. Please fork or copy [Oracle Microservices GiHub repository](https://github.com/oracle/microservices-datadriven) into your own GitHub account**.
 
 ## Task 1: Clone the Forked Repository
 

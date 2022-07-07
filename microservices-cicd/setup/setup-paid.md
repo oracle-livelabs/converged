@@ -2,7 +2,11 @@
 
 ## Introduction
 
-In this lab, we will provision and setup the resources to execute microservices in your tenancy.  
+In this lab, we will provision and setup the reference architecture.
+
+![Reference Architecture](images/reference_architecture.png " ")
+
+In this reference architecture, Jenkins is hosted on Oracle Cloud Infrastructure to centralize build automation and scale the deployment by using Oracle Cloud Infrastructure Registry, Oracle Kubernetes and Oracle Converged Database. GitHub is used to manage source code. 
 
 Estimated Time: 25 minutes
 
@@ -14,11 +18,11 @@ Estimated Time: 25 minutes
 ### Prerequisites
 
 * An Oracle Cloud paid account or free trial. To sign up for a trial account with $300 in credits for 30 days, click [Sign Up](http://oracle.com/cloud/free).
-* As this is a demonstration of Jenkins/GitHub integration for CI/CD, **you must use your own GitHub account to run it.**
+* As this is a demonstration of Jenkins/GitHub integration for CI/CD, **you must use your own GitHub account to run it. Please fork or copy [Oracle Microservices GiHub repository](https://github.com/oracle/microservices-datadriven) into your own GitHub account**.
 
 ## Task 1: Copy the workshop microservices repository into your own GitHub account
 
-1. Open a browser and navigate to [https://github.com/oracle/microservices-datadriven](https://github.com/oracle/microservices-datadriven).
+1. Open a browser and navigate to [Oracle GitHub Microservices repository](https://github.com/oracle/microservices-datadriven).
 
    * Fork `https://github.com/oracle/microservices-datadriven` into your own GitHub account.
 
