@@ -30,7 +30,7 @@ To clone the forked repository:
 
 2. Click File > Clone repository to display the Clone a Repository dialog box.
 
-   ![GitHub Desktop Repo Clone](images/ggit_hub_desktop_clone_repo.png " ")
+   ![GitHub Desktop Repo Clone](images/git_hub_desktop_clone_repo.png " ")
 
 3. Select your repository such as your account/repo from your repositories. In this example, select <your_name>/microservices-datadriven. Under Local Path, select the local path on your machine where the repository is going to be cloned (copied). This is where the repository files get copied to your local file system. Click Clone.
 
@@ -56,27 +56,59 @@ You can use Github Desktop to synchronize the changes that you have made in your
 
 ## Task 2: CI/CD Workflow Walkthrough 
  
-1. Launch IntelliJ IDEA (or Visual Studio Code) on your computer and select miroservices-datadriven project in your local path.
+1. Launch IntelliJ IDEA (or Visual Studio Code) on your computer and select `miroservices-datadriven`project in your local path.
 
 2. Under miroservices-datadriven folder, navigate to grabdish > frontend-helidon > src > resources > web folder.
 
-   ![GitHub Desktop Synch](images/spatial.png " ")
+   ![Spatial](images/spatial.png " ")
 
 3. Open spatial.html file and navigate to the following area of the code
  
-   ![GitHub Desktop Synch](images/spatial_code.png " ")
+   ![Spatial Code](images/spatial_code.png " ")
 
 4. Change the following text from **Data-driven Microservices with converged Oracle Database** to **Datadriven Microservices with Converged Oracle Database** and save your changes.
 
-   ![GitHub Desktop Synch](images/spatial_edit.png " ")
+   ![Spatial Update](images/spatial_edit.png " ")
 
-4. Under miroservices-datadriven folder, navigate to grabdish > frontend-helidon folder and open version.txt file.
+5. Under miroservices-datadriven folder, navigate to grabdish > frontend-helidon folder and open **version.txt** file.
 
-3. Save all
-4. Open Github Desktop
-5. Check Repository Setting - `https://github.com/<your_account>/microservices-datadriven.git`
-6. Save and Push to github Repository
-7. Check Jenkins pipeline, observe Jenkins job created – review the log
+   ![Version File](images/version_file.png " ")
+
+6. Increase the version number and save your changes
+
+   ![Version Increase](images/version_edit.png " ")
+
+7. Start your Github Desktop client. Confirm that your **Current repository** points to your  `<your_name>/microservices-datadriven GitHub repository`.
+
+   ![GitHub Desktop](images/github_desktop.png " ")
+
+8. Under the **Changes**, you should see 2 changed files:
+
+   ![GitHub Desktop Spatial](images/github_desktop_spatial.png " ")
+
+   ![GitHub Desktop Versions](images/github_desktop_versions.png " ")
+
+9. In the **Summary (required)** text box on the left side, enter the summary of your changes.
+
+10. Click **Commit to main**. This saves your changes in your local clone.
+
+   ![GitHub Desktop Commit](images/github_desktop_commit.png " ")
+
+12. Click **Push origin**. This pushes the updated content from your clone into the origin of this clone, that is, your fork.
+
+   ![GitHub Desktop Push](images/github_desktop_push.png " ")
+
+13. The updates in the previous step commited to your [https://github.com/oracle/microservices-datadriven] repository will initiate Jenkins flow.
+
+14. To review the pipeline flow, navigate to Jenkins and login as 
+
+15. Check Jenkins pipeline
+
+16. observe Jenkins job created – review the log
+
+17. Check OKE pod - steps
+
+18. Check the grabdish application for the latest changes - steps
 
 You may now **proceed to the next lab.**.
 
