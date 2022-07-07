@@ -6,7 +6,7 @@ This lab will demonstrate how to integrate Jenkins with GitHub and Oracle Cloud 
 
 GitHub provides web hook integration, so Jenkins starts running automated builds and tests after each code check-in. A sample web application Grabdish is modified and re-deployed as part of CI/CD pipeline, which end users can access from the Container Engine for Kubernetes cluster.
 
-Estimated Time: 20 minutes
+Estimated Time: 15 minutes
 
 ### Objectives
 
