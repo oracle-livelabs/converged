@@ -6,7 +6,7 @@ This lab will walk you through CI/CD workflow using the pipeline built in the pr
 
 ![CI/CD Flow](images/CICD_Github_Jenkins.png " ")
 
-Estimated Time:  20 minutes
+Estimated Time:  25 minutes
 
 ### Objectives
 
@@ -16,7 +16,7 @@ Estimated Time:  20 minutes
 
 This lab presumes you have already completed the earlier labs. At this stage, you should have a Jenkins Multibranch Pipeline integrated with your GitHub repository for Schema CI/CD. This demonstration will walk through a typical schema change request workflow using Liquibase with SQLcl.
 
-A brief note: This demonstration creates an isolated development environment in a different schema on the same database. This is to reduce the infrastructure required to run the demo. Using a different database (incl. OCI Autonomous Database), a different PDB, a Sparse Clone, etc. are interchangeable solutions to the isolated schema approach.
+ > **Note:** This demonstration creates an isolated development environment in a different schema on the same database. This is to reduce the infrastructure required to run the demo. Using a different database (incl. OCI Autonomous Database), a different PDB, a Sparse Clone, etc. are interchangeable solutions to the isolated schema approach.
 
 ## Task 1: New Issue is Raised
 
@@ -41,14 +41,36 @@ A new issue is created in your GitHub repository to track the lifecycle of the c
 A DBA/Developer is assigned to the issue. They create a new "feature" branch, as a copy of the main branch, to work on the issue. The creation of the "feature" branch will trigger a new build in Jenkins.
 The Jenkins build will create a new schema using Liquibase and code from GitHub. This allows for work on the issue to be in an isolated environment to develop and test any changes.
 
-1. If not already on the New Issue, navigate to "Issues" and click on the issue you just created.
-2. Assign the issue to yourself and click on "Create a Branch"
-3. On the Pop-Up: Leave Defaults and "Create Branch"
-4. On the Jenkins Controller, a new build will have been initiated by the creation of the branch. This build will create the isolated development environment to work on the issue in.
-5. Click on "Demonstration".
-6. Click on the "Feature" branch (1-add-last...)
-7. Click on "Last Build.."
-8. Click Console Output
+1. If not already on the New Issue, navigate to **Issues** and click on the issue you just created.
+
+2. Assign the issue to yourself and click on `Create a Branch*`.
+
+    ![Assign Issue](images/assign_issue.png " ")
+
+3. On the Pop-Up, leave defaults and `Create Branch`.
+
+    ![Create a Branch](images/create_branch.png " ")
+
+   On the Jenkins Controller, a new build will have been initiated by the creation of the branch. This build will create the isolated development environment to work on the issue in.
+
+4. Click on `Demonstration`.
+
+    ![Demonstration](images/demonstration.png " ")
+
+5. Click on the `Feature` branch (1-add-last...).
+
+    ![Feature Branch](images/feature_branch.png " ")
+    
+6. Click on `Last Build`.
+
+    ![Last Build](images/last_build.png " ")
+
+7. Click `Console Output`.
+
+    ![Console Output](images/console_output.png " ")
+
+
+   The Console Output will show that Liquibase created the schema INVENTORYUSER1, created the INVENTORYUSER1.INVENTORY table, and loaded static data into the table.
 
 ## Task 3: Development Workflow
 
@@ -64,7 +86,7 @@ The DBA/Developer will work on the issue in the newly created isolated schema. D
     </copy>
     ```
 
-2. Export Schema Changes - **need to discuss this step !!!**
+2. Export schema changes:
 
     In Cloud Shell, navigate to your repositories liquibase directory. This directory contains the Liquibase ChangeSets which define the "Production" schema.
     Ensure you are in the git "feature" branch for your change:
@@ -147,7 +169,7 @@ The DBA/Developer will work on the issue in the newly created isolated schema. D
     no changes added to commit (use "git add" and/or "git commit -a")  
     ```
 
-4. Commit Changes To Version Control
+4. Commit changes to version control.
 
     Depending on how you cloned your repository to Cloud Shell, you may need to generate a Personal Access Token (PAT). If the below git push command prompts for a username/password, please follow these instructions to generate a PAT for authentication, ticking "repo" for scope.
 
@@ -173,71 +195,112 @@ The DBA/Developer will work on the issue in the newly created isolated schema. D
     remote: Resolving deltas: 100% (3/3), completed with 3 local objects.
     ```
 
-5. Integration Testing (Failure)
+5. Perform integration testing and initiate a failure:
 
     The above push will cause another build on the "feature" branch in Jenkins to be triggered. This build will test running the change you've made with existing, non-changed changeSets; i.e. integration testing.
+   
     On the Jenkins Controller, Navigate to Dashboard > Demonstration. You'll notice that the last build on the "feature" branch has failed:
 
-    1. Click on "1-add-last_updated-column-to-inventory-table"
-    2. Click on "Last Build #2..."
-    3. Click Console Output
-    4. Read the output to determine the failure
+    * Click on `1-add-last_updated-column-to-inventory-table`.
 
- The failure is due to the new column preventing the data from being loaded into the table via the data/inventory_table.sql file.   Fortunately this was caught before applying the change to the "main" branch used for Production deployment.  
- There are a few ways to fix this problem, but for demonstration purposes, edit the data/inventory_table.sql file, increase the changeset insert_static:2, and add "SYSDATE" to the insert statements:
+      ![Build Failure](images/build_failure.png " ")
 
- ```SQL
- -- liquibase formatted sql
- -- changeset insert_static:2 runAlways:true failOnError:true
- TRUNCATE TABLE INVENTORY;
- INSERT into INVENTORY values ('sushi', '1468 WEBSTER ST,San Francisco,CA', 0, SYSDATE);
- INSERT into INVENTORY values ('pizza', '1469 WEBSTER ST,San Francisco,CA', 0, SYSDATE);
- INSERT into INVENTORY values ('burger', '1470 WEBSTER ST,San Francisco,CA', 0, SYSDATE);
- -- rollback TRUNCATE TABLE INVENTORY;
- ```
+    * Click on `Last Build #2...`.
 
- Commit/push the change to initiate another build:
+    * Click `Console Output`.
 
-  ```bash
-  <copy>
-  git add .
-  git commit -m "Fixed data loading issue after new column"
-  git push
-  </copy>
-  ```
+    * Read the output to determine the failure.
+      
+      ![Build Failure Log](images/build_failure_log.png " ")
+      
+   
+    The failure is due to the new column preventing the data from being loaded into the table via the data/inventory_table.sql file.   Fortunately this was caught before applying the change to the "main" branch used for Production deployment.  
+    
+    There are a few ways to fix this problem, but for demonstration purposes, edit the `data/inventory_table.sql` file, increase the changeset insert_static:2, and add "SYSDATE" to the insert statements:
 
- This will initiate another build on the "feature" branch. The build will succeed and the change can now be reviewed and merged back into the "main" branch.
+    ```SQL
+    -- liquibase formatted sql
+    -- changeset insert_static:2 runAlways:true failOnError:true
+    TRUNCATE TABLE INVENTORY;
+    INSERT into INVENTORY values ('sushi', '1468 WEBSTER ST,San Francisco,CA', 0, SYSDATE);
+    INSERT into INVENTORY values ('pizza', '1469 WEBSTER ST,San Francisco,CA', 0, SYSDATE);
+    INSERT into INVENTORY values ('burger', '1470 WEBSTER ST,San Francisco,CA', 0, SYSDATE);
+    -- rollback TRUNCATE TABLE INVENTORY;
+    ```
+
+    Commit/push the change to initiate another build:
+
+    ```bash
+    <copy>
+    git add .
+    git commit -m "Fixed data loading issue after new column"
+    git push
+    </copy>
+    ```
+
+   This will initiate another build on the `feature` branch. The build will succeed and the change can now be reviewed and merged back into the `main` branch.
 
 ## Task 4: Review and Merge
 
-When the developer has completed all of the work on the issue, they will open a Pull Request for approval to merge the changes into the main branch for releasing. The Pull Request will trigger another build in Jenkins that will tear down their "feature" branch isolated environment (schema); it can also run any additional automated tests required.
-If the tear down and additional automated tests succeed, the "Pull Requests" is approved and the changes are merged into the main branch for release.
+When the developer has completed all of the work on the issue, they will open a Pull Request for approval to merge the changes into the main branch for releasing. The Pull Request will trigger another build in Jenkins that will tear down their `feature` branch isolated environment (schema); it can also run any additional automated tests required.
+   
+If the tear down and additional automated tests succeed, the **Pull Requestst** is approved and the changes are merged into the main branch for release.
 
-Back in GitHub, a notification that your "feature" branch has had recent pushes with the option to "Compare & pull request"
+Back in GitHub, a notification that your `feature` branch has had recent pushes with the option to `Compare & pull request`.
 
-1. Click "Compare & pull request"
-2. The next screen will show the changes you made to the "feature" branch. Notice the changes to the data insert and the new column that was created in the INVENTORY1.INVENTORY table:
-3. Change the base branch to your repositories "main", and click "Create pull request"
+1. Click `Compare & pull request`.
 
-### Pull Request Pipeline
+    ![Compare & Pull](images/compare_pull.png " ")
 
-Merge the Change into Main
+2. The next screen will show the changes you made to the `feature` branch. Notice the changes to the data insert and the new column that was created in the INVENTORYUSER1.INVENTORY table:
 
-1. In GitHub, Select the Pull Request you just created.
-2. Merge the Pull Request
-3. Click "Confirm merge"
-4. Your "feature" branch change is now in the "main" branch. The "feature" branch can be deleted.
+    ![Branch Change](images/branch_change.png " ")
 
-### Main Branch Pipeline
+3. Change the base branch to your repositories `main`, and click `Create pull request`.
 
-On the Jenkins Controller, a new build will have been initiated by the Merge. This build will implement the change (new LAST_UPDATED column) in the "Production" INVENTORY schema.  
-Once this build has completed you can verify the change was applied by running the following SQL query against the Autonomous Database in OCI:
+    ![Create Pull Request](images/create_pull_request.png " ")
 
-```SQL
-SELECT * FROM INVENTORY.INVENTORY;
-```
+    Let's review pull request pipeline. On the Jenkins Controller, a new build will have been initiated by the Pull Request (PR). This build will drop the isolated development environment. - a new build will have been initiated by the Pull Request (PR).
 
-You should see the new column populated with the current date in the INVENTORY.INVENTORY table:
+4.  Let's review pull request pipeline. On the Jenkins Controller, a new build will have been initiated by the Pull Request (PR). This build will drop the isolated development environment. - a new build will have been initiated by the Pull Request (PR). Select the "Pull Request" Tab and Click on the "Name of the PR".
+
+    ![Pull Request Pipeline](images/pull_request_pipeline.png " ")
+
+5. Click on "Last Build #1...".
+     
+6. Click Console Output to review the output.
+
+7. You can verify the INVENTORYUSER1 schema was dropped from the Autonomous Database. In the OCI Console, Navigate to the Autonomous Database and click on Database Actions > SQL:
+
+    ```SQL
+    SELECT COUNT(*) FROM DBA_USERS WHERE USERNAME='INVENTORYUSER1';
+    ```
+  
+8. Now, you are ready to merge the changes into main branch. In GitHub, Select the Pull Request you just created.
+
+    ![Pull Request](images/create_pull_request.png " ")
+
+9. Merge the Pull Request.
+
+    ![Merge Pull Request](images/pull_request.png " ")
+
+10. Click "Confirm merge".
+
+    ![Merged Pull Request](images/merged_request.png " ")
+
+11. Your "feature" branch change is now in the "main" branch. The "feature" branch can be deleted.
+
+    On the Jenkins Controller, a new build will have been initiated by the Merge. This build will implement the change (new LAST_UPDATED column) in the "Production" INVENTORY schema.  
+
+    Once this build has completed you can verify the change was applied by running the following SQL query against the Autonomous Database in OCI:
+
+    ```SQL
+    SELECT * FROM INVENTORYUSER.INVENTORY;
+    ```
+
+    You should see the new column populated with the current date in the INVENTORYUSER.INVENTORY table:
+
+    ![Review Changes](images/complete.png " ")
 
 You may now **proceed to the next lab.**.
 
