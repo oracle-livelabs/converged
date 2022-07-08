@@ -104,11 +104,11 @@ You can use Github Desktop to synchronize the changes that you have made in your
 
 15. Check Jenkins pipeline and observe Jenkins job created – review the log.
 
-   You can review the code for pipeline stages in the Jenkins file located in your repo - workshops>dcms-cicd>jenkins>jenkinslab1:
+   You can review the code for pipeline stages in the Jenkins file located in your repo - workshops > dcms-cicd > jenkins > jenkinslab1:
 
    ![Jenkins File Stages](images/jenkins-pipeline.png " ")
 
-   Click on Click on `Demo` and then navigate to `Changes` - review the changes that were performed:
+   Click on Click on `Demo` and then navigate to `Changes` - review the changes that were performed in the previous steps:
 
    ![Jenkins Changes](images/jenkins-changes.png " ")
 
