@@ -111,11 +111,11 @@ Estimated Time:  15 minutes
 
 2. Navigate to `Manage Jenkins` and then click `Manage Credentials`.
 
-     ![Jenkins Credentials](images/jenkins-creds_1.png " ")
+     ![Jenkins Credentials](images/jenkins-creds1.png " ")
 
 3. Under `Stores scoped to Jenkins`, click `Jenkins`.
 
-     ![Jenkins Credentials](images/jenkins-creds-2.png " ")
+     ![Jenkins Credentials](images/jenkins-creds2.png " ")
 
 4. Click `Global credentials (unrestricted)`.
 
@@ -140,11 +140,11 @@ Estimated Time:  15 minutes
 
 1. On Jenkins Dasboard, navigate to `Manage Jenkins` and click on `Manage Credentials`.
 
-     ![Jenkins Credentials](images/jenkins-creds-1.png " ")
+     ![Jenkins Credentials](images/jenkins-creds1.png " ")
 
 2. Under `Stores scoped to Jenkins`, click `Jenkins`.
 
-     ![Jenkins Credentials](images/jenkins-creds-2.png " ")
+     ![Jenkins Credentials](images/jenkins-creds2.png " ")
 
 3. Click `Global credentials (unrestricted)`.
 
