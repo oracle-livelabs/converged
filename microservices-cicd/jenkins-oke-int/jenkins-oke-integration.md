@@ -49,19 +49,19 @@ Estimated Time: 15 minutes
 
 3. Navigate to `Manage Jenkins` and then click `Manage Credentials`.
 
-     ![Jenkins Credentials](images/jenkins_creds_1.png " ")
+     ![Jenkins Credentials](images/jenkins-creds-1.png " ")
 
 4. Under `Stores scoped to Jenkins`, click `Jenkins`.
 
-     ![Jenkins Credentials](images/jenkins_creds_2.png " ")
+     ![Jenkins Credentials](images/jenkins-creds-2.png " ")
 
 5. Click `Global credentials (unrestricted)`.
 
-     ![Jenkins Credentials](images/global_creds.png " ")
+     ![Jenkins Credentials](images/global-creds.png " ")
 
 6. Click `Add Credentials` in the left hand navigation bar.
 
-     ![Jenkins Secret](images/jenkins_secret_creds.png " ")
+     ![Jenkins Secret](images/jenkins-secret-creds.png " ")
 
       * Kind: `Secret text`
       * Scope: `Global`
@@ -81,7 +81,7 @@ Estimated Time: 15 minutes
 
 1. Navigate to `Manage Jenkins` and then click on `Global Tools Configuration`
 
-     ![Jenkins Tool Configuration](images/jenkins_tool_config.png " ")
+     ![Jenkins Tool Configuration](images/jenkins-tool-config.png " ")
 
       * Under `Maven > Maven Installation`, add Maven with name **maven3**
       * Click `Save`
@@ -92,13 +92,13 @@ Estimated Time: 15 minutes
 
 2. Select `Pipeline` and click `OK`.
 
-     ![Jenkins Pipeline ](images/jenkins_pipeline.png " ")
+     ![Jenkins Pipeline ](images/jenkins-pipeline.png " ")
 
 3. Under `Build Triggers`, select `GitHub hook trigger for GITScm polling`.
 
 4. Copy and Paste Jenkinsfile from the repository workshops/dcms-cicd/jenkins/Jenkinsfile
 
-     ![Jenkinsfile](images/jenkins_pipeline_file.png " ")
+     ![Jenkinsfile](images/jenkins-pipeline-file.png " ")
 
       * Under `environment` section of Jenkinsfile, supply the missing values:
 
@@ -110,7 +110,7 @@ Estimated Time: 15 minutes
 
 1. Log into GitHub and click on the repository which has been integrated with Jenkins. Navigate to Settings -> Webhooks.
 
-     ![New Item](images/github_webhooks.png " ")
+     ![New Item](images/github-webhooks.png " ")
 
 2. On GitHub settings - add a WebHook with the IP address of Jenkins console: `http://jenkins.example.com/github-webhook/`
 

@@ -4,7 +4,7 @@
 
 This lab will walk you through CI/CD workflow using the pipeline built in the previous lab.
 
-![CI/CD Flow](images/CICD_Github_Jenkins.png " ")
+![CI/CD Flow](images/cicd-jenkins-github.png " ")
 
 Estimated Time:  25 minutes
 
@@ -26,11 +26,11 @@ A new issue is created in your GitHub repository to track the lifecycle of the c
 
       * Create a New Issue
 
-      ![New Issue](images/new_issue.png " ")
+      ![New Issue](images/new-issue.png " ")
 
       > **Note:** If you do not see the Issue tab, click on "Settings" and scroll down to "Issues" and check the box. Issues tab will appear.
 
-      ![Submit New Issue](images/submit_new_issue.png " ")
+      ![Submit New Issue](images/submit-new-issue.png " ")
 
       * Title: Add LAST_UPDATED Column to Inventory Table
       * Write A Comment: Add a new column to the inventory table to track the last time the inventory was updated.
@@ -45,11 +45,11 @@ The Jenkins build will create a new schema using Liquibase and code from GitHub.
 
 2. Assign the issue to yourself and click on `Create a Branch*`.
 
-    ![Assign Issue](images/assign_issue.png " ")
+    ![Assign Issue](images/assign-issue.png " ")
 
 3. On the Pop-Up, leave defaults and `Create Branch`.
 
-    ![Create a Branch](images/create_branch.png " ")
+    ![Create a Branch](images/create-branch.png " ")
 
    On the Jenkins Controller, a new build will have been initiated by the creation of the branch. This build will create the isolated development environment to work on the issue in.
 
@@ -59,16 +59,15 @@ The Jenkins build will create a new schema using Liquibase and code from GitHub.
 
 5. Click on the `Feature` branch (1-add-last...).
 
-    ![Feature Branch](images/feature_branch.png " ")
+    ![Feature Branch](images/feature-branch.png " ")
     
 6. Click on `Last Build`.
 
-    ![Last Build](images/last_build.png " ")
+    ![Last Build](images/last-build.png " ")
 
 7. Click `Console Output`.
 
-    ![Console Output](images/console_output.png " ")
-
+    ![Console Output](images/console-output.png " ")
 
    The Console Output will show that Liquibase created the schema INVENTORYUSER1, created the INVENTORYUSER1.INVENTORY table, and loaded static data into the table.
 
@@ -203,7 +202,7 @@ The DBA/Developer will work on the issue in the newly created isolated schema. D
 
     * Click on `1-add-last_updated-column-to-inventory-table`.
 
-      ![Build Failure](images/build_failure.png " ")
+      ![Build Failure](images/build-failure.png " ")
 
     * Click on `Last Build #2...`.
 
@@ -211,7 +210,7 @@ The DBA/Developer will work on the issue in the newly created isolated schema. D
 
     * Read the output to determine the failure.
       
-      ![Build Failure Log](images/build_failure_log.png " ")
+      ![Build Failure Log](images/build-failure-log.png " ")
       
    
     The failure is due to the new column preventing the data from being loaded into the table via the data/inventory_table.sql file.   Fortunately this was caught before applying the change to the "main" branch used for Production deployment.  
@@ -250,21 +249,21 @@ Back in GitHub, a notification that your `feature` branch has had recent pushes 
 
 1. Click `Compare & pull request`.
 
-    ![Compare & Pull](images/compare_pull.png " ")
+    ![Compare & Pull](images/compare-pull.png " ")
 
 2. The next screen will show the changes you made to the `feature` branch. Notice the changes to the data insert and the new column that was created in the INVENTORYUSER1.INVENTORY table:
 
-    ![Branch Change](images/branch_change.png " ")
+    ![Branch Change](images/branch-change.png " ")
 
 3. Change the base branch to your repositories `main`, and click `Create pull request`.
 
-    ![Create Pull Request](images/create_pull_request.png " ")
+    ![Create Pull Request](images/create-pull-request.png " ")
 
     Let's review pull request pipeline. On the Jenkins Controller, a new build will have been initiated by the Pull Request (PR). This build will drop the isolated development environment. - a new build will have been initiated by the Pull Request (PR).
 
 4.  Let's review pull request pipeline. On the Jenkins Controller, a new build will have been initiated by the Pull Request (PR). This build will drop the isolated development environment. - a new build will have been initiated by the Pull Request (PR). Select the "Pull Request" Tab and Click on the "Name of the PR".
 
-    ![Pull Request Pipeline](images/pull_request_pipeline.png " ")
+    ![Pull Request Pipeline](images/pull-request-pipeline.png " ")
 
 5. Click on "Last Build #1...".
      
@@ -278,15 +277,15 @@ Back in GitHub, a notification that your `feature` branch has had recent pushes 
   
 8. Now, you are ready to merge the changes into main branch. In GitHub, Select the Pull Request you just created.
 
-    ![Pull Request](images/create_pull_request.png " ")
+    ![Pull Request](images/create-pull-request.png " ")
 
 9. Merge the Pull Request.
 
-    ![Merge Pull Request](images/pull_request.png " ")
+    ![Merge Pull Request](images/merge-pull-request.png " ")
 
 10. Click "Confirm merge".
 
-    ![Merged Pull Request](images/merged_request.png " ")
+    ![Merged Pull Request](images/merged-pull-request.png " ")
 
 11. Your "feature" branch change is now in the "main" branch. The "feature" branch can be deleted.
 

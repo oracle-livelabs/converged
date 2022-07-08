@@ -21,25 +21,25 @@ Estimated Time:  15 minutes
 
 1. Log in into your GitHub Account. In your Github Account, navigate to Settings -> Developer settings -> GitHub Apps.
 
-    ![GitHub Settings](images/repo_settings.png " ")
+    ![GitHub Settings](images/repo-settings.png " ")
 
 2. Select `New GitHub App` (Confirm Password, if prompted).
 
-    ![New GitHub App](images/new_gihubapp.png " ")
+    ![New GitHub App](images/new-githubapp.png " ")
 
 3. Register a new GitHub Application and, unless other specified below, leave the defaults.
 
      GitHub App name: `Jenkins - < Github Account Name >`
 
-      ![GitHub Name](images/githubapp_name.png " ")
+      ![GitHub Name](images/githubapp-name.png " ")
 
      Homepage URL: Link to your GitHub Page
 
-      ![Homepage URL](images/homepage_url.png " ")
+      ![Homepage URL](images/homepage-url.png " ")
 
      Webhook URL: Link to your Jenkins Server
 
-      ![Webhook URL](images/webhook_url.png " ")
+      ![Webhook URL](images/webhook-url.png " ")
 
      > **Note:** Replace the Jenkins example with Jenkins public IP address. **The trailing slash is important**
 
@@ -47,37 +47,37 @@ Estimated Time:  15 minutes
 
       * Commit statuses - Read and Write
 
-        ![Repository Permissions](images/repo_perm1.png " ")
+        ![Repository Permissions](images/repo-perm1.png " ")
 
       * Contents: Read-only
 
-        ![Repository Permissions](images/repo_perm2.png " ")
+        ![Repository Permissions](images/repo-perm2.png " ")
 
       * Pull requests: Read-only
 
-        ![Repository Permissions](images/repo_perm3.png " ")
+        ![Repository Permissions](images/repo-perm3.png " ")
 
       * Subscribe to events: Select All
 
-        ![Webhook URL](images/webhook_url.png " ")
+        ![Events](images/events-subscribe.png " ")
 
      For `Where can this GitHub App be installed?` setting, check `Only on this account` option and click on `Create GitHub App`
 
-      ![Save GitHubApp](images/save_githubapp.png " ")
+      ![Save GitHubApp](images/save-githubapp.png " ")
 
      > **Note:** Record the App ID to be used later.
 
 4. Scroll down to `Private keys` and generate a private key by clicking `Generate a private key` button (will be prompted to save, save it to a safe location).
 
-     ![Webhook URL](images/generate_privatekey.png " ")
+     ![Webhook URL](images/generate-privatekey.png " ")
 
 5. Scroll back up the page and click `Install App` and click `Install` next to your GitHub account name.
 
-     ![Install GitHubApp](images/install_githubapp.png " ")
+     ![Install GitHubApp](images/install-githubapp.png " ")
 
      On the next screen, choose `Only select repositories` options and pick `<your GitHub Repository Name>/microservices-datadriven` from the drop down list.
 
-      ![Install GitHubApp Repo](images/install_githubapp_repo.png " ")
+      ![Install GitHubApp Repo](images/install-github-repo.png " ")
 
 6. On the next screen, click "App settings" and record the App ID for later use.
 
@@ -99,7 +99,7 @@ Estimated Time:  15 minutes
 
 3. Either drag and drop the file from your local machine into the Cloud Shell window, or use the `Upload` button from the Cloud Shell hamburger menu.
 
-    ![Cloud Shell File Upload](images/cloud_shell_file.png " ")
+    ![Cloud Shell File Upload](images/cloud-shell-file.png " ")
 
 4. Run the above openssl command in the Cloud Shell - it will create a converted private key converted-github-app.pem in your home directory you can use later for configuring Jenkins.
 
@@ -111,19 +111,19 @@ Estimated Time:  15 minutes
 
 2. Navigate to `Manage Jenkins` and then click `Manage Credentials`.
 
-     ![Jenkins Credentials](images/jenkins_creds_1.png " ")
+     ![Jenkins Credentials](images/jenkins-creds_1.png " ")
 
 3. Under `Stores scoped to Jenkins`, click `Jenkins`.
 
-     ![Jenkins Credentials](images/jenkins_creds_2.png " ")
+     ![Jenkins Credentials](images/jenkins-creds-2.png " ")
 
 4. Click `Global credentials (unrestricted)`.
 
-     ![Jenkins Credentials](images/global_creds.png " ")
+     ![Jenkins Credentials](images/global-creds.png " ")
 
 5. Click `Add Credentials` in the left hand navigation bar.
 
-     ![GitHubAppDemo Credentials](images/githubappdemo_creds.png " ")
+     ![GitHubAppDemo Credentials](images/githubappdemo-creds.png " ")
 
      * Kind: `GitHub App`
      * ID: `GitHubAppDemo`
@@ -132,7 +132,7 @@ Estimated Time:  15 minutes
 
 6. Click `Test Connection` which should be successful.
 
-     ![GitHubAppDemo Connection Test](images/githubappdemo_creds_test.png " ")
+     ![GitHubAppDemo Connection Test](images/githubappdemo-credstest.png " ")
 
 7. Click `OK`.
 
@@ -140,19 +140,19 @@ Estimated Time:  15 minutes
 
 1. On Jenkins Dasboard, navigate to `Manage Jenkins` and click on `Manage Credentials`.
 
-     ![Jenkins Credentials](images/jenkins_creds_1.png " ")
+     ![Jenkins Credentials](images/jenkins-creds-1.png " ")
 
 2. Under `Stores scoped to Jenkins`, click `Jenkins`.
 
-     ![Jenkins Credentials](images/jenkins_creds_2.png " ")
+     ![Jenkins Credentials](images/jenkins-creds-2.png " ")
 
 3. Click `Global credentials (unrestricted)`.
 
-     ![Jenkins Credentials](images/global_creds.png " ")
+     ![Jenkins Credentials](images/global-creds.png " ")
 
 4. Click `Add Credentials` in the left hand navigation bar.
 
-     ![Database Credentials](images/db_creds.png " ")
+     ![Database Credentials](images/db-creds.png " ")
 
      * Kind: `Username with password`
      * Username: `ADMIN`
