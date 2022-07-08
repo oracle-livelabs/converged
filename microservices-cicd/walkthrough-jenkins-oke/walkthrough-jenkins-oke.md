@@ -34,15 +34,15 @@ To clone the forked repository:
 
 3. Select your repository such as your account/repo from your repositories. In this example, select <your_name>/microservices-datadriven. Under Local Path, select the local path on your machine where the repository is going to be cloned (copied). This is where the repository files get copied to your local file system. Click Clone.
 
-    ![Clone](images/clone.png " ")
+   ![Clone](images/clone.png " ")
 
 4. The cloning process may take several minutes.
 
-    ![Cloning](images/cloning.png " ")
+   ![Cloning](images/cloning.png " ")
 
 5. When asked how you plan to use the fork, select To contribute to the parent project. Click Continue.
 
-     ![Cloning](images/contribute-to-parent.png " ")
+   ![Cloning](images/contribute-to-parent.png " ")
 
 6. The repository files (in this case, microservices-datadriven) appear in the local path you just specified. You can now start working on the next task!
 
@@ -104,11 +104,19 @@ You can use Github Desktop to synchronize the changes that you have made in your
 
 15. Check Jenkins pipeline and observe Jenkins job created – review the log.
 
+   You can review the code for pipeline stages in the Jenkins file located in your repo - workshops>dcms-cicd>jenkins>jenkinslab1:
+
+   ![Jenkins File Stages](images/jenkins-pipeline.png " ")
+
+   Click on Click on `Demo` and then navigate to `Changes` - review the changes that were performed:
+
    ![Jenkins Changes](images/jenkins-changes.png " ")
 
-   ![Jenkins Log](images/jenkins-log.png " ")
+   Review the console output:
 
-16. Check OKE pod - once pipeline successfully completed, check that the new frontend-helidon pod is being redeployed and is running:
+   ![Jenkins Log](images/jenkins-console-output.png " ")
+
+16. Check OKE pod status - once pipeline successfully completed, check that the new frontend-helidon pod is being redeployed and is running:
 
     ```bash
     <copy>kubectl get pods --all-namespaces</copy>
@@ -118,7 +126,7 @@ You can use Github Desktop to synchronize the changes that you have made in your
 
     Or, you can execute the `pods` shortcut command.
 
-17. Check the grabdish application UI for the changes - open a new browser tab and enter the external IP URL you have tested in Lab 2.:
+17. And finally, check the grabdish application UI for the changes - open a new browser tab and enter the external IP URL you have tested in Lab 2.:
 
     `https://<EXTERNAL-IP>`
 
