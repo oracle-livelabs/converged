@@ -1,4 +1,4 @@
-# Build CI/CD Pipeline by Using Jenkins and Oracle Cloud Infrastracture
+# Integrate Jenkins with GitHub and Oracle Cloud Infrastracture
 
 ## Introduction
 

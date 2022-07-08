@@ -1,8 +1,8 @@
-# Integrate GitHub Repository with Jenkins for Liquibase with SQLcl Use Case
+# Integrate GitHub with Jenkins for Liquibase with SQLcl Use Case
 
 ## Introduction
 
-This lab will demonstrate how to integrate Jenkins and GitHub Repository using Github Branch Source Plugin
+This lab will demonstrate how to integrate Jenkins and GitHub Repository using Github Branch Source Plugin for Liquibase with SQLcl Use Case.
 
 Estimated Time:  15 minutes
 

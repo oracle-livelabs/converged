@@ -1,8 +1,8 @@
-# CI/CD Workflow using Liquibase with SQLcl Walkthrough
+# CI/CD Workflow using Liquibase with SQLcl Walk Through
 
 ## Introduction
 
-This lab will walk you through CI/CD workflow using the pipeline built in the previous lab.
+This demonstration will walk through a typical schema change request workflow using Liquibase with SQLcl.
 
 ![CI/CD Flow](images/cicd-jenkins-github.png " ")
 
@@ -14,7 +14,7 @@ Estimated Time:  25 minutes
   
 ### Prerequisites
 
-This lab presumes you have already completed the earlier labs. At this stage, you should have a Jenkins Multibranch Pipeline integrated with your GitHub repository for Schema CI/CD. This demonstration will walk through a typical schema change request workflow using Liquibase with SQLcl.
+This lab presumes you have already completed the earlier labs. At this stage, you should have a Jenkins Multibranch Pipeline integrated with your GitHub repository for Schema CI/CD. 
 
  > **Note:** This demonstration creates an isolated development environment in a different schema on the same database. This is to reduce the infrastructure required to run the demo. Using a different database (incl. OCI Autonomous Database), a different PDB, a Sparse Clone, etc. are interchangeable solutions to the isolated schema approach.
 

@@ -1,4 +1,4 @@
-# Build CI/CD Pipeline by Using Jenkins and Oracle Cloud Infrastracture
+# CI/CD Workflow using Jenkins and Oracle Cloud Infrastracture Walk Through
 
 ## Introduction
 
@@ -10,11 +10,11 @@ Estimated Time: 20 minutes
 
 ### Objectives
 
-* CI/CD Workflow Walkthrough
+* CI/CD Workflow Walk Through
   
 ### Prerequisites
 
-* Oracle Cloud Infrastructure Services, like OKE cluster, OCIR and the Autonomous Transaction Processing databases, GitHub and Jenkins that you created and configred in earlier labs
+* Oracle Cloud Infrastructure Services, like OKE cluster, OCIR and the Autonomous Transaction Processing databases, GitHub and Jenkins that you created and configured in earlier labs
 * The latest version of Git, [GitHub Desktop] (https://desktop.github.com/) and your preferred editor, such as Visual Studio Code, or IntelliJ Idea installed locally on your computer.
 * This lab presumes you setup a workshop repository in your own GitHub account.
 
