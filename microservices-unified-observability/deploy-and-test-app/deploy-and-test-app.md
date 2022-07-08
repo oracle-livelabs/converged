@@ -8,7 +8,7 @@ Estimated Time:  10 minutes
 
 Quick walk through on how to deploy the microservices on your Kubernetes cluster.
 
-[](youtube:8gMmjbXSR68)
+[](youtube:qZeHNUEOpj0) 
 
 ### Objectives
 
@@ -25,7 +25,7 @@ Quick walk through on how to deploy the microservices on your Kubernetes cluster
 1.  Run the deploy script. This will create the deployment, services, etc. for all microservices in the Kubernetes cluster's `msdataworkshop` namespace:
 
     ```
-    <copy>cd $GRABDISH_HOME;./deploy-noLB.sh</copy>
+    <copy>cd $GRABDISH_HOME;./deploy-core-services-only.sh</copy>
     ```
 
    ![Deploy All](images/deploy-all.png " ")
@@ -47,7 +47,7 @@ Quick walk through on how to deploy the microservices on your Kubernetes cluster
 4. Run the following curl command in the shell prompt to issue a `placeOrder` request to the GrabDish application replace `[REPLACE_WITH_UI_PASSWORD_FROM_SETUP]` as appropriate.
 
     ```
-    <copy>curl -u grabdish:[REPLACE_WITH_UI_PASSWORD_FROM_SETUP] -X POST -H "Content-type: application/json" -d  "{\"serviceName\" : \"order\" , \"commandName\" : \"placeOrder\", \"orderId\" : \"1\", \"orderItem\" : \"sushi\",  \"deliverTo\" : \"101\"}"  "http://frontend.msdataworkshop:8080/placeorderautoincrement"</copy>
+    <copy>curl -u grabdish:[REPLACE_WITH_UI_PASSWORD_FROM_SETUP] -X POST -H "Content-type: application/json" -d  "{\"serviceName\" : \"order\" , \"commandName\" : \"placeOrder\", \"orderId\" : \"1\", \"orderItem\" : \"sushi\",  \"deliverTo\" : \"101\"}"  "http://frontendnp.msdataworkshop:8080/placeorderautoincrement"</copy>
     ```
 
    and verify the output
@@ -59,7 +59,7 @@ Quick walk through on how to deploy the microservices on your Kubernetes cluster
 5. Run the following curl command in the shell prompt to issue a `showOrder` request to the GrabDish application.
 
     ```
-    <copy>curl -u grabdish:[REPLACE_WITH_UI_PASSWORD_FROM_SETUP] -X POST -H "Content-type: application/json" -d  "{\"serviceName\" : \"order\" , \"commandName\" : \"showorder\", \"orderId\" : \"1\", \"orderItem\" : \"\",  \"deliverTo\" : \"\"}"  "http://frontend.msdataworkshop:8080/command"</copy>
+    <copy>curl -u grabdish:[REPLACE_WITH_UI_PASSWORD_FROM_SETUP] -X POST -H "Content-type: application/json" -d  "{\"serviceName\" : \"order\" , \"commandName\" : \"showorder\", \"orderId\" : \"1\", \"orderItem\" : \"\",  \"deliverTo\" : \"\"}"  "http://frontendnp.msdataworkshop:8080/command"</copy>
     ```
 
    and verify the output

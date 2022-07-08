@@ -2,7 +2,7 @@
 
 ## Introduction
 
-This lab will show you how to  walk through the Grabdish application functionality written in PL/SQL and explain how it works.
+This lab will show you how to walk through the Grabdish application functionality written in PL/SQL and explain how it works.
 
 Estimated Time: 10 minutes
 
@@ -38,9 +38,9 @@ Estimated Time: 10 minutes
 
    ![Show Order](images/tx-show-order-66.png " ")
 
-   This is expected, because the inventory count for sushi was 0.
+   This is expected because the inventory count for sushi was 0.
 
-6. Click **Add Inventory** to add the sushi in the inventory. You
+6. Click **Add Inventory** to add the sushi to the inventory. You
     should see the outcome being an incremental increase by 1.
 
    ![Add Inventory](images/tx-add-inventory.png " ")
@@ -55,13 +55,13 @@ Estimated Time: 10 minutes
 
 ## Task 2: Learn How it Works
 
-![Microservices Architecture](../intro/images/TwoTier.png "Two Tier Application Architecture")
+![Microservices Architecture](../intro/images/two-tier.png "Two Tier Application Architecture")
 
-The application is implemented with a two tier architecture:
+The application is implemented with a two-tier architecture:
 * JavaScript User Interface (in the browser)
 * Order and Inventory microservices in the database
 
-In this lab we showcase the microservices written in the PL/SQL programming language.  In the next lab we show that they can also be written in JavaScript running in the database.
+In this lab, we showcase the microservices written in the PL/SQL programming language.  In the next lab, we show that they can also be written in JavaScript running in the database.
 
 When a button is clicked in the user interface, the appropriate data is composed into a JSON document and a web request is made through the load balancer to a service hosted in ORDS.  Here is the user interface code that makes the web request (code extract from [index.html](https://github.com/oracle/microservices-datadriven/blob/main/workshops/dcms-db/grabdish/web/index.html)):
 
@@ -112,13 +112,13 @@ begin
 </copy>
 ```
 
-Each input (in) parameter is mapped to a JSON attribute in the incoming request and the procedure is execute.  In response, a JSON document is constructed with each output (out) parameter corresponding to a JSON attribute.
+Each input (in) parameter is mapped to a JSON attribute in the incoming request and the procedure is executed.  In response, a JSON document is constructed with each output (out) parameter corresponding to a JSON attribute.
 
-Although this might look like a basic transactional mechanic, the difference in the microservices environment is that it’s not using a two-phase XA commit, and therefore not using distributed locks. In a microservices environment with potential latency in the network, service failures during the communication phase or delays in long running activities, an application shouldn’t have locking across the services. Instead, the pattern that is used is called the saga pattern, which instead of defining commits and rollbacks, allows each service to perform its own local transaction and publish an event. The other services listen to that event and perform the next local transaction.
+Although this might look like a basic transactional mechanic, the difference in the microservices environment is that it’s not using a two-phase XA commit, and is therefore not using distributed locks. In a microservices environment with potential latency in the network, service failures during the communication phase, or delays in long-running activities, an application shouldn’t have locking across the services. Instead, the pattern that is used is called the saga pattern, which instead of defining commits and rollbacks, allows each service to perform its local transaction and publish an event. The other services listen to that event and perform the next local transaction.
 
 The frontend application is communicating with the order service to place an order. The order service is then inserting the order into the order JSON collection, while also sending a message describing that order. This approach is called the event sourcing pattern, which due to its decoupled non-locking nature is prominently used in microservices. The event sourcing pattern entails sending an event message for every unit of work or any data manipulation that is conducted. In this example, while the order was inserted in the order collection, an event message was also created in the Advanced Queue of the Oracle database.
 
-Implementing the messaging queue inside the Oracle database provides a unique capability of performing the event sourcing actions (manipulating data and sending an event message) atomically within the same database transaction. The benefit of this approach is that it provides a guaranteed once delivery, and it doesn’t require writing additional application logic to handle possible duplicate message deliveries, as it would be the case with solutions using separate datastores and event messaging platforms(code extract from [order-plsql.sql](https://github.com/oracle/microservices-datadriven/blob/main/workshops/dcms-db/grabdish/order/order-plsql/order-plsql.sql)):
+Implementing the messaging queue inside the Oracle database provides a unique capability of performing the event sourcing actions (manipulating data and sending an event message) atomically within the same database transaction. The benefit of this approach is that it provides a guaranteed once delivery, and it doesn’t require writing additional application logic to handle possible duplicate message deliveries, as would be the case with solutions using separate datastores and event messaging platforms(code extract from [order-plsql.sql](https://github.com/oracle/microservices-datadriven/blob/main/workshops/dcms-db/grabdish/order/order-plsql/order-plsql.sql)):
 
 ```sql
 <copy>
@@ -200,11 +200,11 @@ end;
 </copy>
 ```
 
-The services do not talk directly to each other, as each service is isolated and accesses its own datastore, while the only communication path is through the messaging PLSQLInsertOrderEnqueueMessage.
+The services do not talk directly to each other, as each service is isolated and accesses its datastore, while the only communication path is through the messaging PLSQLInsertOrderEnqueueMessage.
 
-This architecture is tied with the Command Query Responsibility Segregation (CQRS) pattern, meaning that the command and query operations use different methods. In our example the command was to insert an order into the order collection, while the query on the order is receiving events from different interested parties and putting them together (from suggestive sales, inventory, etc). Instead of actually going to suggestive sales service or inventory service to get the necessary information, the service is receiving events.
+This architecture is tied with the Command Query Responsibility Segregation (CQRS) pattern, meaning that the command and query operations use different methods. In our example, the command was to insert an order into the order collection, while the query on the order is receiving events from different interested parties and putting them together (from suggestive sales, inventory, etc). Instead of going to suggestive sales service or inventory service to get the necessary information, the service is receiving events.
 
-You may now [move on to Lab 4](#next).
+You may now **proceed to the next lab**.
 
 ## Acknowledgements
 * **Author** - Richard Exley, Consulting Member of Technical Staff, Oracle MAA and Exadata
