@@ -29,7 +29,7 @@ Estimated Time: 15 minutes
      </copy>
      ```
 
-    * Kubernetes will create a secret token bound to the service account. Using below command retrieve the secret:
+     Kubernetes will create a secret token bound to the service account. Using below command retrieve the secret:
 
      ```bash
      <copy>
@@ -37,15 +37,15 @@ Estimated Time: 15 minutes
      </copy>
      ```
 
-    * Copy the secret token - you will use it in the next steps when creating a secret credential.
+     Copy the secret token - you will use it in the next steps when creating a secret credential.
 
 2. Open a new browser tab and login into your Jenkins console (Jenkins URL is being created during infrastructure setup).
 
-   * Retrieve Jenkins IP address through the console.
-   * Check the public VM's public IP otherwise or check the Load Balancer jenkins-load-balancer's public IP if a load balancer was provisioned.
-   * Login into Jenkins console using username `admin` and password you created in the Setup lab.
+     Retrieve Jenkins IP address through the OCI console. Check the public VM's public IP otherwise or check the Load Balancer jenkins-load-balancer's public IP if a load balancer was provisioned.
 
-    `https://jenkins.example.com`
+     Login into Jenkins console using username `admin` and password you created in the Setup lab.
+
+     `https://jenkins.example.com`
 
 3. Navigate to `Manage Jenkins` and then click `Manage Credentials`.
 
@@ -63,17 +63,17 @@ Estimated Time: 15 minutes
 
      ![Jenkins Secret](images/jenkins-secret-creds.png " ")
 
-      * Kind: `Secret text`
-      * Scope: `Global`
-      * Secret: < Paste content of service account secret token created above >
-      * Click `OK`
+     Kind: `Secret text`
+     Scope: `Global`
+     Secret: < Paste content of service account secret token created above >
+     Click `OK`
 
     Add another credential by clicking **Add Credentials** in the left hand navigation bar.
 
-      * Kind: `Username with password`
-      * Username: Set Username
-      * Password: < Paste auth token as password - Retrieve docker auth token through logs >
-      * Click `OK`
+     Kind: `Username with password`
+     Username: Set Username
+     Password: < Paste auth token as password - you can either retrieve the docker auth token through logs >
+     Click `OK`
 
      > **Note:** Note the "Username with password" credential's ID for the next steps.
 
@@ -83,12 +83,12 @@ Estimated Time: 15 minutes
 
      ![Jenkins Tool Configuration](images/jenkins-tool-config.png " ")
 
-      * Under `Maven > Maven Installation`, add Maven with name **maven3**
-      * Click `Save`
+     Under `Maven > Maven Installation`, add Maven with name **maven3**
+     Click `Save`
 
 ## Task 3: Create a New Pipeline
 
-1. On Jenkins Dasboard, click on `New Item` and enter the name for the item: `Demo`.
+1. On Jenkins Dashboard, click on `New Item` and enter the name for the item: `Demo`.
 
 2. Select `Pipeline` and click `OK`.
 
@@ -100,7 +100,7 @@ Estimated Time: 15 minutes
 
      ![Jenkinsfile](images/jenkins-pipeline-file.png " ")
 
-      * Under `environment` section of Jenkinsfile, supply the missing values:
+     Under `environment` section of Jenkinsfile, supply the missing values:
 
         ocir_credentials_id = ""
         region = ""

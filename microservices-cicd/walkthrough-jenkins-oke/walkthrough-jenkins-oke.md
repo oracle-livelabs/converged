@@ -10,7 +10,7 @@ Estimated Time: 20 minutes
 
 ### Objectives
 
-* CI/CD Workflow Walk Through
+* CI/CD Workflow Walkthrough
   
 ### Prerequisites
 
@@ -78,37 +78,53 @@ You can use Github Desktop to synchronize the changes that you have made in your
 
    ![Version Increase](images/versions-update.png " ")
 
-7. Start your Github Desktop client. Confirm that your **Current repository** points to your  `<your_name>/microservices-datadriven GitHub repository`.
+7. Start your Github Desktop client. Confirm that your `Current repository` points to your  `<your_name>/microservices-datadriven GitHub repository`.
 
    ![GitHub Desktop](images/github-desktop.png " ")
 
-8. Under the **Changes**, you should see 2 changed files:
+8. Under the `Changes`, you should see 2 changed files:
 
    ![GitHub Desktop Spatial](images/github-desktop-spatial.png " ")
 
    ![GitHub Desktop Versions](images/github-desktop-versions.png " ")
 
-9. In the **Summary (required)** text box on the left side, enter the summary of your changes.
+9. In the `Summary (required)` text box on the left side, enter the summary of your changes.
 
-10. Click **Commit to main**. This saves your changes in your local clone.
+10. Click `Commit to main`. This saves your changes in your local clone.
 
    ![GitHub Desktop Commit](images/github-desktop-commit.png " ")
 
-12. Click **Push origin**. This pushes the updated content from your clone into the origin of this clone, that is, your fork.
+12. Click `Push origin`. This pushes the updated content from your clone into the origin of this clone, that is, your fork.
 
    ![GitHub Desktop Push](images/github-desktop-push.png " ")
 
 13. The updates in the previous step commited to your [https://github.com/oracle/microservices-datadriven] repository will initiate Jenkins flow.
 
-14. To review the pipeline flow, navigate to Jenkins and login as 
+14. To review the pipeline flow, login into Jenkins console using username `admin` and password you created in the Setup lab.
 
-15. Check Jenkins pipeline
+15. Check Jenkins pipeline and observe Jenkins job created – review the log.
 
-16. Observe Jenkins job created – review the log
+   ![Jenkins Changes](images/jenkins-changes.png " ")
 
-17. Check OKE pod - steps
+   ![Jenkins Log](images/jenkins-log.png " ")
 
-18. Check the grabdish application for the latest changes - steps
+16. Check OKE pod - once pipeline successfully completed, check that the new frontend-helidon pod is being redeployed and is running:
+
+    ```bash
+    <copy>kubectl get pods --all-namespaces</copy>
+    ```
+
+    ![Pods All After Deploy](images/pods-all-after-deploy.png " ")
+
+    Or, you can execute the `pods` shortcut command.
+
+17. Check the grabdish application UI for the changes - open a new browser tab and enter the external IP URL you have tested in Lab 2.:
+
+    `https://<EXTERNAL-IP>`
+
+    You will be prompted to authenticate to access the Front End microservices. The user is `grabdish` and the password is the one you entered in Lab 1.
+
+    Navigate to `Spatial` area of the application and observe the title changes - it changed from  **Data-driven Microservices with converged Oracle Database** to **Datadriven Microservices with Converged Oracle Database**  .
 
 You may now **proceed to the next lab.**.
 

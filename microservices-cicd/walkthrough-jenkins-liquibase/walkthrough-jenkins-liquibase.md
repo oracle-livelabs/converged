@@ -24,7 +24,7 @@ A new issue is created in your GitHub repository to track the lifecycle of the c
 
 1. Log into GitHub and click on the forked microservices-datadriven repository which has been integrated with Jenkins.
 
-      * Create a New Issue
+      Create a New Issue
 
       ![New Issue](images/new-issue.png " ")
 
@@ -77,7 +77,7 @@ The DBA/Developer will work on the issue in the newly created isolated schema. D
 
 1. In the OCI Console, navigate to the Autonomous Database and click on Database Actions > SQL.
 
-    * Add the new column and run:
+    Add the new column and run:
 
     ```sql
     <copy>
@@ -90,7 +90,7 @@ The DBA/Developer will work on the issue in the newly created isolated schema. D
     In Cloud Shell, navigate to your repositories liquibase directory. This directory contains the Liquibase ChangeSets which define the "Production" schema.
     Ensure you are in the git "feature" branch for your change:
 
-    * Fetch the new branch:
+    Fetch the new branch:
 
       ```bash
       <copy>
@@ -110,7 +110,7 @@ The DBA/Developer will work on the issue in the newly created isolated schema. D
       * [new branch]      1-add-last_updated-column-to-inventory-table -> origin/1-add-last_updated-column-to-inventory-table
       ```
 
-    * Checkout the branch:
+    Checkout the branch:
 
       ```bash
       <copy>
@@ -200,15 +200,15 @@ The DBA/Developer will work on the issue in the newly created isolated schema. D
    
     On the Jenkins Controller, Navigate to Dashboard > Demonstration. You'll notice that the last build on the "feature" branch has failed:
 
-    * Click on `1-add-last_updated-column-to-inventory-table`.
+    Click on `1-add-last_updated-column-to-inventory-table`.
 
       ![Build Failure](images/build-failure.png " ")
 
-    * Click on `Last Build #2...`.
+    Click on `Last Build #2...`.
 
-    * Click `Console Output`.
+    Click `Console Output`.
 
-    * Read the output to determine the failure.
+    Read the output to determine the failure.
       
       ![Build Failure Log](images/build-failure-log.png " ")
       
@@ -261,7 +261,7 @@ Back in GitHub, a notification that your `feature` branch has had recent pushes 
 
     Let's review pull request pipeline. On the Jenkins Controller, a new build will have been initiated by the Pull Request (PR). This build will drop the isolated development environment. - a new build will have been initiated by the Pull Request (PR).
 
-4.  Let's review pull request pipeline. On the Jenkins Controller, a new build will have been initiated by the Pull Request (PR). This build will drop the isolated development environment. - a new build will have been initiated by the Pull Request (PR). Select the "Pull Request" Tab and Click on the "Name of the PR".
+4. Let's review pull request pipeline. On the Jenkins Controller, a new build will have been initiated by the Pull Request (PR). This build will drop the isolated development environment. - a new build will have been initiated by the Pull Request (PR). Select the "Pull Request" Tab and Click on the "Name of the PR".
 
     ![Pull Request Pipeline](images/pull-request-pipeline.png " ")
 
