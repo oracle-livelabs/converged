@@ -8,7 +8,7 @@
       },
       {
         "title": "Get Started",
-        "filename": "https://raw.githubusercontent.com/oracle/learning-library/master/common/labs/cloud-login/pre-register-free-tier-account.md"
+        "filename": "https://raw.githubusercontent.com/oracle/learning-library/master/common/labs/cloud-login/cloud-login.md"
       },
       {
         "title": "Lab 1: Setup",
@@ -19,19 +19,19 @@
         "filename": "../../app-deploy/app-deploy.md"
       },
       {
-        "title": "Lab 3: Build CI/CD Pipeline by Using Jenkins and Oracle Cloud Infrastracture",
+        "title": "Lab 3: Integrate Jenkins with GitHub and Oracle Cloud Infrastracture",
         "filename": "../../jenkins-oke-int/jenkins-oke-integration.md"
       },
       {
-        "title": "Lab 4: CI/CD Workflow Using Jenkins and Oracle Cloud Infrastracture Walkthrough",
+        "title": "Lab 4: CI/CD Workflow using Jenkins and Oracle Cloud Infrastracture Walk Through",
         "filename": "../../jenkins-oke-flow/jenkins-oke-flow.md"
       },
       {
-        "title": "Lab 5: Integrate GitHub Repository with Jenkins for Liquibase with SQLcl Use Case",
+        "title": "Lab 5: Integrate GitHub with Jenkins for Liquibase with SQLcl Use Case",
         "filename": "../../liquibase-jenkins-int/liquibase-jenkins-integration.md"
       },
       {
-        "title": "Lab 6: CI/CD Workflow using Liquibase with SQLcl Walkthrough",
+        "title": "Lab 6: CI/CD Workflow using Liquibase with SQLcl Walk Through",
         "filename": "../../liquibase-jenkins-flow/liquibase-jenkins-flow.md"
       },
       {
