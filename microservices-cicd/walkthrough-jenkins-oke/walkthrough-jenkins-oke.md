@@ -1,4 +1,4 @@
-# CI/CD Workflow using Jenkins and Oracle Cloud Infrastracture Walk Through
+#  Walkthrough CI/CD Pipeline for Jenkins Integration with Oracle Cloud Infrastracture
 
 ## Introduction
 

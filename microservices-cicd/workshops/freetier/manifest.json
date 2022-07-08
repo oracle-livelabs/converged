@@ -20,19 +20,19 @@
       },
       {
         "title": "Lab 3: Integrate Jenkins with GitHub and Oracle Cloud Infrastracture",
-        "filename": "../../jenkins-oke-int/jenkins-oke-integration.md"
+        "filename": "../../int-jenkins-oke/integration-jenkins-oke.md"
       },
       {
-        "title": "Lab 4: CI/CD Workflow using Jenkins and Oracle Cloud Infrastracture Walk Through",
-        "filename": "../../jenkins-oke-flow/jenkins-oke-flow.md"
+        "title": "Lab 4: Walkthrough CI/CD Pipeline for Jenkins Integration with Oracle Cloud Infrastracture",
+        "filename": "../../walkthrough-jenkins-oke/walkthrough-jenkins-oke.md"
       },
       {
         "title": "Lab 5: Integrate GitHub with Jenkins for Liquibase with SQLcl Use Case",
-        "filename": "../../liquibase-jenkins-int/liquibase-jenkins-integration.md"
+        "filename": "../../int-jenkins-liquibase/integration-jenkins-liquibase.md"
       },
       {
-        "title": "Lab 6: CI/CD Workflow using Liquibase with SQLcl Walk Through",
-        "filename": "../../liquibase-jenkins-flow/liquibase-jenkins-flow.md"
+        "title": "Lab 6: Walkthrough CI/CD Pipeline for Liquibase with SQLcl Integration",
+        "filename": "../../walkthrough-jenkins-liquibase/walkthrough-jenkins-liquibase.md"
       },
       {
         "title": "Lab 7: Tear Down",
