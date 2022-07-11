@@ -123,7 +123,7 @@ Estimated Time:  15 minutes
 
 5. Click `Add Credentials` in the left hand navigation bar.
 
-     ![GitHubAppDemo Credentials](images/githubappdemo-creds.png " ")
+     ![GitHubAppDemo Credentials](images/githubapp-demo-creds.png " ")
 
      * Kind: `GitHub App`
      * ID: `GitHubAppDemo`
@@ -132,7 +132,7 @@ Estimated Time:  15 minutes
 
 6. Click `Test Connection` which should be successful.
 
-     ![GitHubAppDemo Connection Test](images/githubappdemo-credstest.png " ")
+     ![GitHubAppDemo Connection Test](images/githubapp-creds-test.png " ")
 
 7. Click `OK`.
 
@@ -182,11 +182,11 @@ Estimated Time:  15 minutes
 
 2. Select `Multibranch Pipeline` and click `OK`.
 
-     ![New Item](images/jenkins_new_item.png " ")
+     ![New Item](images/jenkins-new-item.png " ")
 
 3. Configure the following.
 
-     ![New Item](images/jenkins_new_item.png " ")
+     ![Demo Item Configuration](images/jenkins-demo-item.png " ")
 
      * Display Name: `Demonstration`
      * Branch Source: `GitHub`
