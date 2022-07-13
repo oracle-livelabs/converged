@@ -26,6 +26,16 @@ Quick walk through to tear down the resources created in your tenancy and the di
     <copy>teardown</copy>
     ```
 
+2. Run the following command to delete the resources created in you tenancy for CI/CD flow.
+
+    ```bash
+
+    <copy>
+    cd ~/grabdish/microservices-datadriven/workshops/dcms-cicd/
+    teardown
+    </copy>
+    ```
+
 ## Task 2: Delete the Directory
 
 1. Delete the directory in your cloud shell where you installed the workshop.

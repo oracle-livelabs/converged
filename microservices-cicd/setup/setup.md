@@ -4,7 +4,7 @@
 
 In this lab, we will provision and setup the reference architecture.
 
-In this reference architecture, Jenkins is hosted on Oracle Cloud Infrastructure to centralize build automation and scale the deployment by using Oracle Cloud Infrastructure Registry, Oracle Kubernetes and Oracle Converged Database. GitHub is used to manage source code.
+In this reference architecture, Jenkins is hosted on Oracle Cloud Infrastructure to centralize build automation and scale the deployment by using Oracle Cloud Infrastructure Registry, Oracle Kubernetes and Oracle Converged Database. GitHub is used to manage source code. 
 
 Estimated Time: 25 minutes
 
@@ -15,18 +15,18 @@ Estimated Time: 25 minutes
 
 ### Prerequisites
 
-* An Oracle Cloud paid account or free trial. To sign up for a trial account with $300 in credits for 30 days, click [Sign Up](http://oracle.com/cloud/free).
-* As this is a demonstration of Jenkins/GitHub integration for CI/CD, **you must use your own GitHub account to run it.**
+* This lab requires completion of the Get Started section in the Contents menu on the left.
+* As this is a demonstration of Jenkins/GitHub integration for CI/CD, **you must use your own GitHub account to run it. Please fork or copy [Oracle Microservices GiHub repository](https://github.com/oracle/microservices-datadriven) into your own GitHub account**.
 
 ## Task 1: Copy the workshop microservices repository into your own GitHub account
 
-1. Open a browser and navigate to `https://github.com/oracle/microservices-datadriven`.
+1. Open a browser and navigate to [Oracle GitHub Microservices repository](https://github.com/oracle/microservices-datadriven).
 
    * Fork `https://github.com/oracle/microservices-datadriven` into your own GitHub account.
 
      ![Main Repository](images/main_repo.png " ")
 
-## Task 2: Log in to the Oracle Cloud Console and Launch the Cloud Shell
+## Task 2: Log in to the Oracle Cloud Console
 
 1. If you haven't already, sign in to your Oracle Cloud Infrastructure account.
 
@@ -36,7 +36,57 @@ Estimated Time: 25 minutes
 
   ![Oracle Cloud Infrastructure Home Region](images/home-region.png " ")
 
-## Task 4: Check Your Tenancy Service Limits
+## Task 4: Create group and IAM policies for a user
+
+> **Note:** If you have admin privileges in your Free Tier or Paid account, you can skip Task #4 steps. Otherwise, please continue.
+
+If you are not an administrator on your tenancy, you must insure that additional policies have been added to the group you are a member of or ask your admin to create a separate group for you with additional policies. This group will have IAM policies for creating and managing the resources within the compartment that will be created by workshop setup scripts.
+
+A user's permissions to access services comes from the groups to which they belong. The permissions for a group are defined by policies. Policies define what actions members of a group can perform, and in which compartments. Users can access services and perform operations based on the policies set for the groups of which they are members.
+
+Here are the steps for creating a new group and assigning security policy required for this workshop (only a user with the admin account will be able to perform the below steps):
+
+1. Click the Navigation Menu in the upper left, navigate to Identity & Security and select Groups.
+
+   ![Oracle Cloud Infrastructure Identity & Security Groups Screen](images/id-groups.png " ")
+
+2. Click Create Group.
+
+   ![Create Oracle Cloud Infrastructure Identity & Security Group Screen](images/create-group.png " ")
+
+3. In the Create Group dialog box, enter the following:
+ - **Name**: Enter a unique name for your group, such as "MicroservicesAdmin”. Note that the group name cannot contain spaces.
+ - **Description**: Enter a description (for example, “New group for microservices workshop”).
+ - Click **Create**.
+
+   ![Create a New Group](images/new-group.png " ")
+
+   ![Review a New Group](images/get-new-group.png " ")
+
+ 4. Now, create a security policy that gives the group permissions to execute the setup steps for this workshop, entering a name, such as "Microservices-Policies".
+
+   ![Create a New Securiry Policy](images/create-policy.png " ")
+
+   Using **Edit Policy Statement** option, add the below statements to the policy created above.
+
+   ```
+   <copy>
+   Allow group MicroservicesAdmin to use cloud-shell in tenancy
+   Allow group MicroservicesAdmin to manage users in tenancy
+   Allow group MicroservicesAdmin to manage all-resources in tenancy
+
+   Allow group MicroservicesAdmin to manage vaults in tenancy
+   Allow group MicroservicesAdmin to manage buckets in tenancy
+   Allow group MicroservicesAdmin to manage objects in tenancy
+
+   </copy>
+   ```
+
+  ![Policy Statements](images/policy-statements.png " ")
+
+5. And finally, make sure your user account has been added to the group created in step#2.  
+
+## Task 5: Check Your Tenancy Service Limits
 
 If you have a **fresh** free trial account with credits then you can be sure that you have enough quota and you can proceed to the next step.
 
@@ -51,12 +101,16 @@ If, however, you have already used up some quota on your tenancy, perhaps while 
 | LbaaS            | Region | 100Mbps Load Balancer Count                           | **3**     | 3                  |
 
 1. Quota usage and limits can be check through the console: **Limits, Quotas and Usage** in the **Governance & Administration** section , For example:
-  ![Oracle Cloud Infrastructure Service Limit Example](images/service-limit-example.png " ")
+
+    ![Oracle Cloud Infrastructure Service Limit Example](images/service-limit-example.png " ")
+
 2. The Tenancy Explorer is used to locate existing resources: **Governance & Administration** --> **Governance** --> **Tenancy Explorer**. Use the "Show resources in subcompartments" feature to locate all the resources in your tenancy:
+
   ![Oracle Cloud Infrastructure Show Subcompartments](images/show-subcompartments.png " ")
+
   It may be necessary to delete some resources to make space to run the workshop. Once you have enough space you may proceed to the next step.
 
-## Task 5: Launch Cloud Shell
+## Task 6: Launch Cloud Shell
 
 Cloud Shell is a small virtual machine running a "bash" shell which you access through the Oracle Cloud Console. Cloud Shell comes with a pre-authenticated command line interface in the tenancy region. It also provides up-to-date tools and utilities.
 
@@ -66,27 +120,27 @@ Cloud Shell is a small virtual machine running a "bash" shell which you access t
 
   > **Note:** Cloud Shell uses websockets to communicate between your browser and the service. If your browser has websockets disabled or uses a corporate proxy that has websockets disabled you will see an error message ("An unexpected error occurred") when attempting to start Cloud Shell from the console. You also can change the browser cookies settings for a specific site to allow the traffic from *.oracle.com
 
-## Task 6: Create a Folder to Contain the Workshop Code
+## Task 7: Create a Folder to Contain the Workshop Code
 
 1. Create a directory to contain the workshop code. The directory name is used to create a compartment of the same name in your tenancy. The directory name must have between 1 and 13 characters, contain only letters or numbers, and start with a letter. Make sure that a compartment of the same name does not already exist in your tenancy or the setup will fail. For example:
 
     ```bash
     <copy>
-    mkdir grabdish
+    mkdir ~/grabdish
     </copy>
     ```
 
-    All the resources created by the setup are created in this compartment. This will let you to quickly delete and cleanup afterward.
+   All the resources created by the setup are created in this compartment. This will let you to quickly delete and cleanup afterward.  
 
 2. Change directory to the directory that you have created. The setup will fail if you do not complete this step. For example:
 
-  ```bash
-  <copy> 
-  cd grabdish
-  </copy>
-  ```
+    ```bash
+    <copy> 
+    cd ~/grabdish
+    </copy>
+    ```
 
-## Task 7: Make a Clone of the Workshop Setup Script and Source Code
+## Task 8: Make a Clone of the Workshop Setup Script and Source Code
 
 1. To work with the application code, you need to make a clone from the GitHub repository you copiedor forked into your own GitHub account in the previous setup step.
 
@@ -98,7 +152,7 @@ Cloud Shell is a small virtual machine running a "bash" shell which you access t
 
     You should now see the directory `microservices-datadriven` in the directory that you created.
 
-## Task 8: Start the Setup
+## Task 9: Start the Setup
 
 1. Execute the following sequence of commands to start the setup.  
 
@@ -113,13 +167,11 @@ Cloud Shell is a small virtual machine running a "bash" shell which you access t
 
     The setup process will typically take around 20 minutes to complete.  
 
-2. (Conditional) The setup may ask you to confirm that there are no other un-terminated OKE clusters exist in your tenancy.
+2. (Conditional) The setup may ask you to confirm that there are no other un-terminated OKE clusters exist in your tenancy:
 
     ```bash
-    <copy>
     You are limited to only one OKE cluster in this tenancy. This workshop will create one additional OKE cluster and so any other OKE clusters must be terminated.
     Please confirm that no other un-terminated OKE clusters exist in this tenancy and then hit [RETURN]?
-    </copy>
     ```
 
     To confirm that there are no other un-terminated OKE clusters, click the Navigation Menu in the upper left of Oracle Cloud Console, navigate to Developer Services and click on Kubernetes Clusters (OKE).
@@ -164,7 +216,7 @@ Cloud Shell is a small virtual machine running a "bash" shell which you access t
 
     ![Oracle Cloud Infrastructure User OCID Example](images/example-user-ocid.png " ")
 
-5. The setup will automatically upload an Auth Token to your tenancy so that docker can log in to the Oracle Cloud Infrastructure Registry. If there is no space for a new Auth Token, the setup will ask you to remove an existing token to make room. This is done through the Oracle Cloud Console.
+5. (Conditional) The setup will automatically upload an Auth Token to your tenancy so that docker can log in to the Oracle Cloud Infrastructure Registry. If there is no space for a new Auth Token, the setup will ask you to remove an existing token to make room. This is done through the Oracle Cloud Console.
 
     Locate your menu bar and click the person icon at the far upper right. From the drop-down menu, select your user's name.
 
@@ -190,10 +242,11 @@ Cloud Shell is a small virtual machine running a "bash" shell which you access t
     </copy>
     ```
 
-9. Upon grabdish infra setup completion, you can start the setup for CI/CD components. Open the new browser window or tab, click the Cloud Shell icon in the top-right corner of the Console o start OCI Cloud Shell command line and execute the following sequence of commands to start the setup.  
+9. Upon grabdish infra setup completion, you can start the setup for CI/CD components. Using your existing Cloud Shell connection, run the following command to start the setup:  
 
     ```bash
     <copy>
+    cd ~/grabdish
     source microservices-datadriven/workshops/dcms-cicd/source.env
     jenkins-setup
     </copy>
@@ -201,15 +254,15 @@ Cloud Shell is a small virtual machine running a "bash" shell which you access t
 
     > **Note:** Cloud shell may disconnect after a period of inactivity. If that happens, you can reconnect and then run the command to resume the setup.
 
-10. The setup will ask for you to enter your region value, a value for deployment type and create a password for Jenkins admin user and run type.
+10. The setup will ask for you to enter your region value (conditional), a value for deployment type and create a password for Jenkins admin user and run type.
 
-    * Please enter the name of the region that you are connected to: `OCI_REGION`
+    * (Conditional) Please enter the name of the region that you are connected to: `OCI_REGION`
     * Please select Jenkins deployment type: `1`
-    * Enter the password to be used for Jenkins: `<ADMIN_PASSWORD>`
+    * Enter the password to be used for Jenkins Console admin user login: `<ADMIN_PASSWORD>`
 
     The setup process will typically take around 5 minutes to complete.
 
-## Task 9: Monitor the Setup
+## Task 10: Monitor the Setup
 
 The setup will provision the following resources in your tenancy:
 
@@ -230,7 +283,7 @@ The setup will provision the following resources in your tenancy:
 
     > **Note:** Cloud Shell sessions have a maximum length of 24 hours, and time out after 20 minutes of inactivity.
 
-## Task 10: Complete the Setup
+## Task 9: Complete the Setup
 
 1. The setup will provide a summary of the setup status as it proceeds. Once everything has completed you will see the message: **SETUP COMPLETED**.
 
@@ -242,11 +295,11 @@ The setup will provision the following resources in your tenancy:
     </copy>
     ```
 
-3. You can monitor log files located in the $GRABDISH_LOG directory.
+3. You can monitor log files located in the $DCMS_CICD_LOG_DIR directory.
 
     ```bash
     <copy>
-    ls -al $GRABDISH_LOG
+    ls -al $DCMS_CICD_LOG_DIR
     </copy>
     ```
 
@@ -256,11 +309,15 @@ The setup will provision the following resources in your tenancy:
 
 4. The status of the builds can be monitored with this command:
 
+    Grabdish:
+
     ```bash
     <copy>
     status
     </copy>
     ```
+
+    CI/CD:
 
     ```bash
     <copy>
