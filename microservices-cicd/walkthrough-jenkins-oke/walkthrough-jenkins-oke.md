@@ -106,7 +106,7 @@ You can use Github Desktop to synchronize the changes that you have made in your
 
    You can review the code for pipeline stages in the Jenkins file located in your repo - workshops > dcms-cicd > jenkins > jenkinslab1:
 
-   ![Jenkins File Stages](images/jenkins-pipeline.png " ")
+   ![Jenkins File Stages](images/jenkins-file-pipeline.png " ")
 
    Click on Click on `Demo` and then navigate to `Changes` - review the changes that were performed in the previous steps:
 
