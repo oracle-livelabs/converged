@@ -69,7 +69,7 @@ Here are the steps for creating a new group and assigning security policy requir
 
    Using **Edit Policy Statement** option, add the below statements to the policy created above.
 
-   ```
+   ```bash
    <copy>
    Allow group MicroservicesAdmin to use cloud-shell in tenancy
    Allow group MicroservicesAdmin to manage users in tenancy
@@ -170,8 +170,10 @@ Cloud Shell is a small virtual machine running a "bash" shell which you access t
 2. (Conditional) The setup may ask you to confirm that there are no other un-terminated OKE clusters exist in your tenancy:
 
     ```bash
+    <copy>
     You are limited to only one OKE cluster in this tenancy. This workshop will create one additional OKE cluster and so any other OKE clusters must be terminated.
     Please confirm that no other un-terminated OKE clusters exist in this tenancy and then hit [RETURN]?
+    </copy>
     ```
 
     To confirm that there are no other un-terminated OKE clusters, click the Navigation Menu in the upper left of Oracle Cloud Console, navigate to Developer Services and click on Kubernetes Clusters (OKE).
