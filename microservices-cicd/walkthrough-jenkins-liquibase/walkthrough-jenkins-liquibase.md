@@ -98,7 +98,7 @@ The DBA/Developer will work on the issue in the newly created isolated schema. D
       </copy>
       ```
 
-      Output:
+      You can review output from the above command:
 
       ```bash
       remote: Enumerating objects: 32, done.  
@@ -118,7 +118,7 @@ The DBA/Developer will work on the issue in the newly created isolated schema. D
       </copy>
       ```
 
-      Output:
+      You can review output from the above command:
 
       ```bash
       Branch '1-add-last_updated-column-to-inventory-table' set up to track remote branch '1-add-last_updated-column-to-inventory-table' from 'origin'.
@@ -153,7 +153,7 @@ The DBA/Developer will work on the issue in the newly created isolated schema. D
     </copy>
     ```
 
-    Output:
+    Here is the output from the above command:
 
     ```bash  
     On branch 1-add-last_updated-column-to-inventory-table  
@@ -180,7 +180,7 @@ The DBA/Developer will work on the issue in the newly created isolated schema. D
     </copy>
     ```
 
-    Output:
+    Here is the output from the above command:
 
     ```bash
     Username for 'https://github.com': git
@@ -218,6 +218,7 @@ The DBA/Developer will work on the issue in the newly created isolated schema. D
     There are a few ways to fix this problem, but for demonstration purposes, edit the `data/inventory_table.sql` file, increase the changeset insert_static:2, and add "SYSDATE" to the insert statements:
 
     ```SQL
+    <copy>
     -- liquibase formatted sql
     -- changeset insert_static:2 runAlways:true failOnError:true
     TRUNCATE TABLE INVENTORY;
@@ -225,6 +226,7 @@ The DBA/Developer will work on the issue in the newly created isolated schema. D
     INSERT into INVENTORY values ('pizza', '1469 WEBSTER ST,San Francisco,CA', 0, SYSDATE);
     INSERT into INVENTORY values ('burger', '1470 WEBSTER ST,San Francisco,CA', 0, SYSDATE);
     -- rollback TRUNCATE TABLE INVENTORY;
+    </copy>
     ```
 
     Commit/push the change to initiate another build:
@@ -294,7 +296,9 @@ Back in GitHub, a notification that your `feature` branch has had recent pushes 
     Once this build has completed you can verify the change was applied by running the following SQL query against the Autonomous Database in OCI:
 
     ```SQL
+    <copy>
     SELECT * FROM INVENTORYUSER.INVENTORY;
+    </copy>
     ```
 
     You should see the new column populated with the current date in the INVENTORYUSER.INVENTORY table:
