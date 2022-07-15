@@ -22,7 +22,7 @@ Estimated Time: 25 minutes
 
 1. Open a browser and navigate to [Oracle GitHub Microservices repository](https://github.com/oracle/microservices-datadriven).
 
-   * Fork `https://github.com/oracle/microservices-datadriven` into your own GitHub account.
+    Fork `https://github.com/oracle/microservices-datadriven` into your own GitHub account.
 
      ![Main Repository](images/main_repo.png " ")
 
@@ -169,12 +169,12 @@ Cloud Shell is a small virtual machine running a "bash" shell which you access t
 
 2. (Conditional) The setup may ask you to confirm that there are no other un-terminated OKE clusters exist in your tenancy:
 
-    ```bash
-    <copy>
-    You are limited to only one OKE cluster in this tenancy. This workshop will create one additional OKE cluster and so any other OKE clusters must be terminated.
-    Please confirm that no other un-terminated OKE clusters exist in this tenancy and then hit [RETURN]?
-    </copy>
     ```
+	<copy>
+	You are limited to only one OKE cluster in this tenancy. This workshop will create one additional OKE cluster and so any other OKE clusters must be terminated.
+	Please confirm that no other un-terminated OKE clusters exist in this tenancy and then hit [RETURN]?
+	</copy>
+	```
 
     To confirm that there are no other un-terminated OKE clusters, click the Navigation Menu in the upper left of Oracle Cloud Console, navigate to Developer Services and click on Kubernetes Clusters (OKE).
 
