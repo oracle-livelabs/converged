@@ -1,4 +1,4 @@
-# Privileged setup
+# Non-admin setup
 
 ## Introduction
 
@@ -8,7 +8,7 @@ Estimated Time: 1-10 minutes
 
 ### Objectives
 
-* If necessary, pre-create the compartment and configure additional security policies
+* Pre-create the compartment and configure additional security policies for non-admin user accounts
 
 ## Task 1: Assess the security policies of your user account
 
