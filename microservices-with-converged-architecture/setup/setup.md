@@ -11,7 +11,6 @@ Estimated Time: 10 minutes
 * Clone the setup and microservice code
 * Provision database and compute resources
 
-
 ## Task 1: Log in to the Oracle Cloud Console
 
 1. If you haven't already, sign in to your account.
@@ -78,7 +77,7 @@ Cloud Shell is a small virtual machine running a "bash" shell that you access th
 
    The setup process will typically take around 4 minutes to complete.  
 
-2. The setup will create the workshop resources in a compartment within your tenancy. You will be prompted to enter the compartment information.  You may choose to use an existing compartment or create a new one.
+2. The setup will create the workshop resources in a compartment within your tenancy. You will be prompted to enter the compartment information.  You may choose to use an existing compartment or create a new one.  If the administrator created a compartment for you in the **Privileged setup** lab then use that compartment OCID here.
 
   - To use an existing compartment, enter the OCID of the compartment.
 
