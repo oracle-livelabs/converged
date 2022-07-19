@@ -92,38 +92,38 @@ The DBA/Developer will work on the issue in the newly created isolated schema. D
 
     Fetch the new branch:
 
-      ```bash
-      <copy>
-      git fetch
-      </copy>
-      ```
+    ```bash
+    <copy>
+    git fetch
+    </copy>
+    ```
 
-      You can review output from the above command:
+    You can review output from the above command:
 
-      ```bash
-      remote: Enumerating objects: 32, done.  
-      remote: Counting objects: 100% (32/32), done.  
-      remote: Compressing objects: 100% (30/30), done.  
-      remote: Total 30 (delta 20), reused 0 (delta 0), pack-reused 0  
-      Unpacking objects: 100% (30/30), 6.76 KiB | 576.00 KiB/s, done.  
-      From https://github.com/gotsysdba/oci-liquibase-jenkins-clone  
-      * [new branch]      1-add-last_updated-column-to-inventory-table -> origin/1-add-last_updated-column-to-inventory-table
-      ```
+    ```bash
+    remote: Enumerating objects: 32, done.  
+    remote: Counting objects: 100% (32/32), done.  
+    remote: Compressing objects: 100% (30/30), done.  
+    remote: Total 30 (delta 20), reused 0 (delta 0), pack-reused 0  
+    Unpacking objects: 100% (30/30), 6.76 KiB | 576.00 KiB/s, done.  
+    From https://github.com/gotsysdba/oci-liquibase-jenkins-clone  
+    * [new branch]      1-add-last_updated-column-to-inventory-table -> origin/1-add-last_updated-column-to-inventory-table
+    ```
 
     Checkout the branch:
 
-      ```bash
-      <copy>
-      git checkout 1-add-last_updated-column-to-inventory-table
-      </copy>
-      ```
+    ```bash
+    <copy>
+    git checkout 1-add-last_updated-column-to-inventory-table
+    </copy>
+    ```
 
-      You can review output from the above command:
+    You can review output from the above command:
 
-      ```bash
-      Branch '1-add-last_updated-column-to-inventory-table' set up to track remote branch '1-add-last_updated-column-to-inventory-table' from 'origin'.
-      Switched to a new branch '1-add-last_updated-column-to-inventory-table'
-      ```
+    ```bash
+    Branch '1-add-last_updated-column-to-inventory-table' set up to track remote branch '1-add-last_updated-column-to-inventory-table' from 'origin'.
+    Switched to a new branch '1-add-last_updated-column-to-inventory-table'
+    ```
 
 3. Export the change made in the INVENTORYUSER1 schema into the liquidbase directory of your repository:
 
@@ -136,7 +136,7 @@ The DBA/Developer will work on the issue in the newly created isolated schema. D
 
     Generate the Liquibase changeset:
 
-    ```SQL  
+    ```  
     <copy>
     set cloudconfig ../wallet/JENKINSDB_wallet.zip  
     connect INVENTORYUSER1/<password>@JENKINSDB_HIGH  
@@ -155,17 +155,17 @@ The DBA/Developer will work on the issue in the newly created isolated schema. D
 
     Here is the output from the above command:
 
-    ```bash  
+    ```bash
+    <copy> 
     On branch 1-add-last_updated-column-to-inventory-table  
     Your branch is up to date with 'origin/1-add-last_updated-column-to-inventory-table'.  
 
     Changes not staged for commit:  
     (use "git add <file>..." to update what will be committed)  
     (use "git restore <file>..." to discard changes in working directory)  
-
           modified:   table/inventory_table.xml <-- This file has been modified  
-
-    no changes added to commit (use "git add" and/or "git commit -a")  
+    no changes added to commit (use "git add" and/or "git commit -a")
+    </copy> 
     ```
 
 4. Commit changes to version control.
@@ -274,7 +274,9 @@ Back in GitHub, a notification that your `feature` branch has had recent pushes 
 7. You can verify the INVENTORYUSER1 schema was dropped from the Autonomous Database. In the OCI Console, Navigate to the Autonomous Database and click on Database Actions > SQL:
 
     ```SQL
+    <copy>
     SELECT COUNT(*) FROM DBA_USERS WHERE USERNAME='INVENTORYUSER1';
+    </copy>
     ```
   
 8. Now, you are ready to merge the changes into main branch. In GitHub, Select the Pull Request you just created.

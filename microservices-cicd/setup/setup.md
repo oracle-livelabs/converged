@@ -169,7 +169,7 @@ Cloud Shell is a small virtual machine running a "bash" shell which you access t
 
 2. (Conditional) The setup may ask you to confirm that there are no other un-terminated OKE clusters exist in your tenancy:
 
-    ```
+    ```bash
 	<copy>
 	You are limited to only one OKE cluster in this tenancy. This workshop will create one additional OKE cluster and so any other OKE clusters must be terminated.
 	Please confirm that no other un-terminated OKE clusters exist in this tenancy and then hit [RETURN]?
@@ -259,7 +259,15 @@ Cloud Shell is a small virtual machine running a "bash" shell which you access t
 10. The setup will ask for you to enter your region value (conditional), a value for deployment type and create a password for Jenkins admin user and run type.
 
     * (Conditional) Please enter the name of the region that you are connected to: `OCI_REGION`
+
     * Please select Jenkins deployment type: `1`
+
+     > **Note:** There are 3 deployment types in this workshop:
+
+      **Option 1**. Micro-Deployed Jenkins on Public VM - no Bastion Host/no Load Balancer - this option is being offered mainly for a workshop demonstration
+      **Option 2.** Micro-deployed Jenkins on Private VM - Bastion host + Load Balancer
+      **Option 3.** Distributed Builds with Jenkins on Private VM -  Bastion Host + Load Balancer + agent nodes   
+
     * Enter the password to be used for Jenkins Console admin user login: `<ADMIN_PASSWORD>`
 
     The setup process will typically take around 5 minutes to complete.
