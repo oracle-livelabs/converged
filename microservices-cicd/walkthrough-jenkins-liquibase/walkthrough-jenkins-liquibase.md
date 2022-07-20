@@ -263,7 +263,7 @@ Back in GitHub, a notification that your `feature` branch has had recent pushes 
 
     Let's review pull request pipeline. On the Jenkins Controller, a new build will have been initiated by the Pull Request (PR). This build will drop the isolated development environment. - a new build will have been initiated by the Pull Request (PR).
 
-4. Let's review pull request pipeline. On the Jenkins Controller, a new build will have been initiated by the Pull Request (PR). This build will drop the isolated development environment. - a new build will have been initiated by the Pull Request (PR). Select the "Pull Request" Tab and Click on the "Name of the PR".
+4. Let's review pull request pipeline. On the Jenkins Controller, a new build will have been initiated by the Pull Request (PR). This build will drop the isolated development environment.Select the "Pull Request" Tab and Click on the "Name of the PR".
 
     ![Pull Request Pipeline](images/pull-request-pipeline.png " ")
 

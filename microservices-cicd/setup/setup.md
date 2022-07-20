@@ -24,7 +24,7 @@ Estimated Time: 25 minutes
 
     Fork `https://github.com/oracle/microservices-datadriven` into your own GitHub account.
 
-     ![Main Repository](images/main_repo.png " ")
+     ![Main Repository](images/main-repo.png " ")
 
 ## Task 2: Log in to the Oracle Cloud Console
 
