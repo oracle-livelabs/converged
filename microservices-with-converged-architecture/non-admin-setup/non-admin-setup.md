@@ -1,14 +1,14 @@
-# Non-admin setup
+# Additional setup for non-admin tenancy users
 
 ## Introduction
 
-In this lab, we will ensure that we have the security policies to run the workshop in your tenancy account.
+In this lab, we will ensure that we have the security policies to run the workshop in your tenancy user.
 
 Estimated Time: 1-10 minutes
 
 ### Objectives
 
-* Pre-create the compartment and configure additional security policies for non-admin user accounts
+* Pre-create the compartment and configure additional security policies for non-admin user
 
 ## Task 1: Assess the security policies of your user account
 
