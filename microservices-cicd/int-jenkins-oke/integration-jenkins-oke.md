@@ -1,4 +1,4 @@
-# Integrate Jenkins with GitHub and Oracle Cloud Infrastracture
+# Integrate Jenkins with GitHub and Oracle Cloud Infrastructure
 
 ## Introduction
 
