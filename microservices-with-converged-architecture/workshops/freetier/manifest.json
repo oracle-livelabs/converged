@@ -1,5 +1,5 @@
 {
-  "workshoptitle": "Simplify microservices with converged Oracle architecture",
+  "workshoptitle": "Simplify microservices with a 2-tier converged database architecture",
   "help": "richard.exley@oracle.com",
 	"tutorials": [
       {
@@ -11,7 +11,7 @@
         "filename": "https://oracle-livelabs.github.io/common/labs/cloud-login/cloud-login.md"
       },
       {
-        "title": "Lab 1: Non-admin setup",
+        "title": "Lab 1: Additional setup for non-admin tenancy users",
         "filename": "../../non-admin-setup/non-admin-setup.md"
       },
       {
