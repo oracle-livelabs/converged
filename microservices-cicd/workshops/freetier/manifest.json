@@ -19,11 +19,11 @@
         "filename": "../../app-deploy/app-deploy.md"
       },
       {
-        "title": "Lab 3: Integrate Jenkins with GitHub and Oracle Cloud Infrastracture",
+        "title": "Lab 3: Integrate Jenkins with GitHub and Oracle Cloud Infrastructure",
         "filename": "../../int-jenkins-oke/integration-jenkins-oke.md"
       },
       {
-        "title": "Lab 4: Walkthrough CI/CD Pipeline for Jenkins Integration with Oracle Cloud Infrastracture",
+        "title": "Lab 4: Walkthrough CI/CD Pipeline for Jenkins Integration with Oracle Cloud Infrastructure",
         "filename": "../../walkthrough-jenkins-oke/walkthrough-jenkins-oke.md"
       },
       {
