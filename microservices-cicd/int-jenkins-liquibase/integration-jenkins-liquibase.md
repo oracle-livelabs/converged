@@ -19,7 +19,7 @@ Estimated Time:  15 minutes
 
 ## Task 1: Create the GitHub App
 
-1. Log in into your GitHub Account. In your Github Account, navigate to Settings -> Developer settings -> GitHub Apps.
+1. Login into your GitHub account. In your Github account, navigate to Settings -> Developer settings -> GitHub Apps.
 
     ![GitHub Settings](images/repo-settings.png " ")
 
@@ -75,7 +75,7 @@ Estimated Time:  15 minutes
 
      ![Install GitHubApp](images/install-githubapp.png " ")
 
-     On the next screen, choose `Only select repositories` options and pick `<your GitHub Repository Name>/microservices-datadriven` from the drop down list.
+     On the next screen, choose `Only select repositories` options and pick `<your GitHub Repository Name>/microservices-datadriven` from the drop-down list.
 
       ![Install GitHubApp Repo](images/install-github-repo.png " ")
 
@@ -83,7 +83,7 @@ Estimated Time:  15 minutes
 
 ## Task 2: Convert the Private Key
 
-1. In order for Jenkins to use the private key, saved in the previous step, convert it using the following command (replace the key name with the key name you saved):
+1. Jenkins uses the private key which was saved in the previous step, convert it using the following command (replace the key name with the key name you saved):
 
      ```bash
      <copy>
@@ -93,7 +93,7 @@ Estimated Time:  15 minutes
 
      > **Note:** If openssl is not installed on your local machine, you can use OCI Cloud Shell to convert.
 
-2. Open Cloud Shell from the OCI Console and change directory to your home directory.
+2. Open Cloud Shell from the OCI Console and change the directory to your home directory.
 
     ![Oracle Cloud Infrastructure Cloud Shell Opening](images/open-cloud-shell.png " ")
 
@@ -121,7 +121,7 @@ Estimated Time:  15 minutes
 
      ![Jenkins Credentials](images/global-creds.png " ")
 
-5. Click `Add Credentials` in the left hand navigation bar.
+5. Click `Add Credentials` in the left-hand navigation bar.
 
      ![GitHubAppDemo Credentials](images/githubapp-demo-creds.png " ")
 
@@ -138,7 +138,7 @@ Estimated Time:  15 minutes
 
 ## Task 4: Add Database Credentials
 
-1. On Jenkins Dasboard, navigate to `Manage Jenkins` and click on `Manage Credentials`.
+1. On Jenkins dashboard, navigate to `Manage Jenkins` and click on `Manage Credentials`.
 
      ![Jenkins Credentials](images/jenkins-creds1.png " ")
 
@@ -150,7 +150,7 @@ Estimated Time:  15 minutes
 
      ![Jenkins Credentials](images/global-creds.png " ")
 
-4. Click `Add Credentials` in the left hand navigation bar.
+4. Click `Add Credentials` in the left-hand navigation bar.
 
      ![Database Credentials](images/db-creds.png " ")
 
@@ -169,16 +169,16 @@ Estimated Time:  15 minutes
 
 3. Record the value of "Database Name:"
 
-4. On Jenkins Dasboard, navigate to `Manage Jenkins` and click on `Configure System`.
+4. On Jenkins dashboard, navigate to `Manage Jenkins` and click on `Configure System`.
 
 5. Scroll down to "Global Properties" and click "Add"
 
     * Name:  ADB_NAME
     * Value: `<DB Name as found in OCI>`
 
-## Task 6: Add an Multibranch Pipeline
+## Task 6: Add a Multibranch Pipeline
 
-1. On Jenkins Dasboard, click on `New Item` and enter the name for the item: `Demonstration`.
+1. On Jenkins dashboard, click on `New Item` and enter the name for the item: `Demonstration`.
 
 2. Select `Multibranch Pipeline` and click `OK`.
 

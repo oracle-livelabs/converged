@@ -28,7 +28,7 @@ A new issue is created in your GitHub repository to track the lifecycle of the c
 
       ![New Issue](images/new-issue.png " ")
 
-      > **Note:** If you do not see the Issue tab, click on "Settings" and scroll down to "Issues" and check the box. Issues tab will appear.
+      > **Note:** If you do not see the Issue tab, click on "Settings" and scroll down to "Issues" and check the box. The **Issues** tab will appear.
 
       ![Submit New Issue](images/submit-new-issue.png " ")
 
@@ -51,7 +51,7 @@ The Jenkins build will create a new schema using Liquibase and code from GitHub.
 
     ![Create a Branch](images/create-branch.png " ")
 
-   On the Jenkins Controller, a new build will have been initiated by the creation of the branch. This build will create the isolated development environment to work on the issue in.
+   On the Jenkins Controller, a new build will have been initiated by the creation of the branch. This build will create an isolated development environment to work on the issue in.
 
 4. Click on `Demonstration`.
 
@@ -69,7 +69,7 @@ The Jenkins build will create a new schema using Liquibase and code from GitHub.
 
     ![Console Output](images/console-output.png " ")
 
-   The Console Output will show that Liquibase created the schema INVENTORYUSER1, created the INVENTORYUSER1.INVENTORY table, and loaded static data into the table.
+   The Console Output will show that Liquibase created the schema INVENTORYUSER1 and the INVENTORYUSER1.INVENTORY table, and loaded static data into the table.
 
 ## Task 3: Development Workflow
 
@@ -87,7 +87,7 @@ The DBA/Developer will work on the issue in the newly created isolated schema. D
 
 2. Export schema changes:
 
-    In Cloud Shell, navigate to your repositories liquibase directory. This directory contains the Liquibase ChangeSets which define the "Production" schema.
+    In Cloud Shell, navigate to your repository liquibase directory. This directory contains the Liquibase ChangeSets which define the "Production" schema.
     Ensure you are in the git "feature" branch for your change:
 
     Fetch the new branch:
@@ -98,7 +98,7 @@ The DBA/Developer will work on the issue in the newly created isolated schema. D
     </copy>
     ```
 
-    You can review output from the above command:
+    You can review the output from the above command:
 
     ```bash
     remote: Enumerating objects: 32, done.  
@@ -118,7 +118,7 @@ The DBA/Developer will work on the issue in the newly created isolated schema. D
     </copy>
     ```
 
-    You can review output from the above command:
+    You can review the output from the above command:
 
     ```bash
     Branch '1-add-last_updated-column-to-inventory-table' set up to track remote branch '1-add-last_updated-column-to-inventory-table' from 'origin'.
@@ -160,7 +160,7 @@ The DBA/Developer will work on the issue in the newly created isolated schema. D
     On branch 1-add-last_updated-column-to-inventory-table  
     Your branch is up to date with 'origin/1-add-last_updated-column-to-inventory-table'.  
 
-    Changes not staged for commit:  
+    Changes are not staged for commit:  
     (use "git add <file>..." to update what will be committed)  
     (use "git restore <file>..." to discard changes in working directory)  
           modified:   table/inventory_table.xml <-- This file has been modified  
@@ -243,9 +243,9 @@ The DBA/Developer will work on the issue in the newly created isolated schema. D
 
 ## Task 4: Review and Merge
 
-When the developer has completed all of the work on the issue, they will open a Pull Request for approval to merge the changes into the main branch for releasing. The Pull Request will trigger another build in Jenkins that will tear down their `feature` branch isolated environment (schema); it can also run any additional automated tests required.
+When the developer has completed all of the work on the issue, they will open a Pull Request for approval to merge the changes into the main branch for release. The Pull Request will trigger another build in Jenkins that will tear down their `feature` branch isolated environment (schema); it can also run any additional automated tests required.
    
-If the tear down and additional automated tests succeed, the **Pull Requestst** is approved and the changes are merged into the main branch for release.
+If the teardown and additional automated tests succeed, the **Pull Requestst** is approved and the changes are merged into the main branch for release.
 
 Back in GitHub, a notification that your `feature` branch has had recent pushes with the option to `Compare & pull request`.
 
@@ -263,7 +263,7 @@ Back in GitHub, a notification that your `feature` branch has had recent pushes 
 
     Let's review pull request pipeline. On the Jenkins Controller, a new build will have been initiated by the Pull Request (PR). This build will drop the isolated development environment. - a new build will have been initiated by the Pull Request (PR).
 
-4. Let's review pull request pipeline. On the Jenkins Controller, a new build will have been initiated by the Pull Request (PR). This build will drop the isolated development environment.Select the "Pull Request" Tab and Click on the "Name of the PR".
+4. Let's review the pull request pipeline. On the Jenkins Controller, a new build will have been initiated by the Pull Request (PR). This build will drop the isolated development environment. Select the "Pull Request" Tab and Click on the "Name of the PR".
 
     ![Pull Request Pipeline](images/pull-request-pipeline.png " ")
 
@@ -279,7 +279,7 @@ Back in GitHub, a notification that your `feature` branch has had recent pushes 
     </copy>
     ```
   
-8. Now, you are ready to merge the changes into main branch. In GitHub, Select the Pull Request you just created.
+8. Now, you are ready to merge the changes into the **main** branch. In GitHub, select the Pull Request you just created.
 
     ![Pull Request](images/create-pull-request.png " ")
 
@@ -295,7 +295,7 @@ Back in GitHub, a notification that your `feature` branch has had recent pushes 
 
     On the Jenkins Controller, a new build will have been initiated by the Merge. This build will implement the change (new LAST_UPDATED column) in the "Production" INVENTORY schema.  
 
-    Once this build has completed you can verify the change was applied by running the following SQL query against the Autonomous Database in OCI:
+    Once this build has been completed you can verify the change was applied by running the following SQL query against the Autonomous Database in OCI:
 
     ```SQL
     <copy>
