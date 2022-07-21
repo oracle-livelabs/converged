@@ -207,4 +207,4 @@ You may now **proceed to the next lab.**.
 ## Acknowledgements
 
 * **Authors** - John Lathouwers, Developer Evangelist; Irina Granat, Consulting Member of Technical Staff, Oracle MAA and Exadata
-* **Last Updated By/Date** - Irina Granat, June 2022
+* **Last Updated By/Date** - Irina Granat, July 20th, 2022
