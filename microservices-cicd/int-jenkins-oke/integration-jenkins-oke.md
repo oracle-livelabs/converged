@@ -1,10 +1,10 @@
-# Integrate Jenkins with GitHub and Oracle Cloud Infrastracture
+# Integrate Jenkins with GitHub and Oracle Cloud Infrastructure
 
 ## Introduction
 
-This lab will demonstrate how to integrate Jenkins with GitHub and Oracle Cloud Insrastructure Services, and build a pipeline.
+This lab will demonstrate how to integrate Jenkins with GitHub and Oracle Cloud Infrastructure Services and build a pipeline.
 
-GitHub provides web hook integration, so Jenkins starts running automated builds and tests after each code check-in. A sample web application Grabdish is modified and re-deployed as part of CI/CD pipeline, which end users can access from the Container Engine for Kubernetes cluster.
+GitHub provides webhook integration, so Jenkins starts running automated builds and tests after each code check-in. A sample web application Grabdish is modified and re-deployed as part of the CI/CD pipeline, which end users can access from the Container Engine for the Kubernetes cluster.
 
 Estimated Time: 15 minutes
 
@@ -21,7 +21,7 @@ Estimated Time: 15 minutes
 
 ## Task 1: Configure Jenkins Pipeline
 
-1. A service account is needed to allow Jenkins to update the grabdish kubernetes cluster. To create a service account, connect to cloud shell and execute the following command.
+1. A service account is needed to allow Jenkins to update the grabdish Kubernetes cluster. To create a service account, connect to the cloud shell and execute the following command.
 
      ```bash
      <copy>

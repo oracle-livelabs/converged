@@ -305,7 +305,7 @@ The setup will provision the following resources in your tenancy:
     </copy>
     ```
 
-3. You can monitor log files located in the $DCMS_CICD_LOG_DIR directory.
+3. You can monitor log files located in the workshop log directory.
 
     ```bash
     <copy>

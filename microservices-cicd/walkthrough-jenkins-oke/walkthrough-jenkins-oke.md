@@ -1,4 +1,4 @@
-#  Walkthrough CI/CD Pipeline for Jenkins Integration with Oracle Cloud Infrastracture
+#  Walkthrough CI/CD Pipeline for Jenkins Integration with Oracle Cloud Infrastructure
 
 ## Introduction
 
@@ -14,15 +14,15 @@ Estimated Time: 20 minutes
   
 ### Prerequisites
 
-* Oracle Cloud Infrastructure Services, like OKE cluster, OCIR and the Autonomous Transaction Processing databases, GitHub and Jenkins that you created and configured in earlier labs
+* Oracle Cloud Infrastructure Services, like OKE cluster, OCIR and the Autonomous Transaction Processing databases, GitHub, and Jenkins that you created and configured in earlier labs
 * The latest version of Git, [GitHub Desktop] (https://desktop.github.com/) and your preferred editor, such as Visual Studio Code, or IntelliJ Idea installed locally on your computer.
-* This lab presumes you setup a workshop repository in your own GitHub account.
+* This lab presumes you will set up a workshop repository in your own GitHub account.
 
-> **Note:** As this is a demonstration of Jenkins/GitHub integration for CI/CD, **you must use your own GitHub account to run it. Please fork or copy [Oracle Microservices GiHub repository](https://github.com/oracle/microservices-datadriven) into your own GitHub account**.
+> **Note:** As this is a demonstration of Jenkins/GitHub integration for CI/CD, **you must use your own GitHub account to run it. Please fork or copy [Oracle Microservices GitHub repository](https://github.com/oracle/microservices-datadriven) into your own GitHub account**.
 
 ## Task 1: Clone the Forked Repository
 
-A clone is a copy of your forked repository that lives on your local computer instead of on GitHub Web UI. When you clone your forked repository, you can edit the files in your preferred editor, such as  Visual Studio Code, or IntelliJ Idea and use the GitHub Desktop client to keep track of your changes without having to be online.
+A clone is a copy of your forked repository that lives on your local computer instead of on GitHub Web UI. When you clone your forked repository, you can edit the files in your preferred editor, such as  Visual Studio Code, or IntelliJ Idea, and use the GitHub Desktop client to keep track of your changes without having to be online.
 
 To clone the forked repository:
 
@@ -98,9 +98,9 @@ You can use Github Desktop to synchronize the changes that you have made in your
 
    ![GitHub Desktop Push](images/github-desktop-push.png " ")
 
-13. The updates in the previous step commited to your [https://github.com/oracle/microservices-datadriven] repository will initiate Jenkins flow.
+13. The updates in the previous step committed to your [https://github.com/oracle/microservices-datadriven] repository will initiate Jenkins flow.
 
-14. To review the pipeline flow, login into Jenkins console using username `admin` and password you created in the Setup lab.
+14. To review the pipeline flow, login into the Jenkins console using the username `admin` and password you created in the Setup lab.
 
 15. Check Jenkins pipeline and observe Jenkins job created – review the log.
 
@@ -132,11 +132,11 @@ You can use Github Desktop to synchronize the changes that you have made in your
 
     You will be prompted to authenticate to access the Front End microservices. The user is `grabdish` and the password is the one you entered in Lab 1.
 
-    Navigate to `Spatial` area of the application and observe the title changes - it changed from  **Data-driven Microservices with converged Oracle Database** to **Datadriven Microservices with Converged Oracle Database**  .
+    Navigate to the `Spatial` area of the application and observe the title changes - it changed from  **Data-driven Microservices with converged Oracle Database** to **Datadriven Microservices with Converged Oracle Database**  .
 
 You may now **proceed to the next lab.**.
 
 ## Acknowledgements
 
 * **Authors** - Irina Granat, Consulting Member of Technical Staff, Oracle MAA and Exadata; Norman Aberin, Member of Technical Staff
-* **Last Updated By/Date** - Irina Granat, June 2022
+* **Last Updated By/Date** - Irina Granat, July 20th, 2022

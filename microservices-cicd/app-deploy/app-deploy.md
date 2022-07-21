@@ -59,7 +59,7 @@ Quick walk through on how to deploy the microservices on your Kubernetes cluster
 
 3. You will be prompted to authenticate to access the Front End microservices. The user is `grabdish` and the password is the one you entered in Lab 1.
 
-    ![FrontEnd](images/frontendauthlogin.png " ")
+    ![FrontEnd](images/frontend-auth-login.png " ")
 
 4. You should then see the Front End home page. You've now accessed your first microservice of the lab!
 
