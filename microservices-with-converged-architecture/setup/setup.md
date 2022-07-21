@@ -77,7 +77,7 @@ Cloud Shell is a small virtual machine running a "bash" shell that you access th
 
    The setup process will typically take around 4 minutes to complete.  
 
-2. The setup will create the workshop resources in a compartment within your tenancy. You will be prompted to enter the compartment information.  You may choose to use an existing compartment or create a new one.  If the administrator created a compartment for you in the **Non-admin setup** lab then use that compartment OCID here.
+2. The setup will create the workshop resources in a compartment within your tenancy. You will be prompted to enter the compartment information.  You may choose to use an existing compartment or create a new one.  If the administrator created a compartment for you in the **Additional setup for non-admin tenancy users** lab then use that compartment OCID here.
 
   - To use an existing compartment, enter the OCID of the compartment.
 
