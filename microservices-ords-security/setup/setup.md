@@ -375,8 +375,10 @@ If you get a 501 error verify that the Load Balancer is healthy. If the **Overal
 Restart the ORDS server by issuing the following commands and wait a few minutes for the ORDS Server to come back up again and the Load Balancers Health Check clears. The commands will use the DEFAULT profile in the ~/.oci/config file. Change the DEFAULT value to the profile you are using if needed.
 
 ```bash
+<copy>
 export instance_id=$(oci compute instance list --compartment-id=${TF_VAR_compartment_ocid} --query "data [?\"display-name\"=='${TF_VAR_proj_abrv}-ords-core'] | [0].id" --raw-output --profile DEFAULT);
 oci compute instance action --instance-id ${instance_id} --action SOFTRESET --profile DEFAULT
+</copy>
 ```
 
 You can also reboot the Compute VM from the OCI Console.
