@@ -72,7 +72,7 @@ To work with the application code, you need to make a clone from the GitHub repo
 ```bash
 <copy>
 cd $HOME
-git clone -b 22.7.1 --single-branch https://github.com/oracle/microservices-datadriven.git;
+git clone -b 22.7.3 --single-branch https://github.com/oracle/microservices-datadriven.git;
 cp -r ./microservices-datadriven/workshops/dcms-ords-sec $HOME;     
 rm -rf microservices-datadriven; 
 cd dcms-ords-sec;
@@ -235,7 +235,7 @@ To work with the application code, you need to make a clone from the GitHub repo
 ```bash
 <copy>
 cd $HOME
-git clone -b 22.7.1 --single-branch https://github.com/oracle/microservices-datadriven.git;
+git clone -b 22.7.3 --single-branch https://github.com/oracle/microservices-datadriven.git;
 cp -r ./microservices-datadriven/workshops/dcms-ords-sec $HOME;     
 rm -rf microservices-datadriven; 
 cd dcms-ords-sec;
