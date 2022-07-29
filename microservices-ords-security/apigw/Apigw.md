@@ -406,7 +406,7 @@ In any case, you need to get <CLIENT\_ID\> and <CLIENT\_SECRET\> for OAuth2.0 3-
     ```
 
 * With Postman, use **hr_admin1** user to watch all the authorization phases because **hr\_admin** user has been already approved at the previous step:
-  * import the [Collection](./APIORDS.postman_collection.json) provided, in Postman:
+  * import the [Collection](https://raw.githubusercontent.com/oracle/microservices-datadriven/main/workshops/dcms-ords-sec/apigw/APIORDS.postman_collection.json) provided, in Postman:
 
     ![collection](./images/collection.png)
 
@@ -426,7 +426,7 @@ In any case, you need to get <CLIENT\_ID\> and <CLIENT\_SECRET\> for OAuth2.0 3-
 
     ![import_env](./images/import_env.png)
 
-    loading the empty [env export](./ENV_Empty.postman_environment.json) provided.
+    loading the empty [env export](https://raw.githubusercontent.com/oracle/microservices-datadriven/main/workshops/dcms-ords-sec/apigw/ENV_Empty.postman_environment.json) provided.
 
   * Now you have on list the **ORDSENV** environment variable, and clicking on it:
 
@@ -462,7 +462,7 @@ In any case, you need to get <CLIENT\_ID\> and <CLIENT\_SECRET\> for OAuth2.0 3-
 
 ## Task 6: Test Rate Limit
 
-* Load Test via K6, generating more than Request Limit set on 400 per second, with a script to be run by K6: [script](apigw-stress-script.js).
+* Load Test via K6, generating more than Request Limit set on 400 per second, with a script to be run by K6: [script](https://raw.githubusercontent.com/oracle/microservices-datadriven/main/workshops/dcms-ords-sec/apigw/apigw-stress-script.js).
 
 * Here is an example of how to install the k6 tool (licensed under AGPL v3). Download and install K6 in shell Linux:
 
@@ -476,7 +476,7 @@ In any case, you need to get <CLIENT\_ID\> and <CLIENT\_SECRET\> for OAuth2.0 3-
     </copy>
     ```
 
-* You'll find a [script](apigw/apigw-stress-script.js) to load with 400 RPS for 1 second. You could change the rate,duration,etc. modifying **scenarios: {}** parameters in the script:
+* You'll find a [script](https://raw.githubusercontent.com/oracle/microservices-datadriven/main/workshops/dcms-ords-sec/apigw/apigw-stress-script.js) to load with 400 RPS for 1 second. You could change the rate,duration,etc. modifying **scenarios: {}** parameters in the script:
 
     ```script
     <copy>

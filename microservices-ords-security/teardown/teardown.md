@@ -17,7 +17,7 @@ oci iam policy delete --policy-id ${policy_id} --force --wait-for-state DELETED;
 * Delete manually  **Data Safe Private Endpoint** and, on Autonomous DB console, deregister from Data Safe:
 ![deregister](./images/deregister.png " ")
 
-* Proceed with deletion of resource provisioned via Terraform: (ANDY: this will never succeed as we have modified the AT-security-group-adb NSG and the Data Safe private endpoint is using this. Maybe only use ORM to destroy the environment or remove the NSG/Private endpoint manually via OCI CLI?)
+* Proceed with deletion of resource provisioned via Terraform:
 
 ```bash
 <copy>
@@ -54,7 +54,7 @@ terraform destroy
 * When the Terraform script creation is finished (this will take a few minutes), click on **Destroy** button and wait for the process to complete.
 ![create stack](./images/stack-destroy.png " ")
 
-Run the destroy process again. If issues remain, delete manually the resources that hang the process, for example object storage bucket related to log files, and re-create a stack and apply destroy on it. (ANDY:There seems to be some leftovers from Data Safe after deletion, such as Audit policy that I can't figure out how to delete)
+Run the destroy process again. If issues remain, delete manually the resources that hang the process, for example object storage bucket related to log files, and re-create a stack and apply destroy on it.
 
 ## Learn More
 
