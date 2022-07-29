@@ -96,7 +96,7 @@ Now let's setup networking rules to enable API GW in front of Load Balancer for 
             * **Direction**:**Ingress**, **Stateless**:uncheck, **Source Type**: **CIDR**, **Source CIDR**: 0.0.0.0/0, **Protocol**: **TCP**, **Source Port Range**: **All**, **Destination Port Range**: 80;
             * **Direction**:**Egress**, **Stateless**:uncheck, **Source Type**: **CIDR**, **Source CIDR**: **0.0.0.0/0**, **Protocol**: **TCP**, **Source Port Range**: **All**, **Destination Port Range**: All;
 
-            ![nsg-Apigw](images/nsg-Apigw.png)
+            ![nsg-Apigw](images/nsg-Apigw.png " ")
 
     * Or you can do the same via oci-cli:
 
@@ -124,7 +124,7 @@ Now let's setup networking rules to enable API GW in front of Load Balancer for 
         * check **Enable network &ltcompartment-name\>** and choose **Network security group in &ltcompartment-name\>** created at the step before, for example: *dcms*-**security-group-apigw**.
         * NOTE: you can use an own certificate for API Gateway front-end. In this case we use the default certificate provided by the gateway.
 
-        ![create_gw](images/create_gw.png)
+        ![create_gw](images/create_gw.png " ")
 
       * or via command-line:
         ```
@@ -150,7 +150,7 @@ Now let's setup networking rules to enable API GW in front of Load Balancer for 
 
 * Create Deployment under Gateway to bypass the ORDS Load Balancer end-point and expose another REST endpoint. We'll hide the access to APEX console and any other services than under /ords/ordtest path, protecting ORDS server from unwanted access, clicking on **Create deployment** button:
 
-    ![create_deployment](images/create_deployment.png)
+    ![create_deployment](images/create_deployment.png " ")
 
   * choose **From scratch**
 
@@ -158,13 +158,13 @@ Now let's setup networking rules to enable API GW in front of Load Balancer for 
     * **Name**: **full**
     * **Path prefix**: **/ords**
 
-    ![create_gw_name](images/create_gw_name.png)
+    ![create_gw_name](images/create_gw_name.png " ")
 
   * Rate Limiting:
     * **Number of requests per second**: **50**
     * **Type of rate limit**: **Per client (IP)**
 
-    ![create_gwrate](images/create_gwrate.png)
+    ![create_gwrate](images/create_gwrate.png " ")
 
   * Click on **Next** Button
     * **Routes**:
@@ -247,7 +247,7 @@ Now let's setup networking rules to enable API GW in front of Load Balancer for 
 ## Task 3: Close access to LB front-end to ORDS
 
 * From **API Gateway / Gateways**, on **ordsGW details**, get the IP address:
-![IP_GW](images/IP_GW.png)
+![IP_GW](images/IP_GW.png " ")
 * or via oci-cli:
 
     ```bash
@@ -260,12 +260,12 @@ Now let's setup networking rules to enable API GW in front of Load Balancer for 
     ```
 
 * In **Networking / Virtual Cloud Networks**, choose the network details, for example  something like *dcms*-**vcn**. Click on **Resources** / **Network Security Groups**:
-![NSG](images/NSG.png)
+![NSG](images/NSG.png " ")
   * Click on security group for load balancer, something like  *dcms***-security-group-lb**, to update the ingress rules.
   * Select the two ingress rules, **Ingress** rule for **Destination Port Rage: 443** and **Ingress** rule for **Destination Port Rage: 80** and click on **Edit** button:
-  ![NSG_ingr443](images/NSG_ingr443.png)
+  ![NSG_ingr443](images/NSG_ingr443.png " ")
   * report the Gateway IP, for example **141.148.10.121**, with a CIDR of **141.148.10.121/32** and click on **Save changes** :
-  ![NSGSave](images/NSGSave.png)
+  ![NSGSave](images/NSGSave.png " ")
 From this moment LB is no more accessible from Internet. Check connection doesn't work via a curl command:
 
     ```bash
@@ -276,7 +276,7 @@ From this moment LB is no more accessible from Internet. Check connection doesn'
 
 * Now set header for Load Balancer to API GW:
   * from **Networking**/**Load Balancers**, click on load balancer name, something like *dcms***-lb**, and under **Resources / Rule Sets**, click on **Create Rule Set**:
-  ![ButtonCreateRule](images/ButtonCreateRule.png)
+  ![ButtonCreateRule](images/ButtonCreateRule.png " ")
 
   * Set rule with following parameters, replacing <api\_gw\_base\_url\> with the content of:
 
@@ -291,17 +291,17 @@ From this moment LB is no more accessible from Internet. Check connection doesn'
         * Select **Specify Request Header Rules**
         * Action: **Add Request Header** / **Header: host** / **Value** : <api\_gw\_base\_url\>
 
-        ![CreateRule](images/CreateRule.png)
+        ![CreateRule](images/CreateRule.png " ")
 
     * Apply Rules to listener.
     From **Networking**/**Load Balancers**,click on load balancer name, something like *dcms* **-lb** and under **Resources / Listeners**, edit properties of one like  *dcms***-lb-listener-443**:
-        ![ApplyRule](images/ApplyRule.png)
+        ![ApplyRule](images/ApplyRule.png " ")
 
     * and add **Additional Rule Set**:
-        ![AdditionaRule](images/AdditionaRule.png)
+        ![AdditionaRule](images/AdditionaRule.png " ")
 
       selecting **force_header** and save changes:
-        ![ForceHeader](images/ForceHeader.png)
+        ![ForceHeader](images/ForceHeader.png " ")
 
 ## Task 4: OAuth 2.0, Third Party OAuth 2.0-Based AuthN
 
@@ -313,7 +313,7 @@ From this moment LB is no more accessible from Internet. Check connection doesn'
 
     * Get from the GUI the url end-point for OAuth2.0 token:
 
-    ![endpoint](images/endpoint.png)
+    ![endpoint](images/endpoint.png " ")
 
     * Get the **access_token** replacing <clientId\> and <clientSecret\> in the following command:
 
@@ -408,57 +408,57 @@ In any case, you need to get <CLIENT\_ID\> and <CLIENT\_SECRET\> for OAuth2.0 3-
 * With Postman, use **hr_admin1** user to watch all the authorization phases because **hr\_admin** user has been already approved at the previous step:
   * import the [Collection](https://raw.githubusercontent.com/oracle/microservices-datadriven/main/workshops/dcms-ords-sec/apigw/APIORDS.postman_collection.json) provided, in Postman:
 
-    ![collection](./images/collection.png)
+    ![collection](./images/collection.png " ")
 
   * clicking on **Upload Files**:
 
-    ![upload_collection](./images/upload_collection.png)
+    ![upload_collection](./images/upload_collection.png " ")
 
   * you will have the new **APIORDS** collection, with a GET action, on which you can access as shown below:
 
-    ![drill_collection](./images/drill_collection.png)
+    ![drill_collection](./images/drill_collection.png " ")
 
   * in this collection have been defined environment variables that must be imported and updated with the actual values before using. To do this, click on **Manage Environments** button:
 
-    ![manage_env](./images/manage_env.png)
+    ![manage_env](./images/manage_env.png " ")
 
     and click on **Import** button:
 
-    ![import_env](./images/import_env.png)
+    ![import_env](./images/import_env.png " ")
 
     loading the empty [env export](https://raw.githubusercontent.com/oracle/microservices-datadriven/main/workshops/dcms-ords-sec/apigw/ENV_Empty.postman_environment.json) provided.
 
   * Now you have on list the **ORDSENV** environment variable, and clicking on it:
 
-    ![ordsenv](./images/ordsenv.png)
+    ![ordsenv](./images/ordsenv.png " ")
 
     you can set the actual values on each env variable:
 
-    ![ordsenvset](./images/ordsenvset.png)
+    ![ordsenvset](./images/ordsenvset.png " ")
 
   * Now you have to select this pull of variables to be used in the GET request:
 
-    ![ordsenv_choosed](./images/ordsenv_choosed.png)
+    ![ordsenv_choosed](./images/ordsenv_choosed.png " ")
 
   * Clicking on **Authorization** tab, and eventually choosing the **TYPE** as **OAuth 2.0**, you should see the variables correctly exposed in red, that confirms have been correctly found in the env, and you can run the request, and change the **State** value. First you have to ask for **Get New Access Token** clicking the button:
 
-    ![OAuth20_choosed](./images/OAuth20_choosed.png)
+    ![OAuth20_choosed](./images/OAuth20_choosed.png " ")
 
   * you will result **Unauthorized**:
 
-    ![not_authorized](./images/not_authorized.png)
+    ![not_authorized](./images/not_authorized.png " ")
 
     and, to proceed, click on the link to be authenticated, that will be followed by an approval step:
 
-    ![login](./images/login.png)
+    ![login](./images/login.png " ")
 
   * After few seconds, a popup windows it will appear, showing the **Access Token** provided by Authorization server (ORDS in our case), asking to use in the actual REST service request.
 
-    ![send](./images/send.png)
+    ![send](./images/send.png " ")
 
   * Finally, clicking on **Send** button, we will get the table in JSON format:
 
-    ![json](./images/json.png)
+    ![json](./images/json.png " ")
 
 ## Task 6: Test Rate Limit
 
@@ -521,7 +521,7 @@ In any case, you need to get <CLIENT\_ID\> and <CLIENT\_SECRET\> for OAuth2.0 3-
 
     With a 400 RPS, and a limit of 50 x IP, are passed around 19% of requests:
 
-   ![APIGW_stress_test](images/APIGW_stress_test.png)
+   ![APIGW_stress_test](images/APIGW_stress_test.png " ")
 
 * let's check with no bearer access token what's happen, running:
 
@@ -532,7 +532,7 @@ In any case, you need to get <CLIENT\_ID\> and <CLIENT\_SECRET\> for OAuth2.0 3-
     ```
 
   The result is that 100% of requests have been rejected:
-  ![APIGW_stress_test100](images/APIGW_stress_test100.png)
+  ![APIGW_stress_test100](images/APIGW_stress_test100.png " ")
 
 * (Alternatively) Use Artillery in a OCI Cloud Shell or in any desktop environment with Docker installed, running the following script:
 
@@ -557,7 +557,7 @@ In any case, you need to get <CLIENT\_ID\> and <CLIENT\_SECRET\> for OAuth2.0 3-
 
     as you can see, in 5 seconds, around 30 requests per second have been processed:
 
-    ![APIGW_stress_artillery](images/artillery.png)
+    ![APIGW_stress_artillery](images/artillery.png " ")
 
 You may now proceed to the next lab.
 

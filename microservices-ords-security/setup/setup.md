@@ -79,7 +79,7 @@ cd dcms-ords-sec;
 </copy>
 ```
 
-You should now see the directory `security` in your home directory.
+You should now see the directory `dcms-ords-sec` in your home directory.
 
 ## Task 5. Setup Environment Variables
 
@@ -242,7 +242,7 @@ cd dcms-ords-sec;
 </copy>
 ```
 
-You should now see the directory `security` where in the directory where you launched the terminal.
+You should now see the directory `dcms-ords-sec` where in the directory where you launched the terminal.
 
 ## Task 4. Generate an API key
 

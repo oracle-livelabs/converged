@@ -46,11 +46,11 @@ source ./terraform-env.sh
 
 * if already enabled, you should see `is-enabled=TRUE` in the response. In positive case, you can skip next steps related to Data Safe activation at region/tenant level.
 
-![Data_Safe_enabled](images/Data_Safe_enabled.png)
+![Data_Safe_enabled](images/Data_Safe_enabled.png " ")
 
 * In the case Oracle Data Safe hasn't been activate previously in the region of your tenancy, you could do manually from Web Console, under **Oracle Database**/**Data Safe** menu, click on **Enable Data Safe** button:
 
-![Data_Safe_enabled_manually](images/Data_Safe_enabled_manually.png)
+![Data_Safe_enabled_manually](images/Data_Safe_enabled_manually.png " ")
 
 * or via oci-cli:
 
@@ -62,7 +62,7 @@ source ./terraform-env.sh
 
 * You should see after the button turned in **Data Safe Dashboard**:
 
-![Data_Safe_on](images/Data_Safe_on.png)
+![Data_Safe_on](images/Data_Safe_on.png " ")
 
 * from **Identity & Security**/**Policies** main menu, click on button **Create Policy**, and set:
 
@@ -93,7 +93,7 @@ source ./terraform-env.sh
 
 * Under **Oracle Database**/**Data Safe**, click on **Target Databases** and then, under **Connectivity Options** on **Private Endpoints** menu. For further info about: [private endpoint](https://docs.oracle.com/en/cloud/paas/data-safe/admds/create-oracle-data-safe-private-endpoint.html#GUID-B601106D-563A-42BE-BEBC-FCC2E97ACFF0)
 * Click on **Create Private Endpoint**:
- ![private_endpoint](images/private_endpoint.png)
+ ![private_endpoint](images/private_endpoint.png " ")
 * Set the following parameters:
     * **Name**: **PE\_&ltabrv\>DB\_XS**
     * **Compartment**: choose your [compartment_name]
@@ -102,85 +102,86 @@ source ./terraform-env.sh
     * **Network Security Groups**: choose **&ltabrv\>-security-group-adb**
   as shown in the following picture, where compartment_name is "securityworkshop":
 
-   ![private_endpoint_creation](images/private_endpoint_creation.png)
+   ![private_endpoint_creation](images/private_endpoint_creation.png " ")
 
    Click on button **Create Private Endpoint** and after few minutes you should see **Active**:
-   ![private_endpoint_list](images/private_endpoint_list.png)
+   ![private_endpoint_list](images/private_endpoint_list.png " ")
 
 * and clicking on **PE\_<abrv\>DB\_XS**, you can access on the details of private end-point created:
-   ![private_endpoint_created](images/private_endpoint_created.png)
+   ![private_endpoint_created](images/private_endpoint_created.png " ")
 
    In this way **Data Safe** services has a private channel to access DBs not public accessible.
 
 * From **Data Safe** / **Overview**, we are ready to register Autonomous DB through a wizard:
-    ![ADB_Wiz](images/ADB_Wiz.png)
+    ![ADB_Wiz](images/ADB_Wiz.png " ")
 
     * **Select Database in** compartment, in our case **&ltabrv\>DB\_XS** target:
-    ![ADB_Wiz_DB](images/ADB_Wiz_DB.png)
+    ![ADB_Wiz_DB](images/ADB_Wiz_DB.png " ")
 
     * Set **Connectivity Option** leveraging Existing Private Endpoint, **PE\_&ltabrv\>DB\_XS**:
-    ![ADB_Wiz_PE](images/ADB_Wiz_PE.png)
+    ![ADB_Wiz_PE](images/ADB_Wiz_PE.png " ")
 
     * Choose to add ingress/egress rules to an existing Network Security Group for ADB-S, i.e. **&ltabrv\>-security-group-adb**:
-    ![ADB_Wiz_NSG](images/ADB_Wiz_NSG.png)
+    ![ADB_Wiz_NSG](images/ADB_Wiz_NSG.png " ")
 
     * **Review and Submit**, and click on **Register** button at the bottom of page:
-    ![ADB_Wiz_Sub](images/ADB_Wiz_Sub.png)
+    ![ADB_Wiz_Sub](images/ADB_Wiz_Sub.png " ")
 
     * at the end of process you should see something like this. This will take a few minutes:
-    ![ADB_Wiz_End](images/ADB_Wiz_End.png)
+    ![ADB_Wiz_End](images/ADB_Wiz_End.png " ")
 
 * In ADB-S details, you can check if the DB instance it has been correctly registered to be monitored by Data Safe:
-![DB_Details](images/DB_Details.png)
+![DB_Details](images/DB_Details.png " ")
 
 * Under **Oracle Database**/**Data Safe** menu and **Target Database** left menu, on your compartment, you should see under **Target Databases** list the **&ltabrv\>DB_XS** instance it has been just registered:
-![Target_DB](images/Target_DB.png)
+![Target_DB](images/Target_DB.png " ")
 
 ## Task 2: Configure Auditing on registered ADB-S instance
 
 * Click on **Data Safe** main menu, to watch the main dashboard, under **Security Center**/**Dashboard**:
-![Data_Safe_Dashboard](images/Data_Safe_Dashboard.png)
+![Data_Safe_Dashboard](images/Data_Safe_Dashboard.png " ")
 
 * under **Security Center / Activity Auditing / Audit Profiles** :
-![Security_Center](images/Security_Center.png)
+![Security_Center](images/Security_Center.png " ")
 
     select **&ltabrv\>DB_XS** target details:
-![Target_DB_Dash](images/Target_DB_Dash.png)
+![Target_DB_Dash](images/Target_DB_Dash.png " ")
 
 * from **Data Safe / Security Center / Activity Auditing /Audit Policy / Audit Policy Details** , click **Retrieve** Button, to get actual policy pre-deployed on Autonomous instances.
 
-    ![Policy_Details](images/Policy_Details.png)
+    ![Policy_Details](images/Policy_Details.png " ")
 
 * In **Audit Policy Details**, **ORA\_LOGON\_FAILURES** policy is one of the **Oracle Pre-defined Policies** enabled by Default on Autonomous DB for all users. Click on **View Details** link and leave as already set:
-![Pre_def_policies](images/Pre_def_policies.png)
+![Pre_def_policies](images/Pre_def_policies.png " ")
 
    You could eventually modify the policy to apply it to a restricted number of users. In this case you have to click finally on **Update and Provision** after modified.
 
-* under **Security Center / Activity Auditing / Audit Profiles** :
-![Security_Center_Prof](images/Security_Center_Prof.png)
+* under **Security Center / Activity Auditing / Audit Profiles**:
+![Security_Center_Prof](images/Security_Center_Prof.png " ")
 
-     select **&ltabrv\>DB_XS** :
-     ![Security_Center_DB](images/Security_Center_DB.png)
-     to see target details :
-     ![Audit_Trail](images/Audit_Trail.png)
+    select **&ltabrv\>DB_XS** :
+    ![Security_Center_DB](images/Security_Center_DB.png " ")
+
+    to see target details :
+     [Audit_Trail](images/Audit_Trail.png " ")
 
   * Start Audit Trail: under **Data Safe / Security Center / Activity Auditing / Audit Trails / Audit Trails Details**,
-    ![Auditing](images/Auditing.png)
+    ![Auditing](images/Auditing.png " ")
 
 * Select **Target Database**: **&ltabrv\>DB_XS**
 
   * click on **Start** button:
-    ![Audit_Trail_Start](images/Audit_Trail_Start.png)
+    ![Audit_Trail_Start](images/Audit_Trail_Start.png " ")
 
   * and set the current date/time for **Select Start Date**:
-    ![Audit_Trail_TargetDB](images/Audit_Trail_TargetDB.png)
+    ![Audit_Trail_TargetDB](images/Audit_Trail_TargetDB.png " ")
 
   * At the end Audit Trail page should show **Collection State**: "COLLECTING":
-    ![Audit_Trail_Collecting](images/Audit_Trail_Collecting.png)
+    ![Audit_Trail_Collecting](images/Audit_Trail_Collecting.png " ")
 
 * At this stage, from **Data Safe / Security Center / Dashboard** you can have an overall security status overview, in which you can notice that as started a security assessment on DB instance that shows the first useful advices about **High**/**Medium** risks:
 
-    ![Dashboard](images/Dashboard.png)
+    ![Dashboard](images/Dashboard.png " ")
 
 ## Task 3: Generate logon failure events on Autonomous DB instance
 
@@ -194,10 +195,10 @@ source ./terraform-env.sh
 
 * After few minutes, from **Data Safe / Security Center / Activity Auditing** look at **Failed Login Activity** graph that shows incorrect login attempts done at previous steps:
 
-    ![Auditing_Login](images/Auditing_Login.png)
+    ![Auditing_Login](images/Auditing_Login.png " ")
 
 * From **Data Safe / Security Center / Activity Auditing** you will have more details about failed login just done. If you don't see any events, wait a moment to see the effects of previous logon:
-    ![Dashboard_Login](images/Dashboard_Login.png)
+    ![Dashboard_Login](images/Dashboard_Login.png " ")
 
 You may now **proceed to the next lab.**
 
