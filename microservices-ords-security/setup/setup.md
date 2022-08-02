@@ -29,7 +29,7 @@ You will also need 3 terminal windows open (for Desktop deployment) or 3 Browser
 ## Architecture and deployment
 
 The Terraform scripts will deploy the infrastructure for this architecture. You will be deploying and configuring and configuring Datasafe and OCI API Gateway manually.
-![Architecture](images/arch.png " ")
+![Architecture](./images/arch.png " ")
 
 There are two ways to run deploy this architecture. You can not do both unless you teardown the environment and start from scratch.
 
@@ -54,14 +54,14 @@ If you haven't already, sign into your account.
 
 Be sure to select the *home region* of your tenancy. Setup will only work in the home region.
 
-![Home Region](images/home-region.png " ")
+![Home Region](./images/home-region.png " ")
 
 ## Task 3. Launch Cloud Shell
 
 Cloud Shell is a small virtual machine running a "bash" shell which you access through the Oracle Cloud Console. Cloud Shell comes with a pre-authenticated command line interface in the tenancy region. It also provides up-to-date tools and utilities.
 
 1. Click the Cloud Shell icon in the top-right corner of the Console.
-![Open Cloud Shell](images/open-cloud-shell.png " ")
+![Open Cloud Shell](./images/open-cloud-shell.png " ")
 
 *Note:* Cloud Shell uses websockets to communicate between your browser and the service. If your browser has websockets disabled or uses a corporate proxy that has websockets disabled, you will see an error message ("An unexpected error occurred") when attempting to start Cloud Shell from the console. You also can change the browser cookies settings for a specific site to allow the traffic from *.oracle.com
 
@@ -160,11 +160,11 @@ The database password for the ADMIN user is expired and must be changed using th
 
 1. Login into the OCI Console
 2. Search for `DB_XS` in the Search bar and click on the DB_XS link provided:
-   ![DB Search](images/db-search.png " ")
+   ![DB Search](./images/db-search.png " ")
 3. Click on the More Actions drop down button and select Administrator Password:
-   ![Admin drop Down](images/admin-drop-down.png " ")
+   ![Admin drop Down](./images/admin-drop-down.png " ")
 4. Update the password.
-   ![Admin Pwd](images/admin-pwd.png " ")
+   ![Admin Pwd](./images/admin-pwd.png " ")
 
 ## Task 8. Test access to the ATP-S using APEX and SQL Developer Web
 
@@ -180,10 +180,10 @@ terraform output lb_address | jq -r '.'
 
 Open your favorite browser and access the URL `https://<LOADBALANCER_IP>`. The `LOADBALANCER_IP`. You will get an error regarding the certificate which can be ignored as the workshop uses a selfserved certificate. You will be presented with a login page, login as the ADMIN user and the password that you provided for the ADMIN user.
 
-![APEX Login](images/apex-login.png " ")
+![APEX Login](./images/apex-login.png " ")
 
 If you get a 501 error verify that the Load Balancer is healthy. If the **Overall Health** is showing Critical you need to reboot the ORDS Server.
-![LB Critical](images/lb-critical.png " ")
+![LB Critical](./images/lb-critical.png " ")
 
 Restart the ORDS server by issuing the following commands and wait a few minutes for the ORDS Server to come back up again and the Load Balancers Health Check clears. The commands will use the DEFAULT profile in the ~/.oci/config file. Change the DEFAULT value to the profile you are using if needed. You can also reboot the Compute VM from the OCI Console.
 
@@ -195,7 +195,7 @@ oci compute instance action --instance-id ${instance_id} --action SOFTRESET --pr
 ```
 
 You can also reboot the Compute VM from the OCI Console.
-![Console Reboot](images/console-reboot.png " ")
+![Console Reboot](./images/console-reboot.png " ")
 
 ### 2. Access SQL Developer Web (Database Actions)
 
@@ -210,9 +210,9 @@ echo https://$LB/ords/sql-developer
 
 Open your favorite browser and access the URL `https://<LOADBALANCER_IP>/ords/sql-developer`. The `LOADBALANCER_IP`. You will get an error regarding the certificate which can be ignored as the workshop uses a selfserved certificate. You will be presented with a login page, login as the ADMIN user and the password that you provided for the ADMIN user.
 
-![DB Actions 1](images/db-action-login-1.png " ")
+![DB Actions 1](./images/db-action-login-1.png " ")
 
-![DB Actions 2](images/db-action-login-2.png " ")
+![DB Actions 2](./images/db-action-login-2.png " ")
 
 SQLDeveloper Web (Database Actions) can be used instead of using the local SQLCl tools for this workshop.
 
@@ -228,7 +228,7 @@ If you haven't already, sign into your account.
 
 Be sure to select the *home region* of your tenancy. Setup will only work in the home region.
 
-![Home Region](images/home-region.png " ")
+![Home Region](./images/home-region.png " ")
 
 ## Task 3. Open a Terminal Window and a Clone of the Workshop Setup Script and Source Code
 
@@ -250,23 +250,23 @@ You should now see the directory `dcms-ords-sec` where in the directory where yo
 
 Locate your menu bar and click the person icon at the far upper right. From the drop-down menu, select your user's name.
 
-![Obtain Oracle Cloud Infrastructure User OCID](images/get-user-ocid.png " ")
+![Obtain Oracle Cloud Infrastructure User OCID](./images/get-user-ocid.png " ")
 
 In the lower left corner, click on API Keys followed by clicking on the Add API Key button.
 
-![Add API Key](images/add-api-key.png " ")
+![Add API Key](./images/add-api-key.png " ")
 
 Download the Private Key and make a note of where the key is located on your filesystem (most likely in the Downloads folder). You will need that information in a later step.
 
-![Download Private Key](images/download-priv-key.png " ")
+![Download Private Key](./images/download-priv-key.png " ")
 
 Click the Add button to create the API Key Fingerprint.
 
-![Create API Key](images/create-api-key.png " ")
+![Create API Key](./images/create-api-key.png " ")
 
 Copy the Configuration File Preview and save this information. It will be needed in a later step. You can add this information to your ~/.oci/config file but it is not necessary for this workshop.
 
-![Copy Configuration File Preview](images/config-file-preview.png " ")
+![Copy Configuration File Preview](./images/config-file-preview.png " ")
 
 Click close.
 
@@ -349,11 +349,11 @@ The database password for the ADMIN user is expired and must be changed using th
 
 1. Login into the OCI Console
 2. Search for `DB_XS` in the Search bar and click on the DB_XS link provided:
-   ![DB Search](images/db-search.png " ")
+   ![DB Search](./images/db-search.png " ")
 3. Click on the More Actions drop down button and select Administrator Password:
-   ![Admin drop Down](images/admin-drop-down.png " ")
+   ![Admin drop Down](./images/admin-drop-down.png " ")
 4. Update the password.
-   ![Admin Pwd](images/admin-pwd.png " ")
+   ![Admin Pwd](./images/admin-pwd.png " ")
 
 ## Task 8. Test access to the ATP-S using APEX and SQL Developer Web
 
@@ -369,10 +369,10 @@ terraform output lb_address | jq -r '.'
 
 Open your favorite browser and access the URL `https://<LOADBALANCER_IP>`. The `LOADBALANCER_IP`. You will get an error regarding the certificate which can be ignored as the workshop uses a selfserved certificate. You will be presented with a login page, login as the ADMIN user and the password that you provided for the ADMIN user.
 
-![APEX Login](images/apex-login.png " ")
+![APEX Login](./images/apex-login.png " ")
 
 If you get a 501 error verify that the Load Balancer is healthy. If the **Overall Health** is showing Critical you need to reboot the ORDS Server.
-![LB Critical](images/lb-critical.png " ")
+![LB Critical](./images/lb-critical.png " ")
 
 Restart the ORDS server by issuing the following commands and wait a few minutes for the ORDS Server to come back up again and the Load Balancers Health Check clears. The commands will use the DEFAULT profile in the ~/.oci/config file. Change the DEFAULT value to the profile you are using if needed.
 
@@ -384,7 +384,7 @@ oci compute instance action --instance-id ${instance_id} --action SOFTRESET --pr
 ```
 
 You can also reboot the Compute VM from the OCI Console.
-![Console Reboot](images/console-reboot.png " ")
+![Console Reboot](./images/console-reboot.png " ")
 
 ### 2. Access SQL Developer Web (Database Actions)
 
@@ -398,9 +398,9 @@ terraform output lb_address | jq -r '.'
 
 Open your favorite browser and access the URL `https://<LOADBALANCER_IP>/ords/sql-developer`. The `LOADBALANCER_IP`. You will get an error regarding the certificate which can be ignored as the workshop uses a selfserved certificate. You will be presented with a login page, login as the ADMIN user and the password that you provided for the ADMIN user.
 
-![DB Actions 1](images/db-action-login-1.png " ")
+![DB Actions 1](./images/db-action-login-1.png " ")
 
-![DB Actions 2](images/db-action-login-2.png " ")
+![DB Actions 2](./images/db-action-login-2.png " ")
 
 SQLDeveloper Web (Database Actions) can be used instead of using the local SQLCl tools for this workshop.
 

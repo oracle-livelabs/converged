@@ -181,15 +181,21 @@ Example Output:
 
   * Login into SQL Developer Web
   * Click on the REST Button
-    ![REST Button](images/rest_button.png " ")
+
+    ![REST Button](./images/rest-button.png " ")
+
   * Click on the Modules Button
-    ![Modules Button](images/module_button.png " ")
+
+    ![Modules Button](./images/module-button.png " ")
+
   * You will now see the URL to access the REST resource, you can test by clicking on the one in new tab button
-    ![URL Button](images/rest_url.png " ")
+
+    ![URL Button](./images/rest-url.png " ")
 
   * Test through **Postman**
     * Start Postman and copy the URL for the RESTful resource and click Send:
-        ![Postman](images/postman.png " ")
+
+        ![Postman](./images/postman.png " ")
 
 ## Task 3: AuthN Resource Protection
 
@@ -599,15 +605,15 @@ https://[LOADBALANCER_IP]/ords/ordstest/oauth/auth?response_type=code&client_id=
 
 * You will be presented with a webpage and a 401 error. Click on the **sign in** link to sign in as ht hr_admin user.
 
-    ![401_login](images/401_signin.png " ")
+    ![401_login](./images/401-signin.png " ")
 
 * If the client\_id is recognized, then a sign in prompt is displayed. Enter the credentials of the HR\_ADMIN end user, and click **Sign In**.
 
-    ![login](images/login.png " ")
+    ![login](./images/login.png " ")
 
 * On the the next page click **Approve**:
 
-    ![approve](images/approve.png " ")
+    ![approve](./images/approve.png " ")
 
 This will cause a redirect to redirect URI specified when the client was registered. The redirect URI will include the authorization code in the query string portion of the URI. It will also include the same state parameter value that the client provided at the start of the flow. The redirect URI will look like the following:
 
@@ -615,7 +621,7 @@ This will cause a redirect to redirect URI specified when the client was registe
 http://[LOADBALANCER_IP]/auth/code/example/?code=Y7ue-kEO7jZV6HgLU4vkaw&state=3668D7A713E93372E0406A38A8C02171
 ```
 
-![URL_sample](images/url_sample.png " ")
+![URL_sample](./images/url-sample.png " ")
 
 The client application must verify the value of the state parameter and then note the value of the code parameter, which will be used in to obtain an access token.
 
