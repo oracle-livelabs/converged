@@ -29,7 +29,7 @@ You will also need 3 terminal windows open (for Desktop deployment) or 3 Browser
 ## Architecture and deployment
 
 The Terraform scripts will deploy the infrastructure for this architecture. You will be deploying and configuring and configuring Datasafe and OCI API Gateway manually.
-![Architecture](images/Architecture.png " ")
+![Architecture](images/arch.png " ")
 
 There are two ways to run deploy this architecture. You can not do both unless you teardown the environment and start from scratch.
 
@@ -94,8 +94,10 @@ cp terraform-env-template.sh terraform-env.sh
 Edit the `terraform-env.sh` file using `vi` and modify the following variables:
 
 ```bash
+<copy>
 export TF_VAR_compartment_ocid="[COMPARTMENT_OCID]"
 export TF_VAR_proj_abrv="[ABBRV]"
+</copy>
 ```
 
 The `TF_VAR_proj_abrv` variable needs to be set to something unique in the tenancy as the naming of certain OCI Services must be unique. Use your initials for example. The compartment OCID can be found in the [OCI console](https://cloud.oracle.com/).
@@ -123,7 +125,7 @@ Execute the following commands to build out the OCI Infrastructure, this will ta
 
 The `terraform apply` command should end with the following output.
 
-```bash
+```text
 The terraform apply should result in output like this:
 Outputs:
 
@@ -157,12 +159,12 @@ The reason is that the Bastion plugin on the Compute VM (used for the Bastion Se
 The database password for the ADMIN user is expired and must be changed using the OCI Console. Follow these steps:
 
 1. Login into the OCI Console
-2. Search for DB\_XS in the Search bar and click on the DB_XS link provided:
-   ![DB Search](images/db_search.png " ")
+2. Search for `DB_XS` in the Search bar and click on the DB_XS link provided:
+   ![DB Search](images/db-search.png " ")
 3. Click on the More Actions drop down button and select Administrator Password:
-   ![Admin drop Down](images/admin_drop_down.png " ")
+   ![Admin drop Down](images/admin-drop-down.png " ")
 4. Update the password.
-   ![Admin Pwd](images/admin_pwd.png " ")
+   ![Admin Pwd](images/admin-pwd.png " ")
 
 ## Task 8. Test access to the ATP-S using APEX and SQL Developer Web
 
@@ -178,10 +180,10 @@ terraform output lb_address | jq -r '.'
 
 Open your favorite browser and access the URL `https://<LOADBALANCER_IP>`. The `LOADBALANCER_IP`. You will get an error regarding the certificate which can be ignored as the workshop uses a selfserved certificate. You will be presented with a login page, login as the ADMIN user and the password that you provided for the ADMIN user.
 
-![APEX Login](images/apex_login.png " ")
+![APEX Login](images/apex-login.png " ")
 
 If you get a 501 error verify that the Load Balancer is healthy. If the **Overall Health** is showing Critical you need to reboot the ORDS Server.
-![LB Critical](images/lb_critical.png " ")
+![LB Critical](images/lb-critical.png " ")
 
 Restart the ORDS server by issuing the following commands and wait a few minutes for the ORDS Server to come back up again and the Load Balancers Health Check clears. The commands will use the DEFAULT profile in the ~/.oci/config file. Change the DEFAULT value to the profile you are using if needed. You can also reboot the Compute VM from the OCI Console.
 
@@ -193,7 +195,7 @@ oci compute instance action --instance-id ${instance_id} --action SOFTRESET --pr
 ```
 
 You can also reboot the Compute VM from the OCI Console.
-![Console Reboot](images/console_reboot.png " ")
+![Console Reboot](images/console-reboot.png " ")
 
 ### 2. Access SQL Developer Web (Database Actions)
 
@@ -208,9 +210,9 @@ echo https://$LB/ords/sql-developer
 
 Open your favorite browser and access the URL `https://<LOADBALANCER_IP>/ords/sql-developer`. The `LOADBALANCER_IP`. You will get an error regarding the certificate which can be ignored as the workshop uses a selfserved certificate. You will be presented with a login page, login as the ADMIN user and the password that you provided for the ADMIN user.
 
-![DB Actions 1](images/db_action_login_1.png " ")
+![DB Actions 1](images/db-action-login-1.png " ")
 
-![DB Actions 2](images/db_action_login_2.png " ")
+![DB Actions 2](images/db-action-login-2.png " ")
 
 SQLDeveloper Web (Database Actions) can be used instead of using the local SQLCl tools for this workshop.
 
@@ -260,7 +262,7 @@ Download the Private Key and make a note of where the key is located on your fil
 
 Click the Add button to create the API Key Fingerprint.
 
-![Create API Key](images/create_api_key.png " ")
+![Create API Key](images/create-api-key.png " ")
 
 Copy the Configuration File Preview and save this information. It will be needed in a later step. You can add this information to your ~/.oci/config file but it is not necessary for this workshop.
 
@@ -317,7 +319,7 @@ Execute the following commands from `the security directory` to build out the OC
 
 The `terraform apply` command should end with the following output.
 
-```bash
+```text
 The terraform apply should result in output like this:
 Outputs:
 
@@ -346,12 +348,12 @@ The reason is that the Bastion plugin on the Compute VM (used for the Bastion Se
 The database password for the ADMIN user is expired and must be changed using the OCI Console. Follow these steps:
 
 1. Login into the OCI Console
-2. Search for DB\_XS in the Search bar and click on the DB_XS link provided:
-   ![DB Search](images/db_search.png " ")
+2. Search for `DB_XS` in the Search bar and click on the DB_XS link provided:
+   ![DB Search](images/db-search.png " ")
 3. Click on the More Actions drop down button and select Administrator Password:
-   ![Admin drop Down](images/admin_drop_down.png " ")
+   ![Admin drop Down](images/admin-drop-down.png " ")
 4. Update the password.
-   ![Admin Pwd](images/admin_pwd.png " ")
+   ![Admin Pwd](images/admin-pwd.png " ")
 
 ## Task 8. Test access to the ATP-S using APEX and SQL Developer Web
 
@@ -367,10 +369,10 @@ terraform output lb_address | jq -r '.'
 
 Open your favorite browser and access the URL `https://<LOADBALANCER_IP>`. The `LOADBALANCER_IP`. You will get an error regarding the certificate which can be ignored as the workshop uses a selfserved certificate. You will be presented with a login page, login as the ADMIN user and the password that you provided for the ADMIN user.
 
-![APEX Login](images/apex_login.png " ")
+![APEX Login](images/apex-login.png " ")
 
 If you get a 501 error verify that the Load Balancer is healthy. If the **Overall Health** is showing Critical you need to reboot the ORDS Server.
-![LB Critical](images/lb_critical.png " ")
+![LB Critical](images/lb-critical.png " ")
 
 Restart the ORDS server by issuing the following commands and wait a few minutes for the ORDS Server to come back up again and the Load Balancers Health Check clears. The commands will use the DEFAULT profile in the ~/.oci/config file. Change the DEFAULT value to the profile you are using if needed.
 
@@ -382,7 +384,7 @@ oci compute instance action --instance-id ${instance_id} --action SOFTRESET --pr
 ```
 
 You can also reboot the Compute VM from the OCI Console.
-![Console Reboot](images/console_reboot.png " ")
+![Console Reboot](images/console-reboot.png " ")
 
 ### 2. Access SQL Developer Web (Database Actions)
 
@@ -396,9 +398,9 @@ terraform output lb_address | jq -r '.'
 
 Open your favorite browser and access the URL `https://<LOADBALANCER_IP>/ords/sql-developer`. The `LOADBALANCER_IP`. You will get an error regarding the certificate which can be ignored as the workshop uses a selfserved certificate. You will be presented with a login page, login as the ADMIN user and the password that you provided for the ADMIN user.
 
-![DB Actions 1](images/db_action_login_1.png " ")
+![DB Actions 1](images/db-action-login-1.png " ")
 
-![DB Actions 2](images/db_action_login_2.png " ")
+![DB Actions 2](images/db-action-login-2.png " ")
 
 SQLDeveloper Web (Database Actions) can be used instead of using the local SQLCl tools for this workshop.
 
@@ -406,7 +408,7 @@ Once the setup and testing of access has been completed you are ready to **Proce
 
 ## Acknowledgements
 
-**Author** - Andy Tael, Developer Evangelist;
+* **Author** - Andy Tael, Developer Evangelist;
                Corrado De Bari, Developer Evangelist
-**Contributors** - John Lathouwers, Developer Evangelist
-**Last Updated By/Date** - Andy Tael, July 2022
+* **Contributors** - John Lathouwers, Developer Evangelist
+* **Last Updated By/Date** - Andy Tael, August 2022
