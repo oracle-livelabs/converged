@@ -212,4 +212,4 @@ Search for and join the `oracle-db-microservices` channel.
 
 * **Author** - Andy Tael, Developer Evangelist;
                Corrado De Bari, Developer Evangelist
-* **Last Updated By/Date** - Corrado De Bari, July 2022
+* **Last Updated By/Date** - Andy Tael, August 2022

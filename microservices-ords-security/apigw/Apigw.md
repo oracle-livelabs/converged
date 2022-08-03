@@ -96,7 +96,7 @@ Now let's setup networking rules to enable API GW in front of Load Balancer for 
             * **Direction**:**Ingress**, **Stateless**:uncheck, **Source Type**: **CIDR**, **Source CIDR**: 0.0.0.0/0, **Protocol**: **TCP**, **Source Port Range**: **All**, **Destination Port Range**: 80;
             * **Direction**:**Egress**, **Stateless**:uncheck, **Source Type**: **CIDR**, **Source CIDR**: **0.0.0.0/0**, **Protocol**: **TCP**, **Source Port Range**: **All**, **Destination Port Range**: All;
 
-            ![nsg-Apigw](images/nsg-apigw.png " ")
+            ![nsg-Apigw](./images/nsg-apigw.png " ")
 
     * Or you can do the same via oci-cli:
 
@@ -124,7 +124,7 @@ Now let's setup networking rules to enable API GW in front of Load Balancer for 
         * check **Enable network &ltcompartment-name\>** and choose **Network security group in &ltcompartment-name\>** created at the step before, for example: *dcms*-**security-group-apigw**.
         * NOTE: you can use an own certificate for API Gateway front-end. In this case we use the default certificate provided by the gateway.
 
-        ![create_gw](images/create-gw.png " ")
+        ![create_gw](./images/create-gw.png " ")
 
       * or via command-line:
         ```
@@ -150,7 +150,7 @@ Now let's setup networking rules to enable API GW in front of Load Balancer for 
 
 * Create Deployment under Gateway to bypass the ORDS Load Balancer end-point and expose another REST endpoint. We'll hide the access to APEX console and any other services than under /ords/ordtest path, protecting ORDS server from unwanted access, clicking on **Create deployment** button:
 
-    ![create_deployment](images/create-deployment.png " ")
+    ![create_deployment](./images/create-deployment.png " ")
 
   * choose **From scratch**
 
@@ -158,13 +158,13 @@ Now let's setup networking rules to enable API GW in front of Load Balancer for 
     * **Name**: **full**
     * **Path prefix**: **/ords**
 
-    ![create_gw_name](images/create-gw-name.png " ")
+    ![create_gw_name](./mages/create-gw-name.png " ")
 
   * Rate Limiting:
     * **Number of requests per second**: **50**
     * **Type of rate limit**: **Per client (IP)**
 
-    ![create_gwrate](images/create-gwrate.png " ")
+    ![create_gwrate](./images/create-gwrate.png " ")
 
   * Click on **Next** Button
     * **Routes**:
@@ -247,7 +247,7 @@ Now let's setup networking rules to enable API GW in front of Load Balancer for 
 ## Task 3: Close access to LB front-end to ORDS
 
 * From **API Gateway / Gateways**, on **ordsGW details**, get the IP address:
-![IP_GW](images/ip-gw.png " ")
+![IP_GW](./images/ip-gw.png " ")
 * or via oci-cli:
 
     ```bash
@@ -260,14 +260,14 @@ Now let's setup networking rules to enable API GW in front of Load Balancer for 
     ```
 
 * In **Networking / Virtual Cloud Networks**, choose the network details, for example  something like *dcms*-**vcn**. Click on **Resources** / **Network Security Groups**:
-![NSG](images/nsg.png " ")
+![NSG](./images/nsg.png " ")
   * Click on security group for load balancer, something like  *dcms***-security-group-lb**, to update the ingress rules.
   * Select the two ingress rules, **Ingress** rule for **Destination Port Rage: 443** and **Ingress** rule for **Destination Port Rage: 80** and click on **Edit** button:
 
-    ![NSG_ingr443](images/nsg-ingr443.png " ")
+    ![NSG_ingr443](./images/nsg-ingr443.png " ")
 
   * report the Gateway IP, for example **141.148.10.121**, with a CIDR of **141.148.10.121/32** and click on **Save changes**:
-  ![NSGSave](images/nsgsave.png " ")
+  ![NSGSave](./images/nsgsave.png " ")
 
 From this moment LB is no more accessible from Internet. Check connection doesn't work via a curl command:
 
@@ -279,7 +279,7 @@ From this moment LB is no more accessible from Internet. Check connection doesn'
 
 * Now set header for Load Balancer to API GW:
   * from **Networking**/**Load Balancers**, click on load balancer name, something like *dcms***-lb**, and under **Resources / Rule Sets**, click on **Create Rule Set**:
-  ![ButtonCreateRule](images/buttoncreaterule.png " ")
+  ![ButtonCreateRule](./images/buttoncreaterule.png " ")
 
   * Set rule with following parameters, replacing <api\_gw\_base\_url\> with the content of:
 
@@ -294,17 +294,17 @@ From this moment LB is no more accessible from Internet. Check connection doesn'
         * Select **Specify Request Header Rules**
         * Action: **Add Request Header** / **Header: host** / **Value** : <api\_gw\_base\_url\>
 
-        ![CreateRule](images/createrule.png " ")
+        ![CreateRule](./images/createrule.png " ")
 
     * Apply Rules to listener.
     From **Networking**/**Load Balancers**,click on load balancer name, something like *dcms* **-lb** and under **Resources / Listeners**, edit properties of one like  *dcms***-lb-listener-443**:
-        ![ApplyRule](images/applyrule.png " ")
+        ![ApplyRule](./images/applyrule.png " ")
 
     * and add **Additional Rule Set**:
-        ![AdditionaRule](images/additionalrule.png " ")
+        ![AdditionaRule](./images/additionalrule.png " ")
 
       selecting **force_header** and save changes:
-        ![ForceHeader](images/forceheader.png " ")
+        ![ForceHeader](./images/forceheader.png " ")
 
 ## Task 4: OAuth 2.0, Third Party OAuth 2.0-Based AuthN
 
@@ -316,7 +316,7 @@ From this moment LB is no more accessible from Internet. Check connection doesn'
 
     * Get from the GUI the url end-point for OAuth2.0 token:
 
-    ![endpoint](images/endpoint.png " ")
+    ![endpoint](./images/endpoint.png " ")
 
     * Get the **access_token** replacing <clientId\> and <clientSecret\> in the following command:
 
@@ -524,7 +524,7 @@ In any case, you need to get <CLIENT\_ID\> and <CLIENT\_SECRET\> for OAuth2.0 3-
 
     With a 400 RPS, and a limit of 50 x IP, are passed around 19% of requests:
 
-   ![APIGW_stress_test](images/apigw-stress-test.png " ")
+   ![APIGW_stress_test](./mages/apigw-stress-test.png " ")
 
 * let's check with no bearer access token what's happen, running:
 
@@ -536,7 +536,7 @@ In any case, you need to get <CLIENT\_ID\> and <CLIENT\_SECRET\> for OAuth2.0 3-
 
   The result is that 100% of requests have been rejected:
 
-  ![APIGW_stress_test100](images/apigw-stress-test100.png " ")
+  ![APIGW_stress_test100](./images/apigw-stress-test100.png " ")
 
 * (Alternatively) Use Artillery in a OCI Cloud Shell or in any desktop environment with Docker installed, running the following script:
 
@@ -561,7 +561,7 @@ In any case, you need to get <CLIENT\_ID\> and <CLIENT\_SECRET\> for OAuth2.0 3-
 
     as you can see, in 5 seconds, around 30 requests per second have been processed:
 
-    ![APIGW_stress_artillery](images/artillery.png " ")
+    ![APIGW_stress_artillery](./images/artillery.png " ")
 
 You may now proceed to the next lab.
 

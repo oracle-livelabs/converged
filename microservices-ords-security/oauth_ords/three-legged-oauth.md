@@ -19,7 +19,7 @@ The output should be the IP Address of the loadbalancer. SQLcl needs to be insta
 
 ## Task 1: Initial Setup
 
-Connect to the database either using SQL Developer Web (preferred method) or the SSH Tunnel and SQLcl from your local machine. Follow the [bastion document](../bastion.md).
+Connect to the database either using SQL Developer Web (preferred method) or the SSH Tunnel and SQLcl from your local machine. Follow the [bastion document](../bastion/bastion.md).
 
 These steps should be performed in database as ADMIN (Autonomous Database) user.
 
@@ -678,4 +678,4 @@ For example:
 * **Author** - Andy Tael, Developer Evangelist;
                Corrado De Bari, Developer Evangelist
 * **Contributors** - John Lathouwers, Developer Evangelist
-* **Last Updated By/Date** - Andy Tael, July 2022
+* **Last Updated By/Date** - Andy Tael, August 2022

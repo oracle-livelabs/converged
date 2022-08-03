@@ -9,7 +9,7 @@ The Terraform IaC includes creating a Bastion Service and Bastion Sessions.
 
 If you are using Cloud Shell, you need to open a new browser tab. s best not to use the original browser window or not to refresh it as this may disturb the setup or you might lose your shell session. Most browsers have a "duplicate" feature that will allow you to quickly create a second window or tab.
 
-![Duplicate Tab](images/duplicate-tab.png " ")
+![Duplicate Tab](./images/duplicate-tab.png " ")
 
 Make sure that you are in the directory where the terraform code lives. Get access the ORDS via the SSH Tunnel (using the Bastion Service) by executing the following commands:
 
@@ -26,7 +26,7 @@ You have to answer yes a few times if this is the first time you access the ORDS
 
 If you are using Cloud Shell, you need to open a new browser tab. s best not to use the original browser window or not to refresh it as this may disturb the setup or you might lose your shell session. Most browsers have a "duplicate" feature that will allow you to quickly create a second window or tab.
 
-![Duplicate Tab](images/duplicate-tab.png " ")
+![Duplicate Tab](./images/duplicate-tab.png " ")
 
 To access the ATP you need to create a SSH Tunnel and start the tunnel in a new terminal window or browser tab if you're using Cloud Shell. This command needs to be executed from the workshop directory.
 
@@ -165,4 +165,4 @@ SQL>
 * **Author** - Andy Tael, Developer Evangelist;
                Corrado De Bari, Developer Evangelist
 * **Contributors** - John Lathouwers, Developer Evangelist
-* **Last Updated By/Date** - Andy Tael, July 2022
+* **Last Updated By/Date** - Andy Tael, August 2022

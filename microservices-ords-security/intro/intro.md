@@ -21,4 +21,4 @@ Estimated Time: 2 hours
 * **Author** - Andy Tael, Developer Evangelist;
                Corrado De Bari, Developer Evangelist
 * **Contributors** - John Lathouwers, Developer Evangelist
-* **Last Updated By/Date** - Andy Tael, July 2022
+* **Last Updated By/Date** - Andy Tael, August 2022
