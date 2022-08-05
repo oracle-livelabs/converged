@@ -44,16 +44,16 @@ cat $LAB_HOME/kafka-connect-teq/kafka2teq-connect-configuration.json
   "tasks.max": "1",
   "topics": "LAB8022_TOPIC",
   "java.naming.factory.initial": "oracle.jms.AQjmsInitialContextFactory",
-  "java.naming.provider.url": "<connection string>",
-  "db_url": "<connection string>",
-  "java.naming.security.principal": "<username>",
-  "java.naming.security.credentials": "<password>",
+  "java.naming.provider.url": "connection string",
+  "db_url": "connection string",
+  "java.naming.security.principal": "username",
+  "java.naming.security.credentials": "password",
   "jndi.connection.factory": "javax.jms.XAQueueConnectionFactory",
   "jms.destination.type": "topic",
-  "jms.destination.name": "<teq topic name>",
+  "jms.destination.name": "TEQ topic name",
   "key.converter":"org.apache.kafka.connect.storage.StringConverter",
   "value.converter":"org.apache.kafka.connect.storage.StringConverter",
-  "confluent.topic.bootstrap.servers": "<kafka broker address>",
+  "confluent.topic.bootstrap.servers": "kafka broker address",
   "confluent.topic.replication.factor": "1"
 }
 ```
@@ -62,13 +62,7 @@ cat $LAB_HOME/kafka-connect-teq/kafka2teq-connect-configuration.json
 
     ```bash
     <copy>
-    cd $LAB_HOME/cloud-setup/confluent-kafka
-    </copy>
-    ```
-
-    ```bash
-    <copy>
-    ./docker-compose ps
+    kafka-status
     </copy>
     ```
 
@@ -83,21 +77,14 @@ cat $LAB_HOME/kafka-connect-teq/kafka2teq-connect-configuration.json
     ```bash
     <copy>
     cd $LAB_HOME/kafka-connect-teq
-    </copy>
-    ```
-
-    ```bash
-    <copy>
-    ./setup-kafka2teq-connect.sh 
+    ./setup-kafka2teq-connect.sh
     </copy>
     ```
 
 3. Once successfully executed, check that the connect are running:
 
     ```bash
-    <copy>
-    docker logs -f connect
-    </copy>
+    <copy>container-logs connect 6</copy>
     ```
 
     You will see the logs from Connect Sync similar with bellow snippet.
@@ -127,7 +114,7 @@ cat $LAB_HOME/kafka-connect-teq/kafka2teq-connect-configuration.json
 
     ```bash
     <copy>
-        curl -Ss http://localhost:8083/connectors/JmsConnectSync_lab8022/status | jq
+    kafka-connect-status
     </copy>
     ```
 
@@ -147,16 +134,18 @@ cat $LAB_HOME/kafka-connect-teq/kafka2teq-connect-configuration.json
 
 ## **Task 2:** Enqueueing messages on Kafka Broker
 
-Now that you have the Connector running, you can produce some messages and test the message transfer. The messages would be enqueued by the Kafka Producer and dequeued from the Oracle TEQ. We can use the Kafka Producer Microservice built during Lab 2 or operate Kafka producer inside the container to enqueue messages.
+Now that you have the Connector running, you can produce some messages and test the message transfer. The messages would be enqueued by the Kafka Producer and dequeued from the Oracle TEQ.
 
 1. Enqueueing using Kafka Producer Microservice.
 
     With Kafka producer microservices running, you can submit a message using cURL command to producer API.
 
     ```bash
-        <copy>
-            curl -X POST -H "Content-Type: application/json" -d '{ "id": "sync1", "message": "Sync Message from Kafka to TEQ #1" } ' http://localhost:8080/placeMessage | jq
-        </copy>
+    <copy>
+    curl -X POST -H "Content-Type: application/json"  \
+         -d '{ "id": "sync1", "message": "Sync Message from Kafka to TEQ #1" }'  \
+         http://localhost:8080/placeMessage | jq
+    </copy>
     ```
 
     The result should be like
@@ -168,47 +157,19 @@ Now that you have the Connector running, you can produce some messages and test 
         }
     ```
 
-2. Enqueueing with Kafka Producer inside container.
-
-    As an alternative to enqueue, we can use the producer console client present in Confluent broker container. Executing the following command:
-
-    ```bash
-    <copy>
-    docker exec --interactive --tty broker \
-           kafka-console-producer --bootstrap-server broker:9092 \
-           --topic LAB8022_TOPIC
-    </copy>
-    ```
-
-    You will get the prompt to write your messages and to finish your should press CTRL+D:
-
-    ```bash
-    >Sync Message from Kafka to TEQ #2
-    >Sync Message from Kafka to TEQ #3
-    >Sync Message from Kafka to TEQ #4
-    ```
-
-## **Task 3:** Dequeue messages from Oracle TEQ
+## **Task 3:** Dequeue messages from Oracle TEQ using PL/SQL
 
 After produce some messages, the expected behavior is the Connect Sync agent consume messages from Kafka Topic and enqueue them on Oracle TEQ. And, you will be able to dequeue them from Oracle TEQ using okafka consumer microservice or a PL/SQL procedure, for example.
 
 1. Dqueue message from Oracle TEQ
 
-    To ilustrate the polyglot approach, this lab provide a PL/SQL procedure to dequeue messages, Execute the following command providing the Oracle Database User password:
+    To illustrate the polyglot approach, this lab provide a PL/SQL procedure to dequeue messages, Execute the following command providing the Oracle Database User password:
 
     ```bash
-        <copy>
-        cd $LAB_HOME/kafka-connect-teq
-        </copy>
+    <copy>teq-dequeue</copy>
     ```
 
-    ```bash
-        <copy>
-        source dequeue_oracle_teq.sh
-        </copy>
-    ```
-
-    As a result you will something like this:
+    The results from some executions should be something similar to:
 
     ```bash
     TEQ message: {"id": "0", "message": "message1"}
@@ -220,39 +181,6 @@ After produce some messages, the expected behavior is the Connect Sync agent con
     TEQ message: {"id": "1", "message": "Sync Message from Kafka to TEQ #1"}
 
     PL/SQL procedure successfully completed.
-    ```
-
-2. As an alternative you also can query the TEQ topic table:
-
-    To issue sql commands you can use Oracle SQLcl tool and know connection information. Bellow, we provide an example:
-
-    ```sql
-    sql /nolog
-
-    SQLcl: Release 21.4 Production on Tue Jan 25 00:10:07 2022
-
-    Copyright (c) 1982, 2022, Oracle.  All rights reserved.
-
-    SQL> set cloudconfig <wallet location>/wallet.zip
-
-    SQL> connect LAB8022_USER@lab8022_tp
-    Password? (**********?)****************
-    Connected.
-
-    SQL> select MSGID, ENQUEUE_TIME from LAB8022_TOPIC WHERE ROWNUM<20 ORDER BY ENQUEUE_TIME DESC;
-
-                                MSGID                           ENQUEUE_TIME
-
-    ___________________________________ ______________________________________
-    00000000000000000200000001660400    21-MAR-22 08.50.38.953964000 PM GMT
-    00000000000000000200000001660300    21-MAR-22 08.50.31.738645000 PM GMT
-    00000000000000000200000001660200    21-MAR-22 08.50.29.545642000 PM GMT
-    00000000000000000200000001660100    21-MAR-22 08.49.04.080323000 PM GMT
-    00000000000000000200000001660000    21-MAR-22 08.47.47.158314000 PM GMT
-    00000000000000000000000001660000    21-MAR-22 08.42.29.565761000 PM GMT
-
-    6 rows selected.
-
     ```
 
 ## **Task 4:** Reinstall Kafka Components (optional)
@@ -268,13 +196,10 @@ If you disconnect from Cloud Shell for a long time, you may need to reinstall Ka
         </copy>
     ```
 
-2. Clean the two flags to allow rebuild executing:
+2. Clean the environment flags to allow rebuild executing:
 
     ```bash
-        <copy>
-        rm $LAB_HOME/cloud-setup/state/KAFKA_SETUP
-        rm $LAB_HOME/cloud-setup/state/CFLCONNECT_IMAGE
-        </copy>
+        <copy>kafka-env-cleanup</copy>
     ```
 
 3. Rebuild Kafka Cluster including Customised Connect image
@@ -286,41 +211,11 @@ If you disconnect from Cloud Shell for a long time, you may need to reinstall Ka
     </copy>
     ```
 
-4. Execute the following sequence of commands to start the Kafka cluster and connect Broker to Lab8022 Network:
+4. Start the Kafka cluster again:
 
     ```bash
-    <copy>
-    cd $LAB_HOME/cloud-setup/confluent-kafka
-    ./docker-compose up -d
-    docker network connect lab8022network broker
-    </copy>
+    <copy>kafka-start</copy>
     ```
-
-5. Connect broker to Lab8022 Network (Docker internal)
-
-    1. check if lab8022network exist
-
-        ```bash
-        <copy>
-        docker network ls
-        </copy>
-        ```
-
-    2. if network not exist, execute the following command to create it.
-
-        ```bash
-        <copy>
-        docker network create lab8022network
-        </copy>
-        ```
-
-    3. And, finally, connect broker to lab8022 network
-
-        ```bash
-        <copy>
-        docker network connect lab8022network broker
-        </copy>
-        ```
 
 ## Wrap up
 
@@ -335,5 +230,5 @@ You may now **proceed to the next lab**
 ## Acknowledgements
 
 - **Authors** - Paulo Simoes, Developer Evangelist; Paul Parkinson, Developer Evangelist; Richard Exley, Consulting Member of Technical Staff, Oracle MAA and Exadata
-- **Contributors** - Mayank Tayal, Developer Evangelist; Sanjay Goil, VP Microservices and Oracle Database
-- **Last Updated By/Date** - Paulo Simoes, February 2022
+- **Contributors** - Mayank Tayal, Developer Evangelist; Andy Tael, Developer Evangelist; Corrado De Bari, Developer Evangelist; Sanjay Goil, VP Microservices and Oracle Database
+- **Last Updated By/Date** - Paulo Simoes, Aug 2022
