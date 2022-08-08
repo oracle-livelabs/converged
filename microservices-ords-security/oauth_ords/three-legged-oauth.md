@@ -23,11 +23,20 @@ Connect to the database either using SQL Developer Web (preferred method) or the
 
 These steps should be performed in database as ADMIN (Autonomous Database) user.
 
-1. Create a new Database User
+Autonomous Database requires strong passwords; the password you specifyinsteag of "PICK_A_PASSWORD" must meet the default password complexity rules. The password must be between 12 and 30 characters long and must include at least one uppercase letter, one lowercase letter, and one numeric character.
+
+Note, the password limit is shown as 60 characters in some help tooltip popups. Limit passwords to a maximum of 30 characters.
+
+* The password cannot contain the username.
+* The password cannot be one of the last four passwords used for the same username.
+* The password cannot contain the double quote (") character.
+* The password must not be the same password that is set less than 24 hours ago.
+
+1. Create a new Database User.
 
     ```sql
     <copy>
-    CREATE USER "ORDSTEST" IDENTIFIED BY "Welcome1234#";
+    CREATE USER "ORDSTEST" IDENTIFIED BY "<PICK_A_PASSWORD>";
     GRANT "CONNECT" TO "ORDSTEST";
     GRANT "RESOURCE" TO "ORDSTEST";
     ALTER USER "ORDSTEST" QUOTA UNLIMITED ON DATA; 
