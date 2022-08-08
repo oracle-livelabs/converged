@@ -19,7 +19,7 @@ Estimated Workshop Time: 45 mins
 
 ### Prerequisites
 
- - An Oracle Cloud Account - Please view this workshop's LiveLabs landing page to see which environments are supported.
+ - An Oracle Cloud Account - Please view this workshop's LiveLabs landing page to see which environments are supported.  This workshop requires a compute instance that is not Always Free and as a result this workshop cannot be completed in an Always Free account.  
 
 ## Want to Learn More?
 
