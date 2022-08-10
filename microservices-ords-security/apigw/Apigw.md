@@ -563,7 +563,7 @@ In any case, you need to get <CLIENT\_ID\> and <CLIENT\_SECRET\> for OAuth2.0 3-
 
     ![APIGW_stress_artillery](./images/artillery.png " ")
 
-You may now proceed to the next lab.
+Once the setup and testing of access has been completed you are ready to **Proceed to the next lab.**
 
 ## Learn More
 

@@ -1,7 +1,23 @@
 
 # Protect REST API with Oauth
 
-In this lab you will protect the an REST endpoint using OAuth.
+## Introduction
+
+This lab  helps you know how to protect the an RESTful endpoint using OAuth using the ORDS server.
+
+Estimated Time: 30 minutes
+
+### Objectives
+
+* Create ADB-S database user and objects
+* Setup up Restful Resources
+* Protect the RESTFul resource in 3 different ways
+* Test the protected RESTFul resources
+
+### Prerequisites
+
+* Finished the Worskshop setup Lab
+* Finished the Access ORDS (Oracle REST Data Services) Server and DB Server using Bastion Lab
 
 ## Assumptions
 
@@ -677,6 +693,8 @@ For example:
 
     {"items":[{"empno":7566,"ename":"JONES","job":"MANAGER","mgr":7839,"hiredate":"1981-04-02T00:00:00Z","sal":2975,"comm":null,"deptno":20},{"empno":7521,"ename":"WARD","job":"SALESMAN","mgr":7698,"hiredate":"1981-02-22T00:00:00Z","sal":1250,"comm":500,"deptno":30},{"empno":7499,"ename":"ALLEN","job":"SALESMAN","mgr":7698,"hiredate":"1981-02-20T00:00:00Z","sal":1600,"comm":300,"deptno":30},{"empno":7369,"ename":"SMITH","job":"CLERK","mgr":7902,"hiredate":"1980-12-17T00:00:00Z","sal":800,"comm":null,"deptno":20}],"hasMore":false,"limit":7,"offset":0,"count":4,"links":[{"rel":"self","href":"https://129.159.74.36/ords/ordstest/examples/employees/"},{"rel":"describedby","href":"https://129.159.74.36/ords/ordstest/metadata-catalog/examples/employees/"},{"rel":"first","href":"https://129.159.74.36/ords/ordstest/examples/employees/"}]}
 ```
+
+Once the setup and testing of access has been completed you are ready to **Proceed to the next lab.**
 
 ## Learn More
 

@@ -1,22 +1,32 @@
 # Workshop Setup
 
-## Overview
+## Introduction
 
 This lab will create a secure OCI infrastructure. Including ADB-S (Oracle Autonomous Database Shared) and ORDS (Oracle REST Data Services) Server on a private network, bastion service, bastion sessions to be able to access the environment. You can choose between using Cloud Shell (preferred method) or a local deployment (tools on your local desktop/laptop).
 
 Estimated Time: 30 minutes
 
+### Objectives
+
+* Clone the workshop repository
+* Execute the environment setup
+
+### Prerequisites
+
+This lab requires completion of the Get Started section in the Contents menu on the left.
+An Oracle Cloud paid account or free trial. To sign up for a trial account with $300 in credits for 30 days, click [Sign Up](http://oracle.com/cloud/free).
+
 ## IAM Policies requirements
 
 If you're running the workshop in your tenancy the assumptions are that you have the right permissions to create the following OCI resources:
 
-- VCNs, NSGs, Security Lists, Load Balancer etc.
-- Compute VM
-- ADB-S (Oracle Autonomous Database Shared) 19c
-- Bastion Service and the associated sessions
-- API Gateway
-- Oracle Data Safe
-- Web Application Firewall (WAF)
+* VCNs, NSGs, Security Lists, Load Balancer etc.
+* Compute VM
+* ADB-S (Oracle Autonomous Database Shared) 19c
+* Bastion Service and the associated sessions
+* API Gateway
+* Oracle Data Safe
+* Web Application Firewall (WAF)
 
 ## Terminal and browser requirements
 

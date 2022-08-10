@@ -1,4 +1,20 @@
-# Access ORDS and DB Server using Bastion
+# Access ORDS (Oracle REST Data Services) Server and DB Server using Bastion
+
+## Introduction
+
+The lab will help you understand how to connect to the deployed resources on OCI.
+
+Estimated time: 10 minutes
+
+### Objectives
+
+* Access the ORDS Server using the Bastion Service
+* Access the ADB-S database using the Bastion Service
+* Access the ADB-S Database from the ORDS Server
+
+### Prerequisites
+
+* Finished the setup of the infrastructure
 
 The Terraform IaC includes creating a Bastion Service and Bastion Sessions.
 
@@ -155,6 +171,8 @@ Version 19.16.0.1.0
 
 SQL>
 ```
+
+You may now **proceed to the next lab**
 
 ## Learn More
 

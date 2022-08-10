@@ -200,7 +200,7 @@ source ./terraform-env.sh
 * From **Data Safe / Security Center / Activity Auditing** you will have more details about failed login just done. If you don't see any events, wait a moment to see the effects of previous logon:
     ![Dashboard_Login](./images/dashboard-login.png " ")
 
-You may now **proceed to the next lab.**
+Once the setup and testing of access has been completed you are ready to **Proceed to the next lab.**
 
 ## Learn More
 
