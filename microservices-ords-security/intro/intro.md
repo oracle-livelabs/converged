@@ -2,7 +2,7 @@
 
 This lab will help you understand how to setup a standalone ORDS (Oracle REST Data Services) server on OCI in a secure way, protecting all the resources involved through bastion services, private end-point ADB-S database, API Gateway and monitoring with Oracle Data Safe.
 
-You will deploy the infrastructure using Terraform (IaC), expose a table in the ATP-S database using REST. The Rest endpoint  will then be protected in 3 different ways:
+You will deploy the infrastructure using Terraform (IaC), expose a table in the ATP-S database using REST. The Rest endpoint will then be protected in 3 different ways:
 
 * First Party AuthN
 * Setup Third Party OAuth 2.0-Based AuthN
