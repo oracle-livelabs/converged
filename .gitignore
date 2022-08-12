@@ -5,5 +5,3 @@
 *.patch
 env.sh
 labs/.DS_Store
-# Githup pages generates this file
-_config.yml
