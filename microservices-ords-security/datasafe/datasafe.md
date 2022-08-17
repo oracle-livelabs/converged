@@ -14,6 +14,7 @@ Estimated Time: 20 minutes
 
 ### Prerequisites
 
+* Tenant admin role
 * The Oracle Autonomous Transaction Processing database named in a way like **&ltabrv>DB_XS** (created in Lab 1: Deployment)
 * Cloud shell open to submit oci-cli commands, with environment variables coming from initial Terraform setup available.
 * Get the **&ltabrv>** code with the command `echo $TF_VAR_proj_abrv` and replace in the following steps

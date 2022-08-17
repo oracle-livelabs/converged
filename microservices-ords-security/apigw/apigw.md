@@ -3,7 +3,7 @@
 
 ## Overview
 
-This task show how to setup an API Gateway, the OCI service that will be between the REST client and ORDS/ADB-S, to provide request rate limitation and protection on ORDS access.
+This task shows how to setup an API Gateway, the OCI service that will be between the REST client and ORDS/ADB-S, to provide request rate limitation and protection on ORDS access.
 
 ### Objectives
 
@@ -158,7 +158,7 @@ Now let's setup networking rules to enable API GW in front of Load Balancer for 
     * **Name**: **full**
     * **Path prefix**: **/ords**
 
-    ![create_gw_name](./mages/create-gw-name.png " ")
+    ![create_gw_name](./images/create-gw-name.png " ")
 
   * Rate Limiting:
     * **Number of requests per second**: **50**
@@ -271,11 +271,11 @@ Now let's setup networking rules to enable API GW in front of Load Balancer for 
 
 From this moment LB is no more accessible from Internet. Check connection doesn't work via a curl command:
 
-    ```bash
+```bash
         <copy>
             curl https://$LB/ords/ordstest/examples/employees/
         </copy>
-    ```
+```
 
 * Now set header for Load Balancer to API GW:
   * from **Networking**/**Load Balancers**, click on load balancer name, something like *dcms***-lb**, and under **Resources / Rule Sets**, click on **Create Rule Set**:
@@ -292,7 +292,7 @@ From this moment LB is no more accessible from Internet. Check connection doesn'
     * In the following parameters:
         * **Name**: **force_header**
         * Select **Specify Request Header Rules**
-        * Action: **Add Request Header** / **Header: host** / **Value** : <api\_gw\_base\_url\>
+        * **Action: Add Request Header** / **Header: host** / **Value** : <api\_gw\_base\_url\>
 
         ![CreateRule](./images/createrule.png " ")
 
@@ -524,7 +524,7 @@ In any case, you need to get <CLIENT\_ID\> and <CLIENT\_SECRET\> for OAuth2.0 3-
 
     With a 400 RPS, and a limit of 50 x IP, are passed around 19% of requests:
 
-   ![APIGW_stress_test](./mages/apigw-stress-test.png " ")
+   ![APIGW_stress_test](./images/apigw-stress-test.png " ")
 
 * let's check with no bearer access token what's happen, running:
 
