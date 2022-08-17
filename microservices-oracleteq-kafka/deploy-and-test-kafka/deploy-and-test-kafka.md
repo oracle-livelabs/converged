@@ -57,7 +57,7 @@ Estimated Time: 10 minutes
     KAFKA_RUNNING completed
     ```
 
-3. Once successfully executed, check that the services are running executing the follwing commands:
+3. Once successfully executed, check that the services are running executing the following commands:
 
     ```bash
     <copy>
@@ -68,10 +68,18 @@ Estimated Time: 10 minutes
     First, you will see the four containers running, but the container from Connect Service will be *starting*
     ![Kafka Cluster Services Running with Connect starting](images/kafka-platform-containers-status-starting.png)
 
-    After a few seconds, the container from Connect Service will be *healthy*
+    After a few minutes, the container from Connect Service will be *healthy*
     ![Kafka Cluster Services Running with Connect starting](images/kafka-platform-containers-status-healthy.png)
 
-    > **Note:** If your cloud shell connection interrupt during the process, may you will have to reconnect and executing the instructions from [Task 5](#task5restartkafkacomponentsoptional).
+     > **Note:** Cloud shell may disconnect after a period of inactivity. If that happens, you can reconnect and then run this command to resume the setup:
+    >  
+
+    ```bash
+    <copy>
+    source $LAB_HOME/cloud-setup/env.sh
+    source $LAB_HOME/cloud-setup/setup.sh
+    </copy>
+    ```
 
 4. Create a Topic:
 
@@ -132,7 +140,7 @@ As a result of the Maven build task, you should obtain the following lines showi
 
 2. Launch a Kafka producer microservice
 
-    Once you have deployed the producer microservice image, you will be able to launch a container and execute the producer microservice. Issue the follwoing commands:
+    Once you have deployed the producer microservice image, you will be able to launch a container and execute the producer microservice. Issue the following commands:
 
     ```bash
     <copy>
@@ -141,7 +149,7 @@ As a result of the Maven build task, you should obtain the following lines showi
     </copy>
     ```
 
-    If the deployment task is successful, you will receive the messages "Kafka producer microservice is running!". Yet it is possible to evaluate the logs from the producer issuing the following command to list the late six lines from the container log:
+    If the deployment task is successful, you will receive the messages "Kafka producer microservice is running!". Yet it is possible to evaluate the logs from the producer issuing the following command to list the late six lines from the container log. Look for `Started KafkaProducerApplication`
 
     ```bash
     <copy>container-logs kafka-producer 6</copy>
@@ -170,7 +178,7 @@ As a result of the Maven build task, you should obtain the following lines showi
     }
     ```
 
-    <!-- > **Note:** It is possible verify if the message was published inside Kafka Topic submiting the following command:
+    <!-- > **Note:** It is possible verify if the message was published inside Kafka Topic submitting the following command:
 
     ```bash
     <copy>
@@ -178,7 +186,7 @@ As a result of the Maven build task, you should obtain the following lines showi
     </copy>
     ```
 
-    You will need to press Crtl+C to stop this process. The result will be similar to :
+    You will need to press Ctrl+C to stop this process. The result will be similar to :
 
     ![Dequeuing Kafka Topic](images/kafka-dequeue.png " ") -->
 
@@ -210,7 +218,7 @@ Now that we have Producer running and publishing events inside the Kafka Broker,
 
 2. Launch a Kafka consumer microservice
 
-    Once you have deployed the consumer microservice image, you will be able to launch a container and execute it. Issue the follwoing commands:
+    Once you have deployed the consumer microservice image, you will be able to launch a container and execute it. Issue the following commands:
 
     ```bash
     <copy>
@@ -235,7 +243,7 @@ Now that we have Producer running and publishing events inside the Kafka Broker,
 
     ![Spring Boot Kafka Consumer Running Logs](images/springboot-kafka-consumer-test.png " ")
 
-    With this result, assuming a successful result, we could produce and consume events from Kafka Broker.
+    Look for `message {"id": "0", "message": "message1"}`. With this result, assuming a successful result, we could produce and consume events from Kafka Broker.
 
 ## **Task 5:** Restart Kafka Components (optional)
 
@@ -276,6 +284,6 @@ You may now **proceed to the next lab**
 
 ## Acknowledgements
 
-- **Authors** - Paulo Simoes, Developer Evangelist; Paul Parkinson, Developer Evangelist; Richard Exley, Consulting Member of Technical Staff, Oracle MAA and Exadata
-- **Contributors** - Mayank Tayal, Developer Evangelist; Andy Tael, Developer Evangelist; Corrado De Bari, Developer Evangelist; Sanjay Goil, VP Microservices and Oracle Database
-- **Last Updated By/Date** - Paulo Simoes, Aug 2022
+- **Authors** - Andy Tael, Developer Evangelist; Paulo Simoes, Developer Evangelist; Paul Parkinson, Developer Evangelist; Richard Exley, Consulting Member of Technical Staff, Oracle MAA and Exadata
+- **Contributors** - Mayank Tayal, Developer Evangelist; Corrado De Bari, Developer Evangelist; Sanjay Goil, VP Microservices and Oracle Database
+- **Last Updated By/Date** - Andy Tael, Aug 2022
