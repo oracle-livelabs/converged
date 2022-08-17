@@ -42,7 +42,7 @@ Oracle introduces Kafka Java Client for Oracle Transactional Event Queues Kafka 
 
 The figure shows OKafka library, which contains Oracle specific implementation of Kafka's Java APIs. This implementation internally invokes AQ-JMS APIs which in turn uses JDBC driver to communicate with Oracle Database.
 
-Developers can now migrate an existing Java application that uses Kafka to the Oracle database. Oracle Database 20c provides client side library which allows Kafka applications to connect to Oracle Database instead of Kafka cluster and use TEQ's messaging platform transparently.
+Developers can now migrate an existing Java application that uses Kafka to the Oracle database. Oracle Database 19c provides client side library which allows Kafka applications to connect to Oracle Database instead of Kafka cluster and use TEQ's messaging platform transparently.
 
 ## **Task 1:** Create TEQ Topic
 
@@ -114,7 +114,7 @@ As a result of the Maven build task, you should obtain the following lines showi
     </copy>
     ```
 
-    If the deployment task is successful, you will receive the messages "TEQ producer microservice is running!". Yet it is possible to evaluate the logs from the producer issuing the following command to list the late six lines from the container log:
+    If the deployment task is successful, you will receive the messages "TEQ producer microservice is running!". Yet it is possible to evaluate the logs from the producer issuing the following command to list the late six lines from the container log. Look for `OKafka Producer Application Running!`
 
     ```bash
     <copy>container-logs teq-producer 6</copy>
@@ -171,7 +171,7 @@ Now that we have Producer running and publishing events inside the TEQ Broker, y
 
 2. Launch a TEQ consumer microservice
 
-    Once you have deployed the consumer microservice image, you will be able to launch a container and execute it. Issue the follwoing commands:
+    Once you have deployed the consumer microservice image, you will be able to launch a container and execute it. Issue the following commands:
 
     ```bash
     <copy>
@@ -193,7 +193,7 @@ Now that we have Producer running and publishing events inside the TEQ Broker, y
 
 3. Test the TEQ consumer microservice
 
-    The Consumer microservice after start try to dequeue the messages from the TEQ Broker. If it succeeds in dequeuing the events, we can see in the log the events that were sent by the producer issuing the following command to list the late six lines from the container log:
+    The Consumer microservice after start try to dequeue the messages from the TEQ Broker. If it succeeds in dequeuing the events, we can see in the log the events that were sent by the producer issuing the following command to list the late one hundred lines from the container log. Look for `message received {"id": "0", "message": "teq message1"}`.
 
     ```bash
     <copy>container-logs teq-consumer 100</copy>
@@ -233,13 +233,13 @@ Now that we have Producer running and publishing events inside the TEQ Broker, y
     13:29:45.448 [main] INFO  c.o.d.o.o.s.OKafkaConsumerService - message received {"id": "0", "message": "teq message1"}. using key 0. sending to processing: Thread id 1
     ```
 
-    **With this result, assuming that processing was successful, we could produce and consume events from TEQ Broker.**
+    With this result, assuming that processing was successful, we could produce and consume events from TEQ Broker.
 
 ## **Extra 1:** Verify Microservices configurations (optional)
 
 The okafka library contains Oracle specific implementation of Kafka Client Java APIs. Its implementation is built on AQ-JMS APIs; thus, it is required to have the connection details.
 
-The Database is generated during setup based on your environment and the workshop scripts fill the parameters from each microservices informing the correct data to the connection (Oracle Database TNS Name, Service Name, and Host Name and Port). These properties are stored in the *application.yaml* file from each microservices and you can review them acessing the Oracle Database data at step 1 and the applications properties on step 2 and 3.
+The Database is generated during setup based on your environment and the workshop scripts fill the parameters from each microservices informing the correct data to the connection (Oracle Database TNS Name, Service Name, and Host Name and Port). These properties are stored in the *application.yaml* file from each microservices and you can review them accessing the Oracle Database data at step 1 and the applications properties on step 2 and 3.
 
 1. Obtain JMS connection information
 
@@ -359,6 +359,6 @@ You may now **proceed to the next lab**
 
 ## Acknowledgements
 
-- **Authors** - Paulo Simoes, Developer Evangelist; Paul Parkinson, Developer Evangelist; Richard Exley, Consulting Member of Technical Staff, Oracle MAA and Exadata
-- **Contributors** - Mayank Tayal, Developer Evangelist; Andy Tael, Developer Evangelist; Corrado De Bari, Developer Evangelist; Sanjay Goil, VP Microservices and Oracle Database
-- **Last Updated By/Date** - Paulo Simoes, Aug 2022
+- **Authors** - Paulo Simoes, Developer Evangelist; Andy Tael, Developer Evangelist; Paul Parkinson, Developer Evangelist; Richard Exley, Consulting Member of Technical Staff, Oracle MAA and Exadata
+- **Contributors** - Mayank Tayal, Developer Evangelist; Corrado De Bari, Developer Evangelist; Sanjay Goil, VP Microservices and Oracle Database
+- **Last Updated By/Date** - Andy Tael, Aug 2022

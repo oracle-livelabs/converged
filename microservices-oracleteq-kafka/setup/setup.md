@@ -75,9 +75,18 @@ Here are the steps for creating a new group and assigning security policy requir
 
    ![Review a New Group](images/get-new-group.png " ")
 
-4. Now, create a security policy that gives the group permissions to execute the setup steps for this workshop, entering a name, such as "Microservices-Policies".
+4. Now, create a security policy that gives the group permissions to execute the setup steps for this workshop, entering a name, such as "Microservices-Policies". Click the Navigation Menu in the upper left, navigate to Identity & Security and Select Policies
 
-   ![Create a New Securiry Policy](images/create-policy.png " ")
+   ![Oracle Cloud Infrastructure Identity & Security Groups Screen](images/id-policies.png)
+
+5. Click Create Policy.
+
+   ![Create a New Policy](images/create-policy-button.png)
+
+6. In the Create Policy dialog box, enter the following:
+
+    - **Name**: Enter a unique name for your policy, such as "Micorservices-Policies"
+    - **Description**: Enter a description. For Example "Micorservices-Policies"
 
    Using **Edit Policy Statement** option, add the below statements to the policy created above.
 
@@ -94,9 +103,17 @@ Here are the steps for creating a new group and assigning security policy requir
     </copy>
     ```
 
+  ![Create a New Security Policy](images/create-policy.png " ")
+
+7. Click Create
+
   ![Policy Statements](images/policy-statements.png " ")
 
+<<<<<<< HEAD
+8. And finally, make sure your user account has been added to the group created in step#2.  
+=======
 5. And finally, make sure your user account has been added to the group created in step#2.  
+>>>>>>> bcdac7240842e9c2379effe32390408fc0e07f39
 
 ## **Task 5:** Launch Cloud Shell
 
@@ -145,31 +162,13 @@ Cloud Shell is a small virtual machine running a "bash" shell which you access t
 
 ## **Task 8:** Start the Setup
 
-1. Execute the following commands to start the setup.  
+1. The setup will ask for you to enter your User OCID.  
 
-    ```bash
-    <copy>
-    source $LAB_HOME/cloud-setup/setup.sh
-    </copy>
-    ```
-
-    > **Note:** Cloud shell may disconnect after a period of inactivity. If that happens, you can reconnect and then run this command to resume the setup:
-    >  ```bash
-        <copy>
-        source $LAB_HOME/cloud-setup/env.sh
-        source $LAB_HOME/cloud-setup/setup.sh
-        </copy>
-        ```
-
-    The setup process will typically take around 10 minutes to complete.  
-
-2. The setup will ask for you to enter your User OCID.  
-
-   Be sure to provide the user OCID and not the user name or tenancy OCID.
+   **NOTE**: Be sure to provide the user OCID and not the user name or tenancy OCID.
 
    User information is available in the Oracle Cloud Infrastructure Console.
 
-   The user OCID will look something like `ocid1.user.oc1..aaaaaa==========l4oi======fasdf===f4===bta`. Pay attention to the "ocid1.user" prefix.
+   The user OCID will look something like `ocid1.user.oc1..aaaaaa==========l4oi======fasdf===f4===bta`. Pay attention to the "ocid1.user" prefix as this will tell you that it is a User OCID and not a Tenancy OCID.
 
    Sometimes the name link is missing in which case select the `User Settings` link. Do not select the "Tenancy" link.
 
@@ -180,6 +179,26 @@ Cloud Shell is a small virtual machine running a "bash" shell which you access t
    b. Click Show to see the details and then click Copy to copy the user OCID to the clipboard, paste in the copied data in console.
 
       ![Oracle Cloud Infrastructure User OCID example](images/example-user-ocid.png " ")
+
+2. Execute the following commands to start the setup.  
+
+    ```bash
+    <copy>
+    source $LAB_HOME/cloud-setup/setup.sh
+    </copy>
+    ```
+
+    > **Note:** Cloud shell may disconnect after a period of inactivity. If that happens, you can reconnect and then run this command to resume the setup:
+    >  
+
+    ```bash
+    <copy>
+    source $LAB_HOME/cloud-setup/env.sh
+    source $LAB_HOME/cloud-setup/setup.sh
+    </copy>
+    ```
+
+    The setup process will typically take around 10 minutes to complete.  
 
 3. The setup will ask you to enter an admin password for the database. Database passwords must be 12 to 30 characters and contain at least one uppercase letter, one lowercase letter, and one number. The password cannot have the double quote (") character or the word "admin.".
 
@@ -249,6 +268,6 @@ You may now **proceed to the next lab**
 
 ## Acknowledgements
 
-- **Authors** - Paulo Simoes, Developer Evangelist; Paul Parkinson, Developer Evangelist; Richard Exley, Consulting Member of Technical Staff, Oracle MAA and Exadata
-- **Contributors** - Mayank Tayal, Developer Evangelist; Andy Tael, Developer Evangelist; Corrado De Bari, Developer Evangelist; Sanjay Goil, VP Microservices and Oracle Database
-- **Last Updated By/Date** - Paulo Simoes, Aug 2022
+- **Authors** - Paulo Simoes, Developer Evangelist; Andy Tael, Developer Evangelist; Paul Parkinson, Developer Evangelist; Richard Exley, Consulting Member of Technical Staff, Oracle MAA and Exadata
+- **Contributors** - Mayank Tayal, Developer Evangelist; Corrado De Bari, Developer Evangelist; Sanjay Goil, VP Microservices and Oracle Database
+- **Last Updated By/Date** - Andy Tael, Aug 2022
