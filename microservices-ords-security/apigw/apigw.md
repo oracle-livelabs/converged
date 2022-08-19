@@ -3,7 +3,7 @@
 
 ## Overview
 
-This task shows how to setup an API Gateway, the OCI service that will be between the REST client and ORDS/ADB-S, to provide request rate limitation and protection on ORDS access.
+This task shows how to set up an API Gateway, the OCI service that will be between the REST client and ORDS/ADB-S, to provide request rate limitation and protection on ORDS access.
 
 ### Objectives
 
@@ -11,8 +11,8 @@ This task shows how to setup an API Gateway, the OCI service that will be betwee
 
 ### Prerequisites
 
-* The OCI Load Balancer and ORDS have been provisioned and running.
-* Get the **&ltabrv\>** code with the command `echo $TF_VAR_proj_abrv` and replace in the following steps.
+* The OCI Load Balancer and ORDS have been provisioned and are running.
+* Get the **&ltabrv\>** code with the command `echo $TF_VAR_proj_abrv` and replace it in the following steps.
 
 **NOTE**: if you lose connection in Cloud Shell, and you need to recreate the environment variables, please run :
 
@@ -33,7 +33,7 @@ source ./env-refresh.sh
     </copy>
     ```
 
-    and fix TF_VAR for next steps:
+    and fix TF_VAR for the next steps:
 
     ```bash
     <copy>
@@ -42,7 +42,7 @@ source ./env-refresh.sh
     </copy>
     ```
 
-    With the following command get the compartment name provided during **Lab 1: Setup**, in order to set the required IAM Policies to enable and use API Gateway:
+    With the following commands get the compartment name provided during **Lab 1: Setup**, to set the required IAM Policies to enable and use API Gateway:
 
     ```bash
         <copy>
@@ -70,7 +70,7 @@ source ./env-refresh.sh
 
 Now let's setup networking rules to enable API GW in front of Load Balancer for ORDS.
 
-* First get the Load Balancer IP and its OCID:
+* First, get the Load Balancer IP and its OCID:
 
     ```bash
         <copy>
@@ -79,7 +79,7 @@ Now let's setup networking rules to enable API GW in front of Load Balancer for 
     ```
 
   * Create a security group for API GW.
-    * Get network name and new Network Security Group (NSG) with this command:
+    * Get the network name and new Network Security Group (NSG) with this command:
 
         ```bash
         <copy>
@@ -88,7 +88,7 @@ Now let's setup networking rules to enable API GW in front of Load Balancer for 
         ```
 
         something like *dcms*-**vcn** and *dcms*-**security-group-apigw**
-      * Select under **Networking/Virtual Cloud Networks** the network name got at previous step and click on **Resources**/**Network Security Groups**.
+      * Select under **Networking/Virtual Cloud Networks** the network name got at the previous step and click on **Resources**/**Network Security Groups**.
         * Click on **Create Network Security Group** button
         * input in the field **Name** the NSG name printed before, for example **dmcs-security-group-apigw**, and click **Next** button
           * Add 3 rules:
@@ -117,12 +117,12 @@ Now let's setup networking rules to enable API GW in front of Load Balancer for 
 
       * **Type**: **Public**
 
-      * Choose **Compartment**: if you don't remember, get it with command `echo $COMP_NAME` the name to choose
+      * Choose **Compartment**: if you don't remember, get it with the command `echo $COMP_NAME` the name to choose
       * Network
         * Choose **Virtual cloud network in &ltcompartment-name\>**: <network-vcn\> defined
         * Select **Subnet in &ltcompartment-name\>**: public subnet under <network-vcn\> 
         * check **Enable network &ltcompartment-name\>** and choose **Network security group in &ltcompartment-name\>** created at the step before, for example: *dcms*-**security-group-apigw**.
-        * NOTE: you can use an own certificate for API Gateway front-end. In this case we use the default certificate provided by the gateway.
+        * NOTE: you can use your certificate for API Gateway front-end. In this case, we use the default certificate provided by the gateway.
 
         ![create_gw](./images/create-gw.png " ")
 
@@ -168,7 +168,7 @@ Now let's setup networking rules to enable API GW in front of Load Balancer for 
 
   * Click on **Next** Button
     * **Routes**:
-    First get the Load Balancer IP in front of ORDS server:
+    First get the Load Balancer IP in front of the ORDS server:
 
         ```bash
             <copy> 
@@ -185,9 +185,9 @@ Now let's setup networking rules to enable API GW in front of Load Balancer for 
     * **Connection establishment**: 10
     * **Request transmit timeout in seconds**: 10
     * **Reading response timeout in seconds**: 10
-    * **Disable SSL verification** (because it has been used a self signed certificate)
+    * **Disable SSL verification** (because it has been used a self-signed certificate)
 
-* To do the previous steps using command-line tool:
+* To do the previous steps using the command-line tool:
 
     ```bash
         <copy>
@@ -259,17 +259,17 @@ Now let's setup networking rules to enable API GW in front of Load Balancer for 
     </copy>
     ```
 
-* In **Networking / Virtual Cloud Networks**, choose the network details, for example  something like *dcms*-**vcn**. Click on **Resources** / **Network Security Groups**:
+* In **Networking / Virtual Cloud Networks**, choose the network details, for example,  something like *dcms*-**vcn**. Click on **Resources** / **Network Security Groups**:
 ![NSG](./images/nsg.png " ")
-  * Click on security group for load balancer, something like  *dcms***-security-group-lb**, to update the ingress rules.
-  * Select the two ingress rules, **Ingress** rule for **Destination Port Rage: 443** and **Ingress** rule for **Destination Port Rage: 80** and click on **Edit** button:
+  * Click on the security group for the Load Balancer, something like  *dcms***-security-group-lb**, to update the ingress rules.
+  * Select the two ingress rules, **Ingress** rule for **Destination Port Rage: 443** and **Ingress** rule for **Destination Port Rage: 80**, and click on the **Edit** button:
 
     ![NSG_ingr443](./images/nsg-ingr443.png " ")
 
-  * report the Gateway IP, for example **141.148.10.121**, with a CIDR of **141.148.10.121/32** and click on **Save changes**:
+  * report the Gateway IP, for example **141.148.10.121**, with a CIDR of **141.148.10.121/32**, and click on **Save changes**:
   ![NSGSave](./images/nsgsave.png " ")
 
-From this moment LB is no more accessible from Internet. Check connection doesn't work via a curl command:
+From this moment LB is no more accessible from the Internet. Check connection doesn't work via a curl command:
 
 ```bash
         <copy>
@@ -277,7 +277,7 @@ From this moment LB is no more accessible from Internet. Check connection doesn'
         </copy>
 ```
 
-* Now set header for Load Balancer to API GW:
+* Now set the header for Load Balancer to API GW:
   * from **Networking**/**Load Balancers**, click on load balancer name, something like *dcms***-lb**, and under **Resources / Rule Sets**, click on **Create Rule Set**:
   ![ButtonCreateRule](./images/buttoncreaterule.png " ")
 
@@ -296,8 +296,8 @@ From this moment LB is no more accessible from Internet. Check connection doesn'
 
         ![CreateRule](./images/createrule.png " ")
 
-    * Apply Rules to listener.
-    From **Networking**/**Load Balancers**,click on load balancer name, something like *dcms* **-lb** and under **Resources / Listeners**, edit properties of one like  *dcms***-lb-listener-443**:
+    * Apply Rules to the listener.
+    From **Networking**/**Load Balancers**, click on load balancer name, something like *dcms* **-lb** and under **Resources / Listeners**, edit properties of one like  *dcms***-lb-listener-443**:
         ![ApplyRule](./images/applyrule.png " ")
 
     * and add **Additional Rule Set**:
@@ -308,13 +308,13 @@ From this moment LB is no more accessible from Internet. Check connection doesn'
 
 ## Task 4: OAuth 2.0, Third Party OAuth 2.0-Based AuthN
 
-* Set the ORDS to provide OAuth 2.0-Based AuthN, getting from the final step of ORDS setup task the **CLIENT\_ID** and **CLIENT\_SECRET** to perform the authentication (Lab 3 - Task 5).
+* Set the ORDS to provide OAuth 2.0-Based AuthN, getting from the final step of the ORDS setup task the **CLIENT\_ID** and **CLIENT\_SECRET** to perform the authentication (Lab 3 - Task 5).
 
 * Test:
 
     Get the OAuth access token using client credentials Request an access token from the token endpoint.
 
-    * Get from the GUI the url end-point for OAuth2.0 token:
+    * Get from the GUI the URL end-point for OAuth2.0 token:
 
     ![endpoint](./images/endpoint.png " ")
 
@@ -332,7 +332,7 @@ From this moment LB is no more accessible from Internet. Check connection doesn'
         {"access_token":"FZnQHruEhGr8v8OT7wvjOw","token_type":"bearer","expires_in":3600}
         ```
 
-    * use the **access_token** and replace the <\> in the command to access final resource:
+    * use the **access_token** and replace the <\> in the command to access the final resource:
 
         ```bash
         <copy>
@@ -361,7 +361,7 @@ From this moment LB is no more accessible from Internet. Check connection doesn'
 
 ## Task 5: OAuth 2.0, Three-Legged OAuth 2.0-Based AuthN
 
-You could proceed in two way to test the OAuth 2.0, 3-Legged. The easier it's via [Postman](https://www.postman.com/downloads/), or via curl as usual done in task 6 of Lab 3.
+You could proceed in two ways to test the OAuth 2.0, 3-Legged. The easier it's via [Postman](https://www.postman.com/downloads/), or via curl as usual done in task 6 of Lab 3.
 In any case, you need to get <CLIENT\_ID\> and <CLIENT\_SECRET\> for OAuth2.0 3-legged, and set two variables to hold:
 
 ```bash
@@ -369,7 +369,7 @@ In any case, you need to get <CLIENT\_ID\> and <CLIENT\_SECRET\> for OAuth2.0 3-
     export CLIENT_SECRET=&ltCLIENT_SECRET>
 ```
 
-* Open a browser page in incognito mode, and ask for authorization asking the URL coming from this command:
+* Open a browser page in incognito mode, and ask for authorization by asking the URL coming from this command:
 
     ```bash
     <copy>
@@ -378,7 +378,7 @@ In any case, you need to get <CLIENT\_ID\> and <CLIENT\_SECRET\> for OAuth2.0 3-
     ```
 
 * Sign in with user **hr_admin** as in task 6 of Lab 3.
-* Get the value of **code** in returning page:
+* Get the value of **code** on returning page:
 
     ```http
         http://[api_gw_base_url]/auth/code/example/?code=Y7ue-kEO7jZV6HgLU4vkaw&state=3668D7A713E93372E0406A38A8C02171
@@ -400,7 +400,7 @@ In any case, you need to get <CLIENT\_ID\> and <CLIENT\_SECRET\> for OAuth2.0 3-
     </copy>
     ```
 
-* for next task, stress test, save in an environment variable the ACCESS_TOKEN:
+* for the next task, the stress test, save in an environment variable the ACCESS_TOKEN:
 
     ```bash
     <copy>
@@ -408,7 +408,7 @@ In any case, you need to get <CLIENT\_ID\> and <CLIENT\_SECRET\> for OAuth2.0 3-
     </copy>
     ```
 
-* With Postman, use **hr_admin1** user to watch all the authorization phases because **hr\_admin** user has been already approved at the previous step:
+* With Postman, use the **hr_admin1** user to watch all the authorization phases because the **hr\_admin** user has been already approved at the previous step:
   * import the [Collection](https://raw.githubusercontent.com/oracle/microservices-datadriven/main/workshops/dcms-ords-sec/apigw/APIORDS.postman_collection.json) provided, in Postman:
 
     ![collection](./images/collection.png " ")
@@ -417,11 +417,11 @@ In any case, you need to get <CLIENT\_ID\> and <CLIENT\_SECRET\> for OAuth2.0 3-
 
     ![upload_collection](./images/upload-collection.png " ")
 
-  * you will have the new **APIORDS** collection, with a GET action, on which you can access as shown below:
+  * you will have the new **APIORDS** collection, with a GET action, which you can access as shown below:
 
     ![drill_collection](./images/drill-collection.png " ")
 
-  * in this collection have been defined environment variables that must be imported and updated with the actual values before using. To do this, click on **Manage Environments** button:
+  * in this collection have been defined environment variables must be imported and updated with the actual values before use. To do this, click on **Manage Environments** button:
 
     ![manage_env](./images/manage-env.png " ")
 
@@ -431,7 +431,7 @@ In any case, you need to get <CLIENT\_ID\> and <CLIENT\_SECRET\> for OAuth2.0 3-
 
     loading the empty [env export](https://raw.githubusercontent.com/oracle/microservices-datadriven/main/workshops/dcms-ords-sec/apigw/ENV_Empty.postman_environment.json) provided.
 
-  * Now you have on list the **ORDSENV** environment variable, and clicking on it:
+  * Now you have on the list the **ORDSENV** environment variable, and clicking on it:
 
     ![ordsenv](./images/ordsenv.png " ")
 
@@ -443,7 +443,7 @@ In any case, you need to get <CLIENT\_ID\> and <CLIENT\_SECRET\> for OAuth2.0 3-
 
     ![ordsenv_choosed](./images/ordsenv-choosed.png " ")
 
-  * Clicking on **Authorization** tab, and eventually choosing the **TYPE** as **OAuth 2.0**, you should see the variables correctly exposed in red, that confirms have been correctly found in the env, and you can run the request, and change the **State** value. First you have to ask for **Get New Access Token** clicking the button:
+  * Clicking on the **Authorization** tab, and eventually choosing the **TYPE** as **OAuth 2.0**, you should see the variables correctly exposed in red, that confirm have been correctly found in the env, and you can run the request, and change the **State** value. First, you have to ask for **Get New Access Token** by clicking the button:
 
     ![OAuth20_choosed](./images/oauth20-choosed.png " ")
 
@@ -451,21 +451,21 @@ In any case, you need to get <CLIENT\_ID\> and <CLIENT\_SECRET\> for OAuth2.0 3-
 
     ![not_authorized](./images/not-authorized.png " ")
 
-    and, to proceed, click on the link to be authenticated, that will be followed by an approval step:
+    and, to proceed, click on the link to be authenticated, which will be followed by an approval step:
 
     ![login](./images/login.png " ")
 
-  * After few seconds, a popup windows it will appear, showing the **Access Token** provided by Authorization server (ORDS in our case), asking to use in the actual REST service request.
+  * After a few seconds, a popup windows will appear, showing the **Access Token** provided by the Authorization server (ORDS in our case), asking to use it in the actual REST service request.
 
     ![send](./images/send.png " ")
 
-  * Finally, clicking on **Send** button, we will get the table in JSON format:
+  * Finally, by clicking on **Send** button, we will get the table in JSON format:
 
     ![json](./images/json.png " ")
 
 ## Task 6: Test Rate Limit
 
-* Load Test via K6, generating more than Request Limit set on 400 per second, with a script to be run by K6: [script](https://raw.githubusercontent.com/oracle/microservices-datadriven/main/workshops/dcms-ords-sec/apigw/apigw-stress-script.js).
+* Load Test via K6, generating more than the Request Limit set on 400 per second, with a script to be run by K6: [script](https://raw.githubusercontent.com/oracle/microservices-datadriven/main/workshops/dcms-ords-sec/apigw/apigw-stress-script.js).
 
 * Here is an example of how to install the k6 tool (licensed under AGPL v3). Download and install K6 in shell Linux:
 
@@ -479,7 +479,7 @@ In any case, you need to get <CLIENT\_ID\> and <CLIENT\_SECRET\> for OAuth2.0 3-
     </copy>
     ```
 
-* You'll find a [script](https://raw.githubusercontent.com/oracle/microservices-datadriven/main/workshops/dcms-ords-sec/apigw/apigw-stress-script.js) to load with 400 RPS for 1 second. You could change the rate,duration,etc. modifying **scenarios: {}** parameters in the script:
+* You'll find a [script](https://raw.githubusercontent.com/oracle/microservices-datadriven/main/workshops/dcms-ords-sec/apigw/apigw-stress-script.js) to load with 400 RPS for 1 second. You could change the rate, duration, etc. modifying **scenarios: {}** parameters in the script:
 
     ```script
     <copy>
@@ -563,7 +563,7 @@ In any case, you need to get <CLIENT\_ID\> and <CLIENT\_SECRET\> for OAuth2.0 3-
 
     ![APIGW_stress_artillery](./images/artillery.png " ")
 
-Once the setup and testing of access has been completed you are ready to **Proceed to the next lab.**
+Once the setup and testing of access have been completed you are ready to **Proceed to the next lab.**
 
 ## Learn More
 
