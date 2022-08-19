@@ -16,7 +16,7 @@ Estimated Time: 30 minutes
 
 ### Prerequisites
 
-* Finished the Worskshop setup Lab
+* Finished the Workshop setup Lab
 * Finished the Access ORDS (Oracle REST Data Services) Server and DB Server using Bastion Lab
 
 ## Assumptions
@@ -39,7 +39,7 @@ Connect to the database either using SQL Developer Web (preferred method) or the
 
 These steps should be performed in database as ADMIN (Autonomous Database) user.
 
-Autonomous Database requires strong passwords; the password you specifyinsteag of "PICK_A_PASSWORD" must meet the default password complexity rules. The password must be between 12 and 30 characters long and must include at least one uppercase letter, one lowercase letter, and one numeric character.
+Autonomous Database requires strong passwords; the password you specify instead of "PICK_A_PASSWORD" must meet the default password complexity rules. The password must be between 12 and 30 characters long and must include at least one uppercase letter, one lowercase letter, and one numeric character.
 
 Note, the password limit is shown as 60 characters in some help tooltip popups. Limit passwords to a maximum of 30 characters.
 
