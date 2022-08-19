@@ -14,7 +14,7 @@ Estimated Time: 30 minutes
 ### Prerequisites
 
 This lab requires completion of the Get Started section in the Contents menu on the left.
-An Oracle Cloud paid account or free trial. To sign up for a trial account with $300 in credits for 30 days, click [Sign Up](http://oracle.com/cloud/free).
+An Oracle Cloud paid account or free trial.
 
 ## IAM Policies requirements
 
