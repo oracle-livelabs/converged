@@ -14,7 +14,7 @@ oci iam policy delete --policy-id ${policy_id} --force --wait-for-state DELETED;
 </copy>
 ```
 
-* Delete manually  **Data Safe Private Endpoint** and, on Autonomous DB console, deregister from Data Safe:
+* Delete manually  **Data Safe Private Endpoint** and, on the Autonomous DB console, deregister from Data Safe:
 ![deregister](./images/deregister.png " ")
 
 * Proceed with deletion of resource provisioned via Terraform:
@@ -44,8 +44,8 @@ terraform destroy
 </copy>
 ```
 
-* For resource related to Data Safe, Under main Menu tree, select **Developer Services**/**Resource Manager**/**Stacks** and click on **Create Stack** button.
-* Select for the Terraform configuration the **Existing Compartment**, that will create a Terraform script for the compartment you have chosen for deployment and that you have to select under **Compartment for Resource Discovery**. For **Terraform Provider Services** select **All** and eventually select another compartment as a target for **Create in compartment**. Then click on **Next** button two times.
+* For resources related to Data Safe, Under the main Menu tree, select **Developer Services**/**Resource Manager**/**Stacks** and click on **Create Stack** button.
+* Select for the Terraform configuration the **Existing Compartment**, which will create a Terraform script for the compartment you have chosen for deployment and that you have to select under **Compartment for Resource Discovery**. For **Terraform Provider Services** select **All** and eventually select another compartment as a target for **Create in compartment**. Then click on **Next** button two times.
 ![create stack](./images/create-stack.png " ")
 
 * Click on **Create** button to start the process.
@@ -54,7 +54,7 @@ terraform destroy
 * When the Terraform script creation is finished (this will take a few minutes), click on **Destroy** button and wait for the process to complete.
 ![create stack](./images/stack-destroy.png " ")
 
-Run the destroy process again. If issues remain, delete manually the resources that hang the process, for example object storage bucket related to log files, and re-create a stack and apply destroy on it.
+Run the destroy process again. If issues remain, delete manually the resources that hang the process, for example, object storage bucket related to log files, and re-create a stack and apply destroy on it.
 
 ## Learn More
 
