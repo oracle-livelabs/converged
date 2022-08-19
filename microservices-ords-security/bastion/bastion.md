@@ -19,7 +19,7 @@ Estimated time: 10 minutes
 The Terraform IaC includes creating a Bastion Service and Bastion Sessions.
 
 1. Managed SSH: Used for accessing the ORDS Server
-2. SSH Port fwarding: Used for accessing ATP-S on private endpoint
+2. SSH Port forwarding: Used for accessing ATP-S on private endpoint
 
 ## Task 1. ORDS Server access (from on-prem and Cloud Shell)
 
@@ -57,7 +57,7 @@ This will start the SSH Tunnel. If you close the terminal window you need to res
 
 ### 1. Create the connection string to the ADB-S instance
 
-Open a **new** terminal window or browser tab (if you're using Cloud Shell) Make sure that the tunnel is still running and go to the directory where the terraform code lives end execute the following commands to get the connecton string to the ADB-S and modify the connection string to work with the tunnel e.g. connect to localhost on port 1521 instead of the private endpoint name.
+Open a **new** terminal window or browser tab (if you're using Cloud Shell) Make sure that the tunnel is still running and go to the directory where the terraform code lives end execute the following commands to get the connection string to the ADB-S and modify the connection string to work with the tunnel e.g. connect to localhost on port 1521 instead of the private endpoint name.
 
 ```bash
 <copy> 
