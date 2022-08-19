@@ -172,7 +172,7 @@ Version 19.16.0.1.0
 SQL>
 ```
 
-You may now **proceed to the next lab**
+Once the setup and testing of access has been completed you are ready to **Proceed to the next lab.**
 
 ## Learn More
 
