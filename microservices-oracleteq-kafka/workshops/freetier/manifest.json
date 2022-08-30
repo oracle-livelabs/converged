@@ -4,38 +4,31 @@
 	"tutorials": [
       {
         "title": "Introduction",
-        "filename": "../../intro/intro.md",
-        "type": "event-freetier"
+        "filename": "../../intro/intro.md"
       },
       {
         "title": "Getting started",
-        "filename": "https://oracle-livelabs.github.io/common/labs/cloud-login/event-register-free-tier-account.md",
-        "type": "event-freetier"
+        "filename": "https://oracle-livelabs.github.io/common/labs/cloud-login/event-register-free-tier-account.md"
       },
       {
         "title": "Lab 1: Workshop setup",
-        "filename": "../../setup/setup.md",
-        "type": "event-freetier"
+        "filename": "../../setup/setup.md"
       },
       {
         "title": "Lab 2: Build Spring Boot microservices with Apache Kafka",
-        "filename": "../../deploy-and-test-kafka/deploy-and-test-kafka.md",
-        "type": "event-freetier"
+        "filename": "../../deploy-and-test-kafka/deploy-and-test-kafka.md"
       },
       {
         "title": "Lab 3: Build Spring Boot microservices with Oracle Transactional Event Queues",
-        "filename": "../../deploy-and-test-teq/deploy-and-test-teq.md",
-        "type": "event-freetier"
+        "filename": "../../deploy-and-test-teq/deploy-and-test-teq.md"
       },
       {
         "title": "Lab 4: Setup the connection between Kafka and Oracle Transactional Event Queues",
-        "filename": "../../kafka-connect-teq/kafka-connect-teq.md",
-        "type": "event-freetier"
+        "filename": "../../kafka-connect-teq/kafka-connect-teq.md"
       },      
       {
         "title": "Lab 5: Tear down",
-        "filename": "../../teardown/teardown.md",
-        "type": "event-freetier"
+        "filename": "../../teardown/teardown.md"
       },
       {
         "title": "Need Help?",
