@@ -152,11 +152,11 @@ This lab assumes that you have already completed the earlier labs.
 
 1. To scale the Order DB Autonomous Transaction Processing database to **2 OCPUs**, click the navigation icon in the top-left corner of the Console and go to Autonomous Transaction Processing.
 
-	![](https://oracle-livelabs.github.io/common/images/console/database-atp.png " ")
+	![Navigate to Autonomous Transaction Processing page](https://oracle-livelabs.github.io/common/images/console/database-atp.png " ")
 
 2. Select DB1, the database that contains the order schema, click **More Actions**, then **Manage Scaling**. Enter 2 in the OCPU field. Click **Apply**.
 
-    ![More Actiona](images/ScaleTo2dbocpuScreen1.png " ")
+    ![More Actions](images/ScaleTo2dbocpuScreen1.png " ")
 
     ![Update OCPU Field](images/manage-scaling.png " ")
 
