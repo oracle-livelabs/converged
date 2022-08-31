@@ -22,11 +22,35 @@ Estimated Time: 10 minutes
 - Java 1.8+
 - Oracle TEQ JMS 1.1+ Client Jars
 
+## Overview of the Oracle Transactional Event Queues (TEQ)
+
+Oracle Transactional Event Queues (TEQ) is a robust and feature-rich event streaming platform integrated with the Oracle database used to collect, process, store, and integrate data at scale. TEQ that are highly optimized implementation of AQ previously called AQ Sharded Queues, also AQ, address the requirements from data-driven and event-driven architectures in modern enterprise applications, including numerous use cases as distributed streaming, stream processing, data integration, and pub/sub messaging.
+
+You can adopt Transactional Event Queues with one event stream (to preserve total ordering in the queue) or consider taking advantage of multiple event streams where messages are ordered within each event stream. This is similar to Apache Kafka's Topics approach consisting of multiple partitions from which producers and consumers can publish or subscribe.
+
+Oracle Transactional Event Queues (TEQ) are a high-performance partitioned implementation with multiple event streams per queue that store messages persistently and propagate messages between queues on different databases. Because TEQs are implemented in database tables, all high availability, scalability, and reliability operational benefits are also applicable to queue data. TEQ supports standard database features such as recovery, restart, and security. You can use standard database development and management tools to monitor queues. Like other database tables, queue tables can be imported and exported. Similarly, *TEQ queues are supported by Oracle Data Guard for high availability, which can be critical to preserving messages when using a stateless middle tier*.
+
+By being in the database, enqueues and dequeues can be incorporated in database transactions without requiring distributed transactions. And, messages can be queried using standard SQL. You can use SQL to access the message properties, the message history, and the payload. With SQL access, you can also audit and track messages. All available SQL technology, such as in-memory latches and table indices, optimize access to messages in TEQ.
+
+![Oracle Transactional Event Queues (TEQ)](images/oracle-teq-picture.png " ")
+
+Oracle TEQ can be accessed through polyglot programmatic interfaces since PL/SQL code til C, Python, Javascript, and Java could be used to create Consumers and producers. For example, this workshop is offered using the Spring Boot framework, one of the most important and adopted Java frameworks.
+
+### Kafka Java Client for Transactional Event Queues
+
+Oracle introduces Kafka Java Client for Oracle Transactional Event Queues Kafka (OKafka), a open source library that allow application compatibility with Oracle database. This provides easy migration for Kafka Java applications to Transaction Event Queues (TEQ). The Kafka Java APIs can now connect to Oracle database server and use TEQ as a messaging platform.
+
+![Kafka Application Integration with Transactional Event Queue](images/kafka-application-integration-oracle-teq.png " ")
+
+The figure shows OKafka library, which contains Oracle specific implementation of Kafka's Java APIs. This implementation internally invokes AQ-JMS APIs which in turn uses JDBC driver to communicate with Oracle Database.
+
+Developers can now migrate an existing Java application that uses Kafka to the Oracle database. Oracle Database 19c provides client side library which allows Kafka applications to connect to Oracle Database instead of Kafka cluster and use TEQ's messaging platform transparently.
+
 ## **Task 1:** Setup Kafka Connect
 
 This task will use the Apache Kafka Connect, a framework included in Apache Kafka that integrates Kafka with other systems. Oracle TEQ will provide a standard JMS package and related JDBC, Transaction packages to establish the connection and complete the transactional data flow.
 
-To simplify the deployment of a Kafka Connect, as done in Lab 2, we are using the container made available by [Confluent Apache Kafka Quick Start](https://developer.confluent.io/quickstart/kafka-docker/) and already installed during Lab 1. 
+To simplify the deployment of a Kafka Connect, as done in Lab 2, we are using the container made available by [Confluent Apache Kafka Quick Start](https://developer.confluent.io/quickstart/kafka-docker/) and already installed during Lab 1.
 
 You will configure the connection between the Kafka broker and the Oracle TEQ submitting the setup to Kafka [Connect REST API](https://docs.confluent.io/platform/current/connect/references/restapi.html).
 
@@ -42,18 +66,18 @@ cat $LAB_HOME/kafka-connect-teq/kafka2teq-connect-configuration.json
 {
   "connector.class": "io.confluent.connect.jms.JmsSinkConnector",
   "tasks.max": "1",
-  "topics": "LAB8022_TOPIC",
+  "topics": "LAB_KAFKA_TOPIC",
   "java.naming.factory.initial": "oracle.jms.AQjmsInitialContextFactory",
-  "java.naming.provider.url": "<connection string>",
-  "db_url": "<connection string>",
-  "java.naming.security.principal": "<username>",
-  "java.naming.security.credentials": "<password>",
+  "java.naming.provider.url": "jdbc:oracle:thin:@LAB_DB_SVC?TNS_ADMIN=/home/appuser/wallet",
+  "db_url": "jdbc:oracle:thin:@LAB_DB_SVC?TNS_ADMIN=/home/appuser/wallet",
+  "java.naming.security.principal": "LAB_DB_USER",
+  "java.naming.security.credentials": "LAB_DB_PASSWORD",
   "jndi.connection.factory": "javax.jms.XAQueueConnectionFactory",
   "jms.destination.type": "topic",
-  "jms.destination.name": "<teq topic name>",
+  "jms.destination.name": "LAB_TEQ_TOPIC",
   "key.converter":"org.apache.kafka.connect.storage.StringConverter",
   "value.converter":"org.apache.kafka.connect.storage.StringConverter",
-  "confluent.topic.bootstrap.servers": "<kafka broker address>",
+  "confluent.topic.bootstrap.servers":"broker:29092",
   "confluent.topic.replication.factor": "1"
 }
 ```
@@ -62,13 +86,7 @@ cat $LAB_HOME/kafka-connect-teq/kafka2teq-connect-configuration.json
 
     ```bash
     <copy>
-    cd $LAB_HOME/cloud-setup/confluent-kafka
-    </copy>
-    ```
-
-    ```bash
-    <copy>
-    ./docker-compose ps
+    kafka-status
     </copy>
     ```
 
@@ -83,21 +101,16 @@ cat $LAB_HOME/kafka-connect-teq/kafka2teq-connect-configuration.json
     ```bash
     <copy>
     cd $LAB_HOME/kafka-connect-teq
+    ./setup-kafka2teq-connect.sh
     </copy>
     ```
 
-    ```bash
-    <copy>
-    ./setup-kafka2teq-connect.sh 
-    </copy>
-    ```
+    ![Connect Sync between Kafka Topic abd TEQ](images/setup-kafka2teq-connect.png " ")
 
 3. Once successfully executed, check that the connect are running:
 
     ```bash
-    <copy>
-    docker logs -f connect
-    </copy>
+    <copy>container-logs connect 6</copy>
     ```
 
     You will see the logs from Connect Sync similar with bellow snippet.
@@ -127,7 +140,7 @@ cat $LAB_HOME/kafka-connect-teq/kafka2teq-connect-configuration.json
 
     ```bash
     <copy>
-        curl -Ss http://localhost:8083/connectors/JmsConnectSync_lab8022/status | jq
+    kafka-connect-status
     </copy>
     ```
 
@@ -135,28 +148,36 @@ cat $LAB_HOME/kafka-connect-teq/kafka2teq-connect-configuration.json
 
     ```json
     {
-        "name": "JmsConnectSync_lab8022",
+        "name": "JmsConnectSync_teqlab",
         "connector": {
             "state": "RUNNING",
             "worker_id": "connect:8083"
         },
-        "tasks": [],
+        "tasks": [
+         {
+            "id": 0,
+            "state": "RUNNING",
+            "worker_id": "connect:8083"
+         }
+        ],
         "type": "sink"
     }
     ```
 
 ## **Task 2:** Enqueueing messages on Kafka Broker
 
-Now that you have the Connector running, you can produce some messages and test the message transfer. The messages would be enqueued by the Kafka Producer and dequeued from the Oracle TEQ. We can use the Kafka Producer Microservice built during Lab 2 or operate Kafka producer inside the container to enqueue messages.
+Now that you have the Connector running, you can produce some messages and test the message transfer. The messages would be enqueued by the Kafka Producer and dequeued from the Oracle TEQ.
 
 1. Enqueueing using Kafka Producer Microservice.
 
     With Kafka producer microservices running, you can submit a message using cURL command to producer API.
 
     ```bash
-        <copy>
-            curl -X POST -H "Content-Type: application/json" -d '{ "id": "sync1", "message": "Sync Message from Kafka to TEQ #1" } ' http://localhost:8080/placeMessage | jq
-        </copy>
+    <copy>
+    curl -X POST -H "Content-Type: application/json"  \
+         -d '{ "id": "sync1", "message": "Sync Message from Kafka to TEQ #1" }'  \
+         http://localhost:8080/placeMessage | jq
+    </copy>
     ```
 
     The result should be like
@@ -168,47 +189,19 @@ Now that you have the Connector running, you can produce some messages and test 
         }
     ```
 
-2. Enqueueing with Kafka Producer inside container.
-
-    As an alternative to enqueue, we can use the producer console client present in Confluent broker container. Executing the following command:
-
-    ```bash
-    <copy>
-    docker exec --interactive --tty broker \
-           kafka-console-producer --bootstrap-server broker:9092 \
-           --topic LAB8022_TOPIC
-    </copy>
-    ```
-
-    You will get the prompt to write your messages and to finish your should press CTRL+D:
-
-    ```bash
-    >Sync Message from Kafka to TEQ #2
-    >Sync Message from Kafka to TEQ #3
-    >Sync Message from Kafka to TEQ #4
-    ```
-
-## **Task 3:** Dequeue messages from Oracle TEQ
+## **Task 3:** Dequeue messages from Oracle TEQ using PL/SQL
 
 After produce some messages, the expected behavior is the Connect Sync agent consume messages from Kafka Topic and enqueue them on Oracle TEQ. And, you will be able to dequeue them from Oracle TEQ using okafka consumer microservice or a PL/SQL procedure, for example.
 
 1. Dqueue message from Oracle TEQ
 
-    To ilustrate the polyglot approach, this lab provide a PL/SQL procedure to dequeue messages, Execute the following command providing the Oracle Database User password:
+    To illustrate the polyglot approach, this lab provide a PL/SQL procedure to dequeue messages, Execute the following command providing the Oracle Database User password:
 
     ```bash
-        <copy>
-        cd $LAB_HOME/kafka-connect-teq
-        </copy>
+    <copy>teq-dequeue</copy>
     ```
 
-    ```bash
-        <copy>
-        source dequeue_oracle_teq.sh
-        </copy>
-    ```
-
-    As a result you will something like this:
+    The results from some executions should be something similar to:
 
     ```bash
     TEQ message: {"id": "0", "message": "message1"}
@@ -220,39 +213,6 @@ After produce some messages, the expected behavior is the Connect Sync agent con
     TEQ message: {"id": "1", "message": "Sync Message from Kafka to TEQ #1"}
 
     PL/SQL procedure successfully completed.
-    ```
-
-2. As an alternative you also can query the TEQ topic table:
-
-    To issue sql commands you can use Oracle SQLcl tool and know connection information. Bellow, we provide an example:
-
-    ```sql
-    sql /nolog
-
-    SQLcl: Release 21.4 Production on Tue Jan 25 00:10:07 2022
-
-    Copyright (c) 1982, 2022, Oracle.  All rights reserved.
-
-    SQL> set cloudconfig <wallet location>/wallet.zip
-
-    SQL> connect LAB8022_USER@lab8022_tp
-    Password? (**********?)****************
-    Connected.
-
-    SQL> select MSGID, ENQUEUE_TIME from LAB8022_TOPIC WHERE ROWNUM<20 ORDER BY ENQUEUE_TIME DESC;
-
-                                MSGID                           ENQUEUE_TIME
-
-    ___________________________________ ______________________________________
-    00000000000000000200000001660400    21-MAR-22 08.50.38.953964000 PM GMT
-    00000000000000000200000001660300    21-MAR-22 08.50.31.738645000 PM GMT
-    00000000000000000200000001660200    21-MAR-22 08.50.29.545642000 PM GMT
-    00000000000000000200000001660100    21-MAR-22 08.49.04.080323000 PM GMT
-    00000000000000000200000001660000    21-MAR-22 08.47.47.158314000 PM GMT
-    00000000000000000000000001660000    21-MAR-22 08.42.29.565761000 PM GMT
-
-    6 rows selected.
-
     ```
 
 ## **Task 4:** Reinstall Kafka Components (optional)
@@ -268,13 +228,10 @@ If you disconnect from Cloud Shell for a long time, you may need to reinstall Ka
         </copy>
     ```
 
-2. Clean the two flags to allow rebuild executing:
+2. Clean the environment flags to allow rebuild executing:
 
     ```bash
-        <copy>
-        rm $LAB_HOME/cloud-setup/state/KAFKA_SETUP
-        rm $LAB_HOME/cloud-setup/state/CFLCONNECT_IMAGE
-        </copy>
+        <copy>kafka-env-cleanup</copy>
     ```
 
 3. Rebuild Kafka Cluster including Customised Connect image
@@ -286,41 +243,11 @@ If you disconnect from Cloud Shell for a long time, you may need to reinstall Ka
     </copy>
     ```
 
-4. Execute the following sequence of commands to start the Kafka cluster and connect Broker to Lab8022 Network:
+4. Start the Kafka cluster again:
 
     ```bash
-    <copy>
-    cd $LAB_HOME/cloud-setup/confluent-kafka
-    ./docker-compose up -d
-    docker network connect lab8022network broker
-    </copy>
+    <copy>kafka-start</copy>
     ```
-
-5. Connect broker to Lab8022 Network (Docker internal)
-
-    1. check if lab8022network exist
-
-        ```bash
-        <copy>
-        docker network ls
-        </copy>
-        ```
-
-    2. if network not exist, execute the following command to create it.
-
-        ```bash
-        <copy>
-        docker network create lab8022network
-        </copy>
-        ```
-
-    3. And, finally, connect broker to lab8022 network
-
-        ```bash
-        <copy>
-        docker network connect lab8022network broker
-        </copy>
-        ```
 
 ## Wrap up
 
@@ -334,6 +261,6 @@ You may now **proceed to the next lab**
 
 ## Acknowledgements
 
-- **Authors** - Paulo Simoes, Developer Evangelist; Paul Parkinson, Developer Evangelist; Richard Exley, Consulting Member of Technical Staff, Oracle MAA and Exadata
-- **Contributors** - Mayank Tayal, Developer Evangelist; Sanjay Goil, VP Microservices and Oracle Database
-- **Last Updated By/Date** - Paulo Simoes, February 2022
+- **Authors** - Paulo Simoes, Developer Evangelist; Andy Tael, Developer Evangelist; Paul Parkinson, Developer Evangelist; Richard Exley, Consulting Member of Technical Staff, Oracle MAA and Exadata
+- **Contributors** - Mayank Tayal, Developer Evangelist; Corrado De Bari, Developer Evangelist; Sanjay Goil, VP Microservices and Oracle Database
+- **Last Updated By/Date** - Andy Tael, Aug 2022

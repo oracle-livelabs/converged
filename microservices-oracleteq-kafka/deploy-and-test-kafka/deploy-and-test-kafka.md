@@ -20,155 +20,152 @@ Estimated Time: 10 minutes
 
 ## **Task 1:** Run Kafka Broker and Create a Topic
 
-1. Execute the following commands to start the Kafka cluster and connect Broker to Lab8022 Network:
+1. Check the installed Kafka components executing the following command:
 
     ```bash
     <copy>
-    cd $LAB_HOME/cloud-setup/confluent-kafka
+    kafka-status
     </copy>
     ```
 
+    As a result, you will see the following components created:
+
+    ```bash
+    NAME                COMMAND                  SERVICE             STATUS              PORTS
+    broker              "/etc/confluent/dock…"   broker              created
+    connect             "/etc/confluent/dock…"   connect             created
+    schema-registry     "/etc/confluent/dock…"   schema-registry     created
+    zookeeper           "/etc/confluent/dock…"   zookeeper           created
+    ```
+
+2. Start the Kafka infrastructure by running the following command:
+
     ```bash
     <copy>
-    ./docker-compose up -d
+    kafka-start
     </copy>
     ```
 
+    This command should return the following lines:
+
     ```bash
-    <copy>
-    docker network connect lab8022network broker
-    </copy>
+    [+] Running 4/4
+    ⠿ Container zookeeper        Started                0.6s
+    ⠿ Container broker           Started                1.7s
+    ⠿ Container schema-registry  Started                3.1s
+    ⠿ Container connect          Started                4.4s
+    KAFKA_RUNNING completed
     ```
 
-2. Once successfully executed, check that the services are running executing the follwing commands:
+3. Once successfully executed, check that the services are running executing the following commands:
 
     ```bash
     <copy>
-    cd $LAB_HOME/cloud-setup/confluent-kafka
-    </copy>
-    ```
-
-    ```bash
-    <copy>
-    ./docker-compose ps
+    kafka-status
     </copy>
     ```
 
     First, you will see the four containers running, but the container from Connect Service will be *starting*
     ![Kafka Cluster Services Running with Connect starting](images/kafka-platform-containers-status-starting.png)
 
-    After a few seconds, the container from Connect Service will be *healthy*
+    After a few minutes, the container from Connect Service will be *healthy*
     ![Kafka Cluster Services Running with Connect starting](images/kafka-platform-containers-status-healthy.png)
 
-    > **Note:** If your cloud shell connection interrupt during the process, may you will have to reconnect and executing the instructions from [Task 5](#task5restartkafkacomponentsoptional).
-
-3. Create a Topic:
-
-    You are ready to create the topic *LAB8022_TOPIC*. Run the following command to create a new topic into the Kafka Broker:
+     > **Note:** Cloud shell may disconnect after a period of inactivity. If that happens, you can reconnect and then run this command to resume the setup:
+    >  
 
     ```bash
     <copy>
-    docker exec broker \
-    kafka-topics --bootstrap-server broker:9092 \
-    --create \
-    --topic LAB8022_TOPIC
+    source $LAB_HOME/cloud-setup/env.sh
+    source $LAB_HOME/cloud-setup/setup.sh
     </copy>
     ```
 
-    After a *WARNING* message that you can disregard, you will see the message **"Created topic LAB8022_TOPIC."**
+4. Create a Topic:
 
-## **Task 2:** Verify configurations and build applications
-
-The Kafka Producer and Consumer adopt Spring Boot and Spring Kafka frameworks. The Producer exposes a REST service that will produce a message and publish it in the Kafka Broker created. And on the other side, the Consumer will subscribe to the same topic and consume messages—a straightforward and typical case but instructive and essential when compared with the next lab.
-
-This workshop makes the source codes of the two microservices available; We invite you to investigate the code to familiarize yourself with Spring Boot and how it connects with Apache Kafka, which allows for asynchronous communication between microservices. After this navigation, you must confirm the microservices settings present in a properties file, following microservices [External Configuration Pattern](https://microservices.io/patterns/externalized-configuration.html) and also the third factor of [Twelve Factor Methodology](https://12factor.net).
-
-1. Review Producer microservices properties
-
-    You have to review the Producer microservice properties to confirm connecting with the right Apache Kafka Broker and Topic. Remember that both were configured during workshop setup tasks, and Kafka Broker runs at address Broker:9092. But, as we are working on the Docker engine from the Cloud Shell environment, Kafka broker is advertised for other nodes on port 29092.
-
-    To verify the producer configuration, you can execute the follow command:
+    With the Kafka infrastructure ready, you can create a Kafka Topic which will be used during this workshop. A Kafka Topic is a resource where Events are organized and durable stored. A Topic has a unique name across the entire Kafka cluster and there is not the concept of renaming a Topic thus choose a meaningful name that will categorize well the Events handled by it.
 
     ```bash
-    <copy>cat $LAB_HOME/springboot-kafka/kafka-producer/src/main/resources/application.yaml</copy>
+    <copy>
+    kafka-add-topic LABTEQTOPIC1
+    </copy>
     ```
 
-    The proper configuration should be:
-
-    - bootstrap-servers: broker:29092
-    - topic-name: LAB8022_TOPIC
-
-    ![Spring Boot Producer App Configuration](images/springboot-kafka-config.png " ")
-
-2. Review the Consumer Configurations
-
-    Following the same concepts and practices of Producer, Consumer microservice has its configuration externalized and should point to the right Apache Kafka broker that Producer is connected. The following command allows you to list the contents of Consumer properties.
+    This command will create the Kafka Topic and configure the properties of the Producer and Consumer microservices to point to the newly created topic.
 
     ```bash
-    <copy>cat $LAB_HOME/springboot-kafka/kafka-consumer/src/main/resources/application.yaml</copy>
+    Created topic LABTEQTOPIC1
+    Configuring Kafka Producer to produce on topic LABTEQTOPIC1.
+    Configuring Kafka Consumer to consume from topic LABTEQTOPIC1.
     ```
 
-    And, likewise in the Producer case, the Consumer should point to the above bootstrap servers and topic.
+## **Task 2:** Build Kafka producer and consumer microservices
 
-    > **Note:** If you change these configurations, you will have to modify these parameters.
+This laboratory adopted the microservices architecture and coded the producer and consumer using the Spring Boot framework and Spring Kafka project to connect with Kafka. Maven is the dependency management tool, and to build our code, you have to execute the following commands:
 
-3. Build the Applications
+```bash
+<copy>
+cd $LAB_HOME/springboot-kafka
+./kafka-ms-build
+</copy>
+```
 
-    Once you have confirmed that all configuration is correct, you have to build the microservices. To facilitate it, the workshop We use Maven to build the applications Producer and Consumer and the configuration module. Run the following commands to build both projects:
+As a result of the Maven build task, you should obtain the following lines showing that both Consumer and Producer were successfully built.
 
-    ```bash
-    <copy>cd $LAB_HOME/springboot-kafka</copy>
-    ```
+![Spring Boot Apps Build result](images/springboot-kafka-build-result.png " ")
 
-    ```bash
-    <copy>mvn clean install -DskipTests</copy>
-    ```
+## **Task 3:** Produce events with Kafka producer microservice
 
-    As a result, all modules were built with success.
-
-    ![Spring Boot Apps Build result](images/springboot-kafka-build-result.png " ")
-
-## **Task 3:** Deploy and Test Spring Boot Kafka Producer
-
-1. Deploy Kafka Producer Microservice
+1. Deploy Kafka producer microservice
 
     Now that we have the applications successfully built, we can deploy them and test them. Let's start with the Producer. Run these commands to build the image and deploy the Producer inside the Docker Engine (the same running the Kafka Cluster):
 
     ```bash
-    <copy>cd $LAB_HOME/springboot-kafka/kafka-producer</copy>
-    ```
-
-    ```bash
-    <copy>./build.sh</copy>
-    ```
-
-    Now, let's run the Producer:
-
-    ```bash
     <copy>
-    docker run --detach --name=kafka-producer --network lab8022network -p 8080:8080 oracle-developers-kafka-producer:0.0.1-SNAPSHOT
+    cd $LAB_HOME/springboot-kafka
+    ./kafka-ms-deploy-producer
     </copy>
     ```
 
-    We can check the logs and see the Producer running and waiting for requests:
+    If the deployment task is successful, you will receive the messages below:
+
+    ```bash
+    Executing Kafka producer microservice deployment!
+    Kafka producer microservices deployment succeeded!
+     Step 1/8 : FROM ghcr.io/graalvm/graalvm-ce:ol8-java11 -- Successfully built c2e8cd47b003 Successfully tagged oracle-developers-kafka-producer:0.0.1-SNAPSHOT
+    KAFKA_MS_PRODUCER_DEPLOYED completed
+    ```
+
+    > **Note:** If the deployment task did not complete correctly, you can investigate the deployment task logs at "$LAB_LOG"/kafka-ms-producer-deployment.log
+
+2. Launch a Kafka producer microservice
+
+    Once you have deployed the producer microservice image, you will be able to launch a container and execute the producer microservice. Issue the following commands:
 
     ```bash
     <copy>
-    docker logs kafka-producer
+    cd $LAB_HOME/springboot-kafka
+    ./kafka-ms-launch-producer
     </copy>
+    ```
+
+    If the deployment task is successful, you will receive the messages "Kafka producer microservice is running!". Yet it is possible to evaluate the logs from the producer issuing the following command to list the late six lines from the container log. Look for `Started KafkaProducerApplication`
+
+    ```bash
+    <copy>container-logs kafka-producer 6</copy>
     ```
 
     ![Spring Boot Kafka Producer Running Logs](images/springboot-kafka-producer-running.png " ")
 
-2. Test Kafka Producer Microservice
+3. Test the Kafka producer microservice
 
-    We will use the cURL command to test our Producer.
+    The producer exposes a REST API through which events can be submitted to be handled, that is, in this simple case inserted into Kafka Topic. The producer expects API requests to be in JSON format and to make an API request, for simplicity, we will make a direct HTTP request using cURL tool.
 
     ```bash
     <copy>
-    curl -X POST -H "Content-Type: application/json" \
-    -d '{ "id": "id1", "message": "message1" } ' \
-    http://localhost:8080/placeMessage | jq
+    curl -X POST -H "Content-Type: application/json"  \
+         -d '{ "id": "id1", "message": "message1" }'  \
+         http://localhost:8080/placeMessage | jq
     </copy>
     ```
 
@@ -181,60 +178,72 @@ This workshop makes the source codes of the two microservices available; We invi
     }
     ```
 
-    We also can validate if the message was published inside topic LAB8022_TOPIC.
+    <!-- > **Note:** It is possible verify if the message was published inside Kafka Topic submitting the following command:
 
     ```bash
     <copy>
-    docker exec --interactive --tty broker \
-    kafka-console-consumer --bootstrap-server broker:9092 \
-    --topic LAB8022_TOPIC \
-    --from-beginning
+    kafka-dequeue LABTEQTOPIC1
     </copy>
     ```
 
-    The result will be similar to :
+    You will need to press Ctrl+C to stop this process. The result will be similar to :
 
-    ![Kafka Consumer inside Docker](images/kafka-consumer-docker.png " ")
+    ![Dequeuing Kafka Topic](images/kafka-dequeue.png " ") -->
 
-    You will need to press Crtl+C to stop this process.
-
-## **Task 4:** Deploy and Test Spring Boot Kafka Consumer
+## **Task 4:** Consume events with Kafka consumer microservice
 
 Now that we have Producer running and publishing events inside the Kafka Broker, you will do the same with Consumer.
 
-1. Deploy Kafka Consumer Microservice
+1. Deploy Kafka consumer microservice
 
-    We will follow the same steps to deploy and test the Kafka Consumer microservice. Run these commands to build the image and deploy the Consumer inside the Docker Engine (the same running the Kafka Cluster):
-
-    ```bash
-    <copy>cd $LAB_HOME/springboot-kafka/kafka-consumer</copy>
-    ```
-
-    ```bash
-    <copy>./build.sh</copy>
-    ```
-
-    Now, let's run the Consumer :
+    We can deploy Consumer microservice running the following commands to build the image and deploy the it inside the Docker Engine (the same running the Kafka Cluster and Producer):
 
     ```bash
     <copy>
-    docker run --detach --name=kafka-consumer --network lab8022network oracle-developers-kafka-consumer:0.0.1-SNAPSHOT
+    cd $LAB_HOME/springboot-kafka
+    ./kafka-ms-deploy-consumer
     </copy>
     ```
 
-    We can check the logs and see the Consumer running:
+    If the deployment task is successful, you will receive the messages below:
+
+    ```bash
+    Executing Kafka consumer microservice deployment!
+    Kafka consumer microservices deployment succeeded!
+    Successfully built 8cd3a837ad94 Successfully tagged oracle-developers-kafka-consumer:0.0.1-SNAPSHOT grep: /home/paulo_simo/teqodb/microservices-datadriven/work 
+    KAFKA_MS_CONSUMER_DEPLOYED completed
+    ```
+
+    > **Note:** If the deployment task did not complete correctly, you can investigate the deployment task logs at "$LAB_LOG"/kafka-ms-consumer-deployment.log
+
+2. Launch a Kafka consumer microservice
+
+    Once you have deployed the consumer microservice image, you will be able to launch a container and execute it. Issue the following commands:
 
     ```bash
     <copy>
-    docker logs kafka-consumer
+    cd $LAB_HOME/springboot-kafka
+    ./kafka-ms-launch-consumer
     </copy>
     ```
+
+    If the deployment task is successful, you will receive the messages "Kafka consumer microservice is running!".
 
     ![Spring Boot Kafka Consumer Running Logs](images/springboot-kafka-consumer-running.png " ")
 
-    And finally, We can now produce and consume messages from Kafka Broker; the result inside logs of Consumer will be:
+3. Test the Kafka consumer microservice
+
+    The Consumer microservice after start try to dequeue the messages from the Kafka Broker. If it succeeds in dequeuing the events, we can see in the log the events that were sent by the producer issuing the following command to list the late six lines from the container log:
+
+    ```bash
+    <copy>container-logs kafka-consumer 6</copy>
+    ```
+
+    The result inside logs of Consumer will be:
 
     ![Spring Boot Kafka Consumer Running Logs](images/springboot-kafka-consumer-test.png " ")
+
+    Look for `message {"id": "0", "message": "message1"}`. With this result, assuming a successful result, we could produce and consume events from Kafka Broker.
 
 ## **Task 5:** Restart Kafka Components (optional)
 
@@ -258,13 +267,7 @@ You session of cloud shell may expire or disconnect during the process [bellow i
 
     ```bash
     <copy>
-    cd $LAB_HOME/cloud-setup/confluent-kafka
-    </copy>
-    ```
-
-    ```bash
-    <copy>
-    ./docker-compose ps
+    kafka-status
     </copy>
     ```
 
@@ -281,6 +284,6 @@ You may now **proceed to the next lab**
 
 ## Acknowledgements
 
-- **Authors** - Paulo Simoes, Developer Evangelist; Paul Parkinson, Developer Evangelist; Richard Exley, Consulting Member of Technical Staff, Oracle MAA and Exadata
-- **Contributors** - Mayank Tayal, Developer Evangelist; Sanjay Goil, VP Microservices and Oracle Database
-- **Last Updated By/Date** - Paulo Simoes, March 2022
+- **Authors** - Andy Tael, Developer Evangelist; Paulo Simoes, Developer Evangelist; Paul Parkinson, Developer Evangelist; Richard Exley, Consulting Member of Technical Staff, Oracle MAA and Exadata
+- **Contributors** - Mayank Tayal, Developer Evangelist; Corrado De Bari, Developer Evangelist; Sanjay Goil, VP Microservices and Oracle Database
+- **Last Updated By/Date** - Andy Tael, Aug 2022

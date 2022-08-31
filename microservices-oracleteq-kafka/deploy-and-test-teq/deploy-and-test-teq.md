@@ -8,9 +8,10 @@ Estimated Time: 15 minutes
 
 ### Objectives
 
-- Learn about Oracle Transactional Event Queues and okafka library
-- Deploy and access the Oracle TEQ/okafka Producer Microservice
-- Deploy and access the Oracle TEQ/okafka Consumer Microservice
+- Learn about Oracle Transactional Event Queues (TEQ) and okafka library
+- Create an Oracle TEQ Topic
+- Deploy and access the Oracle TEQ Producer Microservice
+- Deploy and access the Oracle TEQ Consumer Microservice
 - Learn how they work
 
 ### Prerequisites
@@ -19,60 +20,226 @@ Estimated Time: 15 minutes
 - The Oracle Autonomous Transaction Processing database.
 - A Docker Engine accessible.
 
-## Overview of the Oracle Transactional Event Queues (TEQ) Provisioning
+## Overview of the Oracle Transactional Event Queues (TEQ)
 
-The Oracle Transactional Event Queues (TEQ) and its subscriber agent were provisioned while running the configuration (setup phase). Below is a description of the steps taken to make these assets available.
+Oracle Transactional Event Queues (TEQ) is a robust and feature-rich event streaming platform integrated with the Oracle database used to collect, process, store, and integrate data at scale. TEQ that are highly optimized implementation of AQ previously called AQ Sharded Queues, also AQ, address the requirements from data-driven and event-driven architectures in modern enterprise applications, including numerous use cases as distributed streaming, stream processing, data integration, and pub/sub messaging.
 
-1. Create Oracle Transactional Event Queues (TEQ):
+You can adopt Transactional Event Queues with one event stream (to preserve total ordering in the queue) or consider taking advantage of multiple event streams where messages are ordered within each event stream. This is similar to Apache Kafka's Topics approach consisting of multiple partitions from which producers and consumers can publish or subscribe.
 
-    A user was created, and some privileges were granted to create and manage Oracle TEQ.
+Oracle Transactional Event Queues (TEQ) are a high-performance partitioned implementation with multiple event streams per queue that store messages persistently and propagate messages between queues on different databases. Because TEQs are implemented in database tables, all high availability, scalability, and reliability operational benefits are also applicable to queue data. TEQ supports standard database features such as recovery, restart, and security. You can use standard database development and management tools to monitor queues. Like other database tables, queue tables can be imported and exported. Similarly, *TEQ queues are supported by Oracle Data Guard for high availability, which can be critical to preserving messages when using a stateless middle tier*.
 
-    ```sql
+By being in the database, enqueues and dequeues can be incorporated in database transactions without requiring distributed transactions. And, messages can be queried using standard SQL. You can use SQL to access the message properties, the message history, and the payload. With SQL access, you can also audit and track messages. All available SQL technology, such as in-memory latches and table indices, optimize access to messages in TEQ.
+
+![Oracle Transactional Event Queues (TEQ)](images/oracle-teq-picture.png " ")
+
+Oracle TEQ can be accessed through polyglot programmatic interfaces since PL/SQL code til C, Python, Javascript, and Java could be used to create Consumers and producers. For example, this workshop is offered using the Spring Boot framework, one of the most important and adopted Java frameworks.
+
+### Kafka Java Client for Transactional Event Queues
+
+Oracle introduces Kafka Java Client for Oracle Transactional Event Queues Kafka (OKafka), a open source library that allow application compatibility with Oracle database. This provides easy migration for Kafka Java applications to Transaction Event Queues (TEQ). The Kafka Java APIs can now connect to Oracle database server and use TEQ as a messaging platform.
+
+![Kafka Application Integration with Transactional Event Queue](images/kafka-application-integration-oracle-teq.png " ")
+
+The figure shows OKafka library, which contains Oracle specific implementation of Kafka's Java APIs. This implementation internally invokes AQ-JMS APIs which in turn uses JDBC driver to communicate with Oracle Database.
+
+Developers can now migrate an existing Java application that uses Kafka to the Oracle database. Oracle Database 19c provides client side library which allows Kafka applications to connect to Oracle Database instead of Kafka cluster and use TEQ's messaging platform transparently.
+
+## **Task 1:** Create TEQ Topic
+
+The setup phase provisioned an Oracle Autonomous Transaction Processing Database instance and we will use it now. This lab starts by creation of a TEQ Topic. As aforementioned, TEQ taking advantage of multiple event streams is similar to Apache Kafka's approach of Topics consisting of multiple partitions to which producers and consumers can publish to or subscribe from. So, let's create the TEQ "Topic" that will be used to persist events of this Lab.
+
+To create the TEQ "Topic" execute the following command:
+
+```bash
+<copy>
+teq-add-topic LABTEQTOPIC1
+</copy>
+```
+
+This command will request the *Topic Name* and the Database user password supplied by you during workshop setup. It will try to create the TEQ "Topic", and if succeed, it will modify the configuration of producer and consumer microservices to point to this new topic created.
+
+```bash
+Created topic LABTEQTOPIC1
+Configuring TEQ Producer to produce on topic LABTEQTOPIC1.
+Configuring TEQ Consumer to consume from topic LABTEQTOPIC1.
+```
+
+## **Task 2:** Build TEQ producer and consumer microservices
+
+Likewise the previous Lab, we adopted the microservices architecture and coded the producer and consumer also using the Spring Boot framework but different now we have to connect with TEQ and exchanged from spring-kafka to okafka library. Also, Maven is the dependency management tool, and to build our code, you have to execute the following commands:
+
+```bash
+<copy>
+cd $LAB_HOME/springboot-oracleteq
+./teq-ms-build
+</copy>
+```
+
+As a result of the Maven build task, you should obtain the following lines showing that both Consumer and Producer were successfully built.
+
+![Spring Boot Apps Build result](images/springboot-teq-build-result.png " ")
+
+## **Task 3:** Produce events with TEQ producer microservice
+
+1. Deploy TEQ producer microservice
+
+    Now that we have the applications successfully built, we can deploy them and test them. Let's start with the Producer. Run these commands to build the image and deploy the Producer inside the Docker Engine:
+
+    ```bash
     <copy>
-    create user <username> identified by <password>
-    grant connect, resource to user
-    grant execute on dbms_aqadm to user
-    grant execute on dbms_aqin to user
-    grant execute on dbms_aqjms to user
-    grant aq_user_role to user
-    grant select_catalog_role to user
+    cd $LAB_HOME/springboot-oracleteq
+    ./teq-ms-deploy-producer
     </copy>
     ```
 
-    Once the user is available, the Transactional Event Queue was created using PL/SQL script. Only upper case Topic/queue names are allowed for this preview release.
+    If the deployment task is successful, you will receive the messages below:
 
-    ```sql
+    ```bash
+    Executing TEQ producer microservice deployment!
+    TEQ producer microservices deployment succeeded!
+     Step 1/8 : FROM ghcr.io/graalvm/graalvm-ce:ol8-java11 -- Successfully built c2e8cd47b003 Successfully tagged oracle-developers-teq-producer:0.0.1-SNAPSHOT
+    TEQ_MS_PRODUCER_DEPLOYED completed
+    ```
+
+    > **Note:** If the deployment task did not complete correctly, you can investigate the deployment task logs at "$LAB_LOG"/teq-ms-producer-deployment.log
+
+2. Launch a TEQ producer microservice
+
+    Once you have deployed the producer microservice image, you will be able to launch a container and execute the producer microservice. Issue the follwoing commands:
+
+    ```bash
     <copy>
-    BEGIN
-    sys.dbms_aqadm.create_sharded_queue(queue_name=>'LAB8022_TOPIC', multiple_consumers => TRUE);
-    sys.dbms_aqadm.start_queue('LAB8022_TOPIC');
-    END;
-    / 
+    cd $LAB_HOME/springboot-oracleteq
+    ./teq-ms-launch-producer
     </copy>
     ```
 
-2. Once successfully executed, the subscriber agent was added:
+    If the deployment task is successful, you will receive the messages "TEQ producer microservice is running!". Yet it is possible to evaluate the logs from the producer issuing the following command to list the late six lines from the container log. Look for `OKafka Producer Application Running!`
 
-    To enable production for a Transactional Event Queue, it is required to register a subscriber agent. The bellow script creates this agent.
+    ```bash
+    <copy>container-logs teq-producer 6</copy>
+    ```
 
-    ```sql
+    ![Spring Boot TEQ Producer Running Logs](images/springboot-teq-producer-running.png " ")
+
+3. Test the TEQ producer microservice
+
+    The producer exposes a REST API through which events can be submitted to be handled, that is, in this simple case inserted into TEQ Topic. The producer expects API requests to be in JSON format and to make an API request, for simplicity, we will make a direct HTTP request using cURL tool.
+
+    ```bash
     <copy>
-    --- Create the subscriber agent
-    DECLARE
-    subscriber sys.aq$_agent;
-    BEGIN
-    subscriber := sys.aq$_agent('LAB8022_SUBSCRIBER', NULL, NULL);
-    DBMS_AQADM.ADD_SUBSCRIBER(queue_name => 'LAB8022_TOPIC', subscriber => subscriber);
-    END;
-    /
+    curl -X POST -H "Content-Type: application/json"  \
+         -d '{ "id": "id1", "message": "teq message1" }'  \
+         http://localhost:8090/placeMessage | jq
     </copy>
     ```
 
-## **Task 1:** Verify configurations and build applications
+    The result should be
 
-The Oracle Transactional Event Queues is a robust messaging backbone offered by the converged Oracle Database that allows you to build an enterprise-class data-centric microservices architecture. The okafka library contains Oracle specific implementation of Kafka Client Java APIs. Its implementation is built on AQ-JMS APIs; thus, it is required to have the connection details.
+    ```bash
+    {
+        "id": "0",
+        "statusMessage": "Successful"
+    }
+    ```
 
-As the Database is generated during setup based on your environment, you will need to adjust the parameters from each microservices informing the correct data to the connection (Oracle Database TNS Name, Service Name, and Host Name and Port). These properties are stored in the *application.yaml* file from each microservices.
+## **Task 4:** Consume events with TEQ consumer microservice
+
+Now that we have Producer running and publishing events inside the TEQ Broker, you will do the same with Consumer.
+
+1. Deploy TEQ consumer microservice
+
+    We can deploy Consumer microservice running the following commands to build the image and deploy the it inside the Docker Engine:
+
+    ```bash
+    <copy>
+    cd $LAB_HOME/springboot-oracleteq
+    ./teq-ms-deploy-consumer
+    </copy>
+    ```
+
+    If the deployment task is successful, you will receive the messages below:
+
+    ```bash
+    Executing TEQ consumer microservice deployment!
+    TEQ consumer microservices deployment succeeded!
+    Successfully built 8cd3a837ad94 Successfully tagged oracle-developers-teq-consumer:0.0.1-SNAPSHOT grep: /home/paulo_simo/teqodb/microservices-datadriven/work 
+    TEQ_MS_CONSUMER_DEPLOYED completed
+    ```
+
+    > **Note:** If the deployment task did not complete correctly, you can investigate the deployment task logs at "$LAB_LOG"/teq-ms-consumer-deployment.log
+
+2. Launch a TEQ consumer microservice
+
+    Once you have deployed the consumer microservice image, you will be able to launch a container and execute it. Issue the following commands:
+
+    ```bash
+    <copy>
+    cd $LAB_HOME/springboot-oracleteq
+    ./teq-ms-launch-consumer
+    </copy>
+    ```
+
+    If the deployment task is successful, you will receive the messages "TEQ consumer microservice is running!".
+
+    ```bash
+    Launching TEQ consumer microservice!
+
+    5e3ad25e39365606244ce5a4f91cce9ec4d0acd748245697176b0cc9d1b68525
+    Thu Aug  4 13:29:19 UTC 2022: Waiting for consumer running!
+
+    TEQ consumer microservice is running!
+    ```
+
+3. Test the TEQ consumer microservice
+
+    The Consumer microservice after start try to dequeue the messages from the TEQ Broker. If it succeeds in dequeuing the events, we can see in the log the events that were sent by the producer issuing the following command to list the late one hundred lines from the container log. Look for `message received {"id": "0", "message": "teq message1"}`.
+
+    ```bash
+    <copy>container-logs teq-consumer 100</copy>
+    ```
+
+    The result inside logs of Consumer will be:
+
+    ```bash
+    .   ____          ___ __
+    /\\ / __*'* __ _ *(*)_ ____ _\ \ \ \
+    ( ( )\___ | '_ | '*| | '* \/ _` | \ \ \ \
+    \\/  __*)| |*)| | | | | || (_| |  ) ) ) )
+    '  |____| .__|*| |*|_| |_\__, | / / / /
+    =========|_|==============|__*/=/*/_/_/
+    :: Spring Boot ::                (v2.6.6)
+
+    13:29:25.234 [main] INFO  c.o.d.o.o.OKafkaConsumerApplication - Starting OKafkaConsumerApplication v0.0.1-SNAPSHOT using Java 11.0.16 on 5e3ad25e3936 with PID 1 (/app/oracle-developers-okafka-consumer-0.0.1-SNAPSHOT.jar started by root in /app)
+    ......
+    13:29:31.185 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+    13:29:31.185 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 5602 ms
+    Installing Oracle PKI provider.
+    13:29:32.199 [main] INFO  c.o.d.o.o.c.c.OKafkaConsumerConfig - OKafkaConsumerConfig::consumerConfig started and Oracle Instance is teqodb_tp.
+    ......
+    13:29:33.857 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8081 (http) with context path ''
+    13:29:34.236 [main] INFO  c.o.d.o.o.OKafkaConsumerApplication - Started OKafkaConsumerApplication in 11.775 seconds (JVM running for 14.391)
+    13:29:34.624 [main] INFO  o.o.o.c.consumer.ConsumerConfig - ConsumerConfig values:
+            auto.commit.interval.ms = 10000
+            auto.offset.reset = latest
+            ......
+            ......
+            tns.alias = teqodb_tp
+            value.deserializer = class org.oracle.okafka.common.serialization.StringDeserializer
+
+    13:29:34.753 [main] WARN  o.o.o.common.utils.AppInfoParser - Error while loading kafka-version.properties :inStream parameter is null
+    13:29:34.754 [main] INFO  o.o.o.common.utils.AppInfoParser - Kafka version : unknown
+    13:29:34.755 [main] INFO  o.o.o.common.utils.AppInfoParser - Kafka commitId : unknown
+    13:29:45.448 [main] INFO  c.o.d.o.o.s.OKafkaConsumerService - message received {"id": "0", "message": "teq message1"}. using key 0. sending to processing: Thread id 1
+    ```
+
+    With this result, assuming that processing was successful, we could produce and consume events from TEQ Broker.
+
+## **Extra 1:** Verify Microservices configurations (optional)
+
+The okafka library contains Oracle specific implementation of Kafka Client Java APIs. Its implementation is built on AQ-JMS APIs; thus, it is required to have the connection details.
+
+The Database is generated during setup based on your environment and the workshop scripts fill the parameters from each microservices informing the correct data to the connection (Oracle Database TNS Name, Service Name, and Host Name and Port). These properties are stored in the *application.yaml* file from each microservices and you can review them accessing the Oracle Database data at step 1 and the applications properties on step 2 and 3.
 
 1. Obtain JMS connection information
 
@@ -96,9 +263,7 @@ As the Database is generated during setup based on your environment, you will ne
 
 2. Setup Producer microservices properties
 
-    You have to review the Producer microservice properties to fill the required connection properties, which at the end are the JDBC connection string and Oracle TEQ Topic Name.
-
-    Edit the producer configuration filling the Oracle Database Instance Name, Service Name, TNS Name, Bootstrap Servers (e.g. Oracle Database endpoint and port), and the Oracle TEQ Topic Name.
+    The Producer microservice properties required connection properties, which at the end are the JDBC connection string, are filling with the Oracle Database Instance Name, Service Name, TNS Name, Bootstrap Servers (e.g. Oracle Database endpoint and port), and the Oracle TEQ Topic Name.
 
     ```bash
     <copy>
@@ -108,24 +273,24 @@ As the Database is generated during setup based on your environment, you will ne
 
     ```text
     okafka-server-config:
-    oracle-instance-name: <Oracle Autonomous Transaction Processing database TNS Name, e.g. lab8022_tp>
-    oracle-service-name: <Oracle Autonomous Transaction Processing database Service Name, e.g. xxxxxxxxxxxxxxx_lab8022_tp.adb.oraclecloud.com>
+    oracle-instance-name: <Oracle Autonomous Transaction Processing database TNS Name, e.g. labdb_tp>
+    oracle-service-name: <Oracle Autonomous Transaction Processing database Service Name, e.g. xxxxxxxxxxxxxxx_labdb_tp.adb.oraclecloud.com>
     oracle-net-tns_admin: /home/appuser/wallet
-    tns-alias: <Oracle Autonomous Transaction Processing database TNS Name, e.g. lab8022_tp>
+    tns-alias: <Oracle Autonomous Transaction Processing database TNS Name, e.g. labdb_tp>
     security-protocol: SSL
     bootstrap-servers: <Host Name:Port>
 
     okafka-topic-config:
-    topic-name: LAB8022_TOPIC
+    topic-name: <TEQ TOPIC>
     num-of-partitions: 3
     replication-factor: 1
     ```
 
 3. Setup Consumer microservices properties
 
-    You have to do the same edition to the Consumer microservice to fill the required connection properties.
+    You have same configuration fill into the Consumer microservice properties.
 
-    Edit the consumer configuration filling the Oracle Database Instance Name, Service Name, TNS Name, Bootstrap Servers (e.g., Oracle Database endpoint and port), the Oracle TEQ Topic Name. However, you have an additional field, the **Group ID**, that represents the subscriber agent created to allow dequeue from the TOPIC/QUEUE.
+    View the consumer configuration where were filling the Oracle Database Instance Name, Service Name, TNS Name, Bootstrap Servers (e.g., Oracle Database endpoint and port), the Oracle TEQ Topic Name. However, you have an additional field, the **Group ID**, that represents the subscriber agent created to allow dequeue from the TOPIC/QUEUE.
 
     ```bash
     <copy>
@@ -135,161 +300,28 @@ As the Database is generated during setup based on your environment, you will ne
 
     ```text
     okafka-server-config:
-    oracle-instance-name: <Oracle Autonomous Transaction Processing database TNS Name, e.g. lab8022_tp>
-    oracle-service-name: <Oracle Autonomous Transaction Processing database Service Name, e.g. xxxxxxxxxxxxxxx_lab8022_tp.adb.oraclecloud.com>
+    oracle-instance-name: <Oracle Autonomous Transaction Processing database TNS Name, e.g. labdb_tp>
+    oracle-service-name: <Oracle Autonomous Transaction Processing database Service Name, e.g. xxxxxxxxxxxxxxx_labdb_tp.adb.oraclecloud.com>
     oracle-net-tns_admin: /home/appuser/wallet
-    tns-alias: <Oracle Autonomous Transaction Processing database TNS Name, e.g. lab8022_tp>
+    tns-alias: <Oracle Autonomous Transaction Processing database TNS Name, e.g. labdb_tp>
     security-protocol: SSL
     bootstrap-servers: <Host Name:Port>
 
     okafka-topic-config:
-    topic-name: LAB8022_TOPIC
+    topic-name: <TEQ TOPIC>
     num-of-partitions: 3
     replication-factor: 1
 
     okafka-consumer-config:
     key-deserializer: org.oracle.okafka.common.serialization.StringDeserializer
     value-deserializer: org.oracle.okafka.common.serialization.StringDeserializer
-    group-id: LAB8022_TOPIC_SUBSCRIBER
+    group-id: <TEQ TOPIC SUBSCRIBER>
     enable-auto-commit: true
     auto-commit-interval-ms: 10000
     max-poll-records: 100 
     ````
 
-4. Build the Applications
-
-    Likewise the previous lab, we used Maven to build the applications Producer and Consumer and the configuration module. Run this command to build them:
-
-    ```bash
-    <copy>
-    cd $LAB_HOME/springboot-oracleteq
-    </copy>
-    ```
-
-    ```bash
-    <copy>
-    mvn clean install -DskipTests
-    </copy>
-    ```
-
-    As a result, all modules were built with success.
-
-    ![Spring Boot Apps Build result](images/springboot-okafka-build-result.png " ")
-
-## **Task 2:** Deploy and Test Spring Boot Oracle TEQ Producer
-
-Now that we have the applications successfully built, we can deploy them and test them. Let's start with the Producer.
-
-1. Deploy Oracle TEQ Producer microservice
-
-    Run the following sequence of commands to build the container image and deploy it to the Docker Engine:
-
-    ```bash
-    <copy>
-    cd $LAB_HOME/springboot-oracleteq/okafka-producer
-    </copy>
-    ```
-
-    ```bash
-    <copy>
-    ./build.sh
-    </copy>
-    ```
-
-2. Run the Oracle TEQ Producer microservice container
-
-    After create and register the container image with your Producer microservices, you can run it executing the following command:
-
-    ```bash
-    <copy>
-    docker run --detach --name=okafka-producer -p 8090:8080 oracle-developers-okafka-producer:0.0.1-SNAPSHOT
-    </copy>
-    ```
-
-    We can check the logs and see the Producer running and waiting for requests:
-
-    ```bash
-    <copy>
-    docker logs okafka-producer
-    </copy>
-    ```
-
-    ![Spring Boot OKafka Producer Running Logs](images/springboot-okafka-producer-running.png " ")
-
-3. Test the Oracle TEQ Producer microservice
-
-    To test your microservices just submit a message to its REST endpoint using a cURL command:
-
-    ```bash
-    <copy>
-    curl -X POST -H "Content-Type: application/json" -d '{ "id": "id1", "message": "okafka message 1" } ' http://localhost:8090/placeMessage | jq
-    </copy>
-    ```
-
-    The result should be
-
-    ```bash
-    {
-        "id": "0",
-        "statusMessage": "Successful"
-    }
-    ```
-
-## **Task 3:** Deploy and Test Spring Boot Oracle TEQ Consumer
-
-Now that you have Producer running and publishing events inside the Oracle TEQ Topic, you will do the same with Consumer.
-
-1. Deploy Oracle TEQ Consumer microservice
-
-    Run the following sequence of commands to build the container image and deploy it to the Docker Engine:
-
-    ```bash
-    <copy>
-    cd $LAB_HOME/springboot-oracleteq/okafka-consumer
-    </copy>
-    ```
-
-    ```bash
-    <copy>
-    ./build.sh
-    </copy>
-    ```
-
-2. Run the Oracle TEQ Consumer microservice container
-
-    ```bash
-    <copy>
-    docker run --detach --name=okafka-consumer oracle-developers-okafka-consumer:0.0.1-SNAPSHOT
-    </copy>
-    ```
-
-    You  can check the logs and see the Consumer running:
-
-    ```bash
-    <copy>
-    docker logs -f okafka-consumer
-    </copy>
-    ```
-
-    ![Spring Boot TEQ Consumer Running Logs](images/springboot-okafka-consumer-running.png " ")
-
-3. Check message consumption by Oracle TEQ Consumer microservice
-
-    And finally, you can check the consumption of messages published in Oracle TEQ by analyzing the microservice logs.
-
-    ![Spring Boot TEQ Consumer Running Logs](images/springboot-okafka-consumer-test.png " ")
-
-## **Task 4:** Stop Oracle TEQ Consumer
-
-As the following laboratory will require that messages produced in Oracle TEQ stay there, please stop the Oracle TEQ Consumer microservice.
-
-```bash
- <copy>
- docker stop okafka-consumer
- </copy>
-```
-
-## **Task 5:** Deep diving in the Code (optional)
+## **Extra 2:** Deep diving in the Code (optional)
 
 Now, we invite you to compare the codes for Kafka and okafka Microservices and see that minor modifications make it possible to use almost the Kafka microservice code to build the TEQ / okafka microservices. For example:
 
@@ -327,6 +359,6 @@ You may now **proceed to the next lab**
 
 ## Acknowledgements
 
-- **Authors** - Paulo Simoes, Developer Evangelist; Paul Parkinson, Developer Evangelist; Richard Exley, Consulting Member of Technical Staff, Oracle MAA and Exadata
-- **Contributors** - Mayank Tayal, Developer Evangelist; Sanjay Goil, VP Microservices and Oracle Database
-- **Last Updated By/Date** - Paulo Simoes, February 2022
+- **Authors** - Paulo Simoes, Developer Evangelist; Andy Tael, Developer Evangelist; Paul Parkinson, Developer Evangelist; Richard Exley, Consulting Member of Technical Staff, Oracle MAA and Exadata
+- **Contributors** - Mayank Tayal, Developer Evangelist; Corrado De Bari, Developer Evangelist; Sanjay Goil, VP Microservices and Oracle Database
+- **Last Updated By/Date** - Andy Tael, Aug 2022
