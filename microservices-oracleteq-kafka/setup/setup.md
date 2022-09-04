@@ -103,17 +103,13 @@ Here are the steps for creating a new group and assigning security policy requir
     </copy>
     ```
 
-  ![Create a New Security Policy](images/create-policy.png " ")
+    ![Policy Statements](images/policy-statements.png " ")
 
 7. Click Create
 
-  ![Policy Statements](images/policy-statements.png " ")
+    ![Create a New Security Policy](images/create-policy.png " ")
 
-<<<<<<< HEAD
 8. And finally, make sure your user account has been added to the group created in step#2.  
-=======
-5. And finally, make sure your user account has been added to the group created in step#2.  
->>>>>>> bcdac7240842e9c2379effe32390408fc0e07f39
 
 ## **Task 5:** Launch Cloud Shell
 
