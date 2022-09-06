@@ -65,7 +65,7 @@ In this step, you will set up access to the two buckets on Oracle Cloud Infrastr
 -   Copy and paste the following URI into the URI + Bucket field:
 ```
 <copy>
-https://objectstorage.us-ashburn-1.oraclecloud.com/n/adwc4pm/b/moviestream_landing/o
+https://objectstorage.us-ashburn-1.oraclecloud.com/n/c4u04/b/moviestream_landing/o
 </copy>
 ```
 -   Select **No Credential** as this is a public bucket
@@ -86,7 +86,7 @@ https://objectstorage.us-ashburn-1.oraclecloud.com/n/adwc4pm/b/moviestream_landi
 
 ```
 <copy>
-https://objectstorage.us-ashburn-1.oraclecloud.com/n/adwc4pm/b/moviestream_gold/o
+https://objectstorage.us-ashburn-1.oraclecloud.com/n/c4u04/b/moviestream_gold/o
 </copy>
 ```
 
@@ -247,7 +247,7 @@ In this step, we will use some additional features of the DBMS\_CLOUD APIs to lo
 
 ```
 <copy>
-define uri_gold = 'https://objectstorage.us-ashburn-1.oraclecloud.com/n/adwc4pm/b/moviestream_gold/o'
+define uri_gold = 'https://objectstorage.us-ashburn-1.oraclecloud.com/n/c4u04/b/moviestream_gold/o'
 define parquet_format = '{"type":"parquet",  "schema": "all"}'
 
 begin
@@ -305,7 +305,7 @@ create table custsales as select * from ext_custsales;
 
 ```
 <copy>
-define uri_gold = 'https://objectstorage.us-ashburn-1.oraclecloud.com/n/adwc4pm/b/moviestream_gold/o'
+define uri_gold = 'https://objectstorage.us-ashburn-1.oraclecloud.com/n/c4u04/b/moviestream_gold/o'
 define json_format = '{"skipheaders":"0", "delimiter":"\n", "ignoreblanklines":"true"}'
 begin
     dbms_cloud.create_external_table(
@@ -454,7 +454,7 @@ define csv_format = '{"dateformat":"YYYY-MM-DD", "skipheaders":"1", "delimiter":
 BEGIN
 DBMS_CLOUD.COPY_DATA (
 table_name => 'pizza_location',
-file_uri_list => 'https://objectstorage.us-ashburn-1.oraclecloud.com/n/adwc4pm/b/moviestream_landing/o/pizza_location/pizza_location.csv',
+file_uri_list => 'https://objectstorage.us-ashburn-1.oraclecloud.com/n/c4u04/b/moviestream_landing/o/pizza_location/pizza_location.csv',
 format => '&csv_format'
 );
 END;
