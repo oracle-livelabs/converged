@@ -114,15 +114,38 @@ Estimates Time: 10 minutes
 1. Delete the directory in your cloud shell where you installed the workshop.
 
     ```bash
-     <copy>rm -rf <directory name, e.g. teqodb></copy>
+     <copy>
+     cd $HOME
+     rm -rf teqodb
+     </copy>
+    ```
+
+    **Option:** If you want to delete and reset **EVERYTHING** in your Cloud Shell you can execute the following command (it can **NOT** be reversed!)
+
+    ```bash
+    <copy>
+    csreset -a
+    </copy>
     ```
 
 ## **Task 3:** Delete the Compartment
 
 In the Oracle Cloud Infraestructure Console navigate to the Compartments screen in the Identity section. Select the compartment that was created for the workshop and delete it. Important, even when the script in step 1 has completed, it can take some time for Oracle Cloud Infrastructure to fully remove all the resources. It will not be possible to delete the compartment until this has completed.
 
+1. Click the Navigation Menu in the upper left, navigate to Identity & Security and select Compartments.
+
+![Compartment Menu](images/compartment.png " ")
+
+2. Click on the Compartment created by the Workshop (teqodb)
+
+![Select Compartment](images/select_comp.png " ")
+
+3. Click the Delete button
+
+![Select Compartment](images/delete_comp.png " ")
+
 ## Acknowledgements
 
 - **Authors** - Paulo Simoes, Developer Evangelist; Paul Parkinson, Developer Evangelist; Richard Exley, Consulting Member of Technical Staff, Oracle MAA and Exadata
 - **Contributors** - Mayank Tayal, Developer Evangelist; Andy Tael, Developer Evangelist; Corrado De Bari, Developer Evangelist; Sanjay Goil, VP Microservices and Oracle Database
-- **Last Updated By/Date** - Paulo Simoes, Aug 2022
+- **Last Updated By/Date** - Andy Tael, Sep 2022
