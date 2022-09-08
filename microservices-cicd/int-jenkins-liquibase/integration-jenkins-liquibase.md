@@ -4,7 +4,7 @@
 
 This lab will demonstrate how to integrate Jenkins and GitHub Repository using Github Branch Source Plugin for Liquibase with SQLcl Use Case.
 
-Estimated Time:  15 minutes
+Estimated Time:  10 minutes
 
 ### Objectives
 
