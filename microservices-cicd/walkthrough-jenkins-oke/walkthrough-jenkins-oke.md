@@ -6,7 +6,7 @@ This lab will walk you through CI/CD workflow using the pipeline built in the pr
 
 ![CI/CD Flow](images/cicd-jenkins-flow.png " ")
 
-Estimated Time: 20 minutes
+Estimated Time: 10 minutes
 
 ### Objectives
 

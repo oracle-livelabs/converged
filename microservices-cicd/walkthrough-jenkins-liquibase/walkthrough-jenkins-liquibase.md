@@ -6,7 +6,7 @@ This demonstration will walk through a typical schema change request workflow us
 
 ![CI/CD Flow](images/cicd-jenkins-github.png " ")
 
-Estimated Time:  25 minutes
+Estimated Time:  10 minutes
 
 ### Objectives
 
