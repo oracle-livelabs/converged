@@ -15,7 +15,7 @@ Estimated Time: 15 minutes
 
 - This lab requires completion of the Get Started section in the Contents menu on the left.
 - An Oracle Cloud paid account or free trial. To sign up for a trial account with $300 in credits for 30 days, click [Sign Up](http://oracle.com/cloud/free).
-- The workshop also requires Always Free 19c ATP instance.
+- The workshop also an Always Free 19c ATP instance.
 
 ## **Task 1:** Log in to the Oracle Cloud Console
 
@@ -68,10 +68,12 @@ Here are the steps for creating a new group and assigning security policy requir
 3. In the Create Group dialog box, enter the following:
 
     - **Name**: Enter a unique name for your group, such as "MicroservicesAdmin”. Note that the group name cannot contain spaces.
-    - **Description**: Enter a description (for example, “New group for microservices workshop”).
+    - **Description**: Enter a description (for example, “Group for microservices workshop”).
     - Click **Create**.
 
    ![Create a New Group](images/new-group.png " ")
+
+   - Click Groups
 
    ![Review a New Group](images/get-new-group.png " ")
 
@@ -79,7 +81,7 @@ Here are the steps for creating a new group and assigning security policy requir
 
    ![Oracle Cloud Infrastructure Identity & Security Groups Screen](images/id-policies.png)
 
-5. Click Create Policy.
+5. Select the Root Compartment from the dropdown on the left hand side (the name of your tenancy) and click Create Policy.
 
    ![Create a New Policy](images/create-policy-button.png)
 
@@ -88,7 +90,7 @@ Here are the steps for creating a new group and assigning security policy requir
     - **Name**: Enter a unique name for your policy, such as "Micorservices-Policies"
     - **Description**: Enter a description. For Example "Micorservices-Policies"
 
-   Using **Edit Policy Statement** option, add the below statements to the policy created above.
+   Using **Show manual editor** option, add the below statements to the policy created above.
 
     ```bash
     <copy>
@@ -103,7 +105,7 @@ Here are the steps for creating a new group and assigning security policy requir
     </copy>
     ```
 
-    ![Policy Statements](images/policy-statements.png " ")
+    <!-- ![Policy Statements](images/policy-statements.png " ") -->
 
 7. Click Create
 
@@ -164,7 +166,11 @@ Cloud Shell is a small virtual machine running a "bash" shell which you access t
 
    User information is available in the Oracle Cloud Infrastructure Console.
 
-   The user OCID will look something like `ocid1.user.oc1..aaaaaa==========l4oi======fasdf===f4===bta`. Pay attention to the "ocid1.user" prefix as this will tell you that it is a User OCID and not a Tenancy OCID.
+   The user OCID will look something like:
+
+    `ocid1.user.oc1..aaaaaaaabcdefghijklmnopqrstuvwxyz` 
+   
+    Pay attention to the "**ocid1.user**" prefix as this will tell you that it is a User OCID and not a Tenancy OCID.
 
    Sometimes the name link is missing in which case select the `User Settings` link. Do not select the "Tenancy" link.
 
@@ -172,7 +178,7 @@ Cloud Shell is a small virtual machine running a "bash" shell which you access t
 
       ![Obtain Oracle Cloud Infrastructure User OCID](images/get-user-ocid.png " ")
 
-   b. Click Show to see the details and then click Copy to copy the user OCID to the clipboard, paste in the copied data in console.
+   b. Click Show to see the details and then click Copy to copy the user OCID to the clipboard. You will need this value during the setup e.g. paste in the copied data in Cloud Shell console.
 
       ![Oracle Cloud Infrastructure User OCID example](images/example-user-ocid.png " ")
 
@@ -257,7 +263,7 @@ Once the majority of the setup has been completed the setup will periodically pr
   2. View the processes logs. Their are located in the $LAB_LOG directory.
 
       ```bash
-      <copy>ls -al $LAB_LOG</copy>
+      <copy>ls -al $LAB_HOME/cloud-setup/log</copy>
       ```
 
 You may now **proceed to the next lab**
@@ -266,4 +272,4 @@ You may now **proceed to the next lab**
 
 - **Authors** - Paulo Simoes, Developer Evangelist; Andy Tael, Developer Evangelist; Paul Parkinson, Developer Evangelist; Richard Exley, Consulting Member of Technical Staff, Oracle MAA and Exadata
 - **Contributors** - Mayank Tayal, Developer Evangelist; Corrado De Bari, Developer Evangelist; Sanjay Goil, VP Microservices and Oracle Database
-- **Last Updated By/Date** - Andy Tael, Aug 2022
+- **Last Updated By/Date** - Andy Tael, Sep 2022

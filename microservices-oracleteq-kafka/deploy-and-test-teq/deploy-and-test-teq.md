@@ -2,7 +2,7 @@
 
 ## Introduction
 
-This laboratory helps you know how to build an Event-driven architecture based on Spring Boot microservices that “communicate” asynchronously using Oracle Transactional Event Queues (TEQ). The laboratory have two microservices, a producer and a consumer, built using Spring Boot framework that connect with an Oracle Transactional Event Queue (TEQ) to exchange events, and use okafka library tthat contains Oracle specific implementation of Kafka Client Java APIs.
+This laboratory helps you know how to build an Event-driven architecture based on Spring Boot microservices that “communicate” asynchronously using Oracle Transactional Event Queues (TEQ). The laboratory have two microservices, a producer and a consumer, built using Spring Boot framework that connect with an Oracle Transactional Event Queue (TEQ) to exchange events, and use okafka library that contains the Oracle implementation of Kafka Client Java APIs.
 
 Estimated Time: 15 minutes
 
@@ -101,7 +101,7 @@ As a result of the Maven build task, you should obtain the following lines showi
     TEQ_MS_PRODUCER_DEPLOYED completed
     ```
 
-    > **Note:** If the deployment task did not complete correctly, you can investigate the deployment task logs at "$LAB_LOG"/teq-ms-producer-deployment.log
+    > **Note:** If the deployment task did not complete correctly, you can investigate the deployment task logs at "$LAB_LOG/teq-ms-producer-deployment.log"
 
 2. Launch a TEQ producer microservice
 
@@ -114,7 +114,7 @@ As a result of the Maven build task, you should obtain the following lines showi
     </copy>
     ```
 
-    If the deployment task is successful, you will receive the messages "TEQ producer microservice is running!". Yet it is possible to evaluate the logs from the producer issuing the following command to list the late six lines from the container log. Look for `OKafka Producer Application Running!`
+    If the deployment task is successful, you will receive the messages `TEQ producer microservice is running!`. Yet it is possible to evaluate the logs from the producer issuing the following command to list the late six lines from the container log. Look for `OKafka Producer Application Running!`
 
     ```bash
     <copy>container-logs teq-producer 6</copy>
@@ -167,7 +167,7 @@ Now that we have Producer running and publishing events inside the TEQ Broker, y
     TEQ_MS_CONSUMER_DEPLOYED completed
     ```
 
-    > **Note:** If the deployment task did not complete correctly, you can investigate the deployment task logs at "$LAB_LOG"/teq-ms-consumer-deployment.log
+    > **Note:** If the deployment task did not complete correctly, you can investigate the deployment task logs at "$LAB_LOG/teq-ms-consumer-deployment.log".
 
 2. Launch a TEQ consumer microservice
 
@@ -361,4 +361,4 @@ You may now **proceed to the next lab**
 
 - **Authors** - Paulo Simoes, Developer Evangelist; Andy Tael, Developer Evangelist; Paul Parkinson, Developer Evangelist; Richard Exley, Consulting Member of Technical Staff, Oracle MAA and Exadata
 - **Contributors** - Mayank Tayal, Developer Evangelist; Corrado De Bari, Developer Evangelist; Sanjay Goil, VP Microservices and Oracle Database
-- **Last Updated By/Date** - Andy Tael, Aug 2022
+- **Last Updated By/Date** - Andy Tael, Sep 2022

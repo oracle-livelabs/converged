@@ -31,6 +31,7 @@ Estimated Time: 10 minutes
     As a result, you will see the following components created:
 
     ```bash
+    
     NAME                COMMAND                  SERVICE             STATUS              PORTS
     broker              "/etc/confluent/dock…"   broker              created
     connect             "/etc/confluent/dock…"   connect             created
@@ -54,6 +55,7 @@ Estimated Time: 10 minutes
     ⠿ Container broker           Started                1.7s
     ⠿ Container schema-registry  Started                3.1s
     ⠿ Container connect          Started                4.4s
+    Connecting Kafka broker on network teqod_net
     KAFKA_RUNNING completed
     ```
 
@@ -77,7 +79,6 @@ Estimated Time: 10 minutes
     ```bash
     <copy>
     source $LAB_HOME/cloud-setup/env.sh
-    source $LAB_HOME/cloud-setup/setup.sh
     </copy>
     ```
 
@@ -149,7 +150,7 @@ As a result of the Maven build task, you should obtain the following lines showi
     </copy>
     ```
 
-    If the deployment task is successful, you will receive the messages "Kafka producer microservice is running!". Yet it is possible to evaluate the logs from the producer issuing the following command to list the late six lines from the container log. Look for `Started KafkaProducerApplication`
+    If the deployment task is successful, you will receive the messages `Kafka producer microservice is running!`. You can evaluate the logs from the producer issuing the following command to list the late six lines from the container log. Look for `Started KafkaProducerApplication`
 
     ```bash
     <copy>container-logs kafka-producer 6</copy>
@@ -208,9 +209,8 @@ Now that we have Producer running and publishing events inside the Kafka Broker,
     If the deployment task is successful, you will receive the messages below:
 
     ```bash
-    Executing Kafka consumer microservice deployment!
     Kafka consumer microservices deployment succeeded!
-    Successfully built 8cd3a837ad94 Successfully tagged oracle-developers-kafka-consumer:0.0.1-SNAPSHOT grep: /home/paulo_simo/teqodb/microservices-datadriven/work 
+    Successfully built 2c22d0d1b20a Successfully tagged oracle-developers-kafka-consumer:0.0.1-SNAPSHOT
     KAFKA_MS_CONSUMER_DEPLOYED completed
     ```
 
@@ -286,4 +286,4 @@ You may now **proceed to the next lab**
 
 - **Authors** - Andy Tael, Developer Evangelist; Paulo Simoes, Developer Evangelist; Paul Parkinson, Developer Evangelist; Richard Exley, Consulting Member of Technical Staff, Oracle MAA and Exadata
 - **Contributors** - Mayank Tayal, Developer Evangelist; Corrado De Bari, Developer Evangelist; Sanjay Goil, VP Microservices and Oracle Database
-- **Last Updated By/Date** - Andy Tael, Aug 2022
+- **Last Updated By/Date** - Andy Tael, Sep 2022
