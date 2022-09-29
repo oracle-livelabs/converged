@@ -6,6 +6,9 @@ In this lab, we will tear down the resources created in your tenancy and the dir
 
 Estimates Time: 10 minutes
 
+Watch the video below for a quick walk-through of the lab.
+[Tear down](videohub:1_k6oyjbhm)
+
 ### Objectives
 
 - Clean up your tenancy
