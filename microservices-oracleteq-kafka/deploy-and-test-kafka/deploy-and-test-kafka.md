@@ -6,6 +6,9 @@ This laboratory helps you know how to build an Event-driven architecture based o
 
 Estimated Time: 10 minutes
 
+Watch the video below for a quick walk-through of the lab.
+[Build Spring Boot microservices with Apache Kafka](videohub:1_rpxctene)
+
 ### Objectives
 
 - Deploy and access the Kafka Cluster

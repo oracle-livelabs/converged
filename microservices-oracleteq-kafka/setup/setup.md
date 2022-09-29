@@ -6,6 +6,9 @@ In this laboratory, you'll provision and set up the resources to execute worksho
 
 Estimated Time: 15 minutes
 
+Watch the video below for a quick walk-through of the lab.
+[Workshop setup](videohub:1_p4pdy3mw)
+
 ### Objectives
 
 - Clone the workshop repository.

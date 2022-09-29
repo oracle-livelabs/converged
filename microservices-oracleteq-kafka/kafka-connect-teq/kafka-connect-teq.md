@@ -6,6 +6,9 @@ This laboratory will show you the interoperability of Transactional Event Queues
 
 Estimated Time: 10 minutes
 
+Watch the video below for a quick walk-through of the lab.
+[Setup the connection between Kafka and Oracle Transactional Event Queues](videohub:1_mp0yxs44)
+
 ### Objectives
 
 - Setup Kafka Connect

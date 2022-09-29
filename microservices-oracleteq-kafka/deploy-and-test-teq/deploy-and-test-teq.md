@@ -6,6 +6,9 @@ This laboratory helps you know how to build an Event-driven architecture based o
 
 Estimated Time: 15 minutes
 
+Watch the video below for a quick walk-through of the lab.
+[Build Spring Boot microservices with Oracle Transactional Event Queues](videohub:1_bm0akx77)
+
 ### Objectives
 
 - Learn about Oracle Transactional Event Queues (TEQ) and okafka library
