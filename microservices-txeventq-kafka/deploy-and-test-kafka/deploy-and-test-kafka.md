@@ -58,7 +58,7 @@ Watch the video below for a quick walk-through of the lab.
     ⠿ Container broker           Started                1.7s
     ⠿ Container schema-registry  Started                3.1s
     ⠿ Container connect          Started                4.4s
-    Connecting Kafka broker on network teqod_net
+    Connecting Kafka broker on network txeventqlab_net
     KAFKA_RUNNING completed
     ```
 
@@ -91,16 +91,16 @@ Watch the video below for a quick walk-through of the lab.
 
     ```bash
     <copy>
-    kafka-add-topic LABTEQTOPIC1
+    kafka-add-topic TXEVENTQTOPIC1
     </copy>
     ```
 
     This command will create the Kafka Topic and configure the properties of the Producer and Consumer microservices to point to the newly created topic.
 
     ```bash
-    Created topic LABTEQTOPIC1
-    Configuring Kafka Producer to produce on topic LABTEQTOPIC1.
-    Configuring Kafka Consumer to consume from topic LABTEQTOPIC1.
+    Created topic TXEVENTQTOPIC1
+    Configuring Kafka Producer to produce on topic TXEVENTQTOPIC1.
+    Configuring Kafka Consumer to consume from topic TXEVENTQTOPIC1.
     ```
 
 ## **Task 2:** Build Kafka producer and consumer microservices
@@ -186,7 +186,7 @@ As a result of the Maven build task, you should obtain the following lines showi
 
     ```bash
     <copy>
-    kafka-dequeue LABTEQTOPIC1
+    kafka-dequeue TXEVENTQTOPIC1
     </copy>
     ```
 

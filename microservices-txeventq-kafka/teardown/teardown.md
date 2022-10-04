@@ -119,7 +119,7 @@ Watch the video below for a quick walk-through of the lab.
     ```bash
      <copy>
      cd $HOME
-     rm -rf teqodb
+     rm -rf txeventqlab
      </copy>
     ```
 
@@ -137,18 +137,18 @@ In the Oracle Cloud Infraestructure Console navigate to the Compartments screen 
 
 1. Click the Navigation Menu in the upper left, navigate to Identity & Security and select Compartments.
 
-![Compartment Menu](images/compartment.png " ")
+    ![Compartment Menu](images/compartment.png " ")
 
-2. Click on the Compartment created by the Workshop (teqodb)
+2. Click on the Compartment created by the Workshop (txeventqlab)
 
-![Select Compartment](images/select_comp.png " ")
+    ![Select Compartment](images/select_comp.png " ")
 
 3. Click the Delete button
 
-![Select Compartment](images/delete_comp.png " ")
+    ![Select Compartment](images/delete_comp.png " ")
 
 ## Acknowledgements
 
 - **Authors** - Paulo Simoes, Developer Evangelist; Paul Parkinson, Developer Evangelist; Richard Exley, Consulting Member of Technical Staff, Oracle MAA and Exadata
 - **Contributors** - Mayank Tayal, Developer Evangelist; Andy Tael, Developer Evangelist; Corrado De Bari, Developer Evangelist; Sanjay Goil, VP Microservices and Oracle Database
-- **Last Updated By/Date** - Andy Tael, Sep 2022
+- **Last Updated By/Date** - Paulo Simoes, Oct 2022

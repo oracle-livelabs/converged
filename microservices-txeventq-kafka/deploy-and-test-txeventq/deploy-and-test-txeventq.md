@@ -2,7 +2,7 @@
 
 ## Introduction
 
-This laboratory helps you know how to build an Event-driven architecture based on Spring Boot microservices that “communicate” asynchronously using Oracle Transactional Event Queues (TEQ). The laboratory have two microservices, a producer and a consumer, built using Spring Boot framework that connect with an Oracle Transactional Event Queue (TEQ) to exchange events, and use okafka library that contains the Oracle implementation of Kafka Client Java APIs.
+This laboratory helps you know how to build an Event-driven architecture based on Spring Boot microservices that “communicate” asynchronously using Oracle Transactional Event Queues (TxEventQ). The laboratory have two microservices, a producer and a consumer, built using Spring Boot framework that connect with an Oracle Transactional Event Queue (TxEventQ) to exchange events, and use okafka library that contains the Oracle implementation of Kafka Client Java APIs.
 
 Estimated Time: 15 minutes
 
@@ -11,10 +11,10 @@ Watch the video below for a quick walk-through of the lab.
 
 ### Objectives
 
-- Learn about Oracle Transactional Event Queues (TEQ) and okafka library
-- Create an Oracle TEQ Topic
-- Deploy and access the Oracle TEQ Producer Microservice
-- Deploy and access the Oracle TEQ Consumer Microservice
+- Learn about Oracle Transactional Event Queues (TxEventQ) and okafka library
+- Create an Oracle TxEventQ Topic
+- Deploy and access the Oracle TxEventQ Producer Microservice
+- Deploy and access the Oracle TxEventQ Consumer Microservice
 - Learn how they work
 
 ### Prerequisites
@@ -23,58 +23,58 @@ Watch the video below for a quick walk-through of the lab.
 - The Oracle Autonomous Transaction Processing database.
 - A Docker Engine accessible.
 
-## Overview of the Oracle Transactional Event Queues (TEQ)
+## Overview of the Oracle Transactional Event Queues (TxEventQ)
 
-Oracle Transactional Event Queues (TEQ) is a robust and feature-rich event streaming platform integrated with the Oracle database used to collect, process, store, and integrate data at scale. TEQ that are highly optimized implementation of AQ previously called AQ Sharded Queues, also AQ, address the requirements from data-driven and event-driven architectures in modern enterprise applications, including numerous use cases as distributed streaming, stream processing, data integration, and pub/sub messaging.
+Oracle Transactional Event Queues (TxEventQ) is a robust and feature-rich event streaming platform integrated with the Oracle database used to collect, process, store, and integrate data at scale. TxEventQ that are highly optimized implementation of AQ previously called AQ Sharded Queues, also AQ, address the requirements from data-driven and event-driven architectures in modern enterprise applications, including numerous use cases as distributed streaming, stream processing, data integration, and pub/sub messaging.
 
 You can adopt Transactional Event Queues with one event stream (to preserve total ordering in the queue) or consider taking advantage of multiple event streams where messages are ordered within each event stream. This is similar to Apache Kafka's Topics approach consisting of multiple partitions from which producers and consumers can publish or subscribe.
 
-Oracle Transactional Event Queues (TEQ) are a high-performance partitioned implementation with multiple event streams per queue that store messages persistently and propagate messages between queues on different databases. Because TEQs are implemented in database tables, all high availability, scalability, and reliability operational benefits are also applicable to queue data. TEQ supports standard database features such as recovery, restart, and security. You can use standard database development and management tools to monitor queues. Like other database tables, queue tables can be imported and exported. Similarly, *TEQ queues are supported by Oracle Data Guard for high availability, which can be critical to preserving messages when using a stateless middle tier*.
+Oracle Transactional Event Queues (TxEventQ) are a high-performance partitioned implementation with multiple event streams per queue that store messages persistently and propagate messages between queues on different databases. Because TxEventQ are implemented in database tables, all high availability, scalability, and reliability operational benefits are also applicable to queue data. TxEventQ supports standard database features such as recovery, restart, and security. You can use standard database development and management tools to monitor queues. Like other database tables, queue tables can be imported and exported. Similarly, *TxEventQ queues are supported by Oracle Data Guard for high availability, which can be critical to preserving messages when using a stateless middle tier*.
 
-By being in the database, enqueues and dequeues can be incorporated in database transactions without requiring distributed transactions. And, messages can be queried using standard SQL. You can use SQL to access the message properties, the message history, and the payload. With SQL access, you can also audit and track messages. All available SQL technology, such as in-memory latches and table indices, optimize access to messages in TEQ.
+By being in the database, enqueues and dequeues can be incorporated in database transactions without requiring distributed transactions. And, messages can be queried using standard SQL. You can use SQL to access the message properties, the message history, and the payload. With SQL access, you can also audit and track messages. All available SQL technology, such as in-memory latches and table indices, optimize access to messages in TxEventQ.
 
-![Oracle Transactional Event Queues (TEQ)](images/oracle-teq-picture.png " ")
+![Oracle Transactional Event Queues (TxEventQ)](images/oracle-txeventq-picture.png " ")
 
-Oracle TEQ can be accessed through polyglot programmatic interfaces since PL/SQL code til C, Python, Javascript, and Java could be used to create Consumers and producers. For example, this workshop is offered using the Spring Boot framework, one of the most important and adopted Java frameworks.
+Oracle TxEventQ can be accessed through polyglot programmatic interfaces since PL/SQL code til C, Python, Javascript, and Java could be used to create Consumers and producers. For example, this workshop is offered using the Spring Boot framework, one of the most important and adopted Java frameworks.
 
 ### Kafka Java Client for Transactional Event Queues
 
-Oracle introduces Kafka Java Client for Oracle Transactional Event Queues Kafka (OKafka), a open source library that allow application compatibility with Oracle database. This provides easy migration for Kafka Java applications to Transaction Event Queues (TEQ). The Kafka Java APIs can now connect to Oracle database server and use TEQ as a messaging platform.
+Oracle introduces Kafka Java Client for Oracle Transactional Event Queues Kafka (OKafka), a open source library that allow application compatibility with Oracle database. This provides easy migration for Kafka Java applications to Transaction Event Queues (TxEventQ). The Kafka Java APIs can now connect to Oracle database server and use TxEventQ as a messaging platform.
 
 ![Kafka Application Integration with Transactional Event Queue](images/kafka-application-integration-oracle-teq.png " ")
 
 The figure shows OKafka library, which contains Oracle specific implementation of Kafka's Java APIs. This implementation internally invokes AQ-JMS APIs which in turn uses JDBC driver to communicate with Oracle Database.
 
-Developers can now migrate an existing Java application that uses Kafka to the Oracle database. Oracle Database 19c provides client side library which allows Kafka applications to connect to Oracle Database instead of Kafka cluster and use TEQ's messaging platform transparently.
+Developers can now migrate an existing Java application that uses Kafka to the Oracle database. Oracle Database 19c provides client side library which allows Kafka applications to connect to Oracle Database instead of Kafka cluster and use TxEventQ's messaging platform transparently.
 
-## **Task 1:** Create TEQ Topic
+## **Task 1:** Create TxEventQ Topic
 
-The setup phase provisioned an Oracle Autonomous Transaction Processing Database instance and we will use it now. This lab starts by creation of a TEQ Topic. As aforementioned, TEQ taking advantage of multiple event streams is similar to Apache Kafka's approach of Topics consisting of multiple partitions to which producers and consumers can publish to or subscribe from. So, let's create the TEQ "Topic" that will be used to persist events of this Lab.
+The setup phase provisioned an Oracle Autonomous Transaction Processing Database instance and we will use it now. This lab starts by creation of a TxEventQ Topic. As aforementioned, TxEventQ taking advantage of multiple event streams is similar to Apache Kafka's approach of Topics consisting of multiple partitions to which producers and consumers can publish to or subscribe from. So, let's create the TxEventQ "Topic" that will be used to persist events of this Lab.
 
-To create the TEQ "Topic" execute the following command:
+To create the TxEventQ "Topic" execute the following command:
 
 ```bash
 <copy>
-teq-add-topic LABTEQTOPIC1
+txeventq-add-topic TXEVENTQTOPIC1
 </copy>
 ```
 
-This command will request the *Topic Name* and the Database user password supplied by you during workshop setup. It will try to create the TEQ "Topic", and if succeed, it will modify the configuration of producer and consumer microservices to point to this new topic created.
+This command will request the *Topic Name* and the Database user password supplied by you during workshop setup. It will try to create the TxEventQ "Topic", and if succeed, it will modify the configuration of producer and consumer microservices to point to this new topic created.
 
 ```bash
-Created topic LABTEQTOPIC1
-Configuring TEQ Producer to produce on topic LABTEQTOPIC1.
-Configuring TEQ Consumer to consume from topic LABTEQTOPIC1.
+Created topic TXEVENTQTOPIC1
+Configuring TxEventQ Producer to produce on topic TXEVENTQTOPIC1.
+Configuring TxEventQ Consumer to consume from topic TXEVENTQTOPIC1.
 ```
 
-## **Task 2:** Build TEQ producer and consumer microservices
+## **Task 2:** Build TxEventQ producer and consumer microservices
 
-Likewise the previous Lab, we adopted the microservices architecture and coded the producer and consumer also using the Spring Boot framework but different now we have to connect with TEQ and exchanged from spring-kafka to okafka library. Also, Maven is the dependency management tool, and to build our code, you have to execute the following commands:
+Likewise the previous Lab, we adopted the microservices architecture and coded the producer and consumer also using the Spring Boot framework but different now we have to connect with TxEventQ and exchanged from spring-kafka to okafka library. Also, Maven is the dependency management tool, and to build our code, you have to execute the following commands:
 
 ```bash
 <copy>
-cd $LAB_HOME/springboot-oracleteq
-./teq-ms-build
+cd $LAB_HOME/springboot-txeventq
+./txeventq-ms-build
 </copy>
 ```
 
@@ -82,57 +82,57 @@ As a result of the Maven build task, you should obtain the following lines showi
 
 ![Spring Boot Apps Build result](images/springboot-teq-build-result.png " ")
 
-## **Task 3:** Produce events with TEQ producer microservice
+## **Task 3:** Produce events with TxEventQ producer microservice
 
-1. Deploy TEQ producer microservice
+1. Deploy TxEventQ producer microservice
 
     Now that we have the applications successfully built, we can deploy them and test them. Let's start with the Producer. Run these commands to build the image and deploy the Producer inside the Docker Engine:
 
     ```bash
     <copy>
-    cd $LAB_HOME/springboot-oracleteq
-    ./teq-ms-deploy-producer
+    cd $LAB_HOME/springboot-txeventq
+    ./txeventq-ms-deploy-producer
     </copy>
     ```
 
     If the deployment task is successful, you will receive the messages below:
 
     ```bash
-    Executing TEQ producer microservice deployment!
-    TEQ producer microservices deployment succeeded!
-     Step 1/8 : FROM ghcr.io/graalvm/graalvm-ce:ol8-java11 -- Successfully built c2e8cd47b003 Successfully tagged oracle-developers-teq-producer:0.0.1-SNAPSHOT
-    TEQ_MS_PRODUCER_DEPLOYED completed
+    Executing TxEventQ producer microservice deployment!
+    TxEventQ producer microservices deployment succeeded!
+     Step 1/8 : FROM ghcr.io/graalvm/graalvm-ce:ol8-java11 -- Successfully built c2e8cd47b003 Successfully tagged oracle-developers-txeventq-producer:0.0.1-SNAPSHOT
+    TXEVENTQ_MS_PRODUCER_DEPLOYED completed
     ```
 
-    > **Note:** If the deployment task did not complete correctly, you can investigate the deployment task logs at "$LAB_LOG/teq-ms-producer-deployment.log"
+    > **Note:** If the deployment task did not complete correctly, you can investigate the deployment task logs at "$LAB_LOG/txeventq-ms-producer-deployment.log"
 
-2. Launch a TEQ producer microservice
+2. Launch a TxEventQ producer microservice
 
     Once you have deployed the producer microservice image, you will be able to launch a container and execute the producer microservice. Issue the follwoing commands:
 
     ```bash
     <copy>
-    cd $LAB_HOME/springboot-oracleteq
-    ./teq-ms-launch-producer
+    cd $LAB_HOME/springboot-txeventq
+    ./txeventq-ms-launch-producer
     </copy>
     ```
 
-    If the deployment task is successful, you will receive the messages `TEQ producer microservice is running!`. Yet it is possible to evaluate the logs from the producer issuing the following command to list the late six lines from the container log. Look for `OKafka Producer Application Running!`
+    If the deployment task is successful, you will receive the messages `TxEventQ producer microservice is running!`. Yet it is possible to evaluate the logs from the producer issuing the following command to list the late six lines from the container log. Look for `OKafka Producer Application Running!`
 
     ```bash
-    <copy>container-logs teq-producer 6</copy>
+    <copy>container-logs txeventq-producer 6</copy>
     ```
 
-    ![Spring Boot TEQ Producer Running Logs](images/springboot-teq-producer-running.png " ")
+    ![Spring Boot TxEventQ Producer Running Logs](images/springboot-teq-producer-running.png " ")
 
-3. Test the TEQ producer microservice
+3. Test the TxEventQ producer microservice
 
-    The producer exposes a REST API through which events can be submitted to be handled, that is, in this simple case inserted into TEQ Topic. The producer expects API requests to be in JSON format and to make an API request, for simplicity, we will make a direct HTTP request using cURL tool.
+    The producer exposes a REST API through which events can be submitted to be handled, that is, in this simple case inserted into TxEventQ Topic. The producer expects API requests to be in JSON format and to make an API request, for simplicity, we will make a direct HTTP request using cURL tool.
 
     ```bash
     <copy>
     curl -X POST -H "Content-Type: application/json"  \
-         -d '{ "id": "id1", "message": "teq message1" }'  \
+         -d '{ "id": "id1", "message": "TxEventQ message1" }'  \
          http://localhost:8090/placeMessage | jq
     </copy>
     ```
@@ -146,60 +146,60 @@ As a result of the Maven build task, you should obtain the following lines showi
     }
     ```
 
-## **Task 4:** Consume events with TEQ consumer microservice
+## **Task 4:** Consume events with TxEventQ consumer microservice
 
-Now that we have Producer running and publishing events inside the TEQ Broker, you will do the same with Consumer.
+Now that we have Producer running and publishing events inside the TxEventQ Broker, you will do the same with Consumer.
 
-1. Deploy TEQ consumer microservice
+1. Deploy TxEventQ consumer microservice
 
     We can deploy Consumer microservice running the following commands to build the image and deploy the it inside the Docker Engine:
 
     ```bash
     <copy>
-    cd $LAB_HOME/springboot-oracleteq
-    ./teq-ms-deploy-consumer
+    cd $LAB_HOME/springboot-txeventq
+    ./txeventq-ms-deploy-consumer
     </copy>
     ```
 
     If the deployment task is successful, you will receive the messages below:
 
     ```bash
-    Executing TEQ consumer microservice deployment!
-    TEQ consumer microservices deployment succeeded!
-    Successfully built 8cd3a837ad94 Successfully tagged oracle-developers-teq-consumer:0.0.1-SNAPSHOT grep: /home/paulo_simo/teqodb/microservices-datadriven/work 
-    TEQ_MS_CONSUMER_DEPLOYED completed
+    Executing TxEventQ consumer microservice deployment!
+    TxEventQ consumer microservices deployment succeeded!
+    Successfully built 8cd3a837ad94 Successfully tagged oracle-developers-txeventq-consumer:0.0.1-SNAPSHOT grep: .../txeventqlab/microservices-datadriven/work 
+    TXEVENTQ_MS_CONSUMER_DEPLOYED completed
     ```
 
-    > **Note:** If the deployment task did not complete correctly, you can investigate the deployment task logs at "$LAB_LOG/teq-ms-consumer-deployment.log".
+    > **Note:** If the deployment task did not complete correctly, you can investigate the deployment task logs at "$LAB_LOG/txeventq-ms-consumer-deployment.log".
 
-2. Launch a TEQ consumer microservice
+2. Launch a TxEventQ consumer microservice
 
     Once you have deployed the consumer microservice image, you will be able to launch a container and execute it. Issue the following commands:
 
     ```bash
     <copy>
-    cd $LAB_HOME/springboot-oracleteq
-    ./teq-ms-launch-consumer
+    cd $LAB_HOME/springboot-txeventq
+    ./txeventq-ms-launch-consumer
     </copy>
     ```
 
-    If the deployment task is successful, you will receive the messages "TEQ consumer microservice is running!".
+    If the deployment task is successful, you will receive the messages "TxEventQ consumer microservice is running!".
 
     ```bash
-    Launching TEQ consumer microservice!
+    Launching TxEventQ consumer microservice!
 
     5e3ad25e39365606244ce5a4f91cce9ec4d0acd748245697176b0cc9d1b68525
     Thu Aug  4 13:29:19 UTC 2022: Waiting for consumer running!
 
-    TEQ consumer microservice is running!
+    TxEventQ consumer microservice is running!
     ```
 
-3. Test the TEQ consumer microservice
+3. Test the TxEventQ consumer microservice
 
-    The Consumer microservice after start try to dequeue the messages from the TEQ Broker. If it succeeds in dequeuing the events, we can see in the log the events that were sent by the producer issuing the following command to list the late one hundred lines from the container log. Look for `message received {"id": "0", "message": "teq message1"}`.
+    The Consumer microservice after start try to dequeue the messages from the TxEventQ Broker. If it succeeds in dequeuing the events, we can see in the log the events that were sent by the producer issuing the following command to list the late one hundred lines from the container log. Look for `message received {"id": "0", "message": "TxEventQ message1"}`.
 
     ```bash
-    <copy>container-logs teq-consumer 100</copy>
+    <copy>container-logs txeventq-consumer 100</copy>
     ```
 
     The result inside logs of Consumer will be:
@@ -218,7 +218,7 @@ Now that we have Producer running and publishing events inside the TEQ Broker, y
     13:29:31.185 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
     13:29:31.185 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 5602 ms
     Installing Oracle PKI provider.
-    13:29:32.199 [main] INFO  c.o.d.o.o.c.c.OKafkaConsumerConfig - OKafkaConsumerConfig::consumerConfig started and Oracle Instance is teqodb_tp.
+    13:29:32.199 [main] INFO  c.o.d.o.o.c.c.OKafkaConsumerConfig - OKafkaConsumerConfig::consumerConfig started and Oracle Instance is txeventqlab_tp.
     ......
     13:29:33.857 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8081 (http) with context path ''
     13:29:34.236 [main] INFO  c.o.d.o.o.OKafkaConsumerApplication - Started OKafkaConsumerApplication in 11.775 seconds (JVM running for 14.391)
@@ -227,16 +227,16 @@ Now that we have Producer running and publishing events inside the TEQ Broker, y
             auto.offset.reset = latest
             ......
             ......
-            tns.alias = teqodb_tp
+            tns.alias = txeventqlab_tp
             value.deserializer = class org.oracle.okafka.common.serialization.StringDeserializer
 
     13:29:34.753 [main] WARN  o.o.o.common.utils.AppInfoParser - Error while loading kafka-version.properties :inStream parameter is null
     13:29:34.754 [main] INFO  o.o.o.common.utils.AppInfoParser - Kafka version : unknown
     13:29:34.755 [main] INFO  o.o.o.common.utils.AppInfoParser - Kafka commitId : unknown
-    13:29:45.448 [main] INFO  c.o.d.o.o.s.OKafkaConsumerService - message received {"id": "0", "message": "teq message1"}. using key 0. sending to processing: Thread id 1
+    13:29:45.448 [main] INFO  c.o.d.o.o.s.OKafkaConsumerService - message received {"id": "0", "message": "TxEventQ message1"}. using key 0. sending to processing: Thread id 1
     ```
 
-    With this result, assuming that processing was successful, we could produce and consume events from TEQ Broker.
+    With this result, assuming that processing was successful, we could produce and consume events from TxEventQ Broker.
 
 ## **Extra 1:** Verify Microservices configurations (optional)
 
@@ -266,11 +266,11 @@ The Database is generated during setup based on your environment and the worksho
 
 2. Setup Producer microservices properties
 
-    The Producer microservice properties required connection properties, which at the end are the JDBC connection string, are filling with the Oracle Database Instance Name, Service Name, TNS Name, Bootstrap Servers (e.g. Oracle Database endpoint and port), and the Oracle TEQ Topic Name.
+    The Producer microservice properties required connection properties, which at the end are the JDBC connection string, are filling with the Oracle Database Instance Name, Service Name, TNS Name, Bootstrap Servers (e.g. Oracle Database endpoint and port), and the Oracle TxEventQ Topic Name.
 
     ```bash
     <copy>
-    vi $LAB_HOME/springboot-oracleteq/okafka-producer/src/main/resources/application.yaml
+    vi $LAB_HOME/springboot-txeventq/okafka-producer/src/main/resources/application.yaml
     </copy>
     ```
 
@@ -284,7 +284,7 @@ The Database is generated during setup based on your environment and the worksho
     bootstrap-servers: <Host Name:Port>
 
     okafka-topic-config:
-    topic-name: <TEQ TOPIC>
+    topic-name: <TxEventQ TOPIC>
     num-of-partitions: 3
     replication-factor: 1
     ```
@@ -293,11 +293,11 @@ The Database is generated during setup based on your environment and the worksho
 
     You have same configuration fill into the Consumer microservice properties.
 
-    View the consumer configuration where were filling the Oracle Database Instance Name, Service Name, TNS Name, Bootstrap Servers (e.g., Oracle Database endpoint and port), the Oracle TEQ Topic Name. However, you have an additional field, the **Group ID**, that represents the subscriber agent created to allow dequeue from the TOPIC/QUEUE.
+    View the consumer configuration where were filling the Oracle Database Instance Name, Service Name, TNS Name, Bootstrap Servers (e.g., Oracle Database endpoint and port), the Oracle TxEventQ Topic Name. However, you have an additional field, the **Group ID**, that represents the subscriber agent created to allow dequeue from the TOPIC/QUEUE.
 
     ```bash
     <copy>
-    vi $LAB_HOME/springboot-oracleteq/okafka-consumer/src/main/resources/application.yaml
+    vi $LAB_HOME/springboot-txeventq/okafka-consumer/src/main/resources/application.yaml
     </copy>
     ```
 
@@ -311,14 +311,14 @@ The Database is generated during setup based on your environment and the worksho
     bootstrap-servers: <Host Name:Port>
 
     okafka-topic-config:
-    topic-name: <TEQ TOPIC>
+    topic-name: <TxEventQ TOPIC>
     num-of-partitions: 3
     replication-factor: 1
 
     okafka-consumer-config:
     key-deserializer: org.oracle.okafka.common.serialization.StringDeserializer
     value-deserializer: org.oracle.okafka.common.serialization.StringDeserializer
-    group-id: <TEQ TOPIC SUBSCRIBER>
+    group-id: <TxEventQ TOPIC SUBSCRIBER>
     enable-auto-commit: true
     auto-commit-interval-ms: 10000
     max-poll-records: 100 
@@ -326,7 +326,7 @@ The Database is generated during setup based on your environment and the worksho
 
 ## **Extra 2:** Deep diving in the Code (optional)
 
-Now, we invite you to compare the codes for Kafka and okafka Microservices and see that minor modifications make it possible to use almost the Kafka microservice code to build the TEQ / okafka microservices. For example:
+Now, we invite you to compare the codes for Kafka and okafka Microservices and see that minor modifications make it possible to use almost the Kafka microservice code to build the TxEventQ / okafka microservices. For example:
 
 Look at *KafkaProducerService class*.
 

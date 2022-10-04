@@ -131,7 +131,7 @@ Cloud Shell is a small virtual machine running a "bash" shell which you access t
 1. Create a directory to contain the workshop code. The directory name is used to create a compartment of the same name in your tenancy. The directory name must have between 1 and 13 characters, contain only letters or numbers, and start with a letter. Make sure that a compartment of the same name does not already exist in your tenancy or the setup will fail. For example:
 
     ```bash
-    <copy>mkdir teqodb</copy>
+    <copy>mkdir txeventqlab</copy>
     ```
 
    All the resources created by the setup are created using the directory name, for example the compartment is created with the same name. This will let you to quickly delete and cleanup afterward.  
@@ -139,7 +139,7 @@ Cloud Shell is a small virtual machine running a "bash" shell which you access t
 2. Change directory to the directory that you have created. The setup will fail if you do not complete this step. For example:
 
     ```bash
-    <copy>cd teqodb</copy>
+    <copy>cd txeventqlab</copy>
     ```
 
 ## **Task 7:** Make a Clone of the Workshop Setup Script and Source Code
@@ -156,7 +156,7 @@ Cloud Shell is a small virtual machine running a "bash" shell which you access t
 
     ```bash
     <copy>
-    source ./microservices-datadriven/workshops/oracleteq-kafka/cloud-setup/env.sh
+    source ./microservices-datadriven/workshops/txeventq-kafka/cloud-setup/env.sh
     source ${HOME}/.bashrc
     </copy>
     ```
@@ -169,11 +169,9 @@ Cloud Shell is a small virtual machine running a "bash" shell which you access t
 
    User information is available in the Oracle Cloud Infrastructure Console.
 
-   The user OCID will look something like:
-
-    `ocid1.user.oc1..aaaaaaaabcdefghijklmnopqrstuvwxyz` 
-   
-    Pay attention to the "**ocid1.user**" prefix as this will tell you that it is a User OCID and not a Tenancy OCID.
+   The user OCID will look something like: `ocid1.user.oc1..aaaaaaaabcdefghijklmnopqrstuvwxyz`
+  
+   Pay attention to the "**ocid1.user**" prefix as this will tell you that it is a User OCID and not a Tenancy OCID.
 
    Sometimes the name link is missing in which case select the `User Settings` link. Do not select the "Tenancy" link.
 
