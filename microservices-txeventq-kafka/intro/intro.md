@@ -20,11 +20,11 @@ Estimated Workshop Time: 50 minutes
 
 ### Objectives
 
-* The first Lab reviews the Kafka and Spring Boot Microservice built to produce and consume messages.
+* The second Lab reviews the Kafka and Spring Boot Microservice built to produce and consume messages.
 
-* The second Lab will use Oracle Transactional Event Queues (TxEventQ) and okafka library and demonstrate the Kafka compatibility of TxEventQ. Also, this module has the same Spring Boot producer and consumer microservices but uses okafka in place of Kafka libraries and TxEventQ in the database in place of Kafka broker.
+* The third Lab will use Oracle Transactional Event Queues (TxEventQ) and okafka library and demonstrate the Kafka compatibility of TxEventQ. Also, this module has the same Spring Boot producer and consumer microservices but uses okafka in place of Kafka libraries and TxEventQ in the database in place of Kafka broker.
 
-* The third Lab will interconnect the Kafka broker and the Oracle Transactional Event Queues (TxEventQv), applying Kafka connector and Oracle Database Messaging libraries. This laboratory demonstrates the interoperability between the two brokers, with events flowing from the Kafka side to TxEventQ, finally consumed at the TxEventQ side.
+* The fourth Lab will interconnect the Kafka broker and the Oracle Transactional Event Queues (TxEventQ), applying Kafka connector and Oracle Database Messaging libraries. This laboratory demonstrates the interoperability between the two brokers, with events flowing from the Kafka side to TxEventQ, finally consumed at the TxEventQ side.
 
 ### Prerequisites
 
@@ -43,7 +43,7 @@ As shown in the followed diagram, we have:
 
 * And connector between Kafka and Oracle TxEventQ enabling a communication path between them.
 
-![Kafka and Oracle TxEventQ Event Mesh](images/kafka-oracle-teq-event-mesh.png " ")
+![Kafka and Oracle TxEventQ Event Mesh](images/eventmesh-txeventq-kafka.drawio.png " ")
 
 You may now **proceed to the next lab**
 
@@ -58,4 +58,4 @@ You may now **proceed to the next lab**
 
 * **Authors** - Paulo Simoes, Developer Evangelist; Andy Tael, Developer Evangelist; Paul Parkinson, Developer Evangelist; Richard Exley, Consulting Member of Technical Staff, Oracle MAA and Exadata
 * **Contributors** - Mayank Tayal, Developer Evangelist; Corrado De Bari, Developer Evangelist; Sanjay Goil, VP Microservices and Oracle Database
-* **Last Updated By/Date** - Andy Tael, Oct 2022
+* **Last Updated By/Date** - Paulo Simoes, Oct 2022

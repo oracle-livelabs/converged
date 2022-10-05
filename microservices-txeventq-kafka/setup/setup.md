@@ -18,7 +18,9 @@ Watch the video below for a quick walk-through of the lab.
 
 - This lab requires completion of the Get Started section in the Contents menu on the left.
 - An Oracle Cloud paid account or free trial. To sign up for a trial account with $300 in credits for 30 days, click [Sign Up](http://oracle.com/cloud/free).
-- The workshop also an Always Free 19c ATP instance.
+- Oracle Autonomous Database 19c instance
+    - One Always Free Oracle Autonomous Database Instance Or
+    - One Autonomous Transaction Processing OCPU and 20 GB Autonomous Transaction Processing Storage
 
 ## **Task 1:** Log in to the Oracle Cloud Console
 
@@ -38,7 +40,9 @@ If, however, you have already used up some quota on your tenancy, perhaps while 
 
 | Service          | Scope  | Resource                                             | Available | Free Account Limit |
 |------------------|:------:|------------------------------------------------------|:---------:|:------------------:|
-|                  | Region | Autonomous Transaction Processing OCPU Count         | **1**     | 2                  |
+| Database         | Region | Always Free Autonomous Database Instance Count       | **1**     | 2                  |
+|                  |        | Autonomous Transaction Processing OCPU Count         | **1**     | 8                  |
+|                  |        | Autonomous Transaction Processing Total Storage (TB) | **2GB**   | 2                  |
 
 Quota usage and limits can be check through the console: **Limits, Quotas and Usage** in the **Governance & Administration** section , For example:
 
@@ -52,7 +56,7 @@ It may be necessary to delete some resources to make space to run the workshop. 
 
 ## **Task 4:** Create group and IAM policies for a user
 
-> **Note:** If you have admin privileges in your Free Tier or Paid account, you can skip Task #4 steps. Otherwise, please continue.
+> **Note:** If you have *admin privileges* in your Free Tier or Paid account, you can skip Task #4 steps. Otherwise, please continue.
 
 If you are not an administrator on your tenancy, you must insure that additional policies have been added to the group you are a member of or ask your admin to create a separate group for you with additional policies. This group will have IAM policies for creating and managing the resources within the compartment that will be created by workshop setup scripts.
 
@@ -128,7 +132,11 @@ Cloud Shell is a small virtual machine running a "bash" shell which you access t
 
 ## **Task 6:** Create a Folder to Contain the Workshop Code
 
-1. Create a directory to contain the workshop code. The directory name is used to create a compartment of the same name in your tenancy. The directory name must have between 1 and 13 characters, contain only letters or numbers, and start with a letter. Make sure that a compartment of the same name does not already exist in your tenancy or the setup will fail. For example:
+1. Create a directory to contain the workshop code. The directory name must have between 1 and 13 characters, contain only letters or numbers, and start with a letter.
+
+    > **Note:** It is important to note that this directory name will be used to create a compartment of the same name in your tenancy to contain all the resources for this workshop. Make sure there is no compartment with the same name in your tenancy or the configuration will fail.
+
+    For example:
 
     ```bash
     <copy>mkdir txeventqlab</copy>
@@ -214,7 +222,7 @@ The setup will provision the following resources in your tenancy:
 | Resources              | Oracle Cloud Console Navigation                                               |
 |------------------------|-------------------------------------------------------------------------------|
 | Object Storage Buckets | Storage -- Object Storage -- Buckets                                          |
-| Database               | Oracle Database -- Autonomous Database -- Autonomous Transaction Processing *Always Free*  |
+| Database               | Oracle Database -- Autonomous Database or Autonomous Transaction Processing *Always Free*  |
 
 1. Duplicate browser tab
 
@@ -273,4 +281,4 @@ You may now **proceed to the next lab**
 
 - **Authors** - Paulo Simoes, Developer Evangelist; Andy Tael, Developer Evangelist; Paul Parkinson, Developer Evangelist; Richard Exley, Consulting Member of Technical Staff, Oracle MAA and Exadata
 - **Contributors** - Mayank Tayal, Developer Evangelist; Corrado De Bari, Developer Evangelist; Sanjay Goil, VP Microservices and Oracle Database
-- **Last Updated By/Date** - Andy Tael, Sep 2022
+- **Last Updated By/Date** - Paulo Simoes, Oct 2022
