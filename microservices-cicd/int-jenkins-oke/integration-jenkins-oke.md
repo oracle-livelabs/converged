@@ -41,7 +41,7 @@ Estimated Time: 15 minutes
 
 2. Open a new browser tab and login into your Jenkins console (Jenkins URL is being created during infrastructure setup).
 
-     Retrieve Jenkins IP address through the OCI console. Check the public VM's public IP otherwise or check the Load Balancer jenkins-load-balancer's public IP if a load balancer was provisioned.
+     Retrieve Jenkins IP address through the OCI console. Check the public VM's public IP.
 
      Login into Jenkins console using username `admin` and password you created in the Setup lab.
 
@@ -66,14 +66,14 @@ Estimated Time: 15 minutes
      Kind: `Secret text`
      Scope: `Global`
      Secret: < Paste content of service account secret token created above >
-     Click `OK`
+     Click `Create`
 
     Add another credential by clicking **Add Credentials** in the left hand navigation bar.
 
      Kind: `Username with password`
      Username: Set Username
      Password: < Paste auth token as password - you can either retrieve the docker auth token through logs >
-     Click `OK`
+     Click `Create`
 
      > **Note:** Note the "Username with password" credential's ID for the next steps.
 
