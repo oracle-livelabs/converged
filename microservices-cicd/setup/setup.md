@@ -167,7 +167,7 @@ Cloud Shell is a small virtual machine running a "bash" shell which you access t
 1. With a working fork of the lab repository under your account, clone the forked repository by running the below command (make sure you completed Task 1 and created a fork).
 
    ```bash
-   git clone --single-branch <repository-web-url>  
+   git clone <repository-web-url>  
    ```
 
    > **Note:** Replace <repository-web-url> above with your fork's web URL. The image below shows where to copy the web URL from. Keep this URL in your notes.
