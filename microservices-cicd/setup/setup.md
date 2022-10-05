@@ -52,7 +52,7 @@ Estimated Time: 25 minutes
 
 1. Be sure to select the **home region** of your tenancy. Setup will only work in the home region
 
-  ![Oracle Cloud Infrastructure Home Region](images/home-region.png " ")
+   ![Oracle Cloud Infrastructure Home Region](images/home-region.png " ")
 
 ## Task 4: Create Group and Policies
 

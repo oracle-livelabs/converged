@@ -14,7 +14,7 @@ Estimated Time:  10 minutes
   
 ### Prerequisites
 
-* This lab presumes you have already completed the earlier labs.
+* This lab presumes you have already completed Lab 1 and all the required resources like Oracle ATP database, Jenkins, Kubernetes were successfully installed.
 * As this is a demonstration of Jenkins/GitHub integration for CI/CD, **you must use your own GitHub account to run it.** We assume you completed this step in Setup lab.
 
 ## Task 1: Generate the GitHub Personal Access Token (PAT).
