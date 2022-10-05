@@ -39,8 +39,8 @@ Estimated Time: 25 minutes
     
     1. Click on the Fork button at the top right.
     2. Select your account as the owner and keep the repository name the same.
-    3. Deselect Copy the main branch only (as the workshop-related files exist only in another branch).
-    4. Click on Create fork ans save it for the later tasks.
+    3. Ensure "Copy the main branch only" is selected.
+    4. Click on Create fork and save the URL for the fork in your repository for later tasks.
 
     ![Forking Main Repository](images/main-repo-fork.png " ")
     
