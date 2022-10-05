@@ -167,7 +167,7 @@ As a result of the Maven build task, you should obtain the following lines showi
 
     ```bash
     <copy>
-    curl -X POST -H "Content-Type: application/json"  \
+    curl -s -X POST -H "Content-Type: application/json"  \
          -d '{ "id": "id1", "message": "message1" }'  \
          http://localhost:8080/placeMessage | jq
     </copy>
@@ -246,7 +246,7 @@ Now that we have Producer running and publishing events inside the Kafka Broker,
 
     ![Spring Boot Kafka Consumer Running Logs](images/springboot-kafka-consumer-test.png " ")
 
-    Look for `message {"id": "0", "message": "message1"}`. With this result, assuming a successful result, we could produce and consume events from Kafka Broker.
+    Look for the message `{"id": "0", "message": "message1"}`. With this result, assuming a successful result, we can then produce and consume Kafka Broker events.
 
 ## **Task 5:** Restart Kafka Components (optional)
 
@@ -289,4 +289,4 @@ You may now **proceed to the next lab**
 
 - **Authors** - Andy Tael, Developer Evangelist; Paulo Simoes, Developer Evangelist; Paul Parkinson, Developer Evangelist; Richard Exley, Consulting Member of Technical Staff, Oracle MAA and Exadata
 - **Contributors** - Mayank Tayal, Developer Evangelist; Corrado De Bari, Developer Evangelist; Sanjay Goil, VP Microservices and Oracle Database
-- **Last Updated By/Date** - Andy Tael, Sep 2022
+- **Last Updated By/Date** - Paulo Simoes, Oct 2022

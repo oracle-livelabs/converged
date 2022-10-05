@@ -35,7 +35,7 @@ Oracle Transactional Event Queues (TxEventQ) are a high-performance partitioned 
 
 By being in the database, enqueues and dequeues can be incorporated in database transactions without requiring distributed transactions. And, messages can be queried using standard SQL. You can use SQL to access the message properties, the message history, and the payload. With SQL access, you can also audit and track messages. All available SQL technology, such as in-memory latches and table indices, optimize access to messages in TxEventQ.
 
-![Oracle Transactional Event Queues (TxEventQ)](images/oracle-teq-picture.png " ")
+![Oracle Transactional Event Queues (TxEventQ)](images/oracle-txeventq-picture.png " ")
 
 Oracle TxEventQ can be accessed through polyglot programmatic interfaces since PL/SQL code til C, Python, Javascript, and Java could be used to create Consumers and producers. For example, this workshop is offered using the Spring Boot framework, one of the most important and adopted Java frameworks.
 
@@ -57,34 +57,6 @@ To simplify the deployment of a Kafka Connect, as done in Lab 2, we are using th
 
 You will configure the connection between the Kafka broker and the Oracle TxEventQ submitting the setup to Kafka [Connect REST API](https://docs.confluent.io/platform/current/connect/references/restapi.html).
 
-The kafka2txeventq-connect-configuration.json file below has the configuration required to create a Connect Sync agent. The topics is already filled with Kafka Topic created during Lab 2, if it was changed, you need change this configuration too.
-
-```bash
-<copy>
-cat $LAB_HOME/kafka-connect-txeventq/kafka2txeventq-connect-configuration.json
-</copy>
-```
-
-```json
-{
-  "connector.class": "io.confluent.connect.jms.JmsSinkConnector",
-  "tasks.max": "1",
-  "topics": "LAB_KAFKA_TOPIC",
-  "java.naming.factory.initial": "oracle.jms.AQjmsInitialContextFactory",
-  "java.naming.provider.url": "jdbc:oracle:thin:@LAB_DB_SVC?TNS_ADMIN=/home/appuser/wallet",
-  "db_url": "jdbc:oracle:thin:@LAB_DB_SVC?TNS_ADMIN=/home/appuser/wallet",
-  "java.naming.security.principal": "LAB_DB_USER",
-  "java.naming.security.credentials": "LAB_DB_PASSWORD",
-  "jndi.connection.factory": "javax.jms.XAQueueConnectionFactory",
-  "jms.destination.type": "topic",
-  "jms.destination.name": "LAB_TXEVENTQ_TOPIC",
-  "key.converter":"org.apache.kafka.connect.storage.StringConverter",
-  "value.converter":"org.apache.kafka.connect.storage.StringConverter",
-  "confluent.topic.bootstrap.servers":"broker:29092",
-  "confluent.topic.replication.factor": "1"
-}
-```
-
 1. First, verify if Kafka Components are still running. Execute the following commands:
 
     ```bash
@@ -97,9 +69,9 @@ cat $LAB_HOME/kafka-connect-txeventq/kafka2txeventq-connect-configuration.json
 
     ![Kafka Components status](images/kafka-containers-ps.png " ")
 
-    > **Note:** If the Kafka components are not running, you have to rebuild them executing the instructions from [Task 4](#task4reinstallkafkacomponentsoptional).
+    > **Note:** If the Kafka components are not running, you have to rebuild them executing the instructions from [Extra 1](#exta1reinstallkafkacomponentsoptional).
 
-2. Execute the following command providing the Oracle Database password. It will fill the parameters based on your previous created assets and set up the Connect Sync between the Kafka Topic from Lab 2 and Oracle TxEventQ from Lab 3:
+2. Execute the following command providing the Oracle Database password. It will fill the parameters based on your previous created assets and set up the Connect Sink between the Kafka Topic from Lab 2 and Oracle TxEventQ from Lab 3:
 
     ```bash
     <copy>
@@ -108,7 +80,14 @@ cat $LAB_HOME/kafka-connect-txeventq/kafka2txeventq-connect-configuration.json
     </copy>
     ```
 
-    ![Connect Sync between Kafka Topic abd TxEventQ](images/setup-kafka2teq-connect.png " ")
+    As result in prompt we will have:
+
+    ```bash
+    Please enter Oracle DB Password: TXEVENTQTOPIC1
+    txeventqlab_USER
+    txeventqlab
+    TXEVENTQTOPIC1
+    ```
 
 3. Once successfully executed, check that the connect are running:
 
@@ -116,30 +95,41 @@ cat $LAB_HOME/kafka-connect-txeventq/kafka2txeventq-connect-configuration.json
     <copy>container-logs connect 6</copy>
     ```
 
-    You will see the logs from Connect Sync similar with bellow snippet.
+    You will see the logs from Connect Sink similar with bellow snippet.
 
     ```Plain Text
-    [2022-01-15 00:50:01,737] INFO JmsSinkConnectorConfig values: 
-        character.encoding = UTF-8
-        confluent.license = 
-        confluent.topic = _confluent-command
-        confluent.topic.bootstrap.servers = [broker:29092]
-        confluent.topic.replication.factor = 1
-        connection.factory.name = ConnectionFactory
-        java.naming.factory.initial = oracle.jms.AQjmsInitialContextFactory
-        jms.producer.time.to.live.ms = 0
-        (io.confluent.connect.jms.JmsSinkConnectorConfig)
-    [2022-01-15 00:50:01,737] INFO Copying 'jndi.connection.factory' to HashTable for InitialContext. (io.confluent.connect.jms.DefaultJmsConnection)
-    [2022-01-15 00:50:01,737] INFO Connection established: ExecutionCompletedEvent
-    ........
-    [result=oracle.jms.AQjmsConnectionFactory@469214ed, failure=null] (io.confluent.connect.jms.JmsConnection)
-    [2022-01-15 00:50:01,737] INFO Creating JMS Connection. (io.confluent.connect.jms.JmsConnection)
-    [2022-01-15 00:50:01,737] INFO Connecting as LAB8022_USER (io.confluent.connect.jms.JmsConnection)
+    [2022-10-05 16:32:49,833] INFO [Consumer clientId=connector-consumer-JmsConnectSink_txeventqlab-0, groupId=connect-JmsConnectSink_txeventqlab] Subscribed to topic(s): TXEVENTQTOPIC1 (org.apache.kafka.clients.consumer.KafkaConsumer)
+    [2022-10-05 16:32:49,835] INFO JmsSinkConnectorConfig values:
+            character.encoding = UTF-8
+            confluent.license =
+            confluent.topic = _confluent-command
+            confluent.topic.bootstrap.servers = [broker:29092]
+            confluent.topic.replication.factor = 1
+            connection.factory.name = ConnectionFactory
+            java.naming.factory.initial = oracle.jms.AQjmsInitialContextFactory
+            java.naming.provider.url = jdbc:oracle:thin:@txeventqlab_tp?TNS_ADMIN=/home/appuser/wallet
+            java.naming.security.credentials = [hidden]
+            java.naming.security.principal = txeventqlab_USER
+            jms.connection.backoff.ms = 2000
+            jms.connection.max.retries = 150
+            jms.destination.name = TXEVENTQTOPIC1
+            jms.destination.type = topic
+    ....
+    (io.confluent.connect.jms.JmsSinkConnectorConfig)
+    ....
+    ....
+    [2022-10-05 16:32:50,033] INFO Connection established: ExecutionCompletedEvent[result=oracle.jms.AQjmsConnectionFactory@41b9e88f, failure=null] (io.confluent.connect.jms.JmsConnection)
+    [2022-10-05 16:32:50,034] INFO Creating JMS Connection. (io.confluent.connect.jms.JmsConnection)
+    [2022-10-05 16:32:50,034] INFO Connecting as txeventqlab_USER (io.confluent.connect.jms.JmsConnection)
+    [2022-10-05 16:32:54,106] INFO Starting JMS connection. (io.confluent.connect.jms.JmsConnection)
+    [2022-10-05 16:32:54,106] INFO Connection established: ExecutionCompletedEvent[result=oracle.jms.AQjmsConnection@7e157fbe, failure=null] (io.confluent.connect.jms.JmsConnection)
+    [2022-10-05 16:32:54,107] INFO Creating JMS Session. (io.confluent.connect.jms.JmsConnection)
+    [2022-10-05 16:32:54,478] INFO Connection established: ExecutionCompletedEvent[result=oracle.jms.AQjmsSession@38751ea7, failure=null] (io.confluent.connect.jms.JmsConnection)
     ```
 
-4. Check the Connect Sync status:
+4. Check the Connect Sink status:
 
-    You also can check the Connect Synk status using the REST API:
+    You also can check the Connect Sink status using the REST API:
 
     ```bash
     <copy>
@@ -151,7 +141,7 @@ cat $LAB_HOME/kafka-connect-txeventq/kafka2txeventq-connect-configuration.json
 
     ```json
     {
-        "name": "JmsConnectSync_txeventqlab",
+        "name": "JmsConnectSink_txeventqlab",
         "connector": {
             "state": "RUNNING",
             "worker_id": "connect:8083"
@@ -177,8 +167,8 @@ Now that you have the Connector running, you can produce some messages and test 
 
     ```bash
     <copy>
-    curl -X POST -H "Content-Type: application/json"  \
-         -d '{ "id": "sync1", "message": "Sync Message from Kafka to TxEventQ #1" }'  \
+    curl -s -X POST -H "Content-Type: application/json"  \
+         -d '{ "id": "Sink1", "message": "Sink Message from Kafka to TxEventQ #1" }'  \
          http://localhost:8080/placeMessage | jq
     </copy>
     ```
@@ -194,7 +184,7 @@ Now that you have the Connector running, you can produce some messages and test 
 
 ## **Task 3:** Dequeue messages from Oracle TxEventQ using PL/SQL
 
-After produce some messages, the expected behavior is the Connect Sync agent consume messages from Kafka Topic and enqueue them on Oracle TxEventQ. And, you will be able to dequeue them from Oracle TxEventQ using okafka consumer microservice or a PL/SQL procedure, for example.
+After produce some messages, the expected behavior is the Connect Sink agent consume messages from Kafka Topic and enqueue them on Oracle TxEventQ. And, you will be able to dequeue them from Oracle TxEventQ using okafka consumer microservice or a PL/SQL procedure, for example.
 
 1. Dqueue message from Oracle TxEventQ
 
@@ -207,18 +197,12 @@ After produce some messages, the expected behavior is the Connect Sync agent con
     The results from some executions should be something similar to:
 
     ```bash
-    TxEventQ message: {"id": "0", "message": "message1"}
+    TxEventQ message: {"id": "1", "message": "Sink Message from Kafka to TxEventQ #1"}
 
     PL/SQL procedure successfully completed.
     ```
 
-    ```bash
-    TxEventQ message: {"id": "1", "message": "Sync Message from Kafka to TxEventQ #1"}
-
-    PL/SQL procedure successfully completed.
-    ```
-
-## **Task 4:** Reinstall Kafka Components (optional)
+## **Extra 1:** Reinstall Kafka Components (optional)
 
 If you disconnect from Cloud Shell for a long time, you may need to reinstall Kafka components because the local docker was cleaned up. This task helps you to perform this rebuild.
 
@@ -252,13 +236,39 @@ If you disconnect from Cloud Shell for a long time, you may need to reinstall Ka
     <copy>kafka-start</copy>
     ```
 
+## **Extra 2:** Kafka Connect Sink Configuration Review (Optional)
+
+The kafka2txeventq-connect-configuration.json file below has the configuration required to create a Connect Sink agent. The topics is already filled with Kafka Topic created during Lab 2, if it was changed, you need change this configuration too.
+
+```bash
+<copy>
+cat $LAB_HOME/kafka-connect-txeventq/kafka2txeventq-connect-configuration.json
+</copy>
+```
+
+```json
+{
+  "connector.class": "io.confluent.connect.jms.JmsSinkConnector",
+  "tasks.max": "1",
+  "topics": "LAB_KAFKA_TOPIC",
+  "java.naming.factory.initial": "oracle.jms.AQjmsInitialContextFactory",
+  "java.naming.provider.url": "jdbc:oracle:thin:@LAB_DB_SVC?TNS_ADMIN=/home/appuser/wallet",
+  "db_url": "jdbc:oracle:thin:@LAB_DB_SVC?TNS_ADMIN=/home/appuser/wallet",
+  "java.naming.security.principal": "LAB_DB_USER",
+  "java.naming.security.credentials": "LAB_DB_PASSWORD",
+  "jndi.connection.factory": "javax.jms.XAQueueConnectionFactory",
+  "jms.destination.type": "topic",
+  "jms.destination.name": "LAB_TXEVENTQ_TOPIC",
+  "key.converter":"org.apache.kafka.connect.storage.StringConverter",
+  "value.converter":"org.apache.kafka.connect.storage.StringConverter",
+  "confluent.topic.bootstrap.servers":"broker:29092",
+  "confluent.topic.replication.factor": "1"
+}
+```
+
 ## Wrap up
 
 In this Lab, you learned how to build a bridge between two different event brokers, expanding the possibilities of your decoupled architecture enabling the processing of messages per best-of-the-breed tools. That is the getting start of the Event Mesh concept.
-
-The following animation describe what we builded in this workshop especially in this laboratory.
-
-[](youtube:wDRIMzlYh9U)
 
 You may now **proceed to the next lab**
 

@@ -103,7 +103,25 @@ Watch the video below for a quick walk-through of the lab.
 
     >**Note:** The above command removes all containers from lab including confluentinc v7.0.1 (used by lab), don't use it if you want use the containers and don't want to delete them.
 
-4. Clean **.bashrc** lab setup
+4. Delete Compartment
+
+    This lab created a compartment to contain its resources, so we also recommend removing it using the following command:
+
+    ```bash
+    <copy>delete-compartment </copy>
+    ```
+
+    You will asked to confirm the deletion of this resource.
+
+    ```bash
+    Are you sure you want to delete this resource? [y/N]: y
+
+    {
+    "opc-work-request-id": "ocid1.identityworkrequest.oc1..aaaaadddd5akvibeezoav6kwmwh744vepc7ztkxzakgejhxrtx7crqubtosa"
+    }
+    ```
+
+5. Clean **.bashrc** lab setup
 
     You should clean the Laboratory setup inside the .bashrc file. Use the following command to delete the lines for LiveLabs setup.
 
@@ -112,7 +130,7 @@ Watch the video below for a quick walk-through of the lab.
     ```
 
 
-## **Task 2:** Delete the Directory
+## **Task 2:** Delete the Directory and reset your Cloud Shell
 
 1. Delete the directory in your cloud shell where you installed the workshop.
 
@@ -123,29 +141,13 @@ Watch the video below for a quick walk-through of the lab.
      </copy>
     ```
 
-    **Option:** If you want to delete and reset **EVERYTHING** in your Cloud Shell you can execute the following command (it can **NOT** be reversed!)
+2. **Option:** If you want to delete and reset **EVERYTHING** in your Cloud Shell you can execute the following command (it can **NOT** be reversed!)
 
     ```bash
     <copy>
     csreset -a
     </copy>
     ```
-
-## **Task 3:** Delete the Compartment
-
-In the Oracle Cloud Infraestructure Console navigate to the Compartments screen in the Identity section. Select the compartment that was created for the workshop and delete it. Important, even when the script in step 1 has completed, it can take some time for Oracle Cloud Infrastructure to fully remove all the resources. It will not be possible to delete the compartment until this has completed.
-
-1. Click the Navigation Menu in the upper left, navigate to Identity & Security and select Compartments.
-
-    ![Compartment Menu](images/compartment.png " ")
-
-2. Click on the Compartment created by the Workshop (txeventqlab)
-
-    ![Select Compartment](images/select_comp.png " ")
-
-3. Click the Delete button
-
-    ![Select Compartment](images/delete_comp.png " ")
 
 ## Acknowledgements
 

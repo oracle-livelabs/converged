@@ -80,7 +80,7 @@ cd $LAB_HOME/springboot-txeventq
 
 As a result of the Maven build task, you should obtain the following lines showing that both Consumer and Producer were successfully built.
 
-![Spring Boot Apps Build result](images/springboot-teq-build-result.png " ")
+![Spring Boot Apps Build result](images/springboot-txeventq-build-result.png " ")
 
 ## **Task 3:** Produce events with TxEventQ producer microservice
 
@@ -100,7 +100,7 @@ As a result of the Maven build task, you should obtain the following lines showi
     ```bash
     Executing TxEventQ producer microservice deployment!
     TxEventQ producer microservices deployment succeeded!
-     Step 1/8 : FROM ghcr.io/graalvm/graalvm-ce:ol8-java11 -- Successfully built c2e8cd47b003 Successfully tagged oracle-developers-txeventq-producer:0.0.1-SNAPSHOT
+    Successfully built 1145b0ac8f1a Successfully tagged oracle-developers-okafka-producer:0.0.1-SNAPSHOT
     TXEVENTQ_MS_PRODUCER_DEPLOYED completed
     ```
 
@@ -123,7 +123,7 @@ As a result of the Maven build task, you should obtain the following lines showi
     <copy>container-logs txeventq-producer 6</copy>
     ```
 
-    ![Spring Boot TxEventQ Producer Running Logs](images/springboot-teq-producer-running.png " ")
+    ![Spring Boot TxEventQ Producer Running Logs](images/springboot-txeventq-producer-running.png " ")
 
 3. Test the TxEventQ producer microservice
 
@@ -131,7 +131,7 @@ As a result of the Maven build task, you should obtain the following lines showi
 
     ```bash
     <copy>
-    curl -X POST -H "Content-Type: application/json"  \
+    curl -s -X POST -H "Content-Type: application/json"  \
          -d '{ "id": "id1", "message": "TxEventQ message1" }'  \
          http://localhost:8090/placeMessage | jq
     </copy>
@@ -166,7 +166,7 @@ Now that we have Producer running and publishing events inside the TxEventQ Brok
     ```bash
     Executing TxEventQ consumer microservice deployment!
     TxEventQ consumer microservices deployment succeeded!
-    Successfully built 8cd3a837ad94 Successfully tagged oracle-developers-txeventq-consumer:0.0.1-SNAPSHOT grep: .../txeventqlab/microservices-datadriven/work 
+    Successfully built dec81836eb1a Successfully tagged oracle-developers-okafka-consumer:0.0.1-SNAPSHOT
     TXEVENTQ_MS_CONSUMER_DEPLOYED completed
     ```
 
@@ -187,9 +187,8 @@ Now that we have Producer running and publishing events inside the TxEventQ Brok
 
     ```bash
     Launching TxEventQ consumer microservice!
-
-    5e3ad25e39365606244ce5a4f91cce9ec4d0acd748245697176b0cc9d1b68525
-    Thu Aug  4 13:29:19 UTC 2022: Waiting for consumer running!
+    1234233ab028994720499d410caa382bd210e060c0297d6bee14d253a6f34869
+    Wed Oct  5 15:53:54 UTC 2022: Waiting for consumer running!
 
     TxEventQ consumer microservice is running!
     ```
@@ -211,29 +210,67 @@ Now that we have Producer running and publishing events inside the TxEventQ Brok
     \\/  __*)| |*)| | | | | || (_| |  ) ) ) )
     '  |____| .__|*| |*|_| |_\__, | / / / /
     =========|_|==============|__*/=/*/_/_/
-    :: Spring Boot ::                (v2.6.6)
+    :: Spring Boot ::                (v2.7.2)
 
-    13:29:25.234 [main] INFO  c.o.d.o.o.OKafkaConsumerApplication - Starting OKafkaConsumerApplication v0.0.1-SNAPSHOT using Java 11.0.16 on 5e3ad25e3936 with PID 1 (/app/oracle-developers-okafka-consumer-0.0.1-SNAPSHOT.jar started by root in /app)
-    ......
-    13:29:31.185 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
-    13:29:31.185 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 5602 ms
+    15:54:00.106 [main] INFO  c.o.d.t.o.OKafkaConsumerApplication - Starting OKafkaConsumerApplication v0.0.1-SNAPSHOT using Java 11.0.16 on 1234233ab028 with PID 1 (/app/oracle-developers-okafka-consumer-0.0.1-SNAPSHOT.jar started by root in /app)
+    15:54:00.125 [main] INFO  c.o.d.t.o.OKafkaConsumerApplication - The following 1 profile is active: "kubernetes"
+    15:54:06.698 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8081 (http)
+    15:54:06.731 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8081"]
+    15:54:06.732 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+    15:54:06.732 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.65]
+    15:54:07.011 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+    15:54:07.011 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 6418 ms
     Installing Oracle PKI provider.
-    13:29:32.199 [main] INFO  c.o.d.o.o.c.c.OKafkaConsumerConfig - OKafkaConsumerConfig::consumerConfig started and Oracle Instance is txeventqlab_tp.
-    ......
-    13:29:33.857 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8081 (http) with context path ''
-    13:29:34.236 [main] INFO  c.o.d.o.o.OKafkaConsumerApplication - Started OKafkaConsumerApplication in 11.775 seconds (JVM running for 14.391)
-    13:29:34.624 [main] INFO  o.o.o.c.consumer.ConsumerConfig - ConsumerConfig values:
+    15:54:07.880 [main] INFO  c.o.d.t.o.c.c.OKafkaConsumerConfig - OKafkaConsumerConfig::consumerConfig started and Oracle Instance is txeventqlab_tp.
+    15:54:09.936 [main] INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 13 endpoint(s) beneath base path '/actuator'
+    15:54:10.033 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8081"]
+    15:54:10.310 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8081 (http) with context path ''
+    15:54:10.439 [main] INFO  c.o.d.t.o.OKafkaConsumerApplication - Started OKafkaConsumerApplication in 12.662 seconds (JVM running for 15.493)
+    15:54:10.698 [main] INFO  o.o.o.c.consumer.ConsumerConfig - ConsumerConfig values:
             auto.commit.interval.ms = 10000
             auto.offset.reset = latest
-            ......
-            ......
+            bootstrap.servers = [xx.oraclecloud.com:1522]
+            check.crcs = true
+            client.id =
+            connections.max.idle.ms = 540000
+            default.api.timeout.ms = 60000
+            enable.auto.commit = true
+            exclude.internal.topics = true
+            fetch.max.bytes = 52428800
+            fetch.max.wait.ms = 500
+            fetch.min.bytes = 1
+            group.id = TXEVENTQTOPIC1_SUBS
+            heartbeat.interval.ms = 3000
+            interceptor.classes = []
+            internal.leave.group.on.close = true
+            isolation.level = read_uncommitted
+            key.deserializer = class org.oracle.okafka.common.serialization.StringDeserializer
+            max.partition.fetch.bytes = 1048576
+            max.poll.interval.ms = 300000
+            max.poll.records = 100
+            metadata.max.age.ms = 300000
+            metric.reporters = []
+            metrics.num.samples = 2
+            metrics.recording.level = INFO
+            metrics.sample.window.ms = 30000
+            oracle.instance.name = txeventqlab_tp
+            oracle.net.tns_admin = /home/appuser/wallet
+            oracle.service.name = xxxxxxxx_txeventqlab_tp.adb.oraclecloud.com
+            receive.buffer.bytes = 65536
+            reconnect.backoff.max.ms = 1000
+            reconnect.backoff.ms = 50
+            request.timeout.ms = 30000
+            retry.backoff.ms = 100
+            security.protocol = SSL
+            send.buffer.bytes = 131072
+            session.timeout.ms = 10000
             tns.alias = txeventqlab_tp
             value.deserializer = class org.oracle.okafka.common.serialization.StringDeserializer
 
-    13:29:34.753 [main] WARN  o.o.o.common.utils.AppInfoParser - Error while loading kafka-version.properties :inStream parameter is null
-    13:29:34.754 [main] INFO  o.o.o.common.utils.AppInfoParser - Kafka version : unknown
-    13:29:34.755 [main] INFO  o.o.o.common.utils.AppInfoParser - Kafka commitId : unknown
-    13:29:45.448 [main] INFO  c.o.d.o.o.s.OKafkaConsumerService - message received {"id": "0", "message": "TxEventQ message1"}. using key 0. sending to processing: Thread id 1
+    15:54:10.791 [main] WARN  o.o.o.common.utils.AppInfoParser - Error while loading kafka-version.properties :inStream parameter is null
+    15:54:10.798 [main] INFO  o.o.o.common.utils.AppInfoParser - Kafka version : unknown
+    15:54:10.798 [main] INFO  o.o.o.common.utils.AppInfoParser - Kafka commitId : unknown
+    15:54:22.731 [main] INFO  c.o.d.t.o.s.OKafkaConsumerService - message received {"id": "0", "message": "TxEventQ message1"}. using key 0. sending to processing: Thread id 1
     ```
 
     With this result, assuming that processing was successful, we could produce and consume events from TxEventQ Broker.
@@ -250,18 +287,18 @@ The Database is generated during setup based on your environment and the worksho
 
     To obtain the connection information at the Oracle Cloud Infrastructure Console. Locate your navigation menu on the left top corner, click on Oracle Database and select the Autonomous Transaction Processing option.
 
-    In Oracle Autonomous Transaction Processing (ATP) section, select the compartment created by the lab (ex: lab8022) to load the Database created by our setup script. You will find your Oracle Autonomous Transaction Processing (ATP) as bellow:
+    In Oracle Autonomous Transaction Processing (ATP) section, select the compartment created by the lab (ex: txeventqlab) to load the Database created by our setup script. You will find your Oracle Autonomous Transaction Processing (ATP) as bellow:
 
-    ![Oracle Autonomous Database Console](images/oci-console-atp.png " ")
+    ![Oracle Autonomous Database Console](images/oracle-atp-freetier.png " ")
 
-    Clicking on the database name (ex: ab8022_ATP) will open our database details, where you will have the DB Connection button. This button opens the DB Connection window with detailed information about the ways to connect with Oracle Database.
+    Clicking on the database name (ex: txeventqlab_ATP) will open our database details, where you will have the DB Connection button. This button opens the DB Connection window with detailed information about the ways to connect with Oracle Database.
 
     ![Oracle Autonomous Database Connection Data](images/oci-console-atp-dbconnection.png " ")
 
     For example, we can click the *tp* option to copy the connection string and access details that we need for the okafka client configuration. Bellow one sample:
 
     ```text
-    (description= (retry_count=20)(retry_delay=3)(address=(protocol=tcps)(port=1522)(host=adb.us-ashburn-1.oraclecloud.com))(connect_data=(service_name=xxxxxxxxxxxxxxx_lab8022_tp.adb.oraclecloud.com))(security=(ssl_server_cert_dn="CN=adwc.uscom-east-1.oraclecloud.com, OU=Oracle BMCS US, O=Oracle Corporation, L=Redwood City, ST=California, C=US")))
+    (description= (retry_count=20)(retry_delay=3)(address=(protocol=tcps)(port=1522)(host=adb.xxx-xxxx-1.oraclecloud.com))(connect_data=(service_name=xxxxxxxxxxxxx_txeventqlab_tp.adb.oraclecloud.com))(security=(ssl_server_cert_dn="CN=xxx.xxx-xxx-1.oraclecloud.com, OU=Oracle BMCS US, O=Oracle Corporation, L=Redwood City, ST=California, C=US")))
     ```
 
 2. Setup Producer microservices properties
@@ -276,10 +313,10 @@ The Database is generated during setup based on your environment and the worksho
 
     ```text
     okafka-server-config:
-    oracle-instance-name: <Oracle Autonomous Transaction Processing database TNS Name, e.g. labdb_tp>
-    oracle-service-name: <Oracle Autonomous Transaction Processing database Service Name, e.g. xxxxxxxxxxxxxxx_labdb_tp.adb.oraclecloud.com>
+    oracle-instance-name: <Oracle Autonomous Transaction Processing database TNS Name, e.g. txeventqlab_tp>
+    oracle-service-name: <Oracle Autonomous Transaction Processing database Service Name, e.g. xxxxxxxxxxxxx_txeventqlab_tp.adb.oraclecloud.com>
     oracle-net-tns_admin: /home/appuser/wallet
-    tns-alias: <Oracle Autonomous Transaction Processing database TNS Name, e.g. labdb_tp>
+    tns-alias: <Oracle Autonomous Transaction Processing database TNS Name, e.g. txeventqlab_tp>
     security-protocol: SSL
     bootstrap-servers: <Host Name:Port>
 
@@ -303,10 +340,10 @@ The Database is generated during setup based on your environment and the worksho
 
     ```text
     okafka-server-config:
-    oracle-instance-name: <Oracle Autonomous Transaction Processing database TNS Name, e.g. labdb_tp>
-    oracle-service-name: <Oracle Autonomous Transaction Processing database Service Name, e.g. xxxxxxxxxxxxxxx_labdb_tp.adb.oraclecloud.com>
+    oracle-instance-name: <Oracle Autonomous Transaction Processing database TNS Name, e.g. txeventqlab_tp>
+    oracle-service-name: <Oracle Autonomous Transaction Processing database Service Name, e.g. xxxxxxxxxxxxx_txeventqlab_tp.adb.oraclecloud.com>
     oracle-net-tns_admin: /home/appuser/wallet
-    tns-alias: <Oracle Autonomous Transaction Processing database TNS Name, e.g. labdb_tp>
+    tns-alias: <Oracle Autonomous Transaction Processing database TNS Name, e.g. txeventqlab_tp>
     security-protocol: SSL
     bootstrap-servers: <Host Name:Port>
 
@@ -364,4 +401,4 @@ You may now **proceed to the next lab**
 
 - **Authors** - Paulo Simoes, Developer Evangelist; Andy Tael, Developer Evangelist; Paul Parkinson, Developer Evangelist; Richard Exley, Consulting Member of Technical Staff, Oracle MAA and Exadata
 - **Contributors** - Mayank Tayal, Developer Evangelist; Corrado De Bari, Developer Evangelist; Sanjay Goil, VP Microservices and Oracle Database
-- **Last Updated By/Date** - Andy Tael, Sep 2022
+- **Last Updated By/Date** - Paulo Simoes, Oct 2022
