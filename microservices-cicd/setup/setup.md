@@ -16,16 +16,23 @@ Estimated Time: 25 minutes
 ### Prerequisites
 
 * This lab requires completion of the Get Started section in the Contents menu on the left.
-* As this is a demonstration of Jenkins/GitHub integration for CI/CD, **you must use your own GitHub account to run it. Please fork or copy [Oracle Microservices GiHub repository](https://github.com/oracle/microservices-datadriven) into your own GitHub account**.
+* As this is a demonstration of Jenkins/GitHub integration for CI/CD, **you must use your own GitHub account to run it. Please fork [Oracle Microservices GiHub repository](https://github.com/oracle/microservices-datadriven) into your own GitHub account**.
 
-## Task 1: Copy the workshop microservices repository into your own GitHub account
+## Task 1: Fork the workshop microservices repository into your own GitHub account
 
 1. Open a browser and navigate to [Oracle GitHub Microservices repository](https://github.com/oracle/microservices-datadriven).
 
-    Fork `https://github.com/oracle/microservices-datadriven` into your own GitHub account.
+    Since the lab will require you to make changes to the code, you will need to fork the main repo `https://github.com/oracle/microservices-datadriven` into your own GitHub account.
 
      ![Main Repository](images/main-repo.png " ")
+    
+    1. Click on the Fork button at the top right.
+    2. Select your account as the owner and keep the repository name the same.
+    3. Deselect Copy the main branch only (as the workshop-related files exist only in another branch).
+    4. Finally, click on Create fork ans save it for the later tasks.
 
+     ![Forking Main Repository](images/main-repo-fork.png " ")
+    
 ## Task 2: Log in to the Oracle Cloud Console
 
 1. If you haven't already, sign in to your Oracle Cloud Infrastructure account.
@@ -140,16 +147,18 @@ Cloud Shell is a small virtual machine running a "bash" shell which you access t
     </copy>
     ```
 
-## Task 8: Make a Clone of the Workshop Setup Script and Source Code
+## Task 8: Make a clone of the Workshop Setup Scripts and Source Code
 
-1. To work with the application code, you need to make a clone from the GitHub repository you copiedor forked into your own GitHub account in the previous setup step.
+1. With a working fork of the lab repository under your account, clone the forked repository by running the below command (make sure you completed Task 1 and created a fork).
 
    ```bash
    <copy>
-   git clone -b 22.7.2 --single-branch https://github.com/oracle/microservices-datadriven.git
-   </copy>
+   git clone --single-branch <repository-web-url>  
    ```
- 
+   > **Note:** Replace <repository-web-url> above with your fork's web URL. The image below shows where to copy the web URL from. Keep this URL in your notes.
+
+   ![Forked Repository URL](images/fork-url.png " ")
+
      You should now see the directory `microservices-datadriven` in the directory that you created.
 
 ## Task 9: Start the Setup
@@ -265,6 +274,9 @@ Cloud Shell is a small virtual machine running a "bash" shell which you access t
      > **Note:** There are 3 deployment types in this workshop:
 
       **Option 1**. Micro-Deployed Jenkins on Public VM - no Bastion Host/no Load Balancer - this option is being offered mainly for a workshop demonstration
+
+      > **Note:** Option 1 setup of Jenkins is NOT built for production purposes and being used for demonstration purposes only.
+
       **Option 2.** Micro-deployed Jenkins on Private VM - Bastion host + Load Balancer
       **Option 3.** Distributed Builds with Jenkins on Private VM -  Bastion Host + Load Balancer + agent nodes   
 

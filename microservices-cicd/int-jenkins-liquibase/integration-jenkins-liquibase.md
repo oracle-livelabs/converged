@@ -8,8 +8,8 @@ Estimated Time:  10 minutes
 
 ### Objectives
 
-* Execute GitHub Configuration
-* Execute Jenkins Configuration
+* Complete GitHub Configuration
+* Complete Jenkins Configuration
 * Configure a Multibranch Pipeline
   
 ### Prerequisites
@@ -17,17 +17,49 @@ Estimated Time:  10 minutes
 * This lab presumes you have already completed the earlier labs.
 * As this is a demonstration of Jenkins/GitHub integration for CI/CD, **you must use your own GitHub account to run it.** We assume you completed this step in Setup lab.
 
-## Task 1: Create the GitHub App
+## Task 1: Generate the GitHub Personal Access Token (PAT).
+
+1. On your GitHub Account, click on your profile photo in the upper-right corner, then click Settings.
+
+     ![GitHub Settings](images/repo-settings.png " ")
+
+2. In the left sidebar, scroll down and click on Developer settings.
+
+     ![GitHub Developer Settings](images/repo-sdev-sets.png " ")
+
+3. Under Developer Settings, navigate to Personal access tokens, and click on Generate new token.
+
+     > **Note:** Do not select `repo` option for scope.
+
+4. Personal access tokens function like ordinary OAuth access tokens. They can be used instead of a password for Git over HTTPS. In creating a new personal access token, you can add a Note to help you remember what the token is for. For example, you can set:
+
+     ```bash
+     <copy>
+     repo-access
+     </copy>
+     ```
+
+5. At the bottom of the page, click Generate token to complete the step and generate the token.
+
+     ![GitHub Repo PAT](images/repo-pat.png " ")
+ 
+     > **Note:**  Copy and record your GitHub Personal Access Token in your note for later configuration steps.
+
+## Task 2: Create the GitHub App
 
 1. Login into your GitHub account. In your Github account, navigate to Settings -> Developer settings -> GitHub Apps.
 
     ![GitHub Settings](images/repo-settings.png " ")
 
-2. Select `New GitHub App` (Confirm Password, if prompted).
+2.  In the left sidebar, scroll down and click on Developer setting -> New Github App. 
+
+    ![GitHub Developer Settings](images/repo-sdev-sets.png " ")
+
+3. Select `New GitHub App` (Confirm Password, if prompted).
 
     ![New GitHub App](images/new-githubapp.png " ")
 
-3. Register a new GitHub Application and, unless other specified below, leave the defaults.
+4. Register a new GitHub Application and, unless other specified below, leave the defaults.
 
      GitHub App name: `Jenkins - < Github Account Name >`
 
@@ -65,13 +97,13 @@ Estimated Time:  10 minutes
 
       ![Save GitHubApp](images/save-githubapp.png " ")
 
-     > **Note:** Record the App ID to be used later.
+     > **Note:** Record the App ID  in your note for later configuration steps.
 
-4. Scroll down to `Private keys` and generate a private key by clicking `Generate a private key` button (will be prompted to save, save it to a safe location).
+5. Scroll down to `Private keys` and generate a private key by clicking `Generate a private key` button (will be prompted to save, save it to a safe location).
 
      ![Webhook URL](images/generate-privatekey.png " ")
 
-5. Scroll back up the page and click `Install App` and click `Install` next to your GitHub account name.
+6. Scroll back up the page and click `Install App` and click `Install` next to your GitHub account name.
 
      ![Install GitHubApp](images/install-githubapp.png " ")
 
@@ -79,9 +111,9 @@ Estimated Time:  10 minutes
 
       ![Install GitHubApp Repo](images/install-github-repo.png " ")
 
-6. On the next screen, click "App settings" and record the App ID for later use.
+7. On the next screen, click "App settings" and record the App ID for later use.
 
-## Task 2: Convert the Private Key
+## Task 3: Convert the Private Key
 
 1. Jenkins uses the private key which was saved in the previous step, convert it using the following command (replace the key name with the key name you saved):
 
@@ -103,7 +135,7 @@ Estimated Time:  10 minutes
 
 4. Run the above openssl command in the Cloud Shell - it will create a converted private key converted-github-app.pem in your home directory you can use later for configuring Jenkins.
 
-## Task 3: Add Jenkins Credentials
+## Task 4: Add Jenkins Credentials
 
 1. Open a new browser tab and login into your Jenkins console (Jenkins URL is being created during infrastructure setup and used in the previous lab) as ADMIN user and the password specified.
 
@@ -127,7 +159,7 @@ Estimated Time:  10 minutes
 
      * Kind: `GitHub App`
      * ID: `GitHubAppDemo`
-     * App ID: < App ID > (Recorded above)
+     * App ID: < App ID > (Recorded above in Task 2: Create the GitHub App )
      * Key: < Contents of converted-github-app.pem created above >
 
 6. Click `Test Connection` which should be successful.
@@ -136,7 +168,7 @@ Estimated Time:  10 minutes
 
 7. Click `OK`.
 
-## Task 4: Add Database Credentials
+## Task 5: Add Database Credentials
 
 1. On Jenkins dashboard, navigate to `Manage Jenkins` and click on `Manage Credentials`.
 
@@ -161,7 +193,7 @@ Estimated Time:  10 minutes
 
 5. Click `OK`.
 
-## Task 5: Add Global Variable for Database
+## Task 6: Add Global Variable for Database
 
 1. In the OCI Console, navigate to Oracle Database -> Autonomous Database
 
@@ -176,7 +208,7 @@ Estimated Time:  10 minutes
     * Name:  ADB_NAME
     * Value: `<DB Name as found in OCI>`
 
-## Task 6: Add a Multibranch Pipeline
+## Task 7: Add a Multibranch Pipeline
 
 1. On Jenkins dashboard, click on `New Item` and enter the name for the item: `Demonstration`.
 
