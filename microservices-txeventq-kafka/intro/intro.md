@@ -2,9 +2,9 @@
 
 ## About this Workshop
 
-This workshop will help you understand Event Mesh using two message brokers and the technical capabilities inside the converged Oracle Database to support a scalable event-driven microservices architecture.
+This workshop will help you understand Event Mesh using two message brokers and the technical capabilities inside the converged Oracle Database to support a scalable event-driven microservices architecture. You will learn how to Kafka is similar to TxEventQ and how easy it is to convert an Apache Kafka Java microservice application to run with Oracle TxEventQ emulating a Kafka Broker
 
-You will create four event-driven microservice and two messaging brokers to allow communication between them. In the first lab, you will deploy an Apache Kafka broker to leverage the event-driven communication between two microservices written in Spring Boot. In the second lab, you will create an Oracle Transactional Event Queues (TxEventQ) and experience the Kafka APIs working in the Kafka compatibility mode. Likewise, this module has the Spring Boot producer and consumer microservices but with Kafka Java client for TxEventQ, using the okafka library. And finally, in the third lab, you will experiment with the concept of Event Mesh, building a bridge between Kafka and TEQ brokers, and see messages being produced on the Kafka side and consumed on the TxEventQ side.
+You will create four event-driven microservices and two messaging brokers to allow communication between them. In the first lab, you will deploy an Apache Kafka broker to leverage the event-driven communication between two microservices written in Spring Boot. In the second lab, you will create an Oracle Transactional Event Queues (TxEventQ) and experience the Kafka APIs working in the Kafka compatibility mode. Likewise, this module has the Spring Boot producer and consumer microservices but with Kafka Java client for TxEventQ, using the okafka library. And finally, in the third lab, you will experiment with the concept of Event Mesh, building a bridge between Kafka and TEQ brokers, and see messages being produced on the Kafka side and consumed on the TxEventQ side.
 
 Estimated Workshop Time: 50 minutes
 
@@ -24,7 +24,7 @@ Estimated Workshop Time: 50 minutes
 
 * The third Lab will use Oracle Transactional Event Queues (TxEventQ) and okafka library and demonstrate the Kafka compatibility of TxEventQ. Also, this module has the same Spring Boot producer and consumer microservices but uses okafka in place of Kafka libraries and TxEventQ in the database in place of Kafka broker.
 
-* The fourth Lab will interconnect the Kafka broker and the Oracle Transactional Event Queues (TxEventQ), applying Kafka connector and Oracle Database Messaging libraries. This laboratory demonstrates the interoperability between the two brokers, with events flowing from the Kafka side to TxEventQ, finally consumed at the TxEventQ side.
+* The fourth Lab will interconnect the Kafka broker and the Oracle Transactional Event Queues (TxEventQ), applying Kafka connector and Oracle Database Messaging libraries. This lab demonstrates the interoperability between the two brokers, with events flowing from the Kafka side to TxEventQ, consumed at the TxEventQ side.
 
 ### Prerequisites
 
@@ -38,9 +38,7 @@ Estimated Workshop Time: 50 minutes
 As shown in the followed diagram, we have:
 
 * A Kafka Broker and a set of services consuming and producing for it.
-
 * An Oracle TxEventQ Broker with another set of services around it.
-
 * And connector between Kafka and Oracle TxEventQ enabling a communication path between them.
 
 ![Kafka and Oracle TxEventQ Event Mesh](images/eventmesh-txeventq-kafka.drawio.png " ")
@@ -58,4 +56,4 @@ You may now **proceed to the next lab**
 
 * **Authors** - Paulo Simoes, Developer Evangelist; Andy Tael, Developer Evangelist; Paul Parkinson, Developer Evangelist; Richard Exley, Consulting Member of Technical Staff, Oracle MAA and Exadata
 * **Contributors** - Mayank Tayal, Developer Evangelist; Corrado De Bari, Developer Evangelist; Sanjay Goil, VP Microservices and Oracle Database
-* **Last Updated By/Date** - Paulo Simoes, Oct 2022
+* **Last Updated By/Date** - Andy Tael, Oct 2022

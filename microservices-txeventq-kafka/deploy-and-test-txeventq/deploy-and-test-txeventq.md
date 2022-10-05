@@ -2,7 +2,7 @@
 
 ## Introduction
 
-This laboratory helps you know how to build an Event-driven architecture based on Spring Boot microservices that “communicate” asynchronously using Oracle Transactional Event Queues (TxEventQ). The laboratory have two microservices, a producer and a consumer, built using Spring Boot framework that connect with an Oracle Transactional Event Queue (TxEventQ) to exchange events, and use okafka library that contains the Oracle implementation of Kafka Client Java APIs.
+This lab helps you know how to build an Event-driven architecture based on Spring Boot microservices that “communicate” asynchronously using Oracle Transactional Event Queues (TxEventQ). The lab have two microservices, a producer and a consumer, built using Spring Boot framework that connect with an Oracle Transactional Event Queue (TxEventQ) to exchange events, and use okafka library that contains the Oracle implementation of Kafka Client Java APIs.
 
 Estimated Time: 15 minutes
 
@@ -41,7 +41,7 @@ Oracle TxEventQ can be accessed through polyglot programmatic interfaces since P
 
 Oracle introduces Kafka Java Client for Oracle Transactional Event Queues Kafka (OKafka), a open source library that allow application compatibility with Oracle database. This provides easy migration for Kafka Java applications to Transaction Event Queues (TxEventQ). The Kafka Java APIs can now connect to Oracle database server and use TxEventQ as a messaging platform.
 
-![Kafka Application Integration with Transactional Event Queue](images/kafka-application-integration-oracle-teq.png " ")
+![Kafka Application Integration with Transactional Event Queue](images/kafka-application-integration-oracle-txeventq.png " ")
 
 The figure shows OKafka library, which contains Oracle specific implementation of Kafka's Java APIs. This implementation internally invokes AQ-JMS APIs which in turn uses JDBC driver to communicate with Oracle Database.
 
@@ -283,7 +283,7 @@ The Database is generated during setup based on your environment and the worksho
 
 1. Obtain JMS connection information
 
-    Configuring a JMS connection is straightforward; you have to get the information about the Database instance and how we should follow to connect from the security perspective. We use Oracle Autonomous Transaction Processing (ATP) in this lab; we have to use a wallet. Again, the setup already brings us the wallet to facilitate this laboratory.
+    Configuring a JMS connection is straightforward; you have to get the information about the Database instance and how we should follow to connect from the security perspective. We use Oracle Autonomous Transaction Processing (ATP) in this lab; we have to use a wallet. Again, the setup already brings us the wallet to facilitate this lab.
 
     To obtain the connection information at the Oracle Cloud Infrastructure Console. Locate your navigation menu on the left top corner, click on Oracle Database and select the Autonomous Transaction Processing option.
 
@@ -368,13 +368,11 @@ Now, we invite you to compare the codes for Kafka and okafka Microservices and s
 Look at *KafkaProducerService class*.
 
 ```java
-
  import org.springframework.kafka.core.KafkaTemplate;
-
+ ...
  public void send(ProducerRecord<String, String> producer) {
- LOG.info("Sending message='{}' to topic='{}'", producer.value(), producer.topic());
- ListenableFuture<SendResult<String, String>> kafkaResultFuture =
- kafkaTemplate.send(producer);
+    LOG.info("Sending message='{}' to topic='{}'", producer.value(), producer.topic());
+    ListenableFuture<SendResult<String, String>> kafkaResultFuture = kafkaTemplate.send(producer);
  }
 ```
 
@@ -384,8 +382,8 @@ Comparing with the same method in *OKafkaProducerService* we can verify that we 
  import org.oracle.okafka.clients.producer.KafkaProducer;
  ...
  public void send(ProducerRecord<String, String> prodRec) {
- LOG.info("Sending message='{}' to topic='{}'", prodRec.value(), prodRec.topic());
- kafkaProducer.send(prodRec);
+    LOG.info("Sending message='{}' to topic='{}'", prodRec.value(), prodRec.topic());
+    kafkaProducer.send(prodRec);
  }
 ```
 
@@ -401,4 +399,4 @@ You may now **proceed to the next lab**
 
 - **Authors** - Paulo Simoes, Developer Evangelist; Andy Tael, Developer Evangelist; Paul Parkinson, Developer Evangelist; Richard Exley, Consulting Member of Technical Staff, Oracle MAA and Exadata
 - **Contributors** - Mayank Tayal, Developer Evangelist; Corrado De Bari, Developer Evangelist; Sanjay Goil, VP Microservices and Oracle Database
-- **Last Updated By/Date** - Paulo Simoes, Oct 2022
+- **Last Updated By/Date** - Andy Tael, Oct 2022

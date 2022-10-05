@@ -2,7 +2,7 @@
 
 ## Introduction
 
-This laboratory will show you the interoperability of Transactional Event Queues with Apache Kafka. Oracle Transactional Event Queues (TxEventQ) makes it easy to implement event-based applications, as we experienced in the previous lab. It is also highly integrated with Apache Kafka supporting bi-directional information flow between TxEventQ and Kafka so that changes are available in TxEventQ or Kafka as soon as possible in near-real-time.
+This lab will show you the interoperability of Transactional Event Queues with Apache Kafka. Oracle Transactional Event Queues (TxEventQ) makes it easy to implement event-based applications, as we experienced in the previous lab. It is also highly integrated with Apache Kafka supporting bi-directional information flow between TxEventQ and Kafka so that changes are available in TxEventQ or Kafka as soon as possible in near-real-time.
 
 Estimated Time: 10 minutes
 
@@ -18,7 +18,7 @@ Watch the video below for a quick walk-through of the lab.
 
 ### Prerequisites
 
-- This laboratory assumes you have already completed the earlier laboratories.
+- This lab assumes you have already completed the earlier labs.
     1. Kafka Broker: Confluent Platform 3.3.0 or above, or Kafka 0.11.0 or above
     2. Oracle Transactional Event Queues
 - Connect: Confluent Platform 4.1.0 or above, or Kafka 1.1.0 or above
@@ -43,7 +43,7 @@ Oracle TxEventQ can be accessed through polyglot programmatic interfaces since P
 
 Oracle introduces Kafka Java Client for Oracle Transactional Event Queues Kafka (OKafka), a open source library that allow application compatibility with Oracle database. This provides easy migration for Kafka Java applications to Transaction Event Queues (TxEventQ). The Kafka Java APIs can now connect to Oracle database server and use TxEventQ as a messaging platform.
 
-![Kafka Application Integration with Transactional Event Queue](images/kafka-application-integration-oracle-teq.png " ")
+![Kafka Application Integration with Transactional Event Queue](images/kafka-application-integration-oracle-txeventq.png " ")
 
 The figure shows OKafka library, which contains Oracle specific implementation of Kafka's Java APIs. This implementation internally invokes AQ-JMS APIs which in turn uses JDBC driver to communicate with Oracle Database.
 
