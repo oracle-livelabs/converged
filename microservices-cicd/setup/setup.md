@@ -10,8 +10,11 @@ Estimated Time: 25 minutes
 
 ### Objectives
 
-* Clone the setup and microservices code
-* Execute setup
+* Fork and clone the the workshop repository
+* Optional: Setup OCI group with the appropriate permissions to run the setup
+* Setup and provision the workshop resources
+
+**Note:** It is recommended that you keep all credentials and important information in your notes.
 
 ### Prerequisites
 
@@ -20,78 +23,90 @@ Estimated Time: 25 minutes
 
 ## Task 1: Fork the workshop microservices repository into your own GitHub account
 
-1. Open a browser and navigate to [Oracle GitHub Microservices repository](https://github.com/oracle/microservices-datadriven).
+1. Fork the workshop repository
 
-    Since the lab will require you to make changes to the code, you will need to fork the main repo `https://github.com/oracle/microservices-datadriven` into your own GitHub account.
+   Open a browser and navigate to [Oracle GitHub Microservices repository](https://github.com/oracle/microservices-datadriven). You can also find the link below if you would like to copy-paste the link instead on your browser:
 
-     ![Main Repository](images/main-repo.png " ")
+   ```bash
+   <copy>
+   https://github.com/oracle/microservices-datadriven.git
+   </copy>
+   ```
+
+   ![Main Repository](images/main-repo.png " ")
+
+   Since this workshop will require you to make changes to the code, you will need to fork the main repo into your own GitHub account.
     
     1. Click on the Fork button at the top right.
     2. Select your account as the owner and keep the repository name the same.
     3. Deselect Copy the main branch only (as the workshop-related files exist only in another branch).
-    4. Finally, click on Create fork ans save it for the later tasks.
+    4. Click on Create fork ans save it for the later tasks.
 
-     ![Forking Main Repository](images/main-repo-fork.png " ")
+    ![Forking Main Repository](images/main-repo-fork.png " ")
     
 ## Task 2: Log in to the Oracle Cloud Console
 
-1. If you haven't already, sign in to your Oracle Cloud Infrastructure account.
+1. If you haven't already, sign in to your Oracle Cloud Infrastructure account
 
 ## Task 3: Select the Home Region
 
-1. Be sure to select the **home region** of your tenancy. Setup will only work in the home region.
+1. Be sure to select the **home region** of your tenancy. Setup will only work in the home region
 
   ![Oracle Cloud Infrastructure Home Region](images/home-region.png " ")
 
-## Task 4: Create group and IAM policies for a user
+## Task 4: Create Group and Policies
 
-> **Note:** If you have admin privileges in your Free Tier or Paid account, you can skip Task #4 steps. Otherwise, please continue.
+> **Note:** If you have admin privileges in your account, you may skip the below steps and continue with Task 5. Otherwise, please continue.
 
-If you are not an administrator on your tenancy, you must insure that additional policies have been added to the group you are a member of or ask your admin to create a separate group for you with additional policies. This group will have IAM policies for creating and managing the resources within the compartment that will be created by workshop setup scripts.
+If you are not a tenancy administrator, you must insure that additional policies have been added to the group you are a member of or ask your admin to create a separate group for you with additional policies. This group should have policies for creating and managing the resources within the compartment that will be created by workshop setup scripts.
 
 A user's permissions to access services comes from the groups to which they belong. The permissions for a group are defined by policies. Policies define what actions members of a group can perform, and in which compartments. Users can access services and perform operations based on the policies set for the groups of which they are members.
 
-Here are the steps for creating a new group and assigning security policy required for this workshop (only a user with the admin account will be able to perform the below steps):
+Here are the steps for creating a new group and assigning security policies required for this workshop:
 
-1. Click the Navigation Menu in the upper left, navigate to Identity & Security and select Groups.
+1. Click the Navigation Menu in the upper left, navigate to Identity & Security and select Groups
 
-   ![Oracle Cloud Infrastructure Identity & Security Groups Screen](images/id-groups.png " ")
+   ![Oracle Cloud Infrastructure Identity & Security Groups Screen](images/oci-groups.png " ")
 
-2. Click Create Group.
+2. Create a New Group by clicking on the button Create Group.
 
-   ![Create Oracle Cloud Infrastructure Identity & Security Group Screen](images/create-group.png " ")
+3. Set the name and the description of the group to any name you can easily identify
 
-3. In the Create Group dialog box, enter the following:
- - **Name**: Enter a unique name for your group, such as "MicroservicesAdmin”. Note that the group name cannot contain spaces.
- - **Description**: Enter a description (for example, “New group for microservices workshop”).
- - Click **Create**.
+   ![Create a New Group](images/create-group.png " ")
 
-   ![Create a New Group](images/new-group.png " ")
+4. Add your user to the group that you have just created by selecting the name of the group you have created and selecting Add User to Group
 
-   ![Review a New Group](images/get-new-group.png " ")
+   ![Add User to a Group](images/user-to-group.png " ")
 
- 4. Now, create a security policy that gives the group permissions to execute the setup steps for this workshop, entering a name, such as "Microservices-Policies".
+5. Navigate to Policies
 
-   ![Create a New Securiry Policy](images/create-policy.png " ")
+   ![Policies](images/oci-policies.png " ")
 
-   Using **Edit Policy Statement** option, add the below statements to the policy created above.
+6. Make sure you are in the root compartment and click on Create Policy
 
+   ![Create a Policy](images/create-policy.png " ")
+
+7. Provide a meaningful policy name and description, and add the following policies under Policy Builder by enabling Manual Editor
+   
    ```bash
    <copy>
-   Allow group MicroservicesAdmin to use cloud-shell in tenancy
-   Allow group MicroservicesAdmin to manage users in tenancy
-   Allow group MicroservicesAdmin to manage all-resources in tenancy
-
-   Allow group MicroservicesAdmin to manage vaults in tenancy
-   Allow group MicroservicesAdmin to manage buckets in tenancy
-   Allow group MicroservicesAdmin to manage objects in tenancy
-
+   Allow group <group_name> to use cloud-shell in tenancy
+   Allow group <group_name> to manage users in tenancy
+   Allow group <group_name>to manage all-resources in tenancy
    </copy>
    ```
 
-  ![Policy Statements](images/policy-statements.png " ")
+   If you named your group microservicesadmin similar to the image above, you can use the following policies instead.
 
-5. And finally, make sure your user account has been added to the group created in step#2.  
+   ```bash
+   <copy>
+   Allow group microservicesadmin to use cloud-shell in tenancy
+   Allow group microservicesadmin to manage users in tenancy
+   Allow group microservicesadmin to manage all-resources in tenancy
+   </copy>
+   ```
+   
+   ![Add Policy Statements](images/policy-statements.png " ")
 
 ## Task 5: Check Your Tenancy Service Limits
 
@@ -152,9 +167,9 @@ Cloud Shell is a small virtual machine running a "bash" shell which you access t
 1. With a working fork of the lab repository under your account, clone the forked repository by running the below command (make sure you completed Task 1 and created a fork).
 
    ```bash
-   <copy>
    git clone --single-branch <repository-web-url>  
    ```
+
    > **Note:** Replace <repository-web-url> above with your fork's web URL. The image below shows where to copy the web URL from. Keep this URL in your notes.
 
    ![Forked Repository URL](images/fork-url.png " ")
