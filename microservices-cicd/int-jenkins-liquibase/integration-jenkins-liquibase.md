@@ -73,7 +73,8 @@ Estimated Time:  10 minutes
 
       ![Webhook URL](images/webhook-url.png " ")
 
-     > **Note:** Replace the Jenkins example with Jenkins public IP address. **The trailing slash is important**
+     > **Note:** Replace `jenkins.example.com` with public IP address of the Jenkins Compute Instance. **The trailing slash is important**
+     > For Example: `http://192.168.58.189/github-webhook/`
 
      Update the following Repository permissions:
 
@@ -145,7 +146,7 @@ Estimated Time:  10 minutes
 
      ![Jenkins Credentials](images/jenkins-creds1.png " ")
 
-3. Under `Stores scoped to Jenkins`, click `Jenkins`.
+3. Under `Stores scoped to Jenkins`, click `System`.
 
      ![Jenkins Credentials](images/jenkins-creds2.png " ")
 
@@ -174,7 +175,7 @@ Estimated Time:  10 minutes
 
      ![Jenkins Credentials](images/jenkins-creds1.png " ")
 
-2. Under `Stores scoped to Jenkins`, click `Jenkins`.
+2. Under `Stores scoped to Jenkins`, click `System`.
 
      ![Jenkins Credentials](images/jenkins-creds2.png " ")
 
@@ -191,7 +192,7 @@ Estimated Time:  10 minutes
      * Password: `<Password for ADB Admin Account>`
      * ID: `ADB_ADMIN`
 
-5. Click `OK`.
+5. Click `Create`.
 
 ## Task 6: Add Global Variable for Database
 
@@ -203,10 +204,12 @@ Estimated Time:  10 minutes
 
 4. On Jenkins dashboard, navigate to `Manage Jenkins` and click on `Configure System`.
 
-5. Scroll down to "Global Properties" and click "Add"
+5. Scroll down to "Global Properties", tick the "Environment variables" box, and click "Add"
 
     * Name:  ADB_NAME
     * Value: `<DB Name as found in OCI>`
+
+6. Click "Apply"
 
 ## Task 7: Add a Multibranch Pipeline
 
@@ -224,15 +227,17 @@ Estimated Time:  10 minutes
      * Branch Source: `GitHub`
      * Credentials: `GitHubAppDemo`
      * Repository HTTPS URL: < Link to GitHub Repo; example: `https://github.com/<your GitHub Repository Name>/microservices-datadriven`
-     * Script Path: workshops/dcms-cicd/jenkins/jenkinslab2/Jenkinsfile
 
 4. Click `Validate` under the `Repository HTTPS URL` field.
 
 5. Response should be: `Credentials ok. Connected to <GitHub Repo>.`
 
-6. Scroll down and `Save`.
+6. Under "Build Configuration" update:
+     * Script Path: workshops/dcms-cicd/jenkins/jenkinslab2/Jenkinsfile
 
-7. A `Scan Repository Log` screen will appear with `Finished: SUCCESS`.
+7. Scroll down and `Save`.
+
+8. A `Scan Repository Log` screen will appear with `Finished: SUCCESS`.
 
 You may now **proceed to the next lab.**.
 
