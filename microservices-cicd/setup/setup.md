@@ -19,13 +19,13 @@ Estimated Time: 25 minutes
 ### Prerequisites
 
 * This lab requires completion of the Get Started section in the Contents menu on the left.
-* As this is a demonstration of Jenkins/GitHub integration for CI/CD, **you must use your own GitHub account to run it. Please fork [Oracle Microservices GiHub repository](https://github.com/oracle/microservices-datadriven) into your own GitHub account**.
+* GitHu Account  - as this is a demonstration of Jenkins/GitHub integration for CI/CD, **you must use your own GitHub account to run it. Please fork [Oracle Microservices GiHub repository](https://github.com/oracle/microservices-datadriven) into your own GitHub account**.
 
 ## Task 1: Fork the workshop microservices repository into your own GitHub account
 
 1. Fork the workshop repository
 
-   Open a browser and navigate to [Oracle GitHub Microservices repository](https://github.com/oracle/microservices-datadriven). You can also find the link below if you would like to copy-paste the link instead on your browser:
+   Open a browser and navigate to workshop repository [here](https://github.com/oracle/microservices-datadriven). You can also find the link below if you would like to copy-paste the link instead on your browser:
 
    ```bash
    <copy>
@@ -54,7 +54,7 @@ Estimated Time: 25 minutes
 
    ![Oracle Cloud Infrastructure Home Region](images/home-region.png " ")
 
-## Task 4: Create Group and Policies
+## Task 4: (Optional) Create Group and Policies
 
 > **Note:** If you have admin privileges in your account, you may skip the below steps and continue with Task 5. Otherwise, please continue.
 

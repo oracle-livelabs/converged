@@ -1,5 +1,5 @@
 {
-  "workshoptitle": "Modern CI/CD Pipelines for App Dev with converged Oracle Database",
+  "workshoptitle": "Modern CI/CD Pipelines for App Dev with Converged Oracle Database",
   "help": "livelabs-help-db_us@oracle.com",
 	"tutorials": [
       {
@@ -23,7 +23,7 @@
         "filename": "../../walkthrough-jenkins-liquibase/walkthrough-jenkins-liquibase.md"
       },
       {
-        "title": "Lab 4: Deploy and Test Data-centric Microservices Application",
+        "title": "Lab 4: Deploy and Test Data-Centric Microservices Application",
         "filename": "../../app-deploy/app-deploy.md"
       },
       {

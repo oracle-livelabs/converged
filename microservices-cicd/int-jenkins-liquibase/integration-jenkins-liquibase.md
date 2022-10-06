@@ -39,7 +39,13 @@ Estimated Time:  10 minutes
 
 3. Under Developer Settings, navigate to Personal access tokens, and click on Generate new token.
 
+   ![GitHub Repo PAT](images/repo-gen-token.png " ")
+
+   In creating a new personal access token, you can add a Note to help you remember what the token is for.
+
    ![GitHub Repo PAT](images/repo-pat.png " ")
+
+   ![GitHub Repo PAT](images/repo-gen-pat.png " ")
 
    > **Note:** Do not select `repo` option for scope.
 
@@ -63,7 +69,7 @@ Estimated Time:  10 minutes
 
 2. In the left sidebar, scroll down and click on Developer setting -> New Github App. 
 
-   ![GitHub Developer Settings](images/repo-sdev-sets.png " ")
+   ![GitHub Developer Settings](images/repo-dev-sets.png " ")
 
 3. Select `New GitHub App` (Confirm Password, if prompted).
 
@@ -183,7 +189,7 @@ Estimated Time:  10 minutes
 
 ## Task 5: Add Database Credentials
 
-1. ONavigate to the Jenkins credentials store to create credentials
+1. Navigate to the Jenkins credentials store to create credentials
 
    1. From the Home page, click on `Manage Jenkins`.
 
@@ -195,7 +201,7 @@ Estimated Time:  10 minutes
 
    4. Click on the dropdown.
 
-   5. Click on `Add Credentials` and add the credentials for GitHub App.
+   5. Click on `Add Credentials` and add the database credentials.
 
    ![Jenkins Credentials](images/jenkins-store.png " ")
 
