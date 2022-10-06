@@ -175,27 +175,29 @@ Estimated Time:  10 minutes
      * App ID: < App ID > (Recorded above in Task 2: Create the GitHub App )
      * Key: < Contents of converted-github-app.pem created above >
 
-6. Click `Test Connection` which should be successful.
+3. Click `Test Connection` which should be successful.
 
    ![GitHubAppDemo Connection Test](images/githubapp-creds-test.png " ")
 
-7. Click `OK`.
+4. Click `OK`.
 
 ## Task 5: Add Database Credentials
 
-1. On Jenkins dashboard, navigate to `Manage Jenkins` and click on `Manage Credentials`.
+1. ONavigate to the Jenkins credentials store to create credentials
 
-   ![Jenkins Credentials](images/jenkins-creds1.png " ")
+   1. From the Home page, click on `Manage Jenkins`.
 
-2. Under `Stores scoped to Jenkins`, click `System`.
+   ![Jenkins Credentials](images/jenkins-creds.png " ")
 
-   ![Jenkins Credentials](images/jenkins-creds2.png " ")
+   2. From the Manage Jenkins page, Under Security, click `Manage Credentials`.
 
-3. Click `Global credentials (unrestricted)`.
+   3. Hover over (`global`), the domain for the Jenkins Store (under Stores scoped to Jenkins).
 
-   ![Jenkins Credentials](images/global-creds.png " ")
+   4. Click on the dropdown.
 
-4. Click `Add Credentials` in the left-hand navigation bar.
+   5. Click on `Add Credentials` and add the credentials for GitHub App.
+
+   ![Jenkins Credentials](images/jenkins-store.png " ")
 
    ![Database Credentials](images/db-creds.png " ")
 
@@ -204,7 +206,7 @@ Estimated Time:  10 minutes
      * Password: `<Password for ADB Admin Account>`
      * ID: `ADB_ADMIN`
 
-5. Click `Create`.
+2. Click `Create`.
 
 ## Task 6: Add Global Variable for Database
 
