@@ -34,9 +34,6 @@ Estimated Time:  10 minutes
    ![GitHub Settings](images/repo-settings.png " ")
 
 2. In the left sidebar, scroll down and click on Developer settings.
-
-   ![GitHub Developer Settings](images/repo-dev-sets.png " ")
-
 3. Under Developer Settings, navigate to Personal access tokens, and click on Generate new token.
 
    > **Note:** Do not select `repo` option for scope.
