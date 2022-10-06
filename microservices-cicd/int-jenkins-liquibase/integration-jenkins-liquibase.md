@@ -148,27 +148,25 @@ Estimated Time:  10 minutes
 
 ## Task 5: Add Jenkins Credentials
 
-1. Open a new browser tab and login into your Jenkins console as ADMIN user and the password created during Jenkins setup run.
-
-   `https://jenkins.example.com`
+1. Open a new browser tab and login into your Jenkins console as ADMIN user using Jenkins Public IP from Task 1 and the password you supplied during Jenkins setup run: `https://jenkins.example.com`
 
    ![Jenkins Login](images/jenkins-login.png " ")
 
-2. Navigate to `Manage Jenkins` and then click `Manage Credentials`.
+2. Navigate to the Jenkins credentials store to create credentials
 
-   ![Jenkins Credentials](images/jenkins-creds1.png " ")
+   1. From the Home page, click on `Manage Jenkins`.
 
-3. Under `Stores scoped to Jenkins`, click `System`.
+   ![Jenkins Credentials](images/jenkins-creds.png " ")
 
-   ![Jenkins Credentials](images/jenkins-creds2.png " ")
+   2. From the Manage Jenkins page, Under Security, click `Manage Credentials`.
+   3. Hover over (`global`), the domain for the Jenkins Store (under Stores scoped to Jenkins).
+   4. Click on the dropdown.
 
-4. Click `Global credentials (unrestricted)`.
+   ![Jenkins Credentials](images/jenkins-store.png " ")
+      
+   5. Click on `Add Credentials` button.
 
-   ![Jenkins Credentials](images/global-creds.png " ")
-
-5. Click `Add Credentials` in the left-hand navigation bar.
-
-   ![GitHubAppDemo Credentials](images/githubapp-demo-creds.png " ")
+   ![GitHubApp Demo Credentials](images/githubapp-demo-creds.png " ")
 
      * Kind: `GitHub App`
      * ID: `GitHubAppDemo`
