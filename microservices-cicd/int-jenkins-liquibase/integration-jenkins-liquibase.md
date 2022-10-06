@@ -95,11 +95,11 @@ Estimated Time:  10 minutes
 
      * Contents: Read-only
 
-     ![Repository Permissions](images/repo-perm1.png " ")
+       ![Repository Permissions](images/repo-perm1.png " ")
 
      * Pull requests: Read-only
 
-     ![Repository Permissions](images/repo-perm2.png " ")
+       ![Repository Permissions](images/repo-perm2.png " ")
 
    5. Set Subscribe to events options and Select All
 
@@ -129,21 +129,21 @@ Estimated Time:  10 minutes
 
 1. Jenkins uses the private key which was saved in the previous step, convert it using the following command (replace the key name with the key name you saved):
 
-     ```bash
-     <copy>
-     openssl pkcs8 -topk8 -inform PEM -outform PEM -in <key-in-your-downloads-folder.pem> -out converted-github-app.pem -nocrypt
-     </copy>
-     ```
+    ```bash
+    <copy>
+    openssl pkcs8 -topk8 -inform PEM -outform PEM -in <key-in-your-downloads-folder.pem> -out converted-github-app.pem -nocrypt
+    </copy>
+    ```
 
-     > **Note:** If openssl is not installed on your local machine, you can use OCI Cloud Shell to convert.
+    > **Note:** If openssl is not installed on your local machine, you can use OCI Cloud Shell to convert.
 
 2. Open Cloud Shell from the OCI Console and change the directory to your home directory.
 
-    ![Oracle Cloud Infrastructure Cloud Shell Opening](images/open-cloud-shell.png " ")
+   ![Oracle Cloud Infrastructure Cloud Shell Opening](images/open-cloud-shell.png " ")
 
 3. Either drag and drop the file from your local machine into the Cloud Shell window, or use the `Upload` button from the Cloud Shell hamburger menu.
 
-    ![Cloud Shell File Upload](images/cloud-shell-file.png " ")
+   ![Cloud Shell File Upload](images/cloud-shell-file.png " ")
 
 4. Run the above openssl command in the Cloud Shell - it will create a converted private key converted-github-app.pem in your home directory you can use later for configuring Jenkins.
 
@@ -157,7 +157,7 @@ Estimated Time:  10 minutes
 
    1. From the Home page, click on `Manage Jenkins`.
 
-   ![Jenkins Credentials](images/jenkins-creds.png " ")
+      ![Jenkins Credentials](images/jenkins-creds.png " ")
 
    2. From the Manage Jenkins page, Under Security, click `Manage Credentials`.
 
@@ -167,9 +167,9 @@ Estimated Time:  10 minutes
 
    5. Click on `Add Credentials` and add the credentials for GitHub App.
 
-   ![Jenkins Credentials](images/jenkins-store.png " ")
+      ![Jenkins Credentials](images/jenkins-store.png " ")
 
-   ![GitHubApp Demo Credentials](images/githubapp-demo-creds.png " ")
+      ![GitHubApp Demo Credentials](images/githubapp-demo-creds.png " ")
 
      * Kind: `GitHub App`
      * ID: `GitHubAppDemo`
@@ -182,13 +182,13 @@ Estimated Time:  10 minutes
 
 4. Click `OK`.
 
-## Task 5: Add Database Credentials
+## Task 6: Add Database Credentials
 
 1. Navigate to the Jenkins credentials store to create credentials
 
    1. From the Home page, click on `Manage Jenkins`.
 
-   ![Jenkins Credentials](images/jenkins-creds.png " ")
+      ![Jenkins Credentials](images/jenkins-creds.png " ")
 
    2. From the Manage Jenkins page, Under Security, click `Manage Credentials`.
 
@@ -198,37 +198,46 @@ Estimated Time:  10 minutes
 
    5. Click on `Add Credentials` and add the database credentials.
 
-   ![Jenkins Credentials](images/jenkins-store.png " ")
+      ![Jenkins Credentials](images/jenkins-store.png " ")
 
-   ![Database Credentials](images/db-creds.png " ")
+      ![Database Credentials](images/db-creds.png " ")
 
      * Kind: `Username with password`
      * Username: `ADMIN`
      * Password: `<Password for ADB Admin Account>`
+      > **Note:** this is the DB password you supplied and recorded in Lab 1 during infra setup
      * ID: `ADB_ADMIN`
 
 2. Click `Create`.
 
-## Task 6: Add Global Variable for Database
+## Task 7: Add Global Variable for Database
 
-1. In the OCI Console, navigate to Oracle Database -> Autonomous Database
+1. Sign in to OCI Console with Oracle Cloud credentials and navigate to Oracle Database -> Autonomous Database
 
-2. Click on "DB2"
+   ![OCI DB](images/oci-dbs.png " ")
 
-3. Record the value of "Database Name:"
+2. Click on "DB2" and record the value of the "Database name:"
 
-4. On Jenkins dashboard, navigate to `Manage Jenkins` and click on `Configure System`.
+   ![DB Name Comp](images/db-comp.png " ")
 
-5. Scroll down to "Global Properties", tick the "Environment variables" box, and click "Add"
+   ![DB Name](images/db-name.png " ")
+
+3. Back, on Jenkins dashboard, navigate to `Manage Jenkins` and click on `Configure System`
+
+   ![Jenkins System Config](images/jenkins-system-config.png " ")
+
+4. Scroll down to "Global Properties", check the "Environment variables" box, and click "Add"
+
+   ![Jenkins Global Properties](images/jenkins-global-props.png " ")
 
     * Name:  ADB_NAME
     * Value: `<DB Name as found in OCI>`
 
-6. Click "Apply"
+5. Click "Apply"
 
-## Task 7: Add a Multibranch Pipeline
+## Task 8: Add a Multibranch Pipeline
 
-1. On Jenkins dashboard, click on `New Item` and enter the name for the item: `Demonstration`.
+1. Navigate back to Jenkins dashboard, click on `New Item` and enter the name for the item: `Demonstration`.
 
 2. Select `Multibranch Pipeline` and click `OK`.
 
