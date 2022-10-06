@@ -69,7 +69,7 @@ You will configure the connection between the Kafka broker and the Oracle TxEven
 
     ![Kafka Components status](images/kafka-containers-ps.png " ")
 
-    > **Note:** If the Kafka components are not running, you have to rebuild them executing the instructions from [Extra 1](#exta1reinstallkafkacomponentsoptional).
+    > **Note:** If the Kafka components are not running, you have to rebuild them executing the instructions from [Extra 1](#extra1reinstallkafkacomponentsoptional)
 
 2. Execute the following command providing the Oracle Database password. It will fill the parameters based on your previous created assets and set up the Connect Sink between the Kafka Topic from Lab 2 and Oracle TxEventQ from Lab 3:
 

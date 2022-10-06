@@ -20,7 +20,7 @@ Watch the video below for a quick walk-through of the lab.
 - An Oracle Cloud paid account or free trial. To sign up for a trial account with $300 in credits for 30 days, click [Sign Up](http://oracle.com/cloud/free).
 - Oracle Autonomous Database 19c instance
     - One Always Free Oracle Autonomous Database Instance Or
-    - One Autonomous Transaction Processing OCPU and 20 GB Autonomous Transaction Processing Storage
+    - One Autonomous Transaction Processing OCPU and 1T Autonomous Transaction Processing Storage
 
 ## **Task 1:** Log in to the Oracle Cloud Console
 
@@ -42,7 +42,7 @@ If, however, you have already used up some quota on your tenancy, perhaps while 
 |------------------|:------:|------------------------------------------------------|:---------:|:------------------:|
 | Database         | Region | Always Free Autonomous Database Instance Count       | **1**     | 2                  |
 |                  |        | Autonomous Transaction Processing OCPU Count         | **1**     | 8                  |
-|                  |        | Autonomous Transaction Processing Total Storage (TB) | **2GB**   | 2                  |
+|                  |        | Autonomous Transaction Processing Total Storage (TB) | **1**     | 2                  |
 
 Quota usage and limits can be check through the console: **Limits, Quotas and Usage** in the **Governance & Administration** section , For example:
 
@@ -171,27 +171,7 @@ Cloud Shell is a small virtual machine running a "bash" shell which you access t
 
 ## **Task 8:** Start the Setup
 
-1. The setup will ask for you to enter your User OCID.  
-
-   **NOTE**: Be sure to provide the user OCID and not the user name or tenancy OCID.
-
-   User information is available in the Oracle Cloud Infrastructure Console.
-
-   The user OCID will look something like: `ocid1.user.oc1..aaaaaaaabcdefghijklmnopqrstuvwxyz`
-  
-   Pay attention to the "**ocid1.user**" prefix as this will tell you that it is a User OCID and not a Tenancy OCID.
-
-   Sometimes the name link is missing in which case select the `User Settings` link. Do not select the "Tenancy" link.
-
-   a. Locate your menu bar and click the person icon at the far upper right. From the drop-down menu, select your user's name.
-
-      ![Obtain Oracle Cloud Infrastructure User OCID](images/get-user-ocid.png " ")
-
-   b. Click Show to see the details and then click Copy to copy the user OCID to the clipboard. You will need this value during the setup e.g. paste in the copied data in Cloud Shell console.
-
-      ![Oracle Cloud Infrastructure User OCID example](images/example-user-ocid.png " ")
-
-2. Execute the following commands to start the setup.  
+1. Execute the following commands to start the setup.  
 
     ```bash
     <copy>
@@ -211,7 +191,33 @@ Cloud Shell is a small virtual machine running a "bash" shell which you access t
 
     The setup process will typically take around 10 minutes to complete.  
 
-3. The setup will ask you to enter an admin password for the database. Database passwords must be 12 to 30 characters and contain at least one uppercase letter, one lowercase letter, and one number. The password cannot have the double quote (") character or the word "admin.".
+2. The setup will ask for you to enter your User OCID.  
+
+   **NOTE**: Be sure to provide the user OCID and not the user name or tenancy OCID.
+
+   User information is available in the Oracle Cloud Infrastructure Console.
+
+   The user OCID will look something like: `ocid1.user.oc1..aaaaaaaabcdefghijklmnopqrstuvwxyz`
+  
+   Pay attention to the "**ocid1.user**" prefix as this will tell you that it is a User OCID and not a Tenancy OCID.
+
+   Sometimes the name link is missing in which case select the `User Settings` link. Do not select the "Tenancy" link.
+
+   a. Locate your menu bar and click the person icon at the far upper right. From the drop-down menu, select your user's name.
+
+      ![Obtain Oracle Cloud Infrastructure User OCID](images/get-user-ocid.png " ")
+
+   b. Click Show to see the details and then click Copy to copy the user OCID to the clipboard. You will need this value during the setup e.g. paste in the copied data in Cloud Shell console.
+
+      ![Oracle Cloud Infrastructure User OCID example](images/example-user-ocid.png " ")
+
+3. Now you will be asked if you wants use for workshop a Always Free ADB Instance or a Autonomous Transaction Processing OCPU. If you have doubts about your available resources please return to [Task 3](#task3checkyourtenancyservicelimits) to check your tenancy limits.
+
+    ```bash
+    Do you want to use Always Free Autonomous Database Instance? (y/N)
+    ```
+
+4. Given the sequence, you will be asked to enter an admin password for the database. Database passwords must be 12 to 30 characters and contain at least one uppercase letter, one lowercase letter, and one number. The password cannot have the double quote() character or the word "admin.".
 
 > **Note:** The passwords typed are not displayed and don't forget your database password because you will have to provide it again during the labs.
 
