@@ -77,44 +77,39 @@ Estimated Time:  10 minutes
 
 4. Register a new GitHub Application and, unless other specified below, leave the defaults.
 
-   GitHub App name: `Jenkins - < Github Account Name >`
+   1. Set GitHub App name to `Jenkins - < Github Account Name >`
 
-     ![GitHub Name](images/githubapp-name.png " ")
+   2. Update Homepage URL with link to your GitHub Page
+     
+      ![GitHub Name](images/githubapp-name-url.png " ")
 
-   Homepage URL: Link to your GitHub Page
+   3. Update Webhook URL with link to your Jenkins Server
 
-     ![Homepage URL](images/homepage-url.png " ")
+      > **Note:** Replace `jenkins.example.com` with public IP address of the Jenkins Compute Instance recorded from Task 1 above. **The trailing slash is important** (for example: `http://XXX.XX.XX.XXX/github-webhook/`).
+     
+      ![Repository Permissions](images/webhook-url.png " ")
 
-   Webhook URL: Link to your Jenkins Server
-
-     ![Webhook URL](images/webhook-url.png " ")
-
-     > **Note:** Replace `jenkins.example.com` with public IP address of the Jenkins Compute Instance recorded from Task 1 above. **The trailing slash is important**
-     > For Example: `http://192.XX.XX.XXX/github-webhook/`
-
-    Update the following Repository permissions:
+   4. Update the following Repository permissions:
 
      * Commit statuses - Read and Write
 
-     ![Repository Permissions](images/repo-perm1.png " ")
-
      * Contents: Read-only
 
-     ![Repository Permissions](images/repo-perm2.png " ")
+     ![Repository Permissions](images/repo-perm1.png " ")
 
      * Pull requests: Read-only
 
-     ![Repository Permissions](images/repo-perm3.png " ")
+     ![Repository Permissions](images/repo-perm2.png " ")
 
-     * Subscribe to events: Select All
+   5. Set Subscribe to events options and Select All
 
-     ![Events](images/events-subscribe.png " ")
+      ![Events](images/events-subscribe.png " ")
 
-    For `Where can this GitHub App be installed?` setting, check `Only on this account` option and click on `Create GitHub App`
+   6. For `Where can this GitHub App be installed?` setting, check `Only on this account` option and click on `Create GitHub App`
 
-     ![Save GitHubApp](images/save-githubapp.png " ")
+      ![Save GitHubApp](images/save-githubapp.png " ")
 
-     > **Note:** Record the App ID  in your note for later configuration steps.
+      > **Note:** Record the App ID  in your note for later configuration steps.
 
 5. Scroll down to `Private keys` and generate a private key by clicking `Generate a private key` button (will be prompted to save, save it to a safe location).
 
