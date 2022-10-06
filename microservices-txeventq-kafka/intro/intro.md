@@ -2,9 +2,9 @@
 
 ## About this Workshop
 
-This workshop will help you understand Event Mesh using two message brokers and the technical capabilities inside the converged Oracle Database to support a scalable event-driven microservices architecture. You will learn how to Kafka is similar to TxEventQ and how easy it is to convert an Apache Kafka Java microservice application to run with Oracle TxEventQ emulating a Kafka Broker
+This workshop will help you understand Event Mesh using two message brokers and the technical capabilities inside the converged Oracle Database to support a scalable event-driven microservices architecture. "You will learn how to Kafka is similar to TxEventQ and how easy it is to convert an Apache Kafka Java microservice application to run with Oracle TxEventQ emulating a Kafka Broker."
 
-You will create four event-driven microservices and two messaging brokers to allow communication between them. In the first lab, you will deploy an Apache Kafka broker to leverage the event-driven communication between two microservices written in Spring Boot. In the second lab, you will create an Oracle Transactional Event Queues (TxEventQ) and experience the Kafka APIs working in the Kafka compatibility mode. Likewise, this module has the Spring Boot producer and consumer microservices but with Kafka Java client for TxEventQ, using the okafka library. And finally, in the third lab, you will experiment with the concept of Event Mesh, building a bridge between Kafka and TEQ brokers, and see messages being produced on the Kafka side and consumed on the TxEventQ side.
+You will create four event-driven microservices and two messaging brokers to allow communication between them. In the first lab, you will deploy an Apache Kafka broker to leverage the event-driven communication between two microservices written in Spring Boot. In the second lab, you will create an Oracle Transactional Event Queues (TxEventQ) and experience the Kafka APIs working in the Kafka compatibility mode. Likewise, this module has the Spring Boot producer and consumer microservices but with Kafka Java client for TxEventQ, using the okafka library. And finally, in the third lab, you will experiment with the concept of Event Mesh, building a bridge between Kafka and TxEventQ brokers, and see messages being produced on the Kafka side and consumed on the TxEventQ side.
 
 Estimated Workshop Time: 50 minutes
 
@@ -35,11 +35,11 @@ Estimated Workshop Time: 50 minutes
 
 ## Event Mesh Architecture Overview
 
-As shown in the followed diagram, we have:
+As shown in the following diagram, we have:
 
-* A Kafka Broker and a set of services consuming and producing for it.
-* An Oracle TxEventQ Broker with another set of services around it.
-* And connector between Kafka and Oracle TxEventQ enabling a communication path between them.
+* A Kafka Broker and a set of microservices consuming and producing messages on Kafka Topics.
+* An Oracle TxEventQ Broker with another set of microservices consuming and producing messages on TxEventQ Queues.
+* A connector between Kafka and Oracle TxEventQ enabling messages to flow from Kafka Topic to TxEventQ Queue
 
 ![Kafka and Oracle TxEventQ Event Mesh](images/eventmesh-txeventq-kafka.drawio.png " ")
 

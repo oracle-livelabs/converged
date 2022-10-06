@@ -123,7 +123,7 @@ Watch the video below for a quick walk-through of the lab.
 
 5. Clean **.bashrc** lab setup
 
-    You should clean the Laboratory setup inside the .bashrc file. Use the following command to delete the lines for LiveLabs setup.
+    You should clean the lab setup inside the .bashrc file. Use the following command to delete the lines for LiveLabs setup.
 
     ```shell
     <copy>bash-cleanup</copy>
