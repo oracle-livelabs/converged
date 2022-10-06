@@ -48,8 +48,6 @@ Estimated Time:  10 minutes
 
 5. At the bottom of the page, click Generate token to complete the step and generate the token.
 
-   ![GitHub Repo PAT](images/repo-pat.png " ")
- 
    > **Note:**  Copy and record your GitHub Personal Access Token in your note for later configuration steps.
 
 ## Task 3: Create the GitHub App
