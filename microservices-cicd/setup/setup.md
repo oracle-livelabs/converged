@@ -68,9 +68,9 @@ Here are the steps for creating a new group and assigning security policies requ
 
    ![Oracle Cloud Infrastructure Identity & Security Groups Screen](images/oci-groups.png " ")
 
-2. Create a New Group by clicking on the button Create Group.
+2. Create a New Group by clicking on the button Create Group
 
-3. Set the name and the description of the group to any name you can easily identify
+3. Set the name and the description of the group to any name you can easily identify.
 
    ![Create a New Group](images/create-group.png " ")
 
@@ -144,7 +144,7 @@ Cloud Shell is a small virtual machine running a "bash" shell which you access t
 
 ## Task 7: Create a Folder to Contain the Workshop Code
 
-1. Create a directory to contain the workshop code. The directory name is used to create a compartment of the same name in your tenancy. The directory name must have between 1 and 13 characters, contain only letters or numbers, and start with a letter. Make sure that a compartment of the same name does not already exist in your tenancy or the setup will fail. For example:
+1. Create a directory to contain the workshop code. The directory name is used **to create a compartment of the same name in your tenancy**. The directory name must have between 1 and 13 characters, contain only letters or numbers, and start with a letter. Make sure that a compartment of the same name does not already exist in your tenancy or the setup will fail. For example:
 
     ```bash
     <copy>
@@ -280,11 +280,7 @@ Cloud Shell is a small virtual machine running a "bash" shell which you access t
 
     > **Note:** Cloud shell may disconnect after a period of inactivity. If that happens, you can reconnect and then run the command to resume the setup.
 
-10. The setup will ask for you to enter your region value (conditional), a value for deployment type and create a password for Jenkins admin user and run type.
-
-    * (Conditional) Please enter the name of the region that you are connected to: `OCI_REGION`
-
-    * Please select Jenkins deployment type: `1`
+10. The setup will ask for you to enter the OCI compartment value (enter OCID of the compartment created in the above step), a value for deployment type and create a password for Jenkins **admin** user and run type.
 
      > **Note:** There are 3 deployment types in this workshop:
 
@@ -295,7 +291,12 @@ Cloud Shell is a small virtual machine running a "bash" shell which you access t
       **Option 2.** Micro-deployed Jenkins on Private VM - Bastion host + Load Balancer
       **Option 3.** Distributed Builds with Jenkins on Private VM -  Bastion Host + Load Balancer + agent nodes   
 
-    * Enter the password to be used for Jenkins Console admin user login: `<ADMIN_PASSWORD>`
+
+    * Please enter the OCI compartment where you would like the workshop resources to be created.
+      For an existing compartment, enter the OCID. For a new compartment, enter the name.
+      Please specify the compartment: `Enter OCID of the compartment created in the previous step`
+    * Please select Jenkins deployment type: `1`
+    * Enter the password to be used for Jenkins: `<ADMIN_PASSWORD>`
 
     The setup process will typically take around 5 minutes to complete.
 
@@ -312,13 +313,13 @@ The setup will provision the following resources in your tenancy:
 
 1. You should monitor the setup progress from a different browser window or tab.  It is best not to use the original browser window or not to refresh it as this may disturb the setup or you might lose your shell session. Most browsers have a "duplicate" feature that will allow you to quickly created a second window or tab.
 
-    ![Duplicate Browser](images/duplicate-browser-tab.png " ")
+   ![Duplicate Browser](images/duplicate-browser-tab.png " ")
 
 2. From the new browser window or tab, navigate around the console to view the resources within the new compartment. The table includes the console navigation for each resource. For example, here we show the database resources:
 
-    ![Database Resources](images/db-example.png " ")
+   ![Database Resources](images/db-example.png " ")
 
-    > **Note:** Cloud Shell sessions have a maximum length of 24 hours, and time out after 20 minutes of inactivity.
+   > **Note:** Cloud Shell sessions have a maximum length of 24 hours, and time out after 20 minutes of inactivity.
 
 ## Task 9: Complete the Setup
 
