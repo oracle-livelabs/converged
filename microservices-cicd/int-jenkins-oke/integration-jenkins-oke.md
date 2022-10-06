@@ -33,35 +33,33 @@ Estimated Time: 15 minutes
 
      ```bash
      <copy>
-     kubectl -n kube-system describe secret $(kubectl -n kube-system get secret | grep kube-cicd | awk '{print $1}')
+     $(kubectl -n kube-system get secret $(kubectl -n kube-system get secret | grep kube-cicd | awk '{print $1}') -o jsonpath='{.data.token}' | base64 -d)
      </copy>
      ```
 
      Copy the secret token - you will use it in the next steps when creating a secret credential.
 
-2. Open a new browser tab and login into your Jenkins console (Jenkins URL is being created during infrastructure setup).
+2. Open a new browser tab and login into your Jenkins console as ADMIN user using Jenkins Public IP from **Lab 2: Task 1** and the password you supplied during Jenkins setup run: `https://jenkins.example.com`
 
-     Retrieve Jenkins IP address through the OCI console. Check the public VM's public IP.
+   ![Jenkins Login](images/jenkins-login.png " ")
 
-     Login into Jenkins console using username `admin` and password you created in the Setup lab.
+3. Navigate to the Jenkins credentials store to create credentials
 
-     `https://jenkins.example.com`
+   1. From the Home page, click on `Manage Jenkins`.
 
-3. Navigate to `Manage Jenkins` and then click `Manage Credentials`.
+   ![Jenkins Credentials](images/jenkins-creds.png " ")
 
-     ![Jenkins Credentials](images/jenkins-creds-1.png " ")
+   2. From the Manage Jenkins page, Under Security, click `Manage Credentials`.
 
-4. Under `Stores scoped to Jenkins`, click `Jenkins`.
+   3. Hover over (`global`), the domain for the Jenkins Store (under Stores scoped to Jenkins).
 
-     ![Jenkins Credentials](images/jenkins-creds-2.png " ")
+   4. Click on the dropdown.
 
-5. Click `Global credentials (unrestricted)`.
+   5. Click on `Add Credentials` and add the secret text credentials.
 
-     ![Jenkins Credentials](images/global-creds.png " ")
+   ![Jenkins Credentials](images/jenkins-store.png " ")
 
-6. Click `Add Credentials` in the left hand navigation bar.
-
-     ![Jenkins Secret](images/jenkins-secret-creds.png " ")
+   ![Jenkins Secret](images/jenkins-secret-creds.png " ")
 
      Kind: `Secret text`
      Scope: `Global`
@@ -71,8 +69,8 @@ Estimated Time: 15 minutes
     Add another credential by clicking **Add Credentials** in the left hand navigation bar.
 
      Kind: `Username with password`
-     Username: Set Username
-     Password: < Paste auth token as password - you can either retrieve the docker auth token through logs >
+     Username: <tenancy_namespace>/oracleidentitycloudservice/username>
+     Password: <Paste auth token as password created during infra runtime - you can retrieve the docker auth token through logs >
      Click `Create`
 
      > **Note:** Note the "Username with password" credential's ID for the next steps.

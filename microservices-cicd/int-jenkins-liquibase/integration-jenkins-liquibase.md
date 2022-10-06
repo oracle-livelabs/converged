@@ -159,12 +159,14 @@ Estimated Time:  10 minutes
    ![Jenkins Credentials](images/jenkins-creds.png " ")
 
    2. From the Manage Jenkins page, Under Security, click `Manage Credentials`.
+
    3. Hover over (`global`), the domain for the Jenkins Store (under Stores scoped to Jenkins).
+
    4. Click on the dropdown.
 
+   5. Click on `Add Credentials` and add the credentials for GitHub App.
+
    ![Jenkins Credentials](images/jenkins-store.png " ")
-      
-   5. Click on `Add Credentials` button.
 
    ![GitHubApp Demo Credentials](images/githubapp-demo-creds.png " ")
 
