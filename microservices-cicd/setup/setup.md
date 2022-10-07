@@ -27,20 +27,20 @@ Estimated Time: 25 minutes
 
    Open a browser and navigate to workshop repository [here](https://github.com/oracle/microservices-datadriven). You can also find the link below if you would like to copy-paste the link instead on your browser:
 
-   ```bash
-   <copy>
-   https://github.com/oracle/microservices-datadriven.git
-   </copy>
-   ```
+    ```bash
+    <copy>
+    https://github.com/oracle/microservices-datadriven.git
+    </copy>
+    ```
 
-   ![Main Repository](images/main-repo.png " ")
+    ![Main Repository](images/main-repo.png " ")
 
-   Since this workshop will require you to make changes to the code, you will need to fork the main repo into your own GitHub account.
+    Since this workshop will require you to make changes to the code, you will need to fork the main repo into your own GitHub account.
     
-    1. Click on the Fork button at the top right.
-    2. Select your account as the owner and keep the repository name the same.
-    3. Ensure "Copy the main branch only" is selected.
-    4. Click on Create fork and save the URL for the fork in your repository for later tasks.
+    * Click on the Fork button at the top right.
+    * Select your account as the owner and keep the repository name the same.
+    * Ensure "Copy the main branch only" is selected.
+    * Click on Create fork and save the URL for the fork in your repository for later tasks.
 
     ![Forking Main Repository](images/main-repo-fork.png " ")
     
@@ -88,25 +88,25 @@ Here are the steps for creating a new group and assigning security policies requ
 
 7. Provide a meaningful policy name and description, and add the following policies under Policy Builder by enabling Manual Editor
    
-   ```bash
-   <copy>
-   Allow group <group_name> to use cloud-shell in tenancy
-   Allow group <group_name> to manage users in tenancy
-   Allow group <group_name>to manage all-resources in tenancy
-   </copy>
-   ```
+    ```bash
+    <copy>
+    Allow group <group_name> to use cloud-shell in tenancy
+    Allow group <group_name> to manage users in tenancy
+    Allow group <group_name>to manage all-resources in tenancy
+    </copy>
+    ```
 
-   If you named your group microservicesadmin similar to the image above, you can use the following policies instead.
+    If you named your group microservicesadmin similar to the image above, you can use the following policies instead.
 
-   ```bash
-   <copy>
-   Allow group microservicesadmin to use cloud-shell in tenancy
-   Allow group microservicesadmin to manage users in tenancy
-   Allow group microservicesadmin to manage all-resources in tenancy
-   </copy>
-   ```
+    ```bash
+    <copy>
+    Allow group microservicesadmin to use cloud-shell in tenancy
+    Allow group microservicesadmin to manage users in tenancy
+    Allow group microservicesadmin to manage all-resources in tenancy
+    </copy>
+    ```
    
-   ![Add Policy Statements](images/policy-statements.png " ")
+    ![Add Policy Statements](images/policy-statements.png " ")
 
 ## Task 5: Check Your Tenancy Service Limits
 
@@ -166,13 +166,13 @@ Cloud Shell is a small virtual machine running a "bash" shell which you access t
 
 1. With a working fork of the lab repository under your account, clone the forked repository by running the below command (make sure you completed Task 1 and created a fork).
 
-   ```bash
-   git clone <repository-web-url>  
-   ```
+    ```bash
+    git clone <repository-web-url>  
+    ```
 
-   > **Note:** Replace <repository-web-url> above with your fork's web URL. The image below shows where to copy the web URL from. Keep this URL in your notes.
+    > **Note:** Replace <repository-web-url> above with your fork's web URL. The image below shows where to copy the web URL from. Keep this URL in your notes.
 
-   ![Forked Repository URL](images/fork-url.png " ")
+    ![Forked Repository URL](images/fork-url.png " ")
 
      You should now see the directory `microservices-datadriven` in the directory that you created.
 

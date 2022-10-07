@@ -47,7 +47,7 @@ Estimated Time:  10 minutes
 
    ![GitHub Repo PAT](images/repo-gen-pat.png " ")
 
-   > **Note:** Do not select `repo` option for scope.
+   > **Note:** Do select `repo` option for scope.
 
 4. Personal access tokens function like ordinary OAuth access tokens. They can be used instead of a password for Git over HTTPS. In creating a new personal access token, you can add a Note to help you remember what the token is for. For example, you can set:
 
@@ -173,7 +173,7 @@ Estimated Time:  10 minutes
 
      * Kind: `GitHub App`
      * ID: `GitHubAppDemo`
-     * App ID: < App ID > (Recorded above in Task 2: Create the GitHub App )
+     * App ID: < App ID > (Enter App ID recorded above in the Task 3: Create the GitHub App )
      * Key: < Contents of converted-github-app.pem created above >
 
 3. Click `Test Connection` which should be successful.
