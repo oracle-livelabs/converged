@@ -19,7 +19,7 @@ Estimated Time: 25 minutes
 ### Prerequisites
 
 * This lab requires completion of the Get Started section in the Contents menu on the left.
-* GitHu Account  - as this is a demonstration of Jenkins/GitHub integration for CI/CD, **you must use your own GitHub account to run it. Please fork [Oracle Microservices GiHub repository](https://github.com/oracle/microservices-datadriven) into your own GitHub account**.
+* GitHub Account  - as this is a demonstration of Jenkins/GitHub integration for CI/CD, **you must use your own GitHub account to run it. Please fork the workshop repository into your own GitHub account**.
 
 ## Task 1: Fork the workshop microservices repository into your own GitHub account
 
@@ -124,11 +124,11 @@ If, however, you have already used up some quota on your tenancy, perhaps while 
 
 1. Quota usage and limits can be check through the console: **Limits, Quotas and Usage** in the **Governance & Administration** section , For example:
 
-    ![Oracle Cloud Infrastructure Service Limit Example](images/service-limit-example.png " ")
+   ![Oracle Cloud Infrastructure Service Limit Example](images/service-limit-example.png " ")
 
 2. The Tenancy Explorer is used to locate existing resources: **Governance & Administration** --> **Governance** --> **Tenancy Explorer**. Use the "Show resources in subcompartments" feature to locate all the resources in your tenancy:
 
-  ![Oracle Cloud Infrastructure Show Subcompartments](images/show-subcompartments.png " ")
+   ![Oracle Cloud Infrastructure Show Subcompartments](images/show-subcompartments.png " ")
 
   It may be necessary to delete some resources to make space to run the workshop. Once you have enough space you may proceed to the next step.
 
