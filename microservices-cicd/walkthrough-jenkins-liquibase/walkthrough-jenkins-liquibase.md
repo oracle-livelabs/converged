@@ -177,6 +177,8 @@ The DBA/Developer will work on the issue in the newly created isolated schema. D
 
     ```bash
     <copy>
+    git config --global user.email "my_email@exmaple.com"
+    git config --global user.name "my_name"
     git add .
     git commit -m "Added LAST_UPDATED Column to Inventory Table"
     git push
