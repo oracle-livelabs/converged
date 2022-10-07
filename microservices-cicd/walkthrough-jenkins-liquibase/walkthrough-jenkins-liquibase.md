@@ -43,7 +43,7 @@ The Jenkins build will create a new schema using Liquibase and code from GitHub.
 
 1. If not already on the New Issue, navigate to **Issues** and click on the issue you just created.
 
-2. Assign the issue to yourself and click on `Create a Branch*`.
+2. Assign the issue to yourself and click on `Create a Branch`.
 
     ![Assign Issue](images/assign-issue.png " ")
 
@@ -87,26 +87,29 @@ The DBA/Developer will work on the issue in the newly created isolated schema. D
 
 2. Export schema changes:
 
-    In Cloud Shell, navigate to your repository liquibase directory. This directory contains the Liquibase ChangeSets which define the "Production" schema.
+    In Cloud Shell, navigate to your repository liquibase directory:
+    
+    ```bash
+    <copy>
+    cd ~/grabdish/microservices-datadriven/workshops/dcms-cicd/liquibase
+    </copy>
+    ```
+    
+    This directory contains the Liquibase ChangeSets which define the "Production" schema.
     Ensure you are in the git "feature" branch for your change:
 
     Fetch the new branch:
 
     ```bash
     <copy>
-    git fetch
+    git fetch origin
     </copy>
     ```
 
     You can review the output from the above command:
 
     ```bash
-    remote: Enumerating objects: 32, done.  
-    remote: Counting objects: 100% (32/32), done.  
-    remote: Compressing objects: 100% (30/30), done.  
-    remote: Total 30 (delta 20), reused 0 (delta 0), pack-reused 0  
-    Unpacking objects: 100% (30/30), 6.76 KiB | 576.00 KiB/s, done.  
-    From https://github.com/gotsysdba/oci-liquibase-jenkins-clone  
+    From https://github.com/your_repo/microservices-datadriven
     * [new branch]      1-add-last_updated-column-to-inventory-table -> origin/1-add-last_updated-column-to-inventory-table
     ```
 
@@ -128,24 +131,23 @@ The DBA/Developer will work on the issue in the newly created isolated schema. D
 3. Export the change made in the INVENTORYUSER1 schema into the liquidbase directory of your repository:
 
     ```bash
-    <copy>
-    cd liquidbase  
+    <copy> 
     sql /nolog
     </copy>
     ```
 
-    Generate the Liquibase changeset:
+    Generate the Liquibase changeset (use name database name in place of <DB_NAME>):
 
     ```  
     <copy>
-    set cloudconfig ../wallet/JENKINSDB_wallet.zip  
-    connect INVENTORYUSER1/<password>@JENKINSDB_HIGH  
+    set cloudconfig ../../../../dcms-cicd-run/state/wallet/adb_wallet.zip
+    connect INVENTORYUSER1/<password>@<DB_NAME>_high
     lb genschema -split  
     exit
     </copy>
     ```
 
-    After exporting, one file would have changed which will represent the change to the schema:  
+    After exporting, one file would have changed which will represent the change to the INVENTORYUSER1.INVENTORY table:  
 
     ```bash
     <copy>
@@ -157,23 +159,26 @@ The DBA/Developer will work on the issue in the newly created isolated schema. D
 
     ```bash
     <copy> 
-    On branch 1-add-last_updated-column-to-inventory-table  
-    Your branch is up to date with 'origin/1-add-last_updated-column-to-inventory-table'.  
+    On branch 1-add-last_updated-column-to-inventory-table
+    Your branch is up to date with 'origin/1-add-last_updated-column-to-inventory-table'.
 
-    Changes are not staged for commit:  
-    (use "git add <file>..." to update what will be committed)  
-    (use "git restore <file>..." to discard changes in working directory)  
-          modified:   table/inventory_table.xml <-- This file has been modified  
+    Changes not staged for commit:
+      (use "git add <file>..." to update what will be committed)
+      (use "git restore <file>..." to discard changes in working directory)
+            modified:   table/inventory_table.xml
+
     no changes added to commit (use "git add" and/or "git commit -a")
     </copy> 
     ```
 
 4. Commit changes to version control.
 
-    Depending on how you cloned your repository to Cloud Shell, you may need to generate a Personal Access Token (PAT). If the below git push command prompts for a username/password, please follow these instructions to generate a PAT for authentication, ticking "repo" for scope.
+    Using the Personal Access Token generated in the earlier lab, commit the change:
 
     ```bash
     <copy>
+    git config --global user.email "my_email@exmaple.com"
+    git config --global user.name "my_name"
     git add .
     git commit -m "Added LAST_UPDATED Column to Inventory Table"
     git push
@@ -215,7 +220,7 @@ The DBA/Developer will work on the issue in the newly created isolated schema. D
    
     The failure is due to the new column preventing the data from being loaded into the table via the data/inventory_table.sql file.   Fortunately this was caught before applying the change to the "main" branch used for Production deployment.  
     
-    There are a few ways to fix this problem, but for demonstration purposes, edit the `data/inventory_table.sql` file, increase the changeset insert_static:2, and add "SYSDATE" to the insert statements:
+    There are a few ways to fix this problem, but for demonstration purposes, edit the `data/inventory_table.sql` file, **increase the changeset insert_static:2**, and add "SYSDATE" to the insert statements.  The updated file should look like this:
 
     ```SQL
     <copy>
@@ -261,9 +266,7 @@ Back in GitHub, a notification that your `feature` branch has had recent pushes 
 
     ![Create Pull Request](images/create-pull-request.png " ")
 
-    Let's review pull request pipeline. On the Jenkins Controller, a new build will have been initiated by the Pull Request (PR). This build will drop the isolated development environment. - a new build will have been initiated by the Pull Request (PR).
-
-4. Let's review the pull request pipeline. On the Jenkins Controller, a new build will have been initiated by the Pull Request (PR). This build will drop the isolated development environment. Select the "Pull Request" Tab and Click on the "Name of the PR".
+4. Let's review the pull request pipeline. On the Jenkins Controller, a new build will have been initiated by the Pull Request (PR). This build will drop the isolated development environment. Select the "Pull Request" Tab and Click on the name of the PR.
 
     ![Pull Request Pipeline](images/pull-request-pipeline.png " ")
 
