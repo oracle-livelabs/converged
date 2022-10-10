@@ -6,7 +6,7 @@ This lab will walk you through CI/CD workflow using the pipeline built in the pr
 
 ![CI/CD Flow](images/cicd-jenkins-flow.png " ")
 
-Estimated Time: 20 minutes
+Estimated Time: 10 minutes
 
 ### Objectives
 
@@ -15,7 +15,7 @@ Estimated Time: 20 minutes
 ### Prerequisites
 
 * Oracle Cloud Infrastructure Services, like OKE cluster, OCIR and the Autonomous Transaction Processing databases, GitHub, and Jenkins that you created and configured in earlier labs
-* The latest version of Git, [GitHub Desktop] (https://desktop.github.com/) and your preferred editor, such as Visual Studio Code, or IntelliJ Idea installed locally on your computer.
+* The latest version of Git, [GitHub Desktop] (https://desktop.github.com/) and your preferred editor, such as Visual Studio Code, or IntelliJ Idea installed locally on your computer. You can also use the new Code Editor available on Cloud Shell. However, the following instructions will be making use of the IDE.
 * This lab presumes you will set up a workshop repository in your own GitHub account.
 
 > **Note:** As this is a demonstration of Jenkins/GitHub integration for CI/CD, **you must use your own GitHub account to run it. Please fork or copy [Oracle Microservices GitHub repository](https://github.com/oracle/microservices-datadriven) into your own GitHub account**.
@@ -133,6 +133,8 @@ You can use Github Desktop to synchronize the changes that you have made in your
     You will be prompted to authenticate to access the Front End microservices. The user is `grabdish` and the password is the one you entered in Lab 1.
 
     Navigate to the `Spatial` area of the application and observe the title changes - it changed from  **Data-driven Microservices with converged Oracle Database** to **Datadriven Microservices with Converged Oracle Database**  .
+
+    
 
 You may now **proceed to the next lab.**.
 

@@ -6,7 +6,7 @@ CI/CD is a key ingredient for agile application development and deployment on th
 
 This workshop illustrates how you can leverage the services like Autonomous Database using Jenkins and Liquibase to provide an end-to-end continuous integration and delivery experience.
 
-Estimated Workshop Time: 115 minutes
+Estimated Workshop Time: 90 minutes
 
 ### About Product/Technology
 

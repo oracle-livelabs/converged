@@ -2,6 +2,8 @@
 
 ## About this Workshop
 
+[Video Recording of the Simplify Microservices with a 2-tier Converged Database Architecture Workshop](videohub:1_jhwgl9t6)
+
 This workshop will help you understand the technical capabilities inside the Oracle converged database to support a scalable data and event-driven microservices architecture.
 
 ### About Product/Technology
