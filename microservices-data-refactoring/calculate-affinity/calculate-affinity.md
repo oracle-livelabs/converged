@@ -4,7 +4,7 @@
 
 *Describe the lab in one or two sentences, for example:* This lab walks you through the steps to ...
 
-Estimated Lab Time: -- minutes
+Estimated Lab Time: 15 minutes
 
 ### About <Product/Technology> (Optional)
 Enter background information here about the technology/feature or product used in this lab - no need to repeat what you covered in the introduction. Keep this section fairly concise. If you find yourself needing more than to sections/paragraphs, please utilize the "Learn More" section.
@@ -23,6 +23,9 @@ This lab assumes you have:
 * An Oracle account
 * All previous labs successfully completed
 
+Two possible approches can be taken here.
+1. We you want to go through the lab using simulated data, Then proceed with Task 1 and Task 2. Skip Task 3 steps.
+2. We you want to analyze and detect communities on existing medical records data, then follow instructions from Task 3. Skip Task 1 and Task 2.  
 
 ## Task 1: Create Graph Metadata Tables
 
@@ -283,18 +286,17 @@ In this task, we will create a set of metadata tables that we will use to store 
     ```
     <copy>select * from table_map where table1 = 'DRA_1';</copy>
     ```
-
-Once this has been completed you are ready to **proceed to the next lab.**
+If you followed instructions from Task 1 and Task 2, then skip Task 3 and proceed with Lab 4.
 
 ## Task 3: Alternative to running STS and determine affinities
 
 Skip Task 1, Task 2 and Run the Task 3 instructions if you don't have the STS/don't want to simulate data. We are going to load the data w.r.t medical field. The data exists in 2 CSV files. 
-	1. NODES.csv - Where we have table names.
-	2. EDGES.csv - Where we have source(TABLE1) and destination(TABLE2) columns with the edge weights(TOTAL_AFFINITY) column.
+- microservices-data-refactoring/livelabs/resources/NODES.csv - Where we have table names.
+- microservices-data-refactoring/livelabs/resources/EDGES.csv - Where we have source(TABLE1) and destination(TABLE2) columns with the edge weights(TOTAL_AFFINITY) column.
 
 1. Go to the compartment which we have created in the during the setup. In our case the compartment name is "dra". click on the "dradb" which also created during the setup.
 	
-	![Image alt text](./images/compartment-and-adb.png)
+	![ALT text is not available for this image](./images/compartment-and-adb.png " ")
 	
 2. Click on the Database Actions
 	
@@ -316,26 +318,27 @@ Skip Task 1, Task 2 and Run the Task 3 instructions if you don't have the STS/do
 4. Verify whether the data is loaded into the Database successfully.
 	
 	2 tables NODES and EDGES should be created. Where NODES table with 974 rows and EDGES table with 3500 rows.
-	
 	```
+    <copy>
 	SELECT COUNT(1) FROM NODES;
 	SELECT COUNT(1) FROM EDGES;
+    </copy>
 	```
+    
 	
 3. Adding the constraints for the newly created data. Where TABLE1 and TABLE2 Columns of EDGES table are foreign keys referencing to the TABLE_NAME column of NODES table
   
-	~~~
+	```
+    <copy>
 	alter table NODES add primary key (TABLE_NAME);
 	alter table EDGES add primary key (table_map_id);
 	alter table EDGES modify TABLE1 references NODES (TABLE_NAME);
 	alter table EDGES modify TABLE2 references NODES (TABLE_NAME);
 	commit;
-	~~~
+    </copy>
+	```
 
-	
-
-
-
+Once this has been completed you are ready to **proceed to the next lab.**	
 
 ## Learn More
 

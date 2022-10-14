@@ -29,6 +29,8 @@ This lab assumes you have:
 
 ## Task 2: Create the web access and graph-enabled user
 
+This Task 2 is optional as we have already created the new user 'TKDRADATA' during the setup. Do this only if you want to create new user other than 'TKDRADATA'. 
+
 1. Login as the ADMIN user for your Autonomous Database instance. 
 
     ![ALT text is not available for this image](./images/create-user/login.png " ")
@@ -77,94 +79,78 @@ This lab assumes you have:
 
 3. Enter your Autonomous Database account credentials (for example, `GRAPHUSER`) into the login screen:
  
-    ![ALT text is not available for this image](./images/graphstudio-login-graphuser.png " ")
+    ![ALT text is not available for this image](./images/graphstudio-login-graphuser1.png " ")
 
 4. Then click the **Sign In** button. You should see the studio home page.   
 
-    ![ALT text is not available for this image](./images/gs-graphuser-home-page.png " ") 
+    ![ALT text is not available for this image](./images/gs-graphuser-home-page1.png " ") 
 	
 ## Task 4: Create a graph of accounts and transactions from the corresponding tables
 
 1. Click the **Models** icon to navigate to the start of the modeling workflow.  
    Then click **Create**.  
-   ![ALT text is not available for this image](images/modeler-create-button.png " ")  
+   ![ALT text is not available for this image](images/modeler-create-button1.png " ")  
 
    >**Note: If you clicked on `Start Modeling` button instead then you'll see the screen shown in the next step.**
 
-2. Then select the `BANK_ACCOUNTS` and `BANK_TXNS` tables.   
-![ALT text is not available for this image](./images/select-tables.png " ")
+2. Then select the `NODES` and `EDGES` tables.   
+![ALT text is not available for this image](./images/select-tables1.png " ")
 
 3. Move them to the right, that is, click the first icon on the shuttle control.   
 
-   ![ALT text is not available for this image](./images/selected-tables.png " ")
+   ![ALT text is not available for this image](./images/selected-tables1.png " ")
 
 4.  Click **Next** to get a suggested model. We will edit and update this model to add an edge and a vertex label.  
 
-    The suggested model has the `BANK_ACCOUNTS` as a vertex table since there are foreign key constraints specified on `BANK_TXNS` that reference it.   
+    The suggested model has the `NODES` as a vertex table since there are foreign key constraints specified on `EDGES` that reference it.   
 
-    And `BANK_TXNS` is a suggested edge table.
+    And `EDGES` is a suggested edge table.
 
-  ![ALT text is not available for this image](./images/create-graph-suggested-model.png " ")    
+  ![ALT text is not available for this image](./images/create-graph-suggested-model1.png " ")    
   
 
-5.  Now let's change the default Vertex and Edge labels.  
-
-    Click the `BANK_ACCOUNTS` vertex table. Change the label to `ACCOUNTS`. Then click outside the input box to save the update.  
-
-    ![ALT text is not available for this image](images/edit-accounts-vertex-label.png " ")  
-
-    Click the `BANK_TXNS` edge table and change the label from `BANK_TXNS` to `TRANSFERS`.  
-    Then click outside the input box to save the update.  
-
-    ![ALT text is not available for this image](images/edit-edge-label.png " ")  
-
-    This is **important** because we will use these edge labels in the next lab of this workshop when querying the graph.  
-
-6.  Since these are directed edges, a best practice is verifying that the direction is correct.  
-    In this instance we want to **confirm** that the direction is from `from_acct_id` to `to_acct_id`.  
+5.  Since these are directed edges, a best practice is verifying that the direction is correct.  
+    In this instance we want to **confirm** that the direction is from `table1` to `table2`.  
 
     Note the `Source Vertex` and `Destination Vertex` information on the left.  
  
-    ![ALT text is not available for this image](images/wrong-edge-direction.png " ")  
+    ![ALT text is not available for this image](images/wrong-edge-direction1.png " ")  
 
-    **Notice** that the direction is wrong. The Source Key is `to_acct_id` instead of what we want, which is `from_acct_id`.  
+    **Notice** that the direction is wrong. The Source Key is `table2` instead of what we want, which is `table1`.  
 
     Click the swap edge icon on the right to swap the source and destination vertices and hence reverse the edge direction.  
 
-   Note that the `Source Vertex` is now the correct one, i.e. the `FROM_ACCT_ID`.
+   Note that the `Source Vertex` is now the correct one, i.e. the `TABLE1`.
 
-   ![ALT text is not available for this image](images/reverse-edge-result.png " ") 
+   ![ALT text is not available for this image](images/reverse-edge-result1.png " ") 
 
 
    
 
-7. Click the **Source** tab to verify that the edge direction, and hence the generated CREATE PROPERTY GRAPH statement, is correct.
+6. Click the **Source** tab to verify that the edge direction, and hence the generated CREATE PROPERTY GRAPH statement, is correct.
 
 
-   ![ALT text is not available for this image](images/generated-cpg-statement.png " ")  
+   ![ALT text is not available for this image](images/generated-cpg-statement1.png " ")  
   
 <!--- 
-  **An alternate approach:** In the earlier Step 5 you could have just updated the CREATE PROPERTY GRAPH statement and saved the updates. That is, you could have just replaced the existing statement with the following one which specifies that the SOURCE KEY is  `from_acct_id`  and the DESTINATION KEY is `to_acct_id`.  
+  **An alternate approach:** In the earlier Step 5 you could have just updated the CREATE PROPERTY GRAPH statement and saved the updates. That is, you could have just replaced the existing statement with the following one which specifies that the SOURCE KEY is  `table1`  and the DESTINATION KEY is `table2`.  
 
     ```
     -- This is not required if you used swap edge in UI to fix the edge direction.
     -- This is only to illustrate an alternate approach.
     <copy>
-    CREATE PROPERTY GRAPH bank_graph
-        VERTEX TABLES (
-            BANK_ACCOUNTS as ACCOUNTS 
-            KEY (ACCT_ID) 
-            LABEL ACCOUNTS
-            PROPERTIES (ACCT_ID, NAME)
-        )
-        EDGE TABLES (
-            BANK_TXNS 
-            KEY (FROM_ACCT_ID, TO_ACCT_ID, AMOUNT)
-            SOURCE KEY (FROM_ACCT_ID) REFERENCES ACCOUNTS
-            DESTINATION KEY (TO_ACCT_ID) REFERENCES ACCOUNTS
-            LABEL TRANSFERS
-            PROPERTIES (AMOUNT, DESCRIPTION)
-        )
+    CREATE PROPERTY GRAPH draft_1665739872150
+	  VERTEX TABLES (
+		tkdradata.nodes
+		  KEY ( table_name )
+		  PROPERTIES ( schema, tables_joined, table_id, table_name, table_set_name, total_executions, total_sql )
+	  )
+	  EDGE TABLES (
+		tkdradata.edges
+		  SOURCE KEY ( table1 ) REFERENCES nodes
+		  DESTINATION KEY ( table2 ) REFERENCES nodes
+		  PROPERTIES ( dynamic_coefficient, join_count, join_executions, static_coefficient, table1, table2, table_map_id, table_set_name, total_affinity, total_affinity_modified )
+	  )
     </copy>
     ```
 
@@ -175,17 +161,17 @@ This lab assumes you have:
 
 8. Click **Next** and then click **Create Graph** to move on to the next step in the flow.   
 
-   Enter `bank_graph` as the graph name.  
+   Enter `DRA_MEDICAL_RECS_G` as the graph name.  
    That graph name is used throughout the next lab.  
    Do not enter a different name because then the queries and code snippets in the next lab will fail.  
    
-   Enter a model name (for example, `bank_graph_model`), and other optional information.  
-   ![ALT text is not available for this image](./images/create-graph-dialog.png " ")
+   Enter a model name (for example, `DRA_MEDICAL_RECS_M`), and other optional information.  
+   ![ALT text is not available for this image](./images/create-graph-dialog1.png " ")
 
 9. Graph Studio modeler will now save the metadata and start a job to create the graph.  
    The Jobs page shows the status of this job. 
 
-   ![ALT text is not available for this image](./images/23-jobs-create-graph.png " ")  
+   ![ALT text is not available for this image](./images/23-jobs-create-graph1.png " ")  
 
    You can then interactively query and visualize the graph in a notebook after it's loaded into memory.
 

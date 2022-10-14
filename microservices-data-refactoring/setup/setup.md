@@ -79,6 +79,7 @@ To work with the application code, you need to make a clone from the GitHub repo
   
     ```bash
     <copy>
+	cd livelabs/datacollector-sts/
     source setup.sh
     </copy>
     ```

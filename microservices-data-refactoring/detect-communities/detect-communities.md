@@ -21,46 +21,54 @@ This lab assumes you have:
 
 ## Task 1: Navigate to DRAGraphClient project folder and change the database and graph properties 
 1. Navigate to the project
-   ~~~
-   cd microservices-data-refactoring/DRAGraphClient
-   ~~~
+   ```
+   <copy>
+	cd ${HOME}/microservices-data-refactoring/dra-graph-client
+   </copy>
+   ```
 2. Update the src/main/resources/db-config.properties file.
 
 	Update the value for the below properties.
 
-	~~~
+	```
 	tenant   - tenant OCID
 	database - Name of the Database
 	username - Username to login to database
 	password - Password to login to database
 	endpoint - Endpoint for connecting to Autonomous Database instance
-	~~~~
+	```
 
 3. Update the src/main/resources/graph-config.properties file.
 
  	Update the value for the below properties.
 
-	~~~
+	```
 	graph_name : Name of the graph created in Graph Studio.
 	vertex_property_column : Column name of Tables
 	edge_property_source_column : Source Column name of the Edge
 	edge_property_destination_column : Destination Column name of the Edge
 	edge_property_weight_column : Column name of Edge weight
-	~~~~
+	```
 
 ## Task 2: Compile and Run the Community Detection
 
+Here, We are using the smaller graph created in Lab 5. You can also run on main graph which is created in Lab 3 or any data which you loaded through SQL Tuning Sets.
+
 1. Compile the maven project
 
-	~~~
+	```
+	<copy>
  	mvn compile
- 	~~~
+	</copy>
+ 	```
 
 2. Execute the project to see the identified clusters using the Infomap Algorithm
 
-	~~~
+	```
+	<copy>
 	mvn exec:java -Dexec.mainClass=com.oracle.ms.app.InfomapGraphClient -Dexec.args="MaxNumberOfIterations"
-	~~~
+	</copy>
+	```
 
  	Where
 
@@ -70,12 +78,12 @@ This lab assumes you have:
 *Output*
 
 Job Details: 
- ~~~
+ ```
  name=Environment Creation - 18 GBstype= ENVIRONMENT_CREATION
  created_by= ADMIN
  Graph : PgxGraph[name=MED_REC_PG_OBJ_G, N=259, E=972, created=1664544333468]
-~~~
-~~~
+```
+```
 The table names with the same community Ids formed the clusters below.
  +----------------------------------------+
  | Community | TABLE_NAME                 |
@@ -340,8 +348,8 @@ The table names with the same community Ids formed the clusters below.
  | 33        | RAD_EXAM                   |
  | 33        | RENEW_NOTIFICATION_PERIOD  |
  ------------------------------------------
- ~~~
-## Task 4 : Analysis of nelwy formed clusters
+ ```
+## Task 3 : Analysis of nelwy formed clusters
 
 * There are 63 Nodes in this below Cluster :
 * Main Table for foraming a cluster is PRSNL where major number of tables are connected with this table.
@@ -351,7 +359,7 @@ The table names with the same community Ids formed the clusters below.
 * The Person will have the Problems and He consults the Doctor. Doctor will diagnoise the Patient. And the tracking of the patient is carried out
 If you see below the Below tables are related to Person who is a patient. Here the Person, his Diagnosis, Tracking the activity of the Person has formed one community. Similarly there are other communities formed as well.
 
- ~~~
+ ```
  ALLERGY
  ALLERGY_COMMENT
  CE_EVENT_ACTION
@@ -416,9 +424,9 @@ If you see below the Below tables are related to Person who is a patient. Here t
  TRACK_REFERENCE
  V500_EVENT_SET_EXPLODE
 
- ~~~
+ ```
 Below are the 16 tables which formed a cluster on Medication Deatils and also medical dispense.
-~~~
+```
  ORDER_PRODUCT              
  WARNING_LABEL              
  MED_INGRED_SET             
@@ -435,8 +443,10 @@ Below are the 16 tables which formed a cluster on Medication Deatils and also me
  MED_OE_DEFAULTS            
  ALT_SEL_LIST               
  ORDER_CATALOG_ITEM_R       
-~~~
+```
 There are single node clusters as well. If we analyse and can say that these nodes should be part of any cluster, we can do move a node to target cluster. Its explained in the next lab.
+
+Please **proceed to the next lab** to do so.
 
 ## Learn More
 
