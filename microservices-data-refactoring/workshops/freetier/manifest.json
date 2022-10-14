@@ -1,0 +1,53 @@
+{
+    "workshoptitle": "Migrate Your Monolith to Microservices in Minutes Using The Data Refactoring Advisor",
+    "help": "livelabs-help-db_us@oracle.com",
+    "tutorials": [
+        {
+            "title": "Introduction",
+            "filename": "../../intro/intro.md"
+        },
+        {
+            "title": "Get Started",
+            "description": "This is the prerequisites for customers using Free Trial and Paid tenancies, and Always Free accounts (if applicable). The title of the lab and the Contents Menu title (the title above) match for Prerequisite lab.",
+            "filename": "https://raw.githubusercontent.com/oracle/learning-library/master/common/labs/cloud-login/pre-register-free-tier-account.md"
+        },
+        {
+            "title": "Lab 1: Setup the lab environment",
+            "filename": "../../setup/setup.md"
+        },
+        {
+            "title": "Lab 2: Collect details of the application using SQL Tuning Sets",
+            "filename": "../../collect-usage/collect-usage.md"
+        },
+        {
+            "title": "Lab 3: Determine the affinity between tables",
+            "filename": "../../calculate-affinity/calculate-affinity.md"
+        },
+        {
+            "title": "Lab 4: Construct a graph using the collected data",
+            "filename": "../../construct-graph/construct-graph.md"
+        },
+		{
+            "title": "Lab 5: Extract the smaller graph from the bigger graph",
+            "filename": "../../extract-smaller-graph/extract-smaller-graph.md"
+        },
+        {
+            "title": "Lab 6: Run the community detection algorithm",
+            "filename": "../../detect-communities/detect-communities.md"
+        },
+        {
+            "title": "Lab 7: Analyze the sub-graphs and adjust constraints",
+            "filename": "../../analyze-results/analyze-results-and-adjust-constraints.md"
+        },
+        {
+            "title": "Need Help?",
+            "description": "Solutions to Common Problems and Directions for Receiving Live Help",
+            "filename":"https://raw.githubusercontent.com/oracle/learning-library/master/common/labs/need-help/need-help-freetier.md"
+        },
+        {
+            "title": "Other LiveLabs you might like",
+            "description": "Other LiveLabs you might like",
+            "filename": "../../other-livelabs/other-livelabs.md"
+        }
+    ]
+}
