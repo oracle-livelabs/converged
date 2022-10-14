@@ -33,7 +33,7 @@ Estimated Time: 15 minutes
 
      ```bash
      <copy>
-     $(kubectl -n kube-system get secret $(kubectl -n kube-system get secret | grep kube-cicd | awk '{print $1}') -o jsonpath='{.data.token}' | base64 -d)
+     kubectl -n kube-system get secret $(kubectl -n kube-system get secret | grep kube-cicd | awk '{print $1}') -o jsonpath='{.data.token}' | base64 -d
      </copy>
      ```
 
@@ -94,7 +94,8 @@ Estimated Time: 15 minutes
 
 3. Under `Build Triggers`, select `GitHub hook trigger for GITScm polling`.
 
-4. Copy and Paste Jenkinsfile from the repository workshops/dcms-cicd/jenkins/Jenkinsfile
+4. Copy and Paste Jenkinsfile from the repository workshops/dcms-cicd/jenkins/jenkinslab1/
+
 
      ![Jenkinsfile](images/jenkins-pipeline-file.png " ")
 
