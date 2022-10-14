@@ -8,6 +8,9 @@ In this reference architecture, Jenkins is hosted on Oracle Cloud Infrastructure
 
 Estimated Time: 25 minutes
 
+Watch the video below for a quick walk-through of the lab.
+[Setup](videohub:1_5jb8cvo8)
+
 ### Objectives
 
 * Fork and clone the the workshop repository

@@ -8,6 +8,9 @@ This demonstration will walk through a typical schema change request workflow us
 
 Estimated Time:  10 minutes
 
+Watch the video below for a quick walk-through of the lab.
+[Walkthrough CI/CD Pipeline for Liquibase with SQLcl Integration](videohub:1_r2ose6pz)
+
 ### Objectives
 
 * CI/CD Workflow Walkthrough
