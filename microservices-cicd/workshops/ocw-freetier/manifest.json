@@ -15,16 +15,16 @@
         "filename": "../../setup/setup.md"
       },
       {
-        "title": "Lab 2: Deploy and Test Data-centric Microservices Application",
-        "filename": "../../app-deploy/app-deploy.md"
-      },
-      {
-        "title": "Lab 3: Integrate GitHub with Jenkins for Liquibase with SQLcl Use Case",
+        "title": "Lab 2: Integrate GitHub with Jenkins for Liquibase with SQLcl Use Case",
         "filename": "../../int-jenkins-liquibase/integration-jenkins-liquibase.md"
       },
       {
-        "title": "Lab 4: Walkthrough CI/CD Pipeline for Liquibase with SQLcl Integration",
+        "title": "Lab 3: Walkthrough CI/CD Pipeline for Liquibase with SQLcl Integration",
         "filename": "../../walkthrough-jenkins-liquibase/walkthrough-jenkins-liquibase.md"
+      },
+      {
+        "title": "Lab 4: Deploy and Test Data-centric Microservices Application",
+        "filename": "../../app-deploy/app-deploy.md"
       },
       {
         "title": "Lab 5: Integrate Jenkins with GitHub and Oracle Cloud Infrastructure",
