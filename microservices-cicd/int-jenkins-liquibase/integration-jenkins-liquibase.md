@@ -6,6 +6,9 @@ This lab will demonstrate how to integrate Jenkins and GitHub Repository using G
 
 Estimated Time:  10 minutes
 
+Watch the video below for a quick walk-through of the lab.
+[Integrate GitHub with Jenkins for Liquibase with SQLcl Use Case](videohub:1_sbsuqto9)
+
 ### Objectives
 
 * Complete GitHub Configuration
