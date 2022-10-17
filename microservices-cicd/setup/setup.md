@@ -8,6 +8,9 @@ In this reference architecture, Jenkins is hosted on Oracle Cloud Infrastructure
 
 Estimated Time: 25 minutes
 
+Watch the video below for a quick walk-through of the lab.
+[Setup](videohub:1_5jb8cvo8)
+
 ### Objectives
 
 * Fork and clone the the workshop repository
@@ -174,24 +177,34 @@ Cloud Shell is a small virtual machine running a "bash" shell which you access t
 
     ![Forked Repository URL](images/fork-url.png " ")
 
+     Here is an example of git clone step:
+     ![Git Repo Clone](images/git-repo-clone.png " ")
      You should now see the directory `microservices-datadriven` in the directory that you created.
 
 ## Task 9: Start the Setup
 
-1. Execute the following sequence of commands to start the setup.  
+1. (IMPORTANT) Setup processes will prompt you for these values
+
+2. Execute the following sequence of commands to start the setup.  The setup process will typically take around 15 minutes to complete. Setup will prompt you to enter the values for OCI Compartment OCID, USER OCID, Database and UI passwords.
 
     ```bash
     <copy>
     source microservices-datadriven/workshops/dcms-oci/source.env
+    </copy>
+    ```
+    
+    ```bash
+    <copy>
     setup
     </copy>
     ```
 
     > **Note:** Cloud shell may disconnect after a period of inactivity. If that happens, you can reconnect and then run the command to resume the setup.
 
-    The setup process will typically take around 20 minutes to complete.  
-
-2. (Conditional) The setup may ask you to confirm that there are no other un-terminated OKE clusters exist in your tenancy:
+    Here is an example of infra setup execution (please follow the steps below on how to determine compartment and user OCID values):
+    ![Infra Setup Run](images/infra-setup-run.png " ")
+    
+3. (Conditional) The setup may ask you to confirm that there are no other un-terminated OKE clusters exist in your tenancy:
 
     ```bash
 	<copy>
@@ -210,7 +223,7 @@ Cloud Shell is a small virtual machine running a "bash" shell which you access t
 
     ![Review Oracle Cloud Infrastructure Kubernetes Cluster Details](images/get-oke-details.png " ")
 
-3. The setup will create the workshop resources in a compartment within your tenancy. You will be prompted to enter the compartment information.  You may choose to use an existing compartment or create a new one.
+4. The setup will create the workshop resources in a compartment within your tenancy. You will be prompted to enter the compartment information.  You may choose to use an existing compartment or create a new one.
 
     To use an existing compartment, enter the OCID of the compartment.
 
@@ -226,7 +239,7 @@ Cloud Shell is a small virtual machine running a "bash" shell which you access t
 
     ![Obtain Oracle Cloud Infrastructure Compartment OCID](images/compartment-ocid.png " ")
 
-4. The setup will ask for you to enter your user's OCID.  
+5. The setup will ask for you to enter your user's OCID.  
 
     Be sure to provide the user OCID and not the user name or tenancy OCID. The user OCID will look something like:
 
@@ -242,7 +255,7 @@ Cloud Shell is a small virtual machine running a "bash" shell which you access t
 
     ![Oracle Cloud Infrastructure User OCID Example](images/example-user-ocid.png " ")
 
-5. (Conditional) The setup will automatically upload an Auth Token to your tenancy so that docker can log in to the Oracle Cloud Infrastructure Registry. If there is no space for a new Auth Token, the setup will ask you to remove an existing token to make room. This is done through the Oracle Cloud Console.
+6. (Conditional) The setup will automatically upload an Auth Token to your tenancy so that docker can log in to the Oracle Cloud Infrastructure Registry. If there is no space for a new Auth Token, the setup will ask you to remove an existing token to make room. This is done through the Oracle Cloud Console.
 
     Locate your menu bar and click the person icon at the far upper right. From the drop-down menu, select your user's name.
 
@@ -256,11 +269,11 @@ Cloud Shell is a small virtual machine running a "bash" shell which you access t
 
     ![Delete Oracle Cloud Infrastructure User Auth Token](images/delete-auth-token.png " ")
 
-6. The setup will ask you to enter an admin password for the databases. For simplicity, the same password will be used for both the order and inventory databases. Database passwords must be 12 to 30 characters and contain at least one uppercase letter, one lowercase letter, and one number. The password cannot contain the double quote (") character or the word "admin".
+7. The setup will ask you to enter an admin password for the databases. For simplicity, the same password will be used for both the order and inventory databases. Database passwords must be 12 to 30 characters and contain at least one uppercase letter, one lowercase letter, and one number. The password cannot contain the double quote (") character or the word "admin".
 
-7. The setup will also ask you to enter a UI password that will be used to enter the microservice frontend user interface. Make a note of the password as you will need it later.  The UI password must be 8 to 30 characters.
+8. The setup will also ask you to enter a UI password that will be used to enter the microservice frontend user interface. Make a note of the password as you will need it later.  The UI password must be 8 to 30 characters.
 
-8. The status of the builds can be monitored with this command:
+10. The status of the builds can be monitored with this command:
 
     ```bash
     <copy>
@@ -268,12 +281,17 @@ Cloud Shell is a small virtual machine running a "bash" shell which you access t
     </copy>
     ```
 
-9. Upon grabdish infra setup completion, you can start the setup for CI/CD components. Using your existing Cloud Shell connection, run the following command to start the setup:  
+11. Upon **grabdish infra setup completion** (Step 2 above), you can start the setup for CI/CD components. Using your existing Cloud Shell connection, run the following command to start the setup (make sure you are **~/grabdish** folder):  
 
     ```bash
     <copy>
     cd ~/grabdish
     source microservices-datadriven/workshops/dcms-cicd/source.env
+    </copy>
+    ```
+
+    ```bash
+    <copy>
     jenkins-setup
     </copy>
     ```
@@ -298,6 +316,10 @@ Cloud Shell is a small virtual machine running a "bash" shell which you access t
     * Please select Jenkins deployment type: `1`
     * Enter the password to be used for Jenkins: `<ADMIN_PASSWORD>`
 
+    Here is an example of jenkins setup execution:
+
+    ![Jenkins Setup](images/jenkins-setup.png " ")
+    
     The setup process will typically take around 5 minutes to complete.
 
 ## Task 10: Monitor the Setup

@@ -8,6 +8,9 @@ This demonstration will walk through a typical schema change request workflow us
 
 Estimated Time:  10 minutes
 
+Watch the video below for a quick walk-through of the lab.
+[Walkthrough CI/CD Pipeline for Liquibase with SQLcl Integration](videohub:1_r2ose6pz)
+
 ### Objectives
 
 * CI/CD Workflow Walkthrough
@@ -24,12 +27,16 @@ A new issue is created in your GitHub repository to track the lifecycle of the c
 
 1. Log into GitHub and click on the forked microservices-datadriven repository which has been integrated with Jenkins.
 
+      > **Note:** Check if the Issues tab appears  along with other tabs under your repo.    If you do not see the Issue tab, click on Settings, scroll down to Issues and check the box. The **Issues** tab will appear.
+
+      ![Repo Tabs](images/repo-tabs.png " ")
+
+      ![Issues Tab](images/issues-tab.png " ")
+
       Create a New Issue
 
       ![New Issue](images/new-issue.png " ")
-
-      > **Note:** If you do not see the Issue tab, click on "Settings" and scroll down to "Issues" and check the box. The **Issues** tab will appear.
-
+        
       ![Submit New Issue](images/submit-new-issue.png " ")
 
       * Title: Add LAST_UPDATED Column to Inventory Table
@@ -138,13 +145,11 @@ The DBA/Developer will work on the issue in the newly created isolated schema. D
 
     Generate the Liquibase changeset (use name database name in place of <DB_NAME>):
 
-    ```  
-    <copy>
+    ```
     set cloudconfig ../../../../dcms-cicd-run/state/wallet/adb_wallet.zip
     connect INVENTORYUSER1/<password>@<DB_NAME>_high
     lb genschema -split  
     exit
-    </copy>
     ```
 
     After exporting, one file would have changed which will represent the change to the INVENTORYUSER1.INVENTORY table:  
@@ -158,7 +163,6 @@ The DBA/Developer will work on the issue in the newly created isolated schema. D
     Here is the output from the above command:
 
     ```bash
-    <copy> 
     On branch 1-add-last_updated-column-to-inventory-table
     Your branch is up to date with 'origin/1-add-last_updated-column-to-inventory-table'.
 
@@ -168,7 +172,6 @@ The DBA/Developer will work on the issue in the newly created isolated schema. D
             modified:   table/inventory_table.xml
 
     no changes added to commit (use "git add" and/or "git commit -a")
-    </copy> 
     ```
 
 4. Commit changes to version control.
