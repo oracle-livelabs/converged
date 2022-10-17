@@ -201,7 +201,7 @@ Cloud Shell is a small virtual machine running a "bash" shell which you access t
 
     > **Note:** Cloud shell may disconnect after a period of inactivity. If that happens, you can reconnect and then run the command to resume the setup.
 
-    Here is an example of infra setup run (please follow the steps below on how to determine compartment and user OCID values):
+    Here is an example of infra setup execution (please follow the steps below on how to determine compartment and user OCID values):
     ![Infra Setup Run](images/infra-setup-run.png " ")
     
 3. (Conditional) The setup may ask you to confirm that there are no other un-terminated OKE clusters exist in your tenancy:
@@ -316,6 +316,10 @@ Cloud Shell is a small virtual machine running a "bash" shell which you access t
     * Please select Jenkins deployment type: `1`
     * Enter the password to be used for Jenkins: `<ADMIN_PASSWORD>`
 
+    Here is an example of jenkins setup execution:
+
+    ![Jenkins Setup](images/jenkins-setup.png " ")
+    
     The setup process will typically take around 5 minutes to complete.
 
 ## Task 10: Monitor the Setup

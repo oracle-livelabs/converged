@@ -145,13 +145,11 @@ The DBA/Developer will work on the issue in the newly created isolated schema. D
 
     Generate the Liquibase changeset (use name database name in place of <DB_NAME>):
 
-    ```  
-    <copy>
+    ```
     set cloudconfig ../../../../dcms-cicd-run/state/wallet/adb_wallet.zip
     connect INVENTORYUSER1/<password>@<DB_NAME>_high
     lb genschema -split  
     exit
-    </copy>
     ```
 
     After exporting, one file would have changed which will represent the change to the INVENTORYUSER1.INVENTORY table:  
@@ -165,7 +163,6 @@ The DBA/Developer will work on the issue in the newly created isolated schema. D
     Here is the output from the above command:
 
     ```bash
-    <copy> 
     On branch 1-add-last_updated-column-to-inventory-table
     Your branch is up to date with 'origin/1-add-last_updated-column-to-inventory-table'.
 
@@ -175,7 +172,6 @@ The DBA/Developer will work on the issue in the newly created isolated schema. D
             modified:   table/inventory_table.xml
 
     no changes added to commit (use "git add" and/or "git commit -a")
-    </copy> 
     ```
 
 4. Commit changes to version control.

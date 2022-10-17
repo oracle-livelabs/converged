@@ -82,7 +82,7 @@ Watch the video below for a quick walk-through of the lab.
 
     1. Set GitHub App name to `Jenkins - < Github Account Name >`
 
-    2. Update Homepage URL with the link to your GitHub Page, i.e. https://github.com/<user_name>
+    2. Update Homepage URL with the link to your GitHub Page, i.e. `https://github.com/<user_name>`
      
        ![GitHub Name](images/githubapp-name-url.png " ")
 
@@ -254,7 +254,7 @@ Watch the video below for a quick walk-through of the lab.
      * Display Name: `Demonstration`
      * Branch Source: `GitHub`
      * Credentials: `GitHubAppDemo`
-     * Repository HTTPS URL: < Link to GitHub Repo; example: `https://github.com/<your GitHub Repository Name>/microservices-datadriven`
+     * Repository HTTPS URL - link to you GitHub Repo, example: `https://github.com/<your GitHub Repository Name>/microservices-datadriven`
 
 4. Click `Validate` under the `Repository HTTPS URL` field.
 
