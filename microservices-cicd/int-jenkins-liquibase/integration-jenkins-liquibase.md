@@ -80,35 +80,35 @@ Watch the video below for a quick walk-through of the lab.
 
 4. Register a new GitHub Application and, unless other specified below, leave the defaults.
 
-   1. Set GitHub App name to `Jenkins - < Github Account Name >`
+    1. Set GitHub App name to `Jenkins - < Github Account Name >`
 
-   2. Update Homepage URL with link to your GitHub Page
+    2. Update Homepage URL with the link to your GitHub Page, i.e. https://github.com/<user_name>
      
-      ![GitHub Name](images/githubapp-name-url.png " ")
+       ![GitHub Name](images/githubapp-name-url.png " ")
 
-   3. Update Webhook URL with link to your Jenkins Server
+    3. Update Webhook URL with link to your Jenkins Server
 
-      > **Note:** Replace `jenkins.example.com` with public IP address of the Jenkins Compute Instance recorded from Task 1 above. **The trailing slash is important** (for example: `http://XXX.XX.XX.XXX/github-webhook/`).
+       > **Note:** Replace `jenkins.example.com` with public IP address of the Jenkins Compute Instance recorded from Task 1 above. **The trailing slash is important** (for example: `http://XXX.XX.XX.XXX/github-webhook/`).
      
-      ![Repository Permissions](images/webhook-url.png " ")
+       ![Repository Permissions](images/webhook-url.png " ")
 
-   4. Update the following Repository permissions:
+    4. Update the following Repository permissions:
 
-     * Commit statuses - Read and Write
+       * Commit statuses - Read and Write
 
-     * Contents: Read-only
+       * Contents: Read-only
 
        ![Repository Permissions](images/repo-perm1.png " ")
 
-     * Pull requests: Read-only
+       * Pull requests: Read-only
 
        ![Repository Permissions](images/repo-perm2.png " ")
 
-   5. Set Subscribe to events options and Select All
+    5. Set Subscribe to events options and Select All
 
       ![Events](images/events-subscribe.png " ")
 
-   6. For `Where can this GitHub App be installed?` setting, check `Only on this account` option and click on `Create GitHub App`
+    6. For `Where can this GitHub App be installed?` setting, check `Only on this account` option and click on `Create GitHub App`
 
       ![Save GitHubApp](images/save-githubapp.png " ")
 
@@ -158,26 +158,26 @@ Watch the video below for a quick walk-through of the lab.
 
 2. Navigate to the Jenkins credentials store to create credentials
 
-   1. From the Home page, click on `Manage Jenkins`.
+    1. From the Home page, click on `Manage Jenkins`.
 
       ![Jenkins Credentials](images/jenkins-creds.png " ")
 
-   2. From the Manage Jenkins page, Under Security, click `Manage Credentials`.
+    2. From the Manage Jenkins page, Under Security, click `Manage Credentials`.
 
-   3. Hover over (`global`), the domain for the Jenkins Store (under Stores scoped to Jenkins).
+    3. Hover over (`global`), the domain for the Jenkins Store (under Stores scoped to Jenkins).
 
-   4. Click on the dropdown.
+    4. Click on the dropdown.
 
-   5. Click on `Add Credentials` and add the credentials for GitHub App.
+    5. Click on `Add Credentials` and add the credentials for GitHub App.
 
       ![Jenkins Credentials](images/jenkins-store.png " ")
 
       ![GitHubApp Demo Credentials](images/githubapp-demo-creds.png " ")
 
-     * Kind: `GitHub App`
-     * ID: `GitHubAppDemo`
-     * App ID: < App ID > (Enter App ID recorded above in the Task 3: Create the GitHub App )
-     * Key: < Contents of converted-github-app.pem created above >
+       * Kind: `GitHub App`
+       * ID: `GitHubAppDemo`
+       * App ID: < App ID > (Enter App ID recorded above in the Task 3: Create the GitHub App )
+       * Key: < Contents of converted-github-app.pem created above >
 
 3. Click `Test Connection` which should be successful.
 
@@ -189,28 +189,29 @@ Watch the video below for a quick walk-through of the lab.
 
 1. Navigate to the Jenkins credentials store to create credentials
 
-   1. From the Home page, click on `Manage Jenkins`.
+    1. From the Home page, click on `Manage Jenkins`.
 
       ![Jenkins Credentials](images/jenkins-creds.png " ")
 
-   2. From the Manage Jenkins page, Under Security, click `Manage Credentials`.
+    2. From the Manage Jenkins page, Under Security, click `Manage Credentials`.
 
-   3. Hover over (`global`), the domain for the Jenkins Store (under Stores scoped to Jenkins).
+    3. Hover over (`global`), the domain for the Jenkins Store (under Stores scoped to Jenkins).
 
-   4. Click on the dropdown.
+    4. Click on the dropdown.
 
-   5. Click on `Add Credentials` and add the database credentials.
+    5. Click on `Add Credentials` and add the database credentials.
 
       ![Jenkins Credentials](images/jenkins-store.png " ")
 
       ![Database Credentials](images/db-creds.png " ")
 
-     * Kind: `Username with password`
-     * Username: `ADMIN`
-     * Password: `<Password for ADB Admin Account>`
-      > **Note:** this is the DB password you supplied and recorded in Lab 1 during infra setup
-     * ID: `ADB_ADMIN`
-
+       * Kind: `Username with password`
+       * Username: `ADMIN`
+       * Password: `<Password for ADB Admin Account>`
+       * ID: `ADB_ADMIN`
+       
+       > **Note:** Password value is the the database password you supplied and recorded in Lab 1 during infra setup. For ID value, please put ADB_ADMIN
+     
 2. Click `Create`.
 
 ## Task 7: Add Global Variable for Database

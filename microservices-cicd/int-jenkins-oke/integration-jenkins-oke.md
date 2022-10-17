@@ -23,19 +23,19 @@ Estimated Time: 15 minutes
 
 1. A service account is needed to allow Jenkins to update the grabdish Kubernetes cluster. To create a service account, connect to the cloud shell and execute the following command.
 
-     ```bash
-     <copy>
-     kubectl apply -f $DCMS_CICD_SETUP_DIR/kubernetes/service-account.yaml
-     </copy>
-     ```
+    ```bash
+    <copy>
+    kubectl apply -f $DCMS_CICD_SETUP_DIR/kubernetes/service-account.yaml
+    </copy>
+    ```
 
-     Kubernetes will create a secret token bound to the service account. Using below command retrieve the secret:
+    Kubernetes will create **a secret token** bound to the service account. Using below command retrieve the secret:
 
-     ```bash
-     <copy>
-     kubectl -n kube-system get secret $(kubectl -n kube-system get secret | grep kube-cicd | awk '{print $1}') -o jsonpath='{.data.token}' | base64 -d
-     </copy>
-     ```
+    ```bash
+    <copy>
+    kubectl -n kube-system get secret $(kubectl -n kube-system get secret | grep kube-cicd | awk '{print $1}') -o jsonpath='{.data.token}' | base64 -d
+    </copy>
+    ```
 
      Copy the secret token - you will use it in the next steps when creating a secret credential.
 
@@ -45,35 +45,68 @@ Estimated Time: 15 minutes
 
 3. Navigate to the Jenkins credentials store to create credentials
 
-   1. From the Home page, click on `Manage Jenkins`.
+      1. From the Home page, click on `Manage Jenkins`.
 
-   ![Jenkins Credentials](images/jenkins-creds.png " ")
+        ![Jenkins Credentials](images/jenkins-creds.png " ")
 
-   2. From the Manage Jenkins page, Under Security, click `Manage Credentials`.
+      2. From the Manage Jenkins page, Under Security, click `Manage Credentials`.
 
-   3. Hover over (`global`), the domain for the Jenkins Store (under Stores scoped to Jenkins).
+      3. Hover over (`global`), the domain for the Jenkins Store (under Stores scoped to Jenkins).
 
-   4. Click on the dropdown.
+      4. Click on the dropdown.
 
-   5. Click on `Add Credentials` and add the secret text credentials.
+4. Create Service Account Token credentials
+   This credential will be used to connect to OCI OKE cluster
 
-   ![Jenkins Credentials](images/jenkins-store.png " ")
+      1. Click on `Add Credentials` and add the secret text credentials
 
-   ![Jenkins Secret](images/jenkins-secret-creds.png " ")
+        ![Jenkins Credentials](images/jenkins-store.png " ")
 
-     Kind: `Secret text`
-     Scope: `Global`
-     Secret: < Paste content of service account secret token created above >
-     Click `Create`
+        ![Jenkins Secret](images/jenkins-secret-creds.png " ")
 
-    Add another credential by clicking **Add Credentials** in the left hand navigation bar.
+        ```bash
+        Kind: `Secret text`
+        Scope: `Global`
+        Secret: <Paste content of service account secret token created above>
+        ID:  `CLUSTER_TOKEN`
+        Click `Create`
+        ```
+        > **Note:** Keep CLUSTER_TOKEN as the credential ID and save it in your notes for the next steps.
 
-     Kind: `Username with password`
-     Username: <tenancy_namespace>/oracleidentitycloudservice/username>
-     Password: <Paste auth token as password created during infra runtime - you can retrieve the docker auth token through logs >
-     Click `Create`
+5. Create OCI Registry credential
+   
+   This credential will be used to connect to your container registry. The credential contains your auth token and OCI username value.The auth token is being used to connect to your OCI Registry.
+ 
+      1. Retrieve the auth token       
+         
+         Open cloud shell
 
-     > **Note:** Note the "Username with password" credential's ID for the next steps.
+         ```bash
+         <copy>
+         cat $DCMS_CICD_LOG_DIR/../../dcms-oci-run/vault/vault/DOCKER_AUTH_TOKEN
+         </copy>
+         ```         
+      2. Retrieve OCI tenancy namespace
+      
+         ```bash
+         <copy>
+         oci os ns get | jq -r .data
+         </copy>
+         ```
+       
+         > **Note:**
+
+      3. Add another credential by clicking **Add Credentials** in the left hand navigation bar.
+
+         ```bash
+         Kind: `Username with password`
+         Username: <tenancy_namespace>/oracleidentitycloudservice/username>
+         Password: <Paste auth token as the password created during infra setup - you can retrieve the docker auth token value from the step above >
+         ID: `OCIR_CREDENTIAL`
+         Click `Create`
+         ```
+
+      > **Note:** If you login into your tenancy as a federated user, use this format <tenancy-namespace>/oracleidentitycloudservice/<username> for your username value. Otherwise, use <tenancy-namespace>/<username>
 
 ## Task 2: Configure Maven Tool
 
@@ -101,9 +134,14 @@ Estimated Time: 15 minutes
 
      Under `environment` section of Jenkinsfile, supply the missing values:
 
-        ocir_credentials_id = ""
-        region = ""
-        namespace = ""
+        ocir_credentials_id = "OCIR_CREDENTIAL"
+        region = "irina_gran@cloudshell:vault (us-ashburn-1)$ echo $OCI_REGION"
+        namespace = "maacloud"
+        kube_cluster_credentials_id = "CLUSTER_TOKEN"
+        kube_cluster_server_url = "kubectl config view --minify -o jsonpath='{.clusters[0].cluster.server}{"\n"}'"
+        kube_cluster_name = "kubectl config view --minify -o jsonpath='{.clusters[0].name}{"\n"}'"
+        repository = "https://github.com/irinagranat/microservices-datadriven"
+        branch = "main"
 
 ## Task 4: Add GitHub WebHook
 

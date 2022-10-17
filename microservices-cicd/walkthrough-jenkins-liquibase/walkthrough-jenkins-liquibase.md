@@ -27,12 +27,16 @@ A new issue is created in your GitHub repository to track the lifecycle of the c
 
 1. Log into GitHub and click on the forked microservices-datadriven repository which has been integrated with Jenkins.
 
+      > **Note:** Check if the Issues tab appears  along with other tabs under your repo.    If you do not see the Issue tab, click on Settings, scroll down to Issues and check the box. The **Issues** tab will appear.
+
+      ![Repo Tabs](images/repo-tabs.png " ")
+
+      ![Issues Tab](images/issues-tab.png " ")
+
       Create a New Issue
 
       ![New Issue](images/new-issue.png " ")
-
-      > **Note:** If you do not see the Issue tab, click on "Settings" and scroll down to "Issues" and check the box. The **Issues** tab will appear.
-
+        
       ![Submit New Issue](images/submit-new-issue.png " ")
 
       * Title: Add LAST_UPDATED Column to Inventory Table
