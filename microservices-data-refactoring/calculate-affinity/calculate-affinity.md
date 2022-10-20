@@ -32,7 +32,7 @@ In this task, we will create a set of metadata tables that we will use to store 
 
 1. Create the graph metadata tables by running the following statements - make sure you run these in your `TKDRADATA` SQL Worksheet (not the `ADMIN` user's worksheet):
 
-    ```
+    ```text
     <copy>drop table tableset_tables;
     drop table table_map;
 
@@ -61,7 +61,7 @@ In this task, we will create a set of metadata tables that we will use to store 
 
 2. In this step, we will populate the `TABLESET_TABLES` table, which will become the vertices in our graph.  Execute the following commands to populate the table:
 
-    ```
+    ```text
     <copy>truncate table tableset_tables;
 
     insert into tableset_tables (table_set_name, schema, table_name, total_sql, total_executions) 
@@ -94,7 +94,7 @@ In this task, we will create a set of metadata tables that we will use to store 
 
 3. We will also create a helper view that we will use in the affinity calculation.  Execute the following command to create the view:
 
-    ```
+    ```text
     <copy>create view tableset_sql as 
     select distinct table_name, sql_id 
     from (
@@ -143,7 +143,7 @@ In this task, we will create a set of metadata tables that we will use to store 
 
     Execute the following statements to create the procedure:
 
-    ```
+    ```text
     <copy>create or replace procedure compute_affinity_tkdra as
     cursor c is
     select table_name, schema from tableset_tables;
@@ -276,13 +276,13 @@ In this task, we will create a set of metadata tables that we will use to store 
 
 2. Run the procedure to compute affinities.
 
-    ```
+    ```text
     <copy>exec compute_affinity_tkdra();</copy>
     ```
 
     This may take a few minutes to complete.  Once it is done, we can see the output in our two graph metadata tables, for example:
 
-    ```
+    ```text
     <copy>select * from table_map where table1 = 'DRA_1';</copy>
     ```
 
@@ -292,18 +292,23 @@ If you followed instructions from Task 1 and Task 2, then skip Task 3 and procee
 
 Skip Task 1, Task 2 and Run the Task 3 instructions if you don't have the STS/don't want to simulate data. We are going to load the data w.r.t medical field. The data exists in 2 CSV files.
 
-* microservices-data-refactoring/livelabs/resources/NODES.csv - Where we have table names.
-* microservices-data-refactoring/livelabs/resources/EDGES.csv - Where we have source(TABLE1) and destination(TABLE2) columns with the edge weights(TOTAL_AFFINITY) column.
+1. Download the below files from the cloud shell to local as shown below.
 
-1. Go to the compartment which we have created in the during the setup. In our case the compartment name is "dra". click on the "dradb" which also created during the setup.
+     ![This image shows the screen of cloud shell to download files](./images/download-from-cloud-shell.png " ")
+  
+    File Path in cloud shell.
+    * microservices-data-refactoring/livelabs/resources/NODES.csv - Where we have table names.
+    * microservices-data-refactoring/livelabs/resources/EDGES.csv - Where we have source(TABLE1) and destination(TABLE2) columns with the edge weights(TOTAL_AFFINITY) column.
+
+2. Go to the compartment which we have created in the during the setup. In our case the compartment name is "dra". click on the "dradb" which also created during the setup.
 
      ![This image shows the screen after login to the OCI](./images/compartment-and-adb.png " ")
 
-2. Click on the Database Actions
+3. Click on the Database Actions
 
     ![Database actions takes you the SQL Developer Screen](./images/database-actions.png)
 
-3. Make sure you run these in your `TKDRADATA` SQL Worksheet (not the `ADMIN` user's worksheet).
+4. Make sure you run these in your `TKDRADATA` SQL Worksheet (not the `ADMIN` user's worksheet). If you do not recall how to navigate to SQL Worksheet, please refer back to Lab 2, Task 2, Step 1 for a reminder.
 
     In the 'Data Tools' Section, Click on 'Data load'. You will see the below screen.
 
@@ -317,27 +322,28 @@ Skip Task 1, Task 2 and Run the Task 3 instructions if you don't have the STS/do
 
     ![This image shows screen to drag and drop the CSV files](./images/drag-and-drop-and-start.png)
 
-4. Verify whether the data is loaded into the Database successfully.
+5. Verify whether the data is loaded into the Database successfully.
 
-    Two tables NODES and EDGES should be created. Where NODES table with 974 rows and EDGES table with 3500 rows.
-	```
+    Two tables NODES and EDGES should be created. Where NODES table with 974 rows and EDGES table with 3499 rows.
+
+    ```text
     <copy>
-	SELECT COUNT(1) FROM NODES;
-	SELECT COUNT(1) FROM EDGES;
+    SELECT COUNT(1) FROM NODES;
+    SELECT COUNT(1) FROM EDGES;
     </copy>
-	```
+    ```
 
-5. Adding the constraints for the newly created data. Where TABLE1 and TABLE2 Columns of EDGES table are foreign keys referencing to the TABLE_NAME column of NODES table
+6. Adding the constraints for the newly created data. Where TABLE1 and TABLE2 Columns of EDGES table are foreign keys referencing to the TABLE_NAME column of NODES table
   
-	```
+    ```text
     <copy>
-	alter table NODES add primary key (TABLE_NAME);
-	alter table EDGES add primary key (table_map_id);
-	alter table EDGES modify TABLE1 references NODES (TABLE_NAME);
-	alter table EDGES modify TABLE2 references NODES (TABLE_NAME);
-	commit;
+    ALTER TABLE NODES ADD PRIMARY KEY (TABLE_NAME);
+    ALTER TABLE EDGES ADD PRIMARY KEY (TABLE_MAP_ID);
+    ALTER TABLE EDGES MODIFY TABLE1 REFERENCES NODES (TABLE_NAME);
+    ALTER TABLE EDGES MODIFY TABLE2 REFERENCES NODES (TABLE_NAME);
+    COMMIT;
     </copy>
-	```
+    ```
 
 Once this has been completed you are ready to **proceed to the next lab.**
 

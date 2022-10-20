@@ -19,94 +19,78 @@ This lab assumes you have:
 
 * All previous labs were completed successfully.
 
-## Task 1: Navigate to DRAGraphClient project folder and change the database and graph properties
+## Task 1: Change the graph properties
 
-Now go back cloud shell.
-1. set the required enviroment variables as we did in the setup
-	```
+1. Make sure you are on the same session of cloud shell. If not, set the required enviroment variables as we did in the setup.
+
+    ```text
    <copy>
-	export DRA_HOME=${HOME}/microservices-data-refactoring
+    export DRA_HOME=${HOME}/microservices-data-refactoring
    </copy>
    ```
 
 2. Navigate to the project
-	```
-   <copy>
-	cd ${HOME}/microservices-data-refactoring/dra-graph-client
-   </copy>
-   ```
-3. Update the src/main/resources/db-config.properties file.
 
-	```
+    ```text
    <copy>
-	vi src/main/resources/db-config.properties
+    cd ${HOME}/microservices-data-refactoring/dra-graph-client
    </copy>
    ```
 
-   Update the value for the below properties.
-	
-    ```
-    tenant   - tenant OCID
-    database - Name of the Database
-    username - Username to login to database
-    password - Password to login to database
-    endpoint - Endpoint for connecting to Autonomous Database instance
+3. Update the property `graph_name` of newly created graph on smaller data in src/main/resources/graph-config.properties file.
 
-	 ```
-	Save and exit.
-	
-4. Update the src/main/resources/graph-config.properties file.
-	```
+    ```text
    <copy>
-	vi src/main/resources/graph-config.properties
+    vi src/main/resources/graph-config.properties
    </copy>
    ```
+
     Update the value for the below properties.
 
-    ```
+    ```text
     graph_name : Name of the graph created in Graph Studio.
-    vertex_property_column : Column name of Tables
-    edge_property_source_column : Source Column name of the Edge
-    edge_property_destination_column : Destination Column name of the Edge
-    edge_property_weight_column : Column name of Edge weight
 
     ```
+
     Save and exit.
-	
+
 ## Task 2: Compile and Run the Community Detection
 
 Here, We are using the smaller graph created in Lab 5. You can also run on main graph which is created in Lab 3 or any data which you loaded through SQL Tuning Sets.
 
 1. Compile the maven project
 
-	```
-	<copy>
- 	mvn compile
-	</copy>
- 	```
+    ```text
+   <copy>
+    mvn compile
+   </copy>
+   ```
 
 2. Execute the project to see the identified clusters using the Infomap Algorithm
 
-	```
-	<copy>
-	mvn exec:java -Dexec.mainClass=com.oracle.ms.app.InfomapGraphClient -Dexec.args="5"
-	</copy>
-	```
- 	Where
+    ```text
+   <copy>
+   mvn exec:java -Dexec.mainClass=com.oracle.ms.app.InfomapGraphClient -Dexec.args="5"
+   </copy>
+   ```
+
+   Where
    * com.oracle.ms.app.InfomapGraphClient - Main class which loads the graph and runs the Infomap to identify the Clusters.
    * 5 is MaxNumberOfIterations for Infomap Algorithm. You can change it to any positive integer
 
-*Output*
+   Output
 
-Job Details: 
- ```
- name=Environment Creation - 18 GBstype= ENVIRONMENT_CREATION
- created_by= ADMIN
- Graph : PgxGraph[name=MED_REC_PG_OBJ_G, N=259, E=972, created=1664544333468]
-```
-```
-The table names with the same community Ids formed the clusters below.
- +----------------------------------------+
+   Job Details:
+
+    ```text
+   name=Environment Creation - 18 GBstype= ENVIRONMENT_CREATION created_by= ADMIN
+   Graph : PgxGraph[name=MED_REC_PG_OBJ_259_G, N=259, E=972, created=1664544333468]
+   ```
+
+    The table names with the same community Ids formed the clusters below.
+
+    ```text
++----------------------------------------+
  | Community | TABLE_NAME                 |
  +----------------------------------------+
  | 0         | PRSNL_RELTN_ACTIVITY       |
@@ -369,8 +353,10 @@ The table names with the same community Ids formed the clusters below.
  | 33        | RAD_EXAM                   |
  | 33        | RENEW_NOTIFICATION_PERIOD  |
  ------------------------------------------
- ```
-## Task 3 : Analysis of nelwy formed clusters
+
+   ```
+
+## Task 3 : Analysis of newly formed clusters
 
 * There are 63 Nodes in this below Cluster :
 * Main Table for forming a cluster is PRSNL where major number of tables are connected with this table.
@@ -379,93 +365,95 @@ The table names with the same community Ids formed the clusters below.
 
 * The Person will have the Problems and He consults the Doctor. Doctor will diagnoise the Patient. And the tracking of the patient is carried out.
 
-If you see the below tables are related to Person who is a patient. Here the Person, his Diagnosis, Tracking the activity of the Person has formed one community. Similarly there are other communities formed as well.
+  If you see the below tables are related to Person who is a patient. Here the Person, his Diagnosis, Tracking the activity of the Person has formed one community. Similarly there are other communities formed as well.
 
-  ```
- ALLERGY
- ALLERGY_COMMENT
- CE_EVENT_ACTION
- CE_EVENT_PRSNL
- CE_MED_RESULT
- CHARGE_EVENT
- CHARGE_EVENT_ACT
- CHARGE_EVENT_ACT_PRSNL
- CLINICAL_EVENT
- CONTAINER
- DCP_CARE_TEAM_PRSNL
- DCP_FORMS_ACTIVITY
- DCP_FORMS_ACTIVITY_PRSNL
- DCP_SHIFT_ASSIGNMENT
- DIAGNOSIS
- ESI_LOG
- HM_EXPECT_MOD
- HM_EXPECT_MOD_HIST
- LOGICAL_DOMAIN
- LONG_BLOB
- MRU_LOOKUP_ED_DOC
- NOMENCLATURE
- PAT_ED_DOC_ACTIVITY
- PAT_ED_FAVORITES
- PAT_ED_RELTN
- PAT_ED_SHORTCUT
- PERSON
- PERSON_COMBINE_DET
- PERSON_NAME
- PM_TRANSACTION
- PM_WAIT_LIST_STATUS
- PPR_CONSENT_POLICY
- PPR_CONSENT_STATUS
- PRIV_LOC_RELTN
- PROBLEM
- PROBLEM_COMMENT
- PROBLEM_PRSNL_R
- PROC_PRSNL_RELTN
- PRSNL
- RAD_PROTOCOL_ACT
- RAD_PROTOCOL_DEFINITION
- RAD_REPORT_PRSNL
- RAD_RES_INFO
- RAD_TECH_CMT_DATA
- REACTION
- SCD_STORY
- SCD_TERM_DATA
- SCH_ENTRY
- SCH_EVENT_ACTION
- SCH_LOCATION
- SCH_LOCK
- SCR_PATTERN
- STICKY_NOTE
- TASK_ACTIVITY_ASSIGNMENT
- TRACKING_CHECKIN
- TRACKING_EVENT_HISTORY
- TRACKING_EVT_CMT
- TRACKING_ITEM
- TRACKING_LOCATOR
- TRACKING_PRSNL
- TRACKING_PRV_RELN
- TRACK_REFERENCE
- V500_EVENT_SET_EXPLODE
+    ```text
+   ALLERGY
+   ALLERGY_COMMENT
+   CE_EVENT_ACTION
+   CE_EVENT_PRSNL
+   CE_MED_RESULT
+   CHARGE_EVENT
+   CHARGE_EVENT_ACT
+   CHARGE_EVENT_ACT_PRSNL
+   CLINICAL_EVENT
+   CONTAINER
+   DCP_CARE_TEAM_PRSNL
+   DCP_FORMS_ACTIVITY
+   DCP_FORMS_ACTIVITY_PRSNL
+   DCP_SHIFT_ASSIGNMENT
+   DIAGNOSIS
+   ESI_LOG
+   HM_EXPECT_MOD
+   HM_EXPECT_MOD_HIST
+   LOGICAL_DOMAIN
+   LONG_BLOB
+   MRU_LOOKUP_ED_DOC
+   NOMENCLATURE
+   PAT_ED_DOC_ACTIVITY
+   PAT_ED_FAVORITES
+   PAT_ED_RELTN
+   PAT_ED_SHORTCUT
+   PERSON
+   PERSON_COMBINE_DET
+   PERSON_NAME
+   PM_TRANSACTION
+   PM_WAIT_LIST_STATUS
+   PPR_CONSENT_POLICY
+   PPR_CONSENT_STATUS
+   PRIV_LOC_RELTN
+   PROBLEM
+   PROBLEM_COMMENT
+   PROBLEM_PRSNL_R
+   PROC_PRSNL_RELTN
+   PRSNL
+   RAD_PROTOCOL_ACT
+   RAD_PROTOCOL_DEFINITION
+   RAD_REPORT_PRSNL
+   RAD_RES_INFO
+   RAD_TECH_CMT_DATA
+   REACTION
+   SCD_STORY
+   SCD_TERM_DATA
+   SCH_ENTRY
+   SCH_EVENT_ACTION
+   SCH_LOCATION
+   SCH_LOCK
+   SCR_PATTERN
+   STICKY_NOTE
+   TASK_ACTIVITY_ASSIGNMENT
+   TRACKING_CHECKIN
+   TRACKING_EVENT_HISTORY
+   TRACKING_EVT_CMT
+   TRACKING_ITEM
+   TRACKING_LOCATOR
+   TRACKING_PRSNL
+   TRACKING_PRV_RELN
+   TRACK_REFERENCE
+   V500_EVENT_SET_EXPLODE
+   ```
 
- ```
-Below are the 16 tables which formed a cluster on Medication Deatils and also medical dispense.
-  ```
- ORDER_PRODUCT              
- WARNING_LABEL              
- MED_INGRED_SET             
- ALT_SEL_CAT                
- RX_CURVE                   
- MED_PACKAGE_TYPE           
- MEDICATION_DEFINITION      
- MED_DEF_FLEX               
- WARNING_LABEL_XREF         
- MED_DISPENSE               
- LONG_TEXT                  
- ITEM_DEFINITION            
- MED_FLEX_OBJECT_IDX        
- MED_OE_DEFAULTS            
- ALT_SEL_LIST               
- ORDER_CATALOG_ITEM_R       
-```
+   Below are the 16 tables which formed a cluster on Medication Deatils and also medical dispense.
+
+    ```text
+   ORDER_PRODUCT              
+   WARNING_LABEL              
+   MED_INGRED_SET             
+   ALT_SEL_CAT                
+   RX_CURVE                   
+   MED_PACKAGE_TYPE           
+   MEDICATION_DEFINITION      
+   MED_DEF_FLEX               
+   WARNING_LABEL_XREF         
+   MED_DISPENSE               
+   LONG_TEXT                  
+   ITEM_DEFINITION            
+   MED_FLEX_OBJECT_IDX        
+   MED_OE_DEFAULTS            
+   ALT_SEL_LIST               
+   ORDER_CATALOG_ITEM_R       
+   ```
+
 There are single node clusters as well. If we analyse and can say that these nodes should be part of any cluster, we can do move a node to target cluster. Its explained in the next lab.
 
 Please **proceed to the next lab** to do so.
@@ -474,6 +462,6 @@ Please **proceed to the next lab** to do so.
 
 ## Acknowledgements
 
-- **Author** - Praveen Hiremath, Developer Advocate
-- **Contributors** -  Praveen Hiremath, Developer Advocate
-- **Last Updated By/Date** - Praveen Hiremath, Developer Advocate, October 2022
+* **Author** - Praveen Hiremath, Developer Advocate
+* **Contributors** -  Praveen Hiremath, Developer Advocate
+* **Last Updated By/Date** - Praveen Hiremath, Developer Advocate, October 2022
