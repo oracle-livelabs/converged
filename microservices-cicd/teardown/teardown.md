@@ -29,10 +29,9 @@ Quick walk through to tear down the resources created in your tenancy and the di
 2. Run the following command to delete the resources created in you tenancy for CI/CD flow.
 
     ```bash
-
     <copy>
     cd ~/grabdish/microservices-datadriven/workshops/dcms-cicd/
-    teardown
+    jenkins-teardown
     </copy>
     ```
 
