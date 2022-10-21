@@ -1,0 +1,43 @@
+{
+  "workshoptitle": "Security Workshop for ORDS Deployment",
+  "help": "livelabs-help-db_us@oracle.com",
+	"tutorials": [
+      {
+        "title": "Introduction",
+        "filename": "../../intro/intro.md"
+      },
+      {
+        "title": "Get Started",
+        "filename": "https://oracle-livelabs.github.io/common/labs/cloud-login/cloud-login.md"
+      },
+      {
+        "title": "Lab 1: Setup",
+        "filename": "../../setup/setup.md"
+      },
+      {
+        "title": "Lab 2: Bastion service",
+        "filename": "../../bastion/bastion.md"
+      },
+      {
+        "title": "Lab 3: OAuth 2.0 configuration",
+        "filename": "../../oauth_ords/three-legged-oauth.md"
+      },
+      {
+        "title": "Lab 4: OCI API Gateway setup",
+        "filename": "../../apigw/apigw.md"
+      },
+      {
+        "title": "Lab 5: Data Safe to monitor ADB-S",
+        "filename": "../../datasafe/datasafe.md"
+      },
+      {
+        "title": "Lab 6: Tear Down",
+        "filename": "../../teardown/teardown.md"
+      },
+      {
+        "title": "Oracle CloudWorld 2022 - Get Help",
+        "filename": "https://oracle-livelabs.github.io/common/support/ocwsupportlab/ocwsupportlab.md"
+    }
+     
+    ]
+}
