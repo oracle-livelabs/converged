@@ -4,7 +4,7 @@
 
 This workshop will help you understand a technique for refactoring data stores for microservices. 
 
-- Estimated Time: 90 minutes
+- Estimated Time: 120 minutes
 
 ### About Product/Technology
 
