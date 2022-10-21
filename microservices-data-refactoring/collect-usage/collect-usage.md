@@ -28,7 +28,7 @@ All the sql scripts and shell scripts available in 'microservices-data-refactori
 
 When you ran the `setup.sh` script in the previous lab, it created a database user called `TKDRADATA` for you and granted that user the necessary permissions to complete the rest of the labs.
 
-1. Login into Oracle Cloud as ADMIN with the password you entered during setup. Navigate to the Details page of the Autonomous Database that was provisioned by the `setup.sh` script.  In this example, the database name is "DRADB."  Click **Database Actions**.
+1. Navigate to the Details page of the Autonomous Database that was provisioned by the `setup.sh` script.  In this example, the database name is "DRADB."  Click **Database Actions**.
 
   ![Image alt text](images/adb-main-page.png)
 
@@ -56,7 +56,7 @@ When you ran the `setup.sh` script in the previous lab, it created a database us
 
 1. Create the application tables by running this command.  You can just copy this and paste it into the SQL Worksheet and then hit the **Run Command** button.  You will do the same thing to run all of the other commands presented in this workshop.
 
- ```text
+   ```text
     <copy>begin
         for i in 1..100 loop
             execute immediate
@@ -73,7 +73,7 @@ When you ran the `setup.sh` script in the previous lab, it created a database us
 
 2. You can validate the tables with this command, which should show you ten tables names `DRA_x` where `x` is a number:
 
-    ```
+    ```text
     <copy>select table_name
     from user_tables
     fetch first 10 rows only;</copy>
@@ -87,7 +87,7 @@ When you ran the `setup.sh` script in the previous lab, it created a database us
 
 1. Create a new SQL Tuning Set called `tkdradata` using the following command:
 
-    ```
+    ```text
     <copy>begin
       dbms_sqltune.create_sqlset (
           sqlset_name => 'tkdradata', 
@@ -107,7 +107,7 @@ Now we will create some simulated application workload.  In a real-world scenari
 
     The file `simulate-workload.sql` contains about one hundred SQL commands.  Copy the contents of this file into you SQL Worksheet and click on the **Run script** button.  If you do not recall where the button is, please refer back to Task 1, Step 7 for a reminder.
 
-    ```
+    ```text
     <copy>
 
  -- Copyright (c) 2022, Oracle and/or its affiliates.
@@ -233,7 +233,7 @@ select* from tkdradata.dra_11, tkdradata.dra_9, tkdradata.dra_12, tkdradata.dra_
 
 1. Being careful to ensure you run this command as the `ADMIN` user, not `TKDRADATA`, load the workload data into the SQL Tuning Set using this command:
 
-    ```
+    ```text
     -- run this as the ADMIN user
     <copy>DECLARE
       cur DBMS_SQLTUNE.SQLSET_CURSOR;
@@ -257,7 +257,7 @@ select* from tkdradata.dra_11, tkdradata.dra_9, tkdradata.dra_12, tkdradata.dra_
 
 2. You can check that data was loaded using this command:
 
-    ```
+    ```text
     <copy>select sqlset_name, count(distinct sql_id) 
     from dba_sqlset_plans 
     group by sqlset_name;</copy>

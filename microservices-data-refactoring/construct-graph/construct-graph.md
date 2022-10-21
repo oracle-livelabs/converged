@@ -54,7 +54,7 @@ This lab assumes you have:
 
    ![ALT text is not available for this image](./images/selected-tables1.png " ")
 
-4. Click **Next** to get a suggested model. We will edit and update this model to add an edge and a vertex label.  
+4. Select Graph Type as `PG Objects` and Click **Next** to get a suggested model. We will edit and update this model to add an edge and a vertex label.  
 
     The suggested model has the `NODES` as a vertex table since there are foreign key constraints specified on `EDGES` that reference it.
 

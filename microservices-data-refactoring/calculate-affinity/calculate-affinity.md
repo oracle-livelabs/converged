@@ -4,7 +4,7 @@
 
 We create a metadata tables and populate the data using the SQL Tuning Sets which created in the previous lab. And the affinities are computed between the tables.
 
-Estimated Lab Time: 15 minutes
+Estimated Lab Time: 20 minutes
 
 ### Objectives
 
@@ -292,7 +292,7 @@ If you followed instructions from Task 1 and Task 2, then skip Task 3 and procee
 
 Skip Task 1, Task 2 and Run the Task 3 instructions if you don't have the STS/don't want to simulate data. We are going to load the data w.r.t medical field. The data exists in 2 CSV files.
 
-1. Download the below files from the cloud shell to local as shown below.
+1. Download the below files from the cloud shell to local as shown below. Click on `Settings icon(Cloud Shell Menu)`, then select `Download` option, add the below filepaths to download the files to local system.
 
      ![This image shows the screen of cloud shell to download files](./images/download-from-cloud-shell.png " ")
   

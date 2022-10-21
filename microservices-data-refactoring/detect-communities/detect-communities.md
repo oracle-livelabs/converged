@@ -4,7 +4,7 @@
 
 In this lab, using the graphs which were created in the previous labs, we applied the community detection algorithm which identifies the communities within the graphs. The community detection algorithm takes the input graphs and identities strong connectivity within graphs and forms multiple smaller communities. Infomap is used for community detection in this lab.
 
-Estimated Lab Time: 15 minutes
+Estimated Lab Time: 10 minutes
 
 ### Objectives
 
