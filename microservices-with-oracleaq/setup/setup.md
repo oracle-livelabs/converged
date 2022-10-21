@@ -64,7 +64,7 @@ To work with the application code, you need to make a clone from the GitHub repo
 
     ```bash
     <copy>
-    git clone -b 22.8.2 --single-branch https://github.com/oracle/microservices-datadriven.git
+    git clone https://github.com/oracle/microservices-datadriven.git
     cp -r ./microservices-datadriven/workshops/oracleAQ $HOME;     
     rm -r -f microservices-datadriven; 
     cd oracleAQ;
