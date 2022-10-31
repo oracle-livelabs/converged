@@ -110,7 +110,7 @@ Run the community detection on the main graph created in Lab 3 or any data you l
    name=Environment Creation - 18 GBstype= ENVIRONMENT_CREATION created_by= ADMIN
    Graph : PgxGraph[name=MED_REC_PG_OBJ_G, N=974, E=3499, created=1664544333468]
    ```
-3. The output of Infomap will have the Community Ids with the nodes in that community, as shown below
+	The output of Infomap will have the Community Ids with the nodes in that community, as shown below
 
     ```text
     +----------------------------------------+
