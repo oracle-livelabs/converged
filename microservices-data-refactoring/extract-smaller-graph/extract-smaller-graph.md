@@ -2,28 +2,26 @@
 
 ## Introduction
 
-In this lab, we will run the community detection algorithm on the main graph and identifies the clusters. Using these clusters, the smaller graph is extracted by choosing only few clusters to shorten the data. We create the tables with nodes and edges only for these data for further analysis to identify clusters using Infomap algorithm. Use of small graph helps us understand the communities detected.
+In this lab, we will run the community detection algorithm on the main graph and identifies the clusters. The smaller graph is extracted using these clusters by choosing only a few clusters to shorten the data. We create the tables with nodes and edges only for these data for further analysis to identify clusters using the Infomap algorithm. The use of a small graph helps us understand the communities detected.
 
-Estimated Lab Time: 30 minutes
+Estimated Time: 30 minutes
 
 ### Objectives
-
 - Run the community detection algorithm to detect communities.
-- Extract the smaller graph from the original graph as the analysis will be easier and easy to understand as well.
+- Extract the smaller graph from the original one as the analysis will be easier and easy to understand.
 - Create the CSV files for Nodes and Edges for the smaller graphs.
 
 ### Prerequisites
 
-This lab assumes you have:
-
+This lab assumes you have the following:
 - An Oracle account
 - This lab requires an Autonomous Database - Shared Infrastructure or Autonomous Transaction Processing - Shared Infrastructure account.
 
-## Task 1: Navigate to DRAGraphClient project folder and change the database and graph properties
+## Task 1: Navigate to the DRAGraphClient project folder and change the database and graph properties
 
 Now go back to the cloud shell.
 
-1. Set the required enviroment variables as we did in the setup.
+1. Set the required environment variables as we did in the setup.
 
     ```text
    <copy>
@@ -52,8 +50,8 @@ Now go back to the cloud shell.
     ```text
     tenant   - tenant OCID
     database - Name of the Database
-    username - Username to login to database
-    password - Password to login to database
+    username - Username to login into the database
+    password - Password to login into the database
     endpoint - Endpoint for connecting to Autonomous Database instance
     ```
 
@@ -70,11 +68,11 @@ Now go back to the cloud shell.
     Update the value for the below properties.
 
     ```text
-    graph_name : Name of the graph created in Graph Studio.
-    vertex_property_column : Column name of Tables
-    edge_property_source_column : Source Column name of the Edge
-    edge_property_destination_column : Destination Column name of the Edge
-    edge_property_weight_column : Column name of Edge weight
+    graph_name: Name of the graph created in Graph Studio.
+    vertex_property_column: Column name of Tables
+    edge_property_source_column: Source Column name of the Edge
+    edge_property_destination_column: Destination Column name of the Edge
+    edge_property_weight_column: Column name of Edge weight
 
     ```
 
@@ -82,7 +80,7 @@ Now go back to the cloud shell.
 
 ## Task 2: Compile and Run the Community Detection
 
-Run the community detection on main graph which is created in Lab 3 or any data which you loaded through SQL Tuning Sets.
+Run the community detection on the main graph created in Lab 3 or any data you loaded through SQL Tuning Sets.
 
 1. Compile the maven project
 
@@ -101,8 +99,8 @@ Run the community detection on main graph which is created in Lab 3 or any data 
    ```
 
    Where
-   - com.oracle.ms.app.InfomapGraphClient - Main class which loads the graph and runs the Infomap to identify the Clusters.
-   - 5 is MaxNumberOfIterations for Infomap Algorithm. You can change it to any positive integer
+   - com.oracle.ms.app.InfomapGraphClient - The main class which loads the graph and runs the Infomap to identify the Clusters.
+   - 5 is MaxNumberOfIterations for Infomap Algorithm. You can change it to any positive integer.
 
    Output
 
@@ -112,8 +110,7 @@ Run the community detection on main graph which is created in Lab 3 or any data 
    name=Environment Creation - 18 GBstype= ENVIRONMENT_CREATION created_by= ADMIN
    Graph : PgxGraph[name=MED_REC_PG_OBJ_G, N=974, E=3499, created=1664544333468]
    ```
-
-3. The ouput of Infomap will have the Community Ids with the nodes in that community as shown below
+3. The output of Infomap will have the Community Ids with the nodes in that community, as shown below
 
     ```text
     +----------------------------------------+
@@ -132,31 +129,31 @@ Run the community detection on main graph which is created in Lab 3 or any data 
     ------------------------------------------
      ```
 
-    Here we have shown only for first 10 nodes for reference. Similarly we will have communities detected for all the 974 nodes. Detail analysis is done on the smaller graph in next lab.
+    Here we have shown only for first ten nodes for reference. Similarly, we will have communities detected for all 974 nodes. Detailed analysis is done on the smaller graph in the next lab.
 
 ## Task 3: Choose the clusters from the result of Infomap from the main graph
 
-These are few of the clusters which formed after running community detection on the main graph we have created in the Lab 4. We take the nodes from these clusters and the connected edges to these nodes and dump the data to newly created tables.
+These are a few of the clusters which formed after running community detection on the main graph we have created in Lab 4. We take the nodes from these clusters and the connected edges to these nodes and dump the data to newly created tables.
 
-1. Below are the tables from the cluster related to Personal Details of Patient. Look into the below tables in the output and check all the tables from Patient related cluster. These tables will have the same community id in the output of Infomap. No action required here. 
+1. Below are the tables from the cluster related to the Personal Details of the Patient. Look into the below tables in the output and check all the tables from the Patient related cluster. These tables will have the same community id in the output of Infomap. No action is required here. 
 
     ```text
     ESO_TRIGGER,PRSNL_ORG_RELTN,PROBLEM_COMMENT,MATCH_TAG_PARMS,CODE_CDF_EXT,CREDENTIAL,FILL_CYCLE_BATCH,DEPT_ORD_STAT_SECURITY,WORKING_VIEW_FREQ_INTERVAL,PRSNL_RELTN,PE_STATUS_REASON,PERSON_CODE_VALUE_R,CMT_CONCEPT,SCH_LOCK,PROC_PRSNL_RELTN,TRACKING_EVENT_HISTORY,CODE_VALUE_SET,PERSON_PRSNL_RELTN,DOSE_CALCULATOR_UOM,CLINICAL_SERVICE_RELTN,ENCNTR_PRSNL_RELTN,PREDEFINED_PREFS,PSN_PPR_RELTN,CODE_VALUE_EXTENSION,PRSNL,CODE_VALUE,PRSNL_RELTN_ACTIVITY,CMT_CONCEPT_EXTENSION
    ```
 
-2. Below are the tables from the cluster related to Medications. Look into the below tables in the output and check all the tables from Medications related cluster. These tables will have the same community id in the output of Infomap. No action required here. 
+2. Below are the tables from the cluster related to Medications. Look into the below tables in the output and check all the tables from the Medications-related cluster. These tables will have the same community id in the output of Infomap. No action is required here. 
 
     ```text
       ORDER_CATALOG_ITEM_R,WARNING_LABEL_XREF,PACKAGE_TYPE,MED_IDENTIFIER,MED_PACKAGE_TYPE,MED_PRODUCT,MANUFACTURER_ITEM,WARNING_LABEL,MED_FLEX_OBJECT_IDX,MED_DEF_FLEX,ITEM_LOCATION_COST,QUANTITY_ON_HAND,MED_DISPENSE,MEDICATION_DEFINITION,MED_COST_HX,MED_INGRED_SET,MED_OE_DEFAULTS,RX_CURVE
    ```
 
-3. Below are the tables from the cluster related to Orders. Look into the below tables in the output and check all the tables from Orders related cluster. These tables will have the same community id in the output of Infomap. No action required here. 
+3. Below are the tables from the cluster related to Orders. Look into the below tables in the output and check all the tables from Orders related cluster. These tables will have the same community id in the output of Infomap. No action is required here. 
 
     ```text
       RENEW_NOTIFICATION_PERIOD,ORDER_REVIEW,BILL_ONLY_PROC_RELTN,FILM_USAGE,ORDER_CATALOG_SYNONYM,ORDERS,ORDER_INGREDIENT,ORDER_CATALOG,SCH_APPT_ORD,ORDER_ACTION,ORDER_IV_INFO,RAD_PROCEDURE_ASSOC,ORDER_NOTIFICATION,RAD_PRIOR_PREFS,RAD_FOLLOW_UP_RECALL,ACTIVITY_DATA_RELTN,ECO_QUEUE
    ```
 
-4. Consider the tables from above clusters related to Patient, Medications, and Orders. Mergering the tables from these clusters, by enclosing all tables in single quote with comma separator, forms the IN QUERY format in SQL. We call below text format as 'TABLES-FROM-SELECTED-CLUSTERS-IN-SQL-FORMAT' as alias. So that we can replace text in queries used in Task 2.
+4. Consider the tables from the above clusters related to Patients, Medications, and Orders. Merging the tables from these clusters by enclosing all tables in a single quote with a comma separator forms the IN QUERY format in SQL. We call the below text format 'TABLES-FROM-SELECTED-CLUSTERS-IN-SQL-FORMAT' as alias, which we will replace text in queries used in Task 2.
 
     ```text
     <copy>
@@ -166,7 +163,7 @@ These are few of the clusters which formed after running community detection on 
 
 ## Task 4: Execute the SQL queries to get all the connected nodes for the selected clusters
 
-Go to SQL developer and execute below queries using `TKDRADATA` user.
+Go to SQL developer and execute the below queries using `TKDRADATA` user.
 
 1. Replace #{TABLES-FROM-SELECTED-CLUSTERS-IN-SQL-FORMAT} with values copied from Task 3 -> Step 4 and run the below SQL to fetch from columns TABLE1 and TABLE2 names from the EDGES table and combine the output and remove the duplicates.
 
@@ -182,7 +179,7 @@ Go to SQL developer and execute below queries using `TKDRADATA` user.
     </copy>
     ```
 
-2. By combining the results of above two queries, you will see all the connected tables for the nodes of above three clusters(Patient, Medications, Orders). By enclosing all resultant tables in single quote with comma separator, forms the IN QUERY format in SQL. We call below text format as 'TABLES-INCLUDING-CONNECTED-NODES' as alias.
+2. By combining the results of the above two queries, you will see all the connected tables for the nodes of the above three clusters(Patient, Medications, Orders). Enclosing all resultant tables in a single quote with a comma separator forms the IN QUERY format in SQL. We call the below text format 'TABLES-INCLUDING-CONNECTED-NODES' as alias.
   
     ```text
     <copy> 
@@ -192,7 +189,7 @@ Go to SQL developer and execute below queries using `TKDRADATA` user.
 
 ## Task 5: Create new tables for the extracted data
 
-1. Create new table `NODES_259_NEW` and replace the `#{TABLES-INCLUDING-CONNECTED-NODES}` copied in previous step(Task 4, Step 2). Populate the records of the connected nodes by running following SQL.
+1. Create new table `NODES_259_NEW` and replace the `#{TABLES-INCLUDING-CONNECTED-NODES}` copied in previous step(Task 4, Step 2). Populate the records of the connected nodes by running the following SQL.
 
     ```text
     <copy>
@@ -200,7 +197,7 @@ Go to SQL developer and execute below queries using `TKDRADATA` user.
     </copy>
     ```
 
-2. Create new table `EDGES_259_NEW` and replace the `#{TABLES-FROM-SELECTED-CLUSTERS-IN-SQL-FORMAT}` by copying values from Task 3, Step 4. Populate the records of the connected edges by running following SQL.
+2. Create a new table, `EDGES_259_NEW`, and replace the `#{TABLES-FROM-SELECTED-CLUSTERS-IN-SQL-FORMAT}` by copying values from Task 3, Step 4. Populate the records of the connected edges by running the following SQL.
 
     ```text
     <copy>
@@ -211,7 +208,7 @@ Go to SQL developer and execute below queries using `TKDRADATA` user.
     </copy>
     ```
 
-3. Adding primary and foreign key constraints for the newly created tables `NODES_259_NEW` and `EDGES_259_NEW` by running following SQL.
+3. Adding primary and foreign key constraints for the newly created tables `NODES_259_NEW` and `EDGES_259_NEW` by running the following SQL.
 
     ```text
     <copy>
@@ -222,27 +219,25 @@ Go to SQL developer and execute below queries using `TKDRADATA` user.
     commit;
     </copy>
     ```
-Once this has been completed you are ready to **proceed to the next lab**.
+Once this has been completed, you are ready to **proceed to the next lab**.
 
-4. Create the graph using node table `NODES_259_NEW` and edge table `EDGES_259_NEW`. Follow the steps from Lab 4, Task 2 to create a graph. The only difference here is to select the tables `NODES_259_NEW` and `EDGES_259_NEW`.
+4. Create the graph using node table `NODES_259_NEW` and edge table `EDGES_259_NEW`. Follow the steps from Lab 4, Task 2, to create a graph. The only difference here is to select the tables `NODES_259_NEW` and `EDGES_259_NEW`.
 
 ## Task 6: Alternative approach for creation of smaller graphs
 
-This task is not required if you have followed through Task 1 to Task 5.
+This task is not required if you have followed through with Task 1 to Task 5.
  
-1. Download the below files from the cloud shell and directly upload the same csv files into DB as followed in Lab 3 -> Task 3.
+1. Download the below files from the cloud shell and directly upload the same CSV files into DB as followed in Lab 3 -> Task 3.
 
 - `microservices-data-refactoring/livelabs/resources/NODES_259_NEW.csv` - Where we have table names.
 - `microservices-data-refactoring/livelabs/resources/EDGES_259_NEW.csv` - Where we have source(TABLE1) and destination(TABLE2) columns with the edge
 
-2. Create the graph using node table `NODES_259_NEW` and edge table `EDGES_259_NEW`. Follow the steps from Lab 4, Task 2 to create a graph. The only difference here is to select the tables `NODES_259_NEW` and `EDGES_259_NEW`.
+2. Create the graph using node table `NODES_259_NEW` and edge table `EDGES_259_NEW`. Follow the steps from Lab 4, Task 2, to create a graph. The only difference here is to select the tables `NODES_259_NEW` and `EDGES_259_NEW`.
 
-Once this has been completed you are ready to **proceed to the next lab**.
-
-## Learn More
+Once this has been completed, you are ready to **proceed to the next lab**.
 
 ## Acknowledgements
 
-- **Author** - Praveen Hiremath, Developer Advocate
-- **Contributors** -  Praveen Hiremath, Developer Advocate
-- **Last Updated By/Date** - Praveen Hiremath, Developer Advocate, October 2022
+* **Author** - Praveen Hiremath, Developer Advocate
+* **Contributors** -  Praveen Hiremath, Developer Advocate
+* **Last Updated By/Date** - Praveen Hiremath, Developer Advocate, October 2022

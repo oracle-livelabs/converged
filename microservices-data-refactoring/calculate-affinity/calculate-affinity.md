@@ -2,20 +2,20 @@
 
 ## Introduction
 
-We create a metadata tables and populate the data using the SQL Tuning Sets which created in the previous lab. And the affinities are computed between the tables.
+We create metadata tables and populate the data using the SQL Tuning Sets created in the previous lab. And the affinities are computed between the tables.
 
-Estimated Lab Time: 20 minutes
+Estimated Time: 20 minutes
 
 ### Objectives
 
 In this lab, you will:
 
-* Create graph metadata tables that contain information about the application tables, and which we will be able to use to create a graph and perform community detection in a later lab
+* Create graph metadata tables that contain information about the application tables, which we will be able to use to create a graph and perform community detection in a later lab
 * Compute the affinities between the tables
 
 ### Prerequisites
 
-This lab assumes you have:
+This lab assumes you have the following:
 
 * An Oracle account
 * All previous labs successfully completed
@@ -24,11 +24,11 @@ Three possible options to proceed are:
 
 1. Using simulated data created in Lab 2, skip task 3.
 2. If you have your own STS, replace sqlset-name='tkdradata' with your own sqlset-name={your_own}.
-3. You can start at Task 3 to use SQL tuning set from Health Care as an example.
+3. You can start at Task 3 to use the SQL tuning set from Health Care as an example.
 
 ## Task 1: Create Graph Metadata Tables
 
-In this task, we will create a set of metadata tables that we will use to store the information we need to perform community detection in the next lab.  We will create one table called `TABLESET_TABLES` that will contain a list of all of the tables that were used in the workload capture and how many times each table was accessed and/or participated in a join.  A second table called `TABLE_MAP` will be used to store the affinities between pairs of tables.  Later, when we create a graph, the first table will describe the vertices and the second table will describe the edges.
+In this task, we will create a set of metadata tables that we will use to store the information we need to perform community detection in the next lab. We will create one table called `TABLESET_TABLES` that will contain a list of all of the tables that were used in the workload capture and how many times each table was accessed and/or participated in a join. A second table called `TABLE_MAP` will be used to store the affinities between pairs of tables. Later, when we create a graph, the first table will describe the vertices, and the second table will describe the edges.
 
 1. Create the graph metadata tables by running the following statements - make sure you run these in your `TKDRADATA` SQL Worksheet (not the `ADMIN` user's worksheet):
 
@@ -57,9 +57,9 @@ In this task, we will create a set of metadata tables that we will use to store 
     , total_affinity       decimal(10,5));</copy>
     ```
 
-    **Note**: This code is provided in the file `create-graph-tables.sql`.
+    >**Note:** This code is provided in the file `create-graph-tables.sql`.
 
-2. In this step, we will populate the `TABLESET_TABLES` table, which will become the vertices in our graph.  Execute the following commands to populate the table:
+2. In this step, we will populate the `TABLESET_TABLES` table, which will become the vertices in our graph. Execute the following commands to populate the table:
 
     ```text
     <copy>truncate table tableset_tables;
@@ -90,9 +90,9 @@ In this task, we will create a set of metadata tables that we will use to store 
     having table_name is not null;</copy>
     ```
 
-    **Note**: This code is provided in the file `load-graph-tables.sql`.
+    >**Note:** This code is provided in the file `load-graph-tables.sql`.
 
-3. We will also create a helper view that we will use in the affinity calculation.  Execute the following command to create the view:
+3. We will also create a helper view that we will use in the affinity calculation. Execute the following command to create the view:
 
     ```text
     <copy>create view tableset_sql as 
@@ -116,15 +116,15 @@ In this task, we will create a set of metadata tables that we will use to store 
     );</copy>
     ```
 
-    **Note**: This code is provided in the file `create-helper-view.sql`.
+    >**Note:** This code is provided in the file `create-helper-view.sql`.
 
 ## Task 2: Compute Affinities
 
-1. Create the procedure to compute the affinities between tables.  This is the procedure we will use to compute the affinities.  This procedure reads the information from the SQL Tuning Set that we created in the previous lab and calculates the affinity between tables based on how many times they are used in SQL statements together, and how they are used.  The procedure does the following:
+1. Create the procedure to compute the affinities between tables. This is the procedure we will use to compute the affinities. This procedure reads the information from the SQL Tuning Set that we created in the previous lab and calculates the affinity between tables based on how many times they are used in SQL statements together and how they are used. The procedure does the following:
 
     For each table in the set that we are interested in, which was accessed during the workload capture:
     * Get a list of the SQL statements that used that table, either by reading an index or the table itself,
-    * For each table that table was joined with, i.e. each pair of tables, work out how many times that pair were joined,
+    * For each table that table was joined with, i.e., each pair of tables, work out how many times that pair were joined,
     * Work out what fraction of statements this pair was joined in,
     * Apply weights for joins and executions (50% each) and calculate the total affinity between the tables,
     * Work out how many other tables it was joined to in total.
@@ -139,7 +139,7 @@ In this task, we will create a set of metadata tables that we will use to store 
     | DRA_36	| DRA_22	| 2	| 4	| 0.33333	| 0.33333	| 0.33333
     | DRA_36	| DRA_24	| 1	| 2	| 0.125	| 0.125	| 0.125
 
-    The first row, for example, tells us that the table `DRA_36` was joined to `DRA_19` twice, and that those two tables were joined in 28.571% of all statements involving either one of those tables.
+    The first row, for example, tells us that the table `DRA_36` was joined to `DRA_19` twice and that those two tables were joined in 28.571% of all statements involving either one of those tables.
 
     Execute the following statements to create the procedure:
 
@@ -272,7 +272,7 @@ In this task, we will create a set of metadata tables that we will use to store 
     /</copy>
     ```
 
-    **Note**: This code is provided in the file `compute-affinity.sql`.
+    >**Note:** This code is provided in the file `compute-affinity.sql`.
 
 2. Run the procedure to compute affinities.
 
@@ -280,7 +280,7 @@ In this task, we will create a set of metadata tables that we will use to store 
     <copy>exec compute_affinity_tkdra();</copy>
     ```
 
-    This may take a few minutes to complete.  Once it is done, we can see the output in our two graph metadata tables, for example:
+    This may take a few minutes to complete. Once it is done, we can see the output in our two graph metadata tables, for example:
 
     ```text
     <copy>select * from table_map where table1 = 'DRA_1';</copy>
@@ -288,44 +288,43 @@ In this task, we will create a set of metadata tables that we will use to store 
 
 If you followed instructions from Task 1 and Task 2, then skip Task 3 and proceed with Lab 4.
 
-## Task 3: Alternative to running STS and determine affinities
+## Task 3: Alternative to running STS and determining affinities
 
 Skip Task 1, Task 2 and Run the Task 3 instructions if you don't have the STS/don't want to simulate data. We are going to load the data w.r.t medical field. The data exists in 2 CSV files.
 
-1. Download the below files from the cloud shell to local as shown below. Click on `Settings icon(Cloud Shell Menu)`, then select `Download` option, add the below filepaths to download the files to local system.
+1. Download the below files from the cloud shell to local as shown below.
 
-     ![This image shows the screen of cloud shell to download files](./images/download-from-cloud-shell.png " ")
+     ![Cloud shell to download files](./images/download-from-cloud-shell.png " ")
   
     File Path in cloud shell.
     * microservices-data-refactoring/livelabs/resources/NODES.csv - Where we have table names.
     * microservices-data-refactoring/livelabs/resources/EDGES.csv - Where we have source(TABLE1) and destination(TABLE2) columns with the edge weights(TOTAL_AFFINITY) column.
 
-2. Go to the compartment which we have created in the during the setup. In our case the compartment name is "dra". click on the "dradb" which also created during the setup.
+2. Go to the compartment which we have created during the setup. In our case, the compartment name is `dra`. Click on the `dradb` which was also created during the setup.
 
-     ![This image shows the screen after login to the OCI](./images/compartment-and-adb.png " ")
+     ![After login into OCI](./images/compartment-and-adb.png " ")
 
 3. Click on the Database Actions
 
-    ![Database actions takes you the SQL Developer Screen](./images/database-actions.png)
+    ![Click on Database actions takes you the SQL Developer Screen](./images/database-actions.png " ")
 
 4. Make sure you run these in your `TKDRADATA` SQL Worksheet (not the `ADMIN` user's worksheet). If you do not recall how to navigate to SQL Worksheet, please refer back to Lab 2, Task 2, Step 1 for a reminder.
 
     In the 'Data Tools' Section, Click on 'Data load'. You will see the below screen.
 
-     ![This image shows screen of Data Load to upload your own data](./images/data-tools-data-load.png)
+     ![Data Load to upload your own data](./images/data-tools-data-load.png " ")
 
-    Select 'Load Data' and 'Local File' as shown in below image and Click 'Next'.
+    Select 'Load Data' and 'Local File' as shown in the below image and Click 'Next'.
 
-     ![This image shows screen of options to load CSV files](./images/load-data-and-local-file.png)
+     ![Options to load CSV files](./images/load-data-and-local-file.png " ")
 
-    Drag and drop the resources/NODES.csv and resources/EdGES.csv file and click on 'start' highlighted in below image. Run the Data Load Job. It will process in few seconds.
+    Drag and drop the resources/NODES.csv and resources/EdGES.csv file and click on 'start' highlighted in the below image. Run the Data Load Job. It will process in a few seconds.
 
-    ![This image shows screen to drag and drop the CSV files](./images/drag-and-drop-and-start.png)
+    ![Drag and drop the CSV files](./images/drag-and-drop-and-start.png " ")
 
 5. Verify whether the data is loaded into the Database successfully.
 
-    Two tables NODES and EDGES should be created. Where NODES table with 974 rows and EDGES table with 3499 rows.
-
+    Two tables, NODES, and EDGES should be created. Where the NODES table with 974 rows and the EDGES table with 3499 rows.
     ```text
     <copy>
     SELECT COUNT(1) FROM NODES;
@@ -333,7 +332,8 @@ Skip Task 1, Task 2 and Run the Task 3 instructions if you don't have the STS/do
     </copy>
     ```
 
-6. Adding the constraints for the newly created data. Where TABLE1 and TABLE2 Columns of EDGES table are foreign keys referencing to the TABLE_NAME column of NODES table
+
+6. Adding the constraints for the newly created data. Where TABLE1 and TABLE2 Columns of the EDGES table are foreign keys referencing the TABLE_NAME column of the NODES table
   
     ```text
     <copy>
@@ -345,12 +345,10 @@ Skip Task 1, Task 2 and Run the Task 3 instructions if you don't have the STS/do
     </copy>
     ```
 
-Once this has been completed you are ready to **proceed to the next lab.**
-
-## Learn More
+Once this has been completed, you are ready to **proceed to the next lab.**
 
 ## Acknowledgements
 
-* **Author** - Mark Nelson, Developer Evangelist
+* **Author** - Praveen Hiremath, Developer Advocate
 * **Contributors** - Mark Nelson, Praveen Hiremath
 * **Last Updated By/Date** - Praveen Hiremath, Developer Advocate, October 2022

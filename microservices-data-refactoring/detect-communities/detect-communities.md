@@ -2,9 +2,9 @@
 
 ## Introduction
 
-In this lab, using the graphs which were created in the previous labs, we applied the community detection algorithm which identifies the communities within the graphs. The community detection algorithm takes the input graphs and identities strong connectivity within graphs and forms multiple smaller communities. Infomap is used for community detection in this lab.
+In this lab, using the graphs which were created in the previous labs, we applied the community detection algorithm, which identifies the communities within the graphs. The community detection algorithm takes the input graphs and identities strong connectivity within graphs, and forms multiple smaller communities. Infomap is used for community detection in this lab.
 
-Estimated Lab Time: 10 minutes
+Estimated Time: 10 minutes
 
 ### Objectives
 
@@ -15,13 +15,13 @@ In this lab, you will:
 
 ### Prerequisites
 
-This lab assumes you have:
+This lab assumes you have the following:
 
 * All previous labs were completed successfully.
 
 ## Task 1: Change the graph properties
 
-1. Make sure you are on the same session of cloud shell. If not, set the required enviroment variables as we did in the setup.
+1. Make sure you are on the same session of cloud shell. If not, set the required environment variables as we did in the setup.
 
     ```text
    <copy>
@@ -30,33 +30,29 @@ This lab assumes you have:
    ```
 
 2. Navigate to the project
-
     ```text
    <copy>
     cd ${HOME}/microservices-data-refactoring/dra-graph-client
    </copy>
    ```
 
-3. Update the property `graph_name` of newly created graph on smaller data in src/main/resources/graph-config.properties file.
+3. Update the property `graph_name` of a newly created graph on smaller data in the src/main/resources/graph-config.properties file.
 
     ```text
    <copy>
     vi src/main/resources/graph-config.properties
    </copy>
    ```
-
     Update the value for the below properties.
 
     ```text
     graph_name : Name of the graph created in Graph Studio.
 
     ```
-
     Save and exit.
-
 ## Task 2: Compile and Run the Community Detection
 
-Here, We are using the smaller graph created in Lab 5. You can also run on main graph which is created in Lab 3 or any data which you loaded through SQL Tuning Sets.
+Here, We are using the smaller graph created in Lab 5. You can also run on the main graph, which is created in Lab 3, or any data which you loaded through SQL Tuning Sets.
 
 1. Compile the maven project
 
@@ -75,8 +71,8 @@ Here, We are using the smaller graph created in Lab 5. You can also run on main 
    ```
 
    Where
-   * com.oracle.ms.app.InfomapGraphClient - Main class which loads the graph and runs the Infomap to identify the Clusters.
-   * 5 is MaxNumberOfIterations for Infomap Algorithm. You can change it to any positive integer
+   * com.oracle.ms.app.InfomapGraphClient - The main class which loads the graph and runs the Infomap to identify the Clusters.
+   * 5 is MaxNumberOfIterations for Infomap Algorithm. You can change it to any positive integer.
 
    Output
 
@@ -355,17 +351,16 @@ Here, We are using the smaller graph created in Lab 5. You can also run on main 
  ------------------------------------------
 
    ```
+## Task 3: Analysis of newly formed clusters
 
-## Task 3 : Analysis of newly formed clusters
-
-* There are 63 Nodes in this below Cluster :
-* Main Table for forming a cluster is PRSNL where major number of tables are connected with this table.
+* There are 63 Nodes in the below cluster :
+* Main Table for forming a cluster is PRSNL, where the major number of tables are connected with this table.
 
 * Patient and his details, patient allergies, patient tracking and schedules, and his diagnosis details formed a cluster.
 
-* The Person will have the Problems and He consults the Doctor. Doctor will diagnoise the Patient. And the tracking of the patient is carried out.
+* The Person will have problems, and He consults the Doctor. The Doctor will diagnose the patient. And the tracking of the patient is carried out.
 
-  If you see the below tables are related to Person who is a patient. Here the Person, his Diagnosis, Tracking the activity of the Person has formed one community. Similarly there are other communities formed as well.
+  If you see, the below tables are related to a Person who is a patient. Here the Person, his Diagnosis, Tracking the activity of the Person has formed one community. Similarly, there are other communities formed as well.
 
     ```text
    ALLERGY
@@ -433,7 +428,7 @@ Here, We are using the smaller graph created in Lab 5. You can also run on main 
    V500_EVENT_SET_EXPLODE
    ```
 
-   Below are the 16 tables which formed a cluster on Medication Deatils and also medical dispense.
+   Below are the 16 tables which formed a cluster on Medication details and also medical dispense.
 
     ```text
    ORDER_PRODUCT              
@@ -454,11 +449,9 @@ Here, We are using the smaller graph created in Lab 5. You can also run on main 
    ORDER_CATALOG_ITEM_R       
    ```
 
-There are single node clusters as well. If we analyse and can say that these nodes should be part of any cluster, we can do move a node to target cluster. Its explained in the next lab.
+There are single-node clusters as well. If we analyze and can say that these nodes should be part of any cluster, we can move a node to the target cluster. It's explained in the next lab.
 
 Please **proceed to the next lab** to do so.
-
-## Learn More
 
 ## Acknowledgements
 

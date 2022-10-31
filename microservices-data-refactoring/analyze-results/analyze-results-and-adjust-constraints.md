@@ -2,9 +2,9 @@
 
 ## Introduction
 
-In this lab, we will analyze the communities formed and will move the single node cluster or any other node to target cluster which we find it suitable.
+In this lab, we will analyze the communities formed and will move the single-node cluster or any other node to the target cluster which we find suitable.
 
-Estimated Lab Time: 15 minutes
+Estimated Time: 15 minutes
 
 ### Objectives
 
@@ -14,19 +14,19 @@ In this lab, you will:
 
 ### Prerequisites
 
-This lab assumes you have:
+This lab assumes you have the following:
 
 * All previous labs were completed successfully.
 
-## Task 1: Find the Node to move to the target cluster
+## Task: Find the Node to move to the target cluster
 
-1. For example, we consider the node named `RAD_REPORT_DETAIL` from Single Node Cluster .
+1. For example, we consider the node named `RAD_REPORT_DETAIL` from Single Node Cluster.
 
-2. Get the Ids of the Nodes of cluster to which we want move the single node cluster/or any Nodes of other clusters. Get the Matched Ids and update the `TOTAL_AFFINITY` to 1.
+2. Get the Ids of the Nodes of the cluster to which we want to move the single node cluster/or any Nodes of other clusters. Get the Matched Ids and update the `TOTAL_AFFINITY` to 1.
 
-    NOTE : We must have an edge from Node to be moved to the Nodes in the Target Cluster.
+    NOTE: We must have an edge from the node to be moved to the Nodes in the Target Cluster.
 
-    Go to SQL developer and execute below query.
+    Go to SQL developer and execute the below query.
 
     ```text
    <copy>
@@ -37,9 +37,7 @@ This lab assumes you have:
     </copy>
     ```
 
-3. Run the Infomap algorithm again on the updated data. Follow the same steps from Lab 6, Task 2 and verify whether the required is moved to the intended clusters.
-
-## Learn More
+3. Run the Infomap algorithm again on the updated data. Follow the same steps from Lab 6, Task 2, and verify whether the required is moved to the intended clusters.
 
 ## Acknowledgements
 
