@@ -20,9 +20,9 @@ In this lab, you will:
 This lab assumes you have the following:
 
 * An Oracle account
-* All previous labs should be successfully completed
+* All previous labs should be completed
 
-All the SQL scripts and shell scripts are available in 'microservices-data-refactoring/livelabs/datacollector-sts', cloned in Lab 1.
+All the SQL and shell scripts are in 'microservices-data-refactoring/livelabs/datacollector-sts', cloned in Lab 1.
 
 ## Task 1: Log in to the SQL Worksheet
 
@@ -54,7 +54,7 @@ When you ran the `setup.sh` script in the previous lab, it created a database us
 
 ## Task 2: Prepare the application schema
 
-1. Create the application tables by running this command. You can just copy this and paste it into the SQL Worksheet and then hit the **Run Command** button. You will do the same thing to run all of the other commands presented in this workshop.
+1. Create the application tables by running this command. You can copy this, paste it into the SQL Worksheet, and then hit the **Run Command** button. You will do the same thing to run all of the other commands presented in this workshop.
 
     ```text
     <copy>begin
@@ -105,7 +105,7 @@ Now we will create some simulated application workload. In a real-world scenario
 
 1. Simulate workload by running the provided SQL script.  
 
-    The file `simulate-workload.sql` contains about one hundred SQL commands. Copy the contents of this file into your SQL Worksheet and click on the **Run script** button. If you do not recall where the button is, please refer back to Task 1, Step 7, for a reminder.
+    The file `simulate-workload.sql` contains about one hundred SQL commands. Copy the contents of this file into your SQL Worksheet and click on the **Run script** button. If you need help remembering where the button is, please refer back to Task 1, Step 7, for a reminder.
 
     ```text
     <copy>
@@ -117,10 +117,10 @@ Now we will create some simulated application workload. In a real-world scenario
 --Printing the sql statements for cluster 5...
 select *from tkdradata.dra_95, tkdradata.dra_90, tkdradata.dra_98;
 select* from tkdradata.dra_81, tkdradata.dra_93, tkdradata.dra_94, tkdradata.dra_97;
-select *from tkdradata.dra_82, tkdradata.dra_84, tkdradata.dra_81, tkdradata.dra_100, tkdradata.dra_86, tkdradata.dra_93, tkdradata.dra_88;
+select *from tkdradata.dra_82, tkdradata.dra_84, tkdradata.dra_81, tkdradata.dra_100, tkdradata.dra_86, tkdradata.dra_93, tkdradata.dra_88, tkdradata.dra_1;
 select* from tkdradata.dra_96, tkdradata.dra_93, tkdradata.dra_88, tkdradata.dra_97;
 select *from tkdradata.dra_96, tkdradata.dra_88, tkdradata.dra_84, tkdradata.dra_82, tkdradata.dra_92, tkdradata.dra_93, tkdradata.dra_97, tkdradata.dra_99;
-select* from tkdradata.dra_83, tkdradata.dra_92, tkdradata.dra_100, tkdradata.dra_93, tkdradata.dra_88, tkdradata.dra_87, tkdradata.dra_98;
+select* from tkdradata.dra_83, tkdradata.dra_92, tkdradata.dra_100, tkdradata.dra_93, tkdradata.dra_88, tkdradata.dra_87, tkdradata.dra_98, tkdradata.dra_1;
 select *from tkdradata.dra_89, tkdradata.dra_83, tkdradata.dra_86, tkdradata.dra_93, tkdradata.dra_99, tkdradata.dra_81;
 select* from tkdradata.dra_96, tkdradata.dra_85, tkdradata.dra_97, tkdradata.dra_86, tkdradata.dra_100, tkdradata.dra_83, tkdradata.dra_93, tkdradata.dra_80;
 select *from tkdradata.dra_94, tkdradata.dra_90, tkdradata.dra_93, tkdradata.dra_91, tkdradata.dra_96, tkdradata.dra_83, tkdradata.dra_88, tkdradata.dra_84, tkdradata.dra_85;
@@ -226,12 +226,14 @@ select* from tkdradata.dra_11, tkdradata.dra_9, tkdradata.dra_12, tkdradata.dra_
 select * from tkdradata.dra_7, tkdradata.dra_2, tkdradata.dra_4;
     /</copy>
     ```
+    
+  **No Rows Selected** is the expected output.
 
 ## Task 5: Load the SQL Tuning Set
 
->**Note:** The commands in this task **must** be run as the `ADMIN` user.  To open an SQL Worksheet for the `ADMIN` user, repeat steps 1 and 2 in Task 1.
+>**Note:** The commands in this task **must** be run as the **`ADMIN`** user.  To open an SQL Worksheet for the `ADMIN` user, repeat steps 1 and 2 in Task 1. Suppose you are not on `ADMIN` user, log out from the current user and log in as `ADMIN` user.
 
-1. Being careful to ensure you run this command as the `ADMIN` user, not `TKDRADATA`, load the workload data into the SQL Tuning Set using this command:
+1. Being careful to ensure you run this command as the **`ADMIN`** user, not `TKDRADATA`, load the workload data into the SQL Tuning Set using this command:
 
     ```text
     -- run this as the ADMIN user
@@ -263,7 +265,7 @@ select * from tkdradata.dra_7, tkdradata.dra_2, tkdradata.dra_4;
     group by sqlset_name;</copy>
     ```
 
-    This should return a non-zero value in the `tkdradata` row. There may be other rows, but you can safely ignore them. If you get zero, please go back over the previous steps to ensure you did not miss a step.
+    The above query should return a non-zero value in the `tkdradata` row. There may be other rows, but you can safely ignore them. If you get zero, please go back over the previous steps to ensure you got all the steps.
 
 Once this has been completed, you are ready to **proceed to the next lab.**
 
