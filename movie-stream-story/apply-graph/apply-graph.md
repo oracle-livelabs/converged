@@ -113,13 +113,13 @@ Connect to Autonomous Database tool as the MOVIESTREAM user:
 
 Graph Studio is a feature of Autonomous Database. It is available as an option under the **Tools** tab. You need a graph-enabled user to log into Graph Studio. In this workshop, user MOVIESTREAM has already been graph-enabled.
 
-1. In your Autonomous Database console, click the **Tools** tab and then **Graph Studio**.
+1. In your Autonomous Database console, click the **Database Actions** tab and then under Development click on **Graph Studio**.
 
-    Click **Tools**.
+    Click **Database Actions**.
 
-    ![Click Tools](images/toolstab.png " ")    
+    ![Click Tools, then Database Actions](images/launchdbactions.png " ")   
 
-    Scroll down and click **Graph Studio**.
+    and click **Graph Studio**.
 
     ![Scroll down and click Graph Studio](images/graphstudiofixed.png " ")
 
