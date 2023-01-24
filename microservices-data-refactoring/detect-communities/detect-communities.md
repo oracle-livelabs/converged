@@ -1,4 +1,4 @@
-# Run the community detection
+# Run Community Detection
 
 ## Introduction
 
