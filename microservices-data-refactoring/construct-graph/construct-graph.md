@@ -91,7 +91,7 @@ This lab assumes you have the following:
    ![Create graph dialog](./images/create-graph-dialog1.png " ")
 
 7. Graph Studio modeler will now save the metadata and start a job to create the graph.  
-   The Jobs page shows the status of this job.
+   The Jobs page shows the status of this job. Make sure that the status of all the jobs are Succeeded. 
 
    ![Jobs list page](./images/23-jobs-create-graph1.png " ")  
 

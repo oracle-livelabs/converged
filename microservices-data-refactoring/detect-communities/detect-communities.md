@@ -94,8 +94,6 @@ This lab assumes you have the following:
 
 ## Task 2: Compile and Run the Community Detection
 
-Here, We are using the smaller graph created in Lab 5. You can also run on the main graph, created in Lab 3, or any data you loaded through SQL Tuning Sets.
-
 1. Compile the maven project
 
     ```text
@@ -122,7 +120,7 @@ Here, We are using the smaller graph created in Lab 5. You can also run on the m
 
     ```text
    name=Environment Creation - 18 GBstype= ENVIRONMENT_CREATION created_by= ADMIN
-   Graph : PgxGraph[name=DRA_MEDICAL_RECS_G, N=98, E=1582, created=1664544333468]
+   Graph : PgxGraph[name=DRA_MEDICAL_RECS_G, N=98, E=1604, created=1664544333468]
    ```
 
     The table names with the same community Ids formed the clusters below.
@@ -252,7 +250,7 @@ Here, We are using the smaller graph created in Lab 5. You can also run on the m
 
 3. Rerun the Infomap algorithm on the updated data. Follow the same steps from Task 2, and verify whether the required node is moved to the intended target cluster. 
 
-Please **proceed to the next lab** to do so.
+If you are doing this on the simulated data, then **you are done with the lab.**
 
 ## Acknowledgements
 
