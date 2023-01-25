@@ -89,6 +89,7 @@ In this task, we will create a set of metadata tables that we will use to store 
     group by table_set_name, table_owner, table_name
     having table_name is not null;</copy>
     ```
+	**98 rows inserted** is the expected output.
 
     >**Note:** This code is provided in the file `load-graph-tables.sql`.
 
@@ -115,6 +116,7 @@ In this task, we will create a set of metadata tables that we will use to store 
         ) v
     );</copy>
     ```
+	**View TABLESET_SQL created** is the expected output.
 
     >**Note:** This code is provided in the file `create-helper-view.sql`.
 
@@ -272,6 +274,8 @@ In this task, we will create a set of metadata tables that we will use to store 
     /</copy>
     ```
 
+	**Procedure COMPUTE_AFFINITY_TKDRA compiled** is the expected output.
+	
     >**Note:** This code is provided in the file `compute-affinity.sql`.
 
 2. Run the procedure to compute affinities.
@@ -280,7 +284,8 @@ In this task, we will create a set of metadata tables that we will use to store 
     <copy>exec compute_affinity_tkdra();</copy>
     ```
 
-    This may take a few minutes to complete. Once it is done, we can see the output in our two graph metadata tables, for example:
+    This may take a few minutes to complete. **PL/SQL procedure successfully completed** is the expected output. 
+	Once it is done, we can see the output in our two graph metadata tables, For example:
 
     ```text
     <copy>select * from edges where table1 = 'DRA_1';</copy>

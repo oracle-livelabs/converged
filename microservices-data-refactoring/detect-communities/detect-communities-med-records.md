@@ -293,7 +293,9 @@ Here, We are using the smaller graph created in Lab 5. You can run on the main g
 
 3. Rerun the Infomap algorithm on the updated data. Follow the same steps from Task 2, and verify whether the required is moved to the intended clusters. Iterate the process until you are convinced with the final clusters.
 
-Please **proceed to the next lab** if you want to extract and analyze data into smaller ones.
+**you are done with this live lab.** 
+
+If you want to extract data into smaller ones, analyze the clusters, you can go **proceed to the next lab** 
 
 ## Acknowledgements
 
