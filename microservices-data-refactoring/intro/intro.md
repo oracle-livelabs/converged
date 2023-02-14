@@ -55,6 +55,7 @@ You may now **proceed to the next lab.**
 
 ## Acknowledgements
 
-* **Author** - Mark Nelson, Developer Evangelist
+* **Author** - Praveen Hiremath, Developer Advocate
 * **Contributors** - Mark Nelson, Praveen Hiremath
 * **Last Updated By/Date** - Praveen Hiremath, Developer Advocate, October 2022
+

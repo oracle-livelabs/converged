@@ -2,7 +2,7 @@
 
 ## Introduction
 
-In this lab, we will analyze the communities formed and will move the single-node cluster or any other node to the target cluster which we find suitable.
+In this lab, we will analyze the communities formed and move the node from one cluster to another.
 
 Estimated Time: 15 minutes
 
@@ -24,7 +24,7 @@ This lab assumes you have the following:
 
 2. Get the Ids of the Nodes of the cluster to which we want to move the single node cluster/or any Nodes of other clusters. Get the Matched Ids and update the `TOTAL_AFFINITY` to 1.
 
-    NOTE: We must have an edge from the node to be moved to the Nodes in the Target Cluster.
+    NOTE: We must have an edge from the node to the nodes of the Target Cluster.
 
     Go to SQL developer and execute the below query.
 
