@@ -79,6 +79,7 @@ This lab assumes you have:
    export PATH=$JAVA_HOME/bin:$PATH
    </copy>
    ```
+
 1. Verify the installation
 
    Verify the Java Development Kit is installed with this command:
@@ -103,7 +104,7 @@ You can use either Maven or Gradle to build your Spring Boot applications.  If y
 1. Install Maven
 
    Decompress the archive in your chosen location, e.g., your home directory and then add it to your path:
-
+   
    ```
    <copy>export PATH=$HOME/apache-maven-3.8.6/bin:$PATH</copy>
    ```
@@ -111,7 +112,7 @@ You can use either Maven or Gradle to build your Spring Boot applications.  If y
 1. Verify installation
 
    You can verify it is installed with this command (note that your version may give slightly different output):
-
+   
    ```
    $ <copy>mvn -v</copy>
    Apache Maven 3.8.6 (84538c9988a25aec085021c365c560670ad80f63)
@@ -134,17 +135,17 @@ If you prefer Gradle, follow the steps in this task.
 1. Verify the installation
 
    Run the command below to verify Gradle was installed correctly:
-
+   
    ```
    $ <copy>gradle -v</copy>
-
+   
    ------------------------------------------------------------
    Gradle 7.6
    ------------------------------------------------------------
-
+   
    Build time:   2022-11-25 13:35:10 UTC
    Revision:     daece9dbc5b79370cc8e4fd6fe4b2cd400e150a8
-
+   
    Kotlin:       1.7.10
    Groovy:       3.0.13
    Ant:          Apache Ant(TM) version 1.10.11 compiled on July 10 2021
@@ -163,7 +164,7 @@ The Oracle Backend for Spring Boot CLI is used to configure your backend and to 
 1. Install the CLI
 
    To install the CLI, you just need to make sure it is executable and add it to your PATH enviironment variable.
-
+   
    ```
    <copy>
    chmod +x oractl
@@ -174,13 +175,13 @@ The Oracle Backend for Spring Boot CLI is used to configure your backend and to 
 1. Verify the installation
 
   Verify the CLI is installed using this command: 
-
+   
   ```text
   $ ~/ebaas/oractl version
      _   _           __    _    ___
     / \ |_)  _.  _. (_    /  |   |
     \_/ |_) (_| (_| __)   \_ |_ _|_
-
+   
    2023-02-22T15:05:40.835-05:00  INFO 29309 --- [           main] o.s.s.cli.OracleSpringCLIApplication     : Starting AOT-processed OracleSpringCLIApplication using Java 17.0.5 with PID 29309 (/home/mark/ebaas/oractl started by mark in /home/mark/ebaas/SECOND-COPY/microservices-datadriven)
    2023-02-22T15:05:40.835-05:00  INFO 29309 --- [           main] o.s.s.cli.OracleSpringCLIApplication     : No active profile set, falling back to 1 default profile: "default"
    2023-02-22T15:05:40.873-05:00  INFO 29309 --- [           main] o.s.s.cli.OracleSpringCLIApplication     : Started OracleSpringCLIApplication in 0.047 seconds (process running for 0.049)
