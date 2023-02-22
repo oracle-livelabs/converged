@@ -1,4 +1,4 @@
-# Variables in LiveLabs
+# Extend the Mobile Application
 
 ## Introduction
 

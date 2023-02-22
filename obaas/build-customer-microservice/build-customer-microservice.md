@@ -1,4 +1,4 @@
-# Title of the Lab
+# Build the Customer Microservice
 
 ## Introduction
 

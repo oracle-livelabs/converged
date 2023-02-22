@@ -1,4 +1,4 @@
-# Title of the Lab
+# Setup your Development Environment
 
 ## Introduction
 

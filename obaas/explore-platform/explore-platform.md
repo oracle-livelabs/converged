@@ -1,4 +1,4 @@
-# Tables in LiveLabs
+# Explore the Backend Platform
 
 ## Tables are cool!
 

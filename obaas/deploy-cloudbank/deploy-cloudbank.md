@@ -1,4 +1,4 @@
-# Title of the Lab
+# Deploy the full CloudBank Application
 
 ## Introduction
 

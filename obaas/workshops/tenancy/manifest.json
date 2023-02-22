@@ -1,11 +1,7 @@
 {
-    "workshoptitle": "The Title of the Workshop is Defined in the Manifest File",
-    "include": {"starter-file.sql":"../../data-load/files/starter-file.sql",
-                "sample.json":"../../data-load/files/sample.json",
-                "step2.md":"../../data-load/files/step2.md"},
-    "variables": ["../../variables/variables.json",
-                 "../../variables/variables-in-another-file.json"],
-    "help": "livelabs-help-**enterarea**_us@oracle.com",
+    "workshoptitle": "Oracle Backend Platform for Microservices with Oracle Database",
+    "variables": ["../../variables/variables.json"],
+    "help": "livelabs-help-db_us@oracle.com",
     "tutorials": [
         {
             "title": "Introduction",
@@ -23,24 +19,24 @@
             "filename": "../../provision/provision.md"
         },
         {
-            "title": "Lab 2: Setup the Environment",
+            "title": "Lab 2: Setup your Development Environment",
             "filename": "../../setup/setup.md"
         },
         {
-            "title": "Lab 3: Load Data into an Instance",
-            "filename": "../../data-load/data-load.md"
+            "title": "Lab 3: Build the Customer Microservice",
+            "filename": "../../build-customer-microservice/build-customer-microservice.md"
         },
         {
-            "title": "Lab 4: Query Data",
-            "filename": "../../query/query.md"
+            "title": "Lab 4: Deploy the full CloudBank Application",
+            "filename": "../../deploy-cloudbank/deploy-cloudbank.md"
         },
         {
-            "title": "Lab 5: Tables in LiveLabs",
-            "filename": "../../tables/tables.md"
+            "title": "Lab 5: Explore the Backend Platform",
+            "filename": "../../explore-platform/explore-platform.md"
         },
         {
-            "title": "Lab 6: Variables in LiveLabs",
-            "filename": "../../variables/variables.md"
+            "title": "Lab 6: Extend the Mobile Application",
+            "filename": "../../extend-mobile-app/extend-mobile-app.md"
         },
         {
             "title": "Need Help?",
