@@ -1,67 +1,100 @@
-# Title of the Lab
+# Provision an instance of Oracle Backend for Spring Boot
 
 ## Introduction
 
-*Describe the lab in one or two sentences, for example:* This lab walks you through the steps to ...
+This lab walks you through the steps to provision an instance of the Oracle Backend for Spring Boot, including Parse Platform in the Oracle Cloud.  The Oracle Backend for Parse Platform is available separately, or it can be optionally included when installing the Oracle Backend for Spring Boot by selecting an option during the installation.
 
-Estimated Time: -- minutes
+Estimated Time: 20 minutes
 
-### About <Product/Technology> (Optional)
-Enter background information here about the technology/feature or product used in this lab - no need to repeat what you covered in the introduction. Keep this section fairly concise. If you find yourself needing more than two sections/paragraphs, please utilize the "Learn More" section.
+### About Oracle Backend for Spring Boot
+Oracle Backend for Spring Boot allows developers to build microservices in Spring Boot and provision a backend as a service with the Oracle Database and other infrastructure components that operate on multiple clouds. This service vastly simplifies the task of building, testing, and operating microservices platforms for reliable, secure, and scalable enterprise applications.
+
+### About Oracle Backend for Parse Platform
+Oracle Backend for Parse Platform allows developers to build and deploy mobile applications using Parse mobile APIs, and provision a backend as a service with the Oracle Database and other infrastructure components that operate on multiple clouds. This service vastly simplifies the task of building, testing, and operating a mobile app dev platform for reliable, secure, and scalable enterprise applications. This version includes an Oracle Database storage adapter for Parse (Parse already has MongoDB and Postgres adapters), and a proof of concept of Google Firebase APIs emulated using Parse APIs.
 
 ### Objectives
 
-*List objectives for this lab using the format below*
-
 In this lab, you will:
-* Objective 1
-* Objective 2
-* Objective 3
+* Provisiong an instance of Oracle Backend for Spring Boot, with Parse Platform included
 
-### Prerequisites (Optional)
-
-*List the prerequisites for this lab using the format below. Fill in whatever knowledge, accounts, etc. is needed to complete the lab. Do NOT list each previous lab as a prerequisite.*
+### Prerequisites
 
 This lab assumes you have:
-* An Oracle Cloud account
+* An Oracle Cloud account in a tenancy with sufficient quota to create:
+    * An OCI Container Engine for Kubernetes cluster, plus a node pool with three worker nodes
+    * A VCN with at least two public IP’s available
+    * A public load balancer
+    * An Oracle Autonomous Database - Shared instance
+    * At least one free OCI Auth Token (note that the maximum is two per user)
 * All previous labs successfully completed
 
+## Task 1: Install the Oracle Backend for Spring Boot from OCI Marketplace
 
-*This is the "fold" - below items are collapsed by default*
+The Oracle Backend for Spring Boot can be installed from OCI Marketplace. 
 
-## Task 1: Concise Task Description
+> **Note:** Oracle Backend for Spring Boot can also be installed on-premises or in other clouds.
 
-(optional) Task 1 opening paragraph.
 
-1. Step 1
+1. Access the Oracle Cloud Infrastructure Marketplace listing
 
-	![Image alt text](images/sample1.png)
+   Open the [OCI Marketplace listing](https://cloudmarketplace.oracle.com/marketplace/en_US/listing/138899911), as shown in the image below:
 
-	> **Note:** Use this format for notes, hints, and tips. Only use one "Note" at a time in a step.
+   ![OCI Marketplace listing](images/obaas-mp-listing.png)
 
-2. Step 2
+   Click on the **Get App** button.
 
-  ![Image alt text](images/sample1.png)
+1. Log into your Oracle Cloud Infrastructure account
 
-4. Example with inline navigation icon ![Image alt text](images/sample2.png) click **Navigation**.
+   You will be taken to a Sign In page.  Choose they type of account you have and click on the **Sign In** button.  If you did not create an account in the **Get Started** lab, you can do so now using the **Sign Up** button.
 
-5. Example with bold **text**.
+   ![Sign In page](images/obaas-install-app.png)
 
-   If you add another paragraph, add 3 spaces before the line.
+   Sign into your account as you normally do, using Single Sign-On or Direct Sign-In.
 
-## Task 2: Concise Task Description
+1. Choose the region and compartment
 
-1. Step 1 - tables sample
+   In the next screen you can choose the region using the pulldown in the top right hand corner, and then choose the compartment you want to install into. 
 
-  Use tables sparingly:
+   ![Install screen](images/obaas-install-2.png)
 
-  | Column 1 | Column 2 | Column 3 |
-  | --- | --- | --- |
-  | 1 | Some text or a link | More text  |
-  | 2 |Some text or a link | More text |
-  | 3 | Some text or a link | More text |
+   Review the terms and restrictions, and then click on the checkbox to accept them.  Then, click on **Launch Stack**,
 
-2. You can also include bulleted lists - make sure to indent 4 spaces:
+   > **Note:** This Live Lab is tested with version 0.2.0 (2/28/2023).  Later versions should work, but earlier versions do not contain all features used in this Live Lab.
+
+1. Review the **Create Stack** page
+
+   Review the details on the **Create Stack** page.  You may wish to update the **Name** or add tags.  When you are ready, click on **Next**.
+
+   ![Create stack screen](images/obaas-create-stack.png)
+
+1. Complete the **Variables** page
+
+   Review the details on the **Variables** page.  Set the **Application Name** to "CloudBank".  You may accept the defaults for all other options.  When you are ready, click on **Next**.
+
+   ![Variables screen](images/obaas-create-stack-2.png)
+
+1. Complete the **Review** page
+
+   Review the details on the **Review** page.  Check the box next to **Run Apply**.  When you are ready, click on **Create**.
+
+   ![Review screen](images/obaas-create-stack-3.png)
+
+1. Review the apply screen
+
+   The stack will now be applied.  On the **Apply** screen (see below) you can monitor the progress of the installation in the **Logs** box.  The installation should take about 15 to 20 minutes to complete.  This includes the time needed to create your Oracle Autonomous Database instance dnd your Oracle Container Engine for Kubernetes cluster and install the various components of the stack into the Kubernetes cluster.
+
+   ![Stack apoply screen](images/obaas-apply.png)
+
+   > **Note**: While you are waiting for the installation to complete is a great time to start setting up your development environmeent (see the next lab).  You can come back here where you are done to check the installation completed successfully.
+
+   
+## Task 2: Confirm the installation was successful
+
+1. Check the logs for errors
+
+   Scroll down to the bottom of the log to see the outcome.  If there was an error during installation, details will be included at the end of the log.  The most common errors are due to insufficient quota for some resource.  If you get an error about insufficient quota, you may need to clean up unused resources or request a quota increase for the affected resource.
+
+1. TODO verify you can connect to x y and z .. 
 
     - List item 1
     - List item 2
@@ -89,6 +122,6 @@ This lab assumes you have:
 * [URL text 2](http://docs.oracle.com)
 
 ## Acknowledgements
-* **Author** - <Name, Title, Group>
-* **Contributors** -  <Name, Group> -- optional
-* **Last Updated By/Date** - <Name, Month Year>
+* **Author** - Mark Nelson, Developer Evangelist, Oracle Database
+* **Contributors** - [](var:contributors)
+* **Last Updated By/Date** - Mark Nelson, February 2023
