@@ -6,7 +6,7 @@ This lab walks you through setting up your development environment to work with 
 
 Estimated Lab Time: 20 minutes
 
-### Recommended Developmnet Environments
+### Recommended Development Environment platforms and tools
 
 The following platforms are recommended for a development environment:
 
@@ -51,7 +51,7 @@ This lab assumes you have:
 
    Download Visual Studio Code from [this web site](https://code.visualstudio.com/) and run the installer for your operating system to install it on your machine.
 
-   ![Download Visual Studio Code](images/obaas-install-vcode-extensions.png)
+   ![Download Visual Studio Code](images/obaas-vscode.png)
 
 1. Install the recommended extensions
    
@@ -74,15 +74,17 @@ This lab assumes you have:
    Decompress the archive in your chosen location, e.g., your home directory and then add it to your path:
 
    ```
+   <copy>
    export JAVA_HOME=$HOME/jdk-17.0.3
    export PATH=$JAVA_HOME/bin:$PATH
+   </copy>
    ```
 1. Verify the installation
 
    Verify the Java Development Kit is installed with this command:
 
    ```
-   $ java -version
+   $ <copy>java -version</copy>
    java version "17.0.3" 2022-04-19 LTS
    Java(TM) SE Runtime Environment (build 17.0.3+8-LTS-111)
    Java HotSpot(TM) 64-Bit Server VM (build 17.0.3+8-LTS-111, mixed mode, sharing)
@@ -103,7 +105,7 @@ You can use either Maven or Gradle to build your Spring Boot applications.  If y
    Decompress the archive in your chosen location, e.g., your home directory and then add it to your path:
 
    ```
-   export PATH=$HOME/apache-maven-3.8.6/bin:$PATH
+   <copy>export PATH=$HOME/apache-maven-3.8.6/bin:$PATH</copy>
    ```
 
 1. Verify installation
@@ -111,7 +113,7 @@ You can use either Maven or Gradle to build your Spring Boot applications.  If y
    You can verify it is installed with this command (note that your version may give slightly different output):
 
    ```
-   $ mvn -v
+   $ <copy>mvn -v</copy>
    Apache Maven 3.8.6 (84538c9988a25aec085021c365c560670ad80f63)
    Maven home: /home/mark/apache-maven-3.8.6
    Java version: 17.0.3, vendor: Oracle Corporation, runtime: /home/mark/jdk-17.0.3
@@ -134,7 +136,7 @@ If you prefer Gradle, follow the steps in this task.
    Run the command below to verify Gradle was installed correctly:
 
    ```
-   $ gradle -v
+   $ <copy>gradle -v</copy>
 
    ------------------------------------------------------------
    Gradle 7.6
@@ -163,15 +165,17 @@ The Oracle Backend for Spring Boot CLI is used to configure your backend and to 
    To install the CLI, you just need to make sure it is executable and add it to your PATH enviironment variable.
 
    ```
+   <copy>
    chmod +x oractl
    export PATH=/path/to/oractl:$PATH
+   </copy>
    ```
 
 1. Verify the installation
 
   Verify the CLI is installed using this command: 
 
-  ```
+  ```text
   $ ~/ebaas/oractl version
      _   _           __    _    ___
     / \ |_)  _.  _. (_    /  |   |

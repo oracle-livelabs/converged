@@ -92,7 +92,15 @@ The Oracle Backend for Spring Boot can be installed from OCI Marketplace.
 
 1. Check the logs for errors
 
-   Scroll down to the bottom of the log to see the outcome.  If there was an error during installation, details will be included at the end of the log.  The most common errors are due to insufficient quota for some resource.  If you get an error about insufficient quota, you may need to clean up unused resources or request a quota increase for the affected resource.
+   Scroll down to the bottom of the log to see the outcome.  If there was an error during installation, details will be included at the end of the log.  The most common errors are due to insufficient quota for some resource.  If you get an error about insufficient quota, you may need to clean up unused resources or request a quota increase for the affected resource.  Once you have done that, navigate back to the stack details (for example, using the breadcrumbs) and click on the **Apply** to try again.
+
+   When the installation completes normally, the end of the log should look something like this: 
+
+   ```
+   Apply complete! Resources: 91 added, 0 changed, 0 destroyed.
+   Outputs:
+   kubeconfig_cmd = "oci ce cluster create-kubeconfig --cluster-id ocid1.cluster.oc1.phx.xxxx --file $HOME/.kube/config --region us-phoenix-1 --token-version 2.0.0 --kube-endpoint PUBLIC_ENDPOINT" 
+   ```
 
 1. TODO verify you can connect to x y and z .. 
 
