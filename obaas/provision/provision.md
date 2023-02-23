@@ -1,4 +1,4 @@
-# Provision an instance of Oracle Backend for Spring Boot
+l # Provision an instance of Oracle Backend for Spring Boot
 
 ## Introduction
 
@@ -101,6 +101,37 @@ The Oracle Backend for Spring Boot can be installed from OCI Marketplace.
     Outputs:
     kubeconfig_cmd = "oci ce cluster create-kubeconfig --cluster-id ocid1.cluster.oc1.phx.xxxx --file $HOME/.kube/config --region us-phoenix-1 --token-version 2.0.0 --kube-endpoint PUBLIC_ENDPOINT" 
     ```
+
+1. Verify you can access the Kubernetes cluster
+
+   In later labs, you will look at various resources in Kubernetes.  You will need a Kubernetes configuration file to access the cluster.  For now, accessing the cluster from OCI Cloud Shell will be sufficient to verify the installation.
+
+   Open the OCI CLoud Shell by clicking on the icon next to the region in the top right corner of the console and then clicking on **Cloud Shell**.
+
+   ![Open OCI CLoud Shell](images/obaas-cloud-shell.png)
+
+   Run the command provided at the end of your installation log to obtain the Kuberentes configuration file.  The command will be similar to this:
+
+    ```
+    <copy>oci ce cluster create-kubeconfig --cluster-id ocid1.cluster.oc1.phx.xxxx --file path/to/kubeconfig --region us-phoenix-1 --token-version 2.0.0 --kube-endpoint PUBLIC_ENDPOINT</copy>
+    ```
+
+   Set the **KUBECONFIG** environment variable to point to the file you just created using this command (provide the path to where you created the file):
+
+    ```
+    $ <copy>export KUBECONFIG=/path/to/kubeconfig</copy>
+    ```
+
+   Check that you can access the cluster using this command: 
+
+    ```
+    $ <copy>kubectl get pods -n obaas-admin</copy>
+    NAME                          READY   STATUS    RESTARTS     AGE
+    obaas-admin-bf4cd5f55-z54pk   2/2     Running   2 (9d ago)   9d
+    ```
+
+   Your output will be slightly different, but you should see one pod listed in the output.  This is enough to confirm that you have correctly configured access to the Kubernetes cluster.
+   
 
 1. TODO verify you can connect to x y and z .. 
 
