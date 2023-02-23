@@ -138,7 +138,7 @@ xyz
    Start the tunnel using this command.  You can run this in the background if you prefer.
 
     ```
-    $ <copy>kubectl n apisix port-forward svc/apisix-dashboard 8080:80</copy>
+    $ <copy>kubectl -n grafana port-forward svc/grafana 8080:80</copy>
     ```
 
    Open a web broswer to [http://localhost:8080](http://localhost:8080) to view the Grafana web user interface.  It will appear similar to the image below.  Log in with the username **admin** and the password you just got.
@@ -161,7 +161,15 @@ xyz
 
    instuctions
 
-   ![pciture](images/obaas-xxx.png)
+   Start the tunnel using this command.  You can run this in the background if you prefer.
+
+    ```
+    $ <copy>kubectl -n observability port-forward svc/jaegertracing-query 16686:16686</copy>
+    ```
+
+   Open a web broswer to [http://localhost:16686](http://localhost:16686) to view the Jaeger web user interface.  It will appear similar to the image below. 
+
+   ![pciture](images/obaas-jaeger-home-page.png)
 
 ## Task 1: Explore XYZ 
 
