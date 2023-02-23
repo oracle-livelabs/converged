@@ -52,13 +52,13 @@ The Oracle Backend for Spring Boot can be installed from OCI Marketplace.
    Sign into your account as you normally do, using Single Sign-On or Direct Sign-In.
 
 1. Choose the region and compartment
-
+   
    In the next screen you can choose the region using the pulldown in the top right hand corner, and then choose the compartment you want to install into. 
-
+   
    ![Install screen](images/obaas-install-2.png)
-
+   
    Review the terms and restrictions, and then click on the checkbox to accept them.  Then, click on **Launch Stack**,
-
+   
    > **Note:** This Live Lab is tested with version 0.2.0 (2/28/2023).  Later versions should work, but earlier versions do not contain all features used in this Live Lab.
 
 1. Review the **Create Stack** page

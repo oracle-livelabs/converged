@@ -2,21 +2,23 @@
 
 ## Introduction
 
-*Describe the lab in one or two sentences, for example:* This lab walks you through the steps to ...
+This lab walks you through the steps to build a Spring Boot microservice from scratch, and to deploy it into the Oracle Backend for Spring Boot.  In this lab, we will build the "Customer" microservice.  In the next lab, the remaining Cloud Bank microservices will be provided for you.
 
-Estimated Time: -- minutes
+Estimated Time: 20 minutes
 
-### About <Product/Technology> (Optional)
+### About Spring Boot
 Enter background information here about the technology/feature or product used in this lab - no need to repeat what you covered in the introduction. Keep this section fairly concise. If you find yourself needing more than two sections/paragraphs, please utilize the "Learn More" section.
 
 ### Objectives
 
-*List objectives for this lab using the format below*
-
 In this lab, you will:
-* Objective 1
-* Objective 2
-* Objective 3
+* Create a new Spring Boot project in your IDE
+* Plan your customer database and create Liquibase files to automate creation of the database objects
+* Use Spring Data JPA to allow your microservice to use the data in the Orace database
+* Create REST services to allow clients to perform create, read, update, and delete operations on customers
+* Learn how to externalize configuration for your microservice
+* Deploy your microservice into the backend
+* TODO ?? Learn how to use service discovery
 
 ### Prerequisites (Optional)
 

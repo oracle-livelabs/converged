@@ -1,54 +1,93 @@
 # Explore the Backend Platform
 
-## Tables are cool!
+## Introduction
 
-You can define a table in Markdown just like so:
+This lab walks you through various features of Oracle Backend for Spring Boot, including Parse Platform, and shows you how to use them.
 
-```
-| Tables        | Are           | Cool  |
-| ------------- |:-------------:| -----:|
-| **col 3 is**  | right-aligned | $1600 |
-| col 2 is      | *centered*    |   $12 |
-| zebra stripes | ~~are neat~~  |    $1 |
-```
-The result looks like this:
+Estimated Time: 20 minutes
 
-| Tables        | Are           | Cool  |
-| ------------- |:-------------:| -----:|
-| **col 3 is**  | right-aligned | $1600 |
-| col 2 is      | *centered*    |   $12 |
-| zebra stripes | ~~are neat~~  |    $1 |
+### Objectives
 
-You can see that there is a default table caption provided which is by default a concatenation of the workshop title and the lab title.
+In this lab, you will:
+* Provisiong an instance of Oracle Backend for Spring Boot, with Parse Platform included
 
-If you don't like the default, you can also provide your own table title by adding the below the table definition:
+### Prerequisites
 
-```
-{: title="My table title"}
-```
+This lab assumes you have:
+* An Oracle Cloud account in a tenancy with sufficient quota to create:
+* All previous labs successfully completed
 
-The complete markdown looks like this:
+## Task 1: Explore the Kuberenetes cluster 
 
-```
-| Tables        | Are           | Cool  |
-| ------------- |:-------------:| -----:|
-| **col 3 is**  | right-aligned | $1600 |
-| col 2 is      | *centered*    |   $12 |
-| zebra stripes | ~~are neat~~  |    $1 |
-{: title="My table title"}
-```
+xyz
 
-Now our table looks like this:
+1. Do something
 
-| Tables        | Are           | Cool  |
-| ------------- |:-------------:| -----:|
-| **col 3 is**  | right-aligned | $1600 |
-| col 2 is      | *centered*    |   $12 |
-| zebra stripes | ~~are neat~~  |    $1 |
-{: title="My table title"}
+   instuctions
 
-As you can see, the numbering is added automatically.
+   ![pciture](images/obaas-xxx.png)
 
-Isn't that cool?
+## Task 2: Explore the Oracle Autonomous Database instance
 
-You can also refer to the [LiveLabs Markdown Cheatsheet](https://objectstorage.us-ashburn-1.oraclecloud.com/p/MKKRgodQ0WIIgL_R3QCgCRWCg30g22bXgxCdMk3YeKClB1238ZJXdau_Jsri0nzP/n/c4u04/b/qa-form/o/LiveLabs_MD_Cheat_Sheet.pdf)
+xyz
+
+1. Do something
+
+   instuctions
+
+   ![pciture](images/obaas-xxx.png)
+
+
+## Task 3: Explore Spring Admin
+
+xyz
+
+1. Do something
+
+   instuctions
+
+   ![pciture](images/obaas-xxx.png)
+
+## Task 4: Explore Spring Eureka Service Registry
+
+xyz
+
+1. Do something
+
+   instuctions
+
+   ![pciture](images/obaas-xxx.png)
+
+## Task 5: Explore APISIX API Gateway
+
+xyz
+
+1. Do something
+
+   instuctions
+
+   ![pciture](images/obaas-xxx.png)
+
+
+## Task 1: Explore XYZ 
+
+xyz
+
+1. Do something
+
+   instuctions
+
+   ![pciture](images/obaas-xxx.png)
+
+
+## Learn More
+
+*(optional - include links to docs, white papers, blogs, etc)*
+
+* [URL text 1](http://docs.oracle.com)
+* [URL text 2](http://docs.oracle.com)
+
+## Acknowledgements
+* **Author** - Mark Nelson, Developer Evangelist, Oracle Database
+* **Contributors** - [](var:contributors)
+* **Last Updated By/Date** - Mark Nelson, February 2023

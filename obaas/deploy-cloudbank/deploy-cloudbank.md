@@ -2,12 +2,9 @@
 
 ## Introduction
 
-*Describe the lab in one or two sentences, for example:* This lab walks you through the steps to ...
+Now that you know how to build a Spring Boot microservice and deploy it to the Oracle Backend for Spring Boot, this lab will guide you through deploying the rest of the Cloud Bank services that we have already built for you and exploring the runtime and management capabilities of the platform.
 
-Estimated Lab Time: -- minutes
-
-### About <Product/Technology> (Optional)
-Enter background information here about the technology/feature or product used in this lab - no need to repeat what you covered in the introduction. Keep this section fairly concise. If you find yourself needing more than two sections/paragraphs, please utilize the "Learn More" section.
+Estimated Lab Time: 20 minutes
 
 ### Objectives
 
@@ -18,16 +15,12 @@ In this lab, you will:
 * Objective 2
 * Objective 3
 
-### Prerequisites (Optional)
-
-*List the prerequisites for this lab using the format below. Fill in whatever knowledge, accounts, etc. is necessary to complete the lab. Do NOT list each previous lab as a prerequisite.*
+### Prerequisites
 
 This lab assumes you have:
 * An Oracle Cloud account
 * All previous labs successfully completed
 
-
-*This is the "fold" - below items are collapsed by default*
 
 ## Task 1: Concise Task Description
 
