@@ -8,69 +8,48 @@ Estimated Lab Time: 20 minutes
 
 ### Objectives
 
-*List objectives for this lab using the format below*
-
 In this lab, you will:
-* Objective 1
-* Objective 2
-* Objective 3
+* Deploy the full CloudBank sample application into your Oracle Backend for Spring Boot instance
 
 ### Prerequisites
 
 This lab assumes you have:
 * An Oracle Cloud account
 * All previous labs successfully completed
+* Git version control tool installed on your computer (optional)
 
 
-## Task 1: Concise Task Description
+## Task 1: Get a copy of the CloudBank sample application
 
-(optional) Task 1 opening paragraph.
+Download a copy of the CloudBank sample application.
 
-1. Step 1
+1. Clone the source repository
 
-	![Image alt text](images/sample1.png)
-
-2. Step 2
-
-  ![Image alt text](images/sample1.png)
-
-4. Example with inline navigation icon ![Image alt text](images/sample2.png) click **Navigation**.
-
-5. Example with bold **text**.
-
-   If you add another paragraph, add 3 spaces before the line.
-
-## Task 2: Concise Task Description
-
-1. Step 1 - tables sample
-
-  Use tables sparingly:
-
-  | Column 1 | Column 2 | Column 3 |
-  | --- | --- | --- |
-  | 1 | Some text or a link | More text  |
-  | 2 |Some text or a link | More text |
-  | 3 | Some text or a link | More text |
-
-2. You can also include bulleted lists - make sure to indent 4 spaces:
-
-    - List item 1
-    - List item 2
-
-3. Code examples
+   Create a local clone of the CloudBank source repository using this command: 
 
     ```
-    Adding code examples
-  	Indentation is important for the code example to appear inside the step
-    Multiple lines of code
-  	<copy>Enclose the text you want to copy in <copy></copy>.</copy>
+    $ <copy>git clone TODO:TODO</copy>
     ```
 
-4. Code examples that include variables
+    > **Note**: If you do not have **git** installed on your machine, you can download a zip file of the source code from TODO and unzip it on your machine instead.
 
-	```
-  <copy>ssh -i <ssh-key-file></copy>
-  ```
+
+## Task 2: Install CloudBank in your Oracle Backend for Spring Boot instance
+
+1. TODO edit the script???
+
+  xyz TODO xyz 
+  
+1. TODO run the script???
+
+  xyz TODO xyz 
+
+## Task 3: Verify the deployment
+
+1. TODO verify ???
+
+  xyz TODO xyz 
+
 
 ## Learn More
 

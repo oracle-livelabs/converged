@@ -9,12 +9,18 @@ Estimated Time: 20 minutes
 ### Objectives
 
 In this lab, you will:
-* Provisiong an instance of Oracle Backend for Spring Boot, with Parse Platform included
+* Review the components of the Oracle Backend for Spring Boot
+* Explore how microservice data is stored in the Oracle Autonomous Database
+* Learn about the Spring Admin user interface
+* Learn about Spring Eureka Service Registry
+* Learn about APISIX API Gateway
+* Learn about Spring Config Server
+* Learn about the observability tools included in Oracle Backend for Spring Boot
 
 ### Prerequisites
 
 This lab assumes you have:
-* An Oracle Cloud account in a tenancy with sufficient quota to create:
+* An Oracle Cloud account
 * All previous labs successfully completed
 
 ## Task 1: Explore the Kuberenetes cluster 
@@ -68,6 +74,35 @@ xyz
 
    ![pciture](images/obaas-xxx.png)
 
+## Task 1: Explore Spring Config Server
+
+xyz
+
+1. Do something
+
+   instuctions
+
+   ![pciture](images/obaas-xxx.png)
+
+## Task 1: Explore Prometheus and Grafana
+
+xyz
+
+1. Do something
+
+   instuctions
+
+   ![pciture](images/obaas-xxx.png)
+
+## Task 1: Explore Jaeger
+
+xyz
+
+1. Do something
+
+   instuctions
+
+   ![pciture](images/obaas-xxx.png)
 
 ## Task 1: Explore XYZ 
 
