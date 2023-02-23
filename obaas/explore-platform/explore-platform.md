@@ -109,7 +109,7 @@ xyz
    
    instuctions
 
-   ![APISIX Dashboard route list](images/obaas-apisix-reoute-list.png)
+   ![APISIX Dashboard route list](images/obaas-apisix-route-list.png)
 
 
 ## Task 1: Explore Spring Config Server
@@ -128,9 +128,30 @@ xyz
 
 1. Do something
 
-   instuctions
+    Get the password for the Grafana admin user using this command (your output will be different): 
 
-   ![pciture](images/obaas-xxx.png)
+    ```
+    $ <copy>kubectl -n grafana get secret grafana -o jsonpath='{.data.admin-password}' | base64 -d</copy>
+    fusHDM7xdwJXyUM2bLmydmN1V6b3IyPVRUxDtqu7
+    ```
+
+   Start the tunnel using this command.  You can run this in the background if you prefer.
+
+    ```
+    $ <copy>kubectl n apisix port-forward svc/apisix-dashboard 8080:80</copy>
+    ```
+
+   Open a web broswer to [http://localhost:8080](http://localhost:8080) to view the Grafana web user interface.  It will appear similar to the image below.  Log in with the username **admin** and the password you just got.
+
+   ![pciture](images/obaas-grafana-signin.png)
+
+   In the lower left there is a list of pre-installed dashbaords, click on the link to open the **Spring Boot Dashboard**. 
+
+   ![pciture](images/obaas-grafana-home-page.png)
+
+   The Spring Boot Dashboard looks like the image below.  Use the **Instance** selctor at the top to choose which microservice you wish to view information for.
+
+   ![pciture](images/obaas-grafana-spring-dashboard.png)
 
 ## Task 1: Explore Jaeger
 
