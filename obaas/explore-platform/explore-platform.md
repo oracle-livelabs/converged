@@ -52,7 +52,28 @@ xyz
 
    instuctions
 
-   ![pciture](images/obaas-xxx.png)
+    ```
+    <copy>kubectl -n admin-server port-forward svc/admin-server 8989:8989</copy>
+    ```
+
+    Open a web browser to [http://localhost:8989](http://localhost:8989) to view the Spring Admin web user interface.
+
+    Click on **TODO** to view the "wallboard" which shows all of the discovered services.  Spring Admin discovers services from the Spring Eureka Service Registry.
+
+   ![Spring Admin Wallboard](images/obaas-spring-admin-1.png)
+
+1. Do something
+
+   instuctions
+
+   ![Customer service details](images/obaas-spring-admin-2.png)
+
+1. Do something
+
+   instuctions
+
+   ![Customer service endpoint list](images/obaas-spring-admin-3.png)
+
 
 ## Task 4: Explore Spring Eureka Service Registry
 
@@ -78,9 +99,18 @@ xyz
 
 1. Do something
 
+   Start the tunnel using this command.  You can run this in the background if you prefer.
+
+    ```
+    $ <copy>kubectl n apisix port-forward svc/apisix-dashboard 8080:80</copy>
+    ```
+
+   Open a web broswer to [http://localhost:8080](http://localhost:8080) to view the APISIX Dashboard web user interface.  It will appear similar to the image below.
+   
    instuctions
 
-   ![pciture](images/obaas-xxx.png)
+   ![APISIX Dashboard route list](images/obaas-apisix-reoute-list.png)
+
 
 ## Task 1: Explore Spring Config Server
 
