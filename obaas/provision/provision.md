@@ -96,11 +96,11 @@ The Oracle Backend for Spring Boot can be installed from OCI Marketplace.
 
    When the installation completes normally, the end of the log should look something like this: 
 
-   ```
-   Apply complete! Resources: 91 added, 0 changed, 0 destroyed.
-   Outputs:
-   kubeconfig_cmd = "oci ce cluster create-kubeconfig --cluster-id ocid1.cluster.oc1.phx.xxxx --file $HOME/.kube/config --region us-phoenix-1 --token-version 2.0.0 --kube-endpoint PUBLIC_ENDPOINT" 
-   ```
+    ```
+    Apply complete! Resources: 91 added, 0 changed, 0 destroyed.
+    Outputs:
+    kubeconfig_cmd = "oci ce cluster create-kubeconfig --cluster-id ocid1.cluster.oc1.phx.xxxx --file $HOME/.kube/config --region us-phoenix-1 --token-version 2.0.0 --kube-endpoint PUBLIC_ENDPOINT" 
+    ```
 
 1. TODO verify you can connect to x y and z .. 
 
