@@ -58,11 +58,19 @@ xyz
 
 xyz
 
-1. Do something
+1. Start a port-forward tunnel to access the Eureka web user interface
 
-   instuctions
+   Start the tunnel using this command.  You can run this in the background if you prefer.
 
-   ![pciture](images/obaas-xxx.png)
+    ```
+    $ <copy>kubectl -n eureka port-forward svc/eureka 8080:8761</copy>
+    ```
+
+   Open a web broswer to [http://localhost:8080](http://localhost:8080) to view the Eureka web user interface.  It will appear similar to the image below.
+
+   TODO replace this image with one that shows all service deployed.
+
+   ![Eureka web user interface](images/obaas-eureka.png)
 
 ## Task 5: Explore APISIX API Gateway
 
