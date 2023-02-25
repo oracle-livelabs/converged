@@ -1,4 +1,4 @@
-l # Provision an instance of Oracle Backend for Spring Boot
+# Provision an instance of Oracle Backend for Spring Boot
 
 ## Introduction
 

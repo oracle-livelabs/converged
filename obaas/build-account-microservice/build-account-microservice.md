@@ -346,7 +346,7 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
     
     ![Updated Project](images/obaas-updated-pom.png)
 
-    Add the `Data` and `NoArgsConstructor` Lombok annotations to your `Account` class.  `@Data` generates all the boilerplate that is normally associated with simple POJOs and beans: getters for all fields, setters for all non-final fields, and appropriate `toString`, `equals` and `hashCode` implementations that involve the fields of the class, and a constructor that initializes all final fields, as well as all non-final fields with no initializer that have been marked with `@NonNull`, in order to ensure the field is never null.  The `NoArgsConstructor` creates a constrcutor with no arguments.
+    Add the `Data` and `NoArgsConstructor` Lombok annotations to your `Account` class.  `@Data` generates all the boilerplate that is normally associated with simple POJOs and beans: getters for all fields, setters for all non-final fields, and appropriate `toString`, `equals` and `hashCode` implementations that involve the fields of the class, and a constructor that initializes all final fields, as well as all non-final fields with no initializer that have been marked with `@NonNull`, in order to ensure the field is never null.  The `NoArgsConstructor` creates a constrcutor with no arguments. 
 
     Also add the JPA `Entity` and `Table` annotations to the class and set the `Table`'s `name` property to `accounts`.  These tell JPA that this object will be mapped to a table in the database called `accounts`.  Your class should now look like this: 
 
@@ -525,6 +525,70 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
         "accountBalance": 1000
       }
     ]
+    ```
+
+    TODO you just learned xyz
+
+1. Create an endpoint to create a new account.
+
+   Now we want to create an endpoint to create a new account.  Open `AccountController.java` and add a new `createAccount` method.  This method should return `ResponseEntity<Account>` this will allow you to return the account object, but also gives you access to set headers, status code and so on.  The method needs to take an `Account` as an argument.  Add the `RequestBody` annotation to the argument to tell Spring Boot that the input data will be in the HTTP request's body.
+
+   Inside the method, you should use the `save` method on the JPA Repostiory to save a new instance of `Account` in the database.  The `save` method returns the created object.  If the save was successful, return the created object and set the HTTP Status Code to 201 (Created).  If there is an error, set the HTTP Status Code to 500 (Internal Server Error).
+
+   Here's what the new method (and imports) should look like: 
+
+    ```java
+    import org.springframework.web.bind.annotation.PostMapping;
+    import org.springframework.web.bind.annotation.RequestBody;
+    import org.springframework.http.HttpStatus;
+    import org.springframework.http.ResponseEntity;
+
+    // ...
+    
+    @PostMapping("/account")
+    public ResponseEntity<Account> createAccount(@RequestBody Account account) {
+        try {
+            Account _account = accountsRepository.save(new Account(
+                    account.getAccountName(),
+                    account.getAccountType(),
+                    account.getAccountOtherDetails(),
+                    account.getAccountCustomerId()));
+            return new ResponseEntity<>(_account, HttpStatus.CREATED);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+    ```
+
+   Rebuild and restart the application as you have previously.  Then test the new endpoint.  You will need to make an HTTP POST request, and you will need to set the `Content-Type` header to `application/json`.  Pass the data in as JSON in the HTTP request body.  Note that Spring Boot Web will handle mapping the JSON to the right fields in the type annotated with the `RequestBody` annotation.  So a call to `getAccountName()` will return the data in the `accountName` field in the JSON, and so on. 
+
+   Here is an example request and the expected output (yours will be slightly different):
+
+    ``` $ <copy>curl -i -X POST \
+          -H 'Content-Type: application/json' \
+          -d '{"accountName": "Dave Checking Account", "accountType": "CH", "accountOtherDetail": "", "accountCustomerId": "abc123xyz"}' \
+          http://localhost:8080/api/v1/account</copy>
+    HTTP/1.1 201 
+    Content-Type: application/json
+    Transfer-Encoding: chunked
+    Date: Sat, 25 Feb 2023 21:52:30 GMT
+    
+    {"accountId":3,"accountName":"Dave Checking Account","accountType":"CH","accountCustomerId":"abc123xyz","accountOpenedDate":"2023-02-26T02:52:30.000+00:00","accountOtherDetails":null,"accountBalance":0}
+    ```
+
+    Notice the HTTP Status Code is 201 (Created).  The service returns the account that was created in the body.
+
+    Now try a request with bad data that will not be able to be parsed and observe that the HTTP Status Code is 400 (Bad Request).  If there happened to be an exception thrown suring the `save()` method, you would get back a 500 (Internal Server Error):
+
+    ```
+    $ <copy>curl -i -X POST -H 'Content-Type: application/json' -d '{"bad": "data"}'  http://localhost:8080/api/v1/account</copy>
+    HTTP/1.1 400 
+    Content-Type: application/json
+    Transfer-Encoding: chunked
+    Date: Sat, 25 Feb 2023 22:05:24 GMT
+    Connection: close
+    
+    {"timestamp":"2023-02-25T22:05:24.350+00:00","status":400,"error":"Bad Request","path":"/api/v1/account"}
     ```
 
     TODO you just learned xyz
