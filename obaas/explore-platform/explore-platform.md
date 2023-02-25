@@ -25,11 +25,59 @@ This lab assumes you have:
 
 ## Task 1: Explore the Kuberenetes cluster 
 
-xyz
+Oracle Backend for Spring Boot includes a number of platform services which are deployed into the Oracle Container Engine for Kubernetes cluster.  You configured **kubectl** to access your cluster in an earlier lab.  In this task, you will explore the services deployed in the Kubernetes cluster.
 
-1. Do something
+1. Explore namespaces
 
-   instuctions
+   Kubernetes resources are grouped into namespaces.  To see a list of the namespaces in your cluster, use this command, your output will be slightly different: 
+
+   ```
+   $ <copy>kubectl get ns</copy>
+    NAME                              STATUS   AGE
+    admin-server                      Active   11d
+    apisix                            Active   5d1h
+    application                       Active   11d
+    cert-manager                      Active   11d
+    cloudbank                         Active   11d
+    conductor-server                  Active   11d
+    config-server                     Active   11d
+    default                           Active   11d
+    eureka                            Active   11d
+    grafana                           Active   4d9h
+    ingress-nginx                     Active   11d
+    kafka                             Active   9d
+    kube-node-lease                   Active   11d
+    kube-public                       Active   11d
+    kube-system                       Active   11d
+    obaas-admin                       Active   11d
+    observability                     Active   11d
+    open-telemetry                    Active   11d
+    oracle-database-operator-system   Active   11d
+    otmm                              Active   9d
+    prometheus                        Active   4d9h
+    vault                             Active   5d3h
+    ```
+
+    Here is a summary of what is in each of these namespaces: 
+
+    * `admin-server` contains Spring Admin which can be used to monitor and manage your services
+    * `apisix` contains the APISIX API Gateway and Dashboard which can be used to expose services outside the cluster
+    * `application` is a pre-created namespace with the Oracle Database wallet and secrets pre-configured to allow services deployed there to access the Oracle Autonomous Database instance
+    * `cert-manager` contains Cert Manager which is used to manage X.509 certificates for services
+    * `cloudbank` is the namespace where you deployed the CloudBank sample application
+    * `conductor-server` contains Netflix Conductor OSS which can be used to manage workflows
+    * `eureka` contains the Spring Eureka Service Registry which is used for service discovery
+    * `grafana` contains Grafana which can be used to monitor and manage your environment
+    * `ingress-nginx` contains the NGINX ingress controller which is used to manage external access to the cluster
+    * `kafka` contains a three-node Kafka cluster that can be used by your applciation
+    * `obaas-admin` contains the Oracle Backend for Spring Boot administration server that manages deployment of your services
+    * `observability` contains Jaeger tracing which is used for viewing distributed traces
+    * `open-telemetry` contains the Open Telemetry Collector which is used to collect distributed tracing information for your services
+    * `oracle-database-operator-system` contains the Oracle Database Operator for Kubernetes which can be used to manage Oracle Databases in Kubernetes environements
+    * `otmm` contains Oracle Transaction Manager for Microservices which is used to manage transactions acorss services
+    * `prometheus` contains Prometheus which collects metrics about your services and makes the available to Grafana for alerting and dashboarding
+    * `vault` contains HashiCorp Vault which can be used to store secret or sensitive infomration for services, like credentials for example
+
 
    ![pciture](images/obaas-xxx.png)
 

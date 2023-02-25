@@ -280,10 +280,10 @@ At the end of the previous lab, during the verification of the installation, you
 
 ## Task 8: Start a local Oracle Database container 
 
-    Running an Oracle Database in a container on your development machine will help with local testing while you are developing your Spring Boot services.
-    You can easily obtain an Oracle Database container image from Oracle Container Registry and run an Oracle Database on your machine. 
+   Running an Oracle Database in a container on your development machine will help with local testing while you are developing your Spring Boot services.
+   You can easily obtain an Oracle Database container image from Oracle Container Registry and run an Oracle Database on your machine. 
 
-    If you do not have a container runtime on your development machine, Oracle recommends [Rancher Desktop](https://rancherdesktop.io/) which can be downloaded and installed from that web site.
+   If you do not have a container runtime on your development machine, Oracle recommends [Rancher Desktop](https://rancherdesktop.io/) which can be downloaded and installed from that web site.
 
 1. Visit Oracle Container Registry and accept license agreements
 
