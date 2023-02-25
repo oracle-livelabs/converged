@@ -23,8 +23,8 @@
             "filename": "../../setup/setup.md"
         },
         {
-            "title": "Lab 3: Build the Customer Microservice",
-            "filename": "../../build-customer-microservice/build-customer-microservice.md"
+            "title": "Lab 3: Build the Account Microservice",
+            "filename": "../../build-account-microservice/build-account-microservice.md"
         },
         {
             "title": "Lab 4: Deploy the full CloudBank Application",
