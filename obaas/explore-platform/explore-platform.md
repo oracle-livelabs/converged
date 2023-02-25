@@ -31,8 +31,8 @@ Oracle Backend for Spring Boot includes a number of platform services which are 
 
    Kubernetes resources are grouped into namespaces.  To see a list of the namespaces in your cluster, use this command, your output will be slightly different: 
 
-   ```
-   $ <copy>kubectl get ns</copy>
+    ```
+    $ <copy>kubectl get ns</copy>
     NAME                              STATUS   AGE
     admin-server                      Active   11d
     apisix                            Active   5d1h
@@ -58,25 +58,43 @@ Oracle Backend for Spring Boot includes a number of platform services which are 
     vault                             Active   5d3h
     ```
 
-    Here is a summary of what is in each of these namespaces: 
+   Here is a summary of what is in each of these namespaces: 
 
-    * `admin-server` contains Spring Admin which can be used to monitor and manage your services
-    * `apisix` contains the APISIX API Gateway and Dashboard which can be used to expose services outside the cluster
-    * `application` is a pre-created namespace with the Oracle Database wallet and secrets pre-configured to allow services deployed there to access the Oracle Autonomous Database instance
-    * `cert-manager` contains Cert Manager which is used to manage X.509 certificates for services
-    * `cloudbank` is the namespace where you deployed the CloudBank sample application
-    * `conductor-server` contains Netflix Conductor OSS which can be used to manage workflows
-    * `eureka` contains the Spring Eureka Service Registry which is used for service discovery
-    * `grafana` contains Grafana which can be used to monitor and manage your environment
-    * `ingress-nginx` contains the NGINX ingress controller which is used to manage external access to the cluster
-    * `kafka` contains a three-node Kafka cluster that can be used by your applciation
-    * `obaas-admin` contains the Oracle Backend for Spring Boot administration server that manages deployment of your services
-    * `observability` contains Jaeger tracing which is used for viewing distributed traces
-    * `open-telemetry` contains the Open Telemetry Collector which is used to collect distributed tracing information for your services
-    * `oracle-database-operator-system` contains the Oracle Database Operator for Kubernetes which can be used to manage Oracle Databases in Kubernetes environements
-    * `otmm` contains Oracle Transaction Manager for Microservices which is used to manage transactions acorss services
-    * `prometheus` contains Prometheus which collects metrics about your services and makes the available to Grafana for alerting and dashboarding
-    * `vault` contains HashiCorp Vault which can be used to store secret or sensitive infomration for services, like credentials for example
+   * `admin-server` contains Spring Admin which can be used to monitor and manage your services
+   * `apisix` contains the APISIX API Gateway and Dashboard which can be used to expose services outside the cluster
+   * `application` is a pre-created namespace with the Oracle Database wallet and secrets pre-configured to allow services deployed there to access the Oracle Autonomous Database instance
+   * `cert-manager` contains Cert Manager which is used to manage X.509 certificates for services
+   * `cloudbank` is the namespace where you deployed the CloudBank sample application
+   * `conductor-server` contains Netflix Conductor OSS which can be used to manage workflows
+   * `eureka` contains the Spring Eureka Service Registry which is used for service discovery
+   * `grafana` contains Grafana which can be used to monitor and manage your environment
+   * `ingress-nginx` contains the NGINX ingress controller which is used to manage external access to the cluster
+   * `kafka` contains a three-node Kafka cluster that can be used by your applciation
+   * `obaas-admin` contains the Oracle Backend for Spring Boot administration server that manages deployment of your services
+   * `observability` contains Jaeger tracing which is used for viewing distributed traces
+   * `open-telemetry` contains the Open Telemetry Collector which is used to collect distributed tracing information for your services
+   * `oracle-database-operator-system` contains the Oracle Database Operator for Kubernetes which can be used to manage Oracle Databases in Kubernetes environements
+   * `otmm` contains Oracle Transaction Manager for Microservices which is used to manage transactions acorss services
+   * `prometheus` contains Prometheus which collects metrics about your services and makes the available to Grafana for alerting and dashboarding
+   * `vault` contains HashiCorp Vault which can be used to store secret or sensitive infomration for services, like credentials for example
+
+   Kubernetes namespaces contain other resources like pods, services, secrets and config maps.  You will explore some of these now. 
+
+1. Explore pods 
+
+   TODO
+
+1. Explore services
+
+   TODO
+
+1. Explore secrets
+
+   TDOO
+
+1. Explore config maps
+
+   TODO
 
 
    ![pciture](images/obaas-xxx.png)

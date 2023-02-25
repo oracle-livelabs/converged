@@ -309,6 +309,35 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
     TODO
 
 
+## Task N: Deploy the account service to Oracle Backend for Spring Boot
+
+1. Prepare the application for deployment
+
+   rejig config TODO
+
+1. Prepare the backend for deployment
+
+   create an application, setup db access, etc.
+
+1. Create objects in the Oracle Autonomous Database instance
+
+  TODO can we liquibase this please? 
+
+1. Deploy the account service
+
+  You will now deploy your account service to the Oracle Backend for Spring Boot using the CLI.  
+
+
+
+   > What happens when you use the Oracle Backend for Spring Boot CLI **deploy** command? 
+   When you run the deploy command, the Oracle Backend for Spring Boot CLI does several things for you:
+
+   * Uploads your application's JAR file to the backend
+   * Create a container image to run your application and push it into your container registry
+   * Some magic
+   * Create the Kubernetes objects needed to run your application
+
+
 ## Learn More
 
 *(optional - include links to docs, white papers, blogs, etc)*
