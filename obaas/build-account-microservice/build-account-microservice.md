@@ -105,14 +105,14 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
 
 1. Implement the first simple endpoint    
 
-    Create a new directory in the directory `src/main/java/com/example/accounts` called `controller`.  In that new directory, create a new Java file called `AccountController.java`.  When prompted for the type, choose **class**.
+    Create a new directory in the directory `src/main/java/com/example/accounts` called `controller`.  In that new directory, create a new Java file called `AccountsController.java`.  When prompted for the type, choose **class**.
 
     Your new file should look like this:
 
     ```java
     package com.example.accounts.controller;
     
-    public class AccountController {
+    public class AccountsController {
         
     }
     ```
@@ -129,7 +129,7 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
     
     @RestController
     @RequestMapping("/api/v1")
-    public class AccountController {
+    public class AccountsController {
         
     }
     ```
@@ -145,7 +145,7 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
     
     @RestController
     @RequestMapping("/api/v1")
-    public class AccountController {
+    public class AccountsController {
         
       @GetMapping("/hello")
       public String ping() {
@@ -203,7 +203,7 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
     grant connect to account_svc;
     grant resource to account_svc;
     alter user account_svc default role connect, resource;
-    alter user account_svc quota unlimited on data;
+    alter user account_svc quota unlimited on users;
     
     -- create accounts table
     create table account_svc.accounts (
@@ -249,11 +249,14 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
 
     Spring Data JPA allows our Spring Boot application to easily use the database.  It uses simple Java POJOs to represent the data model and provides a lot of out-of-the-box features which means there is a lot less boilerplate code to be written. 
 
-    To add Spring Data JPA and the Oracle Database drivers to your project, open the Maven POM (`pom.xml`) and add this extra dependency for the Oracle Spring Boot
-    Starter for Oracle Database UCP:
+    To add Spring Data JPA and the Oracle Database drivers to your project, open the Maven POM (`pom.xml`) and add these two extra dependencies for Spring Data JPA and the Oracle Spring Boot Starter for Oracle Database UCP (Universal Connection Pool):
 
     ```xml
     <copy>
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-data-jpa</artifactId>
+    </dependency>
     <dependency>
         <groupId>com.oracle.database.spring</groupId>
         <artifactId>oracle-spring-boot-starter-ucp</artifactId>
@@ -262,6 +265,10 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
     </dependency>
     </copy>
     ```
+
+    Visual Studio code will display a notification in the bottom right corner and ask if it should update the project based on the change you just made.  You should select **Yes** or **Always** to this notification.  Doing so will ensure that the auto-completion will have access to the classes in the new dependency that you just added.
+
+    ![Updated Project](images/obaas-updated-pom.png)
 
     To configure Spring Data JPA access to the database, you will add some configuration information to the Spring Boot application properties (or YAML) file.
     You will find a file called `application.properties` in the `src/main/resources` directory in your project.  You can use either properties format or YAML
@@ -276,13 +283,13 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
           ddl-auto: validate
         properties:
           hibernate:
-            dialect: org.hibernate.dialect.OracleDialect
+            dialect: org.hibernate.dialect.Oracle12cDialect
             format_sql: true
         show-sql: true
       datasource:
         url: jdbc:oracle:thin:@//172.17.0.2:1521/pdb1
         username: account_svc
-        password: Welcoem1234##
+        password: Welcome1234##
         driver-class-name: oracle.jdbc.OracleDriver
         type: oracle.ucp.jdbc.PoolDataSource
         oracleucp:
@@ -293,20 +300,234 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
           max-pool-size: 30
     ```
 
+   TODO explain UCP and hibernate options
+
 1. Create the data model in the Spring Boot application
+
+   Create a new directory inside `src/main/java/com/example/accounts` called `model` and inside that new directory, create a new Java file called `Account.java`, when prompted for a type, choose **class**.
+
+   In this class you can define the fields that will make up the "account" object, as shown below.  Also add a constructor for the non-generated fields.
+
+    ```java
+    <copy>package com.example.accounts.model;
+    
+    import java.util.Date;
+    
+    public class Account {
+    
+        private long accountId;
+        private String accountName;
+        private String accountType;
+        private String accountCustomerId;
+        private Date accountOpenedDate;
+        private String accountOtherDetails;
+        private long accountBalance;
+    
+        public Account(String accountName, String accountType, String accountOtherDetails, String accountCustomerId) {
+            this.accountName = accountName;
+            this.accountType = accountType;
+            this.accountOtherDetails = accountOtherDetails;
+            this.accountCustomerId = accountCustomerId;
+        }
+    }</copy>
+    ```
+
+    Now, you need to give Spring Data JPA some hints about how to map these fields to the underlying database objects.  Spring Data JPA can actually automate creation of database objects for you, and that can be very helpful during development and testing.  But in many real-world cases, the database objects will already exist, so in this lab you will work with pre-existing database objects.
+
+    Before continuing, open the Maven POM (`pom.xml`) for the project and add this new dependency to the list.  Lombok offers various annotations aimed at replacing Java code that is well known for being boilerplate, repetitive, or tedious to write. You’ll use it to avoid writing getters, setters, constructors and builders.
+
+    ```xml
+    <copy><dependency>
+        <groupId>org.projectlombok</groupId>
+        <artifactId>lombok</artifactId>
+    </dependency></copy>
+    ```
+    Visual Studio code will display a notification in the bottom right corner and ask if it should update the project based on the change you just made.  You should select **Yes** or **Always** to this notification.  Doing so will ensure that the auto-completion will have access to the classes in the new dependency that you just added.
+    
+    ![Updated Project](images/obaas-updated-pom.png)
+
+    Add the `Data` and `NoArgsConstructor` Lombok annotations to your `Account` class.  `@Data` generates all the boilerplate that is normally associated with simple POJOs and beans: getters for all fields, setters for all non-final fields, and appropriate `toString`, `equals` and `hashCode` implementations that involve the fields of the class, and a constructor that initializes all final fields, as well as all non-final fields with no initializer that have been marked with `@NonNull`, in order to ensure the field is never null.  The `NoArgsConstructor` creates a constrcutor with no arguments.
+
+    Also add the JPA `Entity` and `Table` annotations to the class and set the `Table`'s `name` property to `accounts`.  These tell JPA that this object will be mapped to a table in the database called `accounts`.  Your class should now look like this: 
+
+    ```java
+    package com.example.accounts.model;
+    
+    import java.util.Date;
+    import javax.persistence.Entity;
+    import javax.persistence.Table;
+    import lombok.Data;
+    import lombok.NoArgsConstructor;
+    
+    @Data
+    @NoArgsConstructor
+    @Entity
+    @Table(name = "ACCOUNTS")
+    public class Account {
+        // ...
+    }
+    ```
+
+   You also need to give some hints about the columns in the existing tables.  You should add a `Column` annotation to each field and set its `name` property to the name of the databse column.  Some of the columns will need additional information.  
+   
+   First, the `accountId` field is the primary key, so add the `Id` annotation to it, and its value is generated, so add the `GeneratedValue` annotation and set its `strategy` property to `GenerationType.IDENTITY`.  
+
+   Next, the `accountOpenedDate` field is special - it should not be able to be inserted or updated.  So you will add the `updatable` and `insertable` properties to its `Column` annotation and set them both to `false`.  Also add the `Generated` annotation and set it to `GenerationTime.INSERT` to tell Spring Data JPA that the value for this field should be generated at the time of the database insert operation.
+
+   With these additions, the fields in your class should now look like this, the extra imports are also shown: 
+
+    ```java
+    import javax.persistence.Column;
+    import javax.persistence.GeneratedValue;
+    import javax.persistence.GenerationType;
+    import org.hibernate.annotations.Generated;
+    import org.hibernate.annotations.GenerationTime;
+    import javax.persistence.Id;
+
+    // ...
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ACCOUNT_ID")
+    private long accountId;
+
+    @Column(name = "ACCOUNT_NAME")
+    private String accountName;
+
+    @Column(name = "ACCOUNT_TYPE")
+    private String accountType;
+
+    @Column(name = "CUSTOMER_ID")
+    private String accountCustomerId;
+
+    @Generated(GenerationTime.INSERT)
+    @Column(name = "ACCOUNT_OPENED_DATE", updatable = false, insertable = false)
+    private Date accountOpenedDate;
+
+    @Column(name = "ACCOUNT_OTHER_DETAILS")
+    private String accountOtherDetails;
+
+    @Column(name = "ACCOUNT_BALANCE")
+    private long accountBalance;
+    ````
+
+1. Create the JPA Repository definition
+
+   Create a new directory in `src/main/java/com/example/accounts` called `repository` and in the new directory, create a new Java file called `AccountsRepository.java`.  When prompted for the type, choose **interface**.  Update the interface definition to extend `JpaRepository` with type parameters `<Account, Long>`.  `Account` is the model class you just created, and `Long` is the type of the primary key.  Your interface should look like this: 
+
+    ```java
+    package com.example.accounts.repository;
+    
+    import org.springframework.data.jpa.repository.JpaRepository;
+    import com.example.accounts.model.Account;
+    
+    public interface AccountsRepository extends JpaRepository<Account, Long> {    
+    }
+    ```   
+
+    By extending `JpaRepository` you will get a lot of convenient methods "for free".  You will use one of them now to create an endpoint to list all accounts.
 
     
 
-
 ## Task 5: Write services to create and query accounts in the Oracle Database 
 
-1. do a thing
+1. Create a service to list all accounts
 
-    TODO
+    Open your `AccountsController.java` file and add a final field in the class of type `AccountsRepository`.  And update the constructor to accept an argument of this type and set the field to that value.  This tells Spring Boot to inject the JPA repository class we just created into this class.  That will make it available to use in our services.  The updated parts of your class should look like this: 
 
-1. do another thing
+    ```java
+    import com.example.account.repository.AccountsRepository;
+    
+    // ...
+    
+    final AccountsRepository accountsRepository;
+    
+    public AccountsController(AccountsRepository accountsRepository) {
+        this.accountsRepository = accountsRepository;
+    }
+    ```
 
-    TODO
+    Now, add a method to get all the accounts from the database and return them.  This method should respond to the HTTP GET method.  You can use the built-in `findAll` method on `JpaRepository` to get the data.  Your new additions to your class should look like this: 
+
+    ```java
+    import java.util.List;
+    import com.example.accounts.model.Account;
+    
+    // ...
+
+    @GetMapping("/accounts")
+    public List<Account> getAllAccounts() {
+        return accountsRepository.findAll();
+    }
+    ```    
+
+1. Rebuild and restart your application and test your new endpoint
+
+    If your applciation is still running, stop it with Ctrl+C (or equivalent) and then reuild and restart it with this command: 
+
+    ```
+    $ <copy>mvn spring-boot:run</copy>
+    ```
+
+    This time, when it starts up you will see some new log messages that were not there before.  These tell you that it connected to the database successfully.
+
+    ```
+    2023-02-25 15:58:16.852  INFO 29041 --- [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+    2023-02-25 15:58:16.872  INFO 29041 --- [           main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.6.15.Final
+    2023-02-25 15:58:16.936  INFO 29041 --- [           main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+    2023-02-25 15:58:17.658  INFO 29041 --- [           main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.Oracle12cDialect
+    2023-02-25 15:58:17.972  INFO 29041 --- [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+    2023-02-25 15:58:17.977  INFO 29041 --- [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+    ```    
+
+   Now you can test the new service with this command: 
+
+    ```
+    $ <copy>curl http://localhost:8080/api/v1/accounts</copy>
+    HTTP/1.1 200 
+    Content-Type: application/json
+    Transfer-Encoding: chunked
+    Date: Sat, 25 Feb 2023 21:00:40 GMT
+    
+    []
+    ```
+
+   Notice that Spring Boot automatically set the `Content-Type` to `application/json` for us.  The result is an empty JSON array `[]` as you might expect.  Add some accounts to the database using these SQL statements (run these in your SQLcl terminal):
+
+    ```sql
+    insert into account_svc.accounts (account_name,account_type,customer_id,account_other_details,account_balance)
+    values ('Andy''s checking','CH','abcDe7ged','Account Info',-20);
+    insert into account_svc.accounts (account_name,account_type,customer_id,account_other_details,account_balance)
+    values ('Mark''s CCard','CC','bkzLp8cozi','Mastercard account',1000);
+    ```
+
+   Now, test the service again.  You may want to send the output to `jq` if you have it installed, so that it will be formatted for easier reading:
+
+    ```
+    $ <copy>curl -s http://localhost:8080/api/v1/accounts | jq .</copy>
+    [
+      {
+        "accountId": 1,
+        "accountName": "Andy's checking",
+        "accountType": "CH",
+        "accountCustomerId": "abcDe7ged",
+        "accountOpenedDate": "2023-02-26T02:04:54.000+00:00",
+        "accountOtherDetails": "Account Info",
+        "accountBalance": -20
+      },
+      {
+        "accountId": 2,
+        "accountName": "Mark's CCard",
+        "accountType": "CC",
+        "accountCustomerId": "bkzLp8cozi",
+        "accountOpenedDate": "2023-02-26T02:04:56.000+00:00",
+        "accountOtherDetails": "Mastercard account",
+        "accountBalance": 1000
+      }
+    ]
+    ```
+
+    TODO you just learned xyz
 
 
 ## Task N: Deploy the account service to Oracle Backend for Spring Boot
