@@ -330,6 +330,24 @@ At the end of the previous lab, during the verification of the installation, you
 
     In this example, the database connect string with be `172.17.0.2:1521/pdb1` and the admin user will be `pdbadmin` with password `Welcome123`.
 
+1. Setup an Oracle Database client
+
+    If you do not already have a database client, [Oracle SQL Developer Command Line (SQLcl)](https://www.oracle.com/database/sqldeveloper/technologies/sqlcl/) is a free command line interface for Oracle Database which includes great features like auto-completion and command history.  You can download it and install it from that web site.  To start SQLcl and connect to your database container, use a command like this: 
+
+    ```
+    $ <copy>sql pdbadmin/Welcome123@//172.17.0.2:1521/pdb1</copy>
+    SQLcl: Release 22.2 Production on Sat Feb 25 13:31:17 2023
+    
+    Copyright (c) 1982, 2023, Oracle.  All rights reserved.
+    
+    Last Successful login time: Sat Feb 25 2023 13:31:17 -05:00
+    
+    Connected to:
+    Oracle Database 21c Enterprise Edition Release 21.0.0.0.0 - Production
+    Version 21.3.0.0.0
+    
+    SQL>
+    ```
 
 
 ## (Optional) Task X: Install Flutter

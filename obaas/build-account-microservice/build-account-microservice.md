@@ -101,6 +101,8 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
     {"timestamp":"2023-02-25T17:28:23.264+00:00","status":404,"error":"Not Found","path":"/"}
     ```
 
+## Task 2: Implement your first service
+
 1. Implement the first simple endpoint    
 
     Create a new directory in the directory `src/main/java/com/example/accounts` called `controller`.  In that new directory, create a new Java file called `AccountController.java`.  When prompted for the type, choose **class**.
@@ -175,13 +177,137 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
 
     Great, it works!  Notice it returned HTTP Status Code 200 (OK) and some HTTP Headers along with the body which contained your message.  Later we will see how to return JSON and to set the status code appropriately.
 
+## Task 3: Prepare objects in the Oracle Database
+
 1. Create the database objects for the Account service
 
-    TODO TODO TODO
+    The Accounts service is going to have two main objects - an "account" and a "transaction".  These will be stored in the Oracle Database.  The accounts will be stored in a regular relational table, and the transactions will be stored in a Blockchain table.
+
+    > **Note**: Blockchain tables are append-only tables in which only insert operations are allowed. Deleting rows is either prohibited or restricted based on time. Rows in a blockchain table are made tamper-resistant by special sequencing and chaining algorithms. Users can verify that rows have not been tampered. A hash value that is part of the row metadata is used to chain and validate rows.
+
+    Here are the SQL statements to create the necessary objects in the database.  You can run these against your local Oracle Database container to use during development.
+    If you installed SQLcl as recommended, you can connect to your database using this command:
+
+    ```
+    $ <copy>sql pdbadmin/Welcome123@//172.17.0.2:1521/pdb1</copy>
+    ```
+    
+    When you are connected, run the SQL statements below to create the databse objects:
+    
+    ```sql
+    <copy>
+    -- create a database user for the account service
+    create user account_svc identified by "Welcome1234##";
+    
+    -- add roles and quota
+    grant connect to account_svc;
+    grant resource to account_svc;
+    alter user account_svc default role connect, resource;
+    alter user account_svc quota unlimited on data;
+    
+    -- create accounts table
+    create table account_svc.accounts (
+        account_id            number generated always as identity (start with 1 cache 20),
+        account_name          varchar2(40) not null,
+        account_type          varchar2(2) check (account_type in ('CH', 'SA', 'CC', 'LO')),
+        customer_id           varchar2 (20),
+        account_opened_date   date default sysdate not null,
+        account_other_details varchar2(4000),
+        account_balance       number
+    ) logging;
+    
+    alter table account_svc.accounts 
+    add constraint accounts_pk 
+    primary key (account_id) 
+    using index logging;
+    comment on table account_svc.accounts 
+    is 'CloudBank accounts table';
+    
+    -- create transactions table
+    create blockchain table account_svc.transactions (
+        transaction_id     number generated always as identity (start with 1 cache 20),
+        transaction_date   date default sysdate not null,
+        transaction_amount number,
+        transaction_type   varchar(2) check (transaction_type in ('DE', 'CR')),
+        account_id         number not null
+    ) no drop until 0 days idle no delete locked hashing using "SHA2_512" version "v1" logging;
+    
+    alter table account_svc.transactions
+    add constraint transactions_pk
+    primary key (transaction_id) 
+    using index logging;
+    comment on table account_svc.transactions 
+    is 'CloudBank transactions table';
+    </copy>
+    ```
+    
+    TODO TODO
+
+##  Task 4: Use Spring Data JPA to access the database
 
 1. Add Spring Data JPA to the Account service and configure it to access the database
 
-    TODO TODO TODO
+    Spring Data JPA allows our Spring Boot application to easily use the database.  It uses simple Java POJOs to represent the data model and provides a lot of out-of-the-box features which means there is a lot less boilerplate code to be written. 
+
+    To add Spring Data JPA and the Oracle Database drivers to your project, open the Maven POM (`pom.xml`) and add this extra dependency for the Oracle Spring Boot
+    Starter for Oracle Database UCP:
+
+    ```xml
+    <copy>
+    <dependency>
+        <groupId>com.oracle.database.spring</groupId>
+        <artifactId>oracle-spring-boot-starter-ucp</artifactId>
+        <type>pom</type>
+        <version>2.7.7</version>
+    </dependency>
+    </copy>
+    ```
+
+    To configure Spring Data JPA access to the database, you will add some configuration information to the Spring Boot application properties (or YAML) file.
+    You will find a file called `application.properties` in the `src/main/resources` directory in your project.  You can use either properties format or YAML
+    format for this file.  In this lab, you will use YAML.  Rename the file to `applciation.yaml` and then add this content to the file:
+
+    ```yaml
+    spring:
+      application:
+        name: accounts
+      jpa:
+        hibernate:
+          ddl-auto: validate
+        properties:
+          hibernate:
+            dialect: org.hibernate.dialect.OracleDialect
+            format_sql: true
+        show-sql: true
+      datasource:
+        url: jdbc:oracle:thin:@//172.17.0.2:1521/pdb1
+        username: account_svc
+        password: Welcoem1234##
+        driver-class-name: oracle.jdbc.OracleDriver
+        type: oracle.ucp.jdbc.PoolDataSource
+        oracleucp:
+          connection-factory-class-name: oracle.jdbc.pool.OracleDataSource
+          connection-pool-name: TransactionConnectionPool
+          initial-pool-size: 15
+          min-pool-size: 10
+          max-pool-size: 30
+    ```
+
+1. Create the data model in the Spring Boot application
+
+    
+
+
+## Task 5: Write services to create and query accounts in the Oracle Database 
+
+1. do a thing
+
+    TODO
+
+1. do another thing
+
+    TODO
+
 
 ## Learn More
 
