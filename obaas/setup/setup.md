@@ -278,7 +278,57 @@ At the end of the previous lab, during the verification of the installation, you
    Your output will be slightly different, but you should see one pod listed in the output.  This is enough to confirm that you have correctly configured access to the Kubernetes cluster.
    
 
-## Task N: Install XYZ
+## Task 8: Start a local Oracle Database container 
+
+    Running an Oracle Database in a container on your development machine will help with local testing while you are developing your Spring Boot services.
+    You can easily obtain an Oracle Database container image from Oracle Container Registry and run an Oracle Database on your machine. 
+
+    If you do not have a container runtime on your development machine, Oracle recommends [Rancher Desktop](https://rancherdesktop.io/) which can be downloaded and installed from that web site.
+
+1. Visit Oracle Container Registry and accept license agreements
+
+    Open a web browser to [Oracle Container Registry](https://container-registry.oracle.com).  If prompted, sign in with your Oracle Account (**note**: this is not your Oracle Cloud account).  Navigate to the **Database** group and then open the **Enterprise** repository (its the first one).  Click on **Sign In** if necessary.
+    Choose a language to read the agreemenets and then accept when prompted.
+
+1. Start an Oracle Database container on your development machine
+
+    Log in to the Oracle Container Registry using your container runtime, for example:
+
+    ```
+    $ <copy>docker login container-registry.oracle.com</copy>
+    ```
+
+    Enter your user name and password when requested.  This will be the same user name and password you used to log into the website to view and accept the agreements - you Oracle Account, not your Oracle Cloud Account.
+
+    Start the database using this command:
+
+    ```
+    $ <copy>docker run -d \
+       --name oracle-db \
+       -p 1521:1521 \
+       -e ORACLE_PWD=Welcome123 \
+       -e ORACLE_SID=ORCL \
+       -e ORACLE_PDB=PDB1 \
+       container-registry.oracle.com/database/enterprise:21.3.0.0</copy>
+    ```
+
+    The first time you do this, it will need to pull the container image, and then create the actual database instance.  This will take a few minutes to complete.
+    However, each time you need to use the Oracle Databsae container in the future, for example after rebooting your machine, you can restart it in just a few seconds using this command:
+
+    ```
+    $ <copy>docker start oracle-db</copy>
+    ```
+
+    To find the address that the database will be available on, issue this command (your output will be slightly different): 
+
+    ```
+    $ <copy>docker inspect oracle-db | grep IPAddress</copy>
+           "SecondaryIPAddresses": null,
+           "IPAddress": "172.17.0.2",
+                "IPAddress": "172.17.0.2",
+    ```
+
+    In this example, the database connect string with be `172.17.0.2:1521/pdb1` and the admin user will be `pdbadmin` with password `Welcome123`.
 
 
 
