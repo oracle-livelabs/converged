@@ -533,7 +533,7 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
 
    Now we want to create an endpoint to create a new account.  Open `AccountController.java` and add a new `createAccount` method.  This method should return `ResponseEntity<Account>` this will allow you to return the account object, but also gives you access to set headers, status code and so on.  The method needs to take an `Account` as an argument.  Add the `RequestBody` annotation to the argument to tell Spring Boot that the input data will be in the HTTP request's body.
 
-   Inside the method, you should use the `save` method on the JPA Repostiory to save a new instance of `Account` in the database.  The `save` method returns the created object.  If the save was successful, return the created object and set the HTTP Status Code to 201 (Created).  If there is an error, set the HTTP Status Code to 500 (Internal Server Error).
+   Inside the method, you should use the `saveAndFlush` method on the JPA Repostiory to save a new instance of `Account` in the database.  The `saveAndFlush` method returns the created object.  If the save was successful, return the created object and set the HTTP Status Code to 201 (Created).  If there is an error, set the HTTP Status Code to 500 (Internal Server Error).
 
    Here's what the new method (and imports) should look like: 
 
@@ -548,11 +548,7 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
     @PostMapping("/account")
     public ResponseEntity<Account> createAccount(@RequestBody Account account) {
         try {
-            Account _account = accountsRepository.save(new Account(
-                    account.getAccountName(),
-                    account.getAccountType(),
-                    account.getAccountOtherDetails(),
-                    account.getAccountCustomerId()));
+            Account _account = accountsRepository.saveAndFlush(account);
             return new ResponseEntity<>(_account, HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -560,11 +556,12 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
     }
     ```
 
-   Rebuild and restart the application as you have previously.  Then test the new endpoint.  You will need to make an HTTP POST request, and you will need to set the `Content-Type` header to `application/json`.  Pass the data in as JSON in the HTTP request body.  Note that Spring Boot Web will handle mapping the JSON to the right fields in the type annotated with the `RequestBody` annotation.  So a call to `getAccountName()` will return the data in the `accountName` field in the JSON, and so on. 
+   Rebuild and restart the application as you have previously.  Then test the new endpoint.  You will need to make an HTTP POST request, and you will need to set the `Content-Type` header to `application/json`.  Pass the data in as JSON in the HTTP request body.  Note that Spring Boot Web will handle mapping the JSON to the right fields in the type annotated with the `RequestBody` annotation.  So a JSON field called `accountName` will map to the `accountName` field in the JSON, and so on. 
 
    Here is an example request and the expected output (yours will be slightly different):
 
-    ``` $ <copy>curl -i -X POST \
+    ``` 
+    $ <copy>curl -i -X POST \
           -H 'Content-Type: application/json' \
           -d '{"accountName": "Dave Checking Account", "accountType": "CH", "accountOtherDetail": "", "accountCustomerId": "abc123xyz"}' \
           http://localhost:8080/api/v1/account</copy>
