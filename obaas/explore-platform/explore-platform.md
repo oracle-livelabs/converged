@@ -205,15 +205,17 @@ Oracle Backend for Spring Boot includes an Oracle Autonomous Database instance. 
 
    ![Database Actions Launchpad](images/obaas-adb-4.png)
 
-   In the SQL Worksheet, you can the first pull down list in the **Navigator** on the left hand side to see the users and schema in the database.  Choose the **CONFIGSERBER** user to view tables (or other objects) for that user.  This is the user associated with the Spring Config Server.  Execute the query below by pasting it into the worksheet and clicking on the green circle "play" icon.  This query shows the externalized configuration data stored by the Spring Config Server.
+   In the SQL Worksheet, you can the first pull down list in the **Navigator** on the left hand side to see the users and schema in the database.  Choose the **CONFIGSERVER** user to view tables (or other objects) for that user.  This is the user associated with the Spring Config Server. 
+
+   Execute this query to view tables associated with various Spring Boot services:
 
     ```sql
-    select owner, table_name
+    <copy>select owner, table_name
     from dba_tables
-    where owner in ('CUSTOMER_SVC', 'FRAUD_SVC', 'ACCOUNT_SVC',  'USER_SVC', 'CONFIGSERVER')
+    where owner in ('CUSTOMER_SVC', 'FRAUD_SVC', 'ACCOUNT_SVC',  'USER_SVC', 'CONFIGSERVER')</copy>
     ```  
 
-   ![pciture](images/obaas-adb-5.png)
+   ![Tables associated with Spring Boot services](images/obaas-adb-5.png)
 
    TODO more? 
 
@@ -310,7 +312,7 @@ Oracle Backend for Spring Boot includes APISIX API Gateway to manage which servi
    > **Note**: You can find detailed information about the available plugins and how to configure them in the [APISIX documentation](https://apisix.apache.org/docs/apisix/getting-started/) in the **Plugins** section.
 
 
-## Task 1: Explore Spring Config Server
+## Task 6: Explore Spring Config Server
 
 xyz
 
@@ -318,9 +320,15 @@ xyz
 
    instuctions
 
+    Execute the query below by pasting it into the worksheet and clicking on the green circle "play" icon.  This query shows the externalized configuration data stored by the Spring Config Server.
+
+    ```sql
+    <copy>select * from configserver.properties</copy>
+    ```  
+
    ![pciture](images/obaas-config-server-table.png)
 
-## Task 1: Explore Prometheus and Grafana
+## Task 7: Explore Prometheus and Grafana
 
 xyz
 
@@ -351,7 +359,7 @@ xyz
 
    ![pciture](images/obaas-grafana-spring-dashboard.png)
 
-## Task 1: Explore Jaeger
+## Task 8: Explore Jaeger
 
 xyz
 
@@ -369,15 +377,10 @@ xyz
 
    ![pciture](images/obaas-jaeger-home-page.png)
 
-## Task 1: Explore XYZ 
+## Summary
 
-xyz
+TODO - what you learned
 
-1. Do something
-
-   instuctions
-
-   ![pciture](images/obaas-xxx.png)
 
 
 ## Learn More

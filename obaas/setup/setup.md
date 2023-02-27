@@ -350,11 +350,19 @@ At the end of the previous lab, during the verification of the installation, you
     ```
 
 
-## (Optional) Task X: Install Flutter
+## (Optional) Task 9: Install Flutter
 
 If you plan to complete the Mobile App Development lab, you will need to install Flutter.  This is not required if you are only going to complete the Spring Boot labs.
 
+1. Install Flutter
 
+   Visit the [Flutter installation page](https://docs.flutter.dev/get-started/install) and click on your platform.  Follow the instructions to download and install the Flutter SDK, and run Flutter Doctor to identify and resolve any issues.
+
+1. (Optional) Install Android Studio or XCode
+
+   The CloudBank sample application that you will extend in the last lab can run on Android or iOS devices, or just in a web browser on your computer.  If you want to run it in a web browser, nothing more is needed.
+
+   If you prefer to run the application in a device emulator (or on a real device) you will need to install Android Studio, or XCode.  Follow the instructions on the Flutter installation page (the same page you just used to install the Flutter SDK) to install your chosen IDE and emulator.
 
 
 ## Learn More
