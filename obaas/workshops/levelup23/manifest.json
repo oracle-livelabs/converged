@@ -14,6 +14,11 @@
             "filename": "https://oracle-livelabs.github.io/common/labs/cloud-login/cloud-login.md"
         },
         {
+            "title": "Level Up 2023 Learning Paths",
+            "description": "This section explains different ways to use this Live Lab at the Level UP 2023 event.",
+            "filename": "../../levelup23/levelup23.md"
+        },
+        {
             "title": "Lab 1: Provision an Instance",
             "description": "Labs that follow the introduction are numbered, starting with Lab 1",
             "filename": "../../provision/provision.md"
