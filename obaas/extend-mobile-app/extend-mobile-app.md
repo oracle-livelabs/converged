@@ -4,6 +4,8 @@
 
 This lab walks you through extending the CloudBank mobile application to add a new "Cloud Cash" feature.  This feature will allow users to instantly send cash to anyone.  In the mobile application, the user will select their account, and enter the email address of the person they wish to send cash to, and the amount.  The mobile app will use the Parse APIs to create a document in the backend database.  A Payment microservice will pick up this request and process it.
 
+The CloudBank mobile application is written in [Flutter](https://flutter.dev) which is a very popular open-source framework that allows you to build apps for any screen from a single code base.
+
 Estimated Time: 30 minutes
 
 ### Objectives
@@ -35,18 +37,67 @@ Task 2: Run the application against your environmnet
 
 1. Update the application to point to your Oracle Backend for Spring Boot instance
 
-   Open the TODO file and update the following lines of code.  You need to provide the correct IP address for your environment.  You can find the IP address using this command:
+   Open the `main.dart` file in Visual Studio Code and update the following line of code. 
 
     ```
-    $ <copy>kubectl-n ingress-nginx get service ingress-nginx-controller</copy>
-    NAME                       TYPE           CLUSTER-IP      EXTERNAL-IP      PORT(S)                      AGE
-    ingress-nginx-controller   LoadBalancer   10.123.10.127   129.158.244.40   80:30389/TCP,443:30458/TCP   13d
+    const ServerUrl = "1.2.3.4";
     ```
+
+   You need to provide the correct IP address for your environment.  You can find the IP address using this command:
    
+    ```
+    $ <copy>kubectl -n ingress-nginx get service ingress-nginx-controller</copy>
+    NAME                       TYPE           CLUSTER-IP      EXTERNAL-IP   PORT(S)                      AGE
+    ingress-nginx-controller   LoadBalancer   10.123.10.127   100.20.30.40  80:30389/TCP,443:30458/TCP   13d
+    ```
+
    You need the address listed under `EXTERNAL-IP`.
-   
-   ![pciture](images/obaas-xxx.png)
 
+1. Build and run the application
+
+   In Visual Studio Code, select the target platform in the lower right corner.  The first time you do this it may say **No decive**.
+
+   ![Target device](images/obaas-flutter-target-device-footer.png)
+
+   ![Select device or start emulator](images/obaas-flutter-select-device.png)
+   
+   
+   Open a new terminal in Visual Studio Code and run the application with this command: 
+
+    ```
+    $ <copy>flutter run</copy>
+    ```    
+
+   Select the target platform if prompted.  After a short time the application will start and you will see the login screen:
+
+   ![CloudBank login screen](images/obaas-flutter-login.png)
+
+   Log in with the pre-created user `mark` with password `welcome1`.  You will see a list of accounts (yours may be slightly different):
+
+   ![CloudBank home screen](images/obaas-flutter-app-home.png)
+
+
+Task 3: Create the user interface for the **Cloud Cash** feature
+
+1. Create the main UI components of the screen
+
+   TODO a thing
+
+1. Hook up the REST API to get list of accounts   
+
+   TODO that thing
+
+1. Create the function to handle submission
+
+   TODO that thing
+
+1. Run the app 
+
+   TODO press 'r' and so on
+
+Task 4: Verify the Cloud Cash request in the backend
+
+   TODO that thing
 
 ## Learn More
 

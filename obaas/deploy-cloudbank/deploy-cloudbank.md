@@ -50,6 +50,7 @@ Download a copy of the CloudBank sample application.
 
   xyz TODO xyz 
 
+**TDDO - make sure we created some users and accounts, including in parse for the mobile app**
 
 ## Learn More
 
