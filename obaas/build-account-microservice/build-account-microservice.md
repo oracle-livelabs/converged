@@ -110,11 +110,11 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
     Your new file should look like this:
 
     ```java
-    package com.example.accounts.controller;
+    <copy>package com.example.accounts.controller;
     
     public class AccountsController {
         
-    }
+    }</copy>
     ```
 
     Add the `RestController` annotation to this class to tell Spring Boot that we want this class to expose REST services.  You can just start typing `@RestController` before the `public class` statement and Visual Studio Code will offer code completion for you.  When you select from the pop-up, Visual Studio Code will also add the import statement for you.  The list of suggestions is based on the dependencies you added to your project.
@@ -122,7 +122,7 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
     Add the `RequestMapping` annotation to this class as well, and set the URL path to `/api/v1`.  Your class should now look like this: 
 
     ```java
-    package com.example.accounts.controller;
+    <copy>package com.example.accounts.controller;
     
     import org.springframework.web.bind.annotation.RequestMapping;
     import org.springframework.web.bind.annotation.RestController;
@@ -131,13 +131,13 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
     @RequestMapping("/api/v1")
     public class AccountsController {
         
-    }
+    }</copy>
     ```
 
     Add a method to this class called `ping` which returns a `String` with a helpful message.  Add the `GetMapping` annotation to this method and set the URL path to `/hello`.  Your class should now look like this: 
 
     ```java
-    package com.example.accounts.controller;
+    <copy>package com.example.accounts.controller;
     
     import org.springframework.web.bind.annotation.GetMapping;
     import org.springframework.web.bind.annotation.RequestMapping;
@@ -152,7 +152,7 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
         return "Hello from Spring Boot";
       }
     
-    }
+    }</copy>
     ```
 
     You have just implemented your first REST service in Spring Boot!  This service will be available on `http://localhost:8080/api/v1/hello`.  And the `GetMapping` annotation tells Spring Boot that this servive will respond to the HTTP GET method. 
@@ -275,7 +275,7 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
     format for this file.  In this lab, you will use YAML.  Rename the file to `applciation.yaml` and then add this content to the file:
 
     ```yaml
-    spring:
+    <copy>spring:
       application:
         name: accounts
       jpa:
@@ -297,7 +297,7 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
           connection-pool-name: TransactionConnectionPool
           initial-pool-size: 15
           min-pool-size: 10
-          max-pool-size: 30
+          max-pool-size: 30</copy>
     ```
 
    TODO explain UCP and hibernate options
@@ -351,7 +351,7 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
     Also add the JPA `Entity` and `Table` annotations to the class and set the `Table`'s `name` property to `accounts`.  These tell JPA that this object will be mapped to a table in the database called `accounts`.  Your class should now look like this: 
 
     ```java
-    package com.example.accounts.model;
+    <copy>package com.example.accounts.model;
     
     import java.util.Date;
     import javax.persistence.Entity;
@@ -365,7 +365,7 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
     @Table(name = "ACCOUNTS")
     public class Account {
         // ...
-    }
+    }</copy>
     ```
 
    You also need to give some hints about the columns in the existing tables.  You should add a `Column` annotation to each field and set its `name` property to the name of the databse column.  Some of the columns will need additional information.  
@@ -377,6 +377,7 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
    With these additions, the fields in your class should now look like this, the extra imports are also shown: 
 
     ```java
+    <copy>
     import javax.persistence.Column;
     import javax.persistence.GeneratedValue;
     import javax.persistence.GenerationType;
@@ -408,7 +409,7 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
     private String accountOtherDetails;
 
     @Column(name = "ACCOUNT_BALANCE")
-    private long accountBalance;
+    private long accountBalance;</copy>
     ````
 
 1. Create the JPA Repository definition
@@ -416,13 +417,13 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
    Create a new directory in `src/main/java/com/example/accounts` called `repository` and in the new directory, create a new Java file called `AccountsRepository.java`.  When prompted for the type, choose **interface**.  Update the interface definition to extend `JpaRepository` with type parameters `<Account, Long>`.  `Account` is the model class you just created, and `Long` is the type of the primary key.  Your interface should look like this: 
 
     ```java
-    package com.example.accounts.repository;
+    <copy>package com.example.accounts.repository;
     
     import org.springframework.data.jpa.repository.JpaRepository;
     import com.example.accounts.model.Account;
     
     public interface AccountsRepository extends JpaRepository<Account, Long> {    
-    }
+    }</copy>
     ```   
 
     By extending `JpaRepository` you will get a lot of convenient methods "for free".  You will use one of them now to create an endpoint to list all accounts.
@@ -436,7 +437,7 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
     Open your `AccountsController.java` file and add a final field in the class of type `AccountsRepository`.  And update the constructor to accept an argument of this type and set the field to that value.  This tells Spring Boot to inject the JPA repository class we just created into this class.  That will make it available to use in our services.  The updated parts of your class should look like this: 
 
     ```java
-    import com.example.account.repository.AccountsRepository;
+    <copy>import com.example.account.repository.AccountsRepository;
     
     // ...
     
@@ -444,13 +445,13 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
     
     public AccountsController(AccountsRepository accountsRepository) {
         this.accountsRepository = accountsRepository;
-    }
+    }</copy>
     ```
 
     Now, add a method to get all the accounts from the database and return them.  This method should respond to the HTTP GET method.  You can use the built-in `findAll` method on `JpaRepository` to get the data.  Your new additions to your class should look like this: 
 
     ```java
-    import java.util.List;
+    <copy>import java.util.List;
     import com.example.accounts.model.Account;
     
     // ...
@@ -458,7 +459,7 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
     @GetMapping("/accounts")
     public List<Account> getAllAccounts() {
         return accountsRepository.findAll();
-    }
+    }</copy>
     ```    
 
 1. Rebuild and restart your application and test your new endpoint
@@ -495,10 +496,10 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
    Notice that Spring Boot automatically set the `Content-Type` to `application/json` for us.  The result is an empty JSON array `[]` as you might expect.  Add some accounts to the database using these SQL statements (run these in your SQLcl terminal):
 
     ```sql
-    insert into account_svc.accounts (account_name,account_type,customer_id,account_other_details,account_balance)
+    <copy>insert into account_svc.accounts (account_name,account_type,customer_id,account_other_details,account_balance)
     values ('Andy''s checking','CH','abcDe7ged','Account Info',-20);
     insert into account_svc.accounts (account_name,account_type,customer_id,account_other_details,account_balance)
-    values ('Mark''s CCard','CC','bkzLp8cozi','Mastercard account',1000);
+    values ('Mark''s CCard','CC','bkzLp8cozi','Mastercard account',1000);</copy>
     ```
 
    Now, test the service again.  You may want to send the output to `jq` if you have it installed, so that it will be formatted for easier reading:
@@ -538,7 +539,7 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
    Here's what the new method (and imports) should look like: 
 
     ```java
-    import org.springframework.web.bind.annotation.PostMapping;
+    <copy>import org.springframework.web.bind.annotation.PostMapping;
     import org.springframework.web.bind.annotation.RequestBody;
     import org.springframework.http.HttpStatus;
     import org.springframework.http.ResponseEntity;
@@ -553,7 +554,7 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
-    }
+    }</copy>
     ```
 
    Rebuild and restart the application as you have previously.  Then test the new endpoint.  You will need to make an HTTP POST request, and you will need to set the `Content-Type` header to `application/json`.  Pass the data in as JSON in the HTTP request body.  Note that Spring Boot Web will handle mapping the JSON to the right fields in the type annotated with the `RequestBody` annotation.  So a JSON field called `accountName` will map to the `accountName` field in the JSON, and so on. 
