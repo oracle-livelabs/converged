@@ -79,11 +79,48 @@ Task 2: Run the application against your environmnet
 
 Task 3: Create the user interface for the **Cloud Cash** feature
 
-1. Update the app nvaigaton to add the new screen
+1. Create the new Cloud Cash Screen
 
-   TODO this thing
+   Create a new Dart file in `lib/screens` called `cloudcash.dart` with this content:
 
     ```dart
+    class CloudCash extends StatefulWidget {
+      const CloudCash({Key? key}) : super(key: key);
+      
+      @override
+         State<CloudCash> createState() => _CloudCashState();
+      }
+    }
+    
+    class _CloudCashState extends State<CloudCash> {
+      @override
+      Widget build(BuildContext context) {
+        return Scaffold(
+        appBar: AppBar(title: const Text("Cloud Cash")),
+        body: Center(
+          Container(
+            height: 50,
+            padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+            child: ElevatedButton(
+            child: const Text('Send Cash Now'),
+            onPressed: () => GoRouter.of(context).go('/home'),
+          ),
+        ),
+      }
+    }           
+    ```
+
+    This will create a new screen with an "AppBar" with the title "Cloud Cash" and a single button labeled "Send Cash Now" that will just return to the home page when pressed.  
+
+1. Update the app navigaton to add the new screen
+
+   Open the file `lib/main.dart` and add a new `import` statement to include that file we just created.  Then scroll down to the route definitions, and add one more entry to create a route for the new Cloud Cash screen:
+
+    ```dart
+    import 'package:loginapp/screens/cloudcash.dart';
+
+    // ...
+
     GoRoute(
       path: '/cloudcash',
       builder: (context, state) => const CloudCash(),
@@ -92,9 +129,7 @@ Task 3: Create the user interface for the **Cloud Cash** feature
 
 1. Update the home page to add a new card for the Cloud Cash feature
 
-  TODO this
-
-  `home.dart` find the line `// ADD CLOUD CASH HERE`
+  Open the file `lib/home.dart` and find the line `// ADD CLOUD CASH CARD HERE`.  You need to add a new `Card` component at that point, simliar to the others that you see already in that file.  This new card will tell the user about the Cloud Cash feature and include a button to allow them to navigate to the new Cloud Cash screen.
 
     ```dart
     Card(
@@ -126,11 +161,137 @@ Task 3: Create the user interface for the **Cloud Cash** feature
       ),
     ),
     ```
-   TODO ra ra ra
+   
+   TODO explain a bit more
+
+1. Run and test the application
+
+   At this point, you have done enough to be able to run the application again and navigate from the home page to the new Cloud Cash page and back.  Note that you cannot simply refresh since the routes are loaded at startup time and are not dynamic.  Hit Ctrl+C (or equivalent) to stop the application and then start it again with th command `flutter run`.
+
+   Login and then click on the "Send Cash Now" link the in the Cloud Cash card.  You will see the new Cloud Cash page.  Click on the button to return to the home screen.
 
 1. Create the main UI components of the screen
 
    TODO a thing
+
+   The screen should look like this: 
+
+   ![Cloud Cash screen](images/obaas-flutter-cloud-cash-scrren.png)
+
+   Create a new Dart file in the `lib/screens` directory called `cloudcash.dart` with this content:
+
+   TODO TODO TODO not the final code TODO TODO TODO
+
+    ```dart
+    import 'package:flutter/material.dart';
+    import 'package:parse_server_sdk_flutter/parse_server_sdk.dart';
+
+    import 'package:go_router/go_router.dart';
+
+    class CloudCash extends StatefulWidget {
+      const CloudCash({Key? key}) : super(key: key);
+
+      @override
+      State<CloudCash> createState() => _CloudCashState();
+      }
+
+      class _CloudCashState extends State<CloudCash> {
+      TextEditingController destinationController = TextEditingController();
+      TextEditingController amountController = TextEditingController();
+
+      @override
+      Widget build(BuildContext context) {
+         return Scaffold(
+            appBar: AppBar(title: const Text("Cloud Cash")),
+            body: Center(
+            child: Container(
+               padding: const EdgeInsets.all(16),
+               child: ListView(
+                  children: [
+                  Container(
+                        alignment: Alignment.center,
+                        padding: const EdgeInsets.all(10),
+                        child: const Text(
+                        'Send cash to anyone instantly',
+                        style: TextStyle(fontSize: 20),
+                        )),
+                  Container(
+                     padding: const EdgeInsets.all(10),
+                     child: TextField(
+                        controller: destinationController,
+                        decoration: const InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: 'Email address of recipient',
+                        ),
+                     ),
+                  ),
+                  Container(
+                     padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
+                     child: TextField(
+                        controller: amountController,
+                        decoration: const InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: 'Amount to send',
+                        ),
+                     ),
+                  ),
+                  const SizedBox(
+                     height: 20,
+                  ),
+                  Container(
+                        height: 50,
+                        padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+                        child: ElevatedButton(
+                        child: const Text('Send Cash Now'),
+                        onPressed: () {
+                           processCloudCash(context, destinationController.text,
+                              amountController.text);
+                        },
+                        )),
+                  ],
+               ),
+            ),
+            ),
+         );
+      }
+
+      processCloudCash(context, destination, amount) async {
+         print("processCloudCash destination = $destination");
+         print("processprocessCloudCashCCApplication amount = $amount");
+
+         var cloudCashPayment = ParseObject("CloudCashPayment");
+         cloudCashPayment.set("income", destination);
+         cloudCashPayment.set("expenses", amount);
+         var response = await cloudCashPayment.save();
+
+         print("saved = $response");
+         // set up the button
+         Widget okButton = TextButton(
+            child: const Text("OK"),
+            onPressed: () => GoRouter.of(context).go('/home'),
+         );
+
+         // set up the AlertDialog
+         AlertDialog alert = AlertDialog(
+            title: const Text("Cloud Cash sent"),
+            content:
+               const Text("Thanks for using Cloud Cash, we've sent your payment!"),
+            actions: [
+            okButton,
+            ],
+         );
+
+         // show the dialog
+         showDialog(
+            context: context,
+            builder: (BuildContext context) {
+            return alert;
+            },
+         );
+      }
+    }
+    ```
+
 
 1. Hook up the REST API to get list of accounts   
 
