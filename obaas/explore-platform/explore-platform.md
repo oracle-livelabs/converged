@@ -25,7 +25,7 @@ This lab assumes you have:
 
 ## Task 1: Explore the Kuberenetes cluster 
 
-Oracle Backend for Spring Boot includes a number of platform services which are deployed into the Oracle Container Engine for Kubernetes cluster.  You configured **kubectl** to access your cluster in an earlier lab.  In this task, you will explore the services deployed in the Kubernetes cluster.
+Oracle Backend for Spring Boot includes a number of platform services which are deployed into the Oracle Container Engine for Kubernetes cluster.  You configured **kubectl** to access your cluster in an earlier lab.  In this task, you will explore the services deployed in the Kubernetes cluster.  A detailed explanation of Kubernetes concepts is beyond the scope of this course.
 
 1. Explore namespaces
 
@@ -82,22 +82,96 @@ Oracle Backend for Spring Boot includes a number of platform services which are 
 
 1. Explore pods 
 
-   TODO
+   Kubernetes runs workloads in "pods."  Each pod can container one or more containers.  There are different kinds of groupings of pods that handle scaling in different ways.  Use this command to review the pods in the `apisix` namespace:
+
+    ```
+    $ <copy>kubectl -n apisix get pods</copy>
+    NAME                               READY   STATUS    RESTARTS        AGE
+    apisix-5b47fcc4-bm25w              1/1     Running   0               6d18h
+    apisix-5b47fcc4-h6pbv              1/1     Running   0               6d18h
+    apisix-5b47fcc4-zn76k              1/1     Running   0               6d18h
+    apisix-dashboard-6957c575f-lfchl   1/1     Running   4 (6d18h ago)   6d18h
+    apisix-etcd-0                      1/1     Running   0               6d18h
+    apisix-etcd-1                      1/1     Running   0               6d18h
+    apisix-etcd-2                      1/1     Running   0               6d18h
+    ```
+
+   The first three pods listed are the APISIX API Gateway itself.  These are part of a Kubernetes "deployment".  These share the requests between them.  In OCI, each of these three pods runs in a different availability zone to maximize availability.  The next pod is running the APISIX Dashboard user interface - there is only one instance of that pod running.  And the last three pods are running the etcd cluster that APISIX is using to store its state.  These three pods are part of a "stateful set".
+
+   To see details of the deployments and stateful set in this namespace use this command: 
+
+    ```
+    $ <copy>kubectl -n apisix get deploy,statefulset</copy>
+    NAME                               READY   UP-TO-DATE   AVAILABLE   AGE
+    deployment.apps/apisix             3/3     3            3           6d18h
+    deployment.apps/apisix-dashboard   1/1     1            1           6d18h
+    
+    NAME                           READY   AGE
+    statefulset.apps/apisix-etcd   3/3     6d18h
+    ```
+
+   If you want to view extended information about any object you can specify its name and the output format, as in this example:
+
+    ```
+    $ <copy>kubectl -n apisix get pod apisix-etcd-0</copy>
+    ```
 
 1. Explore services
 
-   TODO
+   Kubernetes services are essentially small load balancers that sit in front of groups of pods and provide a stable network address as well as load balancing.  To see the services in the `apisix` namespace use this command: 
+
+    ```
+    $ <copy>kubectl -n apisix get svc</copy>
+    NAME                   TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)             AGE
+    apisix-admin           ClusterIP   10.123.66.40    <none>        9180/TCP            6d18h
+    apisix-dashboard       ClusterIP   10.123.58.88    <none>        80/TCP              6d18h
+    apisix-etcd            ClusterIP   10.123.82.236   <none>        2379/TCP,2380/TCP   6d18h
+    apisix-etcd-headless   ClusterIP   None            <none>        2379/TCP,2380/TCP   6d18h
+    apisix-gateway         NodePort    10.123.245.40   <none>        80:30801/TCP        6d18h
+    ```
+
+   Notice that the services give information about the ports.  You can get detailed information about a service by specifying its name and output format as you did earlier for a pod. 
 
 1. Explore secrets
 
-   TDOO
+   Sensitive information in Kubernetes is often kept in secrets that are mounted into the pods at runtime.  This means that the container images do not need to have the sensitive information stored in them.  It also helps with deploying to different environments where sensitive information like URLs and credentials for databases changes based on the environment.
 
-1. Explore config maps
+   Oracle Backend for Spring Boot creates a number of secrets for you so that your applications can securely access the Oracle Autonomous Database instance.  Review the secrets in the pre-created `application` namespace using this command: 
 
-   TODO
+    ```
+    $ <copy>kubectl -n application get secret</copy>
+    NAME                      TYPE                             DATA   AGE
+    obaasdevdb-db-secrets     Opaque                           5      10d
+    obaasdevdb-tns-admin      Opaque                           8      10d
+    registry-auth             kubernetes.io/dockerconfigjson   1      10d
+    tls-certificate           kubernetes.io/tls                4      10d
+    ```
 
+   Whenever you create a new application namespace with the CLI and bind it to the database, these secrets will be automatically created for you in that namespace.  The first one contains the credentials to access the Oracle Autonomous Database.  The second one contains the database client configuration files (`tnsadmin.ora`, `sqlnet.ora`, the keystores, and so on).  The third secret contains the credentials needed to pull container images from your container registry.  And the final secret contains certificates used within Kubernetes to encrypt traffic between pods and to authenticate to the Kubernetes API server. 
 
-   ![pciture](images/obaas-xxx.png)
+   You can view detailed information about a secret with a command like this (your output will be different). Note that the values are uuencoded in this output.: 
+
+    ```
+    $ <copy>kubectl -n application get secret obaasdevdb-db-secrets -o yaml</copy>
+    apiVersion: v1
+    data:
+      db.name: xxxxxxx
+      db.password: xxxxxxx
+      db.service: xxxxxxx
+      db.username: xxxxxxx
+      secret: xxxxxx
+    kind: Secret
+    metadata:
+      creationTimestamp: "2023-02-16T17:27:30Z"
+      name: obaasdevdb-db-secrets
+      namespace: application
+      resourceVersion: "2952562"
+      uid: 15110648-65b3-4d71-b749-c0cc9c2a2231
+    type: Opaque
+    ```
+
+   When you deploy a Spring Boot microservice application into Oracle Backend for Spring Boot, the pods that are created will have the values from this secret injected as environment variables that are referenced from the `application.yaml` to connect to the database.  The `xxxxxx-tns-admin` secret will be mounted in the pod to provide access to the configuration and keystores to allow your application to authenticate to the database.
+
 
 ## Task 2: Explore the Oracle Autonomous Database instance
 
@@ -107,16 +181,34 @@ xyz
 
    instuctions
 
-   ![pciture](images/obaas-xxx.png)
+   ![pciture](images/obaas-adb-1.png)
+
+   ![pciture](images/obaas-adb-2.png)
+
+   ![pciture](images/obaas-adb-3.png)
+
+   ![pciture](images/obaas-adb-4.png)
+
+   ![pciture](images/obaas-adb-5.png)
+
+
+    ```sql
+    select owner, table_name
+    from dba_tables
+    where owner in ('CUSTOMER_SVC', 'FRAUD_SVC', 'ACCOUNT_SVC',  'USER_SVC', 'CONFIGSERVER')
+    ```   
+
 
 
 ## Task 3: Explore Spring Admin
 
-xyz
+Oracle Backend for Spring Boot includes Spring Admin which provides a web user interface for managing and monitoring Spring applications.
 
-1. Do something
+1. Connect to Spring Admin
 
-   instuctions
+   Oracle Backend for Spring Boot does not expose management interfaces outside the Kubernetes cluster for improved security.  Oracle recommends you access these interfaces using **kubectl** port forwarding, which creates an encrypted tunnel from your client machine to the cluster to access a specific service in the cluster.
+
+   Open a tunnel to the Spring Admin server using this command:
 
     ```
     <copy>kubectl -n admin-server port-forward svc/admin-server 8989:8989</copy>
@@ -124,26 +216,30 @@ xyz
 
     Open a web browser to [http://localhost:8989](http://localhost:8989) to view the Spring Admin web user interface.
 
-    Click on **TODO** to view the "wallboard" which shows all of the discovered services.  Spring Admin discovers services from the Spring Eureka Service Registry.
+    Click on the **Wallboard** link in the top menu to view the "wallboard" which shows all of the discovered services.  Spring Admin discovers services from the Spring Eureka Service Registry. 
 
    ![Spring Admin Wallboard](images/obaas-spring-admin-1.png)
 
-1. Do something
+   Each hexagon represents a service.  Notice that this display gives you a quick overview of the health of your system.  Green services are healthy, grey services have reduced availability and red services are not healthy.  You can also see information about how many instances (i.e. pods) are available for each service.
 
-   instuctions
+1. View information about a service
+
+   Click on the **Customer** service.  You will see a detail page like this:
 
    ![Customer service details](images/obaas-spring-admin-2.png)
 
-1. Do something
+   On this page, you can see detailed information about service's health, and you can scroll down to see information about resource usage.  The menu on the left hand side lets you view additional information about the service including its environment variables, the Spring beans loaded, its Spring configuration properties and so on.  You can also access metrics from this interface.
 
-   instuctions
+1. View endpoints
+
+   Click on the **Mappings** link in the left hand side menu.  This page shows you information about the URL Path mappings (or endpoints) exposed by this service.  You will notice several endpoints exposed by Spring Actuator, which enables this management and monitoring to be possible.  And you will see your service's own endpoints, in this example the ones that start with `/api/v1/...`:
 
    ![Customer service endpoint list](images/obaas-spring-admin-3.png)
 
 
 ## Task 4: Explore Spring Eureka Service Registry
 
-xyz
+Spring Eureka Service Registry is an application that holds information about what microservices are running in your environment, how many instances of each are running, and on which addresses and ports.  Spring Boot microservices register with Eureka at startup and it regularly checks the health of all registered services.  Services can use Eureka to make calls to other services, thereby eliminating the need to hard code service addresses into other services.
 
 1. Start a port-forward tunnel to access the Eureka web user interface
 
@@ -155,27 +251,45 @@ xyz
 
    Open a web broswer to [http://localhost:8080](http://localhost:8080) to view the Eureka web user interface.  It will appear similar to the image below.
 
-   TODO replace this image with one that shows all service deployed.
-
    ![Eureka web user interface](images/obaas-eureka.png)
+
+   Notice that you can see your own services like the Accounts, Credit Score and Customer services from the CloudBank sample application, as well as platform services like Spring Admin, the Spring Config server and Conductor.
 
 ## Task 5: Explore APISIX API Gateway
 
-xyz
+Oracle Backend for Spring Boot includes APISIX API Gateway to manage which services are made available outside of the Kubernetes cluster.  APISIX allows you to manage many aspects of the services' APIs including authentication, logging, which HTTP methods are accepted, what URL paths are exposed, and also includes capabilities like rewriting, filtering, traffic management and has a rich plugin ecosystem to enhance it with additional capabilities.  You cam manage the APISIX API Gateway using the APISIX Dashboard.
 
-1. Do something
+1. Access the APISIX Dashboard
 
    Start the tunnel using this command.  You can run this in the background if you prefer.
 
     ```
-    $ <copy>kubectl n apisix port-forward svc/apisix-dashboard 8080:80</copy>
+    $ <copy>kubectl -n apisix port-forward svc/apisix-dashboard 8080:80</copy>
     ```
 
    Open a web broswer to [http://localhost:8080](http://localhost:8080) to view the APISIX Dashboard web user interface.  It will appear similar to the image below.
    
-   instuctions
+   If prompted to login, login with user name `admin` and password `admin`.  Note that Oracle strongly recommends that you change the password, even though this interface is not accessible outside the cluster without a tunnel.
+
+   Open the routes page from the left hand side menu.  You will see the routes that you defined in earlier labs:
 
    ![APISIX Dashboard route list](images/obaas-apisix-route-list.png)
+
+1. View details of a route
+
+   Click on the **Configure** button next to the **account** route.  The first page shows information about the route defintion.  Scroll down to the **Request Basic Define** section.  Notice how you can set the host, port, paths, HTTP Methods and other information for the API.
+
+   ![APISIX route definition](images/obaas-apisix-route-1.png)
+
+   Click on the **Next** button to move to the **Define API Backend Server** page where you can set the routing/load balancing algorithm, retries, timeout and so on.  On this page you will notice that the upstream service is defined using **Service Discovery** and the discovery type is **Eureka**.  The **Service Name** specified here is the key used to look up the service in the Spring Eureka Service Registry.  APISIX will route to any available instance of the service registered in Eureka.
+
+   ![Configure route](images/obaas-apisix-route-2.png)
+
+   Click on the **Next** button to move to the **Plugin Config** page.  The routes in the CloudBank sample do no use any of the plugins, however you can scroll through this page to get an idea of what plugins are available for your services.
+
+   ![APISIX plugin config](images/obaas-apisix-route-3.png)
+
+   > **Note**: You can find detailed information about the available plugins and how to configure them in the [APISIX documentation](https://apisix.apache.org/docs/apisix/getting-started/) in the **Plugins** section.
 
 
 ## Task 1: Explore Spring Config Server
@@ -186,7 +300,7 @@ xyz
 
    instuctions
 
-   ![pciture](images/obaas-xxx.png)
+   ![pciture](images/obaas-config-server-table.png)
 
 ## Task 1: Explore Prometheus and Grafana
 
