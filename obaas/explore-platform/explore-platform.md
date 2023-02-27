@@ -175,29 +175,47 @@ Oracle Backend for Spring Boot includes a number of platform services which are 
 
 ## Task 2: Explore the Oracle Autonomous Database instance
 
-xyz
+Oracle Backend for Spring Boot includes an Oracle Autonomous Database instance.  You can manage and access the database from the OCI Console.
 
-1. Do something
+1. View details of the Oracle Autonomous Database
 
-   instuctions
+   In the OCI Console, in the main ("hamburger") menu navigate to the **Oracle Database** category and then **Oracle Autonomus Database**.  Make sure you have the correct region selected (in the top right corner) and the compartment where you installed Oracle Backend for Spring Boot (in the left hand side pull down list).  You will a list of Oracle Autonomus Database instances (you will probably only have one):
 
-   ![pciture](images/obaas-adb-1.png)
+   ![List of OraCle Autonomous Database instances](images/obaas-adb-1.png)
 
-   ![pciture](images/obaas-adb-2.png)
+   Click on the database name link to view more information about that instance.  ON this page, you can see important information about your Oracle Autonomous Database instance and you can manage backups, access and so on.  You can also click on the **Performance Hub** button to access information about the performance of your database instance. 
 
-   ![pciture](images/obaas-adb-3.png)
+   ![Details of Oracle Autonomous Database instance](images/obaas-adb-2.png)
 
-   ![pciture](images/obaas-adb-4.png)
+   You can manage scaling from here by clicking on the **Manage scaling** button which will open this form where you can adjust the OCPU and storage for the Autonomous Database instance.  
 
-   ![pciture](images/obaas-adb-5.png)
+   ![Mangge scaling](images/obaas-adb-2a.png)
 
+1. Explore Oracle Backend for Spring Boot database objects   
+
+   Click on the **Database Actions** link to go to the "Database Actions" page which lets you access and manage information in the database.  Depending on choices you made during installation, you may go straight to Database Actions, or you may need to enter credentials first.  If you are prompted to login, use the user name `ADMIN` and obtain the password from Kubernetes with this command: 
+
+    ```
+    $ <copy> kubectl -n application get secret obaasdevdb-db-secrets -o jsonpath='{.data.db\.password}' | base64 -d</copy>
+    ```
+
+   ![Database Actions login page](images/obaas-adb-3.png)
+
+   In the Database Actions Launchpad, click ont **SQL** tile to open an SQL Worksheet.
+
+   ![Database Actions Launchpad](images/obaas-adb-4.png)
+
+   In the SQL Worksheet, you can the first pull down list in the **Navigator** on the left hand side to see the users and schema in the database.  Choose the **CONFIGSERBER** user to view tables (or other objects) for that user.  This is the user associated with the Spring Config Server.  Execute the query below by pasting it into the worksheet and clicking on the green circle "play" icon.  This query shows the externalized configuration data stored by the Spring Config Server.
 
     ```sql
     select owner, table_name
     from dba_tables
     where owner in ('CUSTOMER_SVC', 'FRAUD_SVC', 'ACCOUNT_SVC',  'USER_SVC', 'CONFIGSERVER')
-    ```   
+    ```  
 
+   ![pciture](images/obaas-adb-5.png)
+
+   TODO more? 
 
 
 ## Task 3: Explore Spring Admin
