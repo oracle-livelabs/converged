@@ -55,7 +55,7 @@ Task 2: Run the application against your environmnet
 
 1. Build and run the application
 
-   In Visual Studio Code, select the target platform in the lower right corner.  The first time you do this it may say **No decive**.
+   In Visual Studio Code, select the target platform in the lower right corner.  The first time you do this it may say **No device**.
 
    ![Target device](images/obaas-flutter-target-device-footer.png)
 
@@ -78,6 +78,55 @@ Task 2: Run the application against your environmnet
 
 
 Task 3: Create the user interface for the **Cloud Cash** feature
+
+1. Update the app nvaigaton to add the new screen
+
+   TODO this thing
+
+    ```dart
+    GoRoute(
+      path: '/cloudcash',
+      builder: (context, state) => const CloudCash(),
+    ),
+    ```
+
+1. Update the home page to add a new card for the Cloud Cash feature
+
+  TODO this
+
+  `home.dart` find the line `// ADD CLOUD CASH HERE`
+
+    ```dart
+    Card(
+      child: Column(
+      mainAxisSize: MainAxisSize.min,
+      children: <Widget>[
+         ListTile(
+            leading: const Icon(Icons.currency_exchange),
+            title: Row(
+               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+               children: const [
+                  Text('Cloud Cash'),
+               ],
+            ),
+            subtitle: const Text('Instantly send cash to anyone'),
+         ),
+         Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: <Widget>[
+               TextButton(
+                  child: const Text('SEND CASH NOW'),
+                  onPressed: () =>
+                     GoRouter.of(context).go('/cloudcash'),
+                  ),
+                  const SizedBox(width: 8),
+               ],
+            ),
+         ],
+      ),
+    ),
+    ```
+   TODO ra ra ra
 
 1. Create the main UI components of the screen
 
