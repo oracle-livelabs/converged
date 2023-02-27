@@ -176,7 +176,7 @@ Task 3: Create the user interface for the **Cloud Cash** feature
 
    The screen should look like this: 
 
-   ![Cloud Cash screen](images/obaas-flutter-cloud-cash-scrren.png)
+   ![Cloud Cash screen](images/obaas-flutter-cloud-cash-screen-design.png)
 
    Create a new Dart file in the `lib/screens` directory called `cloudcash.dart` with this content:
 
