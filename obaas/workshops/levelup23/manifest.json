@@ -27,7 +27,7 @@
             "filename": "../../build-account-microservice/build-account-microservice.md"
         },
         {
-            "title": "Lab 4: Manage Transactions across Microservices",
+            "title": "Lab 4: Manage Saga Transactions across Microservices",
             "filename": "../../microtx/microtx.md"
         },
         {
