@@ -591,20 +591,29 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
 
     TODO you just learned xyz
 
-## Task 6: Create the **transaction** endpoints
+## (Optional) Task 6: Add extra account endpoints
 
-TODO accounts, now transactions ... 
+If you would like to learn more about endpoints and implement the remainder of the account-related endpoints, this task provides the necessary details.  However, if you prefer, you may skip this task and go on to the next task where you will start implementing endpoints for transactions.  What are accounts without transactions anyway?
 
-1. Database stuff
+1. Implement TODO endpoint
 
-   TODO this
+   TODO the thing
 
-1. JPA stuff
 
-   TODO this
+## Task 7: Create the **transaction** endpoints
+
+Now that you have taken care of accounts, it is time to focus on transactions.  Each account will have a list of associated transactions.  Transactions record deposits, withdrawals, payments and so on. You will now create endpoints to create a new transaction, and to get a list of transactions for a given account.
+
+You created the transaction database objects earlier.  You may recall that you used a Blockchain table for the transactions table.  
+
+> **Reminder**: Blockchain tables are append-only tables in which only insert operations are allowed. Deleting rows is either prohibited or restricted based on time. Rows in a blockchain table are made tamper-resistant by special sequencing and chaining algorithms. Users can verify that rows have not been tampered. A hash value that is part of the row metadata is used to chain and validate rows.
+
+1. JPA model
+
+   Create a new file in `src/main/java/com/examples/accounts/model` called `Transaction.java`.  This is very similar to the account model that you created earlier.  There are no new concepts.  Here is the code:
 
     ```java
-    <copy>package com.example.account.model;
+    <copy>package com.example.accounts.model;
     
     import java.util.Date;
     
@@ -625,7 +634,7 @@ TODO accounts, now transactions ...
     @Table(name = "TRANSACTIONS")
     @Data
     @NoArgsConstructor
-    public class Transactions {
+    public class Transaction {
     
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -645,7 +654,7 @@ TODO accounts, now transactions ...
         @Column(name = "ACCOUNT_ID")
         private long transactionAccountId;
     
-        public Transactions(long transactionAmount, String transactionType, long transactionAccountId) {
+        public Transaction(long transactionAmount, String transactionType, long transactionAccountId) {
             this.transactionAmount = transactionAmount;
             this.transactionType = transactionType;
             this.transactionAccountId = transactionAccountId;
@@ -653,18 +662,33 @@ TODO accounts, now transactions ...
     }</copy>
     ```
 
-1. TODO controller 
+1. JPA Repository
 
-   TODO this
+   Create a new file in `src/main/java/com/example/accounts/repository` called `TransactionRepository.java`.  This will be a Java interface.  In this interface define one method `findTransactionByTransactionAccountId` with a single argumnet `long transactionAccountId` that returns `List<Transaction>`.  Based on the name of the method, JPA will automatically provide a method that searches the database repository for rows in the transaction table with a matching account ID.  Here is the code for this interface:
 
     ```java
-    <copy>package com.example.account.controller;
+    <copy>package com.example.accounts.repository;
+    
+    import com.example.accounts.model.Transaction;
+    import org.springframework.data.jpa.repository.JpaRepository;
+    
+    import java.util.List;
+    
+    public interface TransactionRepository extends JpaRepository<Transaction, Long> {
+        List<Transaction> findTransactionByTransactionAccountId(long transactionAccountId);
+    }</copy>
+    ```
+
+1. Implement the Transaction controller 
+
+   Create a new Java file in `src/main/java/com/example/accounts/controller` called `TransactionController.java`.  In this class you will use the JPA auto-generated method to get a list of transactions from the repository based on the `accountId`.  Other than that, there are new new concepts in the class.  Here is the code: 
+
+    ```java
+    <copy>package com.example.accounts.controller;
     
     import java.util.ArrayList;
     import java.util.List;
-
-    import org.slf4j.Logger;
-    import org.slf4j.LoggerFactory;
+    
     import org.springframework.http.HttpStatus;
     import org.springframework.http.ResponseEntity;
     import org.springframework.web.bind.annotation.GetMapping;
@@ -673,43 +697,38 @@ TODO accounts, now transactions ...
     import org.springframework.web.bind.annotation.RequestBody;
     import org.springframework.web.bind.annotation.RequestMapping;
     import org.springframework.web.bind.annotation.RestController;
-
-    import com.example.account.model.Transactions;
-    import com.example.account.repository.TransactionsRepository;
-
+    
+    import com.example.accounts.model.Transaction;
+    import com.example.accounts.repository.TransactionRepository;
+    
     @RestController
     @RequestMapping("/api/v1")
     public class TransactionController {
-
-        final TransactionsRepository transactionsRepository;
-        private final Logger log = LoggerFactory.getLogger(this.getClass());
-
-        public TransactionController(TransactionsRepository transactionsRepository) {
-            this.transactionsRepository = transactionsRepository;
+    
+        final TransactionRepository transactionRepository;
+    
+        public TransactionController(TransactionRepository transactionRepository) {
+            this.transactionRepository = transactionRepository;
         }
-
+    
         // Create transaction. ID is autogenerated by DDL. Requires AccountId in request
         @PostMapping("/transaction")
-        public ResponseEntity<Transactions> createTransaction(@RequestBody Transactions transaction) {
-            log.info("TRANSACTION: createTransaction");
+        public ResponseEntity<Transaction> createTransaction(@RequestBody Transaction transaction) {
             try {
-                Transactions _transaction = transactionsRepository.save(new Transactions(
-                        transaction.getTransactionAmount(),
-                        transaction.getTransactionType(),
-                        transaction.getTransactionAccountId()));
+                Transaction _transaction = transactionRepository.saveAndFlush(transaction);
                 return new ResponseEntity<>(_transaction, HttpStatus.CREATED);
-
+    
             } catch (Exception e) {
                 return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
             }
         }
-
+    
         @GetMapping("/transaction/{transactionAccountId}")
-        public ResponseEntity<List<Transactions>> getTransactionsByAccountId(@PathVariable("transactionAccountId") long transactionAccountId) {
-            log.info("TRANSACTION: getTransactionsByAccountId");
+        public ResponseEntity<List<Transaction>> getTransactionsByAccountId(
+                @PathVariable("transactionAccountId") long transactionAccountId) {
             try {
-                List<Transactions> transactionData = new ArrayList<Transactions>(transactionsRepository
-                        .findTransactionsByTransactionAccountId(transactionAccountId));
+                List<Transaction> transactionData = new ArrayList<Transaction>(transactionRepository
+                        .findTransactionByTransactionAccountId(transactionAccountId));
                 if (transactionData.isEmpty()) {
                     return new ResponseEntity<>(HttpStatus.NO_CONTENT);
                 }
@@ -721,9 +740,41 @@ TODO accounts, now transactions ...
     }</copy>
     ```
 
-1. TODO test it
+1. Test the Transaction APIs
 
-   TODO ra ra ra 
+   Restart the application as you did before.
+
+   Test the **create transaction** endpoint with the following command.  Note that you created account ID 24 earlier, so this is an existing account.  The `transactionType` of `DE` means "deposit".  This API returns the created transaction:
+
+    ```
+    $ <copy>curl -X POST \
+       -H 'Content-Type: application/json' \
+       -d '{"transactionAccountId": 24, "transactionType": "DE", "transactionAmount": 50}' \
+       http://localhost:8080/api/v1/transaction</copy>
+    {"transactionId":1,"transactionDate":"2023-02-28T18:39:39.000+00:00","transactionAmount":50,"transactionType":"DE","transactionAccountId":24}
+    ```   
+
+   Now test the **get transactions by account ID** endpoint with this command.  Note that the account ID is passed as path argument.  This API returns a list of transactions.  Note that the HTTP Status Code is 200 (OK):
+
+    ```
+    $ <copy>curl -i http://localhost:8080/api/v1/transaction/24</copy>
+    HTTP/1.1 200 
+    Content-Type: application/json
+    Transfer-Encoding: chunked
+    Date: Tue, 28 Feb 2023 13:41:40 GMT
+    
+    [{"transactionId":1,"transactionDate":"2023-02-28T18:39:39.000+00:00","transactionAmount":50,"transactionType":"DE","transactionAccountId":24}]
+    ```
+
+   Test the API with a non-existent account ID:
+
+    ```
+    $ <copy>curl -i http://localhost:8080/api/v1/transaction/9999</copy>
+    HTTP/1.1 204 
+    Date: Tue, 28 Feb 2023 13:42:23 GMT
+    ```       
+
+   Note that the HTTP Status Code returned is 204 (No Content) which means the request was processed successfully but there is no data to send back.
 
 
 ## Task N: Deploy the account service to Oracle Backend for Spring Boot
