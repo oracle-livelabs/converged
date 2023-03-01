@@ -163,7 +163,7 @@ The Oracle Backend for Spring Boot can be installed from OCI Marketplace.
 
    Open a web browser to the Parse Dashboard address that was given at the end of your apply log, for example `http://100.20.320.40:1337`.  You can login to the dashboard with the username `ADMIN` (that's case sensitive) and the password you specified during the installation.  Once you are logged in, you will be able to see the application name you specified during installation.  If you did not specify a name, you will see a randomly generated name instead.  Click on that name to view the objects in that application.  There will just be the User, Session and Role classes there currently.
 
-   ![Parse Dashboard](iamges/obaas-parse-dashboard.png)
+   ![Parse Dashboard](images/obaas-parse-dashboard.png)
    
    This completes the verification process.  Later you will use several other web user interfaces to manage applications in the Oracle Backend for Spring Boot.
 
