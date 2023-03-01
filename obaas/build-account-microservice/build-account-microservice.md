@@ -952,11 +952,71 @@ You created the transaction database objects earlier.  You may recall that you u
 
 1. Prepare the application for deployment
 
-   rejig config TODO
+   Update the data source configuration in your `src/main/resources/application.yaml` as shown in the xample below.  This will cause the service to read the correct database details that will be injected into its pod by the Oracle Backend for Spring Boot.
+
+    ```yaml
+      datasource:
+        url: ${spring.db.url}
+        username: ${spring.db.username}
+        password: ${spring.db.password}
+    ```   
+
+   Run the following command to build the JAR file.  Note that you will need to skip tests now, since you updated the `application.yaml` and it no longer points to your local test database instance. 
+
+    ```
+    $ <copy>mvn package -Dmaven.test.skip=true</copy>
+    ```
+
+   The service is now ready to deploy to the backend.
+
 
 1. Prepare the backend for deployment
 
-   create an application, setup db access, etc.
+   TODO create an application, setup db access, etc.
+
+  The Oracle Backend for Spring Boot admin service is not exposed outside of the Kubernetes cluster by default.  Oracle recommends using a **kubectl** port forwarding tunnel to establish a secure connection to the admin service. 
+
+  Start a tunnel using this command:
+
+   ```
+   $ <copy>kubectl -n obaas-admin port-forward svc/obaas-admin 8080:8080</copy>
+   ```
+
+  Start the Oracle Backend for Spring Boot CLI using this command:
+
+    ```
+    $ <copy>oractl</copy>
+      _   _           __    _    ___
+    / \ |_)  _.  _. (_    /  |   |
+    \_/ |_) (_| (_| __)   \_ |_ _|_
+
+    2023-03-01T10:25:17.749-05:00  INFO 27945 --- [           main] o.s.s.cli.OracleSpringCLIApplication     : Starting AOT-processed OracleSpringCLIApplication using Java 17.0.5 with PID 27945 (/home/mark/ebaas/oractl started by mark in /home/mark/accounts/accounts)
+    2023-03-01T10:25:17.749-05:00  INFO 27945 --- [           main] o.s.s.cli.OracleSpringCLIApplication     : No active profile set, falling back to 1 default profile: "default"
+    2023-03-01T10:25:17.786-05:00  INFO 27945 --- [           main] o.s.s.cli.OracleSpringCLIApplication     : Started OracleSpringCLIApplication in 0.047 seconds (process running for 0.05)
+    oractl:>
+    ```
+    
+   Connect to the Oracle Backend for Spring Boot admin service using this command.  Hit enter when prompted for a password.  **Note**: Oracle recommends changing the password in a real deployment.
+
+    ```
+    oractl> <copy>connect</copy>
+    password (defaults to oractl):
+    using default value...
+    Handling connection for 8080
+    connect successful server version:011223
+    ```
+
+   Create a database "binding" by tunning this command.  Enter the password (`Welcome1234##`) when prompted.  This will create a Kubernetes secret in the `application` namespace called `account-db-secrets` which contains the username (`account`), password, and URL to connect to the Oracle Autonomous Database instance associated with the Oracle Backend for Spring Boot.
+
+    ```
+    oractl:> <copy>bind --appName application --serviceName account --springBindingPrefix spring.db</copy>
+    database password/servicePassword (defaults to Welcome12345): *************
+    database secret created successfully and schema already exists for account
+    ```
+
+   TODO 
+
+
 
 1. Create objects in the Oracle Autonomous Database instance
 
@@ -964,9 +1024,15 @@ You created the transaction database objects earlier.  You may recall that you u
 
 1. Deploy the account service
 
-  You will now deploy your account service to the Oracle Backend for Spring Boot using the CLI.  
+  You will now deploy your account service to the Oracle Backend for Spring Boot using the CLI.  You will deploy into the `application` namespace, and the service name will be `account`.  Run this command to deploy your service, make sure you provide the correct path to your JAR file:
 
-
+    ```
+    oractl> <copy>deploy --isRedeploy false --appName application --serviceName account --jarLocation /path/to/accounts/target/accounts-0.0.1-SNAPSHOT.jar --imageVersion 0.0.1</copy>
+    uploading... upload successful
+    building and pushing image... docker build and push successful
+    creating deployment and service... create deployment and service  = account, appName = application, isRedeploy = true successful
+    successfully deployed
+    ```
 
    > What happens when you use the Oracle Backend for Spring Boot CLI **deploy** command? 
    When you run the deploy command, the Oracle Backend for Spring Boot CLI does several things for you:
@@ -976,6 +1042,50 @@ You created the transaction database objects earlier.  You may recall that you u
    * Some magic
    * Create the Kubernetes objects needed to run your application
 
+1. **Temporary workaround - will be removed before Level Up 23 **
+
+   TODO
+
+   Create a file called `patch.json` with this content:
+
+    ```json
+    {
+      "spec": {
+        "template": {
+          "spec": { 
+            "containers": [
+              {
+                "name": "account",
+                "volumeMounts": [
+                  {
+                    "mountPath": "/oracle/tnsadmin",
+                    "name": "tns-admin"
+                  }
+                ]
+              }
+            ],
+            "volumes": [
+              {
+                "name": "tns-admin",
+                "secret": {
+                  "defaultMode": 420,
+                  "secretName": "obaasdevdb-tns-admin"
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+    ```
+
+   Apply the patch to the deployment with this command: 
+
+    ```
+    $ <copy>kubectl -n application patch deploy account -p "$(cat patch.json)"</copy>
+    ```
+
+  This will add the TNSADMIN volume mount to your account deployment (and its pods).
 
 ## Learn More
 
