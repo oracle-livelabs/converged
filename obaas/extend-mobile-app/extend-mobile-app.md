@@ -33,7 +33,7 @@ The sample CloudBank mobile application is provided as a starting point.  It alr
     $ <copy>git clone TODO/TODO</copy>
     ```   
 
-Task 2: Run the application against your environmnet
+## Task 2: Run the application as-is against your environmnet
 
 1. Update the application to point to your Oracle Backend for Spring Boot instance
 
@@ -79,7 +79,7 @@ Task 2: Run the application against your environmnet
    ![CloudBank home screen](images/obaas-flutter-app-home.png)
 
 
-Task 3: Create the user interface for the **Cloud Cash** feature
+## Task 3: Create an intial placeholder user interface for the **Cloud Cash** feature
 
 1. Create the new Cloud Cash Screen
 
@@ -188,6 +188,8 @@ Task 3: Create the user interface for the **Cloud Cash** feature
 
    Login and then click on the "Send Cash Now" link the in the Cloud Cash card.  You will see the new Cloud Cash page.  Click on the button to return to the home screen.
 
+## Task 4: Build the real user interface for the **Cloud Cash** feature
+
 1. Review the design for the Cloud Cash feature
 
    Here is what this screen should look like when it is finished: 
@@ -294,20 +296,25 @@ Task 3: Create the user interface for the **Cloud Cash** feature
     }
     ```
 
+## Task 5: Add the account selector and wire it up to the Account microservice
 
 1. Hook up the REST API to get list of accounts   
 
    TODO that thing
 
+## Task 6: Handle the form submission
+
 1. Create the function to handle submission
 
    TODO that thing
+
+## Task 7: Test the finished Cloud Cash feature
 
 1. Run the app 
 
    TODO press 'r' and so on
 
-Task 4: Verify the Cloud Cash request in the backend
+1. Verify the Cloud Cash request in the backend
 
    TODO that thing
 
