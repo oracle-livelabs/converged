@@ -200,14 +200,26 @@ Task 3: Create the user interface for the **Cloud Cash** feature
 
 1. Create the main UI components of the screen
 
-   Create a new Dart file in the `lib/screens` directory called `cloudcash.dart` with this content:
+   Update `cloudcash.dart` to add the input boxes and button. If you are familiar with Flutter, feel free to skip to the code below!
 
-   TODO TODO TODO not the final code TODO TODO TODO
+   In Flutter, the screen layout is created in the `build` method which accepts a `BuildContext` as input and returns a `Widget`.  If you want to create an entire screen, then you can return a `Scaffold` from this method.  If you were create a reusable componeent that could be placed on different screens, then you would most likely return a `Wrap` instead - this is a non-visual component that contains one to many other components.  But in this case, you want to return an entire screen, so `Scaffold` is the best choice. 
+
+    > **Note**: This example uses the [Material](https://docs.flutter.dev/development/ui/widgets/material) library, so some of the information presented here is specific to Material applications.
+
+   A `Scaffold` has an `appBar` property which controls the bar at the top of the screen which typically contains a title, and often also contains an icon to access a global menu (sometimes called a "hamburger").  It also has a `body` property which contains the component (and that components children) that make up the main part of the screen.  In this example we use the `Center` component as the root or base component.  It centers its children on the screen.
+
+   Put a `Container` in the `Center` and a `ListView` in the `Container`.  A `ListView` displays it children in a list, typically horizontally, and if the list is too long to fit on the screen, it handles scrolling for you automatically - so a `ListView` is a very common component for laying out a screen in a mobile application. 
+
+   Inside the `ListView` put some more `Container`s and in those `Container`s put the actual `TextFields` which are used for input. 
+
+   Of course, at this point, you need some state!  Notice that the `CloudCash` class extends `StatefulWidget` - this allows you to have state in this class.  Also notice that you can override the `createState()` method to control what state you require.  As you can see in the code below, a second cladd `_CloudCashState` is created, which extends `State<?>` and inside that class you can create stateful object, such as the two `TextEditingController`s that are defined, one for each of the two fields.
+
+   If you look again at the `TextField`s in the `build()` method, you will notice that they each have a `controller` property which points to the appropriate one of these two conrtollers.  This is how the link is established so that whatever a user enters in those controls will be stored in the state.
+
+   Finally, notice that the `ElevatedButton` in the last `Container` has an `onPressed` property.  In that property there is a call to a function called `processCloudCash` which is defined later in that same class.  Right now, that function just logs a message.  Later, you will update that function to make a REST call and give the user feedback about what happened.
 
     ```dart
     import 'package:flutter/material.dart';
-    import 'package:parse_server_sdk_flutter/parse_server_sdk.dart';
-
     import 'package:go_router/go_router.dart';
 
     class CloudCash extends StatefulWidget {
@@ -215,9 +227,9 @@ Task 3: Create the user interface for the **Cloud Cash** feature
 
       @override
       State<CloudCash> createState() => _CloudCashState();
-      }
+   }
 
-      class _CloudCashState extends State<CloudCash> {
+   class _CloudCashState extends State<CloudCash> {
       TextEditingController destinationController = TextEditingController();
       TextEditingController amountController = TextEditingController();
 
@@ -226,90 +238,58 @@ Task 3: Create the user interface for the **Cloud Cash** feature
          return Scaffold(
             appBar: AppBar(title: const Text("Cloud Cash")),
             body: Center(
-            child: Container(
-               padding: const EdgeInsets.all(16),
-               child: ListView(
-                  children: [
-                  Container(
-                        alignment: Alignment.center,
-                        padding: const EdgeInsets.all(10),
-                        child: const Text(
-                        'Send cash to anyone instantly',
-                        style: TextStyle(fontSize: 20),
-                        )),
-                  Container(
-                     padding: const EdgeInsets.all(10),
-                     child: TextField(
-                        controller: destinationController,
-                        decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: 'Email address of recipient',
+               child: Container(
+                  padding: const EdgeInsets.all(16),
+                  child: ListView(
+                     children: [
+                        Container(
+                           alignment: Alignment.center,
+                           padding: const EdgeInsets.all(10),
+                           child: const Text(
+                              'Send cash to anyone instantly',
+                              style: TextStyle(fontSize: 20),
+                           ),
                         ),
-                     ),
-                  ),
-                  Container(
-                     padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
-                     child: TextField(
-                        controller: amountController,
-                        decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: 'Amount to send',
+                        Container(
+                           padding: const EdgeInsets.all(10),
+                           child: TextField(
+                              controller: destinationController,
+                              decoration: const InputDecoration(
+                              border: OutlineInputBorder(),
+                              labelText: 'Email address of recipient',
+                              ),
+                           ),
                         ),
-                     ),
+                        Container(
+                           padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
+                           child: TextField(
+                              controller: amountController,
+                              decoration: const InputDecoration(
+                              border: OutlineInputBorder(),
+                              labelText: 'Amount to send',
+                              ),
+                           ),
+                        ),
+                        const SizedBox(
+                           height: 20,
+                        ),
+                        Container(
+                           height: 50,
+                           padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+                           child: ElevatedButton(
+                              child: const Text('Send Cash Now'),
+                              onPressed: () => processCloudCash(),
+                           ),
+                        ),
+                     ],
                   ),
-                  const SizedBox(
-                     height: 20,
-                  ),
-                  Container(
-                        height: 50,
-                        padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-                        child: ElevatedButton(
-                        child: const Text('Send Cash Now'),
-                        onPressed: () {
-                           processCloudCash(context, destinationController.text,
-                              amountController.text);
-                        },
-                        )),
-                  ],
                ),
-            ),
             ),
          );
       }
 
-      processCloudCash(context, destination, amount) async {
-         print("processCloudCash destination = $destination");
-         print("processprocessCloudCashCCApplication amount = $amount");
-
-         var cloudCashPayment = ParseObject("CloudCashPayment");
-         cloudCashPayment.set("income", destination);
-         cloudCashPayment.set("expenses", amount);
-         var response = await cloudCashPayment.save();
-
-         print("saved = $response");
-         // set up the button
-         Widget okButton = TextButton(
-            child: const Text("OK"),
-            onPressed: () => GoRouter.of(context).go('/home'),
-         );
-
-         // set up the AlertDialog
-         AlertDialog alert = AlertDialog(
-            title: const Text("Cloud Cash sent"),
-            content:
-               const Text("Thanks for using Cloud Cash, we've sent your payment!"),
-            actions: [
-            okButton,
-            ],
-         );
-
-         // show the dialog
-         showDialog(
-            context: context,
-            builder: (BuildContext context) {
-            return alert;
-            },
-         );
+      processCloudCash() async {
+         print("do something");
       }
     }
     ```
@@ -339,6 +319,6 @@ Task 4: Verify the Cloud Cash request in the backend
 * [URL text 2](http://docs.oracle.com)
 
 ## Acknowledgements
-* **Author** - Mark Nelson, Developer Evangelist, Oracle Database
+* **Author** - Doug Drechsel, Mark Nelson, Developer Evangelists, Oracle Database
 * **Contributors** - [](var:contributors)
 * **Last Updated By/Date** - Mark Nelson, February 2023
