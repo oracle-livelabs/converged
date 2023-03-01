@@ -26,7 +26,7 @@ This lab assumes you have:
     * A public load balancer
     * An Oracle Autonomous Database - Shared instance
     * At least one free OCI Auth Token (note that the maximum is two per user)
-* All previous labs successfully completed
+
 
 ## Task 1: Install the Oracle Backend for Spring Boot from OCI Marketplace
 
@@ -59,7 +59,7 @@ The Oracle Backend for Spring Boot can be installed from OCI Marketplace.
    
    Review the terms and restrictions, and then click on the checkbox to accept them.  Then, click on **Launch Stack**,
    
-   > **Note:** This Live Lab is tested with version 0.2.1 (3/TODO/2023).  Later versions should work, but earlier versions do not contain all features used in this Live Lab.
+   > **Note:** This Live Lab is tested with **version 0.2.1 (3/TODO/2023)**.  Later versions should work, but earlier versions do not contain all features used in this Live Lab.
 
 1. Review the **Create Stack** page
 
@@ -106,7 +106,7 @@ The Oracle Backend for Spring Boot can be installed from OCI Marketplace.
 
    In later labs, you will look at various resources in Kubernetes.  You will need a Kubernetes configuration file to access the cluster.  For now, accessing the cluster from OCI Cloud Shell will be sufficient to verify the installation.
 
-   Open the OCI CLoud Shell by clicking on the icon next to the region in the top right corner of the console and then clicking on **Cloud Shell**.
+   Open the OCI Cloud Shell by clicking on the icon next to the region in the top right corner of the console and then clicking on **Cloud Shell**.
 
    ![Open OCI CLoud Shell](images/obaas-cloud-shell.png)
 
@@ -133,32 +133,44 @@ The Oracle Backend for Spring Boot can be installed from OCI Marketplace.
    Your output will be slightly different, but you should see one pod listed in the output.  This is enough to confirm that you have correctly configured access to the Kubernetes cluster.
    
 
-1. TODO verify you can connect to x y and z .. 
+1. Verify you can connect to the APISIX API Gateway
 
-    - List item 1
-    - List item 2
-
-3. Code examples
-
+   You will need to provide the correct IP address for the API Gateway in your backend environment.  You can find the IP address using this command, you need the one listed in the `EXTERNAL-IP` column:
+   
     ```
-    Adding code examples
-  	Indentation is important for the code example to appear inside the step
-    Multiple lines of code
-  	<copy>Enclose the text you want to copy in <copy></copy>.</copy>
+    $ <copy>kubectl -n ingress-nginx get service ingress-nginx-controller</copy>
+    NAME                       TYPE           CLUSTER-IP      EXTERNAL-IP   PORT(S)                      AGE
+    ingress-nginx-controller   LoadBalancer   10.123.10.127   100.20.30.40  80:30389/TCP,443:30458/TCP   13d
     ```
 
-4. Code examples that include variables
+   Now use this command (with your IP address) to make a request to the API Gateway.  You should receive a response with an HTTP Status Code 4040 (Not Found) and an error message in JSON format as shown below.  Don't worry about the 404, you will deploy some services soon, but this test is enough to know the API Gateway started up successfully:
 
-	```
-  <copy>ssh -i <ssh-key-file></copy>
-  ```
+    ```
+    $ <copy>curl -i http://100.20.30.40</copy>
+    HTTP/1.1 404
+    Date: Wed, 01 Mar 2023 19:21:08 GMT
+    Content-Type: application/json
+    Transfer-Encoding: chunked
+    Connection: keep-alive
+    Vary: Origin
+    Vary: Access-Control-Request-Method
+    Vary: Access-Control-Request-Headers
+    
+    {"timestamp":"2023-03-01T19:21:08.031+00:00","status":404,"error":"Not Found","path":"/"}
+    ```
+
+1. Verify you can connect to the Parse Dashboard
+
+   Open a web browser to the Parse Dashboard address that was given at the end of your apply log, for example `http://100.20.320.40:1337`.  You can login to the dashboard with the username `ADMIN` (that's case sensitive) and the password you specified during the installation.  Once you are logged in, you will be able to see the application name you specified during installation.  If you did not specify a name, you will see a randomly generated name instead.  Click on that name to view the objects in that application.  There will just be the User, Session and Role classes there currently.
+
+   ![Parse Dashboard](iamges/obaas-parse-dashboard.png)
+   
+   This completes the verification process.  Later you will use several other web user interfaces to manage applications in the Oracle Backend for Spring Boot.
 
 ## Learn More
 
-*(optional - include links to docs, white papers, blogs, etc)*
-
-* [URL text 1](http://docs.oracle.com)
-* [URL text 2](http://docs.oracle.com)
+* [Oracle Backend for Spring Boot](https://oracle.github.io/microservices-datadriven/spring/)
+* [Oracle Backend for Parse Platform](https://oracle.github.io/microservices-datadriven/mbaas/)
 
 ## Acknowledgements
 * **Author** - Mark Nelson, Developer Evangelist, Oracle Database

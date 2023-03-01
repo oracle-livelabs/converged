@@ -31,7 +31,7 @@ This lab assumes you have:
 *(TODO add more links to docs, white papers, blogs, etc)*
 
 * [Oracle Backend for Spring Boot](https://oracle.github.io/microservices-datadriven/spring/)
-* [Oracle Backend for Parse Platform](https://oracle.github.io/microservices-datadriven/mbaas/m)
+* [Oracle Backend for Parse Platform](https://oracle.github.io/microservices-datadriven/mbaas/)
 
 ## Acknowledgements
 * **Author** - Mark Nelson, Developer Evangelist, Oracle Database
