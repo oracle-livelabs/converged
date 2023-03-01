@@ -86,6 +86,7 @@ Task 3: Create the user interface for the **Cloud Cash** feature
    Create a new Dart file in `lib/screens` called `cloudcash.dart` with this content:
 
     ```dart
+    <copy>
     import 'package:flutter/material.dart';
     import 'package:go_router/go_router.dart';
 
@@ -113,7 +114,8 @@ Task 3: Create the user interface for the **Cloud Cash** feature
             ),
          );
       }
-    }      
+    }    
+    </copy>  
     ```
 
     This will create a new screen with an "AppBar" with the title "Cloud Cash" and a single button labeled "Send Cash Now" that will just return to the home page when pressed.  This screen will look like this: 
@@ -125,6 +127,7 @@ Task 3: Create the user interface for the **Cloud Cash** feature
    Open the file `lib/main.dart` and add a new `import` statement to include that file we just created.  Then scroll down to the route definitions, and add one more entry to create a route for the new Cloud Cash screen:
 
     ```dart
+    <copy>
     import 'package:loginapp/screens/cloudcash.dart';
 
     // ...
@@ -133,6 +136,7 @@ Task 3: Create the user interface for the **Cloud Cash** feature
       path: '/cloudcash',
       builder: (context, state) => const CloudCash(),
     ),
+    </copy>
     ```
 
 1. Update the home page to add a new card for the Cloud Cash feature
@@ -140,6 +144,7 @@ Task 3: Create the user interface for the **Cloud Cash** feature
   Open the file `lib/home.dart` and find the line `// ADD CLOUD CASH CARD HERE`.  You need to add a new `Card` component at that point, simliar to the others that you see already in that file.  This new card will tell the user about the Cloud Cash feature and include a button to allow them to navigate to the new Cloud Cash screen.
 
     ```dart
+    <copy>
     Card(
       child: Column(
       mainAxisSize: MainAxisSize.min,
@@ -168,6 +173,7 @@ Task 3: Create the user interface for the **Cloud Cash** feature
          ],
       ),
     ),
+    </copy>
     ```
    
    This card should look like this: 
