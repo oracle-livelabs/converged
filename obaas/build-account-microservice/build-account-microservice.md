@@ -1039,14 +1039,14 @@ You created the transaction database objects earlier.  You may recall that you u
    * Some magic
    * Create the Kubernetes objects needed to run your application
 
-1. **Temporary workaround - will be removed before Level Up 23 **
+1. **Temporary workaround - will be removed before Level Up 23**
 
-   > **Note**: Hello LiveLab QA testers!  This small workaround is required currently due to a small bug in the CLI.  THis will be removed before the Level Up 23 event.  This just adds the missing env vars and a volume mount for the TNSADMIN secret to the account deployment.
+    > **Note**: Hello LiveLab QA testers!  This small workaround is required currently due to a small bug in the CLI.  THis will be removed before the Level Up 23 event.  This just adds the missing env vars and a volume mount for the TNSADMIN secret to the account deployment.
 
    Create a file called `patch.json` with this content:
 
     ```json
-    {
+    <copy>{
       "spec": {
         "template": {
           "spec": { 
@@ -1093,7 +1093,7 @@ You created the transaction database objects earlier.  You may recall that you u
           }
         }
       }
-    }
+    }</copy>
     ```
 
    Apply the patch to the deployment with this command: 
