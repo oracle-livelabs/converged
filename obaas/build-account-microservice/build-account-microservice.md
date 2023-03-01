@@ -955,10 +955,10 @@ You created the transaction database objects earlier.  You may recall that you u
    Update the data source configuration in your `src/main/resources/application.yaml` as shown in the xample below.  This will cause the service to read the correct database details that will be injected into its pod by the Oracle Backend for Spring Boot.
 
     ```yaml
-      datasource:
-        url: ${spring.db.url}
-        username: ${spring.db.username}
-        password: ${spring.db.password}
+    datasource:
+      url: ${CONNECT_STRING}
+      username: ${DB_USERNAME}
+      password: ${DB_PASSWORD}
     ```   
 
    Run the following command to build the JAR file.  Note that you will need to skip tests now, since you updated the `application.yaml` and it no longer points to your local test database instance. 
@@ -986,7 +986,7 @@ You created the transaction database objects earlier.  You may recall that you u
 
     ```
     $ <copy>oractl</copy>
-      _   _           __    _    ___
+     _   _           __    _    ___
     / \ |_)  _.  _. (_    /  |   |
     \_/ |_) (_| (_| __)   \_ |_ _|_
 
@@ -1015,8 +1015,6 @@ You created the transaction database objects earlier.  You may recall that you u
 
    TODO 
 
-
-
 1. Create objects in the Oracle Autonomous Database instance
 
   TODO can we liquibase this please? 
@@ -1043,7 +1041,7 @@ You created the transaction database objects earlier.  You may recall that you u
 
 1. **Temporary workaround - will be removed before Level Up 23 **
 
-   > **Note**: Hello LiveLab QA testers!  This small workaround is required currently due to a small bug in the CLI.  THis will be removed before the Level Up 23 event.  This just adds the missing volume mount for the TNSADMIN secret to the account deployment.
+   > **Note**: Hello LiveLab QA testers!  This small workaround is required currently due to a small bug in the CLI.  THis will be removed before the Level Up 23 event.  This just adds the missing env vars and a volume mount for the TNSADMIN secret to the account deployment.
 
    Create a file called `patch.json` with this content:
 
@@ -1055,6 +1053,26 @@ You created the transaction database objects earlier.  You may recall that you u
             "containers": [
               {
                 "name": "account",
+                "env": [
+                  {
+                    "name": "DB_USERNAME",
+                    "valueFrom": {
+                      "secretKeyRef": {
+                        "key": "db.username",
+                        "name": "account-db-secrets"
+                      }
+                    }
+                  },
+                  {
+                    "name": "DB_PASSWORD",
+                    "valueFrom": {
+                      "secretKeyRef": {
+                        "key": "db.password",
+                        "name": "account-db-secrets"
+                      }
+                    }
+                  }
+                ],
                 "volumeMounts": [
                   {
                     "mountPath": "/oracle/tnsadmin",
@@ -1084,19 +1102,89 @@ You created the transaction database objects earlier.  You may recall that you u
     $ <copy>kubectl -n application patch deploy account -p "$(cat patch.json)"</copy>
     ```
 
-  This will add the TNSADMIN volume mount to your account deployment (and its pods).
+  This will add the TNSADMIN volume mount to your account deployment (and its pods) and the environment variables required to read the database credentials from the appropriate secret.
 
 ## Task 9: Expose the account service using the API Gateway
 
-TODO ra ra
+Now that the account service is deployed, you need to expose it through the API Gateway so that clients will be able to access it.  This is done by creating a "route" in APISIX Dashboard.
+
+1. Access the APISIX Dashboard
+
+   Start the tunnel using this command.  You can run this in the background if you prefer.
+
+    ```
+    $ <copy>kubectl -n apisix port-forward svc/apisix-dashboard 8080:80</copy>
+    ```
+
+   Open a web broswer to [http://localhost:8080](http://localhost:8080) to view the APISIX Dashboard web user interface.  It will appear similar to the image below.
+   
+   If prompted to login, login with user name `admin` and password `admin`.  Note that Oracle strongly recommends that you change the password, even though this interface is not accessible outside the cluster without a tunnel.
+
+   Open the routes page from the left hand side menu.  You will not have any routes yet.
+
+   ![APISIX Dashboard route list](images/obaas-apisix-route-list.png)
 
 1. Create the route
 
-   TODO how now brown cow
+   Click on the **Create** button to start creating a route.  The **Create route** page will appear. Enter `account` in the **Name** field:
+
+   ![APISIX Create route](images/obaas-apisix-create-route-1.png)
+
+   Scroll down to the **Request Basic Define** section.  Set the **Path** to `/api/v1/account*`.  This tells APISIX API Gateway that any incoming request for that URL path (on any host or just IP address) should use this route.  In the **HTTP Method** select `GET`, `POST`, `DELETE`, and `OPTIONS`.  The first three you will recall using directly in the implementation of the account service during this lab.  User interfaces and other clients will often send an `OPTIONS` request before a "real" request to see if the service exists and check headers and so on, so it is a good practice to allow `OPTIONS` as well. 
+
+   ![APISIX Create route](images/obaas-apisix-create-route-2.png)
+
+   Click on the **Next** button to move to the **Define API Backend Server** page.  On this page you configure where to route requests to.  In the **Upstream Type** field, select **Service Discovery**.  Then in the **Discovery Type** field, select **Eureka**.  In the **Service Name** field enter `ACCOUNTS`.  This tells APISIX to lookup the service in Spring Eureka Service Registry with the key `ACCOUNTS` and route requests to that service using a Round Robin algorithm to distribute requests.
+
+   ![APISIX Create route](images/obaas-apisix-create-route-3.png)
+
+   Click on **Next** to go to the **Plugin Config** page.  You will not add any plugins right now.  You may wish to browse through the list of available plugins on this page.  When you are ready, click on **Next** to go to the **Preview** page.  Check the details and then click on **Submit** to create the route.
+
+   When you return to the route list page, you will see your new `account` route in the list now.
+
 
 1. Verify the account service 
 
-   TODO xyz curl curl
+   In the next two commands, you need to provide the correct IP address for the API Gateway in your backend environment.  You can find the IP address using this command, you need the one listed in the `EXTERNAL-IP` column:
+   
+    ```
+    $ <copy>kubectl -n ingress-nginx get service ingress-nginx-controller</copy>
+    NAME                       TYPE           CLUSTER-IP      EXTERNAL-IP   PORT(S)                      AGE
+    ingress-nginx-controller   LoadBalancer   10.123.10.127   100.20.30.40  80:30389/TCP,443:30458/TCP   13d
+    ```
+
+   Test the create account endpoint with this command, use the IP address for your API Gateway:
+
+    ```
+    $ <copy>curl -i -X POST \
+      -H 'Content-Type: application/json' \
+      -d '{"accountName": "Sanjay''s Savings", "accountType": "SA", "accountCustomerId": "bkzLp8cozi", "accountOtherDetails": "Savings Account"}' \
+      http://100.20.30.40/api/v1/account</copy>
+    HTTP/1.1 201
+    Date: Wed, 01 Mar 2023 18:35:31 GMT
+    Content-Type: application/json
+    Transfer-Encoding: chunked
+    Connection: keep-alive
+
+    {"accountId":24,"accountName":"Sanjays Savings","accountType":"SA","accountCustomerId":"bkzLp8cozi","accountOpenedDate":null,"accountOtherDetails":"Savings Account","accountBalance":0}
+    ```   
+
+   Test the get account endpoint with this command, use the IP address for your API Gateway and the `accountId` that was returned in the previous command:
+
+    ```
+    $ <copy>curl -s http://100.20.30.40/api/v1/account/24 | jq .</copy>
+    {
+      "accountId": 24,
+      "accountName": "Sanjay's Savings",
+      "accountType": "SA",
+      "accountCustomerId": "bkzLp8cozi",
+      "accountOpenedDate": null,
+      "accountOtherDetails": "Savings Account",
+      "accountBalance": 1040
+    }
+    ```   
+
+   Your service is deployed in the Oracle Backend for Spring Boot and using the Oracle Autonomous Database instance associated with the backend. 
 
 ## Learn More
 
