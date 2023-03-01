@@ -1002,7 +1002,6 @@ You created the transaction database objects earlier.  You may recall that you u
     oractl> <copy>connect</copy>
     password (defaults to oractl):
     using default value...
-    Handling connection for 8080
     connect successful server version:011223
     ```
 
@@ -1010,7 +1009,7 @@ You created the transaction database objects earlier.  You may recall that you u
 
     ```
     oractl:> <copy>bind --appName application --serviceName account --springBindingPrefix spring.db</copy>
-    database password/servicePassword (defaults to Welcome12345): *************
+    database password/servicePassword (defaults to Welcome12345): 
     database secret created successfully and schema already exists for account
     ```
 
@@ -1044,7 +1043,7 @@ You created the transaction database objects earlier.  You may recall that you u
 
 1. **Temporary workaround - will be removed before Level Up 23 **
 
-   TODO
+   > **Note**: Hello LiveLab QA testers!  This small workaround is required currently due to a small bug in the CLI.  THis will be removed before the Level Up 23 event.  This just adds the missing volume mount for the TNSADMIN secret to the account deployment.
 
    Create a file called `patch.json` with this content:
 
