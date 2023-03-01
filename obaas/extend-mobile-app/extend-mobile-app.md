@@ -40,7 +40,7 @@ Task 2: Run the application against your environmnet
    Open the `main.dart` file in Visual Studio Code and update the following line of code. 
 
     ```
-    const ServerUrl = "1.2.3.4";
+    <copy>const ServerUrl = "1.2.3.4";</copy>
     ```
 
    You need to provide the correct IP address for your environment.  You can find the IP address using this command:
@@ -58,6 +58,8 @@ Task 2: Run the application against your environmnet
    In Visual Studio Code, select the target platform in the lower right corner.  The first time you do this it may say **No device**.
 
    ![Target device](images/obaas-flutter-target-device-footer.png)
+
+   Select the device you want to run the application on.  If you can use a mobile device emulator (or a real device) that will probably give you the best experience.  If you cannot, then **Chrome** is a good second choice. 
 
    ![Select device or start emulator](images/obaas-flutter-select-device.png)
    
@@ -84,33 +86,39 @@ Task 3: Create the user interface for the **Cloud Cash** feature
    Create a new Dart file in `lib/screens` called `cloudcash.dart` with this content:
 
     ```dart
+    import 'package:flutter/material.dart';
+    import 'package:go_router/go_router.dart';
+
     class CloudCash extends StatefulWidget {
       const CloudCash({Key? key}) : super(key: key);
-      
+
       @override
-         State<CloudCash> createState() => _CloudCashState();
-      }
+      State<CloudCash> createState() => _CloudCashState();
     }
-    
+
     class _CloudCashState extends State<CloudCash> {
       @override
       Widget build(BuildContext context) {
-        return Scaffold(
-        appBar: AppBar(title: const Text("Cloud Cash")),
-        body: Center(
-          Container(
-            height: 50,
-            padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-            child: ElevatedButton(
-            child: const Text('Send Cash Now'),
-            onPressed: () => GoRouter.of(context).go('/home'),
-          ),
-        ),
+         return Scaffold(
+            appBar: AppBar(title: const Text("Cloud Cash")),
+            body: Center(
+            child: Container(
+               height: 50,
+               padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+               child: ElevatedButton(
+                  child: const Text('Send Cash Now'),
+                  onPressed: () => GoRouter.of(context).go('/home'),
+               ),
+            ),
+            ),
+         );
       }
-    }           
+    }      
     ```
 
-    This will create a new screen with an "AppBar" with the title "Cloud Cash" and a single button labeled "Send Cash Now" that will just return to the home page when pressed.  
+    This will create a new screen with an "AppBar" with the title "Cloud Cash" and a single button labeled "Send Cash Now" that will just return to the home page when pressed.  This screen will look like this: 
+
+    ![First Cloud Cash Scrren](images/obaas-flutter-first-cloud-cash-screen.png)
 
 1. Update the app navigaton to add the new screen
 
@@ -162,6 +170,10 @@ Task 3: Create the user interface for the **Cloud Cash** feature
     ),
     ```
    
+   This card should look like this: 
+
+   ![Cloud Cash Card on Home Screen](images/obaas-flutter-cloud-cash-card-on-home-screen.png)
+
    TODO explain a bit more
 
 1. Run and test the application
