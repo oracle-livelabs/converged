@@ -16,9 +16,7 @@ In this lab, you will:
 * Plan your accounts database and create Liquibase files to automate creation of the database objects
 * Use Spring Data JPA to allow your microservice to use the data in the Orace database
 * Create REST services to allow clients to perform create, read, update, and delete operations on accounts
-* Learn how to externalize configuration for your microservice
 * Deploy your microservice into the backend
-* TODO ?? Learn how to use service discovery
 
 ### Prerequisites (Optional)
 
@@ -197,16 +195,16 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
     ```sql
     <copy>
     -- create a database user for the account service
-    create user account_svc identified by "Welcome1234##";
+    create user account identified by "Welcome1234##";
     
     -- add roles and quota
-    grant connect to account_svc;
-    grant resource to account_svc;
-    alter user account_svc default role connect, resource;
-    alter user account_svc quota unlimited on users;
+    grant connect to account;
+    grant resource to account;
+    alter user account default role connect, resource;
+    alter user account quota unlimited on users;
     
     -- create accounts table
-    create table account_svc.accounts (
+    create table account.accounts (
         account_id            number generated always as identity (start with 1 cache 20),
         account_name          varchar2(40) not null,
         account_type          varchar2(2) check (account_type in ('CH', 'SA', 'CC', 'LO')),
@@ -216,15 +214,15 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
         account_balance       number
     ) logging;
     
-    alter table account_svc.accounts 
+    alter table account.accounts 
     add constraint accounts_pk 
     primary key (account_id) 
     using index logging;
-    comment on table account_svc.accounts 
+    comment on table account.accounts 
     is 'CloudBank accounts table';
     
     -- create transactions table
-    create blockchain table account_svc.transactions (
+    create blockchain table account.transactions (
         transaction_id     number generated always as identity (start with 1 cache 20),
         transaction_date   date default sysdate not null,
         transaction_amount number,
@@ -232,16 +230,16 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
         account_id         number not null
     ) no drop until 0 days idle no delete locked hashing using "SHA2_512" version "v1" logging;
     
-    alter table account_svc.transactions
+    alter table account.transactions
     add constraint transactions_pk
     primary key (transaction_id) 
     using index logging;
-    comment on table account_svc.transactions 
+    comment on table account.transactions 
     is 'CloudBank transactions table';
     </copy>
     ```
     
-    TODO TODO
+    Now that the database objects are created, you can configure Spring Data JPA to use them in your microservice.
 
 ##  Task 4: Use Spring Data JPA to access the database
 
@@ -288,7 +286,7 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
         show-sql: true
       datasource:
         url: jdbc:oracle:thin:@//172.17.0.2:1521/pdb1
-        username: account_svc
+        username: account
         password: Welcome1234##
         driver-class-name: oracle.jdbc.OracleDriver
         type: oracle.ucp.jdbc.PoolDataSource
@@ -300,7 +298,7 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
           max-pool-size: 30</copy>
     ```
 
-   TODO explain UCP and hibernate options
+   These parameters will be used by Spring Data JPA to automatically configure the data source and inject it into your application.  This configuration uses [Oracle Universal Connection Pool](https://docs.oracle.com/en/database/oracle/oracle-database/21/jjucp/index.html) to improve performance and better utilize system resources.  The settings in the `jpa.hibernate` section tell Spring Data JPA to use Oracle SQL syntax, and to show the SQL statements in the log, which is useful during development when you may wish to see what statements are being executed as your endpoints are called.
 
 1. Create the data model in the Spring Boot application
 
@@ -496,9 +494,9 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
    Notice that Spring Boot automatically set the `Content-Type` to `application/json` for us.  The result is an empty JSON array `[]` as you might expect.  Add some accounts to the database using these SQL statements (run these in your SQLcl terminal):
 
     ```sql
-    <copy>insert into account_svc.accounts (account_name,account_type,customer_id,account_other_details,account_balance)
+    <copy>insert into account.accounts (account_name,account_type,customer_id,account_other_details,account_balance)
     values ('Andy''s checking','CH','abcDe7ged','Account Info',-20);
-    insert into account_svc.accounts (account_name,account_type,customer_id,account_other_details,account_balance)
+    insert into account.accounts (account_name,account_type,customer_id,account_other_details,account_balance)
     values ('Mark''s CCard','CC','bkzLp8cozi','Mastercard account',1000);</copy>
     ```
 
@@ -528,7 +526,7 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
     ]
     ```
 
-    TODO you just learned xyz
+    Now that you can query accounts, it is time to create an API endpoint to create an account.
 
 1. Create an endpoint to create a new account.
 
@@ -564,14 +562,14 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
     ``` 
     $ <copy>curl -i -X POST \
           -H 'Content-Type: application/json' \
-          -d '{"accountName": "Dave Checking Account", "accountType": "CH", "accountOtherDetail": "", "accountCustomerId": "abc123xyz"}' \
+          -d '{"accountName": "Dave", "accountType": "CH", "accountOtherDetail": "", "accountCustomerId": "abc123xyz"}' \
           http://localhost:8080/api/v1/account</copy>
     HTTP/1.1 201 
     Content-Type: application/json
     Transfer-Encoding: chunked
     Date: Sat, 25 Feb 2023 21:52:30 GMT
     
-    {"accountId":3,"accountName":"Dave Checking Account","accountType":"CH","accountCustomerId":"abc123xyz","accountOpenedDate":"2023-02-26T02:52:30.000+00:00","accountOtherDetails":null,"accountBalance":0}
+    {"accountId":3,"accountName":"Dave","accountType":"CH","accountCustomerId":"abc123xyz","accountOpenedDate":"2023-02-26T02:52:30.000+00:00","accountOtherDetails":null,"accountBalance":0}
     ```
 
     Notice the HTTP Status Code is 201 (Created).  The service returns the account that was created in the body.
@@ -595,10 +593,66 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
 
 If you would like to learn more about endpoints and implement the remainder of the account-related endpoints, this task provides the necessary details.  However, if you prefer, you may skip this task and go on to the next task where you will start implementing endpoints for transactions.  What are accounts without transactions anyway?
 
-1. Implement TODO endpoint
+1. Implement Get Account by Account ID endpoint
 
-   TODO the thing
+   Add new method to your `AccountController.java` class that responds to the HTTP GET method.  This method should accept the account ID as a path variable.  To accept a path variable, you place the variable name in braces in the URL path in the `@GetMapping` annotation and then reference it in the method's arguments using the `@PathVariable` annotation.  This will map it to the annotated method argument.  If an account is found, you should return that account and set the HTTP Status Code to 200 (OK).  If an account is not found, return an empty body and set the HTTP Status Code to 404 (Not Found). 
 
+   Here is the code to implement this endpoint:
+
+    ```java
+    @GetMapping("/account/{accountId}")
+    public ResponseEntity<Account> getAccountById(@PathVariable("accountId") long accountId) {
+        Optional<Account> accountData = accountRepository.findById(accountId);
+        try {
+            return accountData.map(account -> new ResponseEntity<>(account, HttpStatus.OK))
+                    .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+    ```
+
+1. Implement Get Accounts for Customer ID endpoint
+
+  Add a new mthod to your `AccountController.java` class that repsonds to the HTTP GET method.  This method should accept a customer ID as a path variable and return a list of accounts for that customer ID.  If no accounts are found, return an empty body and set the HTTP Status Code to 204 (No Content).
+
+  Here is the code to implement this endpoint:
+
+    ```java    
+    @GetMapping("/account/getAccounts/{customerId}")
+    public ResponseEntity<List<Account>> getAccountsByCustomerId(@PathVariable("customerId") String customerId) {
+        try {
+            List<Account> accountData = new ArrayList<Account>();
+            accountData.addAll(accountRepository.findByAccountCustomerId(customerId));
+            if (accountData.isEmpty()) {
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            }
+            return new ResponseEntity<>(accountData, HttpStatus.OK);
+        } catch (Exception e) {
+                return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+    }
+    ```
+
+1. Implement a Delete Account API endpoint
+
+   Add a new method to your `AccountController.java` file that responds to the HTTP DELETE method and accepts an account ID as a path variable.  You can use the `@DeleteMapping` annotation to respond to HTTP DELETE.  This method should delete the account specified and return an empty body and HTTP Status Code 204 (No Content) which is generally accepted to mean the deletion was successful (some people also use 200 (OK) for this purpose).
+
+   Here is the code to implement this endpoint: 
+
+    ```java
+    @DeleteMapping("/acccount/{accountId}")
+    public ResponseEntity<HttpStatus> deleteAccount(@PathVariable("accountId") long accountId) {
+        try {
+            accountRepository.deleteById(accountId);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+    ```
+
+   That completes the account-related endpoints.  Now it is time to add some endpoints to deal with transcations within an account.
 
 ## Task 7: Create the **transaction** endpoints
 
@@ -608,7 +662,7 @@ You created the transaction database objects earlier.  You may recall that you u
 
 > **Reminder**: Blockchain tables are append-only tables in which only insert operations are allowed. Deleting rows is either prohibited or restricted based on time. Rows in a blockchain table are made tamper-resistant by special sequencing and chaining algorithms. Users can verify that rows have not been tampered. A hash value that is part of the row metadata is used to chain and validate rows.
 
-1. JPA model
+1. Define the JPA model
 
    Create a new file in `src/main/java/com/examples/accounts/model` called `Transaction.java`.  This is very similar to the account model that you created earlier.  There are no new concepts.  Here is the code:
 
@@ -662,7 +716,7 @@ You created the transaction database objects earlier.  You may recall that you u
     }</copy>
     ```
 
-1. JPA Repository
+1. Define the JPA Repository
 
    Create a new file in `src/main/java/com/example/accounts/repository` called `TransactionRepository.java`.  This will be a Java interface.  In this interface define one method `findTransactionByTransactionAccountId` with a single argumnet `long transactionAccountId` that returns `List<Transaction>`.  Based on the name of the method, JPA will automatically provide a method that searches the database repository for rows in the transaction table with a matching account ID.  Here is the code for this interface:
 

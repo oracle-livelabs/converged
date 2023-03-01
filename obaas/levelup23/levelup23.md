@@ -34,7 +34,7 @@ If you would just like to learn about Oracle Backend for Spring Boot, and you do
 * Complete Lab 1: Provision an Instance
 * In Lab 2: Setup your Development Environment, just complete the last task to set up your Flutter development environment
 * Complete Lab 5: Deploy the fuil CloudBank application so that you have some services to look at while exploring the platform
-* Optionally complete Lab 6: Explore the Backend Platform to get an understanding of the overall platofmr
+* Optionally complete Lab 6: Explore the Backend Platform to get an understanding of the overall platform
 * Complete Lab 7: Extend the Mobile Application - this would be the main content for this path
 * Optionally complete Lab 8: Cleanup
 

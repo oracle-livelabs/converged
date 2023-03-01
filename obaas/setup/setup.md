@@ -209,7 +209,7 @@ In later labs, you will look various resources in the Kubernetes cluster and acc
    Install the OCI CLI from [the Quickstart documentation](https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/cliinstall.htm).  Click on the link for your operating system and follow the instructions to complete the installation.  After installation is complete, use this command to verify the installation (your output might be slightly different): 
 
     ```
-    $ oci --version
+    $ <copy>oci --version</copy>
     3.5.0
     ```
 
@@ -218,13 +218,13 @@ In later labs, you will look various resources in the Kubernetes cluster and acc
    Review the instructions [in the documentation](https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/cliconfigure.htm) for configuring the OCI CLI.  The simplest way to configure the CLI is to use the guided setup by running this command:
 
     ```
-    $ oci setup config
+    $ <copy>oci setup config</copy>
     ```
 
    This will guide you through the process of creating your configuration file.  Once you are done, check that the configuration is good by running this command (note that you would have obtained the tenancy OCID during the previous step, and your output might look slightly different):
 
     ```
-    $ oci iam tenancy  get --tenancy-id ocid1.tenancy.oc1..xxxxx
+    $ <copy>oci iam tenancy  get --tenancy-id ocid1.tenancy.oc1..xxxxx</copy>
     {
       "data": {
         "defined-tags": {
