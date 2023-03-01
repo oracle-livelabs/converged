@@ -10,7 +10,7 @@ Estimated Lab Time: 20 minutes
 
 The following platforms are recommended for a development environment:
 
-- Windows 10 or 11, preferrably with Windows Subsystem for Linux 2
+- Windows 10 or 11, preferably with Windows Subsystem for Linux 2
 - macOS (11 or later recommended) on Intel or Apple silicon
 - Linux, e.g., Oracle Linux, Ubuntu, etc.
 
@@ -28,14 +28,15 @@ If you wish to test locally or offline, the following additional tools are recom
 ### Objectives
 
 In this lab, you will:
+
 * Install the tools needed to develop and deploy applications using Oracle Backend for Spring Boot
-* (Optional) Install the tools needed to develop mobile and/or web applications using Oracle Backend for Spring Boot (iuncluding Parse Platform)
+* (Optional) Install the tools needed to develop mobile and/or web applications using Oracle Backend for Spring Boot (including Parse Platform)
 
 ### Prerequisites
 
 This lab assumes you have:
-* One of the recommended platforms, as listed above
 
+* One of the recommended platforms, as listed above
 
 ## Task 1: Install the Integrated Development Environment
 
@@ -51,21 +52,21 @@ This lab assumes you have:
 
    Download Visual Studio Code from [this web site](https://code.visualstudio.com/) and run the installer for your operating system to install it on your machine.
 
-   ![Download Visual Studio Code](images/obaas-vscode.png)
+   ![Download Visual Studio Code](images/obaas-vscode.png " ")
 
 1. Install the recommended extensions
-   
+
    Start Visual Studio Code, and then open the extensions tab (Ctrl-Shift-X or equivalent) and use the search bar at the top to find and install each of the extensions listed above.
 
-   ![Visual Studio Code Extension installation](images/obaas-install-vcode-extensions.png)
+   ![Visual Studio Code Extension installation](images/obaas-install-vcode-extensions.png " ")
 
 ## Task 2: Install a Java Development Kit
 
    Oracle recommends the [Java SE Development Kit](https://www.oracle.com/java/technologies/downloads/#java17).
    If you are using Spring Boot version 2.x, then Java 11 is recommended.
-   If you are using Spting Boot version 3.x, then Java 17 is recommended, note that Spring Boot 3.0 requires at least Java 17.
+   If you are using Spring Boot version 3.x, then Java 17 is recommended, note that Spring Boot 3.0 requires at least Java 17.
 
-   Even if you are using Spring Boot 2.x, Oracle encourages you to use at least Java 17, unless you have a specific reason to stay on Java 11. 
+   Even if you are using Spring Boot 2.x, Oracle encourages you to use at least Java 17, unless you have a specific reason to stay on Java 11.
 
 1. Download and install the Java Development Kit 
 
@@ -73,7 +74,7 @@ This lab assumes you have:
 
    Decompress the archive in your chosen location, e.g., your home directory and then add it to your path:
 
-    ```
+    ```shell
     <copy>
     export JAVA_HOME=$HOME/jdk-17.0.3
     export PATH=$JAVA_HOME/bin:$PATH
@@ -84,8 +85,10 @@ This lab assumes you have:
 
    Verify the Java Development Kit is installed with this command:
 
-    ```
-    $ <copy>java -version</copy>
+    ```shell
+    $ <copy>
+    java -version
+    </copy>
     java version "17.0.3" 2022-04-19 LTS
     Java(TM) SE Runtime Environment (build 17.0.3+8-LTS-111)
     Java HotSpot(TM) 64-Bit Server VM (build 17.0.3+8-LTS-111, mixed mode, sharing)
@@ -104,17 +107,21 @@ You can use either Maven or Gradle to build your Spring Boot applications.  If y
 1. Install Maven
 
    Decompress the archive in your chosen location, e.g., your home directory and then add it to your path:
-   
-    ```
-    <copy>export PATH=$HOME/apache-maven-3.8.6/bin:$PATH</copy>
+
+    ```shell
+    <copy>
+    export PATH=$HOME/apache-maven-3.8.6/bin:$PATH
+    </copy>
     ```
 
 1. Verify installation
 
    You can verify it is installed with this command (note that your version may give slightly different output):
-   
-    ```
-    $ <copy>mvn -v</copy>
+
+    ```shell
+    $ <copy>
+    mvn -v
+    </copy>
     Apache Maven 3.8.6 (84538c9988a25aec085021c365c560670ad80f63)
     Maven home: /home/mark/apache-maven-3.8.6
     Java version: 17.0.3, vendor: Oracle Corporation, runtime: /home/mark/jdk-17.0.3
@@ -135,9 +142,11 @@ If you prefer Gradle, follow the steps in this task.
 1. Verify the installation
 
    Run the command below to verify Gradle was installed correctly:
-   
-    ```
-    $ <copy>gradle -v</copy>
+
+    ```shell
+    $ <copy>
+    gradle -v
+    </copy>
        
     ------------------------------------------------------------
     Gradle 7.6
@@ -164,8 +173,8 @@ The Oracle Backend for Spring Boot CLI is used to configure your backend and to 
 1. Install the CLI
 
    To install the CLI, you just need to make sure it is executable and add it to your PATH enviironment variable.
-   
-    ```
+
+    ```shell
     <copy>
     chmod +x oractl
     export PATH=/path/to/oractl:$PATH
@@ -175,7 +184,7 @@ The Oracle Backend for Spring Boot CLI is used to configure your backend and to 
 1. Verify the installation
 
   Verify the CLI is installed using this command: 
-   
+
     ```text
     $ <copy>oractl version</copy>
        _   _           __    _    ___
@@ -196,8 +205,10 @@ In later labs, you will look various resources in the Kubernetes cluster and acc
 
    Install **kubectl** from [the Kubernetes website](https://kubernetes.io/docs/tasks/tools/).  Click on the link for your operating system and follow the instructions to complete the installation.  As mentioned in the instructions, you can use this command to verify the installation, and you can ignore the warning since we are just checking the installation was successful (your output may be slightly different):
 
-    ```
-    $ <copy>kubectl version --client</copy>
+    ```shell
+    $ <copy>
+    kubectl version --client
+    </copy>
     I0223 08:40:30.072493   26355 versioner.go:56] Remote kubernetes server unreachable
     WARNING: This version information is deprecated and will be replaced with the output from kubectl version --short.  Use --output=yaml|json to get the full version.
     Client Version: version.Info{Major:"1", Minor:"24", GitVersion:"v1.24.1", GitCommit:"3ddd0f45aa91e2f30c70734b175631bec5b5825a", GitTreeState:"clean", BuildDate:"2022-05-24T12:26:19Z", GoVersion:"go1.18.2", Compiler:"gc", Platform:"linux/amd64"}
@@ -208,23 +219,29 @@ In later labs, you will look various resources in the Kubernetes cluster and acc
 
    Install the OCI CLI from [the Quickstart documentation](https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/cliinstall.htm).  Click on the link for your operating system and follow the instructions to complete the installation.  After installation is complete, use this command to verify the installation (your output might be slightly different): 
 
-    ```
-    $ <copy>oci --version</copy>
-    3.5.0
+    ```shell
+    $ <copy>
+    oci --version
+    </copy>
+    3.23.2
     ```
 
 1. Configure the OCI CLI
 
    Review the instructions [in the documentation](https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/cliconfigure.htm) for configuring the OCI CLI.  The simplest way to configure the CLI is to use the guided setup by running this command:
 
-    ```
-    $ <copy>oci setup config</copy>
+    ```shell
+    $ <copy>
+    oci setup config
+    </copy>
     ```
 
    This will guide you through the process of creating your configuration file.  Once you are done, check that the configuration is good by running this command (note that you would have obtained the tenancy OCID during the previous step, and your output might look slightly different):
 
-    ```
-    $ <copy>oci iam tenancy  get --tenancy-id ocid1.tenancy.oc1..xxxxx</copy>
+    ```shell
+    $ <copy>
+    oci iam tenancy  get --tenancy-id ocid1.tenancy.oc1..xxxxx
+    </copy>
     {
       "data": {
         "defined-tags": {
@@ -247,38 +264,43 @@ In later labs, you will look various resources in the Kubernetes cluster and acc
 
 ## Task 7: Configure **kubectl** to access your Kubernetes cluster
 
-At the end of the previous lab, during the verification of the installation, you looked at the end of the apply log and copied a command to obtain a Kubernetes configuration file to access your cluster.  In that lab, you used OCI CLoud Shell to confirm you could access the cluster.  Now, you need to configure similar access from your own development machine.   You can run that same command on your local machine, we recommend that you choose a different location for the file so it does not overwrite or inntefere with any other Kubernetes configuratio file you might already have on your machine. 
+At the end of the previous lab, during the verification of the installation, you looked at the end of the apply log and copied a command to obtain a Kubernetes configuration file to access your cluster.  In that lab, you used OCI CLoud Shell to confirm you could access the cluster.  Now, you need to configure similar access from your own development machine.   You can run that same command on your local machine, we recommend that you choose a different location for the file so it does not overwrite or interfere with any other Kubernetes configuration file you might already have on your machine. 
 
 1. Create the Kubernetes configuration file
 
-   Run the command provided at the end of your installation log to obtain the Kuberentes configuration file.  The command will be similar to this:
+   Run the command provided at the end of your installation log to obtain the Kubernetes configuration file.  The command will be similar to this:
 
-    ```
-    <copy>oci ce cluster create-kubeconfig --cluster-id ocid1.cluster.oc1.phx.xxxx --file path/to/kubeconfig --region us-phoenix-1 --token-version 2.0.0 --kube-endpoint PUBLIC_ENDPOINT</copy>
+    ```shell
+    <copy>
+    oci ce cluster create-kubeconfig --cluster-id ocid1.cluster.oc1.phx.xxxx --file path/to/kubeconfig --region us-phoenix-1 --token-version 2.0.0 --kube-endpoint PUBLIC_ENDPOINT
+    </copy>
     ```
 
 1. Configure **kubectl** to use the Kubernetes configuration file you just created
 
    Set the **KUBECONFIG** environment variable to point to the file you just created using this command (provide the path to where you created the file):
 
-    ```
-    $ <copy>export KUBECONFIG=/path/to/kubeconfig</copy>
+    ```shell
+    $ <copy>
+    export KUBECONFIG=/path/to/kubeconfig
+    </copy>
     ```
 
 1. Verify access to the cluster
 
    Check that you can access the cluster using this command: 
 
-    ```
-    $ <copy>kubectl get pods -n obaas-admin</copy>
+    ```shell
+    $ <copy>
+    kubectl get pods -n obaas-admin
+    </copy>
     NAME                          READY   STATUS    RESTARTS     AGE
     obaas-admin-bf4cd5f55-z54pk   2/2     Running   2 (9d ago)   9d
     ```
 
    Your output will be slightly different, but you should see one pod listed in the output.  This is enough to confirm that you have correctly configured access to the Kubernetes cluster.
-   
 
-## Task 8: Start a local Oracle Database container 
+## Task 8: Start a local Oracle Database container
 
    Running an Oracle Database in a container on your development machine will help with local testing while you are developing your Spring Boot services.
    You can easily obtain an Oracle Database container image from Oracle Container Registry and run an Oracle Database on your machine. 
@@ -288,40 +310,46 @@ At the end of the previous lab, during the verification of the installation, you
 1. Visit Oracle Container Registry and accept license agreements
 
     Open a web browser to [Oracle Container Registry](https://container-registry.oracle.com).  If prompted, sign in with your Oracle Account (**note**: this is not your Oracle Cloud account).  Navigate to the **Database** group and then open the **Enterprise** repository (its the first one).  Click on **Sign In** if necessary.
-    Choose a language to read the agreemenets and then accept when prompted.
+    Choose a language to read the agreements and then accept when prompted.
 
 1. Start an Oracle Database container on your development machine
 
     Log in to the Oracle Container Registry using your container runtime, for example:
 
-    ```
-    $ <copy>docker login container-registry.oracle.com</copy>
+    ```shell
+    $ <copy>
+    docker login container-registry.oracle.com
+    </copy>
     ```
 
     Enter your user name and password when requested.  This will be the same user name and password you used to log into the website to view and accept the agreements - you Oracle Account, not your Oracle Cloud Account.
 
     Start the database using this command:
 
-    ```
-    $ <copy>docker run -d \
+    ```shell
+    $ <copy>
+      docker run -d \
        --name oracle-db \
        -p 1521:1521 \
        -e ORACLE_PWD=Welcome123 \
        -e ORACLE_SID=ORCL \
        -e ORACLE_PDB=PDB1 \
-       container-registry.oracle.com/database/enterprise:21.3.0.0</copy>
+       container-registry.oracle.com/database/enterprise:21.3.0.0
+      </copy>
     ```
 
     The first time you do this, it will need to pull the container image, and then create the actual database instance.  This will take a few minutes to complete.
-    However, each time you need to use the Oracle Databsae container in the future, for example after rebooting your machine, you can restart it in just a few seconds using this command:
+    However, each time you need to use the Oracle Database container in the future, for example after rebooting your machine, you can restart it in just a few seconds using this command:
 
-    ```
-    $ <copy>docker start oracle-db</copy>
+    ```shell
+    $ <copy>
+    docker start oracle-db
+    </copy>
     ```
 
-    To find the address that the database will be available on, issue this command (your output will be slightly different): 
+    To find the address that the database will be available on, issue this command (your output will be slightly different):
 
-    ```
+    ```shell
     $ <copy>docker inspect oracle-db | grep IPAddress</copy>
            "SecondaryIPAddresses": null,
            "IPAddress": "172.17.0.2",
@@ -334,8 +362,10 @@ At the end of the previous lab, during the verification of the installation, you
 
     If you do not already have a database client, [Oracle SQL Developer Command Line (SQLcl)](https://www.oracle.com/database/sqldeveloper/technologies/sqlcl/) is a free command line interface for Oracle Database which includes great features like auto-completion and command history.  You can download it and install it from that web site.  To start SQLcl and connect to your database container, use a command like this: 
 
-    ```
-    $ <copy>sql pdbadmin/Welcome123@//172.17.0.2:1521/pdb1</copy>
+    ```shell
+    $ <copy>
+    sql pdbadmin/Welcome123@//172.17.0.2:1521/pdb1
+    </copy>
     SQLcl: Release 22.2 Production on Sat Feb 25 13:31:17 2023
     
     Copyright (c) 1982, 2023, Oracle.  All rights reserved.
@@ -368,7 +398,6 @@ If you plan to complete the Mobile App Development lab, you will need to install
 
    If you are installing Android Studio or XCode for the first time, you should also follow the instructions to create a device emulator instance.
 
-
 ## Learn More
 
 *(optional - include links to docs, white papers, blogs, etc)*
@@ -377,6 +406,7 @@ If you plan to complete the Mobile App Development lab, you will need to install
 * [URL text 2](http://docs.oracle.com)
 
 ## Acknowledgements
+
 * **Author** - Mark Nelson, Developer Evangelist, Oracle Database
 * **Contributors** - [](var:contributors)
 * **Last Updated By/Date** - Mark Nelson, February 2023
