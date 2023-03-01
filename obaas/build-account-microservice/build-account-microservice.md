@@ -948,7 +948,7 @@ You created the transaction database objects earlier.  You may recall that you u
    Note that the HTTP Status Code returned is 204 (No Content) which means the request was processed successfully but there is no data to send back.
 
 
-## Task N: Deploy the account service to Oracle Backend for Spring Boot
+## Task 8: Deploy the account service to Oracle Backend for Spring Boot
 
 1. Prepare the application for deployment
 
@@ -974,15 +974,15 @@ You created the transaction database objects earlier.  You may recall that you u
 
    TODO create an application, setup db access, etc.
 
-  The Oracle Backend for Spring Boot admin service is not exposed outside of the Kubernetes cluster by default.  Oracle recommends using a **kubectl** port forwarding tunnel to establish a secure connection to the admin service. 
+   The Oracle Backend for Spring Boot admin service is not exposed outside of the Kubernetes cluster by default.  Oracle recommends using a **kubectl** port forwarding tunnel to establish a secure connection to the admin service. 
 
-  Start a tunnel using this command:
+   Start a tunnel using this command:
 
-   ```
-   $ <copy>kubectl -n obaas-admin port-forward svc/obaas-admin 8080:8080</copy>
-   ```
+    ```
+    $ <copy>kubectl -n obaas-admin port-forward svc/obaas-admin 8080:8080</copy>
+    ```
 
-  Start the Oracle Backend for Spring Boot CLI using this command:
+   Start the Oracle Backend for Spring Boot CLI using this command:
 
     ```
     $ <copy>oractl</copy>
@@ -1086,6 +1086,18 @@ You created the transaction database objects earlier.  You may recall that you u
     ```
 
   This will add the TNSADMIN volume mount to your account deployment (and its pods).
+
+## Task 9: Expose the account service using the API Gateway
+
+TODO ra ra
+
+1. Create the route
+
+   TODO how now brown cow
+
+1. Verify the account service 
+
+   TODO xyz curl curl
 
 ## Learn More
 
