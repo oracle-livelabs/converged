@@ -1031,15 +1031,16 @@ You created the transaction database objects earlier.  You may recall that you u
     successfully deployed
     ```
 
-   > What happens when you use the Oracle Backend for Spring Boot CLI **deploy** command? 
-   When you run the deploy command, the Oracle Backend for Spring Boot CLI does several things for you:
+    > What happens when you use the Oracle Backend for Spring Boot CLI **deploy** command? 
+    When you run the deploy command, the Oracle Backend for Spring Boot CLI does several things for you:
 
-   * Uploads your application's JAR file to the backend
-   * Create a container image to run your application and push it into your container registry
-   * Some magic
-   * Create the Kubernetes objects needed to run your application
+    * Uploads your application's JAR file to the backend
+    * Create a container image to run your application and push it into your container registry
+    * Some magic
+    * Create the Kubernetes objects needed to run your application
 
-1. **Temporary workaround - will be removed before Level Up 23**
+
+1. Temporary workaround - **will be removed before Level Up 23**
 
     > **Note**: Hello LiveLab QA testers!  This small workaround is required currently due to a small bug in the CLI.  THis will be removed before the Level Up 23 event.  This just adds the missing env vars and a volume mount for the TNSADMIN secret to the account deployment.
 
