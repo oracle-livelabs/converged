@@ -7,20 +7,23 @@ This lab walks you through the steps to build a Spring Boot microservice from sc
 Estimated Time: 20 minutes
 
 ### About Spring Boot
+
 Enter background information here about the technology/feature or product used in this lab - no need to repeat what you covered in the introduction. Keep this section fairly concise. If you find yourself needing more than two sections/paragraphs, please utilize the "Learn More" section.
 
 ### Objectives
 
 In this lab, you will:
+
 * Create a new Spring Boot project in your IDE
 * Plan your accounts database and create Liquibase files to automate creation of the database objects
-* Use Spring Data JPA to allow your microservice to use the data in the Orace database
+* Use Spring Data JPA to allow your microservice to use the data in the Oracle database
 * Create REST services to allow clients to perform create, read, update, and delete operations on accounts
 * Deploy your microservice into the backend
 
 ### Prerequisites (Optional)
 
 This lab assumes you have:
+
 * An Oracle Cloud account
 * All previous labs successfully completed
 
@@ -32,47 +35,47 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
 
    In Visual Studio Code, press Ctrl+Shift+P (or equivalent) to access the command window.  Start typing "Spring Init" and you will see a number of options to create a Spring project, as shown in the image below.  Select the option to **Create a Maven Project**.
    
-   ![Start Spring Initializr](images/obaas-spring-init-1.png)
+  ![Start Spring Initializr](images/obaas-spring-init-1.png " ")
    
    You will be presented with a list of available Spring Boot versions.  Choose **2.7.9** (or the latest 2.7.x version available).  Do not choose a 3.x version for this lab - there are some breaking changes in 3.x which mean that some of the instructions in this lab will not work with 3.x.
 
-   ![Specify Spring Boot version](images/obaas-spring-init-2.png)
+   ![Specify Spring Boot version](images/obaas-spring-init-2.png " ")
    
    Next, you will be asked to choose the implementation language.  Choose **Java** from the available options.
 
-   ![Specify project language](images/obaas-spring-init-3.png)
+   ![Specify project language](images/obaas-spring-init-3.png " ")
    
    You will be asked for the Maven Group ID for this new project, you can use **com.example** (the default value).
 
-   ![Group ID](images/obaas-spring-init-4.png)
+   ![Group ID](images/obaas-spring-init-4.png " ")
    
    You will be asked for the Maven Artifact ID for this new project, enter **accounts**.
 
-   ![Artifact ID](images/obaas-spring-init-5.png)
+   ![Artifact ID](images/obaas-spring-init-5.png " ")
    
    You will be asked what type of packaging you want for this new project, select **JAR** from the list of options.
 
-   ![Specify packagaing type](images/obaas-spring-init-6.png)
+   ![Specify packagaing type](images/obaas-spring-init-6.png " ")
    
    Next, you will be asked what version of Java to use.  Select **17** from the list of options.  Technically you could use an earlier version of Java with Spring Boot 2.7.x, however the lab instructions assume you are using Java 17, so it is better to choose that to avoid issues during this lab.  Note that Spring Boot 3.0 requires Java 17 as the minimum level. 
 
-   ![Specify Java version](images/obaas-spring-init-7.png)
+   ![Specify Java version](images/obaas-spring-init-7.png " ")
    
    Now you will have the opportunity to add the Spring Boot dependencies your project needs.  For now just add **Spring Web**, which will let us write some REST services.  We will add more later as we need them.  After you add Spring Web, click on the option to continue with the selected dependencies.
 
-   ![Choose dependencies](images/obaas-spring-init-8.png)
+   ![Choose dependencies](images/obaas-spring-init-8.png " ")
    
    You will be asked where to save the project.  Note that this needs to be an existing location.  You may wish to create a directory in another terminal if you do not have a suitable location.  Enter the directory to save the project in and press Enter. 
 
-   ![Project directory](images/obaas-spring-init-9.png)
+   ![Project directory](images/obaas-spring-init-9.png " ")
    
    Now the Spring Initializr will create a new project based on your selections and place it in the directory you specified.  This will only take a few moments to complete.  You will a message in the bottom right corner of Visual Studio Code telling you it is complete.  Click on the **Open** button in that message to open your new project in Visual Studio Code.
 
-   ![Project generated](images/obaas-spring-init-10.png)
+   ![Project generated](images/obaas-spring-init-10.png " ")
    
    Explore the new project.  You should find the main Spring Boot application class and your Spring Boot `application.properties` file as shown in the image below.
 
-   ![Ihe new project](images/obaas-spring-init-11.png)
+   ![Ihe new project](images/obaas-spring-init-11.png " ")
    
    If desired, you can delete some of the generated files that you will not need.  You can remove `.mvn`, `mvnw`, `mvnw.cmd` and `HELP.md` if you wish.  Leaving them there will not cause any issues.
 
@@ -81,46 +84,53 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
     Open a terminal in Visual Studio Code by selecting **New Terminal** from the **Terminal** menu (or if you prefer, just use a separate terminal application).
     Build and run the newly created service with this command:
 
-    ```
-    $ <copy>mvn spring-boot:run</copy>
+    ```shell
+    $ <copy>
+	mvn spring-boot:run
+	</copy>
     ```
 
     The service will take a few seconds to start, and then you will see some messages similar to these:
 
-    ```
+    ```text
     2023-02-25 12:27:21.277  INFO 20507 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
     2023-02-25 12:27:21.282  INFO 20507 --- [           main] c.example.accounts.AccountsApplication   : Started AccountsApplication in 0.753 seconds (JVM running for 0.893)
     ```
 
     Of course, the service does not do anything yet, but you can still make a request and confirm you get a response from it:
 
-    ```
-    $ <copy>curl http://localhost:8080</copy>
+    ```shell
+    $ <copy>
+	curl http://localhost:8080
+	</copy>
     {"timestamp":"2023-02-25T17:28:23.264+00:00","status":404,"error":"Not Found","path":"/"}
     ```
 
 ## Task 2: Implement your first service
 
-1. Implement the first simple endpoint    
+1. Implement the first simple endpoint
 
     Create a new directory in the directory `src/main/java/com/example/accounts` called `controller`.  In that new directory, create a new Java file called `AccountsController.java`.  When prompted for the type, choose **class**.
 
     Your new file should look like this:
 
     ```java
-    <copy>package com.example.accounts.controller;
+    <copy
+	>package com.example.accounts.controller;
     
     public class AccountsController {
         
-    }</copy>
+    }
+	</copy>
     ```
 
     Add the `RestController` annotation to this class to tell Spring Boot that we want this class to expose REST services.  You can just start typing `@RestController` before the `public class` statement and Visual Studio Code will offer code completion for you.  When you select from the pop-up, Visual Studio Code will also add the import statement for you.  The list of suggestions is based on the dependencies you added to your project.
 
-    Add the `RequestMapping` annotation to this class as well, and set the URL path to `/api/v1`.  Your class should now look like this: 
+    Add the `RequestMapping` annotation to this class as well, and set the URL path to `/api/v1`.  Your class should now look like this:
 
     ```java
-    <copy>package com.example.accounts.controller;
+    <copy>
+	package com.example.accounts.controller;
     
     import org.springframework.web.bind.annotation.RequestMapping;
     import org.springframework.web.bind.annotation.RestController;
@@ -129,13 +139,15 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
     @RequestMapping("/api/v1")
     public class AccountsController {
         
-    }</copy>
+    }
+	</copy>
     ```
 
-    Add a method to this class called `ping` which returns a `String` with a helpful message.  Add the `GetMapping` annotation to this method and set the URL path to `/hello`.  Your class should now look like this: 
+    Add a method to this class called `ping` which returns a `String` with a helpful message.  Add the `GetMapping` annotation to this method and set the URL path to `/hello`.  Your class should now look like this:
 
     ```java
-    <copy>package com.example.accounts.controller;
+    <copy>
+	package com.example.accounts.controller;
     
     import org.springframework.web.bind.annotation.GetMapping;
     import org.springframework.web.bind.annotation.RequestMapping;
@@ -150,21 +162,26 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
         return "Hello from Spring Boot";
       }
     
-    }</copy>
+    }
+	</copy>
     ```
 
-    You have just implemented your first REST service in Spring Boot!  This service will be available on `http://localhost:8080/api/v1/hello`.  And the `GetMapping` annotation tells Spring Boot that this servive will respond to the HTTP GET method. 
+    You have just implemented your first REST service in Spring Boot!  This service will be available on `http://localhost:8080/api/v1/hello`.  And the `GetMapping` annotation tells Spring Boot that this service will respond to the HTTP GET method.
 
     You can test your service now by building and running again.  If you still have the application running from before, hit Ctrl+C (or equivalent) to stop it, and then build and run with this command:
 
-    ```
-    $ <copy>mvn spring-boot:run</copy>
+    ```shell
+    $ <copy>
+	mvn spring-boot:run
+	</copy>
     ```
 
     Then try to call your service with this command:
 
-    ```
-    $ <copy>curl -i http://localhost:8080/api/v1/hello</copy>
+    ```shell
+    $ <copy>
+	curl -i http://localhost:8080/api/v1/hello
+	</copy>
     HTTP/1.1 200 
     Content-Type: text/plain;charset=UTF-8
     Content-Length: 22
@@ -186,11 +203,13 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
     Here are the SQL statements to create the necessary objects in the database.  You can run these against your local Oracle Database container to use during development.
     If you installed SQLcl as recommended, you can connect to your database using this command:
 
-    ```
-    $ <copy>sql pdbadmin/Welcome123@//172.17.0.2:1521/pdb1</copy>
+    ```shell
+    $ <copy>
+	sql pdbadmin/Welcome123@//172.17.0.2:1521/pdb1
+	</copy>
     ```
     
-    When you are connected, run the SQL statements below to create the databse objects:
+    When you are connected, run the SQL statements below to create the database objects:
     
     ```sql
     <copy>
@@ -238,10 +257,10 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
     is 'CloudBank transactions table';
     </copy>
     ```
-    
+
     Now that the database objects are created, you can configure Spring Data JPA to use them in your microservice.
 
-##  Task 4: Use Spring Data JPA to access the database
+## Task 4: Use Spring Data JPA to access the database
 
 1. Add Spring Data JPA to the Account service and configure it to access the database
 
@@ -266,11 +285,11 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
 
     Visual Studio code will display a notification in the bottom right corner and ask if it should update the project based on the change you just made.  You should select **Yes** or **Always** to this notification.  Doing so will ensure that the auto-completion will have access to the classes in the new dependency that you just added.
 
-    ![Updated Project](images/obaas-updated-pom.png)
+    ![Updated Project](images/obaas-updated-pom.png " ")
 
     To configure Spring Data JPA access to the database, you will add some configuration information to the Spring Boot application properties (or YAML) file.
     You will find a file called `application.properties` in the `src/main/resources` directory in your project.  You can use either properties format or YAML
-    format for this file.  In this lab, you will use YAML.  Rename the file to `applciation.yaml` and then add this content to the file:
+    format for this file.  In this lab, you will use YAML.  Rename the file to `application.yaml` and then add this content to the file:
 
     ```yaml
     <copy>spring:
@@ -340,9 +359,10 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
         <artifactId>lombok</artifactId>
     </dependency></copy>
     ```
+
     Visual Studio code will display a notification in the bottom right corner and ask if it should update the project based on the change you just made.  You should select **Yes** or **Always** to this notification.  Doing so will ensure that the auto-completion will have access to the classes in the new dependency that you just added.
-    
-    ![Updated Project](images/obaas-updated-pom.png)
+
+    ![Updated Project](images/obaas-updated-pom.png " ")
 
     Add the `Data` and `NoArgsConstructor` Lombok annotations to your `Account` class.  `@Data` generates all the boilerplate that is normally associated with simple POJOs and beans: getters for all fields, setters for all non-final fields, and appropriate `toString`, `equals` and `hashCode` implementations that involve the fields of the class, and a constructor that initializes all final fields, as well as all non-final fields with no initializer that have been marked with `@NonNull`, in order to ensure the field is never null.  The `NoArgsConstructor` creates a constrcutor with no arguments. 
 
@@ -366,8 +386,8 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
     }</copy>
     ```
 
-   You also need to give some hints about the columns in the existing tables.  You should add a `Column` annotation to each field and set its `name` property to the name of the databse column.  Some of the columns will need additional information.  
-   
+   You also need to give some hints about the columns in the existing tables.  You should add a `Column` annotation to each field and set its `name` property to the name of the database column.  Some of the columns will need additional information.  
+
    First, the `accountId` field is the primary key, so add the `Id` annotation to it, and its value is generated, so add the `GeneratedValue` annotation and set its `strategy` property to `GenerationType.IDENTITY`.  
 
    Next, the `accountOpenedDate` field is special - it should not be able to be inserted or updated.  So you will add the `updatable` and `insertable` properties to its `Column` annotation and set them both to `false`.  Also add the `Generated` annotation and set it to `GenerationTime.INSERT` to tell Spring Data JPA that the value for this field should be generated at the time of the database insert operation.
@@ -422,13 +442,11 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
     
     public interface AccountsRepository extends JpaRepository<Account, Long> {    
     }</copy>
-    ```   
+    ```
 
     By extending `JpaRepository` you will get a lot of convenient methods "for free".  You will use one of them now to create an endpoint to list all accounts.
 
-    
-
-## Task 5: Write services to create and query accounts in the Oracle Database 
+## Task 5: Write services to create and query accounts in the Oracle Database
 
 1. Create a service to list all accounts
 
@@ -458,31 +476,35 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
     public List<Account> getAllAccounts() {
         return accountsRepository.findAll();
     }</copy>
-    ```    
+    ```
 
 1. Rebuild and restart your application and test your new endpoint
 
-    If your applciation is still running, stop it with Ctrl+C (or equivalent) and then reuild and restart it with this command: 
+    If your application is still running, stop it with Ctrl+C (or equivalent) and then rebuild and restart it with this command: 
 
-    ```
-    $ <copy>mvn spring-boot:run</copy>
+    ```shell
+    $ <copy>
+	mvn spring-boot:run
+	</copy>
     ```
 
     This time, when it starts up you will see some new log messages that were not there before.  These tell you that it connected to the database successfully.
 
-    ```
+    ```text
     2023-02-25 15:58:16.852  INFO 29041 --- [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
     2023-02-25 15:58:16.872  INFO 29041 --- [           main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.6.15.Final
     2023-02-25 15:58:16.936  INFO 29041 --- [           main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
     2023-02-25 15:58:17.658  INFO 29041 --- [           main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.Oracle12cDialect
     2023-02-25 15:58:17.972  INFO 29041 --- [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
     2023-02-25 15:58:17.977  INFO 29041 --- [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-    ```    
+    ```
 
    Now you can test the new service with this command: 
 
-    ```
-    $ <copy>curl http://localhost:8080/api/v1/accounts</copy>
+    ```shell
+    $ <copy>
+	curl http://localhost:8080/api/v1/accounts
+	</copy>
     HTTP/1.1 200 
     Content-Type: application/json
     Transfer-Encoding: chunked
@@ -502,8 +524,10 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
 
    Now, test the service again.  You may want to send the output to `jq` if you have it installed, so that it will be formatted for easier reading:
 
-    ```
-    $ <copy>curl -s http://localhost:8080/api/v1/accounts | jq .</copy>
+    ```shell
+    $ <copy>
+	curl -s http://localhost:8080/api/v1/accounts | jq .
+	</copy>
     [
       {
         "accountId": 1,
@@ -559,11 +583,13 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
 
    Here is an example request and the expected output (yours will be slightly different):
 
-    ``` 
-    $ <copy>curl -i -X POST \
+    ``` shell
+    $ <copy>
+	curl -i -X POST \
           -H 'Content-Type: application/json' \
           -d '{"accountName": "Dave", "accountType": "CH", "accountOtherDetail": "", "accountCustomerId": "abc123xyz"}' \
-          http://localhost:8080/api/v1/account</copy>
+          http://localhost:8080/api/v1/account
+	</copy>
     HTTP/1.1 201 
     Content-Type: application/json
     Transfer-Encoding: chunked
@@ -574,10 +600,12 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
 
     Notice the HTTP Status Code is 201 (Created).  The service returns the account that was created in the body.
 
-    Now try a request with bad data that will not be able to be parsed and observe that the HTTP Status Code is 400 (Bad Request).  If there happened to be an exception thrown suring the `save()` method, you would get back a 500 (Internal Server Error):
+    Now try a request with bad data that will not be able to be parsed and observe that the HTTP Status Code is 400 (Bad Request).  If there happened to be an exception thrown during the `save()` method, you would get back a 500 (Internal Server Error):
 
-    ```
-    $ <copy>curl -i -X POST -H 'Content-Type: application/json' -d '{"bad": "data"}'  http://localhost:8080/api/v1/account</copy>
+    ```shell
+    $ <copy>
+	curl -i -X POST -H 'Content-Type: application/json' -d '{"bad": "data"}'  http://localhost:8080/api/v1/account
+	</copy>
     HTTP/1.1 400 
     Content-Type: application/json
     Transfer-Encoding: chunked
@@ -595,7 +623,7 @@ If you would like to learn more about endpoints and implement the remainder of t
 
 1. Implement Get Account by Account ID endpoint
 
-   Add new method to your `AccountController.java` class that responds to the HTTP GET method.  This method should accept the account ID as a path variable.  To accept a path variable, you place the variable name in braces in the URL path in the `@GetMapping` annotation and then reference it in the method's arguments using the `@PathVariable` annotation.  This will map it to the annotated method argument.  If an account is found, you should return that account and set the HTTP Status Code to 200 (OK).  If an account is not found, return an empty body and set the HTTP Status Code to 404 (Not Found). 
+   Add new method to your `AccountController.java` class that responds to the HTTP GET method.  This method should accept the account ID as a path variable.  To accept a path variable, you place the variable name in braces in the URL path in the `@GetMapping` annotation and then reference it in the method's arguments using the `@PathVariable` annotation.  This will map it to the annotated method argument.  If an account is found, you should return that account and set the HTTP Status Code to 200 (OK).  If an account is not found, return an empty body and set the HTTP Status Code to 404 (Not Found).
 
    Here is the code to implement this endpoint:
 
@@ -619,8 +647,10 @@ If you would like to learn more about endpoints and implement the remainder of t
 
     Restart the application and test this new endpoint with this command (note that you created account with ID 2 earlier):
 
-    ```
-    $ <copy>curl -s http://localhost:8080/api/v1/account/2 | jq .</copy>
+    ```shell
+    $ <copy>
+	curl -s http://localhost:8080/api/v1/account/2 | jq .
+	</copy>
     {
       "accountId": 2,
       "accountName": "Mark's CCard",
@@ -634,11 +664,11 @@ If you would like to learn more about endpoints and implement the remainder of t
 
 1. Implement Get Accounts for Customer ID endpoint
 
-  Add a new mthod to your `AccountController.java` class that repsonds to the HTTP GET method.  This method should accept a customer ID as a path variable and return a list of accounts for that customer ID.  If no accounts are found, return an empty body and set the HTTP Status Code to 204 (No Content).
+  Add a new method to your `AccountController.java` class that responds to the HTTP GET method.  This method should accept a customer ID as a path variable and return a list of accounts for that customer ID.  If no accounts are found, return an empty body and set the HTTP Status Code to 204 (No Content).
 
   Here is the code to implement this endpoint:
 
-    ```java    
+    ```java
     <copy>@GetMapping("/account/getAccounts/{customerId}")
     public ResponseEntity<List<Account>> getAccountsByCustomerId(@PathVariable("customerId") String customerId) {
         try {
@@ -668,8 +698,10 @@ If you would like to learn more about endpoints and implement the remainder of t
 
    Restart the application and test the new endpoint with this command (note that you created this account and customer ID earlier): 
 
-    ```
-    $ <copy>curl -s http://localhost:8080/api/v1/account/getAccounts/bkzLp8cozi | jq .</copy>
+    ```shell
+    $ <copy>
+	curl -s http://localhost:8080/api/v1/account/getAccounts/bkzLp8cozi | jq .
+	</copy>
     [
       {
         "accountId": 2,
@@ -682,13 +714,12 @@ If you would like to learn more about endpoints and implement the remainder of t
       }
     ]
     ```
-      
 
 1. Implement a Delete Account API endpoint
 
    Add a new method to your `AccountController.java` file that responds to the HTTP DELETE method and accepts an account ID as a path variable.  You can use the `@DeleteMapping` annotation to respond to HTTP DELETE.  This method should delete the account specified and return an empty body and HTTP Status Code 204 (No Content) which is generally accepted to mean the deletion was successful (some people also use 200 (OK) for this purpose).
 
-   Here is the code to implement this endpoint: 
+   Here is the code to implement this endpoint:
 
     ```java
     import org.springframework.web.bind.annotation.DeleteMapping;
@@ -706,10 +737,12 @@ If you would like to learn more about endpoints and implement the remainder of t
     }
     ```
 
-   Restart the application and test this new endpoint with this command (note that you created an account with this customer ID earlier): 
+   Restart the application and test this new endpoint with this command (note that you created an account with this customer ID earlier):
 
-    ```
-    $ <copy>$ curl -s http://localhost:8080/api/v1/account/getAccounts/abcDe7ged | jq .</copy>
+    ```shell
+    $ <copy>
+	curl -s http://localhost:8080/api/v1/account/getAccounts/abcDe7ged | jq .
+	</copy>
     [
       {
         "accountId": 1,
@@ -721,15 +754,17 @@ If you would like to learn more about endpoints and implement the remainder of t
         "accountBalance": -20
       }
     ]
-    ``` 
+    ```
 
    Restart the application and test this new endpoint by creating and deleting an account.  First create an account:
 
-    ```
-    $ <copy>curl -i -X POST \
+    ```shell
+    $ <copy>
+	curl -i -X POST \
         -H 'Content-Type: application/json' \
         -d '{"accountName": "Bob", "accountType": "CH", "accountOtherDetail": "", "accountCustomerId": "bob808bob"}' \
-        http://localhost:8080/api/v1/account</copy>
+        http://localhost:8080/api/v1/account
+	</copy>
     HTTP/1.1 201 
     Content-Type: application/json
     Transfer-Encoding: chunked
@@ -737,11 +772,13 @@ If you would like to learn more about endpoints and implement the remainder of t
 
     {"accountId":42,"accountName":"Bob","accountType":"CH","accountCustomerId":"bob808bob","accountOpenedDate":"2023-03-01T18:23:44.000+00:00","accountOtherDetails":null,"accountBalance":0}
     ```
-    
+
    Verify that account exists:
 
-    ```
-    $ <copy>curl -s http://localhost:8080/api/v1/account/getAccounts/bob808bob | jq .</copy>
+    ```shell
+    $ <copy>
+	curl -s http://localhost:8080/api/v1/account/getAccounts/bob808bob | jq .
+	</copy>
     [
       {
         "accountId": 42,
@@ -757,19 +794,23 @@ If you would like to learn more about endpoints and implement the remainder of t
 
    Delete the account:
 
-    ```
-    $ <copy>curl -i -X DELETE http://localhost:8080/api/v1/account/42</copy>
+    ```shell
+    $ <copy>
+	curl -i -X DELETE http://localhost:8080/api/v1/account/42
+	</copy>
     HTTP/1.1 204 
     Date: Wed, 01 Mar 2023 13:23:56 GMT
     ```
 
    Verify the account no longer exists:
 
-    ```
-    $ <copy>curl -s http://localhost:8080/api/v1/account/getAccounts/bob808bob | jq .</copy>
+    ```shell
+    $ <copy>
+	curl -s http://localhost:8080/api/v1/account/getAccounts/bob808bob | jq .
+	</copy>
     ``` 
 
-   That completes the account-related endpoints.  Now it is time to add some endpoints to deal with transcations within an account.
+   That completes the account-related endpoints.  Now it is time to add some endpoints to deal with transactions within an account.
 
 ## Task 7: Create the **transaction** endpoints
 
@@ -784,7 +825,8 @@ You created the transaction database objects earlier.  You may recall that you u
    Create a new file in `src/main/java/com/examples/accounts/model` called `Transaction.java`.  This is very similar to the account model that you created earlier.  There are no new concepts.  Here is the code:
 
     ```java
-    <copy>package com.example.accounts.model;
+    <copy>
+	package com.example.accounts.model;
     
     import java.util.Date;
     
@@ -838,7 +880,8 @@ You created the transaction database objects earlier.  You may recall that you u
    Create a new file in `src/main/java/com/example/accounts/repository` called `TransactionRepository.java`.  This will be a Java interface.  In this interface define one method `findTransactionByTransactionAccountId` with a single argumnet `long transactionAccountId` that returns `List<Transaction>`.  Based on the name of the method, JPA will automatically provide a method that searches the database repository for rows in the transaction table with a matching account ID.  Here is the code for this interface:
 
     ```java
-    <copy>package com.example.accounts.repository;
+    <copy>
+	package com.example.accounts.repository;
     
     import com.example.accounts.model.Transaction;
     import org.springframework.data.jpa.repository.JpaRepository;
@@ -855,7 +898,8 @@ You created the transaction database objects earlier.  You may recall that you u
    Create a new Java file in `src/main/java/com/example/accounts/controller` called `TransactionController.java`.  In this class you will use the JPA auto-generated method to get a list of transactions from the repository based on the `accountId`.  Other than that, there are new new concepts in the class.  Here is the code: 
 
     ```java
-    <copy>package com.example.accounts.controller;
+    <copy>
+	package com.example.accounts.controller;
     
     import java.util.ArrayList;
     import java.util.List;
@@ -917,18 +961,22 @@ You created the transaction database objects earlier.  You may recall that you u
 
    Test the **create transaction** endpoint with the following command.  Note that you created account ID 24 earlier, so this is an existing account.  The `transactionType` of `DE` means "deposit".  This API returns the created transaction:
 
-    ```
-    $ <copy>curl -X POST \
+    ```shell
+    $ <copy>
+	curl -X POST \
        -H 'Content-Type: application/json' \
        -d '{"transactionAccountId": 24, "transactionType": "DE", "transactionAmount": 50}' \
-       http://localhost:8080/api/v1/transaction</copy>
+       http://localhost:8080/api/v1/transaction
+	</copy>
     {"transactionId":1,"transactionDate":"2023-02-28T18:39:39.000+00:00","transactionAmount":50,"transactionType":"DE","transactionAccountId":24}
-    ```   
+    ```
 
    Now test the **get transactions by account ID** endpoint with this command.  Note that the account ID is passed as path argument.  This API returns a list of transactions.  Note that the HTTP Status Code is 200 (OK):
 
-    ```
-    $ <copy>curl -i http://localhost:8080/api/v1/transaction/24</copy>
+    ```shell
+    $ <copy>
+	curl -i http://localhost:8080/api/v1/transaction/24
+	</copy>
     HTTP/1.1 200 
     Content-Type: application/json
     Transfer-Encoding: chunked
@@ -939,53 +987,59 @@ You created the transaction database objects earlier.  You may recall that you u
 
    Test the API with a non-existent account ID:
 
-    ```
-    $ <copy>curl -i http://localhost:8080/api/v1/transaction/9999</copy>
+    ```shell
+    $ <copy>
+	curl -i http://localhost:8080/api/v1/transaction/9999
+	</copy>
     HTTP/1.1 204 
     Date: Tue, 28 Feb 2023 13:42:23 GMT
-    ```       
+    ```
 
    Note that the HTTP Status Code returned is 204 (No Content) which means the request was processed successfully but there is no data to send back.
-
 
 ## Task 8: Deploy the account service to Oracle Backend for Spring Boot
 
 1. Prepare the application for deployment
 
-   Update the data source configuration in your `src/main/resources/application.yaml` as shown in the xample below.  This will cause the service to read the correct database details that will be injected into its pod by the Oracle Backend for Spring Boot.
+   Update the data source configuration in your `src/main/resources/application.yaml` as shown in the example below.  This will cause the service to read the correct database details that will be injected into its pod by the Oracle Backend for Spring Boot.
 
     ```yaml
     datasource:
       url: ${CONNECT_STRING}
       username: ${DB_USERNAME}
       password: ${DB_PASSWORD}
-    ```   
+    ```
 
    Run the following command to build the JAR file.  Note that you will need to skip tests now, since you updated the `application.yaml` and it no longer points to your local test database instance. 
 
-    ```
-    $ <copy>mvn package -Dmaven.test.skip=true</copy>
+    ```shell
+    $ <copy>
+	mvn package -Dmaven.test.skip=true
+	</copy>
     ```
 
    The service is now ready to deploy to the backend.
-
 
 1. Prepare the backend for deployment
 
    TODO create an application, setup db access, etc.
 
-   The Oracle Backend for Spring Boot admin service is not exposed outside of the Kubernetes cluster by default.  Oracle recommends using a **kubectl** port forwarding tunnel to establish a secure connection to the admin service. 
+   The Oracle Backend for Spring Boot admin service is not exposed outside of the Kubernetes cluster by default. Oracle recommends using a **kubectl** port forwarding tunnel to establish a secure connection to the admin service.
 
    Start a tunnel using this command:
 
-    ```
-    $ <copy>kubectl -n obaas-admin port-forward svc/obaas-admin 8080:8080</copy>
+    ```shell
+    $ <copy>
+	kubectl -n obaas-admin port-forward svc/obaas-admin 8080:8080
+	</copy>
     ```
 
    Start the Oracle Backend for Spring Boot CLI using this command:
 
-    ```
-    $ <copy>oractl</copy>
+    ```shell
+    $ <copy>
+	oractl
+	</copy>
      _   _           __    _    ___
     / \ |_)  _.  _. (_    /  |   |
     \_/ |_) (_| (_| __)   \_ |_ _|_
@@ -995,11 +1049,13 @@ You created the transaction database objects earlier.  You may recall that you u
     2023-03-01T10:25:17.786-05:00  INFO 27945 --- [           main] o.s.s.cli.OracleSpringCLIApplication     : Started OracleSpringCLIApplication in 0.047 seconds (process running for 0.05)
     oractl:>
     ```
-    
+
    Connect to the Oracle Backend for Spring Boot admin service using this command.  Hit enter when prompted for a password.  **Note**: Oracle recommends changing the password in a real deployment.
 
-    ```
-    oractl> <copy>connect</copy>
+    ```shell
+    oractl> <copy>
+	connect
+	</copy>
     password (defaults to oractl):
     using default value...
     connect successful server version:011223
@@ -1007,8 +1063,10 @@ You created the transaction database objects earlier.  You may recall that you u
 
    Create a database "binding" by tunning this command.  Enter the password (`Welcome1234##`) when prompted.  This will create a Kubernetes secret in the `application` namespace called `account-db-secrets` which contains the username (`account`), password, and URL to connect to the Oracle Autonomous Database instance associated with the Oracle Backend for Spring Boot.
 
-    ```
-    oractl:> <copy>bind --appName application --serviceName account --springBindingPrefix spring.db</copy>
+    ```shell
+    oractl:> <copy>
+	bind --appName application --serviceName account --springBindingPrefix spring.db
+	</copy>
     database password/servicePassword (defaults to Welcome12345): 
     database secret created successfully and schema already exists for account
     ```
@@ -1023,8 +1081,10 @@ You created the transaction database objects earlier.  You may recall that you u
 
   You will now deploy your account service to the Oracle Backend for Spring Boot using the CLI.  You will deploy into the `application` namespace, and the service name will be `account`.  Run this command to deploy your service, make sure you provide the correct path to your JAR file:
 
-    ```
-    oractl> <copy>deploy --isRedeploy false --appName application --serviceName account --jarLocation /path/to/accounts/target/accounts-0.0.1-SNAPSHOT.jar --imageVersion 0.0.1</copy>
+    ```shell
+    oractl> <copy>
+	deploy --isRedeploy false --appName application --serviceName account --jarLocation /path/to/accounts/target/accounts-0.0.1-SNAPSHOT.jar --imageVersion 0.0.1
+	</copy>
     uploading... upload successful
     building and pushing image... docker build and push successful
     creating deployment and service... create deployment and service  = account, appName = application, isRedeploy = true successful
@@ -1099,8 +1159,10 @@ You created the transaction database objects earlier.  You may recall that you u
 
    Apply the patch to the deployment with this command: 
 
-    ```
-    $ <copy>kubectl -n application patch deploy account -p "$(cat patch.json)"</copy>
+    ```shell
+    $ <copy>
+	kubectl -n application patch deploy account -p "$(cat patch.json)"
+	</copy>
     ```
 
   This will add the TNSADMIN volume mount to your account deployment (and its pods) and the environment variables required to read the database credentials from the appropriate secret.
@@ -1113,54 +1175,59 @@ Now that the account service is deployed, you need to expose it through the API 
 
    Start the tunnel using this command.  You can run this in the background if you prefer.
 
-    ```
-    $ <copy>kubectl -n apisix port-forward svc/apisix-dashboard 8080:80</copy>
+    ```shell
+    $ <copy>
+	kubectl -n apisix port-forward svc/apisix-dashboard 8080:80
+	</copy>
     ```
 
-   Open a web broswer to [http://localhost:8080](http://localhost:8080) to view the APISIX Dashboard web user interface.  It will appear similar to the image below.
-   
+   Open a web browser to [http://localhost:8080](http://localhost:8080) to view the APISIX Dashboard web user interface.  It will appear similar to the image below.
+
    If prompted to login, login with user name `admin` and password `admin`.  Note that Oracle strongly recommends that you change the password, even though this interface is not accessible outside the cluster without a tunnel.
 
    Open the routes page from the left hand side menu.  You will not have any routes yet.
 
-   ![APISIX Dashboard route list](images/obaas-apisix-route-list.png)
+   ![APISIX Dashboard route list](images/obaas-apisix-route-list.png " ")
 
 1. Create the route
 
    Click on the **Create** button to start creating a route.  The **Create route** page will appear. Enter `account` in the **Name** field:
 
-   ![APISIX Create route](images/obaas-apisix-create-route-1.png)
+   ![APISIX Create route](images/obaas-apisix-create-route-1.png " ")
 
    Scroll down to the **Request Basic Define** section.  Set the **Path** to `/api/v1/account*`.  This tells APISIX API Gateway that any incoming request for that URL path (on any host or just IP address) should use this route.  In the **HTTP Method** select `GET`, `POST`, `DELETE`, and `OPTIONS`.  The first three you will recall using directly in the implementation of the account service during this lab.  User interfaces and other clients will often send an `OPTIONS` request before a "real" request to see if the service exists and check headers and so on, so it is a good practice to allow `OPTIONS` as well. 
-
-   ![APISIX Create route](images/obaas-apisix-create-route-2.png)
+ 
+   ![APISIX Create route](images/obaas-apisix-create-route-2.png " ")
 
    Click on the **Next** button to move to the **Define API Backend Server** page.  On this page you configure where to route requests to.  In the **Upstream Type** field, select **Service Discovery**.  Then in the **Discovery Type** field, select **Eureka**.  In the **Service Name** field enter `ACCOUNTS`.  This tells APISIX to lookup the service in Spring Eureka Service Registry with the key `ACCOUNTS` and route requests to that service using a Round Robin algorithm to distribute requests.
 
-   ![APISIX Create route](images/obaas-apisix-create-route-3.png)
+   ![APISIX Create route](images/obaas-apisix-create-route-3.png " ")
 
    Click on **Next** to go to the **Plugin Config** page.  You will not add any plugins right now.  You may wish to browse through the list of available plugins on this page.  When you are ready, click on **Next** to go to the **Preview** page.  Check the details and then click on **Submit** to create the route.
 
    When you return to the route list page, you will see your new `account` route in the list now.
 
-
-1. Verify the account service 
+1. Verify the account service
 
    In the next two commands, you need to provide the correct IP address for the API Gateway in your backend environment.  You can find the IP address using this command, you need the one listed in the `EXTERNAL-IP` column:
    
-    ```
-    $ <copy>kubectl -n ingress-nginx get service ingress-nginx-controller</copy>
+    ```shell
+    $ <copy>
+	kubectl -n ingress-nginx get service ingress-nginx-controller
+	</copy>
     NAME                       TYPE           CLUSTER-IP      EXTERNAL-IP   PORT(S)                      AGE
     ingress-nginx-controller   LoadBalancer   10.123.10.127   100.20.30.40  80:30389/TCP,443:30458/TCP   13d
     ```
 
    Test the create account endpoint with this command, use the IP address for your API Gateway:
 
-    ```
-    $ <copy>curl -i -X POST \
+    ```shell
+    $ <copy>
+	curl -i -X POST \
       -H 'Content-Type: application/json' \
       -d '{"accountName": "Sanjay''s Savings", "accountType": "SA", "accountCustomerId": "bkzLp8cozi", "accountOtherDetails": "Savings Account"}' \
-      http://100.20.30.40/api/v1/account</copy>
+      http://100.20.30.40/api/v1/account
+	</copy>
     HTTP/1.1 201
     Date: Wed, 01 Mar 2023 18:35:31 GMT
     Content-Type: application/json
@@ -1168,12 +1235,14 @@ Now that the account service is deployed, you need to expose it through the API 
     Connection: keep-alive
 
     {"accountId":24,"accountName":"Sanjays Savings","accountType":"SA","accountCustomerId":"bkzLp8cozi","accountOpenedDate":null,"accountOtherDetails":"Savings Account","accountBalance":0}
-    ```   
+    ```
 
    Test the get account endpoint with this command, use the IP address for your API Gateway and the `accountId` that was returned in the previous command:
 
-    ```
-    $ <copy>curl -s http://100.20.30.40/api/v1/account/24 | jq .</copy>
+    ```shell
+    $ <copy>
+	curl -s http://100.20.30.40/api/v1/account/24 | jq .
+	</copy>
     {
       "accountId": 24,
       "accountName": "Sanjay's Savings",
@@ -1183,9 +1252,9 @@ Now that the account service is deployed, you need to expose it through the API 
       "accountOtherDetails": "Savings Account",
       "accountBalance": 1040
     }
-    ```   
+    ```
 
-   Your service is deployed in the Oracle Backend for Spring Boot and using the Oracle Autonomous Database instance associated with the backend. 
+   Your service is deployed in the Oracle Backend for Spring Boot and using the Oracle Autonomous Database instance associated with the backend.
 
 ## Learn More
 
@@ -1195,6 +1264,7 @@ Now that the account service is deployed, you need to expose it through the API 
 * [URL text 2](http://docs.oracle.com)
 
 ## Acknowledgements
-* **Author** - <Name, Title, Group>
-* **Contributors** -  <Name, Group> -- optional
-* **Last Updated By/Date** - <Name, Month Year>
+
+* **Author** - Mark Nelson, Developer Evangelist, Oracle Database
+* **Contributors** - [](var:contributors)
+* **Last Updated By/Date** - Andy Tael, February 2023
