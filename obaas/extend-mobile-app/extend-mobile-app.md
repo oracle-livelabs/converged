@@ -182,13 +182,17 @@ Task 3: Create the user interface for the **Cloud Cash** feature
 
    Login and then click on the "Send Cash Now" link the in the Cloud Cash card.  You will see the new Cloud Cash page.  Click on the button to return to the home screen.
 
-1. Create the main UI components of the screen
+1. Review the design for the Cloud Cash feature
 
-   TODO a thing
-
-   The screen should look like this: 
+   Here is what this screen should look like when it is finished: 
 
    ![Cloud Cash screen](images/obaas-flutter-cloud-cash-screen-design.png)
+
+   The first field - the drop down selection list - will let the user choose which account they want to send funds from.  You will need to make a REST call to get a list of accounts for the current user.  You wrote an API to provide that information in an earlier lab! 
+
+   Then there is a field to enter the email address of the recipient - this will be used by Cloud Bank to work out who to send the money to.  And a field to specify how much money to send.  And finally, a button to submit the request.  When the user clicks on the button, you will use the Parse APIs to create a new Cloud Cash payment request document.  A backend service will pick up that request and start the process that actually transfers the money.  You wrote most of that in the "Manage Saga Transactions across Microservices" lab!  
+
+1. Create the main UI components of the screen
 
    Create a new Dart file in the `lib/screens` directory called `cloudcash.dart` with this content:
 
