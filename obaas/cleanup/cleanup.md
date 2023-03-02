@@ -17,7 +17,7 @@ This lab assumes you have:
 * An Oracle account
 * Have successfully or partially completed Lab 1 (Provision an instance of Oracle Backend for Spring Boot)
 
-### Task 1: Uninstall Oracle Backend for Spring Boot
+## Task 1: Uninstall Oracle Backend for Spring Boot
 
 The Oracle Backend for Spring Boot environment was deployed using ORM and Terraform.  The uninstall will use OCI Resource Manager (ORM) to Destroy the stack.
 
@@ -39,9 +39,9 @@ The Oracle Backend for Spring Boot environment was deployed using ORM and Terraf
 
 If the Terraform Destroy job fails, re-run the Destroy job again after a few minutes.
 
-### Task 2: Left over resources
+## Task 2: Left over resources
 
-Even after the Destroy job ahs finished there will be one resource left in the tenancy/compartment and that is an OCI Vault. The Vault is on `PENDING DELETION` mode.
+Even after the Destroy job has finished there will be one resource left in the tenancy/compartment and that is an OCI Vault. The Vault is on `PENDING DELETION` mode.
 
    ![OCI Vault](images/vault.png " ")
 
