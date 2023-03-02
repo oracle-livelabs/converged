@@ -124,8 +124,7 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
     Add the `RequestMapping` annotation to this class as well, and set the URL path to `/api/v1`.  Your class should now look like this:
 
     ```java
-    <copy>
-	package com.example.accounts.controller;
+    <copy>package com.example.accounts.controller;
     
     import org.springframework.web.bind.annotation.RequestMapping;
     import org.springframework.web.bind.annotation.RestController;
@@ -141,8 +140,7 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
     Add a method to this class called `ping` which returns a `String` with a helpful message.  Add the `GetMapping` annotation to this method and set the URL path to `/hello`.  Your class should now look like this:
 
     ```java
-    <copy>
-	package com.example.accounts.controller;
+    <copy>package com.example.accounts.controller;
     
     import org.springframework.web.bind.annotation.GetMapping;
     import org.springframework.web.bind.annotation.RequestMapping;
