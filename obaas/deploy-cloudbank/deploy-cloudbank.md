@@ -211,21 +211,100 @@ TODO: Some kind of verification perhaps curl to account, customer and transactio
 
 3. Create the routes
 
-	In the `scripts` directory where you saved the code repository there are 3 scripts to create the routes. Run the commands:
+	In the `scripts` directory where you saved the code repository there are three scripts to create the routes. Run the commands to create the routes:
+
+	 a. Accounts Route:
 
 	```shell
 	$ <copy>source apisix-routes/create-accounts-route.sh APIKEY</copy>
 	```
+	
+	Output should be similar to this:
+	
+	```text
+	HTTP/1.1 201 Created
+	Date: Thu, 02 Mar 2023 21:57:08 GMT
+	Content-Type: application/json
+	Transfer-Encoding: chunked
+	Connection: keep-alive
+	Server: APISIX/2.15.1
+	Access-Control-Allow-Origin: *
+	Access-Control-Allow-Credentials: true
+	Access-Control-Expose-Headers: *
+	Access-Control-Max-Age: 3600
+
+	{"action":"create","node":{"key":"\/apisix\/routes\/00000000000000000035","value":{"priority":0,"update_time":1677794228,"id":"00000000000000000035","create_time":1677794228,"uri":"\/api\/v1\/account*","plugins":{"zipkin":{"span_version":2,"disable":false,"sample_ratio":1,"service_name":"APISIX","endpoint":"http:\/\/jaegertracing-collector.observability.svc.cluster.local:9411\/api\/v2\/spans"}},"labels":{"version":"1.0"},"status":1,"name":"accounts","upstream":{"type":"roundrobin","hash_on":"vars","pass_host":"pass","discovery_type":"eureka","service_name":"ACCOUNTS","scheme":"http"}}}}
+	```
+
+	b. Creditscore Route:
 
 	``` shell
 	$ <copy>source apisix-routes/create-creditscore-route.sh APIKEY</copy>
 	```
 
+	Output should be similar to this:
+
+	```text
+	HTTP/1.1 201 Created
+	Date: Thu, 02 Mar 2023 21:59:18 GMT
+	Content-Type: application/json
+	Transfer-Encoding: chunked
+	Connection: keep-alive
+	Server: APISIX/2.15.1
+	Access-Control-Allow-Origin: *
+	Access-Control-Allow-Credentials: true
+	Access-Control-Expose-Headers: *
+	Access-Control-Max-Age: 3600
+
+	{"action":"create","node":{"key":"\/apisix\/routes\/00000000000000000037","value":{"priority":0,"update_time":1677794358,"id":"00000000000000000037","create_time":1677794358,"uri":"\/api\/v1\/creditscore*","plugins":{"zipkin":{"span_version":2,"disable":false,"sample_ratio":1,"service_name":"APISIX","endpoint":"http:\/\/jaegertracing-collector.observability.svc.cluster.local:9411\/api\/v2\/spans"}},"labels":{"version":"1.0"},"status":1,"name":"creditscore","upstream":{"type":"roundrobin","hash_on":"vars","pass_host":"pass","discovery_type":"eureka","service_name":"CREDITSCORE","scheme":"http"}}}}
+	```
+
+	c. Customer Route:
+
 	```shell
 	$ <copy>source apisix-routes/create-customer-route.sh APIKEY</copy>
 	```
 
-3. Verify the account service
+	Output should be similar to this:
+
+	```text
+	HTTP/1.1 201 Created
+	Date: Thu, 02 Mar 2023 22:00:44 GMT
+	Content-Type: application/json
+	Transfer-Encoding: chunked
+	Connection: keep-alive
+	Server: APISIX/2.15.1
+	Access-Control-Allow-Origin: *
+	Access-Control-Allow-Credentials: true
+	Access-Control-Expose-Headers: *
+	Access-Control-Max-Age: 3600
+
+	{"action":"create","node":{"key":"\/apisix\/routes\/00000000000000000039","value":{"priority":0,"update_time":1677794444,"id":"00000000000000000039","create_time":1677794444,"uri":"\/api\/v1\/customer*","plugins":{"zipkin":{"span_version":2,"disable":false,"sample_ratio":1,"service_name":"APISIX","endpoint":"http:\/\/jaegertracing-collector.observability.svc.cluster.local:9411\/api\/v2\/spans"}},"labels":{"version":"1.0"},"status":1,"name":"customer","upstream":{"type":"roundrobin","hash_on":"vars","pass_host":"pass","discovery_type":"eureka","service_name":"CUSTOMERS","scheme":"http"}}}}
+	```
+
+4. Verify the routes in the APISIX Dashboard
+
+	Start the tunnel using this command.  You can run this in the background if you prefer.
+
+    ```shell
+    $ <copy>kubectl -n apisix port-forward svc/apisix-dashboard 8080:80</copy>
+    ```
+
+   Open a web browser to [http://localhost:8080](http://localhost:8080) to view the APISIX Dashboard web user interface.  It will appear similar to the image below.
+
+   If prompted to login, login with user name `admin` and password `admin`.  Note that Oracle strongly recommends that you change the password, even though this interface is not accessible outside the cluster without a tunnel.
+
+    ![APISIX Dashboard Login](images/apisix-login.png " ")
+
+	Click the routes menu item to see the routes you created in step three.
+
+	![APISIX Routes](images/apisix-route.png " ")
+
+	Verify that you have three routes created
+
+	![APISIX Route Details](images/apisix-route-details.png " ")
+
+5. Verify the account service
 
    In the next two commands, you need to provide the correct IP address for the API Gateway in your backend environment.  You can find the IP address using this command, you need the one listed in the `EXTERNAL-IP` column. In the example below the IP address is `100.20.30.40`
    
