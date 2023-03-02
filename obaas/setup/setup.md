@@ -305,6 +305,8 @@ At the end of the previous lab, during the verification of the installation, you
    Running an Oracle Database in a container on your development machine will help with local testing while you are developing your Spring Boot services.
    You can easily obtain an Oracle Database container image from Oracle Container Registry and run an Oracle Database on your machine. 
 
+    > **Note**: If you have a Mac with an ARM processor, you will not be able to run the Oracle Database in a local container.  In this case, a good alternative is to use an Oracle Autonomous Database instance in Oracle Cloud Infrastructure.  **TODO** - write up how to do that - **TODO**   
+
    If you do not have a container runtime on your development machine, Oracle recommends [Rancher Desktop](https://rancherdesktop.io/) which can be downloaded and installed from that web site.
 
 1. Visit Oracle Container Registry and accept license agreements
@@ -337,6 +339,8 @@ At the end of the previous lab, during the verification of the installation, you
        container-registry.oracle.com/database/enterprise:21.3.0.0
       </copy>
     ```
+
+    > **Note**: Oracle Database 19c is also supported, there are no 21c-specific features needed for this Live Lab.
 
     The first time you do this, it will need to pull the container image, and then create the actual database instance.  This will take a few minutes to complete.
     However, each time you need to use the Oracle Database container in the future, for example after rebooting your machine, you can restart it in just a few seconds using this command:
