@@ -26,7 +26,7 @@ Download a copy of the CloudBank sample application.
 
 1. Clone the source repository
 
-   Create a local clone of the CloudBank source repository using this command:
+	Create a local clone of the CloudBank source repository using this command:
 
     ```shell
     $ <copy>git clone TODO:TODO</copy>
@@ -87,7 +87,7 @@ Download a copy of the CloudBank sample application.
 
 4. Create Database Bindings
 
-	Create database bindings for the applications by running the following commands in the CLI. You are going to create three different bindings.
+	Create database bindings for the applications by running the following commands in the CLI. You are going to create two different bindings. If you have finished Lab 3 (Build the Account Microservice) you have already created the binding for the Accounts Service and you only need to create the Customer Service binding.
 
 	1. Account Service
 
@@ -106,22 +106,60 @@ Download a copy of the CloudBank sample application.
 		```shell
     	oractl:> <copy>bind --appName application --serviceName customer --springBindingPrefix spring.db</copy>
     	database password/servicePassword (defaults to Welcome12345): 
-    	database secret created successfully and schema already exists for account
+    	database secret created successfully and schema already exists for customer
+		```
+  
+5. Create Database Objects
 
-	3. Transaction Service
+	TODO: Liquibase, overwrite whatever is already in there?
+	TODO: Verify data using SQLcl?
 
-		Create a database "binding" by tunning this command. Enter the password (`Welcome1234##`) when prompted.  This will create a Kubernetes secret in the `application` namespace called `transaction-db-secrets` which contains the username (`transaction`), password, and URL to connect to the Oracle Autonomous Database instance associated with the Oracle Backend for Spring Boot.
+6. Deploy the services
+
+	If you have finished Lab 3 (Build the Account Microservice) and Lab 4 (Manage Transactions across Microservices) you can skip step one (Deploy the Account Service) below and only create the Customer Service binding.
+
+	1. Deploy/Redeploy the Account Service
+
+		You will now deploy your Account service to the Oracle Backend for Spring Boot using the CLI.  You will deploy into the `application` namespace, and the service name will be `account`. Run this command to deploy your service, make sure you provide the correct path to your JAR file:
+
+    	```shell
+    	oractl> <copy>
+		deploy --isRedeploy false --appName application --serviceName account --jarLocation /path/to/accounts/target/accounts-0.0.1-SNAPSHOT.jar --imageVersion 0.0.1</copy>
+		uploading... upload successful
+		building and pushing image... docker build and push successful	
+		creating deployment and service... create deployment and service  = account, appName = application, isRedeploy = false successful
+    	successfully deployed
+    	```
+
+		If you'd like to re-deploy the accounts service (if you didn't finish lab 4) you cana re-deploy the Account Service using the following command, make sure you provide the correct path to your JAR file:
 
 		```shell
-    	oractl:> <copy>bind --appName application --serviceName transaction --springBindingPrefix spring.db</copy>
-    	database password/servicePassword (defaults to Welcome12345): 
-    	database secret created successfully and schema already exists for account
-  
-1. TODO run the script???
+    	oractl> <copy>
+		deploy --isRedeploy true --appName application --serviceName account --jarLocation /path/to/accounts/target/accounts-0.0.1-SNAPSHOT.jar --imageVersion 0.0.1</copy>
+		uploading... upload successful
+		building and pushing image... docker build and push successful	
+		creating deployment and service... create deployment and service  = account, appName = application, isRedeploy = true successful
+    	successfully deployed
+    	```
 
-  xyz TODO xyz 
+	2. Deploy the Customer Service
+
+	You will now deploy your Customer service to the Oracle Backend for Spring Boot using the CLI.  You will deploy into the `application` namespace, and the service name will be `customer`. Run this command to deploy your service, make sure you provide the correct path to your JAR file:
+
+    	```shell
+    	oractl> <copy>
+		deploy --isRedeploy false --appName application --serviceName customer --jarLocation /path/to/accounts/target/customers-0.0.1-SNAPSHOT.jar --imageVersion 0.0.1</copy>
+		uploading... upload successful
+		building and pushing image... docker build and push successful	
+		creating deployment and service... create deployment and service  = customer, appName = application, isRedeploy = false successful
+    	successfully deployed
+    	```
 
 ## Task 3: Verify the deployment
+
+## Task 4: Expose the services using APISIX Gateway
+
+## Task 5: Mobile application
 
 1. TODO verify ???
 
