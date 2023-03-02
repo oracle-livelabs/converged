@@ -38,7 +38,7 @@ Download a copy of the CloudBank sample application.
 
 1. Liquibasing like nobodys business
 
-2. Connection using Wallet to verify?
+2. Connection using Wallet to verify and grab some data
 
 ## Task 3: Build the CloudBank application
 
@@ -61,7 +61,7 @@ Download a copy of the CloudBank sample application.
 	[INFO] Reactor Summary for cloudbank 0.0.1-SNAPSHOT:
 	[INFO]
 	[INFO] customer ........................................... SUCCESS [  2.710 s]
-	[INFO] customer ........................................... SUCCESS [  0.800 s] <!-- WHY 2 TIMES???????????>
+	[INFO] customer ........................................... SUCCESS [  0.800 s] << WHY TWO TIMES >>
 	[INFO] creditscore ........................................ SUCCESS [  0.405 s]
 	[INFO] cloudbank .......................................... SUCCESS [  0.018 s]
 	[INFO] ------------------------------------------------------------------------
@@ -115,7 +115,7 @@ Download a copy of the CloudBank sample application.
 
 4. Create Database Bindings
 
-	Create database bindings for the applications by running the following commands in the CLI. You are going to create two different bindings. **NOTE**: If you have finished Lab three (Build the Account Microservice) you have already created the binding for the Accounts Service and you only need to create the Customer Service binding. <<< DOES THIS MATTER EG WHAT HAPPENS IF YOU DO BIND AGAIN >>>
+	Create database bindings for the applications by running the following commands in the CLI. You are going to create two different bindings. **NOTE**: If you have finished Lab three (Build the Account Microservice) you have already created the binding for the Accounts Service and you only need to create the Customer Service binding. << DOES THIS MATTER EG WHAT HAPPENS IF YOU DO BIND AGAIN >>
 
 	The creditscore service is not using a database binding.
 
@@ -140,7 +140,7 @@ Download a copy of the CloudBank sample application.
 		```
   
 		> What happens when you use the Oracle Backend for Spring Boot CLI **bind** command?
-    	When you run the `bind` command, the Oracle Backend for Spring Boot CLI does several things for you:
+		When you run the `bind` command, the Oracle Backend for Spring Boot CLI does several things for you:
 
     	* TODO
 		* Magics and fireworks
@@ -153,7 +153,7 @@ Download a copy of the CloudBank sample application.
 
 6. Deploy the services
 
-	**NOTE**: If you have finished Lab three (Build the Account Microservice) and Lab four (Manage Transactions across Microservices) you can skip step one (Deploy/Redeploy the Account Service) below and deploy the other services. <<< DOES THIS MATTER EG WHAT HAPPENS IF YOU DO BIND AGAIN >>>
+	**NOTE**: If you have finished Lab three (Build the Account Microservice) and Lab four (Manage Transactions across Microservices) you can skip step one (Deploy/Redeploy the Account Service) below and deploy the other services. << DOES THIS MATTER EG WHAT HAPPENS IF YOU DO BIND AGAIN >>
 
 	1. Deploy/Redeploy the Account Service
 
@@ -210,7 +210,6 @@ Download a copy of the CloudBank sample application.
 
     	* TODO
 		* Magics and fireworks
-
 
 ## Task 5: Verify the deployment
 
