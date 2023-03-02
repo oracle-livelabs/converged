@@ -77,8 +77,7 @@ This lab assumes you have:
     ```shell
     <copy>
     export JAVA_HOME=$HOME/jdk-17.0.3
-    export PATH=$JAVA_HOME/bin:$PATH
-    </copy>
+    export PATH=$JAVA_HOME/bin:$PATH</copy>
     ```
 
 1. Verify the installation
@@ -86,9 +85,7 @@ This lab assumes you have:
    Verify the Java Development Kit is installed with this command:
 
     ```shell
-    $ <copy>
-    java -version
-    </copy>
+    $ <copy>java -version</copy>
     java version "17.0.3" 2022-04-19 LTS
     Java(TM) SE Runtime Environment (build 17.0.3+8-LTS-111)
     Java HotSpot(TM) 64-Bit Server VM (build 17.0.3+8-LTS-111, mixed mode, sharing)
@@ -109,9 +106,7 @@ You can use either Maven or Gradle to build your Spring Boot applications.  If y
    Decompress the archive in your chosen location, e.g., your home directory and then add it to your path:
 
     ```shell
-    <copy>
-    export PATH=$HOME/apache-maven-3.8.6/bin:$PATH
-    </copy>
+    <copy>export PATH=$HOME/apache-maven-3.8.6/bin:$PATH</copy>
     ```
 
 1. Verify installation
@@ -119,9 +114,7 @@ You can use either Maven or Gradle to build your Spring Boot applications.  If y
    You can verify it is installed with this command (note that your version may give slightly different output):
 
     ```shell
-    $ <copy>
-    mvn -v
-    </copy>
+    $ <copy>mvn -v</copy>
     Apache Maven 3.8.6 (84538c9988a25aec085021c365c560670ad80f63)
     Maven home: /home/mark/apache-maven-3.8.6
     Java version: 17.0.3, vendor: Oracle Corporation, runtime: /home/mark/jdk-17.0.3
@@ -144,9 +137,7 @@ If you prefer Gradle, follow the steps in this task.
    Run the command below to verify Gradle was installed correctly:
 
     ```shell
-    $ <copy>
-    gradle -v
-    </copy>
+    $ <copy>gradle -v</copy>
        
     ------------------------------------------------------------
     Gradle 7.6
@@ -172,20 +163,21 @@ The Oracle Backend for Spring Boot CLI is used to configure your backend and to 
 
 1. Install the CLI
 
-   To install the CLI, you just need to make sure it is executable and add it to your PATH enviironment variable.
+   To install the CLI, you just need to make sure it is executable and add it to your PATH environment variable.
 
     ```shell
     <copy>
     chmod +x oractl
-    export PATH=/path/to/oractl:$PATH
-    </copy>
+    export PATH=/path/to/oractl:$PATH</copy>
     ```
+
+    **NOTE:** If environment is a Mac you need run the following command `sudo xattr -r -d com.apple.quarantine <downloaded-file>` otherwise will you get a security warning and the CLI will not work.
 
 1. Verify the installation
 
   Verify the CLI is installed using this command: 
 
-    ```text
+    ```shell
     $ <copy>oractl version</copy>
        _   _           __    _    ___
       / \ |_)  _.  _. (_    /  |   |
@@ -206,9 +198,7 @@ In later labs, you will look various resources in the Kubernetes cluster and acc
    Install **kubectl** from [the Kubernetes website](https://kubernetes.io/docs/tasks/tools/).  Click on the link for your operating system and follow the instructions to complete the installation.  As mentioned in the instructions, you can use this command to verify the installation, and you can ignore the warning since we are just checking the installation was successful (your output may be slightly different):
 
     ```shell
-    $ <copy>
-    kubectl version --client
-    </copy>
+    $ <copy>kubectl version --client</copy>
     I0223 08:40:30.072493   26355 versioner.go:56] Remote kubernetes server unreachable
     WARNING: This version information is deprecated and will be replaced with the output from kubectl version --short.  Use --output=yaml|json to get the full version.
     Client Version: version.Info{Major:"1", Minor:"24", GitVersion:"v1.24.1", GitCommit:"3ddd0f45aa91e2f30c70734b175631bec5b5825a", GitTreeState:"clean", BuildDate:"2022-05-24T12:26:19Z", GoVersion:"go1.18.2", Compiler:"gc", Platform:"linux/amd64"}
@@ -220,9 +210,7 @@ In later labs, you will look various resources in the Kubernetes cluster and acc
    Install the OCI CLI from [the Quickstart documentation](https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/cliinstall.htm).  Click on the link for your operating system and follow the instructions to complete the installation.  After installation is complete, use this command to verify the installation (your output might be slightly different): 
 
     ```shell
-    $ <copy>
-    oci --version
-    </copy>
+    $ <copy>oci --version</copy>
     3.23.2
     ```
 
@@ -231,17 +219,13 @@ In later labs, you will look various resources in the Kubernetes cluster and acc
    Review the instructions [in the documentation](https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/cliconfigure.htm) for configuring the OCI CLI.  The simplest way to configure the CLI is to use the guided setup by running this command:
 
     ```shell
-    $ <copy>
-    oci setup config
-    </copy>
+    $ <copy>oci setup config</copy>
     ```
 
    This will guide you through the process of creating your configuration file.  Once you are done, check that the configuration is good by running this command (note that you would have obtained the tenancy OCID during the previous step, and your output might look slightly different):
 
     ```shell
-    $ <copy>
-    oci iam tenancy  get --tenancy-id ocid1.tenancy.oc1..xxxxx
-    </copy>
+    $ <copy>oci iam tenancy  get --tenancy-id ocid1.tenancy.oc1..xxxxx</copy>
     {
       "data": {
         "description": "mytenancy",
@@ -263,9 +247,7 @@ At the end of the previous lab, during the verification of the installation, you
    Run the command provided at the end of your installation log to obtain the Kubernetes configuration file.  The command will be similar to this:
 
     ```shell
-    <copy>
-    oci ce cluster create-kubeconfig --cluster-id ocid1.cluster.oc1.phx.xxxx --file path/to/kubeconfig --region us-phoenix-1 --token-version 2.0.0 --kube-endpoint PUBLIC_ENDPOINT
-    </copy>
+    $ <copy>oci ce cluster create-kubeconfig --cluster-id ocid1.cluster.oc1.phx.xxxx --file path/to/kubeconfig --region us-phoenix-1 --token-version 2.0.0 --kube-endpoint PUBLIC_ENDPOINT</copy>
     ```
 
 1. Configure **kubectl** to use the Kubernetes configuration file you just created
@@ -273,9 +255,7 @@ At the end of the previous lab, during the verification of the installation, you
    Set the **KUBECONFIG** environment variable to point to the file you just created using this command (provide the path to where you created the file):
 
     ```shell
-    $ <copy>
-    export KUBECONFIG=/path/to/kubeconfig
-    </copy>
+    $ <copy>export KUBECONFIG=/path/to/kubeconfig</copy>
     ```
 
 1. Verify access to the cluster
@@ -283,9 +263,7 @@ At the end of the previous lab, during the verification of the installation, you
    Check that you can access the cluster using this command: 
 
     ```shell
-    $ <copy>
-    kubectl get pods -n obaas-admin
-    </copy>
+    $ <copy>kubectl get pods -n obaas-admin</copy>
     NAME                          READY   STATUS    RESTARTS     AGE
     obaas-admin-bf4cd5f55-z54pk   2/2     Running   2 (9d ago)   9d
     ```
@@ -311,9 +289,7 @@ At the end of the previous lab, during the verification of the installation, you
     Log in to the Oracle Container Registry using your container runtime, for example:
 
     ```shell
-    $ <copy>
-    docker login container-registry.oracle.com
-    </copy>
+    $ <copy>docker login container-registry.oracle.com</copy>
     ```
 
     Enter your user name and password when requested.  This will be the same user name and password you used to log into the website to view and accept the agreements - you Oracle Account, not your Oracle Cloud Account.
@@ -328,8 +304,7 @@ At the end of the previous lab, during the verification of the installation, you
        -e ORACLE_PWD=Welcome123 \
        -e ORACLE_SID=ORCL \
        -e ORACLE_PDB=PDB1 \
-       container-registry.oracle.com/database/enterprise:21.3.0.0
-      </copy>
+       container-registry.oracle.com/database/enterprise:21.3.0.0</copy>
     ```
 
     > **Note**: Oracle Database 19c is also supported, there are no 21c-specific features needed for this Live Lab.
@@ -338,9 +313,7 @@ At the end of the previous lab, during the verification of the installation, you
     However, each time you need to use the Oracle Database container in the future, for example after rebooting your machine, you can restart it in just a few seconds using this command:
 
     ```shell
-    $ <copy>
-    docker start oracle-db
-    </copy>
+    $ <copy>docker start oracle-db</copy>
     ```
 
     To find the address that the database will be available on, issue this command (your output will be slightly different):
@@ -359,9 +332,7 @@ At the end of the previous lab, during the verification of the installation, you
     If you do not already have a database client, [Oracle SQL Developer Command Line (SQLcl)](https://www.oracle.com/database/sqldeveloper/technologies/sqlcl/) is a free command line interface for Oracle Database which includes great features like auto-completion and command history.  You can download it and install it from that web site.  To start SQLcl and connect to your database container, use a command like this: 
 
     ```shell
-    $ <copy>
-    sql pdbadmin/Welcome123@//172.17.0.2:1521/pdb1
-    </copy>
+    $ <copy>sql pdbadmin/Welcome123@//172.17.0.2:1521/pdb1</copy>
     SQLcl: Release 22.2 Production on Sat Feb 25 13:31:17 2023
     
     Copyright (c) 1982, 2023, Oracle.  All rights reserved.
@@ -374,7 +345,6 @@ At the end of the previous lab, during the verification of the installation, you
     
     SQL>
     ```
-
 
 ## (Optional) Task 9: Install Flutter
 
@@ -394,10 +364,8 @@ If you plan to complete the Mobile App Development lab, you will need to install
 
    If you are installing Android Studio or XCode for the first time, you should also follow the instructions to create a device emulator instance.
 
-
 ## Acknowledgements
 
 * **Author** - Mark Nelson, Developer Evangelist, Oracle Database
 * **Contributors** - [](var:contributors)
 * **Last Updated By/Date** - Mark Nelson, February 2023
-
