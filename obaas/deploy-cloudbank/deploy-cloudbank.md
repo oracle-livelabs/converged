@@ -17,7 +17,7 @@ In this lab, you will:
 This lab assumes you have:
 
 * An Oracle Cloud account
-* All previous labs successfully completed
+* Have all the necessary tools installed (kubectl, git, maven, oractl)
 * Git version control tool installed on your computer (optional)
 
 ## Task 1: Get a copy of the CloudBank sample application
@@ -34,7 +34,13 @@ Download a copy of the CloudBank sample application.
 
     > **Note**: If you do not have **git** installed on your machine, you can download a zip file of the source code from TODO and unzip it on your machine instead.
 
-## Task 2: Build the CloudBank application
+## Task 2: Create Database Objects
+
+1. Liquibasing like nobodys business
+
+2. Connection using Wallet?
+
+## Task 3: Build the CloudBank application
 
 1. Create application JAR files
 
@@ -45,7 +51,29 @@ Download a copy of the CloudBank sample application.
 	$ <copy>mvn package -Dmaven.test.skip=true</copy>
 	```
 
-## Task 3: Install CloudBank in your Oracle Backend for Spring Boot instance
+	The output should be similar to this:
+
+	```text
+	[INFO] -------------------< com.example:sample-spring-apps >-------------------
+	[INFO] Building cloudbank 0.0.1-SNAPSHOT                                  [4/4]
+	[INFO]   from pom.xml
+	[INFO] --------------------------------[ pom ]---------------------------------
+	[INFO] ------------------------------------------------------------------------
+	[INFO] Reactor Summary for cloudbank 0.0.1-SNAPSHOT:
+	[INFO]
+	[INFO] customer ........................................... SUCCESS [  2.710 s]
+	[INFO] customer ........................................... SUCCESS [  0.800 s]
+	[INFO] creditscore ........................................ SUCCESS [  0.405 s]
+	[INFO] cloudbank .......................................... SUCCESS [  0.018 s]
+	[INFO] ------------------------------------------------------------------------
+	[INFO] BUILD SUCCESS
+	[INFO] ------------------------------------------------------------------------
+	[INFO] Total time:  4.104 s
+	[INFO] Finished at: 2023-03-02T15:42:05-06:00
+	[INFO] ------------------------------------------------------------------------
+	```
+
+## Task 4: Install CloudBank in your Oracle Backend for Spring Boot instance
 
 1. Prepare the backend for deployment
 
@@ -151,17 +179,19 @@ Download a copy of the CloudBank sample application.
     	```shell
     	oractl> <copy>
 		deploy --isRedeploy false --appName application --serviceName customer --jarLocation /path/to/accounts/target/customers-0.0.1-SNAPSHOT.jar --imageVersion 0.0.1</copy>
+		```
+		```text
 		uploading... upload successful
 		building and pushing image... docker build and push successful	
 		creating deployment and service... create deployment and service  = customer, appName = application, isRedeploy = false successful
     	successfully deployed
     	```
 
-## Task 3: Verify the deployment
+## Task 5: Verify the deployment
 
 TODO: Some kind of verification perhaps curl to account, customer and transaction?
 
-## Task 4: Expose the services using APISIX Gateway
+## Task 6: Expose the services using APISIX Gateway
 
 1. Get APISIX Gateway Admin Key
 

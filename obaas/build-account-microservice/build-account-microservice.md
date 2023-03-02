@@ -111,8 +111,7 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
     Your new file should look like this:
 
     ```java
-    <copy
-	>package com.example.accounts.controller;
+    <copy>package com.example.accounts.controller;
     
     public class AccountsController {
         
