@@ -85,9 +85,7 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
     Build and run the newly created service with this command:
 
     ```shell
-    $ <copy>
-	mvn spring-boot:run
-	</copy>
+    $ <copy>mvn spring-boot:run</copy>
     ```
 
     The service will take a few seconds to start, and then you will see some messages similar to these:
@@ -100,9 +98,7 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
     Of course, the service does not do anything yet, but you can still make a request and confirm you get a response from it:
 
     ```shell
-    $ <copy>
-	curl http://localhost:8080
-	</copy>
+    $ <copy>curl http://localhost:8080</copy>
     {"timestamp":"2023-02-25T17:28:23.264+00:00","status":404,"error":"Not Found","path":"/"}
     ```
 
@@ -171,17 +167,13 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
     You can test your service now by building and running again.  If you still have the application running from before, hit Ctrl+C (or equivalent) to stop it, and then build and run with this command:
 
     ```shell
-    $ <copy>
-	mvn spring-boot:run
-	</copy>
+    $ <copy>mvn spring-boot:run</copy>
     ```
 
     Then try to call your service with this command:
 
     ```shell
-    $ <copy>
-	curl -i http://localhost:8080/api/v1/hello
-	</copy>
+    $ <copy>curl -i http://localhost:8080/api/v1/hello</copy>
     HTTP/1.1 200 
     Content-Type: text/plain;charset=UTF-8
     Content-Length: 22
@@ -204,9 +196,7 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
     If you installed SQLcl as recommended, you can connect to your database using this command:
 
     ```shell
-    $ <copy>
-	sql pdbadmin/Welcome123@//172.17.0.2:1521/pdb1
-	</copy>
+    $ <copy>sql pdbadmin/Welcome123@//172.17.0.2:1521/pdb1</copy>
     ```
     
     When you are connected, run the SQL statements below to create the database objects:
@@ -254,8 +244,7 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
     primary key (transaction_id) 
     using index logging;
     comment on table account.transactions 
-    is 'CloudBank transactions table';
-    </copy>
+    is 'CloudBank transactions table';</copy>
     ```
 
     Now that the database objects are created, you can configure Spring Data JPA to use them in your microservice.
@@ -483,9 +472,7 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
     If your application is still running, stop it with Ctrl+C (or equivalent) and then rebuild and restart it with this command: 
 
     ```shell
-    $ <copy>
-	mvn spring-boot:run
-	</copy>
+    $ <copy>mvn spring-boot:run</copy>
     ```
 
     This time, when it starts up you will see some new log messages that were not there before.  These tell you that it connected to the database successfully.
@@ -502,9 +489,7 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
    Now you can test the new service with this command: 
 
     ```shell
-    $ <copy>
-	curl http://localhost:8080/api/v1/accounts
-	</copy>
+    $ <copy>curl http://localhost:8080/api/v1/accounts</copy>
     HTTP/1.1 200 
     Content-Type: application/json
     Transfer-Encoding: chunked
@@ -525,9 +510,7 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
    Now, test the service again.  You may want to send the output to `jq` if you have it installed, so that it will be formatted for easier reading:
 
     ```shell
-    $ <copy>
-	curl -s http://localhost:8080/api/v1/accounts | jq .
-	</copy>
+    $ <copy>curl -s http://localhost:8080/api/v1/accounts | jq .</copy>
     [
       {
         "accountId": 1,
@@ -584,12 +567,10 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
    Here is an example request and the expected output (yours will be slightly different):
 
     ``` shell
-    $ <copy>
-	curl -i -X POST \
+    $ <copy>curl -i -X POST \
           -H 'Content-Type: application/json' \
           -d '{"accountName": "Dave", "accountType": "CH", "accountOtherDetail": "", "accountCustomerId": "abc123xyz"}' \
-          http://localhost:8080/api/v1/account
-	</copy>
+          http://localhost:8080/api/v1/account</copy>
     HTTP/1.1 201 
     Content-Type: application/json
     Transfer-Encoding: chunked
@@ -603,9 +584,7 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
     Now try a request with bad data that will not be able to be parsed and observe that the HTTP Status Code is 400 (Bad Request).  If there happened to be an exception thrown during the `save()` method, you would get back a 500 (Internal Server Error):
 
     ```shell
-    $ <copy>
-	curl -i -X POST -H 'Content-Type: application/json' -d '{"bad": "data"}'  http://localhost:8080/api/v1/account
-	</copy>
+    $ <copy>curl -i -X POST -H 'Content-Type: application/json' -d '{"bad": "data"}'  http://localhost:8080/api/v1/account</copy>
     HTTP/1.1 400 
     Content-Type: application/json
     Transfer-Encoding: chunked
@@ -648,9 +627,7 @@ If you would like to learn more about endpoints and implement the remainder of t
     Restart the application and test this new endpoint with this command (note that you created account with ID 2 earlier):
 
     ```shell
-    $ <copy>
-	curl -s http://localhost:8080/api/v1/account/2 | jq .
-	</copy>
+    $ <copy>curl -s http://localhost:8080/api/v1/account/2 | jq .</copy>
     {
       "accountId": 2,
       "accountName": "Mark's CCard",
@@ -699,9 +676,7 @@ If you would like to learn more about endpoints and implement the remainder of t
    Restart the application and test the new endpoint with this command (note that you created this account and customer ID earlier): 
 
     ```shell
-    $ <copy>
-	curl -s http://localhost:8080/api/v1/account/getAccounts/bkzLp8cozi | jq .
-	</copy>
+    $ <copy>curl -s http://localhost:8080/api/v1/account/getAccounts/bkzLp8cozi | jq .</copy>
     [
       {
         "accountId": 2,
@@ -740,9 +715,7 @@ If you would like to learn more about endpoints and implement the remainder of t
    Restart the application and test this new endpoint with this command (note that you created an account with this customer ID earlier):
 
     ```shell
-    $ <copy>
-	curl -s http://localhost:8080/api/v1/account/getAccounts/abcDe7ged | jq .
-	</copy>
+    $ <copy>curl -s http://localhost:8080/api/v1/account/getAccounts/abcDe7ged | jq .</copy>
     [
       {
         "accountId": 1,
@@ -759,12 +732,10 @@ If you would like to learn more about endpoints and implement the remainder of t
    Restart the application and test this new endpoint by creating and deleting an account.  First create an account:
 
     ```shell
-    $ <copy>
-	curl -i -X POST \
+    $ <copy>curl -i -X POST \
         -H 'Content-Type: application/json' \
         -d '{"accountName": "Bob", "accountType": "CH", "accountOtherDetail": "", "accountCustomerId": "bob808bob"}' \
-        http://localhost:8080/api/v1/account
-	</copy>
+        http://localhost:8080/api/v1/account</copy>
     HTTP/1.1 201 
     Content-Type: application/json
     Transfer-Encoding: chunked
@@ -776,9 +747,7 @@ If you would like to learn more about endpoints and implement the remainder of t
    Verify that account exists:
 
     ```shell
-    $ <copy>
-	curl -s http://localhost:8080/api/v1/account/getAccounts/bob808bob | jq .
-	</copy>
+    $ <copy>curl -s http://localhost:8080/api/v1/account/getAccounts/bob808bob | jq .</copy>
     [
       {
         "accountId": 42,
@@ -795,9 +764,7 @@ If you would like to learn more about endpoints and implement the remainder of t
    Delete the account:
 
     ```shell
-    $ <copy>
-	curl -i -X DELETE http://localhost:8080/api/v1/account/42
-	</copy>
+    $ <copy>curl -i -X DELETE http://localhost:8080/api/v1/account/42</copy>
     HTTP/1.1 204 
     Date: Wed, 01 Mar 2023 13:23:56 GMT
     ```
@@ -805,10 +772,8 @@ If you would like to learn more about endpoints and implement the remainder of t
    Verify the account no longer exists:
 
     ```shell
-    $ <copy>
-	curl -s http://localhost:8080/api/v1/account/getAccounts/bob808bob | jq .
-	</copy>
-    ``` 
+    $ <copy>curl -s http://localhost:8080/api/v1/account/getAccounts/bob808bob | jq .</copy>
+    ```
 
    That completes the account-related endpoints.  Now it is time to add some endpoints to deal with transactions within an account.
 
@@ -962,21 +927,17 @@ You created the transaction database objects earlier.  You may recall that you u
    Test the **create transaction** endpoint with the following command.  Note that you created account ID 24 earlier, so this is an existing account.  The `transactionType` of `DE` means "deposit".  This API returns the created transaction:
 
     ```shell
-    $ <copy>
-	curl -X POST \
+    $ <copy>curl -X POST \
        -H 'Content-Type: application/json' \
        -d '{"transactionAccountId": 24, "transactionType": "DE", "transactionAmount": 50}' \
-       http://localhost:8080/api/v1/transaction
-	</copy>
+       http://localhost:8080/api/v1/transaction</copy>
     {"transactionId":1,"transactionDate":"2023-02-28T18:39:39.000+00:00","transactionAmount":50,"transactionType":"DE","transactionAccountId":24}
     ```
 
    Now test the **get transactions by account ID** endpoint with this command.  Note that the account ID is passed as path argument.  This API returns a list of transactions.  Note that the HTTP Status Code is 200 (OK):
 
     ```shell
-    $ <copy>
-	curl -i http://localhost:8080/api/v1/transaction/24
-	</copy>
+    $ <copy>curl -i http://localhost:8080/api/v1/transaction/24</copy>
     HTTP/1.1 200 
     Content-Type: application/json
     Transfer-Encoding: chunked
@@ -988,9 +949,7 @@ You created the transaction database objects earlier.  You may recall that you u
    Test the API with a non-existent account ID:
 
     ```shell
-    $ <copy>
-	curl -i http://localhost:8080/api/v1/transaction/9999
-	</copy>
+    $ <copy>curl -i http://localhost:8080/api/v1/transaction/9999</copy>
     HTTP/1.1 204 
     Date: Tue, 28 Feb 2023 13:42:23 GMT
     ```
@@ -1013,9 +972,7 @@ You created the transaction database objects earlier.  You may recall that you u
    Run the following command to build the JAR file.  Note that you will need to skip tests now, since you updated the `application.yaml` and it no longer points to your local test database instance. 
 
     ```shell
-    $ <copy>
-	mvn package -Dmaven.test.skip=true
-	</copy>
+    $ <copy>mvn package -Dmaven.test.skip=true</copy>
     ```
 
    The service is now ready to deploy to the backend.
@@ -1029,17 +986,13 @@ You created the transaction database objects earlier.  You may recall that you u
    Start a tunnel using this command:
 
     ```shell
-    $ <copy>
-	kubectl -n obaas-admin port-forward svc/obaas-admin 8080:8080
-	</copy>
+    $ <copy>kubectl -n obaas-admin port-forward svc/obaas-admin 8080:8080</copy>
     ```
 
    Start the Oracle Backend for Spring Boot CLI using this command:
 
     ```shell
-    $ <copy>
-	oractl
-	</copy>
+    $ <copy>oractl</copy>
      _   _           __    _    ___
     / \ |_)  _.  _. (_    /  |   |
     \_/ |_) (_| (_| __)   \_ |_ _|_
@@ -1053,9 +1006,7 @@ You created the transaction database objects earlier.  You may recall that you u
    Connect to the Oracle Backend for Spring Boot admin service using this command.  Hit enter when prompted for a password.  **Note**: Oracle recommends changing the password in a real deployment.
 
     ```shell
-    oractl> <copy>
-	connect
-	</copy>
+    oractl> <copy>connect</copy>
     password (defaults to oractl):
     using default value...
     connect successful server version:011223
@@ -1064,9 +1015,7 @@ You created the transaction database objects earlier.  You may recall that you u
    Create a database "binding" by tunning this command.  Enter the password (`Welcome1234##`) when prompted.  This will create a Kubernetes secret in the `application` namespace called `account-db-secrets` which contains the username (`account`), password, and URL to connect to the Oracle Autonomous Database instance associated with the Oracle Backend for Spring Boot.
 
     ```shell
-    oractl:> <copy>
-	bind --appName application --serviceName account --springBindingPrefix spring.db
-	</copy>
+    oractl:> <copy>bind --appName application --serviceName account --springBindingPrefix spring.db</copy>
     database password/servicePassword (defaults to Welcome12345): 
     database secret created successfully and schema already exists for account
     ```
@@ -1082,9 +1031,7 @@ You created the transaction database objects earlier.  You may recall that you u
   You will now deploy your account service to the Oracle Backend for Spring Boot using the CLI.  You will deploy into the `application` namespace, and the service name will be `account`.  Run this command to deploy your service, make sure you provide the correct path to your JAR file:
 
     ```shell
-    oractl> <copy>
-	deploy --isRedeploy false --appName application --serviceName account --jarLocation /path/to/accounts/target/accounts-0.0.1-SNAPSHOT.jar --imageVersion 0.0.1
-	</copy>
+    oractl> <copy>deploy --isRedeploy false --appName application --serviceName account --jarLocation /path/to/accounts/target/accounts-0.0.1-SNAPSHOT.jar --imageVersion 0.0.1</copy>
     uploading... upload successful
     building and pushing image... docker build and push successful
     creating deployment and service... create deployment and service  = account, appName = application, isRedeploy = true successful
@@ -1160,9 +1107,7 @@ You created the transaction database objects earlier.  You may recall that you u
    Apply the patch to the deployment with this command: 
 
     ```shell
-    $ <copy>
-	kubectl -n application patch deploy account -p "$(cat patch.json)"
-	</copy>
+    $ <copy>kubectl -n application patch deploy account -p "$(cat patch.json)"</copy>
     ```
 
   This will add the TNSADMIN volume mount to your account deployment (and its pods) and the environment variables required to read the database credentials from the appropriate secret.
@@ -1176,9 +1121,7 @@ Now that the account service is deployed, you need to expose it through the API 
    Start the tunnel using this command.  You can run this in the background if you prefer.
 
     ```shell
-    $ <copy>
-	kubectl -n apisix port-forward svc/apisix-dashboard 8080:80
-	</copy>
+    $ <copy>kubectl -n apisix port-forward svc/apisix-dashboard 8080:80</copy>
     ```
 
    Open a web browser to [http://localhost:8080](http://localhost:8080) to view the APISIX Dashboard web user interface.  It will appear similar to the image below.
@@ -1212,9 +1155,7 @@ Now that the account service is deployed, you need to expose it through the API 
    In the next two commands, you need to provide the correct IP address for the API Gateway in your backend environment.  You can find the IP address using this command, you need the one listed in the `EXTERNAL-IP` column:
    
     ```shell
-    $ <copy>
-	kubectl -n ingress-nginx get service ingress-nginx-controller
-	</copy>
+    $ <copy>kubectl -n ingress-nginx get service ingress-nginx-controller</copy>
     NAME                       TYPE           CLUSTER-IP      EXTERNAL-IP   PORT(S)                      AGE
     ingress-nginx-controller   LoadBalancer   10.123.10.127   100.20.30.40  80:30389/TCP,443:30458/TCP   13d
     ```
@@ -1222,12 +1163,10 @@ Now that the account service is deployed, you need to expose it through the API 
    Test the create account endpoint with this command, use the IP address for your API Gateway:
 
     ```shell
-    $ <copy>
-	curl -i -X POST \
+    $ <copy>curl -i -X POST \
       -H 'Content-Type: application/json' \
       -d '{"accountName": "Sanjay''s Savings", "accountType": "SA", "accountCustomerId": "bkzLp8cozi", "accountOtherDetails": "Savings Account"}' \
-      http://100.20.30.40/api/v1/account
-	</copy>
+      http://100.20.30.40/api/v1/account</copy>
     HTTP/1.1 201
     Date: Wed, 01 Mar 2023 18:35:31 GMT
     Content-Type: application/json
@@ -1240,9 +1179,7 @@ Now that the account service is deployed, you need to expose it through the API 
    Test the get account endpoint with this command, use the IP address for your API Gateway and the `accountId` that was returned in the previous command:
 
     ```shell
-    $ <copy>
-	curl -s http://100.20.30.40/api/v1/account/24 | jq .
-	</copy>
+    $ <copy>curl -s http://100.20.30.40/api/v1/account/24 | jq .</copy>
     {
       "accountId": 24,
       "accountName": "Sanjay's Savings",
@@ -1258,10 +1195,8 @@ Now that the account service is deployed, you need to expose it through the API 
 
 ## Learn More
 
-*(optional - include links to docs, white papers, blogs, etc)*
-
-* [URL text 1](http://docs.oracle.com)
-* [URL text 2](http://docs.oracle.com)
+* [Oracle Backend for Spring Boot](https://oracle.github.io/microservices-datadriven/spring/)
+* [Oracle Backend for Parse Platform](https://oracle.github.io/microservices-datadriven/mbaas/m)
 
 ## Acknowledgements
 
