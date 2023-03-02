@@ -244,14 +244,6 @@ In later labs, you will look various resources in the Kubernetes cluster and acc
     </copy>
     {
       "data": {
-        "defined-tags": {
-          "OracleInternalReserved": {
-            "CostCenter": "123456",
-            "OwnerEmail": "superuser@someplace.com",
-            "ServiceType": "Other",
-            "UsageType": "development"
-          }
-        },
         "description": "mytenancy",
         "freeform-tags": {},
         "home-region-key": "IAD",
@@ -402,12 +394,6 @@ If you plan to complete the Mobile App Development lab, you will need to install
 
    If you are installing Android Studio or XCode for the first time, you should also follow the instructions to create a device emulator instance.
 
-## Learn More
-
-*(optional - include links to docs, white papers, blogs, etc)*
-
-* [URL text 1](http://docs.oracle.com)
-* [URL text 2](http://docs.oracle.com)
 
 ## Acknowledgements
 
