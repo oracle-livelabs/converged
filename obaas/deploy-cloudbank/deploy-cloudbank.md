@@ -26,7 +26,7 @@ Download a copy of the CloudBank sample application.
 
 1. Clone the source repository
 
-   Create a local clone of the CloudBank source repository using this command: 
+   Create a local clone of the CloudBank source repository using this command:
 
     ```shell
     $ <copy>git clone TODO:TODO</copy>
@@ -34,11 +34,88 @@ Download a copy of the CloudBank sample application.
 
     > **Note**: If you do not have **git** installed on your machine, you can download a zip file of the source code from TODO and unzip it on your machine instead.
 
-## Task 2: Install CloudBank in your Oracle Backend for Spring Boot instance
+## Task 2: Build the CloudBank application
 
-1. TODO edit the script???
+1. Create application JAR files
 
-  xyz TODO xyz 
+	Go to the directory where you cloned (or unzipped) the application and create the applications using the following command:
+
+	```shell
+	$ <code>mvn spring-boot:build</code>
+	```
+
+## Task 3: Install CloudBank in your Oracle Backend for Spring Boot instance
+
+1. Prepare the backend for deployment
+
+ 	The Oracle Backend for Spring Boot admin service is not exposed outside of the Kubernetes cluster by default. Oracle recommends using a kubectl port forwarding tunnel to establish a secure connection to the admin service.
+
+	Start a tunnel using this command:
+
+	```shell
+	$ <copy>kubectl -n obaas-admin port-forward svc/obaas-admin 8080:8080</copy>
+	Forwarding from 127.0.0.1:8080 -> 8080
+	Forwarding from [::1]:8080 -> 8080
+	```
+
+2. Start the Oracle Backend for Spring Boot CLI
+
+	Open a new terminal Window or Tab and start the Oracle Backend for Spring Boot CLI using this command:
+
+	```shell
+    $ <copy>oractl</copy>
+     _   _           __    _    ___
+    / \ |_)  _.  _. (_    /  |   |
+    \_/ |_) (_| (_| __)   \_ |_ _|_
+
+    2023-03-02T12:41:01.794-06:00  INFO 36886 --- [           main] o.s.s.cli.OracleSpringCLIApplication     : Starting AOT-processed OracleSpringCLIApplication using Java 17.0.5 with PID 36886 (/Users/atael/bin/oractl started by atael in /Users/atael/Oracle)
+	2023-03-02T12:41:01.796-06:00  INFO 36886 --- [           main] o.s.s.cli.OracleSpringCLIApplication     : No active profile set, falling back to 1 default profile: "default"
+	2023-03-02T12:41:01.898-06:00  INFO 36886 --- [           main] o.s.s.cli.OracleSpringCLIApplication     : Started OracleSpringCLIApplication in 0.186 seconds (process running for 0.255)
+    oractl:>
+    ```
+
+3. Connect to the Oracle Backend for Spring Boot admin service
+
+	Connect to the Oracle Backend for Spring Boot admin service using this command.  Hit enter when prompted for a password.  **Note**: Oracle recommends changing the password in a real deployment.
+
+    ```shell
+    oractl> <copy>connect</copy>
+    password (defaults to oractl):
+    using default value...
+    connect successful server version:011223
+    ```
+
+4. Create Database Bindings
+
+	Create database bindings for the applications by running the following commands in the CLI. You are going to create three different bindings.
+
+	1. Account Service
+
+		Create a database "binding" by tunning this command. Enter the password (`Welcome1234##`) when prompted.  This will create a Kubernetes secret in the `application` namespace called `account-db-secrets` which contains the username (`account`), password, and URL to connect to the Oracle Autonomous Database instance associated with the Oracle Backend for Spring Boot.
+
+		```shell
+    	oractl:> <copy>bind --appName application --serviceName account --springBindingPrefix spring.db</copy>
+    	database password/servicePassword (defaults to Welcome12345): 
+    	database secret created successfully and schema already exists for account
+    	```
+
+	2. Customer Service
+
+		Create a database "binding" by tunning this command. Enter the password (`Welcome1234##`) when prompted.  This will create a Kubernetes secret in the `application` namespace called `customer-db-secrets` which contains the username (`customer`), password, and URL to connect to the Oracle Autonomous Database instance associated with the Oracle Backend for Spring Boot.
+
+		```shell
+    	oractl:> <copy>bind --appName application --serviceName customer --springBindingPrefix spring.db</copy>
+    	database password/servicePassword (defaults to Welcome12345): 
+    	database secret created successfully and schema already exists for account
+
+	3. Transaction Service
+
+		Create a database "binding" by tunning this command. Enter the password (`Welcome1234##`) when prompted.  This will create a Kubernetes secret in the `application` namespace called `transaction-db-secrets` which contains the username (`transaction`), password, and URL to connect to the Oracle Autonomous Database instance associated with the Oracle Backend for Spring Boot.
+
+		```shell
+    	oractl:> <copy>bind --appName application --serviceName transaction --springBindingPrefix spring.db</copy>
+    	database password/servicePassword (defaults to Welcome12345): 
+    	database secret created successfully and schema already exists for account
   
 1. TODO run the script???
 
