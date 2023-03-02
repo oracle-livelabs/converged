@@ -41,7 +41,7 @@ Download a copy of the CloudBank sample application.
 	Go to the directory where you cloned (or unzipped) the application and create the applications using the following command:
 
 	```shell
-	$ <code>mvn spring-boot:build</code>
+	$ <copy>mvn spring-boot:build</copy>
 	```
 
 ## Task 3: Install CloudBank in your Oracle Backend for Spring Boot instance
