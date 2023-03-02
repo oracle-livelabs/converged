@@ -195,10 +195,20 @@ TODO: Some kind of verification perhaps curl to account, customer and transactio
 
 1. Get APISIX Gateway Admin Key
 
-	You are going to need the Admin Key for the APISIX Gateway to configure the route. It is stored in a COnfigMap. Run the command and make a note of the admin key.
+	You are going to need the Admin Key for the APISIX Gateway to configure the route. It is stored in a COnfigMap. Run the command and make a note of the admin key. The command will return a long YAML document so you need to scroll up to find the Admin Key.
 
 	```shell
 	<copy>kubectl -n apisix get configmap apisix -o yaml</copy>
+	```
+
+	Look for the `key:` information in the `admin_key` section:
+
+	```yaml
+	admin_key:
+        # admin: can everything for configuration data
+        - name: "admin"
+          key: edd1c9f03...........
+          role: admin
 	```
 
 2. Start the tunnel using this command:
@@ -288,6 +298,8 @@ TODO: Some kind of verification perhaps curl to account, customer and transactio
 
     ```shell
     $ <copy>kubectl -n apisix port-forward svc/apisix-dashboard 8080:80</copy>
+	Forwarding from 127.0.0.1:8080 -> 9000
+	Forwarding from [::1]:8080 -> 9000
     ```
 
    Open a web browser to [http://localhost:8080](http://localhost:8080) to view the APISIX Dashboard web user interface.  It will appear similar to the image below.
