@@ -23,7 +23,7 @@ The following tools are recommended for a development environment:
 If you wish to test locally or offline, the following additional tools are recommended:
 
 - A container platform, e.g., Rancher Desktop
-- An Oracle Database (in a container)
+- An Oracle Database (in a container). If you are using a Apple Silicon environment you can't run the Oracle Database locally. One alternative is to use an ADB in Oracle OCI.
 
 ### Objectives
 

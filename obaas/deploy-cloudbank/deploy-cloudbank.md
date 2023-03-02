@@ -17,7 +17,7 @@ In this lab, you will:
 This lab assumes you have:
 
 * An Oracle Cloud account
-* Have all the necessary tools installed (kubectl, git, maven, oractl)
+* Have all the necessary tools installed (kubectl, git, maven, oractl). All of them should be installed during Lab two (Setup your Development Environment)
 * Git version control tool installed on your computer (optional)
 
 ## Task 1: Get a copy of the CloudBank sample application
@@ -26,7 +26,7 @@ Download a copy of the CloudBank sample application.
 
 1. Clone the source repository
 
-	Create a local clone of the CloudBank source repository using this command. **NOTE** If you did Lab three (Build the Account Microservice) you can skip this step as you already have the source code.
+	Create a local clone of the CloudBank source repository using this command. **NOTE** If you did Lab three (Build the Account Microservice) you can skip this step as you already have the source code on your local machine.
 
     ```shell
     $ <copy>git clone TODO:TODO</copy>
@@ -45,7 +45,6 @@ Download a copy of the CloudBank sample application.
 1. Create application JAR files
 
 	Go to the directory where you cloned (or unzipped) the application and create the applications using the following command:
-	TODO: parent pom.xml needs to work
 
 	```shell
 	$ <copy>mvn package -Dmaven.test.skip=true</copy>
