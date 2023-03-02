@@ -236,8 +236,6 @@ TODO: Some kind of verification perhaps curl to account, customer and transactio
     }
     ```
 
-## Task 5: Mobile application
-
 TODO: verify ???
 
 **TODO - make sure we created some users and accounts, including in parse for the mobile app**
