@@ -165,8 +165,10 @@ TODO: Some kind of verification perhaps curl to account, customer and transactio
 
 1. Get APISIX Gateway Admin Key
 
+	You are going to need the Admin Key for the APISIX Gateway to configure the route. It is stored in a COnfigMap. Run the command and make a note of the admin key.
+
 	```shell
-	<copy>kubectl .....</copy>
+	<copy>kubectl -n apisix get configmap apisix -o yaml</copy>
 	```
 
 2. Start the tunnel using this command:
@@ -203,7 +205,7 @@ TODO: Some kind of verification perhaps curl to account, customer and transactio
     ingress-nginx-controller   LoadBalancer   10.123.10.127   100.20.30.40  80:30389/TCP,443:30458/TCP   13d
 	```
 
-	Test the create account endpoint with this command, use the IP address for your API Gateway:
+	Test the create account endpoint with this command, use the IP address for your API Gateway. Make a note of the `accountID` in the output:
 
     ```shell
     $ <copy>curl -i -X POST \
@@ -221,7 +223,7 @@ TODO: Some kind of verification perhaps curl to account, customer and transactio
 
 	Test the get account endpoint with this command, use the IP address for your API Gateway and the `accountId` that was returned in the previous command:
 
-    ```shell
+	```shell
     $ <copy>curl -s http://100.20.30.40/api/v1/account/24 | jq .</copy>
     {
       "accountId": 24,
@@ -238,7 +240,7 @@ TODO: Some kind of verification perhaps curl to account, customer and transactio
 
 TODO: verify ???
 
-**TDDO - make sure we created some users and accounts, including in parse for the mobile app**
+**TODO - make sure we created some users and accounts, including in parse for the mobile app**
 
 ## Learn More
 
