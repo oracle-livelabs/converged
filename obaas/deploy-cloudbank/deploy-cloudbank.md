@@ -26,7 +26,7 @@ Download a copy of the CloudBank sample application.
 
 1. Clone the source repository
 
-	Create a local clone of the CloudBank source repository using this command:
+	Create a local clone of the CloudBank source repository using this command. **NOTE** If you did Lab three (Build the Account Microservice) you can skip this step as you already have the source code.
 
     ```shell
     $ <copy>git clone TODO:TODO</copy>
@@ -39,9 +39,10 @@ Download a copy of the CloudBank sample application.
 1. Create application JAR files
 
 	Go to the directory where you cloned (or unzipped) the application and create the applications using the following command:
+	TODO: parent pom.xml needs to work
 
 	```shell
-	$ <copy>mvn spring-boot:build</copy>
+	$ <copy>mvn package -Dmaven.test.skip=true</copy>
 	```
 
 ## Task 3: Install CloudBank in your Oracle Backend for Spring Boot instance
@@ -87,7 +88,7 @@ Download a copy of the CloudBank sample application.
 
 4. Create Database Bindings
 
-	Create database bindings for the applications by running the following commands in the CLI. You are going to create two different bindings. If you have finished Lab 3 (Build the Account Microservice) you have already created the binding for the Accounts Service and you only need to create the Customer Service binding.
+	Create database bindings for the applications by running the following commands in the CLI. You are going to create two different bindings. **NOTE**: If you have finished Lab three (Build the Account Microservice) you have already created the binding for the Accounts Service and you only need to create the Customer Service binding.
 
 	1. Account Service
 
@@ -111,12 +112,13 @@ Download a copy of the CloudBank sample application.
   
 5. Create Database Objects
 
-	TODO: Liquibase, overwrite whatever is already in there?
+	TODO: Liquibase, overwrite whatever is already in there? Does it matter?
+
 	TODO: Verify data using SQLcl?
 
 6. Deploy the services
 
-	If you have finished Lab 3 (Build the Account Microservice) and Lab 4 (Manage Transactions across Microservices) you can skip step one (Deploy the Account Service) below and only create the Customer Service binding.
+	**NOTE**: If you have finished Lab three (Build the Account Microservice) and Lab four (Manage Transactions across Microservices) you can skip step one (Deploy/Redploy the Account Service) below and only create the Customer Service binding (step two).
 
 	1. Deploy/Redeploy the Account Service
 
@@ -157,13 +159,84 @@ Download a copy of the CloudBank sample application.
 
 ## Task 3: Verify the deployment
 
+TODO: Some kind of verification perhaps curl to account, customer and transaction?
+
 ## Task 4: Expose the services using APISIX Gateway
+
+1. Get APISIX Gateway Admin Key
+
+	```shell
+	<copy>kubectl .....</copy>
+	```
+
+2. Start the tunnel using this command:
+
+	```shell
+	$ <copy>kubectl -n apisix port-forward svc/apisix-admin 9180:9180</copy>
+	Forwarding from 127.0.0.1:9180 -> 9180
+	Forwarding from [::1]:9180 -> 9180
+	```
+
+3. Create the routes
+
+	In the `scripts` directory where you saved the code repository there are 3 scripts to create the routes. Run the commands:
+
+	```shell
+	$ <copy>source apisix-routes/create-accounts-route.sh APIKEY</copy>
+	```
+
+	``` shell
+	$ <copy>source apisix-routes/create-creditscore-route.sh APIKEY</copy>
+	```
+
+	```shell
+	$ <copy>source apisix-routes/create-customer-route.sh APIKEY</copy>
+	```
+
+3. Verify the account service
+
+   In the next two commands, you need to provide the correct IP address for the API Gateway in your backend environment.  You can find the IP address using this command, you need the one listed in the `EXTERNAL-IP` column. In the example below the IP address is `100.20.30.40`
+   
+    ```shell
+    $ <copy>kubectl -n ingress-nginx get service ingress-nginx-controller</copy>
+    NAME                       TYPE           CLUSTER-IP      EXTERNAL-IP   PORT(S)                      AGE
+    ingress-nginx-controller   LoadBalancer   10.123.10.127   100.20.30.40  80:30389/TCP,443:30458/TCP   13d
+	```
+
+	Test the create account endpoint with this command, use the IP address for your API Gateway:
+
+    ```shell
+    $ <copy>curl -i -X POST \
+      -H 'Content-Type: application/json' \
+      -d '{"accountName": "Sanjay''s Savings", "accountType": "SA", "accountCustomerId": "bkzLp8cozi", "accountOtherDetails": "Savings Account"}' \
+      http://100.20.30.40/api/v1/account</copy>
+    HTTP/1.1 201
+    Date: Wed, 01 Mar 2023 18:35:31 GMT
+    Content-Type: application/json
+    Transfer-Encoding: chunked
+    Connection: keep-alive
+
+    {"accountId":24,"accountName":"Sanjays Savings","accountType":"SA","accountCustomerId":"bkzLp8cozi","accountOpenedDate":null,"accountOtherDetails":"Savings Account","accountBalance":0}
+    ```
+
+	Test the get account endpoint with this command, use the IP address for your API Gateway and the `accountId` that was returned in the previous command:
+
+    ```shell
+    $ <copy>curl -s http://100.20.30.40/api/v1/account/24 | jq .</copy>
+    {
+      "accountId": 24,
+      "accountName": "Sanjay's Savings",
+      "accountType": "SA",
+      "accountCustomerId": "bkzLp8cozi",
+      "accountOpenedDate": null,
+      "accountOtherDetails": "Savings Account",
+      "accountBalance": 1040
+    }
+    ```
 
 ## Task 5: Mobile application
 
-1. TODO verify ???
-
-  xyz TODO xyz 
+TODO: verify ???
 
 **TDDO - make sure we created some users and accounts, including in parse for the mobile app**
 
