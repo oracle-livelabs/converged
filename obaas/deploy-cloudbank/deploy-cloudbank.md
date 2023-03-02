@@ -17,7 +17,7 @@ In this lab, you will:
 This lab assumes you have:
 
 * An Oracle Cloud account
-* Have all the necessary tools installed (kubectl, git, maven, oractl). All of them should be installed during Lab two (Setup your Development Environment)
+* Have all the necessary tools installed (kubectl, git, maven, oractl, sqlcl). All of them should be installed during Lab two (Setup your Development Environment)
 * Git version control tool installed on your computer (optional)
 
 ## Task 1: Get a copy of the CloudBank sample application
@@ -29,7 +29,7 @@ Download a copy of the CloudBank sample application.
 	Create a local clone of the CloudBank source repository using this command. **NOTE** If you did Lab three (Build the Account Microservice) you can skip this step as you already have the source code on your local machine.
 
     ```shell
-    $ <copy>git clone TODO:TODO</copy>
+    $ <copy>git clone https://github.com/oracle/microservices-datadriven.git TODO:TODO</copy>
     ```
 
     > **Note**: If you do not have **git** installed on your machine, you can download a zip file of the source code from TODO and unzip it on your machine instead.
@@ -38,7 +38,7 @@ Download a copy of the CloudBank sample application.
 
 1. Liquibasing like nobodys business
 
-2. Connection using Wallet?
+2. Connection using Wallet to verify?
 
 ## Task 3: Build the CloudBank application
 
@@ -61,7 +61,7 @@ Download a copy of the CloudBank sample application.
 	[INFO] Reactor Summary for cloudbank 0.0.1-SNAPSHOT:
 	[INFO]
 	[INFO] customer ........................................... SUCCESS [  2.710 s]
-	[INFO] customer ........................................... SUCCESS [  0.800 s]
+	[INFO] customer ........................................... SUCCESS [  0.800 s] <!-- WHY 2 TIMES???????????>
 	[INFO] creditscore ........................................ SUCCESS [  0.405 s]
 	[INFO] cloudbank .......................................... SUCCESS [  0.018 s]
 	[INFO] ------------------------------------------------------------------------
@@ -117,6 +117,8 @@ Download a copy of the CloudBank sample application.
 
 	Create database bindings for the applications by running the following commands in the CLI. You are going to create two different bindings. **NOTE**: If you have finished Lab three (Build the Account Microservice) you have already created the binding for the Accounts Service and you only need to create the Customer Service binding.
 
+	The creditscore service is not using a database binding.
+
 	1. Account Service
 
 		Create a database "binding" by tunning this command. Enter the password (`Welcome1234##`) when prompted.  This will create a Kubernetes secret in the `application` namespace called `account-db-secrets` which contains the username (`account`), password, and URL to connect to the Oracle Autonomous Database instance associated with the Oracle Backend for Spring Boot.
@@ -137,6 +139,12 @@ Download a copy of the CloudBank sample application.
     	database secret created successfully and schema already exists for customer
 		```
   
+		> What happens when you use the Oracle Backend for Spring Boot CLI **bind** command?
+    	When you run the `bind` command, the Oracle Backend for Spring Boot CLI does several things for you:
+
+    	* TODO
+		* Magics and fireworks
+
 5. Create Database Objects
 
 	TODO: Liquibase, overwrite whatever is already in there? Does it matter?
@@ -145,7 +153,7 @@ Download a copy of the CloudBank sample application.
 
 6. Deploy the services
 
-	**NOTE**: If you have finished Lab three (Build the Account Microservice) and Lab four (Manage Transactions across Microservices) you can skip step one (Deploy/Redploy the Account Service) below and only create the Customer Service binding (step two).
+	**NOTE**: If you have finished Lab three (Build the Account Microservice) and Lab four (Manage Transactions across Microservices) you can skip step one (Deploy/Redeploy the Account Service) below and deploy the other services.
 
 	1. Deploy/Redeploy the Account Service
 
@@ -164,7 +172,7 @@ Download a copy of the CloudBank sample application.
 
 		```shell
     	oractl> <copy>
-		deploy --isRedeploy true --appName application --serviceName account --jarLocation /path/to/accounts/target/accounts-0.0.1-SNAPSHOT.jar --imageVersion 0.0.1</copy>
+		deploy --isRedeploy true --appName application --serviceName account --jarLocation /path/to/account/target/accounts-0.0.1-SNAPSHOT.jar --imageVersion 0.0.1</copy>
 		uploading... upload successful
 		building and pushing image... docker build and push successful	
 		creating deployment and service... create deployment and service  = account, appName = application, isRedeploy = true successful
@@ -173,22 +181,40 @@ Download a copy of the CloudBank sample application.
 
 	2. Deploy the Customer Service
 
-	You will now deploy your Customer service to the Oracle Backend for Spring Boot using the CLI.  You will deploy into the `application` namespace, and the service name will be `customer`. Run this command to deploy your service, make sure you provide the correct path to your JAR file:
+		You will now deploy your Customer service to the Oracle Backend for Spring Boot using the CLI.  You will deploy into the `application` namespace, and the service name will be `customer`. Run this command to deploy your service, make sure you provide the correct path to your JAR file:
 
     	```shell
     	oractl> <copy>
-		deploy --isRedeploy false --appName application --serviceName customer --jarLocation /path/to/accounts/target/customers-0.0.1-SNAPSHOT.jar --imageVersion 0.0.1</copy>
-		```
-		```text
+		deploy --isRedeploy false --appName application --serviceName customer --jarLocation /path/to/customer/target/customers-0.0.1-SNAPSHOT.jar --imageVersion 0.0.1</copy>
 		uploading... upload successful
 		building and pushing image... docker build and push successful	
 		creating deployment and service... create deployment and service  = customer, appName = application, isRedeploy = false successful
     	successfully deployed
     	```
 
+	3. Deploy the Credit Score service
+
+		You will now deploy your Customer service to the Oracle Backend for Spring Boot using the CLI.  You will deploy into the `application` namespace, and the service name will be `creditscore`. Run this command to deploy your service, make sure you provide the correct path to your JAR file:
+
+    	```shell
+    	oractl> <copy>
+		deploy --isRedeploy false --appName application --serviceName customer --jarLocation /path/to/creditscore/target/creditscore-0.0.1-SNAPSHOT.jar --imageVersion 0.0.1</copy>
+		uploading... upload successful
+		building and pushing image... docker build and push successful	
+		creating deployment and service... create deployment and service  = creditscore, appName = application, isRedeploy = false successful
+    	successfully deployed
+    	```
+
+		> What happens when you use the Oracle Backend for Spring Boot CLI **bind** command?
+    	When you run the `deploy` command, the Oracle Backend for Spring Boot CLI does several things for you:
+
+    	* TODO
+		* Magics and fireworks
+
+
 ## Task 5: Verify the deployment
 
-TODO: Some kind of verification perhaps curl to account, customer and transaction?
+TODO: Some kind of verification perhaps curl to account, customer, transaction and creditscore? 
 
 ## Task 6: Expose the services using APISIX Gateway
 
@@ -356,7 +382,6 @@ TODO: Some kind of verification perhaps curl to account, customer and transactio
     }
     ```
 
-TODO: verify ???
 
 **TODO - make sure we created some users and accounts, including in parse for the mobile app**
 
