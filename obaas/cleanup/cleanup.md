@@ -53,6 +53,6 @@ Even after the Destroy job has finished there will be one resource left in the t
 
 ## Acknowledgements
 
-* **Author** - Andy Tael, Developer Evangelist, Oracle Database
+* **Author** - Andy Tael, Mark Nelson, Developer Evangelists, Oracle Database
 * **Contributors** - [](var:contributors)
 * **Last Updated By/Date** - Andy Tael, February 2023
