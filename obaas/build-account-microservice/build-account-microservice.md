@@ -1265,6 +1265,6 @@ Now that the account service is deployed, you need to expose it through the API 
 
 ## Acknowledgements
 
-* **Author** - Mark Nelson, Developer Evangelist, Oracle Database
+* **Author** - Andy Tael, Mark Nelson, Developer Evangelists, Oracle Database
 * **Contributors** - [](var:contributors)
 * **Last Updated By/Date** - Andy Tael, February 2023
