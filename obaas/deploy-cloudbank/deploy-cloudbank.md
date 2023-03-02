@@ -115,7 +115,7 @@ Download a copy of the CloudBank sample application.
 
 4. Create Database Bindings
 
-	Create database bindings for the applications by running the following commands in the CLI. You are going to create two different bindings. **NOTE**: If you have finished Lab three (Build the Account Microservice) you have already created the binding for the Accounts Service and you only need to create the Customer Service binding.
+	Create database bindings for the applications by running the following commands in the CLI. You are going to create two different bindings. **NOTE**: If you have finished Lab three (Build the Account Microservice) you have already created the binding for the Accounts Service and you only need to create the Customer Service binding. <<< DOES THIS MATTER EG WHAT HAPPENS IF YOU DO BIND AGAIN >>>
 
 	The creditscore service is not using a database binding.
 
@@ -153,7 +153,7 @@ Download a copy of the CloudBank sample application.
 
 6. Deploy the services
 
-	**NOTE**: If you have finished Lab three (Build the Account Microservice) and Lab four (Manage Transactions across Microservices) you can skip step one (Deploy/Redeploy the Account Service) below and deploy the other services.
+	**NOTE**: If you have finished Lab three (Build the Account Microservice) and Lab four (Manage Transactions across Microservices) you can skip step one (Deploy/Redeploy the Account Service) below and deploy the other services. <<< DOES THIS MATTER EG WHAT HAPPENS IF YOU DO BIND AGAIN >>>
 
 	1. Deploy/Redeploy the Account Service
 
