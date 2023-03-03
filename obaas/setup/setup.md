@@ -54,7 +54,7 @@ This lab assumes you have:
 
    ![Download Visual Studio Code](images/obaas-vscode.png " ")
 
-1. Install the recommended extensions
+2. Install the recommended extensions
 
    Start Visual Studio Code, and then open the extensions tab (Ctrl-Shift-X or equivalent) and use the search bar at the top to find and install each of the extensions listed above.
 
@@ -80,7 +80,7 @@ This lab assumes you have:
     export PATH=$JAVA_HOME/bin:$PATH</copy>
     ```
 
-1. Verify the installation
+2. Verify the installation
 
    Verify the Java Development Kit is installed with this command:
 
@@ -101,7 +101,7 @@ You can use either Maven or Gradle to build your Spring Boot applications.  If y
 
    Download Maven from the [Apache Maven website](https://maven.apache.org/download.cgi).  
 
-1. Install Maven
+2. Install Maven
 
    Decompress the archive in your chosen location, e.g., your home directory and then add it to your path:
 
@@ -109,7 +109,7 @@ You can use either Maven or Gradle to build your Spring Boot applications.  If y
     <copy>export PATH=$HOME/apache-maven-3.8.6/bin:$PATH</copy>
     ```
 
-1. Verify installation
+3. Verify installation
 
    You can verify it is installed with this command (note that your version may give slightly different output):
 
@@ -132,7 +132,7 @@ If you prefer Gradle, follow the steps in this task.
 
    Download Gradle using [the instructions on the Gradle website](https://gradle.org/install/).  Spring Boot is compatible with Gradle version 7.5 or later.
 
-1. Verify the installation
+2. Verify the installation
 
    Run the command below to verify Gradle was installed correctly:
 
@@ -153,15 +153,15 @@ If you prefer Gradle, follow the steps in this task.
     OS:           Linux 5.10.102.1-microsoft-standard-WSL2 amd64
     ```
 
-## Task 5: Install the Oracle Backend for Spring Boot CLI 
+## Task 5: Install the Oracle Backend for Spring Boot CLI
 
 The Oracle Backend for Spring Boot CLI is used to configure your backend and to deploy your Spring Boot applications to the backend. 
 
-1. Download the CLI
+1. Download the Oracle Backend for Spring Boot CLI
 
    Download the CLI from [here](#)
 
-1. Install the CLI
+2. Install the Oracle Backend for Spring Boot CLI
 
    To install the CLI, you just need to make sure it is executable and add it to your PATH environment variable.
 
@@ -173,7 +173,7 @@ The Oracle Backend for Spring Boot CLI is used to configure your backend and to 
 
     **NOTE:** If environment is a Mac you need run the following command `sudo xattr -r -d com.apple.quarantine <downloaded-file>` otherwise will you get a security warning and the CLI will not work.
 
-1. Verify the installation
+3. Verify the installation
 
   Verify the CLI is installed using this command: 
 
@@ -205,7 +205,7 @@ In later labs, you will look various resources in the Kubernetes cluster and acc
     Kustomize Version: v4.5.4
     ```
 
-1. Install the OCI CLI
+2. Install the OCI CLI
 
    Install the OCI CLI from [the Quickstart documentation](https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/cliinstall.htm).  Click on the link for your operating system and follow the instructions to complete the installation.  After installation is complete, use this command to verify the installation (your output might be slightly different): 
 
@@ -214,7 +214,7 @@ In later labs, you will look various resources in the Kubernetes cluster and acc
     3.23.2
     ```
 
-1. Configure the OCI CLI
+3. Configure the OCI CLI
 
    Review the instructions [in the documentation](https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/cliconfigure.htm) for configuring the OCI CLI.  The simplest way to configure the CLI is to use the guided setup by running this command:
 
@@ -250,7 +250,7 @@ At the end of the previous lab, during the verification of the installation, you
     $ <copy>oci ce cluster create-kubeconfig --cluster-id ocid1.cluster.oc1.phx.xxxx --file path/to/kubeconfig --region us-phoenix-1 --token-version 2.0.0 --kube-endpoint PUBLIC_ENDPOINT</copy>
     ```
 
-1. Configure **kubectl** to use the Kubernetes configuration file you just created
+2. Configure **kubectl** to use the Kubernetes configuration file you just created
 
    Set the **KUBECONFIG** environment variable to point to the file you just created using this command (provide the path to where you created the file):
 
@@ -258,7 +258,7 @@ At the end of the previous lab, during the verification of the installation, you
     $ <copy>export KUBECONFIG=/path/to/kubeconfig</copy>
     ```
 
-1. Verify access to the cluster
+3. Verify access to the cluster
 
    Check that you can access the cluster using this command: 
 
@@ -284,7 +284,7 @@ At the end of the previous lab, during the verification of the installation, you
     Open a web browser to [Oracle Container Registry](https://container-registry.oracle.com).  If prompted, sign in with your Oracle Account (**note**: this is not your Oracle Cloud account).  Navigate to the **Database** group and then open the **Enterprise** repository (its the first one).  Click on **Sign In** if necessary.
     Choose a language to read the agreements and then accept when prompted.
 
-1. Start an Oracle Database container on your development machine
+2. Start an Oracle Database container on your development machine
 
     Log in to the Oracle Container Registry using your container runtime, for example:
 
@@ -327,7 +327,7 @@ At the end of the previous lab, during the verification of the installation, you
 
     In this example, the database connect string with be `172.17.0.2:1521/pdb1` and the admin user will be `pdbadmin` with password `Welcome123`.
 
-1. Setup an Oracle Database client
+3. Setup an Oracle Database client
 
     If you do not already have a database client, [Oracle SQL Developer Command Line (SQLcl)](https://www.oracle.com/database/sqldeveloper/technologies/sqlcl/) is a free command line interface for Oracle Database which includes great features like auto-completion and command history.  You can download it and install it from that web site.  To start SQLcl and connect to your database container, use a command like this: 
 
@@ -356,7 +356,7 @@ If you plan to complete the Mobile App Development lab, you will need to install
 
    Make sure you also install the Visual Studio extension.
 
-1. (Optional) Install Android Studio or XCode
+2. (Optional) Install Android Studio or XCode
 
    The CloudBank sample application that you will extend in the last lab can run on Android or iOS devices, or just in a web browser on your computer.  If you want to run it in a web browser, nothing more is needed.
 
@@ -366,6 +366,6 @@ If you plan to complete the Mobile App Development lab, you will need to install
 
 ## Acknowledgements
 
-* **Author** - Mark Nelson, Developer Evangelist, Oracle Database
+* **Author** - Mark Nelson, Andy Tael, Developer Evangelist, Oracle Database
 * **Contributors** - [](var:contributors)
-* **Last Updated By/Date** - Mark Nelson, February 2023
+* **Last Updated By/Date** - Andy Tael, February 2023
