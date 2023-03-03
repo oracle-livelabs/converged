@@ -270,81 +270,113 @@ At the end of the previous lab, during the verification of the installation, you
 
    Your output will be slightly different, but you should see one pod listed in the output.  This is enough to confirm that you have correctly configured access to the Kubernetes cluster.
 
-## Task 8: Start a local Oracle Database container
+## Task 8: Install **SQLcl**
 
-   Running an Oracle Database in a container on your development machine will help with local testing while you are developing your Spring Boot services.
-   You can easily obtain an Oracle Database container image from Oracle Container Registry and run an Oracle Database on your machine. 
+If you do not already have a database client, [Oracle SQL Developer Command Line (SQLcl)](https://www.oracle.com/database/sqldeveloper/technologies/sqlcl/) is a free command line interface for Oracle Database which includes great features like auto-completion and command history. All the Labs are using SQLcl as the database client.
 
-   > **Note**: If you have a Mac with an ARM processor, you will not be able to run the Oracle Database in a local container.  In this case, a good alternative is to use an Oracle Autonomous Database instance in Oracle Cloud Infrastructure.  **TODO** - write up how to do that - **TODO**   
+If you choose to use SQLcl make sure it is in your `PATH` variable:
 
-   If you do not have a container runtime on your development machine, Oracle recommends [Rancher Desktop](https://rancherdesktop.io/) which can be downloaded and installed from that web site.
+ ```shell
+<copy>export PATH=/path/to/sqlcl:$PATH</copy>
+```
 
-1. Visit Oracle Container Registry and accept license agreements
+## Task 9: Getting Database Access
 
-    Open a web browser to [Oracle Container Registry](https://container-registry.oracle.com).  If prompted, sign in with your Oracle Account (**note**: this is not your Oracle Cloud account).  Navigate to the **Database** group and then open the **Enterprise** repository (its the first one).  Click on **Sign In** if necessary.
-    Choose a language to read the agreements and then accept when prompted.
+The Oracle Backend for Spring Boot includes an Oracle Database. An instance of an Oracle Autonomous Database (Shared) is created during installation.
 
-2. Start an Oracle Database container on your development machine
+To access the database from a local machine you need to download the wallet and configure `SQLcl` to use the downloaded wallet.
 
-    Log in to the Oracle Container Registry using your container runtime, for example:
+### Download the Wallet
 
-    ```shell
-    $ <copy>docker login container-registry.oracle.com</copy>
-    ```
+1. Login into the OCI Console. [Oracle Cloud](https://cloud.oracle.com/)
 
-    Enter your user name and password when requested.  This will be the same user name and password you used to log into the website to view and accept the agreements - you Oracle Account, not your Oracle Cloud Account.
+2. Navigate to Autonomous Transaction Processing.
 
-    Start the database using this command:
+   ![Autonomous Transaction Processing](images/atp-menu.png " ")
 
-    ```shell
-    $ <copy>
-      docker run -d \
-       --name oracle-db \
-       -p 1521:1521 \
-       -e ORACLE_PWD=Welcome123 \
-       -e ORACLE_SID=ORCL \
-       -e ORACLE_PDB=PDB1 \
-       container-registry.oracle.com/database/enterprise:21.3.0.0</copy>
-    ```
+3. Make sure that you have the right compartment selected and click on the database name. The database name is composed by the application name you gave during install with the suffix of `DB`. In the picture below the Application Name is `CBANK` so the database name is `CBANKDB`. If you didn't provide an Application name, the database will name will be a random pet name with the suffix `DB` in the compartment you deployed application.
 
-    > **Note**: Oracle Database 19c is also supported, there are no 21c-specific features needed for this Live Lab.
+   ![Choose ATB Database](images/choose-atp.png " ")
 
-    The first time you do this, it will need to pull the container image, and then create the actual database instance.  This will take a few minutes to complete.
-    However, each time you need to use the Oracle Database container in the future, for example after rebooting your machine, you can restart it in just a few seconds using this command:
+4. Click Database Connection to retrieve the Wallet.
 
-    ```shell
-    $ <copy>docker start oracle-db</copy>
-    ```
+   ![Database Connection](images/db-connection.png " ")
 
-    To find the address that the database will be available on, issue this command (your output will be slightly different):
+5. Click Download Wallet to download the Wallet. 
 
-    ```shell
-    $ <copy>docker inspect oracle-db | grep IPAddress</copy>
-           "SecondaryIPAddresses": null,
-           "IPAddress": "172.17.0.2",
-                "IPAddress": "172.17.0.2",
-    ```
+   ![Download Wallet](images/download-wallet.png " ")
 
-    In this example, the database connect string with be `172.17.0.2:1521/pdb1` and the admin user will be `pdbadmin` with password `Welcome123`.
+6. You will need to provide a password for the Wallet. Make a note of where the wallet is located you'll be needing it when connection to the Database.
 
-3. Setup an Oracle Database client
+   ![Wallet Password](images/wallet-password.png " ")
 
-    If you do not already have a database client, [Oracle SQL Developer Command Line (SQLcl)](https://www.oracle.com/database/sqldeveloper/technologies/sqlcl/) is a free command line interface for Oracle Database which includes great features like auto-completion and command history.  You can download it and install it from that web site.  To start SQLcl and connect to your database container, use a command like this: 
+7. Close the Database Connection Dialog Box
+
+   ![Close Dialog Box](images/close-dialog-box.png " ")
+
+### Access the Database using SQLcl and the Wallet
+
+1. Obtain the ADMIN password
+
+    To get the ADMIN password for the database you need to read a k8s secret. Replace the `cbankdb` with the Database name for you deployment in the command below. The name is composed by the Application Name you gave during deployment with the suffix `DB`. If you didn't provide an Application name, the database will name will be a random pet name with the suffix `DB` in the compartment you deployed application. Get the password using this command:
 
     ```shell
-    $ <copy>sql pdbadmin/Welcome123@//172.17.0.2:1521/pdb1</copy>
-    SQLcl: Release 22.2 Production on Sat Feb 25 13:31:17 2023
-    
+    $ <copy>kubectl -n application get secret cbankdb-db-secrets -o jsonpath='{.data.db\.password}' | base64 -d</copy>
+     ```
+
+2. Start `SQLcl` and connect to the Database:
+
+    Start SQLcl using the following command:
+
+    ```shell
+    $ <copy>sql /nolog</copy>
+
+
+    SQLcl: Release 22.4 Production on Fri Mar 03 10:33:33 2023
+
     Copyright (c) 1982, 2023, Oracle.  All rights reserved.
-    
-    Last Successful login time: Sat Feb 25 2023 13:31:17 -05:00
-    
-    Connected to:
-    Oracle Database 21c Enterprise Edition Release 21.0.0.0.0 - Production
-    Version 21.3.0.0.0
-    
+
     SQL>
     ```
+
+    Run the following command to load the wallet. Make sure you use the right location and name of the wallet
+
+    ```sql
+    SQL> <copy>set cloudconfig ~/Downloads/Wallet_CBANKDB.zip</copy>
+    ```
+
+    Display the TNS Entries by executing the following command. The TNS Entries will be different for your deployment.
+
+    ```sql
+    SQL> <copy>show tns</copy>
+    CLOUD CONFIG set to: ~/Downloads/Wallet_CBANKDB.zip
+
+    TNS Lookup Locations
+    --------------------
+
+    TNS Locations Used
+    ------------------
+    1.  ~/Downloads/Wallet_CBANKDB.zip
+    2.  /Users/atael
+
+    Available TNS Entries
+    ---------------------
+    CBANKDB_HIGH
+    CBANKDB_LOW
+    CBANKDB_MEDIUM
+    CBANKDB_TP
+    CBANKDB_TPURGENT
+    SQL>
+    ```
+
+    Connect to the Database using this command. Replace the `ADMIN-PASSWORD` with the password obtained from the k8s secret and replace `TNS-ENTRY` with your database name followed by `_TP`. In this example it would be `CBANKDB_TP`
+
+    ```sql
+    SQL> connect ADMIN/ADMIN-PASSWORD@TNS-ENTRY
+    Connected.
+    ```
+
+    You can now close the connection or leave it open as you are going to need it in later Labs.
 
 ## (Optional) Task 9: Install Flutter
 
