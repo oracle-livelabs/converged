@@ -278,11 +278,10 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
 
     Spring Data JPA allows our Spring Boot application to easily use the database.  It uses simple Java POJOs to represent the data model and provides a lot of out-of-the-box features which means there is a lot less boilerplate code to be written. 
 
-    To add Spring Data JPA and the Oracle Database drivers to your project, open the Maven POM (`pom.xml`) and add these two extra dependencies for Spring Data JPA and the Oracle Spring Boot Starter for Oracle Database UCP (Universal Connection Pool):
+    To add Spring Data JPA and the Oracle Database drivers to your project, open the Maven POM (`pom.xml`) and add these extra dependencies for Spring Data JPA, Oracle Wallet dependencies and the Oracle Spring Boot Starter for Oracle Database UCP (Universal Connection Pool):
 
     ```xml
-    <copy>
-    <dependency>
+    <copy><dependency>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-data-jpa</artifactId>
     </dependency>
@@ -292,7 +291,23 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
         <type>pom</type>
         <version>2.7.7</version>
     </dependency>
-    </copy>
+
+    <!-- For Oracle Wallet (ADB-S); oraclepki, osdt_core, and osdt_cert artifacts -->
+    <dependency>
+      <groupId>com.oracle.database.security</groupId>
+      <artifactId>oraclepki</artifactId>
+      <version>${oracle.jdbc.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.oracle.database.security</groupId>
+      <artifactId>osdt_core</artifactId>
+      <version>${oracle.jdbc.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.oracle.database.security</groupId>
+      <artifactId>osdt_cert</artifactId>
+      <version>${oracle.jdbc.version}</version>
+    </dependency></copy>
     ```
 
     Visual Studio code will display a notification in the bottom right corner and ask if it should update the project based on the change you just made.  You should select **Yes** or **Always** to this notification.  Doing so will ensure that the auto-completion will have access to the classes in the new dependency that you just added.
