@@ -342,21 +342,21 @@ To access the database from a local machine you need to download the wallet and 
     Run the following command to load the wallet. Make sure you use the right location and name of the wallet
 
     ```sql
-    SQL> <copy>set cloudconfig ~/Downloads/Wallet_CBANKDB.zip</copy>
+    SQL> <copy>set cloudconfig /path/to/wallet/wallet_name.zip</copy>
     ```
 
     Display the TNS Entries by executing the following command. The TNS Entries will be different for your deployment.
 
     ```sql
     SQL> <copy>show tns</copy>
-    CLOUD CONFIG set to: ~/Downloads/Wallet_CBANKDB.zip
+    CLOUD CONFIG set to: /path/to/wallet/wallet_name.zip
 
     TNS Lookup Locations
     --------------------
 
     TNS Locations Used
     ------------------
-    1.  ~/Downloads/Wallet_CBANKDB.zip
+    1. /path/to/wallet/wallet_name.zip
     2.  /Users/atael
 
     Available TNS Entries
