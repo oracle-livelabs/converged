@@ -185,18 +185,43 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
 
 1. Create the database objects for the Account service
 
-    The Accounts service is going to have two main objects - an "account" and a "transaction".  These will be stored in the Oracle Database.  The accounts will be stored in a regular relational table, and the transactions will be stored in a Blockchain table.
+    The Accounts service is going to have two main objects - an `account` and a `transaction`.  These will be stored in the Oracle Database.  The accounts will be stored in a regular relational table, and the transactions will be stored in a Blockchain table.
 
     > **Note**: Blockchain tables are append-only tables in which only insert operations are allowed. Deleting rows is either prohibited or restricted based on time. Rows in a blockchain table are made tamper-resistant by special sequencing and chaining algorithms. Users can verify that rows have not been tampered. A hash value that is part of the row metadata is used to chain and validate rows.
 
-    Here are the SQL statements to create the necessary objects in the database.  You can run these against your local Oracle Database container to use during development.
-    If you installed SQLcl as recommended, you can connect to your database using this command:
+    Here are the SQL statements to create the necessary objects in the database. If you installed SQLcl as recommended, you can connect to your database using this command (or use the SQLcl session created during Lab two, Setup)
 
     ```shell
-    $ <copy>sql pdbadmin/Welcome123@//172.17.0.2:1521/pdb1</copy>
+    $ <copy>sql /nolog</copy>
+
+
+    SQLcl: Release 22.4 Production on Fri Mar 03 12:25:24 2023
+
+    Copyright (c) 1982, 2023, Oracle.  All rights reserved.
+
+    SQL>
     ```
     
-    When you are connected, run the SQL statements below to create the database objects:
+    When you are connected, run the following command to load the Wallet you downloaded during the Setup lab. Replace the name and location of the Wallet to match your environment.
+
+    ```sql
+    SQL> <copy>set cloudconfig ~/path/to/wallet/wallet-name.zip</copy>
+    ```
+
+    Connect to the database using the `ADMIN` user. The ADMIN password can be retrieved from a k8s secret using this command:
+    
+    ```shell
+    $ <copy>kubectl -n application get secret cbankdb-db-secrets -o jsonpath='{.data.db\.password}' | base64 -d</copy>
+    ```
+
+    ```sql
+    SQL> <copy>connect ADMIN/your-ADMIN-password@your-TNS-entry</copy>
+    Connected.
+    ```
+
+    If you need to see what TNS Entries you have run the `show tns` command.
+
+    Run the SQL statements below to create the database objects:
     
     ```sql
     <copy>
@@ -241,7 +266,8 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
     primary key (transaction_id) 
     using index logging;
     comment on table account.transactions 
-    is 'CloudBank transactions table';</copy>
+    is 'CloudBank transactions table';
+    /</copy>
     ```
 
     Now that the database objects are created, you can configure Spring Data JPA to use them in your microservice.
@@ -252,11 +278,10 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
 
     Spring Data JPA allows our Spring Boot application to easily use the database.  It uses simple Java POJOs to represent the data model and provides a lot of out-of-the-box features which means there is a lot less boilerplate code to be written. 
 
-    To add Spring Data JPA and the Oracle Database drivers to your project, open the Maven POM (`pom.xml`) and add these two extra dependencies for Spring Data JPA and the Oracle Spring Boot Starter for Oracle Database UCP (Universal Connection Pool):
+    To add Spring Data JPA and the Oracle Database drivers to your project, open the Maven POM (`pom.xml`) and add these extra dependencies for Spring Data JPA, Oracle Wallet dependencies and the Oracle Spring Boot Starter for Oracle Database UCP (Universal Connection Pool):
 
     ```xml
-    <copy>
-    <dependency>
+    <copy><dependency>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-data-jpa</artifactId>
     </dependency>
@@ -266,16 +291,57 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
         <type>pom</type>
         <version>2.7.7</version>
     </dependency>
-    </copy>
+
+    <!-- For Oracle Wallet (ADB-S); oraclepki, osdt_core, and osdt_cert artifacts -->
+    <dependency>
+      <groupId>com.oracle.database.security</groupId>
+      <artifactId>oraclepki</artifactId>
+      <version>${oracle.jdbc.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.oracle.database.security</groupId>
+      <artifactId>osdt_core</artifactId>
+      <version>${oracle.jdbc.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.oracle.database.security</groupId>
+      <artifactId>osdt_cert</artifactId>
+      <version>${oracle.jdbc.version}</version>
+    </dependency></copy>
     ```
 
     Visual Studio code will display a notification in the bottom right corner and ask if it should update the project based on the change you just made.  You should select **Yes** or **Always** to this notification.  Doing so will ensure that the auto-completion will have access to the classes in the new dependency that you just added.
 
     ![Updated Project](images/obaas-updated-pom.png " ")
 
-    To configure Spring Data JPA access to the database, you will add some configuration information to the Spring Boot application properties (or YAML) file.
-    You will find a file called `application.properties` in the `src/main/resources` directory in your project.  You can use either properties format or YAML
-    format for this file.  In this lab, you will use YAML.  Rename the file to `application.yaml` and then add this content to the file:
+    To configure Spring Data JPA access to the database, you will add some configuration information to the Spring Boot application properties (or YAML) file. Access to the database you need to unzip the Wallet and get information from those files.
+
+    a. Unzip the Wallet you downloaded in the Setup lab (Lab 2)
+
+      ```shell
+      $ <code>unzip /path/to/wallet/wallet_name.zip</code>
+      ```
+
+    b. Edit the `sqlnet.ora` file so that the section `(DIRECTORY="?/network/admin")` matches the full path to the directory where you unzipped the Wallet, for example:
+
+      ```text
+      WALLET_LOCATION = (SOURCE = (METHOD = file) (METHOD_DATA = (DIRECTORY="/path/to/unzipped/wallet/network/admin")))
+      ```
+
+    c. Set the `TNS_ADMIN` environment variable to the directory where the unzipped Wallet is located. Use the following command:
+
+      ```shell
+      $ <copy>export TNS_ADMIN=/path/to/unzipped/wallet</copy>
+      ```
+
+    d. Get the TNS Entry connection string using this command. Remember the name of the entry as you'll need it in the next steps. In the sample below it is `cbankdb_tp`.
+
+      ```shell
+      $ <copy>grep "_tp =" /path/to/unzipped/wallet/tnsnames.ora</copy>
+      cbankdb_tp = (description= (retry_count=20)(retry_delay=3)(address=(protocol=tcps)(port=1522)(host=adb.us-.....-1.oraclecloud.com))(connect_data=(service_name=....._cbankdb_tp.adb.oraclecloud.com))(security=(ssl_server_dn_match=yes)))
+      ```
+
+    You will find a file called `application.properties` in the `src/main/resources` directory in your project.  You can use either properties format or YAML format for this file.  In this lab, you will use YAML.  Rename the file to `application.yaml` and then add this content to the file. Make sure that you modify the url to contain the path to the wallet and the name of the TNS entry you collected earlier.
 
     ```yaml
     <copy>spring:
@@ -290,7 +356,7 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
             format_sql: true
         show-sql: true
       datasource:
-        url: jdbc:oracle:thin:@//172.17.0.2:1521/pdb1
+        url: jdbc:oracle:thin:@dbname_alias?TNS_ADMIN=/path/to/wallet/wallet_tns_entry_from_above
         username: account
         password: Welcome1234##
         driver-class-name: oracle.jdbc.OracleDriver
