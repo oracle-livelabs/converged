@@ -183,7 +183,7 @@ The sample CloudBank mobile application is provided as a starting point.  It alr
 
    ![Cloud Cash Card on Home Screen](images/obaas-flutter-cloud-cash-card-on-home-screen.png)
 
-   TODO explain a bit more
+   When the user touches **SEND CASH NOW** the app will navigate to the new screen.
 
 1. Run and test the application
 
@@ -301,9 +301,183 @@ The sample CloudBank mobile application is provided as a starting point.  It alr
 
 ## Task 5: Add the account selector and wire it up to the Account microservice
 
-1. Hook up the REST API to get list of accounts   
+For the account selector field, you need to get a list of accounts by calling the accounts API you created in an earlier lab.  You will need to extract some data and format it for display.  You will need to add the `intl` library for currency formatting. 
 
-   TODO that thing
+1. Create a currency formatter
+
+   Add the `intl` library with this command:
+
+    ```
+    $ <copy>dart pub add intl</copy>
+    ```
+   
+   In the `cloudcash.dart` file, add a new import and create a currency formatter:
+
+    ```dart
+    import 'package:intl/intl.dart';
+    
+    // this goes at the top level, not inside a class:
+    final formatCurrency = new NumberFormat.simpleCurrency();
+    ```
+
+   You will use this later to format the account balances.
+
+1. Create a class to hold the data from the REST API
+
+   Define a new class in `cloudcash.dart` to hold the data retrieved from the REST API.  Here is the code for this new class:
+
+    ```dart
+    class Accounts {
+      final List<dynamic> accounts;
+
+      const Accounts({
+         required this.accounts,
+      });
+
+      List getAccounts() {
+         return accounts;
+      }
+
+      factory Accounts.fromJson({required accounts}) {
+         return Accounts(
+            accounts: accounts,
+         );
+      }
+   }
+   ```
+
+   You will store the result from calling the API in a `List<dynamic>` which means you do not need to define the entire data structure.  The `fromJson` method in this class will handle conversion of the JSON data to a Dart class.
+
+1. Create the state needed for the drop down selector UI component
+
+   Define a variable to hold the list of accounts using this code, at the top level, not inside a class:
+
+    ```dart
+    List<String> accountList = <String>[
+      "Select account...",
+    ];
+    ```
+
+   Update your `_CloudCashState` class to add a new variable to hold the data received from the API call, note that this will be a `late Future<Accounts>`.  Add a new `String` to hold the current value of the drop down and set the initial value to the first item in the list, i.e. **Select account...**.  Add an overriden `initState()` method in which you call `super.initState()` and then ivoke the API to get the data for that future.  You will write that `fetchData()` method next.  Here is the code so far:
+
+    ```dart
+    class _CloudCashState extends State<CloudCash> {
+      late Future<Accounts> futureData;
+
+      TextEditingController destinationController = TextEditingController();
+      TextEditingController amountController = TextEditingController();
+      String accountDropdownValue = accountList.first;
+
+      @override
+      void initState() {
+         super.initState();
+         futureData = fetchData();
+      }
+
+      // ...
+    ```
+
+1. Use the Accounts REST API to get list of accounts
+
+   Create the `fetchData()` method in the same class.  Note that it is an `async` method and returns a `Future<Account>`.  In this method, use the http libraries' `get` method to invoke the API.  This returns a response object which contains the HTTP Status Code, body, and so on.  YOu should check the status code to see if the API call was successful, and if so, decode/convert the body into a variable, and then use your `Accounts.fromJson` method to convert that into your `Accounts` object.
+
+   **TODO** update this to get ehe address from the context instead of hard coding it **TODO**
+
+    ```dart
+      Future<Accounts> fetchData() async {
+         final response = await http.get(Uri.parse(
+            'http://100.20.30.40/api/v1/account/getAccounts/bkzLp8cozi'));
+
+         if (response.statusCode == 200) {
+            // If the server did return a 200 OK response,
+            // then parse the JSON.
+            var accounts = jsonDecode(response.body);
+            print(accounts);
+            return Accounts.fromJson(accounts: accounts);
+         } else {
+            // If the server did not return a 200 OK response,
+            // then throw an exception.
+            throw Exception('Failed to retrieve Account List');
+         }
+      }
+    ```
+
+1. Add a UI component to display the drop down selector on the screen
+
+   In the `build()` method, insert a new `Container` between the existing first container ("Send cash to anyone instantly") and the second container ("Email address of recipient").  This new `Container` should contain a `FutureBuilder<Accounts>`.  A `FutureBuilder` lets you deal with data that may not be present yet.  Set the `future` property to your `futureData` variable.  In the `buidler`, which receives `context, snapshot`, check if `snapshot.hasData` to see if the future has completed yet.  If this is `true` then you can expect to have the data available to render the UI.  If it is not `true`, you can check if `shapshot.hasError` if you want to handle errors or just return a generic error.
+
+   If the future has completed, you can check `snapshot.data` to get access to the data.  You will need to iterate through the results and use them to populate the drop down list, you will do that in a moment, the code is commented out in the example below.
+
+   The builder should then return a `DropDownButton<String>` with its `value` property set to the `accountDropdownValue` state variable you created earlier.  In the `onChanged` property you need to update the state to the currently selected value.  The `Items` property should point at the list of values you want displayed in the drop down.  You created a variable to hold these values earlier and pre-populated it with one value (**Select account...**).  
+
+   With this done, you can restart the application and test the new screen.  The drop down box will not populate yet, but you will see it on the screen.  Here is the code so far:
+
+    ```dart
+    Container(
+      padding: const EdgeInsets.all(10),
+      child: FutureBuilder<Accounts>(
+         future: futureData,
+         builder: (context, snapshot) {
+            if (snapshot.hasData) {
+               List<dynamic> data = snapshot.data!.accounts;
+               // grab the account details and put them into the list
+               //data.forEach(updateAccountList);
+
+               return DropdownButton<String>(
+                  value: accountDropdownValue,
+                  icon: const Icon(Icons.arrow_drop_down),
+                  isExpanded: true,
+                  elevation: 16,
+                  style: const TextStyle(color: Colors.deepPurple),
+                  underline: Container(
+                     height: 2,
+                     color: Colors.deepPurpleAccent,
+                  ),
+                  onChanged: (String? value) {
+                     setState(() {
+                        accountDropdownValue = value!;
+                     });
+                  },
+                  items: accountList
+                        .map<DropdownMenuItem<String>>((String value) {
+                     return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text(value),
+                     );
+                  }).toList(),
+               );
+            } else if (snapshot.hasError) {
+               return Text('${snapshot.error}');
+            } else {
+               return Text('unknown error');
+            }
+         },
+       ),
+    ),
+    ```
+
+1. Populate the drop down list with the data from the REST API
+
+   The last step is to populate the drop down list with the data you got back from the REST API.  Uncomment this line in the `FutureBuilder`.  This will call the `updateAccountList` method once for each item in `data`, i.e., once for each account.
+
+    ```dart
+    data.forEach(updateAccountList);
+    ```
+
+   Now, you need to write that method.  It should accept the account as an argument and extract the `accountName` and `accountBalance` fields and format them into a string that you can display in the drop down list.  This is where you will want to use the currency formatter that you created earlier.  Make sure you only add the new entry if it does not already exist in the list.  Here is the code:
+
+    ```dart
+    updateAccountList(element) {
+       String theValue =
+          "${element['accountName'].toString()}  -  ${formatCurrency.format(element['accountBalance'])}";
+       if (!accountList.contains(theValue)) {
+          accountList.add(theValue);
+       }
+    }
+    ```
+
+   With this done, you can restart the application and test the Cloud Cash screen.  It will now populate the drop down list with the accounts names and balances.  Next, you need to handle the form submission.    
+
 
 ## Task 6: Handle the form submission
 
