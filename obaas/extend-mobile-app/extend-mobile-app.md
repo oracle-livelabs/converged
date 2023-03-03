@@ -510,7 +510,7 @@ The final piece to complete the Cloud Cash feature is to handle the form submiss
 
    This function will use the Parse API to create a `CloudCashPayment` object in the backend.  You will set the `destination`, `amount`, and `fromAccount` fields with the data from the form, and then call the `save()` method to save the object in the backend.
 
-   > **Note**: A Spring Boot microservice that you deployed in the **Deploy the full CloudBank application** lab will check for new requests every minute, and if it finds one, it will process it using the services you build in the **Manage Saga Transactions across Microservices** lab.
+    > **Note**: A Spring Boot microservice that you deployed in the **Deploy the full CloudBank application** lab will check for new requests every minute, and if it finds one, it will process it using the services you build in the **Manage Saga Transactions across Microservices** lab.
 
    Once you have saved the data, you want to tell the user.  This can be done with an `AlertDialog` which can tell them the process was saved.  When they click on the **OK** button, redirect them to the `Home` screen, passing the `creds` object back to it.
 
