@@ -111,8 +111,7 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
     Your new file should look like this:
 
     ```java
-    <copy
-	>package com.example.accounts.controller;
+    <copy>package com.example.accounts.controller;
     
     public class AccountController {
         
@@ -125,8 +124,7 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
     Add the `RequestMapping` annotation to this class as well, and set the URL path to `/api/v1`.  Your class should now look like this:
 
     ```java
-    <copy>
-	package com.example.accounts.controller;
+    <copy>package com.example.accounts.controller;
     
     import org.springframework.web.bind.annotation.RequestMapping;
     import org.springframework.web.bind.annotation.RestController;
@@ -142,8 +140,7 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
     Add a method to this class called `ping` which returns a `String` with a helpful message.  Add the `GetMapping` annotation to this method and set the URL path to `/hello`.  Your class should now look like this:
 
     ```java
-    <copy>
-	package com.example.accounts.controller;
+    <copy>package com.example.accounts.controller;
     
     import org.springframework.web.bind.annotation.GetMapping;
     import org.springframework.web.bind.annotation.RequestMapping;
@@ -790,8 +787,7 @@ You created the transaction database objects earlier.  You may recall that you u
    Create a new file in `src/main/java/com/examples/accounts/model` called `Transaction.java`.  This is very similar to the account model that you created earlier.  There are no new concepts.  Here is the code:
 
     ```java
-    <copy>
-	package com.example.accounts.model;
+    <copy>package com.example.accounts.model;
     
     import java.util.Date;
     
@@ -845,8 +841,7 @@ You created the transaction database objects earlier.  You may recall that you u
    Create a new file in `src/main/java/com/example/accounts/repository` called `TransactionRepository.java`.  This will be a Java interface.  In this interface define one method `findTransactionByTransactionAccountId` with a single argumnet `long transactionAccountId` that returns `List<Transaction>`.  Based on the name of the method, JPA will automatically provide a method that searches the database repository for rows in the transaction table with a matching account ID.  Here is the code for this interface:
 
     ```java
-    <copy>
-	package com.example.accounts.repository;
+    <copy>package com.example.accounts.repository;
     
     import com.example.accounts.model.Transaction;
     import org.springframework.data.jpa.repository.JpaRepository;
@@ -863,8 +858,7 @@ You created the transaction database objects earlier.  You may recall that you u
    Create a new Java file in `src/main/java/com/example/accounts/controller` called `TransactionController.java`.  In this class you will use the JPA auto-generated method to get a list of transactions from the repository based on the `accountId`.  Other than that, there are new new concepts in the class.  Here is the code: 
 
     ```java
-    <copy>
-	package com.example.accounts.controller;
+    <copy>package com.example.accounts.controller;
     
     import java.util.ArrayList;
     import java.util.List;

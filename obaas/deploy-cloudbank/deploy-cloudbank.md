@@ -17,7 +17,7 @@ In this lab, you will:
 This lab assumes you have:
 
 * An Oracle Cloud account
-* All previous labs successfully completed
+* Have all the necessary tools installed (kubectl, git, maven, oractl, sqlcl). All of them should be installed during Lab two (Setup your Development Environment)
 * Git version control tool installed on your computer (optional)
 
 ## Task 1: Get a copy of the CloudBank sample application
@@ -26,26 +26,53 @@ Download a copy of the CloudBank sample application.
 
 1. Clone the source repository
 
-	Create a local clone of the CloudBank source repository using this command. **NOTE** If you did Lab three (Build the Account Microservice) you can skip this step as you already have the source code.
+	Create a local clone of the CloudBank source repository using this command. **NOTE** If you did Lab three (Build the Account Microservice) you can skip this step as you already have the source code on your local machine.
 
     ```shell
-    $ <copy>git clone TODO:TODO</copy>
+    $ <copy>git clone https://github.com/oracle/microservices-datadriven.git TODO:TODO</copy>
     ```
 
     > **Note**: If you do not have **git** installed on your machine, you can download a zip file of the source code from TODO and unzip it on your machine instead.
 
-## Task 2: Build the CloudBank application
+## Task 2: Create Database Objects
+
+1. Liquibasing like nobodys business
+
+2. Connection using Wallet to verify and grab some data
+
+## Task 3: Build the CloudBank application
 
 1. Create application JAR files
 
 	Go to the directory where you cloned (or unzipped) the application and create the applications using the following command:
-	TODO: parent pom.xml needs to work
 
 	```shell
 	$ <copy>mvn package -Dmaven.test.skip=true</copy>
 	```
 
-## Task 3: Install CloudBank in your Oracle Backend for Spring Boot instance
+	The output should be similar to this:
+
+	```text
+	[INFO] -------------------< com.example:sample-spring-apps >-------------------
+	[INFO] Building cloudbank 0.0.1-SNAPSHOT                                  [4/4]
+	[INFO]   from pom.xml
+	[INFO] --------------------------------[ pom ]---------------------------------
+	[INFO] ------------------------------------------------------------------------
+	[INFO] Reactor Summary for cloudbank 0.0.1-SNAPSHOT:
+	[INFO]
+	[INFO] customer ........................................... SUCCESS [  2.710 s]
+	[INFO] customer ........................................... SUCCESS [  0.800 s] << WHY TWO TIMES >>
+	[INFO] creditscore ........................................ SUCCESS [  0.405 s]
+	[INFO] cloudbank .......................................... SUCCESS [  0.018 s]
+	[INFO] ------------------------------------------------------------------------
+	[INFO] BUILD SUCCESS
+	[INFO] ------------------------------------------------------------------------
+	[INFO] Total time:  4.104 s
+	[INFO] Finished at: 2023-03-02T15:42:05-06:00
+	[INFO] ------------------------------------------------------------------------
+	```
+
+## Task 4: Install CloudBank in your Oracle Backend for Spring Boot instance
 
 1. Prepare the backend for deployment
 
@@ -88,7 +115,9 @@ Download a copy of the CloudBank sample application.
 
 4. Create Database Bindings
 
-	Create database bindings for the applications by running the following commands in the CLI. You are going to create two different bindings. **NOTE**: If you have finished Lab three (Build the Account Microservice) you have already created the binding for the Accounts Service and you only need to create the Customer Service binding.
+	Create database bindings for the applications by running the following commands in the CLI. You are going to create two different bindings. **NOTE**: If you have finished Lab three (Build the Account Microservice) you have already created the binding for the Accounts Service and you only need to create the Customer Service binding. << DOES THIS MATTER EG WHAT HAPPENS IF YOU DO BIND AGAIN >>
+
+	The creditscore service is not using a database binding.
 
 	1. Account Service
 
@@ -110,6 +139,12 @@ Download a copy of the CloudBank sample application.
     	database secret created successfully and schema already exists for customer
 		```
   
+		> What happens when you use the Oracle Backend for Spring Boot CLI **bind** command?
+		When you run the `bind` command, the Oracle Backend for Spring Boot CLI does several things for you:
+
+    	* TODO
+		* Magics and fireworks
+
 5. Create Database Objects
 
 	TODO: Liquibase, overwrite whatever is already in there? Does it matter?
@@ -118,7 +153,7 @@ Download a copy of the CloudBank sample application.
 
 6. Deploy the services
 
-	**NOTE**: If you have finished Lab three (Build the Account Microservice) and Lab four (Manage Transactions across Microservices) you can skip step one (Deploy/Redploy the Account Service) below and only create the Customer Service binding (step two).
+	**NOTE**: If you have finished Lab three (Build the Account Microservice) and Lab four (Manage Transactions across Microservices) you can skip step one (Deploy/Redeploy the Account Service) below and deploy the other services. << DOES THIS MATTER EG WHAT HAPPENS IF YOU DO BIND AGAIN >>
 
 	1. Deploy/Redeploy the Account Service
 
@@ -137,7 +172,7 @@ Download a copy of the CloudBank sample application.
 
 		```shell
     	oractl> <copy>
-		deploy --isRedeploy true --appName application --serviceName account --jarLocation /path/to/accounts/target/accounts-0.0.1-SNAPSHOT.jar --imageVersion 0.0.1</copy>
+		deploy --isRedeploy true --appName application --serviceName account --jarLocation /path/to/account/target/accounts-0.0.1-SNAPSHOT.jar --imageVersion 0.0.1</copy>
 		uploading... upload successful
 		building and pushing image... docker build and push successful	
 		creating deployment and service... create deployment and service  = account, appName = application, isRedeploy = true successful
@@ -146,29 +181,58 @@ Download a copy of the CloudBank sample application.
 
 	2. Deploy the Customer Service
 
-	You will now deploy your Customer service to the Oracle Backend for Spring Boot using the CLI.  You will deploy into the `application` namespace, and the service name will be `customer`. Run this command to deploy your service, make sure you provide the correct path to your JAR file:
+		You will now deploy your Customer service to the Oracle Backend for Spring Boot using the CLI.  You will deploy into the `application` namespace, and the service name will be `customer`. Run this command to deploy your service, make sure you provide the correct path to your JAR file:
 
     	```shell
     	oractl> <copy>
-		deploy --isRedeploy false --appName application --serviceName customer --jarLocation /path/to/accounts/target/customers-0.0.1-SNAPSHOT.jar --imageVersion 0.0.1</copy>
+		deploy --isRedeploy false --appName application --serviceName customer --jarLocation /path/to/customer/target/customers-0.0.1-SNAPSHOT.jar --imageVersion 0.0.1</copy>
 		uploading... upload successful
 		building and pushing image... docker build and push successful	
 		creating deployment and service... create deployment and service  = customer, appName = application, isRedeploy = false successful
     	successfully deployed
     	```
 
-## Task 3: Verify the deployment
+	3. Deploy the Credit Score service
 
-TODO: Some kind of verification perhaps curl to account, customer and transaction?
+		You will now deploy your Customer service to the Oracle Backend for Spring Boot using the CLI.  You will deploy into the `application` namespace, and the service name will be `creditscore`. Run this command to deploy your service, make sure you provide the correct path to your JAR file:
 
-## Task 4: Expose the services using APISIX Gateway
+    	```shell
+    	oractl> <copy>
+		deploy --isRedeploy false --appName application --serviceName customer --jarLocation /path/to/creditscore/target/creditscore-0.0.1-SNAPSHOT.jar --imageVersion 0.0.1</copy>
+		uploading... upload successful
+		building and pushing image... docker build and push successful	
+		creating deployment and service... create deployment and service  = creditscore, appName = application, isRedeploy = false successful
+    	successfully deployed
+    	```
+
+		> What happens when you use the Oracle Backend for Spring Boot CLI **bind** command?
+    	When you run the `deploy` command, the Oracle Backend for Spring Boot CLI does several things for you:
+
+    	* TODO
+		* Magics and fireworks
+
+## Task 5: Verify the deployment
+
+TODO: Some kind of verification perhaps curl to account, customer, transaction and creditscore? 
+
+## Task 6: Expose the services using APISIX Gateway
 
 1. Get APISIX Gateway Admin Key
 
-	You are going to need the Admin Key for the APISIX Gateway to configure the route. It is stored in a COnfigMap. Run the command and make a note of the admin key.
+	You are going to need the Admin Key for the APISIX Gateway to configure the route. It is stored in a COnfigMap. Run the command and make a note of the admin key. The command will return a long YAML document so you need to scroll up to find the Admin Key.
 
 	```shell
 	<copy>kubectl -n apisix get configmap apisix -o yaml</copy>
+	```
+
+	Look for the `key:` information in the `admin_key` section:
+
+	```yaml
+	admin_key:
+        # admin: can everything for configuration data
+        - name: "admin"
+          key: edd1c9f03...........
+          role: admin
 	```
 
 2. Start the tunnel using this command:
@@ -181,21 +245,102 @@ TODO: Some kind of verification perhaps curl to account, customer and transactio
 
 3. Create the routes
 
-	In the `scripts` directory where you saved the code repository there are 3 scripts to create the routes. Run the commands:
+	In the `scripts` directory where you saved the code repository there are three scripts to create the routes. Run the commands to create the routes:
+
+	 a. Accounts Route:
 
 	```shell
 	$ <copy>source apisix-routes/create-accounts-route.sh APIKEY</copy>
 	```
+	
+	Output should be similar to this:
+	
+	```text
+	HTTP/1.1 201 Created
+	Date: Thu, 02 Mar 2023 21:57:08 GMT
+	Content-Type: application/json
+	Transfer-Encoding: chunked
+	Connection: keep-alive
+	Server: APISIX/2.15.1
+	Access-Control-Allow-Origin: *
+	Access-Control-Allow-Credentials: true
+	Access-Control-Expose-Headers: *
+	Access-Control-Max-Age: 3600
+
+	{"action":"create","node":{"key":"\/apisix\/routes\/00000000000000000035","value":{"priority":0,"update_time":1677794228,"id":"00000000000000000035","create_time":1677794228,"uri":"\/api\/v1\/account*","plugins":{"zipkin":{"span_version":2,"disable":false,"sample_ratio":1,"service_name":"APISIX","endpoint":"http:\/\/jaegertracing-collector.observability.svc.cluster.local:9411\/api\/v2\/spans"}},"labels":{"version":"1.0"},"status":1,"name":"accounts","upstream":{"type":"roundrobin","hash_on":"vars","pass_host":"pass","discovery_type":"eureka","service_name":"ACCOUNTS","scheme":"http"}}}}
+	```
+
+	b. Creditscore Route:
 
 	``` shell
 	$ <copy>source apisix-routes/create-creditscore-route.sh APIKEY</copy>
 	```
 
+	Output should be similar to this:
+
+	```text
+	HTTP/1.1 201 Created
+	Date: Thu, 02 Mar 2023 21:59:18 GMT
+	Content-Type: application/json
+	Transfer-Encoding: chunked
+	Connection: keep-alive
+	Server: APISIX/2.15.1
+	Access-Control-Allow-Origin: *
+	Access-Control-Allow-Credentials: true
+	Access-Control-Expose-Headers: *
+	Access-Control-Max-Age: 3600
+
+	{"action":"create","node":{"key":"\/apisix\/routes\/00000000000000000037","value":{"priority":0,"update_time":1677794358,"id":"00000000000000000037","create_time":1677794358,"uri":"\/api\/v1\/creditscore*","plugins":{"zipkin":{"span_version":2,"disable":false,"sample_ratio":1,"service_name":"APISIX","endpoint":"http:\/\/jaegertracing-collector.observability.svc.cluster.local:9411\/api\/v2\/spans"}},"labels":{"version":"1.0"},"status":1,"name":"creditscore","upstream":{"type":"roundrobin","hash_on":"vars","pass_host":"pass","discovery_type":"eureka","service_name":"CREDITSCORE","scheme":"http"}}}}
+	```
+
+	c. Customer Route:
+
 	```shell
 	$ <copy>source apisix-routes/create-customer-route.sh APIKEY</copy>
 	```
 
-3. Verify the account service
+	Output should be similar to this:
+
+	```text
+	HTTP/1.1 201 Created
+	Date: Thu, 02 Mar 2023 22:00:44 GMT
+	Content-Type: application/json
+	Transfer-Encoding: chunked
+	Connection: keep-alive
+	Server: APISIX/2.15.1
+	Access-Control-Allow-Origin: *
+	Access-Control-Allow-Credentials: true
+	Access-Control-Expose-Headers: *
+	Access-Control-Max-Age: 3600
+
+	{"action":"create","node":{"key":"\/apisix\/routes\/00000000000000000039","value":{"priority":0,"update_time":1677794444,"id":"00000000000000000039","create_time":1677794444,"uri":"\/api\/v1\/customer*","plugins":{"zipkin":{"span_version":2,"disable":false,"sample_ratio":1,"service_name":"APISIX","endpoint":"http:\/\/jaegertracing-collector.observability.svc.cluster.local:9411\/api\/v2\/spans"}},"labels":{"version":"1.0"},"status":1,"name":"customer","upstream":{"type":"roundrobin","hash_on":"vars","pass_host":"pass","discovery_type":"eureka","service_name":"CUSTOMERS","scheme":"http"}}}}
+	```
+
+4. Verify the routes in the APISIX Dashboard
+
+	Start the tunnel using this command.  You can run this in the background if you prefer.
+
+    ```shell
+    $ <copy>kubectl -n apisix port-forward svc/apisix-dashboard 8080:80</copy>
+	Forwarding from 127.0.0.1:8080 -> 9000
+	Forwarding from [::1]:8080 -> 9000
+    ```
+
+   Open a web browser to [http://localhost:8080](http://localhost:8080) to view the APISIX Dashboard web user interface.  It will appear similar to the image below.
+
+   If prompted to login, login with user name `admin` and password `admin`.  Note that Oracle strongly recommends that you change the password, even though this interface is not accessible outside the cluster without a tunnel.
+
+    ![APISIX Dashboard Login](images/apisix-login.png " ")
+
+	Click the routes menu item to see the routes you created in step three.
+
+	![APISIX Routes](images/apisix-route.png " ")
+
+	Verify that you have three routes created
+
+	![APISIX Route Details](images/apisix-route-details.png " ")
+
+5. Verify the account service
 
    In the next two commands, you need to provide the correct IP address for the API Gateway in your backend environment.  You can find the IP address using this command, you need the one listed in the `EXTERNAL-IP` column. In the example below the IP address is `100.20.30.40`
    
@@ -236,9 +381,6 @@ TODO: Some kind of verification perhaps curl to account, customer and transactio
     }
     ```
 
-## Task 5: Mobile application
-
-TODO: verify ???
 
 **TODO - make sure we created some users and accounts, including in parse for the mobile app**
 
