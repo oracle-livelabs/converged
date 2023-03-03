@@ -694,7 +694,7 @@ If you would like to learn more about endpoints and implement the remainder of t
    Here is the code to implement this endpoint:
 
     ```java
-    import org.springframework.web.bind.annotation.DeleteMapping;
+    <copy>import org.springframework.web.bind.annotation.DeleteMapping;
     
     // ...
 
@@ -706,7 +706,7 @@ If you would like to learn more about endpoints and implement the remainder of t
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
-    }
+    }</copy>
     ```
 
    Restart the application and test this new endpoint with this command (note that you created an account with this customer ID earlier):
@@ -957,10 +957,10 @@ You created the transaction database objects earlier.  You may recall that you u
    Update the data source configuration in your `src/main/resources/application.yaml` as shown in the example below.  This will cause the service to read the correct database details that will be injected into its pod by the Oracle Backend for Spring Boot.
 
     ```yaml
-    datasource:
+    <copy>datasource:
       url: ${CONNECT_STRING}
       username: ${DB_USERNAME}
-      password: ${DB_PASSWORD}
+      password: ${DB_PASSWORD}</copy>
     ```
 
    Run the following command to build the JAR file.  Note that you will need to skip tests now, since you updated the `application.yaml` and it no longer points to your local test database instance. 

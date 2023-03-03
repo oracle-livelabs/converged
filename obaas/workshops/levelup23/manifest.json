@@ -1,5 +1,5 @@
 {
-    "workshoptitle": "Walk out with a working Cloud Banking application",
+    "workshoptitle": "Build a Working Application for Cloud Banking",
     "variables": ["../../variables/variables.json"],
     "help": "livelabs-help-db_us@oracle.com",
     "tutorials": [
