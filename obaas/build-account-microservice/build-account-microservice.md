@@ -106,7 +106,7 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
 
 1. Implement the first simple endpoint
 
-    Create a new directory in the directory `src/main/java/com/example/accounts` called `controller`.  In that new directory, create a new Java file called `AccountsController.java`.  When prompted for the type, choose **class**.
+    Create a new directory in the directory `src/main/java/com/example/accounts` called `controller`.  In that new directory, create a new Java file called `AccountController.java`.  When prompted for the type, choose **class**.
 
     Your new file should look like this:
 
@@ -114,7 +114,7 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
     <copy
 	>package com.example.accounts.controller;
     
-    public class AccountsController {
+    public class AccountController {
         
     }
 	</copy>
@@ -133,7 +133,7 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
     
     @RestController
     @RequestMapping("/api/v1")
-    public class AccountsController {
+    public class AccountController {
         
     }
 	</copy>
@@ -151,7 +151,7 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
     
     @RestController
     @RequestMapping("/api/v1")
-    public class AccountsController {
+    public class AccountController {
         
       @GetMapping("/hello")
       public String ping() {
@@ -421,7 +421,7 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
 
 1. Create the JPA Repository definition
 
-   Create a new directory in `src/main/java/com/example/accounts` called `repository` and in the new directory, create a new Java file called `AccountsRepository.java`.  When prompted for the type, choose **interface**.  Update the interface definition to extend `JpaRepository` with type parameters `<Account, Long>`.  `Account` is the model class you just created, and `Long` is the type of the primary key.  Your interface should look like this: 
+   Create a new directory in `src/main/java/com/example/accounts` called `repository` and in the new directory, create a new Java file called `AccountRepository.java`.  When prompted for the type, choose **interface**.  Update the interface definition to extend `JpaRepository` with type parameters `<Account, Long>`.  `Account` is the model class you just created, and `Long` is the type of the primary key.  Your interface should look like this: 
 
     ```java
     <copy>package com.example.accounts.repository;
@@ -429,7 +429,7 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
     import org.springframework.data.jpa.repository.JpaRepository;
     import com.example.accounts.model.Account;
     
-    public interface AccountsRepository extends JpaRepository<Account, Long> {    
+    public interface AccountRepository extends JpaRepository<Account, Long> {    
     }</copy>
     ```
 
@@ -439,17 +439,17 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
 
 1. Create a service to list all accounts
 
-    Open your `AccountsController.java` file and add a final field in the class of type `AccountsRepository`.  And update the constructor to accept an argument of this type and set the field to that value.  This tells Spring Boot to inject the JPA repository class we just created into this class.  That will make it available to use in our services.  The updated parts of your class should look like this: 
+    Open your `AccountsController.java` file and add a final field in the class of type `AccountRepository`.  And update the constructor to accept an argument of this type and set the field to that value.  This tells Spring Boot to inject the JPA repository class we just created into this class.  That will make it available to use in our services.  The updated parts of your class should look like this: 
 
     ```java
-    <copy>import com.example.account.repository.AccountsRepository;
+    <copy>import com.example.account.repository.AccountRepository;
     
     // ...
     
-    final AccountsRepository accountsRepository;
+    final AccountRepository accountRepository;
     
-    public AccountsController(AccountsRepository accountsRepository) {
-        this.accountsRepository = accountsRepository;
+    public AccountsController(AccountRepository accountRepository) {
+        this.accountRepository = accountRepository;
     }</copy>
     ```
 
@@ -463,7 +463,7 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
 
     @GetMapping("/accounts")
     public List<Account> getAllAccounts() {
-        return accountsRepository.findAll();
+        return accountRepository.findAll();
     }</copy>
     ```
 
@@ -554,7 +554,7 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
     @PostMapping("/account")
     public ResponseEntity<Account> createAccount(@RequestBody Account account) {
         try {
-            Account _account = accountsRepository.saveAndFlush(account);
+            Account _account = accountRepository.saveAndFlush(account);
             return new ResponseEntity<>(_account, HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
