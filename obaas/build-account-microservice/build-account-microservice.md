@@ -185,18 +185,43 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
 
 1. Create the database objects for the Account service
 
-    The Accounts service is going to have two main objects - an "account" and a "transaction".  These will be stored in the Oracle Database.  The accounts will be stored in a regular relational table, and the transactions will be stored in a Blockchain table.
+    The Accounts service is going to have two main objects - an `account` and a `transaction`.  These will be stored in the Oracle Database.  The accounts will be stored in a regular relational table, and the transactions will be stored in a Blockchain table.
 
     > **Note**: Blockchain tables are append-only tables in which only insert operations are allowed. Deleting rows is either prohibited or restricted based on time. Rows in a blockchain table are made tamper-resistant by special sequencing and chaining algorithms. Users can verify that rows have not been tampered. A hash value that is part of the row metadata is used to chain and validate rows.
 
-    Here are the SQL statements to create the necessary objects in the database.  You can run these against your local Oracle Database container to use during development.
-    If you installed SQLcl as recommended, you can connect to your database using this command:
+    Here are the SQL statements to create the necessary objects in the database. If you installed SQLcl as recommended, you can connect to your database using this command (or use the SQLcl session created during Lab two, Setup)
 
     ```shell
-    $ <copy>sql pdbadmin/Welcome123@//172.17.0.2:1521/pdb1</copy>
+    $ <copy>sql /nolog</copy>
+
+
+    SQLcl: Release 22.4 Production on Fri Mar 03 12:25:24 2023
+
+    Copyright (c) 1982, 2023, Oracle.  All rights reserved.
+
+    SQL>
     ```
     
-    When you are connected, run the SQL statements below to create the database objects:
+    When you are connected, run the following command to load the Wallet you downloaded during the Setup lab. Replace the name and location of the Wallet to match your environment.
+
+    ```sql
+    SQL> <copy>set cloudconfig ~/path/to/wallet/wallet-name.zip</copy>
+    ```
+
+    Connect to the database using the `ADMIN` user. The ADMIN password can be retrieved from a k8s secret using this command:
+    
+    ```shell
+    $ <copy>kubectl -n application get secret cbankdb-db-secrets -o jsonpath='{.data.db\.password}' | base64 -d</copy>
+    ```
+
+    ```sql
+    SQL> <copy>connect ADMIN/your-ADMIN-password@your-TNS-entry</copy>
+    Connected.
+    ```
+
+    If you need to see what TNS Entries you have run the `show tns` command.
+
+    Run the SQL statements below to create the database objects:
     
     ```sql
     <copy>
@@ -241,7 +266,8 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
     primary key (transaction_id) 
     using index logging;
     comment on table account.transactions 
-    is 'CloudBank transactions table';</copy>
+    is 'CloudBank transactions table';
+    /</copy>
     ```
 
     Now that the database objects are created, you can configure Spring Data JPA to use them in your microservice.
