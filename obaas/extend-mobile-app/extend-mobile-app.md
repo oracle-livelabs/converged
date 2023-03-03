@@ -37,10 +37,11 @@ The sample CloudBank mobile application is provided as a starting point.  It alr
 
 1. Update the application to point to your Oracle Backend for Spring Boot instance
 
-   Open the `main.dart` file in Visual Studio Code and update the following line of code. 
+   Open the `main.dart` file in Visual Studio Code and update the following two lines of code. 
 
     ```
-    <copy>const ServerUrl = "1.2.3.4";</copy>
+    <copy>const ServerUrl = "1.2.3.4";
+    const keyApplicationId = 'APPLICATION_ID';</copy>
     ```
 
    You need to provide the correct IP address for your environment.  You can find the IP address using this command:
@@ -52,6 +53,8 @@ The sample CloudBank mobile application is provided as a starting point.  It alr
     ```
 
    You need the address listed under `EXTERNAL-IP`.
+
+   The value for `APPLICATION_ID` was provided in the summary at the end of the apply/install log, it is called **parse_application_id** and is a alphanumeric string.  You were asked to keep keep a copy of that information at the end of the **Provision an instance** lab.  If you do not have it, you can go to the OCI Console and navigate to the main ("hamburger") menu then **Developer Services** and **Stacks** under the **Resource Manager** heading.  Make sure you have the right compartment (left hand side drop down) and region (top right).  Open your stack and then open the apply job and scroll to the end of the log.
 
 1. Build and run the application
 

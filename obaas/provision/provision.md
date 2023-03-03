@@ -102,7 +102,15 @@ The Oracle Backend for Spring Boot can be installed from OCI Marketplace.
     Apply complete! Resources: 91 added, 0 changed, 0 destroyed.
     Outputs:
     kubeconfig_cmd = "oci ce cluster create-kubeconfig --cluster-id ocid1.cluster.oc1.phx.xxxx --file $HOME/.kube/config --region us-phoenix-1 --token-version 2.0.0 --kube-endpoint PUBLIC_ENDPOINT" 
+    parse_application_id = "oLvYNyDIXgeYlmuBg3V1v7tvcXIFF8kj1IrQADkr"
+    parse_dashboard_password = <sensitive>
+    parse_dashboard_uri = "http://100.20.30.40/parse-dashboard"
+    parse_dashboard_user = "ADMIN"
+    parse_endpoint = "100.20.30.40/parse"
+    parse_master_key = <sensitive>
     ```
+
+   > **Note**: Keep a copy of the addresses and keys, you will need these in later labs.
 
 1. Verify you can access the Kubernetes cluster
 
