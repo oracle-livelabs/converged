@@ -436,7 +436,7 @@ For the account selector field, you need to get a list of accounts by calling th
    With this done, you can restart the application and test the new screen.  The drop down box will not populate yet, but you will see it on the screen.  Here is the code so far:
 
     ```dart
-    Container(
+    <copy>Container(
       padding: const EdgeInsets.all(10),
       child: FutureBuilder<Accounts>(
          future: futureData,
@@ -476,7 +476,7 @@ For the account selector field, you need to get a list of accounts by calling th
             }
          },
        ),
-    ),
+    ),</copy>
     ```
 
 1. Populate the drop down list with the data from the REST API
@@ -484,19 +484,19 @@ For the account selector field, you need to get a list of accounts by calling th
    The last step is to populate the drop down list with the data you got back from the REST API.  Uncomment this line in the `FutureBuilder`.  This will call the `updateAccountList` method once for each item in `data`, i.e., once for each account.
 
     ```dart
-    data.forEach(updateAccountList);
+    <copy>data.forEach(updateAccountList);</copy>
     ```
 
    Now, you need to write that method.  It should accept the account as an argument and extract the `accountName` and `accountBalance` fields and format them into a string that you can display in the drop down list.  This is where you will want to use the currency formatter that you created earlier.  Make sure you only add the new entry if it does not already exist in the list.  Here is the code:
 
     ```dart
-    updateAccountList(element) {
+    <copy>updateAccountList(element) {
        String theValue =
           "${element['accountName'].toString()}  -  ${formatCurrency.format(element['accountBalance'])}";
        if (!accountList.contains(theValue)) {
           accountList.add(theValue);
        }
-    }
+    }</copy>
     ```
 
    With this done, you can restart the application and test the Cloud Cash screen.  It will now populate the drop down list with the accounts names and balances.  Next, you need to handle the form submission.    
