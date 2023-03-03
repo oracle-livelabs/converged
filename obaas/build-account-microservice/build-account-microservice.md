@@ -314,9 +314,34 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
 
     ![Updated Project](images/obaas-updated-pom.png " ")
 
-    To configure Spring Data JPA access to the database, you will add some configuration information to the Spring Boot application properties (or YAML) file.
-    You will find a file called `application.properties` in the `src/main/resources` directory in your project.  You can use either properties format or YAML
-    format for this file.  In this lab, you will use YAML.  Rename the file to `application.yaml` and then add this content to the file:
+    To configure Spring Data JPA access to the database, you will add some configuration information to the Spring Boot application properties (or YAML) file. Access to the database you need to unzip the Wallet and get information from those files.
+
+    a. Unzip the Wallet you downloaded in the Setup lab (Lab 2)
+
+      ```shell
+      $ <code>unzip /path/to/wallet/wallet_name.zip</code>
+      ```
+
+    b. Edit the `sqlnet.ora` file so that the section `(DIRECTORY="?/network/admin")` matches the full path to the directory where you unzipped the Wallet, for example:
+
+      ```text
+      WALLET_LOCATION = (SOURCE = (METHOD = file) (METHOD_DATA = (DIRECTORY="/path/to/unzipped/wallet/network/admin")))
+      ```
+
+    c. Set the `TNS_ADMIN` environment variable to the directory where the unzipped Wallet is located. Use the following command:
+
+      ```shell
+      $ <copy>export TNS_ADMIN=/path/to/unzipped/wallet</copy>
+      ```
+
+    d. Get the TNS Entry connection string using this command. Remember the name of the entry as you'll need it in the next steps. In the sample below it is `cbankdb_tp`.
+
+      ```shell
+      $ <copy>grep "_tp =" /path/to/unzipped/wallet/tnsnames.ora</copy>
+      cbankdb_tp*** = (description= (retry_count=20)(retry_delay=3)(address=(protocol=tcps)(port=1522)(host=adb.us-.....-1.oraclecloud.com))(connect_data=(service_name=....._cbankdb_tp.adb.oraclecloud.com))(security=(ssl_server_dn_match=yes)))
+      ```
+
+    You will find a file called `application.properties` in the `src/main/resources` directory in your project.  You can use either properties format or YAML format for this file.  In this lab, you will use YAML.  Rename the file to `application.yaml` and then add this content to the file. Make sure that you modify the url to contain the path to the wallet and the name of the TNS entry you collected earlier.
 
     ```yaml
     <copy>spring:
@@ -331,7 +356,7 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
             format_sql: true
         show-sql: true
       datasource:
-        url: jdbc:oracle:thin:@//172.17.0.2:1521/pdb1
+        url: jdbc:oracle:thin:@dbname_alias?TNS_ADMIN=/path/to/wallet/wallet_tns_entry_from_above
         username: account
         password: Welcome1234##
         driver-class-name: oracle.jdbc.OracleDriver
