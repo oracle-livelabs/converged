@@ -224,7 +224,7 @@ The sample CloudBank mobile application is provided as a starting point.  It alr
    Finally, notice that the `ElevatedButton` in the last `Container` has an `onPressed` property.  In that property there is a call to a function called `processCloudCash` which is defined later in that same class.  Right now, that function just logs a message.  Later, you will update that function to make a REST call and give the user feedback about what happened.
 
     ```dart
-    import 'package:flutter/material.dart';
+    <copy>import 'package:flutter/material.dart';
     import 'package:go_router/go_router.dart';
 
     class CloudCash extends StatefulWidget {
@@ -296,7 +296,7 @@ The sample CloudBank mobile application is provided as a starting point.  It alr
       processCloudCash() async {
          print("do something");
       }
-    }
+    }</copy>
     ```
 
 ## Task 5: Add the account selector and wire it up to the Account microservice
@@ -314,10 +314,10 @@ For the account selector field, you need to get a list of accounts by calling th
    In the `cloudcash.dart` file, add a new import and create a currency formatter:
 
     ```dart
-    import 'package:intl/intl.dart';
+    <copy>import 'package:intl/intl.dart';
     
     // this goes at the top level, not inside a class:
-    final formatCurrency = new NumberFormat.simpleCurrency();
+    final formatCurrency = new NumberFormat.simpleCurrency();</copy>
     ```
 
    You will use this later to format the account balances.
@@ -327,7 +327,7 @@ For the account selector field, you need to get a list of accounts by calling th
    Define a new class in `cloudcash.dart` to hold the data retrieved from the REST API.  Here is the code for this new class:
 
     ```dart
-    class Accounts {
+    <copy>class Accounts {
       final List<dynamic> accounts;
 
       const Accounts({
@@ -343,7 +343,7 @@ For the account selector field, you need to get a list of accounts by calling th
             accounts: accounts,
          );
       }
-   }
+   }</copy>
    ```
 
    You will store the result from calling the API in a `List<dynamic>` which means you do not need to define the entire data structure.  The `fromJson` method in this class will handle conversion of the JSON data to a Dart class.
@@ -353,15 +353,15 @@ For the account selector field, you need to get a list of accounts by calling th
    Define a variable to hold the list of accounts using this code, at the top level, not inside a class:
 
     ```dart
-    List<String> accountList = <String>[
+    <copy>List<String> accountList = <String>[
       "Select account...",
-    ];
+    ];</copy>
     ```
 
    Update your `_CloudCashState` class to add a new variable to hold the data received from the API call, note that this will be a `late Future<Accounts>`.  Add a new `String` to hold the current value of the drop down and set the initial value to the first item in the list, i.e. **Select account...**.  Add an overriden `initState()` method in which you call `super.initState()` and then ivoke the API to get the data for that future.  You will write that `fetchData()` method next.  Here is the code so far:
 
     ```dart
-    class _CloudCashState extends State<CloudCash> {
+    <copy>class _CloudCashState extends State<CloudCash> {
       late Future<Accounts> futureData;
 
       TextEditingController destinationController = TextEditingController();
@@ -372,7 +372,7 @@ For the account selector field, you need to get a list of accounts by calling th
       void initState() {
          super.initState();
          futureData = fetchData();
-      }
+      }</copy>
 
       // ...
     ```
@@ -381,12 +381,13 @@ For the account selector field, you need to get a list of accounts by calling th
 
    Create the `fetchData()` method in the same class.  Note that it is an `async` method and returns a `Future<Account>`.  In this method, use the http libraries' `get` method to invoke the API.  This returns a response object which contains the HTTP Status Code, body, and so on.  YOu should check the status code to see if the API call was successful, and if so, decode/convert the body into a variable, and then use your `Accounts.fromJson` method to convert that into your `Accounts` object.
 
-   **TODO** update this to get ehe address from the context instead of hard coding it **TODO**
+   The REST endpoint needs the customer ID, which you can get from the `creds` object's `objectID` property as shown in the code sample below.  You will need to make a couple of other small updates to pass the credentials into this widget.  Here is the code for the `fetchData()` function: 
 
     ```dart
-      Future<Accounts> fetchData() async {
-         final response = await http.get(Uri.parse(
-            'http://100.20.30.40/api/v1/account/getAccounts/bkzLp8cozi'));
+      <copy>Future<Accounts> fetchData() async {
+             String accountsUrl =
+               '${widget.creds.backendUrl}/api/v1/account/getAccounts/${widget.creds.objectID}';
+             final response = await http.get(Uri.parse(accountsUrl));
 
          if (response.statusCode == 200) {
             // If the server did return a 200 OK response,
@@ -399,8 +400,30 @@ For the account selector field, you need to get a list of accounts by calling th
             // then throw an exception.
             throw Exception('Failed to retrieve Account List');
          }
-      }
+      }</copy>
     ```
+
+   To accept the credentials in this widget, you will need to update the `CloudCash` class to have a `creds` property and update the constructor.  The updated code is as follows:
+
+    ```dart
+    <copy>class CloudCash extends StatefulWidget {
+      final Credentials creds;
+
+      const CloudCash({Key? key, required this.creds}) : super(key: key);
+
+      @override
+      State<CloudCash> createState() => _CloudCashState();
+    }</copy>
+    ```
+
+   You will also need to update the route you added to the Cloud Cash card in `home.dart` to pass `creds` in the constructor:
+
+    ```dart
+     <copy>MaterialPageRoute(
+      builder: (context) => CloudCash(creds: creds),</copy>
+    ```       
+
+   Now you will have access to the credentials to get the customer ID.
 
 1. Add a UI component to display the drop down selector on the screen
 
@@ -481,26 +504,94 @@ For the account selector field, you need to get a list of accounts by calling th
 
 ## Task 6: Handle the form submission
 
+The final piece to complete the Cloud Cash feature is to handle the form submission when the user touches the **Send Cash Now** button.
+
 1. Create the function to handle submission
 
-   TODO that thing
+   This function will use the Parse API to create a `CloudCashPayment` object in the backend.  You will set the `destination`, `amount`, and `fromAccount` fields with the data from the form, and then call the `save()` method to save the object in the backend.
+
+   > **Note**: A Spring Boot microservice that you deployed in the **Deploy the full CloudBank application** lab will check for new requests every minute, and if it finds one, it will process it using the services you build in the **Manage Saga Transactions across Microservices** lab.
+
+   Once you have saved the data, you want to tell the user.  This can be done with an `AlertDialog` which can tell them the process was saved.  When they click on the **OK** button, redirect them to the `Home` screen, passing the `creds` object back to it.
+
+   Here is the code for the function:   
+
+    ```dart
+    <copy>processCloudCash(context, destination, amount, fromAccount) async {
+      final creds = ModalRoute.of(context)!.settings.arguments as Credentials;
+
+      var cloudCashPayment = ParseObject("CloudCashPayment");
+      cloudCashPayment.set("destination", destination);
+      cloudCashPayment.set("amount", amount);
+      cloudCashPayment.set("fromAccount", fromAccount);
+      var response = await cloudCashPayment.save();
+
+      Widget okButton = TextButton(
+         child: const Text("OK"),
+         onPressed: () => Navigator.push(
+            context,
+            MaterialPageRoute(
+               builder: (context) => const Home(),
+               settings: RouteSettings(
+                  arguments: creds,
+               ),
+            ),
+         ),
+      );
+
+      // set up the AlertDialog
+      AlertDialog alert = AlertDialog(
+         title: const Text("Cloud Cash sent"),
+         content:
+            const Text("Thanks for using Cloud Cash, we've sent your payment!"),
+         actions: [
+            okButton,
+         ],
+      );
+
+      // show the dialog
+      showDialog(
+         context: context,
+         builder: (BuildContext context) {
+         return alert;
+         },
+      );
+    }</copy>
+    ```   
+
+    Now, all that remains is to update the `onPressed` property to make sure the data is passed into this udpated function.
+
+1. Update the button to pass in the data
+
+   You now need to update the button's `onPressed` property to pass in the data to this updated function.  You need to pass the context and then the destination email address, the amount and the source account.  Here is the updated code:
+
+    ```dart
+    <copy>onPressed: () {
+      processCloudCash(context, destinationController.text,
+      amountController.text, accountDropdownValue);</copy>
+    ```
+
+   That completes the Cloud Cash feature!  Well done!
 
 ## Task 7: Test the finished Cloud Cash feature
 
-1. Run the app 
+1. Test the app 
 
-   TODO press 'r' and so on
+   Restart the application and navigate to the Cloud Cash screen.  Verify that you can select an acount and send a request.
 
 1. Verify the Cloud Cash request in the backend
 
-   TODO that thing
+   Open a web browser to the Parse Dashboard.  The URL was provided in the log at the end of the stack apply.  See Task 2 in this Lab for details on how to get it. 
+
+   Log in to the dashboard with the userid `ADMIN` (this is case sensitive) and the password you specified when you installed the backend stack.  Click on your application, and in the browser menu (on the left) click on the `CloudCashPayment` class to see the records.  You should see your payments, it will looks something like this:
+
+   ![Parse Dashboard](images/obaas-parse-dashboard-cloud-cash-payments.png)
 
 ## Learn More
 
-*(optional - include links to docs, white papers, blogs, etc)*
 
-* [URL text 1](http://docs.oracle.com)
-* [URL text 2](http://docs.oracle.com)
+* [Flutter](https://flutter.dev)
+* [Parse Platform](https://parseplatform.org/)
 
 ## Acknowledgements
 * **Author** - Doug Drechsel, Mark Nelson, Developer Evangelists, Oracle Database
