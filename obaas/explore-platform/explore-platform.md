@@ -33,7 +33,7 @@ Oracle Backend for Spring Boot includes a number of platform services which are 
 
    Kubernetes resources are grouped into namespaces.  To see a list of the namespaces in your cluster, use this command, your output will be slightly different: 
 
-    ```
+    ```shell
     $ <copy>kubectl get ns</copy>
     NAME                              STATUS   AGE
     admin-server                      Active   11d
@@ -82,11 +82,11 @@ Oracle Backend for Spring Boot includes a number of platform services which are 
 
    Kubernetes namespaces contain other resources like pods, services, secrets and config maps.  You will explore some of these now. 
 
-1. Explore pods 
+1. Explore pods
 
    Kubernetes runs workloads in "pods."  Each pod can container one or more containers.  There are different kinds of groupings of pods that handle scaling in different ways.  Use this command to review the pods in the `apisix` namespace:
 
-    ```
+    ```shell
     $ <copy>kubectl -n apisix get pods</copy>
     NAME                               READY   STATUS    RESTARTS        AGE
     apisix-5b47fcc4-bm25w              1/1     Running   0               6d18h
@@ -102,7 +102,7 @@ Oracle Backend for Spring Boot includes a number of platform services which are 
 
    To see details of the deployments and stateful set in this namespace use this command: 
 
-    ```
+    ```shell
     $ <copy>kubectl -n apisix get deploy,statefulset</copy>
     NAME                               READY   UP-TO-DATE   AVAILABLE   AGE
     deployment.apps/apisix             3/3     3            3           6d18h
@@ -114,7 +114,7 @@ Oracle Backend for Spring Boot includes a number of platform services which are 
 
    If you want to view extended information about any object you can specify its name and the output format, as in this example:
 
-    ```
+    ```shell
     $ <copy>kubectl -n apisix get pod apisix-etcd-0</copy>
     ```
 
@@ -122,7 +122,7 @@ Oracle Backend for Spring Boot includes a number of platform services which are 
 
    Kubernetes services are essentially small load balancers that sit in front of groups of pods and provide a stable network address as well as load balancing.  To see the services in the `apisix` namespace use this command: 
 
-    ```
+    ```shell
     $ <copy>kubectl -n apisix get svc</copy>
     NAME                   TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)             AGE
     apisix-admin           ClusterIP   10.123.66.40    <none>        9180/TCP            6d18h
@@ -140,7 +140,7 @@ Oracle Backend for Spring Boot includes a number of platform services which are 
 
    Oracle Backend for Spring Boot creates a number of secrets for you so that your applications can securely access the Oracle Autonomous Database instance.  Review the secrets in the pre-created `application` namespace using this command: 
 
-    ```
+    ```shell
     $ <copy>kubectl -n application get secret</copy>
     NAME                      TYPE                             DATA   AGE
     obaasdevdb-db-secrets     Opaque                           5      10d
@@ -153,7 +153,7 @@ Oracle Backend for Spring Boot includes a number of platform services which are 
 
    You can view detailed information about a secret with a command like this (your output will be different). Note that the values are uuencoded in this output: 
 
-    ```
+    ```shell
     $ <copy>kubectl -n application get secret obaasdevdb-db-secrets -o yaml</copy>
     apiVersion: v1
     data:
@@ -197,7 +197,7 @@ Oracle Backend for Spring Boot includes an Oracle Autonomous Database instance. 
 
    Click on the **Database Actions** link to go to the "Database Actions" page which lets you access and manage information in the database.  Depending on choices you made during installation, you may go straight to Database Actions, or you may need to enter credentials first.  If you are prompted to login, use the user name `ADMIN` and obtain the password from Kubernetes with this command: 
 
-    ```
+    ```shell
     $ <copy> kubectl -n application get secret obaasdevdb-db-secrets -o jsonpath='{.data.db\.password}' | base64 -d</copy>
     ```
 
@@ -231,7 +231,7 @@ Oracle Backend for Spring Boot includes Spring Admin which provides a web user i
 
    Open a tunnel to the Spring Admin server using this command:
 
-    ```
+    ```shell
     <copy>kubectl -n admin-server port-forward svc/admin-server 8989:8989</copy>
     ```
 
@@ -266,7 +266,7 @@ Spring Eureka Service Registry is an application that holds information about wh
 
    Start the tunnel using this command.  You can run this in the background if you prefer.
 
-    ```
+    ```shell
     $ <copy>kubectl -n eureka port-forward svc/eureka 8080:8761</copy>
     ```
 
@@ -284,7 +284,7 @@ Oracle Backend for Spring Boot includes APISIX API Gateway to manage which servi
 
    Start the tunnel using this command.  You can run this in the background if you prefer.
 
-    ```
+    ```shell
     $ <copy>kubectl -n apisix port-forward svc/apisix-dashboard 8080:80</copy>
     ```
 
@@ -337,14 +337,14 @@ xyz
 
     Get the password for the Grafana admin user using this command (your output will be different): 
 
-    ```
+    ```shell
     $ <copy>kubectl -n grafana get secret grafana -o jsonpath='{.data.admin-password}' | base64 -d</copy>
     fusHDM7xdwJXyUM2bLmydmN1V6b3IyPVRUxDtqu7
     ```
 
    Start the tunnel using this command.  You can run this in the background if you prefer.
 
-    ```
+    ```shell
     $ <copy>kubectl -n grafana port-forward svc/grafana 8080:80</copy>
     ```
 
@@ -370,7 +370,7 @@ xyz
 
    Start the tunnel using this command.  You can run this in the background if you prefer.
 
-    ```
+    ```shell
     $ <copy>kubectl -n observability port-forward svc/jaegertracing-query 16686:16686</copy>
     ```
 
