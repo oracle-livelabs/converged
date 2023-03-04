@@ -99,7 +99,7 @@ You will update the Account service that you built in the previous lab to add so
 
 1. Add new dependencies to the Maven POM
 
-  TODO expalin what these are for
+  TODO explain what these are for
 
     ```xml
     <copy>
@@ -178,7 +178,6 @@ You will update the Account service that you built in the previous lab to add so
     </copy>
     ```
 
-
 1. Create the Journal repository and model
 
    Create a new Java file called `Journal.java` in `src/main/com/example/accounts/model` to define the model for the journal table.  There are no new concepts in this class, so here is the code: 
@@ -231,7 +230,7 @@ You will update the Account service that you built in the previous lab to add so
             this.journalAmount = journalAmount;
         }
     }</copy>
-    ```    
+    ```
 
    Create a new Java file called `JournalRepository.java` in `src/main/java/com/example/accounts/repository` and define the JPA repository interface for the Journal.  You will need to add one JPA method `findJournalByLraId()` to the interface.  Here is the code:
 
@@ -250,13 +249,13 @@ You will update the Account service that you built in the previous lab to add so
 
 1. That thing
 
-  TODO how.    
+  TODO how.
 
 ## Task 4: Create the basic structure of the Deposit service
 
 The Deposit service will process deposits into bank accounts.  In this task, you will create the basic structure for this service and learn about the endpoints required for an LRA participant, what HTTP Methods they process, the annotations used to define them and so on.  You will implement the actual business logic in a later task.
 
-1. Create the Deposit service and skaffold methods
+1. Create the Deposit service and scaffold methods
 
    Create a new directory in `src/main/java/com/example/accounts` called `services` and in that directory create a new Java file called `DepositService.java`.  This will be a Spring Boot component where you will implement the deposit operations.  Since the LRA library we are using only works with JAX-RS, you will be using JAX-RS annotations in this service, as opposed to the Spring Boot "web" REST annotations that you used in the previous lab.  You can mix and match these styles in a single Spring Boot microservice application.
 
@@ -346,7 +345,7 @@ The Deposit service will process deposits into bank accounts.  In this task, you
 
 1. Create the LRA compensate endpoint
 
-   Next, you need a compensate endpoint.  This `compensateWork` method is similar to the previous methods and is marked with the `@Compensate` annotation to mark it as the componensation handler for this participant.    
+   Next, you need a compensate endpoint.  This `compensateWork` method is similar to the previous methods and is marked with the `@Compensate` annotation to mark it as the compensation handler for this participant.
 
     ```java
     <copy>
@@ -385,7 +384,7 @@ The Deposit service will process deposits into bank accounts.  In this task, you
 
 1. Create the "after" LRA endpoint
 
-   Finally, you need an "after LRA" endpoint that implements any clean up logic that needs to be run after the completion of the LRA.  (TODO paul successful only or any outcome?)   This method must repsond to the HTTP PUT method and is marked with the `@AfterLRA` annotation.
+   Finally, you need an "after LRA" endpoint that implements any clean up logic that needs to be run after the completion of the LRA.  (TODO paul successful only or any outcome?)   This method must respond to the HTTP PUT method and is marked with the `@AfterLRA` annotation.
 
     ```java
     <copy>
@@ -408,7 +407,7 @@ The Deposit service will process deposits into bank accounts.  In this task, you
 
 TODO 
 
-Create a new Java file called `LRAUtils.java` in `src/main/java/com/example/accounts/services`.  This class will contain common utility methods that are needed by multiple partipants.  You will implement this class using the singleton pattern so that there will only be one instance of this class.
+Create a new Java file called `LRAUtils.java` in `src/main/java/com/example/accounts/services`.  This class will contain common utility methods that are needed by multiple participants.  You will implement this class using the singleton pattern so that there will only be one instance of this class.
 
 Here is the code to set up the class and implement the singleton pattern:
 
@@ -543,7 +542,7 @@ Here is the code to set up the class and implement the singleton pattern:
     }</copy>
     ```
 
-   Create a metho to get the account for a given account name TODO paul update?? 
+   Create a method to get the account for a given account name TODO paul update?? 
 
     ```java
     <copy>Account getAccountForAccountName(String accountName) {
@@ -594,7 +593,6 @@ TODO what thing
 
   TODO how.
 
-
 ## Task 8: Create the Transfer Service
 
 TODO what thing
@@ -611,15 +609,16 @@ TODO what thing
 
   TODO how.
 
-
 ## Learn More
 
 * [Oracle Transaction Manager for Microservices](https://www.oracle.com/database/transaction-manager-for-microservices/)
 * [Saga pattern](https://microservices.io/patterns/data/saga.html)
 * [Long Running Action](https://download.eclipse.org/microprofile/microprofile-lra-1.0-M1/microprofile-lra-spec.html)
-
+* [Oracle Backend for Spring Boot](https://oracle.github.io/microservices-datadriven/spring/)
+* [Oracle Backend for Parse Platform](https://oracle.github.io/microservices-datadriven/mbaas/)
 
 ## Acknowledgements
+
 * **Author** - Paul Parkinson, Mark Nelson, Developer Evangelists, Oracle Database
 * **Contributors** - [](var:contributors)
 * **Last Updated By/Date** - Mark Nelson, March 2023
