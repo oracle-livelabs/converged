@@ -114,9 +114,10 @@ Download a copy of the CloudBank sample application.
 	> What happens when you use the Oracle Backend for Spring Boot CLI **bind** command?
 	When you run the `bind` command, the Oracle Backend for Spring Boot CLI does several things for you:
 	
-    - TODO
-	- Magics and fireworks
-
+	- Asks for Database user credentials
+	- Creates a k8s secret with the provided user credentials
+	- Creates a Database Schema with the provided user credentials
+	
 	1. Account Service
 
 		Create a database "binding" by tunning this command. Enter the password (`Welcome1234##`) when prompted.  This will create a Kubernetes secret in the `application` namespace called `account-db-secrets` which contains the username (`account`), password, and URL to connect to the Oracle Autonomous Database instance associated with the Oracle Backend for Spring Boot.
@@ -195,14 +196,14 @@ Download a copy of the CloudBank sample application.
     	successfully deployed
     	```
 
-		> What happens when you use the Oracle Backend for Spring Boot CLI **deploy** command?
-    	When you run the `deploy` command, the Oracle Backend for Spring Boot CLI does several things for you:
+	> What happens when you use the Oracle Backend for Spring Boot CLI **deploy** command?
+    When you run the `deploy` command, the Oracle Backend for Spring Boot CLI does several things for you:
 
-		- Uploads the JAR file to server side
-		- Builds a container image and push it to the OCI Registry
-		- Inspects the JAR file and looks for bind resources (JMS)
-		- Create the microservices deployment descriptor (k8s) with the resources supplied
-		- Applies the k8s deployment and create k8s object service to microservice
+	- Uploads the JAR file to server side
+	- Builds a container image and push it to the OCI Registry
+	- Inspects the JAR file and looks for bind resources (JMS)
+	- Create the microservices deployment descriptor (k8s) with the resources supplied
+	- Applies the k8s deployment and create k8s object service to microservice
 
 ## Task 4: Verify the deployment
 
