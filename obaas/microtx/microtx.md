@@ -250,9 +250,9 @@ You will update the Account service that you built in the previous lab to add so
 
   TODO how.    
 
-## Task 4: Create the Deposit service
+## Task 4: Create the basic structure of the Deposit service
 
-The Deposit service will process deposits into bank accounts.  TODO more
+The Deposit service will process deposits into bank accounts.  In this task, you will create the basic structure for this service and learn about the endpoints required for an LRA participant, what HTTP Methods they process, the annotations used to define them and so on.  You will implement the actual business logic in a later task.
 
 1. Create the Deposit service and skaffold methods
 
@@ -295,6 +295,8 @@ The Deposit service will process deposits into bank accounts.  TODO more
     }</copy>
     ``` 
 
+1. Create the LRA entry point
+
    The first method you need will be the main entry point, the `deposit()` method.  This will have the `@POST` annotation so that it will respond to the HTTP POST method.  It will have the `@Produces` annotation with the value `MediaType.APPLICATION_JSON` so that the response will contain JSON data and have the HTTP `Content-Type: application/json` header.  It has the `@Transactional` annotation, which declares to Spring that this is a transaction boundary and tells Spring to inject various behaviors related to transaction management and rollback.  And finally, it has the `@LRA` annotation.
 
    In the `@LRA` annotation, which marks this as an LRA participant, the `value` property is set to `LRA.Type.MANDATORY` which means that this method will refuse to perform any work unless it is part of an LRA.  The `end` property is set to `false` which means that successful completion of this method does not in and of itself constitute successful completion of the LRA, in other words, this method expects that it will not be the only participant in the LRA.
@@ -320,6 +322,8 @@ The Deposit service will process deposits into bank accounts.  TODO more
     </copy>
     ```
 
+1. Create the LRA complete endpoint
+
    Each LRA participant needs a "complete" endpoint.  This `completeWork` method implements that endpoint, as declared by the `@Complete` annotation.  Note that this responds to the HTTP PUT method, and it produces JSON and extracts the LRA ID from an HTTP header as in the previous method.
 
     ```java
@@ -338,6 +342,8 @@ The Deposit service will process deposits into bank accounts.  TODO more
     </copy>
     ```
 
+1. Create the LRA compensate endpoint
+
    Next, you need a compensate endpoint.  This `compensateWork` method is similar to the previous methods and is marked with the `@Compensate` annotation to mark it as the componensation handler for this participant.    
 
     ```java
@@ -354,6 +360,8 @@ The Deposit service will process deposits into bank accounts.  TODO more
     }
     </copy>
     ```
+
+1. Create the LRA status endpoint
 
    Next, you need to provide a status endpoint.  This must respond to the HTTP GET method.  It returns plain text TODO WHY PAUL?  Notice that it also extracts the parent LRA ID (if present Paul? why??) TODO
 
@@ -372,6 +380,8 @@ The Deposit service will process deposits into bank accounts.  TODO more
     }
     </copy>
     ```
+
+1. Create the "after" LRA endpoint
 
    Finally, you need an "after LRA" endpoint that implements any clean up logic that needs to be run after the completion of the LRA.  (TODO paul successful only or any outcome?)   This method must repsond to the HTTP PUT method and is marked with the `@AfterLRA` annotation.
 
@@ -392,8 +402,189 @@ The Deposit service will process deposits into bank accounts.  TODO more
 
   TODO now implement the business logic - probably need to do the util class first .. 
 
+## Task 5: Create LRA utility methods
 
-## Task 5: Create the Withdraw service
+TODO 
+
+Create a new Java file called `LRAUtils.java` in `src/main/java/com/example/accounts/services`.  This class will contain common utility methods that are needed by multiple partipants.  You will implement this class using the singleton pattern so that there will only be one instance of this class.
+
+Here is the code to set up the class and implement the singleton pattern:
+
+    ```java
+    <copy>package com.example.accounts.services;
+
+    import java.util.List;
+
+    import javax.ws.rs.core.Response;
+
+    import org.eclipse.microprofile.lra.annotation.ParticipantStatus;
+    import org.springframework.stereotype.Component;
+
+    import com.example.accounts.model.Account;
+    import com.example.accounts.model.Journal;
+    import com.example.accounts.repository.AccountRepository;
+    import com.example.accounts.repository.JournalRepository;
+
+    @Component
+    public class LRAUtils {
+
+        private static LRAUtils singleton;
+        final AccountRepository accountRepository;
+        final JournalRepository journalRepository;
+
+        public LRAUtils(AccountRepository accountRepository, JournalRepository journalRepository) {
+            this.accountRepository = accountRepository;
+            this.journalRepository = journalRepository;
+            singleton = this;
+            System.out.println(
+                    "LRAUtils accountsRepository = " + accountRepository + ", journalRepository = " + journalRepository);
+        }
+
+        public static LRAUtils instance() {
+            return singleton;
+        }
+
+    }</copy>
+    ```
+
+   Create a `getStatusString` method which can be used to get a String representation of the LRA participant status enum.
+
+    ```java
+    <copy>public static String getStatusString(ParticipantStatus status) {
+        switch (status) {
+            case Compensated:
+                return "Compensated";
+            case Completed:
+                return "Completed";
+            case FailedToCompensate:
+                return "Failed to Compensate";
+            case FailedToComplete:
+                return "Failed to Complete";
+            case Active:
+                return "Active";
+            case Compensating:
+                return "Compensating";
+            case Completing:
+                return "Completing";
+            default:
+                return "Unknown";
+        }
+    }</copy>
+    ```
+
+   Create a `getStatusFromString` method to convert back from the String to the enum.
+
+    ```java
+    <copy>public static ParticipantStatus getStatusFromString(String statusString) {
+        switch (statusString) {
+            case "Compensated":
+                return ParticipantStatus.Compensated;
+            case "Completed":
+                return ParticipantStatus.Completed;
+            case "Failed to Compensate":
+                return ParticipantStatus.FailedToCompensate;
+            case "Failed to Complete":
+                return ParticipantStatus.FailedToComplete;
+            case "Active":
+                return ParticipantStatus.Active;
+            case "Compensating":
+                return ParticipantStatus.Compensating;
+            case "Completing":
+                return ParticipantStatus.Completing;
+            default:
+                return null;
+        }
+    }</copy>
+    ```
+
+   Create a utility method to save an account in the account repository.
+
+    ```java
+    <copy>public void saveAccount(Account account) {
+        accountRepository.save(account);
+    }</copy>
+    ```
+
+   Create a method to return the correct HTTP Status Code for an LRA status.
+
+    ```java
+    <copy>public Response status(String lraId) throws Exception {
+        Journal journal = getJournalForLRAid(lraId);
+        if (LRAUtils.getStatusFromString(journal.getLraState()).equals(ParticipantStatus.Compensated))
+            return Response.ok(ParticipantStatus.Compensated).build();
+        else
+            return Response.ok(ParticipantStatus.Completed).build();
+    }
+    ```
+
+   Create a method to update the LRA status in the journal table during the "after LRA" phase.
+
+    ```java
+    <copy>public void afterLRA(String lraId, String status) throws Exception {
+        Journal journal = getJournalForLRAid(lraId);
+        journal.setLraState(status);
+        journalRepository.delete(journal);
+    }</copy>
+    ```
+
+   Create a method to get the account that is related to a journal entry.
+
+    ```java
+    <copy>Account getAccountForJournal(Journal journal) throws Exception {
+        Account account;
+        // TODO update this - not accountName? Paul?
+        List<Account> accounts = accountRepository.findAccountsByAccountNameContains(journal.getAccountName());
+        if (accounts.size() == 0)
+            throw new Exception("Invalid accountName:" + journal.getAccountName());
+        account = accounts.get(1);
+        return account;
+    }</copy>
+    ```
+
+   Create a metho to get the account for a given account name TODO paul update?? 
+
+    ```java
+    <copy>Account getAccountForAccountName(String accountName) {
+        // TODO update this - not accountName? Paul?
+        List<Account> accounts = accountRepository.findAccountsByAccountNameContains(accountName);
+        if (accounts.size() == 0)
+            return null;
+        return accounts.get(1);
+    }
+    ```
+
+   Create a method to get the journal entry for a given LRA.
+
+    ```java
+    <copy>Journal getJournalForLRAid(String lraId) throws Exception {
+        Journal journal;
+        List<Journal> journals = journalRepository.findJournalByLraId(lraId);
+        if (journals.size() == 0) {
+            journalRepository.save(new Journal("unknown", "unknown", 0, lraId,
+                    LRAUtils.getStatusString(ParticipantStatus.FailedToComplete)));
+            throw new Exception("Journal entry does not exist for lraId:" + lraId);
+        }
+        journal = journals.get(0);
+        return journal;
+    }</copy>
+    ```
+
+   Create a method to save a journal entry.
+
+    ```java
+    <copy>public void saveJournal(Journal journal) {
+        journalRepository.save(journal);
+    }
+    </copy>
+    ```
+
+   TODO something
+
+## Task 6: Implement the deposit service's business logic
+
+TODO
+
+## Task 7: Create the Withdraw service
 
 TODO what thing
 
@@ -402,7 +593,7 @@ TODO what thing
   TODO how.
 
 
-## Task 6: Create the Transfer Service
+## Task 8: Create the Transfer Service
 
 TODO what thing
 
@@ -410,7 +601,7 @@ TODO what thing
 
   TODO how.
 
-## Task 7: Run LRA test cases
+## Task 9: Run LRA test cases
 
 TODO what thing
 
