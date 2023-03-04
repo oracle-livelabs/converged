@@ -60,15 +60,15 @@ Download a copy of the CloudBank sample application.
 	[INFO] ------------------------------------------------------------------------
 	[INFO] Reactor Summary for cloudbank 0.0.1-SNAPSHOT:
 	[INFO]
-	[INFO] customer ........................................... SUCCESS [  2.710 s]
-	[INFO] customer ........................................... SUCCESS [  0.800 s] << WHY TWO TIMES >>
-	[INFO] creditscore ........................................ SUCCESS [  0.405 s]
-	[INFO] cloudbank .......................................... SUCCESS [  0.018 s]
+	[INFO] account ............................................ SUCCESS [  2.990 s]
+	[INFO] customer ........................................... SUCCESS [  1.210 s]
+	[INFO] creditscore ........................................ SUCCESS [  0.154 s]
+	[INFO] cloudbank .......................................... SUCCESS [  0.033 s]
 	[INFO] ------------------------------------------------------------------------
 	[INFO] BUILD SUCCESS
 	[INFO] ------------------------------------------------------------------------
-	[INFO] Total time:  4.104 s
-	[INFO] Finished at: 2023-03-02T15:42:05-06:00
+	[INFO] Total time:  4.640 s
+	[INFO] Finished at: 2023-03-04T11:14:00-06:00
 	[INFO] ------------------------------------------------------------------------
 	```
 
@@ -138,7 +138,7 @@ Download a copy of the CloudBank sample application.
     	database password/servicePassword (defaults to Welcome12345): 
     	database secret created successfully and schema already exists for customer
 		```
-  
+
 		> What happens when you use the Oracle Backend for Spring Boot CLI **bind** command?
 		When you run the `bind` command, the Oracle Backend for Spring Boot CLI does several things for you:
 
@@ -147,9 +147,7 @@ Download a copy of the CloudBank sample application.
 
 5. Create Database Objects
 
-	TODO: Liquibase, overwrite whatever is already in there? Does it matter?
-
-	TODO: Verify data using SQLcl?
+	The services are using LuquiBase so when the service get's deployed the `tables` and sample `data` will be created and inserted.
 
 6. Deploy the services
 
@@ -202,6 +200,19 @@ Download a copy of the CloudBank sample application.
 		uploading... upload successful
 		building and pushing image... docker build and push successful	
 		creating deployment and service... create deployment and service  = creditscore, appName = application, isRedeploy = false successful
+    	successfully deployed
+    	```
+
+	4. Deploy the CloudBank service
+
+		You will now deploy your Customer service to the Oracle Backend for Spring Boot using the CLI.  You will deploy into the `application` namespace, and the service name will be `cloudbank`. Run this command to deploy your service, make sure you provide the correct path to your JAR file:
+
+    	```shell
+    	oractl> <copy>
+		deploy --isRedeploy false --appName application --serviceName cloudbank --jarLocation /path/to/creditscore/target/cloudbank-0.0.1-SNAPSHOT.jar --imageVersion 0.0.1</copy>
+		uploading... upload successful
+		building and pushing image... docker build and push successful	
+		creating deployment and service... create deployment and service  = cloudbank, appName = application, isRedeploy = false successful
     	successfully deployed
     	```
 
