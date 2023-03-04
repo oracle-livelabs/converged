@@ -303,20 +303,20 @@ The Deposit service will process deposits into bank accounts.  TODO more
 
     ```java
     <copy>
-      /**
-        * Write journal entry re deposit amount.
-        * Do not increase actual bank account amount
-        */
-        @POST
-        @Path("/deposit")
-        @Produces(MediaType.APPLICATION_JSON)
-        @LRA(value = LRA.Type.MANDATORY, end = false)
-        @Transactional
-        public Response deposit(@HeaderParam(LRA_HTTP_CONTEXT_HEADER) String lraId,
-                @QueryParam("accountId") long accountId,
-                @QueryParam("amount") long depositAmount) {
-            return Response.ok().build();
-        }
+    /**
+    * Write journal entry re deposit amount.
+    * Do not increase actual bank account amount
+    */
+    @POST
+    @Path("/deposit")
+    @Produces(MediaType.APPLICATION_JSON)
+    @LRA(value = LRA.Type.MANDATORY, end = false)
+    @Transactional
+    public Response deposit(@HeaderParam(LRA_HTTP_CONTEXT_HEADER) String lraId,
+            @QueryParam("accountId") long accountId,
+            @QueryParam("amount") long depositAmount) {
+        return Response.ok().build();
+    }
     </copy>
     ```
 
@@ -324,17 +324,17 @@ The Deposit service will process deposits into bank accounts.  TODO more
 
     ```java
     <copy>
-        /**
-        * Increase balance amount as recorded in journal during deposit call.
-        * Update LRA state to ParticipantStatus.Completed.
-        */
-        @PUT
-        @Path("/complete")
-        @Produces(MediaType.APPLICATION_JSON)
-        @Complete
-        public Response completeWork(@HeaderParam(LRA_HTTP_CONTEXT_HEADER) String lraId) throws Exception {
-            return Response.ok().build();
-        }
+    /**
+    * Increase balance amount as recorded in journal during deposit call.
+    * Update LRA state to ParticipantStatus.Completed.
+    */
+    @PUT
+    @Path("/complete")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Complete
+    public Response completeWork(@HeaderParam(LRA_HTTP_CONTEXT_HEADER) String lraId) throws Exception {
+        return Response.ok().build();
+    }
     </copy>
     ```
 
@@ -342,17 +342,16 @@ The Deposit service will process deposits into bank accounts.  TODO more
 
     ```java
     <copy>
-
-        /**
-        * Update LRA state to ParticipantStatus.Compensated.
-        */
-        @PUT
-        @Path("/compensate")
-        @Produces(MediaType.APPLICATION_JSON)
-        @Compensate
-        public Response compensateWork(@HeaderParam(LRA_HTTP_CONTEXT_HEADER) String lraId) throws Exception {
-            return Response.ok().build();
-        }
+    /**
+    * Update LRA state to ParticipantStatus.Compensated.
+    */
+    @PUT
+    @Path("/compensate")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Compensate
+    public Response compensateWork(@HeaderParam(LRA_HTTP_CONTEXT_HEADER) String lraId) throws Exception {
+        return Response.ok().build();
+    }
     </copy>
     ```
 
@@ -360,18 +359,17 @@ The Deposit service will process deposits into bank accounts.  TODO more
 
     ```java
     <copy>
-
-        /**
-        * Return status
-        */
-        @GET
-        @Path("/status")
-        @Produces(MediaType.TEXT_PLAIN)
-        @Status
-        public Response status(@HeaderParam(LRA_HTTP_CONTEXT_HEADER) String lraId,
-                @HeaderParam(LRA_HTTP_PARENT_CONTEXT_HEADER) String parentLRA) throws Exception {
-            return Response.ok().build();
-        }
+    /**
+    * Return status
+    */
+    @GET
+    @Path("/status")
+    @Produces(MediaType.TEXT_PLAIN)
+    @Status
+    public Response status(@HeaderParam(LRA_HTTP_CONTEXT_HEADER) String lraId,
+            @HeaderParam(LRA_HTTP_PARENT_CONTEXT_HEADER) String parentLRA) throws Exception {
+        return Response.ok().build();
+    }
     </copy>
     ```
 
@@ -379,17 +377,16 @@ The Deposit service will process deposits into bank accounts.  TODO more
 
     ```java
     <copy>
-
-        /**
-        * Delete journal entry for LRA
-        */
-        @PUT
-        @Path("/after")
-        @AfterLRA
-        @Consumes(MediaType.TEXT_PLAIN)
-        public Response afterLRA(@HeaderParam(LRA_HTTP_ENDED_CONTEXT_HEADER) String lraId, String status) throws Exception {
-            return Response.ok().build();
-        }
+    /**
+    * Delete journal entry for LRA
+    */
+    @PUT
+    @Path("/after")
+    @AfterLRA
+    @Consumes(MediaType.TEXT_PLAIN)
+    public Response afterLRA(@HeaderParam(LRA_HTTP_ENDED_CONTEXT_HEADER) String lraId, String status) throws Exception {
+        return Response.ok().build();
+    }
     </copy>
     ```
 
