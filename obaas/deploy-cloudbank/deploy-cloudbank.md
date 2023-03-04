@@ -196,6 +196,127 @@ Download a copy of the CloudBank sample application.
     	successfully deployed
     	```
 
+	4. Apply patch for account and customer services **NOTE** This will be removed before the Level Up 23 event
+
+		Create a file called `patch_account.json` with this content. **NOTE** The secretName value `obaasdevdb-tns-admin` needs to be changed to reflect your installation.
+
+		```json
+		<copy>{
+		"spec": {
+			"template": {
+			"spec": { 
+				"containers": [
+				{
+					"name": "account",
+					"env": [
+					{
+						"name": "DB_USERNAME",
+						"valueFrom": {
+						"secretKeyRef": {
+							"key": "db.username",
+							"name": "account-db-secrets"
+						}
+						}
+					},
+					{
+						"name": "DB_PASSWORD",
+						"valueFrom": {
+						"secretKeyRef": {
+							"key": "db.password",
+							"name": "account-db-secrets"
+						}
+						}
+					}
+					],
+					"volumeMounts": [
+					{
+						"mountPath": "/oracle/tnsadmin",
+						"name": "tns-admin"
+					}
+					]
+				}
+				],
+				"volumes": [
+				{
+					"name": "tns-admin",
+					"secret": {
+					"defaultMode": 420,
+					"secretName": "obaasdevdb-tns-admin"
+					}
+				}
+				]
+			}
+			}
+		}
+		}</copy>
+		```
+
+		Apply the patch to the deployment with this command: 
+
+		```shell
+		$ <copy>kubectl -n application patch deploy account -p "$(cat patch_account.json)"</copy>
+		```
+
+		Create a file called `patch_customer.json` with this content. **NOTE** The secretName value `obaasdevdb-tns-admin` needs to be changed to reflect your installation.
+
+		```json
+		<copy>{
+		"spec": {
+			"template": {
+			"spec": { 
+				"containers": [
+				{
+					"name": "account",
+					"env": [
+					{
+						"name": "DB_USERNAME",
+						"valueFrom": {
+						"secretKeyRef": {
+							"key": "db.username",
+							"name": "customer-db-secrets"
+						}
+						}
+					},
+					{
+						"name": "DB_PASSWORD",
+						"valueFrom": {
+						"secretKeyRef": {
+							"key": "db.password",
+							"name": "customer-db-secrets"
+						}
+						}
+					}
+					],
+					"volumeMounts": [
+					{
+						"mountPath": "/oracle/tnsadmin",
+						"name": "tns-admin"
+					}
+					]
+				}
+				],
+				"volumes": [
+				{
+					"name": "tns-admin",
+					"secret": {
+					"defaultMode": 420,
+					"secretName": "obaasdevdb-tns-admin"
+					}
+				}
+				]
+			}
+			}
+		}
+		}</copy>
+		```
+
+		Apply the patch to the deployment with this command: 
+
+		```shell
+		$ <copy>kubectl -n application patch deploy account -p "$(cat patch_customer.json)"</copy>
+		```
+
+
 	> What happens when you use the Oracle Backend for Spring Boot CLI **deploy** command?
     When you run the `deploy` command, the Oracle Backend for Spring Boot CLI does several things for you:
 
