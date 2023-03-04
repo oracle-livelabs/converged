@@ -79,6 +79,8 @@ The main annotations used in an LRA application are as follows:
 * `@Leave` - Indicates that this class is no longer interested in this LRA.
 * `@Status` - When the annotated method is invoked it should report the status.
 
+If you would like to learn more, there is a lot of detail in the [Long Running Action](https://download.eclipse.org/microprofile/microprofile-lra-1.0-M1/microprofile-lra-spec.html) specification.
+
 You will now start implementing the Cloud Cash Payment LRA.
 
 ## Task 3: Add LRA partipant endpoints to the Account Service
