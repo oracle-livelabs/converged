@@ -838,7 +838,7 @@ If you would like to learn more about endpoints and implement the remainder of t
     $ <copy>curl -s http://localhost:8080/api/v1/account/getAccounts/bob808bob | jq .</copy>
     ```
 
-   That completes the account-related endpoints.  Now it is time to add some endpoints to deal with transactions within an account.
+   That completes the account endpoints.  Now it is time to deploy your service to the backend.
 
 ## Task 7: Deploy the account service to Oracle Backend for Spring Boot
 
