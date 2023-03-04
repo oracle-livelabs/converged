@@ -213,7 +213,7 @@ TODO: Some kind of verification perhaps curl to account, customer, transaction a
 
 1. Get APISIX Gateway Admin Key
 
-	You are going to need the Admin Key for the APISIX Gateway to configure the route. It is stored in a COnfigMap. Run the command and make a note of the admin key. The command will return a long YAML document so you need to scroll up to find the Admin Key.
+	You are going to need the Admin Key for the APISIX Gateway to configure the route. It is stored in a k8s ConfigMap. Run the command and make a note of the admin key. The command will return a long YAML document so you need to scroll up to find the Admin Key.
 
 	```shell
 	<copy>kubectl -n apisix get configmap apisix -o yaml</copy>
@@ -388,6 +388,9 @@ TODO: Some kind of verification perhaps curl to account, customer, transaction a
 
 * [Oracle Backend for Spring Boot](https://oracle.github.io/microservices-datadriven/spring/)
 * [Oracle Backend for Parse Platform](https://oracle.github.io/microservices-datadriven/mbaas/)
+* [Kubernetes](https://kubernetes.io/docs/home/)
+* [Apache APISIX](https://apisix.apache.org)
+* [Oracle Cloud Infrastructure](https://docs.oracle.com/en-us/iaas/Content/home.htm)
 
 ## Acknowledgements
 
