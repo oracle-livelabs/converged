@@ -4,8 +4,6 @@
 
 This lab walks you through implementing the [Saga pattern](https://microservices.io/patterns/data/saga.html) using a [Long Running Action](https://download.eclipse.org/microprofile/microprofile-lra-1.0-M1/microprofile-lra-spec.html) to manage transactions across microservices.
 
-> **Note**: Hello LiveLab QA testers!  This lab did not make the deadline, but don't worry!  You can skip this lab and move on to the next one as if nothing happened :)  We will be adding this lab before the Level Up 23 event - probably by 3/8/2023.
-
 Estimated Time: 30 minutes
 
 ### Objectives
@@ -38,10 +36,12 @@ A saga is a sequence of local transactions.  Each service performs local transac
 
 ### Saga coordination
 
-There are two ways of coordination sagas:
+There are two ways to coordinate sagas:
 
 * Choreography - each local transaction publishes domain events that trigger local transactions in other services
 * Orchestration - an orchestrator (object) tells the participants what local transactions to execute
+
+You will use the orchestration approach in this lab.
 
 > **Note**: You can learn more about the saga pattern at [microservices.io](https://microservices.io/patterns/data/saga.html).
 
