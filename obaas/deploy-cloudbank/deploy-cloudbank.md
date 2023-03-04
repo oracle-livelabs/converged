@@ -243,7 +243,7 @@ TODO: Some kind of verification perhaps curl to account, customer, transaction a
 
 	 a. Accounts Route:
 
-	 Run this command to create tha accounts route, replace APIKEY with the key you got in Step 1
+	 Run this command to create the accounts route, replace the `APIKEY` in the command with the key you got in Step 1
 
 	```shell
 	$ <copy>source apisix-routes/create-accounts-route.sh APIKEY</copy>
@@ -268,7 +268,7 @@ TODO: Some kind of verification perhaps curl to account, customer, transaction a
 
 	b. Creditscore Route:
 
-	Run this command to create tha creditscore route, replace APIKEY with the key you got in Step 1
+	Run this command to create the creditscore route, replace the `APIKEY` in the command with the key you got in Step 1
 
 	``` shell
 	$ <copy>source apisix-routes/create-creditscore-route.sh APIKEY</copy>
@@ -293,7 +293,7 @@ TODO: Some kind of verification perhaps curl to account, customer, transaction a
 
 	c. Customer Route:
 
-	Run this command to create tha customer route, replace APIKEY with the key you got in Step 1
+	Run this command to create the customer route, replace the `APIKEY` in the command with the key you got in Step 1
 
 	```shell
 	$ <copy>source apisix-routes/create-customer-route.sh APIKEY</copy>
