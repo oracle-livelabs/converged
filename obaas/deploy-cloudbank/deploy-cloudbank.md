@@ -194,15 +194,18 @@ Download a copy of the CloudBank sample application.
     	successfully deployed
     	```
 
-		> What happens when you use the Oracle Backend for Spring Boot CLI **bind** command?
+		> What happens when you use the Oracle Backend for Spring Boot CLI **deploy** command?
     	When you run the `deploy` command, the Oracle Backend for Spring Boot CLI does several things for you:
 
-    	* TODO
-		* Magics and fireworks
+		- Uploads the JAR file to server side
+		- Builds a container image and push it to the OCI Registry
+		- Inspects the JAR file and looks for bind resources (JMS)
+		- Create the microservices deployment descriptor (k8s) with the resources supplied
+		- Applies the k8s deployment and create k8s object service to microservice
 
 ## Task 4: Verify the deployment
 
-TODO: Some kind of verification perhaps curl to account, customer, transaction and creditscore? 
+TODO: Some kind of verification perhaps curl to account, customer, transaction and creditscore?
 
 ## Task 5: Expose the services using APISIX Gateway
 
