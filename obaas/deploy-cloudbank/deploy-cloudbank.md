@@ -34,13 +34,7 @@ Download a copy of the CloudBank sample application.
 
     > **Note**: If you do not have **git** installed on your machine, you can download a zip file of the source code from TODO and unzip it on your machine instead.
 
-## Task 2: Create Database Objects
-
-1. Liquibasing like nobodys business
-
-2. Connection using Wallet to verify and grab some data
-
-## Task 3: Build the CloudBank application
+## Task 2: Build the CloudBank application
 
 1. Create application JAR files
 
@@ -60,19 +54,19 @@ Download a copy of the CloudBank sample application.
 	[INFO] ------------------------------------------------------------------------
 	[INFO] Reactor Summary for cloudbank 0.0.1-SNAPSHOT:
 	[INFO]
-	[INFO] customer ........................................... SUCCESS [  2.710 s]
-	[INFO] customer ........................................... SUCCESS [  0.800 s] << WHY TWO TIMES >>
-	[INFO] creditscore ........................................ SUCCESS [  0.405 s]
-	[INFO] cloudbank .......................................... SUCCESS [  0.018 s]
+	[INFO] account ............................................ SUCCESS [  2.990 s]
+	[INFO] customer ........................................... SUCCESS [  1.210 s]
+	[INFO] creditscore ........................................ SUCCESS [  0.154 s]
+	[INFO] cloudbank .......................................... SUCCESS [  0.033 s]
 	[INFO] ------------------------------------------------------------------------
 	[INFO] BUILD SUCCESS
 	[INFO] ------------------------------------------------------------------------
-	[INFO] Total time:  4.104 s
-	[INFO] Finished at: 2023-03-02T15:42:05-06:00
+	[INFO] Total time:  4.640 s
+	[INFO] Finished at: 2023-03-04T11:14:00-06:00
 	[INFO] ------------------------------------------------------------------------
 	```
 
-## Task 4: Install CloudBank in your Oracle Backend for Spring Boot instance
+## Task 3: Install CloudBank in your Oracle Backend for Spring Boot instance
 
 1. Prepare the backend for deployment
 
@@ -138,7 +132,7 @@ Download a copy of the CloudBank sample application.
     	database password/servicePassword (defaults to Welcome12345): 
     	database secret created successfully and schema already exists for customer
 		```
-  
+
 		> What happens when you use the Oracle Backend for Spring Boot CLI **bind** command?
 		When you run the `bind` command, the Oracle Backend for Spring Boot CLI does several things for you:
 
@@ -147,9 +141,7 @@ Download a copy of the CloudBank sample application.
 
 5. Create Database Objects
 
-	TODO: Liquibase, overwrite whatever is already in there? Does it matter?
-
-	TODO: Verify data using SQLcl?
+	The services are using LuquiBase so when the service get's deployed the `tables` and sample `data` will be created and inserted.
 
 6. Deploy the services
 
@@ -211,11 +203,11 @@ Download a copy of the CloudBank sample application.
     	* TODO
 		* Magics and fireworks
 
-## Task 5: Verify the deployment
+## Task 4: Verify the deployment
 
 TODO: Some kind of verification perhaps curl to account, customer, transaction and creditscore? 
 
-## Task 6: Expose the services using APISIX Gateway
+## Task 5: Expose the services using APISIX Gateway
 
 1. Get APISIX Gateway Admin Key
 
@@ -225,7 +217,7 @@ TODO: Some kind of verification perhaps curl to account, customer, transaction a
 	<copy>kubectl -n apisix get configmap apisix -o yaml</copy>
 	```
 
-	Look for the `key:` information in the `admin_key` section:
+	Look for the `key:` information in the `admin_key` section and save it. You'll be needing it later in this lab.
 
 	```yaml
 	admin_key:
@@ -248,6 +240,8 @@ TODO: Some kind of verification perhaps curl to account, customer, transaction a
 	In the `scripts` directory where you saved the code repository there are three scripts to create the routes. Run the commands to create the routes:
 
 	 a. Accounts Route:
+
+	 Run this command to create tha accounts route, replace APIKEY with the key you got in Step 1
 
 	```shell
 	$ <copy>source apisix-routes/create-accounts-route.sh APIKEY</copy>
@@ -272,6 +266,8 @@ TODO: Some kind of verification perhaps curl to account, customer, transaction a
 
 	b. Creditscore Route:
 
+	Run this command to create tha creditscore route, replace APIKEY with the key you got in Step 1
+
 	``` shell
 	$ <copy>source apisix-routes/create-creditscore-route.sh APIKEY</copy>
 	```
@@ -294,6 +290,8 @@ TODO: Some kind of verification perhaps curl to account, customer, transaction a
 	```
 
 	c. Customer Route:
+
+	Run this command to create tha customer route, replace APIKEY with the key you got in Step 1
 
 	```shell
 	$ <copy>source apisix-routes/create-customer-route.sh APIKEY</copy>
