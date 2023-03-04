@@ -85,11 +85,59 @@ You will now start implementing the Cloud Cash Payment LRA.
 
 ## Task 3: Add LRA partipant endpoints to the Account Service
 
-TODO what thing
+You will update the Account service that you built in the previous lab to add some new endpoints to perform deposits and withdrawals.  These new endpoints will be LRA participants.
 
-1. This thing
+1. Add new dependencies to the Maven POM
 
   TODO how.
+
+    ```xml
+    <copy>
+    <dependency>
+        <groupId>org.eclipse.microprofile.lra</groupId>
+        <artifactId>microprofile-lra-api</artifactId>
+        <version>1.0</version>
+    </dependency>
+    <dependency>
+        <groupId>org.jboss.narayana.rts</groupId>
+        <artifactId>narayana-lra</artifactId>
+        <version>5.13.1.Final</version>
+    </dependency>
+    <dependency>
+        <groupId>jakarta.enterprise</groupId>
+        <artifactId>jakarta.enterprise.cdi-api</artifactId>
+        <version>2.0.2</version>
+    </dependency>
+    </copy>
+    ```  
+
+   TODO more explanation
+
+1. Update the Spring Boot application configuration file
+
+  Update your Account service's Spring Boot configuration file, `application.yaml` in `src/main/resources`.  You need to add the `jersey` section under `spring`, and also add a new `lra` section with the URL for the LRA coordinator.  The URL shown here is for the Oracle Transaction Manager for Microservices that was installed as part of the Oracle Backend for Spring Boot.  **Note**: This URL is from the point of view of a service running it the same Kubernetes cluster.  
+
+    ```yaml
+    <copy>
+    spring:
+      application:
+        name: account
+      jersey:
+        type: filter
+    lra:
+      coordinator:
+        url: http://otmm-tcs.otmm.svc.cluster.local:9000/api/v1/lra-coordinator
+    </copy>
+    ```  
+  
+1. This thing
+
+  TODO how.    
+
+1. That thing
+
+  TODO how.    
+
 
 ## Task 4: Create the Transfer Service
 
