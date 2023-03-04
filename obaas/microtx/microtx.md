@@ -81,6 +81,14 @@ The main annotations used in an LRA application are as follows:
 
 If you would like to learn more, there is a lot of detail in the [Long Running Action](https://download.eclipse.org/microprofile/microprofile-lra-1.0-M1/microprofile-lra-spec.html) specification.
 
+### Explain Journal
+
+TODO expalin the journal table stuff.
+
+As LRA is an eventual consistency model, the approach you will take in the account service will employ a journal table to keep track of pending transactions.  When the LRA is running, the Account service participant will create the deposit and withdrawal records in a journal table.  When the LRA reaches the "complete" phase, these records will be commited in the main transaction table and the journaled record will move from "pending" to "complete" status and eventually be removed.
+
+TODO check with paul how this is actually meant to work, seems to lose the transaction and only update account.balance.
+
 You will now start implementing the Cloud Cash Payment LRA.
 
 ## Task 3: Add LRA partipant endpoints to the Account Service
@@ -89,7 +97,7 @@ You will update the Account service that you built in the previous lab to add so
 
 1. Add new dependencies to the Maven POM
 
-  TODO how.
+  TODO expalin what these are for
 
     ```xml
     <copy>
@@ -169,9 +177,74 @@ You will update the Account service that you built in the previous lab to add so
     ```
 
 
-1. This thing
+1. Create the Journal repository and model
 
-  TODO how.    
+   Create a new Java file called `Journal.java` in `src/main/com/example/accounts/model` to define the model for the journal table.  There are no new concepts in this class, so here is the code: 
+
+    ```java
+    <copy>package com.example.accounts.model;
+
+    import javax.persistence.Column;
+    import javax.persistence.Entity;
+    import javax.persistence.GeneratedValue;
+    import javax.persistence.GenerationType;
+    import javax.persistence.Id;
+    import javax.persistence.Table;
+
+    import lombok.Data;
+    import lombok.NoArgsConstructor;
+
+    @Entity
+    @Table(name = "JOURNAL")
+    @Data
+    @NoArgsConstructor
+    public class Journal {
+
+        @Id
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
+        @Column(name = "JOURNAL_ID")
+        private long journalId;
+
+        // type is withdraw or deposit
+        @Column(name = "JOURNAL_TYPE")
+        private String journalType;
+
+        @Column(name = "ACCOUNT_NAME")
+        private String accountName;
+
+        @Column(name = "LRA_ID")
+        private String lraId;
+
+        @Column(name = "LRA_STATE")
+        private String lraState;
+
+        @Column(name = "JOURNAL_AMOUNT")
+        private long journalAmount;
+
+        public Journal(String journalType, String accountName, long journalAmount, String lraId, String lraState) {
+            this.journalType = journalType;
+            this.accountName = accountName;
+            this.lraId = lraId;
+            this.lraState = lraState;
+            this.journalAmount = journalAmount;
+        }
+    }</copy>
+    ```    
+
+   Create a new Java file called `JournalRepository.java` in `src/main/java/com/example/accounts/repository` and define the JPA repository interface for the Journal.  You will need to add one JPA method `findJournalByLraId()` to the interface.  Here is the code:
+
+    ```java
+    <copy>package com.example.accounts.repository;
+
+    import com.example.accounts.model.Journal;
+    import org.springframework.data.jpa.repository.JpaRepository;
+
+    import java.util.List;
+
+    public interface JournalRepository extends JpaRepository<Journal, Long> {
+        List<Journal> findJournalByLraId(String lraId);
+    }</copy>
+    ```
 
 1. That thing
 
