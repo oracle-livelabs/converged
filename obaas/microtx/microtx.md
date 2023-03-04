@@ -252,11 +252,149 @@ You will update the Account service that you built in the previous lab to add so
 
 ## Task 4: Create the Deposit service
 
-TODO what thing
+The Deposit service will process deposits into bank accounts.  TODO more
 
-1. This thing
+1. Create the Deposit service and skaffold methods
 
-  TODO how.
+   Create a new directory in `src/main/java/com/example/accounts` called `services` and in that directory create a new Java file called `DepositService.java`.  This will be a Spring Boot component where you will implement the deposit operations.  Since the LRA library we are using only works with JAX-RS, you will be using JAX-RS annotations in this service, as opposed to the Spring Boot "web" REST annotations that you used in the previous lab.  You can mix and match these styles in a single Spring Boot microservice application.
+
+   Start by setting up endpoints and methods with the appropriate annotations.  You will implement the logic for each of these methods shortly.  Here is the class definition and all the imports you will need in this section.  Notice that the class has the `@RequestScoped` annotation which tells Spring to create an instance of this class for each HTTP request (as opposed to for a whole session for example), the Spring Boot `@Component` annotation which marks this class as a bean that Spring can inject as a dependency when needed, and the `@Path` annotation to set the URL path for these endpoints.
+
+    ```java
+    <copy>package com.example.accounts.services;
+
+    import static org.eclipse.microprofile.lra.annotation.ws.rs.LRA.LRA_HTTP_CONTEXT_HEADER;
+    import static org.eclipse.microprofile.lra.annotation.ws.rs.LRA.LRA_HTTP_ENDED_CONTEXT_HEADER;
+    import static org.eclipse.microprofile.lra.annotation.ws.rs.LRA.LRA_HTTP_PARENT_CONTEXT_HEADER;
+
+    import javax.enterprise.context.RequestScoped;
+    import javax.ws.rs.Consumes;
+    import javax.ws.rs.GET;
+    import javax.ws.rs.HeaderParam;
+    import javax.ws.rs.POST;
+    import javax.ws.rs.PUT;
+    import javax.ws.rs.Path;
+    import javax.ws.rs.Produces;
+    import javax.ws.rs.QueryParam;
+    import javax.ws.rs.core.MediaType;
+    import javax.ws.rs.core.Response;
+
+    import org.eclipse.microprofile.lra.annotation.AfterLRA;
+    import org.eclipse.microprofile.lra.annotation.Compensate;
+    import org.eclipse.microprofile.lra.annotation.Complete;
+    import org.eclipse.microprofile.lra.annotation.Status;
+    import org.eclipse.microprofile.lra.annotation.ws.rs.LRA;
+    import org.springframework.stereotype.Component;
+    import org.springframework.transaction.annotation.Transactional;
+
+    @RequestScoped
+    @Path("/deposit")
+    @Component
+    public class DepositService {
+
+    }</copy>
+    ``` 
+
+   The first method you need will be the main entry point, the `deposit()` method.  This will have the `@POST` annotation so that it will respond to the HTTP POST method.  It will have the `@Produces` annotation with the value `MediaType.APPLICATION_JSON` so that the response will contain JSON data and have the HTTP `Content-Type: application/json` header.  It has the `@Transactional` annotation, which declares to Spring that this is a transaction boundary and tells Spring to inject various behaviors related to transaction management and rollback.  And finally, it has the `@LRA` annotation.
+
+   In the `@LRA` annotation, which marks this as an LRA participant, the `value` property is set to `LRA.Type.MANDATORY` which means that this method will refuse to perform any work unless it is part of an LRA.  The `end` property is set to `false` which means that successful completion of this method does not in and of itself constitute successful completion of the LRA, in other words, this method expects that it will not be the only participant in the LRA.
+
+   THe LRA coordinator will pass the LRA ID to this method (and any other participants) in an HTTP header.  Notice that the first argument of the method extracts that header and maps it to `lraId`.  The other two arguments are mapped to HTTP Query parameters which identify the account and amount to deposit.  For now, this method will just return a response with the HTTP Status Code set to 200 (OK).  You will implement the actual business logic shortly.
+
+    ```java
+    <copy>
+      /**
+        * Write journal entry re deposit amount.
+        * Do not increase actual bank account amount
+        */
+        @POST
+        @Path("/deposit")
+        @Produces(MediaType.APPLICATION_JSON)
+        @LRA(value = LRA.Type.MANDATORY, end = false)
+        @Transactional
+        public Response deposit(@HeaderParam(LRA_HTTP_CONTEXT_HEADER) String lraId,
+                @QueryParam("accountId") long accountId,
+                @QueryParam("amount") long depositAmount) {
+            return Response.ok().build();
+        }
+    </copy>
+    ```
+
+   Each LRA participant needs a "complete" endpoint.  This `completeWork` method implements that endpoint, as declared by the `@Complete` annotation.  Note that this responds to the HTTP PUT method, and it produces JSON and extracts the LRA ID from an HTTP header as in the previous method.
+
+    ```java
+    <copy>
+        /**
+        * Increase balance amount as recorded in journal during deposit call.
+        * Update LRA state to ParticipantStatus.Completed.
+        */
+        @PUT
+        @Path("/complete")
+        @Produces(MediaType.APPLICATION_JSON)
+        @Complete
+        public Response completeWork(@HeaderParam(LRA_HTTP_CONTEXT_HEADER) String lraId) throws Exception {
+            return Response.ok().build();
+        }
+    </copy>
+    ```
+
+   Next, you need a compensate endpoint.  This `compensateWork` method is similar to the previous methods and is marked with the `@Compensate` annotation to mark it as the componensation handler for this participant.    
+
+    ```java
+    <copy>
+
+        /**
+        * Update LRA state to ParticipantStatus.Compensated.
+        */
+        @PUT
+        @Path("/compensate")
+        @Produces(MediaType.APPLICATION_JSON)
+        @Compensate
+        public Response compensateWork(@HeaderParam(LRA_HTTP_CONTEXT_HEADER) String lraId) throws Exception {
+            return Response.ok().build();
+        }
+    </copy>
+    ```
+
+   Next, you need to provide a status endpoint.  This must respond to the HTTP GET method.  It returns plain text TODO WHY PAUL?  Notice that it also extracts the parent LRA ID (if present Paul? why??) TODO
+
+    ```java
+    <copy>
+
+        /**
+        * Return status
+        */
+        @GET
+        @Path("/status")
+        @Produces(MediaType.TEXT_PLAIN)
+        @Status
+        public Response status(@HeaderParam(LRA_HTTP_CONTEXT_HEADER) String lraId,
+                @HeaderParam(LRA_HTTP_PARENT_CONTEXT_HEADER) String parentLRA) throws Exception {
+            return Response.ok().build();
+        }
+    </copy>
+    ```
+
+   Finally, you need an "after LRA" endpoint that implements any clean up logic that needs to be run after the completion of the LRA.  (TODO paul successful only or any outcome?)   This method must repsond to the HTTP PUT method and is marked with the `@AfterLRA` annotation.
+
+    ```java
+    <copy>
+
+        /**
+        * Delete journal entry for LRA
+        */
+        @PUT
+        @Path("/after")
+        @AfterLRA
+        @Consumes(MediaType.TEXT_PLAIN)
+        public Response afterLRA(@HeaderParam(LRA_HTTP_ENDED_CONTEXT_HEADER) String lraId, String status) throws Exception {
+            return Response.ok().build();
+        }
+    </copy>
+    ```
+
+  TODO now implement the business logic - probably need to do the util class first .. 
+
 
 ## Task 5: Create the Withdraw service
 
