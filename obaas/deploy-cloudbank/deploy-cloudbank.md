@@ -34,13 +34,7 @@ Download a copy of the CloudBank sample application.
 
     > **Note**: If you do not have **git** installed on your machine, you can download a zip file of the source code from TODO and unzip it on your machine instead.
 
-## Task 2: Create Database Objects
-
-1. Liquibasing like nobodys business
-
-2. Connection using Wallet to verify and grab some data
-
-## Task 3: Build the CloudBank application
+## Task 2: Build the CloudBank application
 
 1. Create application JAR files
 
@@ -72,7 +66,7 @@ Download a copy of the CloudBank sample application.
 	[INFO] ------------------------------------------------------------------------
 	```
 
-## Task 4: Install CloudBank in your Oracle Backend for Spring Boot instance
+## Task 3: Install CloudBank in your Oracle Backend for Spring Boot instance
 
 1. Prepare the backend for deployment
 
@@ -203,30 +197,17 @@ Download a copy of the CloudBank sample application.
     	successfully deployed
     	```
 
-	4. Deploy the CloudBank service
-
-		You will now deploy your Customer service to the Oracle Backend for Spring Boot using the CLI.  You will deploy into the `application` namespace, and the service name will be `cloudbank`. Run this command to deploy your service, make sure you provide the correct path to your JAR file:
-
-    	```shell
-    	oractl> <copy>
-		deploy --isRedeploy false --appName application --serviceName cloudbank --jarLocation /path/to/creditscore/target/cloudbank-0.0.1-SNAPSHOT.jar --imageVersion 0.0.1</copy>
-		uploading... upload successful
-		building and pushing image... docker build and push successful	
-		creating deployment and service... create deployment and service  = cloudbank, appName = application, isRedeploy = false successful
-    	successfully deployed
-    	```
-
 		> What happens when you use the Oracle Backend for Spring Boot CLI **bind** command?
     	When you run the `deploy` command, the Oracle Backend for Spring Boot CLI does several things for you:
 
     	* TODO
 		* Magics and fireworks
 
-## Task 5: Verify the deployment
+## Task 4: Verify the deployment
 
 TODO: Some kind of verification perhaps curl to account, customer, transaction and creditscore? 
 
-## Task 6: Expose the services using APISIX Gateway
+## Task 5: Expose the services using APISIX Gateway
 
 1. Get APISIX Gateway Admin Key
 
