@@ -81,13 +81,13 @@ The main annotations used in an LRA application are as follows:
 
 If you would like to learn more, there is a lot of detail in the [Long Running Action](https://download.eclipse.org/microprofile/microprofile-lra-1.0-M1/microprofile-lra-spec.html) specification.
 
-### Explain Journal
+### Keeping track of local transactions made in an LRA
 
-TODO expalin the journal table stuff.
+Microservices are often designed to be stateless, to push all the state into the datastore.  This makes it easier to scale by running more instances of services, and it makes it easier to debug issues because there is no state stored in process memory.  It also means you need a way to correlate transactions with the LRA they were performed by. 
 
-As LRA is an eventual consistency model, the approach you will take in the account service will employ a journal table to keep track of pending transactions.  When the LRA is running, the Account service participant will create the deposit and withdrawal records in a journal table.  When the LRA reaches the "complete" phase, these records will be commited in the main transaction table and the journaled record will move from "pending" to "complete" status and eventually be removed.
+You will add a `JOURNAL` table to the account microservice's database.  This table will contain the "bank account transactions" (deposits, withdrawals, interest paymenets, etc.) for this account (not to be confused with "database transcations" as in the two-phase commit protocol).  The account service will track LRA's associated with each journal entry (bank account transaction) in a column in the journal table.
 
-TODO check with paul how this is actually meant to work, seems to lose the transaction and only update account.balance.
+As LRA is an eventual consistency model, the approach you will take in the account service will be to store bank account transacstions as "pending" in the journal table.  Pending transactions will not be considered when calculating the account balance until they are finalized ("completed").  When the LRA reaches the "complete" phase, the pending transactions will be considered finalized and the account balance will be updated to reflect those transactions. 
 
 You will now start implementing the Cloud Cash Payment LRA.
 
