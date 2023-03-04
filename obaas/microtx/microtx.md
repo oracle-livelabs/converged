@@ -610,6 +610,64 @@ The Data Access Object pattern is considered a best practice and it allows separ
 
 TODO
 
+1. Implement the business logic for the **deposit** method.
+
+   This method should write a journal entry for the deposit, but should not update the account balance.  Here is the code for this method:
+
+    ```java
+    <copy>@POST
+    @Path("/deposit")
+    @Produces(MediaType.APPLICATION_JSON)
+    @LRA(value = LRA.Type.MANDATORY, end = false)
+    public Response deposit(@HeaderParam(LRA_HTTP_CONTEXT_HEADER) String lraId,
+                            @QueryParam("accountId") long accountId,
+                            @QueryParam("amount") long depositAmount) {
+        AccountTransferDAO.instance().saveJournal(
+            new Journal(
+                DEPOSIT, 
+                accountId, 
+                depositAmount, 
+                lraId,
+                AccountTransferDAO.getStatusString(ParticipantStatus.Active)
+            )
+        );
+        return Response.ok("deposit succeeded").build();
+    }</copy>
+    ```
+
+1. Implement the **complete** method
+
+  This method should update the LRA status to **completing**, update the account balance, change the bank transaction (journal entry) status from pending to complteted and the set the LRA status to **completed**.  Here is the code for this method: 
+
+    ```java
+    <copy>@PUT
+    @Path("/complete")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Complete
+    public Response completeWork(@HeaderParam(LRA_HTTP_CONTEXT_HEADER) String lraId) throws Exception {
+        Journal journal = AccountTransferDAO.instance().getJournalForLRAid(lraId, DEPOSIT);
+        Account account = AccountTransferDAO.instance().getAccountForJournal(journal);
+
+        // set this LRA participant's status to completing...
+        journal.setLraState(AccountTransferDAO.getStatusString(ParticipantStatus.Completing));
+        
+        // update the account balance and journal entry...
+        account.setAccountBalance(account.getAccountBalance() + journal.getJournalAmount());
+        AccountTransferDAO.instance().saveAccount(account);
+        journal.setLraState(AccountTransferDAO.getStatusString(ParticipantStatus.Completed));
+        AccountTransferDAO.instance().saveJournal(journal);
+        
+        // set this LRA participant's status to complete...
+        return Response.ok(ParticipantStatus.Completed.name()).build();
+    }</copy>
+    ```  
+
+1. do some more things
+
+   TODO TODO TODO
+
+   
+
 ## Task 7: Create the Withdraw service
 
 TODO what thing
