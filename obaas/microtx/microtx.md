@@ -94,6 +94,10 @@ You will update the Account service that you built in the previous lab to add so
     ```xml
     <copy>
     <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-jersey</artifactId>
+    </dependency>
+    <dependency>
         <groupId>org.eclipse.microprofile.lra</groupId>
         <artifactId>microprofile-lra-api</artifactId>
         <version>1.0</version>
@@ -121,7 +125,7 @@ You will update the Account service that you built in the previous lab to add so
     <copy>
     spring:
       application:
-        name: account
+        name: accounts
       jersey:
         type: filter
     lra:
@@ -129,7 +133,42 @@ You will update the Account service that you built in the previous lab to add so
         url: http://otmm-tcs.otmm.svc.cluster.local:9000/api/v1/lra-coordinator
     </copy>
     ```  
-  
+
+1. Create the Jersey configuration
+
+  Create a new Java file called `JerseyConfig.java` in `src/main/java/com/examples/accounts`.  In this file, you need to register the LRA filters, which will process the LRA annotations, create a binding, and configure the filters to forward on a 404 (Not Found).  Here is the code to perform this configuration:
+
+    ```java
+    <copy>
+    package com.example.accounts;
+     
+    import javax.ws.rs.ApplicationPath;
+    import org.glassfish.hk2.utilities.binding.AbstractBinder;
+    import org.glassfish.jersey.server.ResourceConfig;
+    import org.glassfish.jersey.servlet.ServletProperties;
+    import org.springframework.stereotype.Component;
+    import io.narayana.lra.client.internal.proxy.nonjaxrs.LRAParticipantRegistry;
+    
+    @Component
+    @ApplicationPath("/")
+    public class JerseyConfig extends ResourceConfig {
+    
+        public JerseyConfig()  {
+            register(io.narayana.lra.filter.ServerLRAFilter.class);
+            register(new AbstractBinder(){
+                @Override
+                protected void configure() {
+                    bind(LRAParticipantRegistry.class)
+                        .to(LRAParticipantRegistry.class);
+                }
+            });
+            property(ServletProperties.FILTER_FORWARD_ON_404, true);
+        }
+    }
+    </copy>
+    ```
+
+
 1. This thing
 
   TODO how.    
