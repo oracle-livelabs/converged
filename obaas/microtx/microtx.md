@@ -209,8 +209,8 @@ You will update the Account service that you built in the previous lab to add so
         @Column(name = "JOURNAL_TYPE")
         private String journalType;
 
-        @Column(name = "ACCOUNT_NAME")
-        private String accountName;
+        @Column(name = "ACCOUNT_ID")
+        private long accountId;
 
         @Column(name = "LRA_ID")
         private String lraId;
@@ -221,9 +221,9 @@ You will update the Account service that you built in the previous lab to add so
         @Column(name = "JOURNAL_AMOUNT")
         private long journalAmount;
 
-        public Journal(String journalType, String accountName, long journalAmount, String lraId, String lraState) {
+        public Journal(String journalType, long accountId, long journalAmount, String lraId, String lraState) {
             this.journalType = journalType;
-            this.accountName = accountName;
+            this.accountId = accountId;
             this.lraId = lraId;
             this.lraState = lraState;
             this.journalAmount = journalAmount;
@@ -402,13 +402,15 @@ The Deposit service will process deposits into bank accounts.  In this task, you
 
   TODO now implement the business logic - probably need to do the util class first .. 
 
-## Task 5: Create LRA utility methods
+## Task 5: Create an Account/Transfer Data Access Object
 
-TODO 
+The Data Access Object pattern is considered a best practice and it allows separation of business logic from the persistence layer.  In this task, you will create an Account Data Access Object (DAO) that hides the complexity of the persitence layer logic from the business layer services.  Additionally, it establishes methods that can be reused by each business layer service that needs to operate on accounts - in this lab there will be two such services - deposit and withdraw.
 
-Create a new Java file called `LRAUtils.java` in `src/main/java/com/example/accounts/services`.  This class will contain common utility methods that are needed by multiple partipants.  You will implement this class using the singleton pattern so that there will only be one instance of this class.
+1. Create the DAO class
 
-Here is the code to set up the class and implement the singleton pattern:
+   Create a new Java file called `AccountTransferDAO.java` in `src/main/java/com/example/accounts/services`.  This class will contain common data access methods that are needed by multiple partipants.  You will implement this class using the singleton pattern so that there will only be one instance of this class.
+
+   Here is the code to set up the class and implement the singleton pattern:
 
     ```java
     <copy>package com.example.accounts.services;
@@ -426,28 +428,30 @@ Here is the code to set up the class and implement the singleton pattern:
     import com.example.accounts.repository.JournalRepository;
 
     @Component
-    public class LRAUtils {
+    public class AccountTransferDAO {
 
-        private static LRAUtils singleton;
+        private static AccountTransferDAO singleton;
         final AccountRepository accountRepository;
         final JournalRepository journalRepository;
 
-        public LRAUtils(AccountRepository accountRepository, JournalRepository journalRepository) {
+        public AccountTransferDAO(AccountRepository accountRepository, JournalRepository journalRepository) {
             this.accountRepository = accountRepository;
             this.journalRepository = journalRepository;
             singleton = this;
             System.out.println(
-                    "LRAUtils accountsRepository = " + accountRepository + ", journalRepository = " + journalRepository);
+                    "AccountTransferDAO accountsRepository = " + accountRepository + ", journalRepository = " + journalRepository);
         }
 
-        public static LRAUtils instance() {
+        public static AccountTransferDAO instance() {
             return singleton;
         }
 
     }</copy>
     ```
 
-   Create a `getStatusString` method which can be used to get a String representation of the LRA participant status enum.
+1. Create a method to get the LRA status as a String
+
+   Create a `getStatusString` method which can be used to get a String representation of the LRA participant status.
 
     ```java
     <copy>public static String getStatusString(ParticipantStatus status) {
@@ -471,6 +475,8 @@ Here is the code to set up the class and implement the singleton pattern:
         }
     }</copy>
     ```
+
+1. Create a method to get the LRA status from a String
 
    Create a `getStatusFromString` method to convert back from the String to the enum.
 
@@ -497,7 +503,9 @@ Here is the code to set up the class and implement the singleton pattern:
     }</copy>
     ```
 
-   Create a utility method to save an account in the account repository.
+1. Create a method to save an account
+
+   Create a method to save an account in the account repository.
 
     ```java
     <copy>public void saveAccount(Account account) {
@@ -510,12 +518,14 @@ Here is the code to set up the class and implement the singleton pattern:
     ```java
     <copy>public Response status(String lraId) throws Exception {
         Journal journal = getJournalForLRAid(lraId);
-        if (LRAUtils.getStatusFromString(journal.getLraState()).equals(ParticipantStatus.Compensated))
+        if (AccountTransferDAO.getStatusFromString(journal.getLraState()).equals(ParticipantStatus.Compensated))
             return Response.ok(ParticipantStatus.Compensated).build();
         else
             return Response.ok(ParticipantStatus.Completed).build();
     }
     ```
+
+1. Create a method to update the LRA status in the journal
 
    Create a method to update the LRA status in the journal table during the "after LRA" phase.
 
@@ -527,31 +537,46 @@ Here is the code to set up the class and implement the singleton pattern:
     }</copy>
     ```
 
+1. Create methods to manage accounts
+
    Create a method to get the account that is related to a journal entry.
 
     ```java
     <copy>Account getAccountForJournal(Journal journal) throws Exception {
-        Account account;
-        // TODO update this - not accountName? Paul?
-        List<Account> accounts = accountRepository.findAccountsByAccountNameContains(journal.getAccountName());
-        if (accounts.size() == 0)
-            throw new Exception("Invalid accountName:" + journal.getAccountName());
-        account = accounts.get(1);
+        Account account = accountRepository.findByAccountId(journal.getAccountId());
+        if (account == null) throw new Exception("Invalid accountName:" + journal.getAccountId());
         return account;
     }</copy>
     ```
 
-   Create a metho to get the account for a given account name TODO paul update?? 
+   Create a method to get the account for a given account name TODO paul update?? 
 
     ```java
-    <copy>Account getAccountForAccountName(String accountName) {
-        // TODO update this - not accountName? Paul?
-        List<Account> accounts = accountRepository.findAccountsByAccountNameContains(accountName);
-        if (accounts.size() == 0)
-            return null;
-        return accounts.get(1);
+    <copy> Account getAccountForAccountId(long accountId)  {
+      Account account = accountRepository.findByAccountId(accountId);
+      if (account == null) return null;
+      return account;
     }
     ```
+
+   Update the `AccountRepository.java` in `src/main/java/com/example/accounts/repositories` to add this extra JPA method for `findByAccountId`.  Your updated file should look like this: 
+
+    ```java
+    <copy>package oracle.examples.cloudbank.repository;
+
+    import oracle.examples.cloudbank.model.Account;
+    import org.springframework.data.jpa.repository.JpaRepository;
+
+    import java.util.List;
+
+    public interface AccountRepository extends JpaRepository <Account, Long> {
+        List<Account> findAccountsByAccountNameContains (String accountName);
+        List<Account> findByAccountCustomerId(String customerId);
+        Account findByAccountId(long accountId);
+    }</copy>
+    ```    
+
+1. Create methods to manage the journal
 
    Create a method to get the journal entry for a given LRA.
 
@@ -560,8 +585,8 @@ Here is the code to set up the class and implement the singleton pattern:
         Journal journal;
         List<Journal> journals = journalRepository.findJournalByLraId(lraId);
         if (journals.size() == 0) {
-            journalRepository.save(new Journal("unknown", "unknown", 0, lraId,
-                    LRAUtils.getStatusString(ParticipantStatus.FailedToComplete)));
+            journalRepository.save(new Journal("unknown", -1, 0, lraId,
+                    AccountTransferDAO.getStatusString(ParticipantStatus.FailedToComplete)));
             throw new Exception("Journal entry does not exist for lraId:" + lraId);
         }
         journal = journals.get(0);
