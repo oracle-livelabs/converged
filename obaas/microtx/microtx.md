@@ -531,13 +531,11 @@ The Data Access Object pattern is considered a best practice and it allows separ
    Create a method to update the LRA status in the journal table during the "after LRA" phase.
 
     ```java
-    <copy>
-    public void afterLRA(String lraId, String status) throws Exception {
+    <copy>public void afterLRA(String lraId, String status) throws Exception {
         Journal journal = getJournalForLRAid(lraId);
         journal.setLraState(status);
         journalRepository.delete(journal);
-    }
-    </copy>
+    }</copy>
     ```
 
 1. Create methods to manage accounts
@@ -565,8 +563,7 @@ The Data Access Object pattern is considered a best practice and it allows separ
    Update `AccountRepository.java` in `src/main/java/com/example/accounts/repositories` to add this extra JPA method for `findByAccountId`.  Your updated file should look like this: 
 
     ```java
-    <copy>
-    package oracle.examples.cloudbank.repository;
+    <copy>package oracle.examples.cloudbank.repository;
 
     import oracle.examples.cloudbank.model.Account;
     import org.springframework.data.jpa.repository.JpaRepository;
@@ -577,8 +574,7 @@ The Data Access Object pattern is considered a best practice and it allows separ
         List<Account> findAccountsByAccountNameContains (String accountName);
         List<Account> findByAccountCustomerId(String customerId);
         Account findByAccountId(long accountId);
-    }
-    </copy>
+    }</copy>
     ```    
 
 1. Create methods to manage the journal
