@@ -534,7 +534,7 @@ The Data Access Object pattern is considered a best practice and it allows separ
     <copy>public void afterLRA(String lraId, String status) throws Exception {
         Journal journal = getJournalForLRAid(lraId);
         journal.setLraState(status);
-        journalRepository.delete(journal);
+        journalRepository.save(journal);
     }</copy>
     ```
 
