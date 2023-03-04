@@ -9,6 +9,7 @@ Estimated Time: 20 minutes
 ### Objectives
 
 In this lab, you will:
+
 * Review the components of the Oracle Backend for Spring Boot
 * Explore how microservice data is stored in the Oracle Autonomous Database
 * Learn about the Spring Admin user interface
@@ -20,10 +21,11 @@ In this lab, you will:
 ### Prerequisites
 
 This lab assumes you have:
+
 * An Oracle Cloud account
 * All previous labs successfully completed
 
-## Task 1: Explore the Kuberenetes cluster 
+## Task 1: Explore the Kubernetes cluster
 
 Oracle Backend for Spring Boot includes a number of platform services which are deployed into the Oracle Container Engine for Kubernetes cluster.  You configured **kubectl** to access your cluster in an earlier lab.  In this task, you will explore the services deployed in the Kubernetes cluster.  A detailed explanation of Kubernetes concepts is beyond the scope of this course.
 
@@ -31,7 +33,7 @@ Oracle Backend for Spring Boot includes a number of platform services which are 
 
    Kubernetes resources are grouped into namespaces.  To see a list of the namespaces in your cluster, use this command, your output will be slightly different: 
 
-    ```
+    ```shell
     $ <copy>kubectl get ns</copy>
     NAME                              STATUS   AGE
     admin-server                      Active   11d
@@ -69,22 +71,22 @@ Oracle Backend for Spring Boot includes a number of platform services which are 
       * `eureka` contains the Spring Eureka Service Registry which is used for service discovery
       * `grafana` contains Grafana which can be used to monitor and manage your environment
       * `ingress-nginx` contains the NGINX ingress controller which is used to manage external access to the cluster
-      * `kafka` contains a three-node Kafka cluster that can be used by your applciation
+      * `kafka` contains a three-node Kafka cluster that can be used by your application
       * `obaas-admin` contains the Oracle Backend for Spring Boot administration server that manages deployment of your services
       * `observability` contains Jaeger tracing which is used for viewing distributed traces
       * `open-telemetry` contains the Open Telemetry Collector which is used to collect distributed tracing information for your services
-      * `oracle-database-operator-system` contains the Oracle Database Operator for Kubernetes which can be used to manage Oracle Databases in Kubernetes environements
-      * `otmm` contains Oracle Transaction Manager for Microservices which is used to manage transactions acorss services
-      * `prometheus` contains Prometheus which collects metrics about your services and makes the available to Grafana for alerting and dashboarding
-      * `vault` contains HashiCorp Vault which can be used to store secret or sensitive infomration for services, like credentials for example
+      * `oracle-database-operator-system` contains the Oracle Database Operator for Kubernetes which can be used to manage Oracle Databases in Kubernetes environments
+      * `otmm` contains Oracle Transaction Manager for Microservices which is used to manage transactions across services
+      * `prometheus` contains Prometheus which collects metrics about your services and makes the available to Grafana for alerting and dashboards
+      * `vault` contains HashiCorp Vault which can be used to store secret or sensitive information for services, like credentials for example
 
    Kubernetes namespaces contain other resources like pods, services, secrets and config maps.  You will explore some of these now. 
 
-1. Explore pods 
+2. Explore pods
 
    Kubernetes runs workloads in "pods."  Each pod can container one or more containers.  There are different kinds of groupings of pods that handle scaling in different ways.  Use this command to review the pods in the `apisix` namespace:
 
-    ```
+    ```shell
     $ <copy>kubectl -n apisix get pods</copy>
     NAME                               READY   STATUS    RESTARTS        AGE
     apisix-5b47fcc4-bm25w              1/1     Running   0               6d18h
@@ -100,7 +102,7 @@ Oracle Backend for Spring Boot includes a number of platform services which are 
 
    To see details of the deployments and stateful set in this namespace use this command: 
 
-    ```
+    ```shell
     $ <copy>kubectl -n apisix get deploy,statefulset</copy>
     NAME                               READY   UP-TO-DATE   AVAILABLE   AGE
     deployment.apps/apisix             3/3     3            3           6d18h
@@ -112,15 +114,15 @@ Oracle Backend for Spring Boot includes a number of platform services which are 
 
    If you want to view extended information about any object you can specify its name and the output format, as in this example:
 
-    ```
+    ```shell
     $ <copy>kubectl -n apisix get pod apisix-etcd-0</copy>
     ```
 
-1. Explore services
+3. Explore services
 
    Kubernetes services are essentially small load balancers that sit in front of groups of pods and provide a stable network address as well as load balancing.  To see the services in the `apisix` namespace use this command: 
 
-    ```
+    ```shell
     $ <copy>kubectl -n apisix get svc</copy>
     NAME                   TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)             AGE
     apisix-admin           ClusterIP   10.123.66.40    <none>        9180/TCP            6d18h
@@ -132,13 +134,13 @@ Oracle Backend for Spring Boot includes a number of platform services which are 
 
    Notice that the services give information about the ports.  You can get detailed information about a service by specifying its name and output format as you did earlier for a pod. 
 
-1. Explore secrets
+4. Explore secrets
 
    Sensitive information in Kubernetes is often kept in secrets that are mounted into the pods at runtime.  This means that the container images do not need to have the sensitive information stored in them.  It also helps with deploying to different environments where sensitive information like URLs and credentials for databases changes based on the environment.
 
-   Oracle Backend for Spring Boot creates a number of secrets for you so that your applications can securely access the Oracle Autonomous Database instance.  Review the secrets in the pre-created `application` namespace using this command: 
+   Oracle Backend for Spring Boot creates a number of secrets for you so that your applications can securely access the Oracle Autonomous Database instance.  Review the secrets in the pre-created `application` namespace using this command. **Note**, the name of the secrets will be different in your environment depending on the application name you gave when deploying the application.
 
-    ```
+    ```shell
     $ <copy>kubectl -n application get secret</copy>
     NAME                      TYPE                             DATA   AGE
     obaasdevdb-db-secrets     Opaque                           5      10d
@@ -149,9 +151,9 @@ Oracle Backend for Spring Boot includes a number of platform services which are 
 
    Whenever you create a new application namespace with the CLI and bind it to the database, these secrets will be automatically created for you in that namespace.  The first one contains the credentials to access the Oracle Autonomous Database.  The second one contains the database client configuration files (`tnsadmin.ora`, `sqlnet.ora`, the keystores, and so on).  The third secret contains the credentials needed to pull container images from your container registry.  And the final secret contains certificates used within Kubernetes to encrypt traffic between pods and to authenticate to the Kubernetes API server. 
 
-   You can view detailed information about a secret with a command like this (your output will be different). Note that the values are uuencoded in this output.: 
+   You can view detailed information about a secret with a command like this (your output will be different). Note that the values are uuencoded in this output: 
 
-    ```
+    ```shell
     $ <copy>kubectl -n application get secret obaasdevdb-db-secrets -o yaml</copy>
     apiVersion: v1
     data:
@@ -179,7 +181,7 @@ Oracle Backend for Spring Boot includes an Oracle Autonomous Database instance. 
 
 1. View details of the Oracle Autonomous Database
 
-   In the OCI Console, in the main ("hamburger") menu navigate to the **Oracle Database** category and then **Oracle Autonomus Database**.  Make sure you have the correct region selected (in the top right corner) and the compartment where you installed Oracle Backend for Spring Boot (in the left hand side pull down list).  You will a list of Oracle Autonomus Database instances (you will probably only have one):
+   In the OCI Console, in the main ("hamburger") menu navigate to the **Oracle Database** category and then **Oracle Autonomous Database**.  Make sure you have the correct region selected (in the top right corner) and the compartment where you installed Oracle Backend for Spring Boot (in the left hand side pull down list).  You will a list of Oracle Autonomous Database instances (you will probably only have one):
 
    ![List of OraCle Autonomous Database instances](images/obaas-adb-1.png)
 
@@ -191,11 +193,11 @@ Oracle Backend for Spring Boot includes an Oracle Autonomous Database instance. 
 
    ![Mangge scaling](images/obaas-adb-2a.png)
 
-1. Explore Oracle Backend for Spring Boot database objects   
+2. Explore Oracle Backend for Spring Boot database objects
 
    Click on the **Database Actions** link to go to the "Database Actions" page which lets you access and manage information in the database.  Depending on choices you made during installation, you may go straight to Database Actions, or you may need to enter credentials first.  If you are prompted to login, use the user name `ADMIN` and obtain the password from Kubernetes with this command: 
 
-    ```
+    ```shell
     $ <copy> kubectl -n application get secret obaasdevdb-db-secrets -o jsonpath='{.data.db\.password}' | base64 -d</copy>
     ```
 
@@ -219,7 +221,6 @@ Oracle Backend for Spring Boot includes an Oracle Autonomous Database instance. 
 
    TODO more? 
 
-
 ## Task 3: Explore Spring Admin
 
 Oracle Backend for Spring Boot includes Spring Admin which provides a web user interface for managing and monitoring Spring applications.
@@ -230,7 +231,7 @@ Oracle Backend for Spring Boot includes Spring Admin which provides a web user i
 
    Open a tunnel to the Spring Admin server using this command:
 
-    ```
+    ```shell
     <copy>kubectl -n admin-server port-forward svc/admin-server 8989:8989</copy>
     ```
 
@@ -242,7 +243,7 @@ Oracle Backend for Spring Boot includes Spring Admin which provides a web user i
 
    Each hexagon represents a service.  Notice that this display gives you a quick overview of the health of your system.  Green services are healthy, grey services have reduced availability and red services are not healthy.  You can also see information about how many instances (i.e. pods) are available for each service.
 
-1. View information about a service
+2. View information about a service
 
    Click on the **Customer** service.  You will see a detail page like this:
 
@@ -250,7 +251,7 @@ Oracle Backend for Spring Boot includes Spring Admin which provides a web user i
 
    On this page, you can see detailed information about service's health, and you can scroll down to see information about resource usage.  The menu on the left hand side lets you view additional information about the service including its environment variables, the Spring beans loaded, its Spring configuration properties and so on.  You can also access metrics from this interface.
 
-1. View endpoints
+3. View endpoints
 
    Click on the **Mappings** link in the left hand side menu.  This page shows you information about the URL Path mappings (or endpoints) exposed by this service.  You will notice several endpoints exposed by Spring Actuator, which enables this management and monitoring to be possible.  And you will see your service's own endpoints, in this example the ones that start with `/api/v1/...`:
 
@@ -265,11 +266,11 @@ Spring Eureka Service Registry is an application that holds information about wh
 
    Start the tunnel using this command.  You can run this in the background if you prefer.
 
-    ```
-    $ <copy>kubectl -n eureka port-forward svc/eureka 8080:8761</copy>
+    ```shell
+    $ <copy>kubectl -n eureka port-forward svc/eureka 8761:8761</copy>
     ```
 
-   Open a web broswer to [http://localhost:8080](http://localhost:8080) to view the Eureka web user interface.  It will appear similar to the image below.
+   Open a web broswer to [http://localhost:8761](http://localhost:8761) to view the Eureka web user interface.  It will appear similar to the image below.
 
    ![Eureka web user interface](images/obaas-eureka.png)
 
@@ -277,17 +278,17 @@ Spring Eureka Service Registry is an application that holds information about wh
 
 ## Task 5: Explore APISIX API Gateway
 
-Oracle Backend for Spring Boot includes APISIX API Gateway to manage which services are made available outside of the Kubernetes cluster.  APISIX allows you to manage many aspects of the services' APIs including authentication, logging, which HTTP methods are accepted, what URL paths are exposed, and also includes capabilities like rewriting, filtering, traffic management and has a rich plugin ecosystem to enhance it with additional capabilities.  You cam manage the APISIX API Gateway using the APISIX Dashboard.
+Oracle Backend for Spring Boot includes APISIX API Gateway to manage which services are made available outside of the Kubernetes cluster.  APISIX allows you to manage many aspects of the services' APIs including authentication, logging, which HTTP methods are accepted, what URL paths are exposed, and also includes capabilities like rewriting, filtering, traffic management and has a rich plugin ecosystem to enhance it with additional capabilities.  You can manage the APISIX API Gateway using the APISIX Dashboard.
 
 1. Access the APISIX Dashboard
 
    Start the tunnel using this command.  You can run this in the background if you prefer.
 
-    ```
-    $ <copy>kubectl -n apisix port-forward svc/apisix-dashboard 8080:80</copy>
+    ```shell
+    $ <copy>kubectl -n apisix port-forward svc/apisix-dashboard 8081:80</copy>
     ```
 
-   Open a web broswer to [http://localhost:8080](http://localhost:8080) to view the APISIX Dashboard web user interface.  It will appear similar to the image below.
+   Open a web broswer to [http://localhost:8081](http://localhost:8081) to view the APISIX Dashboard web user interface.  It will appear similar to the image below.
    
    If prompted to login, login with user name `admin` and password `admin`.  Note that Oracle strongly recommends that you change the password, even though this interface is not accessible outside the cluster without a tunnel.
 
@@ -318,7 +319,7 @@ xyz
 
 1. Do something
 
-   instuctions
+   instructions
 
     Execute the query below by pasting it into the worksheet and clicking on the green circle "play" icon.  This query shows the externalized configuration data stored by the Spring Config Server.
 
@@ -336,14 +337,14 @@ xyz
 
     Get the password for the Grafana admin user using this command (your output will be different): 
 
-    ```
+    ```shell
     $ <copy>kubectl -n grafana get secret grafana -o jsonpath='{.data.admin-password}' | base64 -d</copy>
     fusHDM7xdwJXyUM2bLmydmN1V6b3IyPVRUxDtqu7
     ```
 
    Start the tunnel using this command.  You can run this in the background if you prefer.
 
-    ```
+    ```shell
     $ <copy>kubectl -n grafana port-forward svc/grafana 8080:80</copy>
     ```
 
@@ -369,7 +370,7 @@ xyz
 
    Start the tunnel using this command.  You can run this in the background if you prefer.
 
-    ```
+    ```shell
     $ <copy>kubectl -n observability port-forward svc/jaegertracing-query 16686:16686</copy>
     ```
 
@@ -391,6 +392,6 @@ TODO - what you learned
 * [URL text 2](http://docs.oracle.com)
 
 ## Acknowledgements
-* **Author** - Mark Nelson, Developer Evangelist, Oracle Database
+* **Author** - Mark Nelson, Andy Tael, Developer Evangelist, Oracle Database
 * **Contributors** - [](var:contributors)
-* **Last Updated By/Date** - Mark Nelson, February 2023
+* **Last Updated By/Date** - Andy Tael, February 2023
