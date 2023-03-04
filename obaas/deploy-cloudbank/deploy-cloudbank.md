@@ -225,7 +225,7 @@ TODO: Some kind of verification perhaps curl to account, customer, transaction a
 	<copy>kubectl -n apisix get configmap apisix -o yaml</copy>
 	```
 
-	Look for the `key:` information in the `admin_key` section:
+	Look for the `key:` information in the `admin_key` section and save it. You'll be needing it later in this lab.
 
 	```yaml
 	admin_key:
@@ -248,6 +248,8 @@ TODO: Some kind of verification perhaps curl to account, customer, transaction a
 	In the `scripts` directory where you saved the code repository there are three scripts to create the routes. Run the commands to create the routes:
 
 	 a. Accounts Route:
+
+	 Run this command to create tha accounts route, replace APIKEY with the key you got in Step 1
 
 	```shell
 	$ <copy>source apisix-routes/create-accounts-route.sh APIKEY</copy>
@@ -272,6 +274,8 @@ TODO: Some kind of verification perhaps curl to account, customer, transaction a
 
 	b. Creditscore Route:
 
+	Run this command to create tha creditscore route, replace APIKEY with the key you got in Step 1
+
 	``` shell
 	$ <copy>source apisix-routes/create-creditscore-route.sh APIKEY</copy>
 	```
@@ -294,6 +298,8 @@ TODO: Some kind of verification perhaps curl to account, customer, transaction a
 	```
 
 	c. Customer Route:
+
+	Run this command to create tha customer route, replace APIKEY with the key you got in Step 1
 
 	```shell
 	$ <copy>source apisix-routes/create-customer-route.sh APIKEY</copy>
