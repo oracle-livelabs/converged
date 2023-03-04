@@ -26,7 +26,7 @@ Download a copy of the CloudBank sample application.
 
 1. Clone the source repository
 
-	Create a local clone of the CloudBank source repository using this command. **NOTE** If you did Lab three (Build the Account Microservice) you can skip this step as you already have the source code on your local machine.
+	Create a local clone of the CloudBank source repository using this command.
 
     ```shell
     $ <copy>git clone https://github.com/oracle/microservices-datadriven.git TODO:TODO</copy>
@@ -38,7 +38,7 @@ Download a copy of the CloudBank sample application.
 
 1. Create application JAR files
 
-	Go to the directory where you cloned (or unzipped) the application and create the applications using the following command:
+	Go to the directory where you cloned (or unzipped) the application and build the application JARs using the following command:
 
 	```shell
 	$ <copy>mvn package -Dmaven.test.skip=true</copy>
@@ -109,9 +109,12 @@ Download a copy of the CloudBank sample application.
 
 4. Create Database Bindings
 
-	Create database bindings for the applications by running the following commands in the CLI. You are going to create two different bindings. **NOTE**: If you have finished Lab three (Build the Account Microservice) you have already created the binding for the Accounts Service and you only need to create the Customer Service binding. << DOES THIS MATTER EG WHAT HAPPENS IF YOU DO BIND AGAIN >>
+	Create database bindings for the applications by running the following commands in the CLI. You are going to create two different bindings. **Note** The creditscore service is not using a database binding.
 
-	The creditscore service is not using a database binding.
+	> What happens when you use the Oracle Backend for Spring Boot CLI **bind** command?
+	When you run the `bind` command, the Oracle Backend for Spring Boot CLI does several things for you:
+    * TODO
+	* Magics and fireworks
 
 	1. Account Service
 
@@ -133,15 +136,9 @@ Download a copy of the CloudBank sample application.
     	database secret created successfully and schema already exists for customer
 		```
 
-		> What happens when you use the Oracle Backend for Spring Boot CLI **bind** command?
-		When you run the `bind` command, the Oracle Backend for Spring Boot CLI does several things for you:
-
-    	* TODO
-		* Magics and fireworks
-
 5. Create Database Objects
 
-	The services are using LuquiBase so when the service get's deployed the `tables` and sample `data` will be created and inserted.
+	The services are using LiquiBase [LiquiBase](https://www.liquibase.org/. Liquibase is an open-source database schema change management solution which enables you to manage revisions of your database changes easily. When the service get's deployed the `tables` and sample `data` will be created and inserted by LiquiBase.
 
 6. Deploy the services
 
