@@ -66,6 +66,20 @@ In this lab, you will explore the Long Running Action model.  In this model ther
 
 You will create the **Transfer service** in the diagram above, and the participant endpoints in the Account service (**deposit** and **withdraw**).  Oracle Transaction Manager for Microservices (also known as "MicroTx") will coorindate the LRA.
 
+You will implement the LRA using the Eclipse Microprofile LRA library which provides an annotation-based approach to managing the LRA, which is very familiar for Spring Boot developers.  
+
+> **Note**: The current version of the library (at the time of the Level Up 2023 event) uses JAX-RS, not Spring Boot's REST annotations provided by `spring-boot-starter-web`, so until a version of the library with better support for Spring is available, we will need to do a little extra work to use JAX-RS.
+
+The main annotations used in an LRA application are as follows: 
+
+* `@LRA` - Controls the life cycle of an LRA.
+* `@Compensate` - Indicates that the method should be invoked if the LRA is cancelled.
+* `@Complete` - Indicates that the method should be invoked if the LRA is closed.
+* `@Forget` - Indicates that the method may release any resources that were allocated for this LRA.
+* `@Leave` - Indicates that this class is no longer interested in this LRA.
+* `@Status` - When the annotated method is invoked it should report the status.
+
+You will now start implementing the Cloud Cash Payment LRA.
 
 ## Task 3: Add LRA partipant endpoints to the Account Service
 
