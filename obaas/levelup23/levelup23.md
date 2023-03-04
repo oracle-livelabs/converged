@@ -19,28 +19,27 @@ If you would like to focus on Spring Boot microservices application development 
 
 ## Learning Path 2: Focus on the backend
 
-If you would just like to learn about Oracle Backend for Spring Boot, and you do not want to dive into the devlopment topics, you could consider taking this path through the labs:
+If you would just like to learn about Oracle Backend for Spring Boot, and you do not want to dive into the development topics, you could consider taking this path through the labs:
 
 * Complete Lab 1: Provision an Instance
 * In Lab 2: Setup your Development Environment, just complete the two tasks to set up **kubectl** and OCI CLI so you can access your Kubernetes cluster
-* Complete Lab 5: Deploy the fuil CloudBank application so that you have some services to look at while exploring the platform
+* Complete Lab 5: Deploy the full CloudBank application so that you have some services to look at while exploring the platform
 * Complete Lab 6: Explore the Backend Platform - this would be the main content for this path
 * Optionally complete Lab 8: Cleanup
 
 ## Learning Path 3: Focus on mobile application development
 
-If you would just like to learn about Oracle Backend for Spring Boot, and you do not want to dive into the devlopment topics, you could consider taking this path through the labs:
+If you would just like to learn about Oracle Backend for Spring Boot, and you do not want to dive into the development topics, you could consider taking this path through the labs:
 
 * Complete Lab 1: Provision an Instance
 * In Lab 2: Setup your Development Environment, just complete the last task to set up your Flutter development environment
-* Complete Lab 5: Deploy the fuil CloudBank application so that you have some services to look at while exploring the platform
+* Complete Lab 5: Deploy the full CloudBank application so that you have some services to look at while exploring the platform
 * Optionally complete Lab 6: Explore the Backend Platform to get an understanding of the overall platform
 * Complete Lab 7: Extend the Mobile Application - this would be the main content for this path
 * Optionally complete Lab 8: Cleanup
 
-
-
 ## Acknowledgements
+
 * **Author** - Mark Nelson, Developer Evangelist, Oracle Database
 * **Contributors** - [](var:contributors)
 * **Last Updated By/Date** - Mark Nelson, February 2023

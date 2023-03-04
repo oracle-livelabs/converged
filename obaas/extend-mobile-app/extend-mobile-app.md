@@ -591,8 +591,11 @@ The final piece to complete the Cloud Cash feature is to handle the form submiss
 
 * [Flutter](https://flutter.dev)
 * [Parse Platform](https://parseplatform.org/)
+* [Oracle Backend for Spring Boot](https://oracle.github.io/microservices-datadriven/spring/)
+* [Oracle Backend for Parse Platform](https://oracle.github.io/microservices-datadriven/mbaas/)
 
 ## Acknowledgements
+
 * **Author** - Doug Drechsel, Mark Nelson, Developer Evangelists, Oracle Database
 * **Contributors** - [](var:contributors)
 * **Last Updated By/Date** - Mark Nelson, March 2023

@@ -382,16 +382,13 @@ xyz
 
 TODO - what you learned
 
-
-
 ## Learn More
 
-*(optional - include links to docs, white papers, blogs, etc)*
-
-* [URL text 1](http://docs.oracle.com)
-* [URL text 2](http://docs.oracle.com)
+* [Oracle Backend for Spring Boot](https://oracle.github.io/microservices-datadriven/spring/)
+* [Oracle Backend for Parse Platform](https://oracle.github.io/microservices-datadriven/mbaas/)
 
 ## Acknowledgements
+
 * **Author** - Mark Nelson, Andy Tael, Developer Evangelist, Oracle Database
 * **Contributors** - [](var:contributors)
 * **Last Updated By/Date** - Andy Tael, February 2023

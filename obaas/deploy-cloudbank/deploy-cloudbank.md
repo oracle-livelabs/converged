@@ -26,7 +26,7 @@ Download a copy of the CloudBank sample application.
 
 1. Clone the source repository
 
-	Create a local clone of the CloudBank source repository using this command. **NOTE** If you did Lab three (Build the Account Microservice) you can skip this step as you already have the source code on your local machine.
+	Create a local clone of the CloudBank source repository using this command.
 
     ```shell
     $ <copy>git clone https://github.com/oracle/microservices-datadriven.git TODO:TODO</copy>
@@ -38,7 +38,7 @@ Download a copy of the CloudBank sample application.
 
 1. Create application JAR files
 
-	Go to the directory where you cloned (or unzipped) the application and create the applications using the following command:
+	Go to the directory where you cloned (or unzipped) the application and build the application JARs using the following command:
 
 	```shell
 	$ <copy>mvn package -Dmaven.test.skip=true</copy>
@@ -109,10 +109,15 @@ Download a copy of the CloudBank sample application.
 
 4. Create Database Bindings
 
-	Create database bindings for the applications by running the following commands in the CLI. You are going to create two different bindings. **NOTE**: If you have finished Lab three (Build the Account Microservice) you have already created the binding for the Accounts Service and you only need to create the Customer Service binding. << DOES THIS MATTER EG WHAT HAPPENS IF YOU DO BIND AGAIN >>
+	Create database bindings for the applications by running the following commands in the CLI. You are going to create two different bindings. **Note** The creditscore service is not using a database binding.
 
-	The creditscore service is not using a database binding.
-
+	> What happens when you use the Oracle Backend for Spring Boot CLI **bind** command?
+	When you run the `bind` command, the Oracle Backend for Spring Boot CLI does several things for you:
+	
+	- Asks for Database user credentials
+	- Creates a k8s secret with the provided user credentials
+	- Creates a Database Schema with the provided user credentials
+	
 	1. Account Service
 
 		Create a database "binding" by tunning this command. Enter the password (`Welcome1234##`) when prompted.  This will create a Kubernetes secret in the `application` namespace called `account-db-secrets` which contains the username (`account`), password, and URL to connect to the Oracle Autonomous Database instance associated with the Oracle Backend for Spring Boot.
@@ -133,15 +138,9 @@ Download a copy of the CloudBank sample application.
     	database secret created successfully and schema already exists for customer
 		```
 
-		> What happens when you use the Oracle Backend for Spring Boot CLI **bind** command?
-		When you run the `bind` command, the Oracle Backend for Spring Boot CLI does several things for you:
-
-    	* TODO
-		* Magics and fireworks
-
 5. Create Database Objects
 
-	The services are using LuquiBase so when the service get's deployed the `tables` and sample `data` will be created and inserted.
+	The services are using LiquiBase [LiquiBase](https://www.liquibase.org/. Liquibase is an open-source database schema change management solution which enables you to manage revisions of your database changes easily. When the service get's deployed the `tables` and sample `data` will be created and inserted by LiquiBase.
 
 6. Deploy the services
 
@@ -197,21 +196,24 @@ Download a copy of the CloudBank sample application.
     	successfully deployed
     	```
 
-		> What happens when you use the Oracle Backend for Spring Boot CLI **bind** command?
-    	When you run the `deploy` command, the Oracle Backend for Spring Boot CLI does several things for you:
+	> What happens when you use the Oracle Backend for Spring Boot CLI **deploy** command?
+    When you run the `deploy` command, the Oracle Backend for Spring Boot CLI does several things for you:
 
-    	* TODO
-		* Magics and fireworks
+	- Uploads the JAR file to server side
+	- Builds a container image and push it to the OCI Registry
+	- Inspects the JAR file and looks for bind resources (JMS)
+	- Create the microservices deployment descriptor (k8s) with the resources supplied
+	- Applies the k8s deployment and create k8s object service to microservice
 
 ## Task 4: Verify the deployment
 
-TODO: Some kind of verification perhaps curl to account, customer, transaction and creditscore? 
+TODO: Some kind of verification perhaps curl to account, customer, transaction and creditscore?
 
 ## Task 5: Expose the services using APISIX Gateway
 
 1. Get APISIX Gateway Admin Key
 
-	You are going to need the Admin Key for the APISIX Gateway to configure the route. It is stored in a COnfigMap. Run the command and make a note of the admin key. The command will return a long YAML document so you need to scroll up to find the Admin Key.
+	You are going to need the Admin Key for the APISIX Gateway to configure the route. It is stored in a k8s ConfigMap. Run the command and make a note of the admin key. The command will return a long YAML document so you need to scroll up to find the Admin Key.
 
 	```shell
 	<copy>kubectl -n apisix get configmap apisix -o yaml</copy>
@@ -241,7 +243,7 @@ TODO: Some kind of verification perhaps curl to account, customer, transaction a
 
 	 a. Accounts Route:
 
-	 Run this command to create tha accounts route, replace APIKEY with the key you got in Step 1
+	 Run this command to create the accounts route, replace the `APIKEY` in the command with the key you got in Step 1
 
 	```shell
 	$ <copy>source apisix-routes/create-accounts-route.sh APIKEY</copy>
@@ -266,7 +268,7 @@ TODO: Some kind of verification perhaps curl to account, customer, transaction a
 
 	b. Creditscore Route:
 
-	Run this command to create tha creditscore route, replace APIKEY with the key you got in Step 1
+	Run this command to create the creditscore route, replace the `APIKEY` in the command with the key you got in Step 1
 
 	``` shell
 	$ <copy>source apisix-routes/create-creditscore-route.sh APIKEY</copy>
@@ -291,7 +293,7 @@ TODO: Some kind of verification perhaps curl to account, customer, transaction a
 
 	c. Customer Route:
 
-	Run this command to create tha customer route, replace APIKEY with the key you got in Step 1
+	Run this command to create the customer route, replace the `APIKEY` in the command with the key you got in Step 1
 
 	```shell
 	$ <copy>source apisix-routes/create-customer-route.sh APIKEY</copy>
@@ -385,7 +387,10 @@ TODO: Some kind of verification perhaps curl to account, customer, transaction a
 ## Learn More
 
 * [Oracle Backend for Spring Boot](https://oracle.github.io/microservices-datadriven/spring/)
-* [Oracle Backend for Parse Platform](https://oracle.github.io/microservices-datadriven/mbaas/m)
+* [Oracle Backend for Parse Platform](https://oracle.github.io/microservices-datadriven/mbaas/)
+* [Kubernetes](https://kubernetes.io/docs/home/)
+* [Apache APISIX](https://apisix.apache.org)
+* [Oracle Cloud Infrastructure](https://docs.oracle.com/en-us/iaas/Content/home.htm)
 
 ## Acknowledgements
 

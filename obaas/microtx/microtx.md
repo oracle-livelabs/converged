@@ -9,6 +9,7 @@ Estimated Time: 30 minutes
 ### Objectives
 
 In this lab, you will:
+
 * Learn about the Saga pattern
 * Learn about the Long Running Action specification
 * Add new endpoints to the Account service for deposits and withdrawals that act as LRA participants
@@ -17,6 +18,7 @@ In this lab, you will:
 ### Prerequisites
 
 This lab assumes you have:
+
 * An Oracle Cloud account
 * All previous labs successfully completed
 
@@ -47,7 +49,7 @@ You will use the orchestration approach in this lab.
 
 ### The Cloud Cash Transfer Saga
 
-In this lab you will implement a saga that will manage transfering funds from one user to another.  The CloudBank mobile application will have a feature called "Cloud Cash" that allows users to instantly transfer funds to anyone.  They will do this by choosing a source account and entering the email address of the person they wish to send funds to, and the amount.
+In this lab you will implement a saga that will manage transferring funds from one user to another.  The CloudBank mobile application will have a feature called "Cloud Cash" that allows users to instantly transfer funds to anyone.  They will do this by choosing a source account and entering the email address of the person they wish to send funds to, and the amount.
 
 ![Cloud Cash screen](images/obaas-flutter-cloud-cash-screen-design.png)
 
@@ -64,7 +66,7 @@ In this lab, you will explore the Long Running Action model.  In this model ther
 
 ![The Cloud Cash LRA](images/obaas-lra.png)
 
-You will create the **Transfer service** in the diagram above, and the participant endpoints in the Account service (**deposit** and **withdraw**).  Oracle Transaction Manager for Microservices (also known as "MicroTx") will coorindate the LRA.
+You will create the **Transfer service** in the diagram above, and the participant endpoints in the Account service (**deposit** and **withdraw**).  Oracle Transaction Manager for Microservices (also known as "MicroTx") will coordinate the LRA.
 
 You will implement the LRA using the Eclipse Microprofile LRA library which provides an annotation-based approach to managing the LRA, which is very familiar for Spring Boot developers.  
 
@@ -85,9 +87,9 @@ If you would like to learn more, there is a lot of detail in the [Long Running A
 
 Microservices are often designed to be stateless, to push all the state into the datastore.  This makes it easier to scale by running more instances of services, and it makes it easier to debug issues because there is no state stored in process memory.  It also means you need a way to correlate transactions with the LRA they were performed by. 
 
-You will add a `JOURNAL` table to the account microservice's database.  This table will contain the "bank account transactions" (deposits, withdrawals, interest paymenets, etc.) for this account (not to be confused with "database transcations" as in the two-phase commit protocol).  The account service will track LRA's associated with each journal entry (bank account transaction) in a column in the journal table.
+You will add a `JOURNAL` table to the account microservice's database.  This table will contain the "bank account transactions" (deposits, withdrawals, interest payments, etc.) for this account (not to be confused with "database transactions" as in the two-phase commit protocol).  The account service will track LRA's associated with each journal entry (bank account transaction) in a column in the journal table.
 
-As LRA is an eventual consistency model, the approach you will take in the account service will be to store bank account transacstions as "pending" in the journal table.  Pending transactions will not be considered when calculating the account balance until they are finalized ("completed").  When the LRA reaches the "complete" phase, the pending transactions will be considered finalized and the account balance will be updated to reflect those transactions. 
+As LRA is an eventual consistency model, the approach you will take in the account service will be to store bank account transactions as "pending" in the journal table.  Pending transactions will not be considered when calculating the account balance until they are finalized ("completed").  When the LRA reaches the "complete" phase, the pending transactions will be considered finalized and the account balance will be updated to reflect those transactions.
 
 You will now start implementing the Cloud Cash Payment LRA.
 
@@ -97,7 +99,7 @@ You will update the Account service that you built in the previous lab to add so
 
 1. Add new dependencies to the Maven POM
 
-  TODO expalin what these are for
+  TODO explain what these are for
 
     ```xml
     <copy>
@@ -176,7 +178,6 @@ You will update the Account service that you built in the previous lab to add so
     </copy>
     ```
 
-
 1. Create the Journal repository and model
 
    Create a new Java file called `Journal.java` in `src/main/com/example/accounts/model` to define the model for the journal table.  There are no new concepts in this class, so here is the code: 
@@ -229,7 +230,7 @@ You will update the Account service that you built in the previous lab to add so
             this.journalAmount = journalAmount;
         }
     }</copy>
-    ```    
+    ```
 
    Create a new Java file called `JournalRepository.java` in `src/main/java/com/example/accounts/repository` and define the JPA repository interface for the Journal.  You will need to add one JPA method `findJournalByLraId()` to the interface.  Here is the code:
 
@@ -248,13 +249,13 @@ You will update the Account service that you built in the previous lab to add so
 
 1. That thing
 
-  TODO how.    
+  TODO how.
 
 ## Task 4: Create the basic structure of the Deposit service
 
 The Deposit service will process deposits into bank accounts.  In this task, you will create the basic structure for this service and learn about the endpoints required for an LRA participant, what HTTP Methods they process, the annotations used to define them and so on.  You will implement the actual business logic in a later task.
 
-1. Create the Deposit service and skaffold methods
+1. Create the Deposit service and scaffold methods
 
    Create a new directory in `src/main/java/com/example/accounts` called `services` and in that directory create a new Java file called `DepositService.java`.  This will be a Spring Boot component where you will implement the deposit operations.  Since the LRA library we are using only works with JAX-RS, you will be using JAX-RS annotations in this service, as opposed to the Spring Boot "web" REST annotations that you used in the previous lab.  You can mix and match these styles in a single Spring Boot microservice application.
 
@@ -344,7 +345,7 @@ The Deposit service will process deposits into bank accounts.  In this task, you
 
 1. Create the LRA compensate endpoint
 
-   Next, you need a compensate endpoint.  This `compensateWork` method is similar to the previous methods and is marked with the `@Compensate` annotation to mark it as the componensation handler for this participant.    
+   Next, you need a compensate endpoint.  This `compensateWork` method is similar to the previous methods and is marked with the `@Compensate` annotation to mark it as the compensation handler for this participant.
 
     ```java
     <copy>
@@ -383,7 +384,7 @@ The Deposit service will process deposits into bank accounts.  In this task, you
 
 1. Create the "after" LRA endpoint
 
-   Finally, you need an "after LRA" endpoint that implements any clean up logic that needs to be run after the completion of the LRA.  (TODO paul successful only or any outcome?)   This method must repsond to the HTTP PUT method and is marked with the `@AfterLRA` annotation.
+   Finally, you need an "after LRA" endpoint that implements any clean up logic that needs to be run after the completion of the LRA.  (TODO paul successful only or any outcome?)   This method must respond to the HTTP PUT method and is marked with the `@AfterLRA` annotation.
 
     ```java
     <copy>
@@ -617,7 +618,6 @@ TODO what thing
 
   TODO how.
 
-
 ## Task 8: Create the Transfer Service
 
 TODO what thing
@@ -634,15 +634,16 @@ TODO what thing
 
   TODO how.
 
-
 ## Learn More
 
 * [Oracle Transaction Manager for Microservices](https://www.oracle.com/database/transaction-manager-for-microservices/)
 * [Saga pattern](https://microservices.io/patterns/data/saga.html)
 * [Long Running Action](https://download.eclipse.org/microprofile/microprofile-lra-1.0-M1/microprofile-lra-spec.html)
-
+* [Oracle Backend for Spring Boot](https://oracle.github.io/microservices-datadriven/spring/)
+* [Oracle Backend for Parse Platform](https://oracle.github.io/microservices-datadriven/mbaas/)
 
 ## Acknowledgements
+
 * **Author** - Paul Parkinson, Mark Nelson, Developer Evangelists, Oracle Database
 * **Contributors** - [](var:contributors)
 * **Last Updated By/Date** - Mark Nelson, March 2023

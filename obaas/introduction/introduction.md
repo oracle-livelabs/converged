@@ -11,10 +11,11 @@ Estimated Workshop Time: 1 hour 30 minutes
 ### Objectives
 
 In this workshop, you will learn how to:
+
 * Provision an instance of the Oracle Backend for Spring Boot
 * Setup your development environment for Spring Boot and Flutter development
 * Build a Spring Boot microservice from scratch
-* Impelement the saga pattern for managing transactions across microservices
+* Implement the saga pattern for managing transactions across microservices
 * Learn about platform services like service discovery, externalized configuration, transaction management, and workflow
 * Learn about observability tools like Prometheus, Grafana and Jaeger
 * Build mobile user interfaces for your Spring Boot services using Flutter and Parse Platform
@@ -22,6 +23,7 @@ In this workshop, you will learn how to:
 ### Prerequisites
 
 This lab assumes you have:
+
 * An Oracle account
 * An environment where you can run the required development tools
 
@@ -31,6 +33,7 @@ This lab assumes you have:
 * [Oracle Backend for Parse Platform](https://oracle.github.io/microservices-datadriven/mbaas/)
 
 ## Acknowledgements
+
 * **Author** - Mark Nelson, Developer Evangelist, Oracle Database
 * **Contributors** - [](var:contributors)
 * **Last Updated By/Date** - Mark Nelson, February 2023
