@@ -91,7 +91,7 @@ As LRA is an eventual consistency model, the approach you will take in the accou
 
 You will now start implementing the Cloud Cash Payment LRA.
 
-## Task 3: Add LRA partipant endpoints to the Account Service
+## Task 3: Prepare to add LRA participant endpoints to the Account Service
 
 You will update the Account service that you built in the previous lab to add some new endpoints to perform deposits and withdrawals.  These new endpoints will be LRA participants.
 
@@ -250,8 +250,7 @@ You will update the Account service that you built in the previous lab to add so
 
   TODO how.    
 
-
-## Task 4: Create the Transfer Service
+## Task 4: Create the Deposit service
 
 TODO what thing
 
@@ -259,7 +258,24 @@ TODO what thing
 
   TODO how.
 
-## Task 5: Run LRA test cases
+## Task 5: Create the Withdraw service
+
+TODO what thing
+
+1. This thing
+
+  TODO how.
+
+
+## Task 6: Create the Transfer Service
+
+TODO what thing
+
+1. This thing
+
+  TODO how.
+
+## Task 7: Run LRA test cases
 
 TODO what thing
 
