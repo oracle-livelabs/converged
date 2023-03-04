@@ -386,7 +386,7 @@ TODO: Some kind of verification perhaps curl to account, customer, transaction a
 ## Learn More
 
 * [Oracle Backend for Spring Boot](https://oracle.github.io/microservices-datadriven/spring/)
-* [Oracle Backend for Parse Platform](https://oracle.github.io/microservices-datadriven/mbaas/m)
+* [Oracle Backend for Parse Platform](https://oracle.github.io/microservices-datadriven/mbaas/)
 
 ## Acknowledgements
 

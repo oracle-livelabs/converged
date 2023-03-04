@@ -9,6 +9,7 @@ Estimated Time: 30 minutes
 ### Objectives
 
 In this lab, you will:
+
 * Learn about the Saga pattern
 * Learn about the Long Running Action specification
 * Add new endpoints to the Account service for deposits and withdrawals that act as LRA participants
@@ -17,6 +18,7 @@ In this lab, you will:
 ### Prerequisites
 
 This lab assumes you have:
+
 * An Oracle Cloud account
 * All previous labs successfully completed
 
@@ -47,7 +49,7 @@ You will use the orchestration approach in this lab.
 
 ### The Cloud Cash Transfer Saga
 
-In this lab you will implement a saga that will manage transfering funds from one user to another.  The CloudBank mobile application will have a feature called "Cloud Cash" that allows users to instantly transfer funds to anyone.  They will do this by choosing a source account and entering the email address of the person they wish to send funds to, and the amount.
+In this lab you will implement a saga that will manage transferring funds from one user to another.  The CloudBank mobile application will have a feature called "Cloud Cash" that allows users to instantly transfer funds to anyone.  They will do this by choosing a source account and entering the email address of the person they wish to send funds to, and the amount.
 
 ![Cloud Cash screen](images/obaas-flutter-cloud-cash-screen-design.png)
 
@@ -64,7 +66,7 @@ In this lab, you will explore the Long Running Action model.  In this model ther
 
 ![The Cloud Cash LRA](images/obaas-lra.png)
 
-You will create the **Transfer service** in the diagram above, and the participant endpoints in the Account service (**deposit** and **withdraw**).  Oracle Transaction Manager for Microservices (also known as "MicroTx") will coorindate the LRA.
+You will create the **Transfer service** in the diagram above, and the participant endpoints in the Account service (**deposit** and **withdraw**).  Oracle Transaction Manager for Microservices (also known as "MicroTx") will coordinate the LRA.
 
 You will implement the LRA using the Eclipse Microprofile LRA library which provides an annotation-based approach to managing the LRA, which is very familiar for Spring Boot developers.  
 
@@ -85,9 +87,9 @@ If you would like to learn more, there is a lot of detail in the [Long Running A
 
 Microservices are often designed to be stateless, to push all the state into the datastore.  This makes it easier to scale by running more instances of services, and it makes it easier to debug issues because there is no state stored in process memory.  It also means you need a way to correlate transactions with the LRA they were performed by. 
 
-You will add a `JOURNAL` table to the account microservice's database.  This table will contain the "bank account transactions" (deposits, withdrawals, interest paymenets, etc.) for this account (not to be confused with "database transcations" as in the two-phase commit protocol).  The account service will track LRA's associated with each journal entry (bank account transaction) in a column in the journal table.
+You will add a `JOURNAL` table to the account microservice's database.  This table will contain the "bank account transactions" (deposits, withdrawals, interest payments, etc.) for this account (not to be confused with "database transactions" as in the two-phase commit protocol).  The account service will track LRA's associated with each journal entry (bank account transaction) in a column in the journal table.
 
-As LRA is an eventual consistency model, the approach you will take in the account service will be to store bank account transacstions as "pending" in the journal table.  Pending transactions will not be considered when calculating the account balance until they are finalized ("completed").  When the LRA reaches the "complete" phase, the pending transactions will be considered finalized and the account balance will be updated to reflect those transactions. 
+As LRA is an eventual consistency model, the approach you will take in the account service will be to store bank account transactions as "pending" in the journal table.  Pending transactions will not be considered when calculating the account balance until they are finalized ("completed").  When the LRA reaches the "complete" phase, the pending transactions will be considered finalized and the account balance will be updated to reflect those transactions.
 
 You will now start implementing the Cloud Cash Payment LRA.
 
