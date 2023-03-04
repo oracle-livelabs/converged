@@ -113,8 +113,9 @@ Download a copy of the CloudBank sample application.
 
 	> What happens when you use the Oracle Backend for Spring Boot CLI **bind** command?
 	When you run the `bind` command, the Oracle Backend for Spring Boot CLI does several things for you:
-    * TODO
-	* Magics and fireworks
+	
+    - TODO
+	- Magics and fireworks
 
 	1. Account Service
 
