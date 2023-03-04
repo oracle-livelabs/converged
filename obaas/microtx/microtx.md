@@ -523,7 +523,7 @@ The Data Access Object pattern is considered a best practice and it allows separ
             return Response.ok(ParticipantStatus.Compensated).build();
         else
             return Response.ok(ParticipantStatus.Completed).build();
-    }
+    }</copy>
     ```
 
 1. Create a method to update the LRA status in the journal
@@ -557,7 +557,7 @@ The Data Access Object pattern is considered a best practice and it allows separ
       Account account = accountRepository.findByAccountId(accountId);
       if (account == null) return null;
       return account;
-    }
+    }</copy>
     ```
 
    Update `AccountRepository.java` in `src/main/java/com/example/accounts/repositories` to add this extra JPA method for `findByAccountId`.  Your updated file should look like this: 
