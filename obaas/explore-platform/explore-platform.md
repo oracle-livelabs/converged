@@ -82,7 +82,7 @@ Oracle Backend for Spring Boot includes a number of platform services which are 
 
    Kubernetes namespaces contain other resources like pods, services, secrets and config maps.  You will explore some of these now. 
 
-1. Explore pods
+2. Explore pods
 
    Kubernetes runs workloads in "pods."  Each pod can container one or more containers.  There are different kinds of groupings of pods that handle scaling in different ways.  Use this command to review the pods in the `apisix` namespace:
 
@@ -118,7 +118,7 @@ Oracle Backend for Spring Boot includes a number of platform services which are 
     $ <copy>kubectl -n apisix get pod apisix-etcd-0</copy>
     ```
 
-1. Explore services
+3. Explore services
 
    Kubernetes services are essentially small load balancers that sit in front of groups of pods and provide a stable network address as well as load balancing.  To see the services in the `apisix` namespace use this command: 
 
@@ -134,11 +134,11 @@ Oracle Backend for Spring Boot includes a number of platform services which are 
 
    Notice that the services give information about the ports.  You can get detailed information about a service by specifying its name and output format as you did earlier for a pod. 
 
-1. Explore secrets
+4. Explore secrets
 
    Sensitive information in Kubernetes is often kept in secrets that are mounted into the pods at runtime.  This means that the container images do not need to have the sensitive information stored in them.  It also helps with deploying to different environments where sensitive information like URLs and credentials for databases changes based on the environment.
 
-   Oracle Backend for Spring Boot creates a number of secrets for you so that your applications can securely access the Oracle Autonomous Database instance.  Review the secrets in the pre-created `application` namespace using this command: 
+   Oracle Backend for Spring Boot creates a number of secrets for you so that your applications can securely access the Oracle Autonomous Database instance.  Review the secrets in the pre-created `application` namespace using this command. **Note**, the name of the secrets will be different in your environment depending on the application name you gave when deploying the application.
 
     ```shell
     $ <copy>kubectl -n application get secret</copy>
@@ -193,7 +193,7 @@ Oracle Backend for Spring Boot includes an Oracle Autonomous Database instance. 
 
    ![Mangge scaling](images/obaas-adb-2a.png)
 
-1. Explore Oracle Backend for Spring Boot database objects
+2. Explore Oracle Backend for Spring Boot database objects
 
    Click on the **Database Actions** link to go to the "Database Actions" page which lets you access and manage information in the database.  Depending on choices you made during installation, you may go straight to Database Actions, or you may need to enter credentials first.  If you are prompted to login, use the user name `ADMIN` and obtain the password from Kubernetes with this command: 
 
@@ -243,7 +243,7 @@ Oracle Backend for Spring Boot includes Spring Admin which provides a web user i
 
    Each hexagon represents a service.  Notice that this display gives you a quick overview of the health of your system.  Green services are healthy, grey services have reduced availability and red services are not healthy.  You can also see information about how many instances (i.e. pods) are available for each service.
 
-1. View information about a service
+2. View information about a service
 
    Click on the **Customer** service.  You will see a detail page like this:
 
@@ -251,7 +251,7 @@ Oracle Backend for Spring Boot includes Spring Admin which provides a web user i
 
    On this page, you can see detailed information about service's health, and you can scroll down to see information about resource usage.  The menu on the left hand side lets you view additional information about the service including its environment variables, the Spring beans loaded, its Spring configuration properties and so on.  You can also access metrics from this interface.
 
-1. View endpoints
+3. View endpoints
 
    Click on the **Mappings** link in the left hand side menu.  This page shows you information about the URL Path mappings (or endpoints) exposed by this service.  You will notice several endpoints exposed by Spring Actuator, which enables this management and monitoring to be possible.  And you will see your service's own endpoints, in this example the ones that start with `/api/v1/...`:
 
@@ -267,10 +267,10 @@ Spring Eureka Service Registry is an application that holds information about wh
    Start the tunnel using this command.  You can run this in the background if you prefer.
 
     ```shell
-    $ <copy>kubectl -n eureka port-forward svc/eureka 8080:8761</copy>
+    $ <copy>kubectl -n eureka port-forward svc/eureka 8761:8761</copy>
     ```
 
-   Open a web broswer to [http://localhost:8080](http://localhost:8080) to view the Eureka web user interface.  It will appear similar to the image below.
+   Open a web broswer to [http://localhost:8761](http://localhost:8761) to view the Eureka web user interface.  It will appear similar to the image below.
 
    ![Eureka web user interface](images/obaas-eureka.png)
 
@@ -285,10 +285,10 @@ Oracle Backend for Spring Boot includes APISIX API Gateway to manage which servi
    Start the tunnel using this command.  You can run this in the background if you prefer.
 
     ```shell
-    $ <copy>kubectl -n apisix port-forward svc/apisix-dashboard 8080:80</copy>
+    $ <copy>kubectl -n apisix port-forward svc/apisix-dashboard 8081:80</copy>
     ```
 
-   Open a web broswer to [http://localhost:8080](http://localhost:8080) to view the APISIX Dashboard web user interface.  It will appear similar to the image below.
+   Open a web broswer to [http://localhost:8081](http://localhost:8081) to view the APISIX Dashboard web user interface.  It will appear similar to the image below.
    
    If prompted to login, login with user name `admin` and password `admin`.  Note that Oracle strongly recommends that you change the password, even though this interface is not accessible outside the cluster without a tunnel.
 
