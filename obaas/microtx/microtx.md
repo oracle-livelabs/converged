@@ -232,7 +232,7 @@ You will update the Account service that you built in the previous lab to add so
     }</copy>
     ```
 
-   Create a new Java file called `JournalRepository.java` in `src/main/java/com/example/accounts/repository` and define the JPA repository interface for the Journal.  You will need to add one JPA method `findJournalByLraId()` to the interface.  Here is the code:
+   Create a new Java file called `JournalRepository.java` in `src/main/java/com/example/accounts/repository` and define the JPA repository interface for the Journal.  You will need to add one JPA method `findJournalByLraIdAndJournalType()` to the interface.  Here is the code:
 
     ```java
     <copy>package com.example.accounts.repository;
@@ -243,13 +243,11 @@ You will update the Account service that you built in the previous lab to add so
     import java.util.List;
 
     public interface JournalRepository extends JpaRepository<Journal, Long> {
-        List<Journal> findJournalByLraId(String lraId);
+        Journal findJournalByLraIdAndJournalType(String lraId, String journalType);
     }</copy>
     ```
 
-1. That thing
-
-  TODO how.
+   That completes the JPA configuration.
 
 ## Task 4: Create the basic structure of the Deposit service
 
@@ -259,10 +257,12 @@ The Deposit service will process deposits into bank accounts.  In this task, you
 
    Create a new directory in `src/main/java/com/example/accounts` called `services` and in that directory create a new Java file called `DepositService.java`.  This will be a Spring Boot component where you will implement the deposit operations.  Since the LRA library we are using only works with JAX-RS, you will be using JAX-RS annotations in this service, as opposed to the Spring Boot "web" REST annotations that you used in the previous lab.  You can mix and match these styles in a single Spring Boot microservice application.
 
-   Start by setting up endpoints and methods with the appropriate annotations.  You will implement the logic for each of these methods shortly.  Here is the class definition and all the imports you will need in this section.  Notice that the class has the `@RequestScoped` annotation which tells Spring to create an instance of this class for each HTTP request (as opposed to for a whole session for example), the Spring Boot `@Component` annotation which marks this class as a bean that Spring can inject as a dependency when needed, and the `@Path` annotation to set the URL path for these endpoints.
+   Start by setting up endpoints and methods with the appropriate annotations.  You will implement the logic for each of these methods shortly.  Here is the class definition and all the imports you will need in this section, plus the logger and a constant `DEPOSIT` you will use later.  Notice that the class has the `@RequestScoped` annotation which tells Spring to create an instance of this class for each HTTP request (as opposed to for a whole session for example), the Spring Boot `@Component` annotation which marks this class as a bean that Spring can inject as a dependency when needed, and the `@Path` annotation to set the URL path for these endpoints.
 
     ```java
     <copy>package com.example.accounts.services;
+
+    import java.util.logging.Logger;
 
     import static org.eclipse.microprofile.lra.annotation.ws.rs.LRA.LRA_HTTP_CONTEXT_HEADER;
     import static org.eclipse.microprofile.lra.annotation.ws.rs.LRA.LRA_HTTP_ENDED_CONTEXT_HEADER;
@@ -287,12 +287,16 @@ The Deposit service will process deposits into bank accounts.  In this task, you
     import org.eclipse.microprofile.lra.annotation.ws.rs.LRA;
     import org.springframework.stereotype.Component;
     import org.springframework.transaction.annotation.Transactional;
+    
+    import com.example.accounts.model.Account;
+    import com.example.accounts.model.Journal;
 
     @RequestScoped
     @Path("/deposit")
     @Component
     public class DepositService {
-
+         private static final Logger log = Logger.getLogger(DepositService.class.getName());
+         private final static String DEPOSIT = "DEPOSIT";
     }</copy>
     ``` 
 
@@ -416,11 +420,11 @@ The Data Access Object pattern is considered a best practice and it allows separ
     ```java
     <copy>package com.example.accounts.services;
 
-    import java.util.List;
-
     import javax.ws.rs.core.Response;
 
     import org.eclipse.microprofile.lra.annotation.ParticipantStatus;
+    import org.slf4j.Logger;
+    import org.slf4j.LoggerFactory;
     import org.springframework.stereotype.Component;
 
     import com.example.accounts.model.Account;
@@ -430,6 +434,7 @@ The Data Access Object pattern is considered a best practice and it allows separ
 
     @Component
     public class AccountTransferDAO {
+        private final Logger log = LoggerFactory.getLogger(this.getClass());
 
         private static AccountTransferDAO singleton;
         final AccountRepository accountRepository;
@@ -510,6 +515,7 @@ The Data Access Object pattern is considered a best practice and it allows separ
 
     ```java
     <copy>public void saveAccount(Account account) {
+        log.info("saveAccount account" + account.getAccountId() + " account" + account.getAccountBalance());
         accountRepository.save(account);
     }</copy>
     ```
@@ -517,12 +523,13 @@ The Data Access Object pattern is considered a best practice and it allows separ
    Create a method to return the correct HTTP Status Code for an LRA status.
 
     ```java
-    <copy>public Response status(String lraId) throws Exception {
-        Journal journal = getJournalForLRAid(lraId);
-        if (AccountTransferDAO.getStatusFromString(journal.getLraState()).equals(ParticipantStatus.Compensated))
+    <copy>public Response status(String lraId, String journalType) throws Exception {
+        Journal journal = getJournalForLRAid(lraId, journalType);
+        if (AccountTransferDAO.getStatusFromString(journal.getLraState()).equals(ParticipantStatus.Compensated)) {
             return Response.ok(ParticipantStatus.Compensated).build();
-        else
+        } else { 
             return Response.ok(ParticipantStatus.Completed).build();
+        }
     }</copy>
     ```
 
@@ -560,7 +567,7 @@ The Data Access Object pattern is considered a best practice and it allows separ
     }</copy>
     ```
 
-   Update `AccountRepository.java` in `src/main/java/com/example/accounts/repositories` to add this extra JPA method for `findByAccountId`.  Your updated file should look like this: 
+   Update `AccountRepository.java` in `src/main/java/com/example/accounts/repositories` to add these extra JPA methods.  Your updated file should look like this: 
 
     ```java
     <copy>package oracle.examples.cloudbank.repository;
@@ -586,8 +593,15 @@ The Data Access Object pattern is considered a best practice and it allows separ
         Journal journal;
         List<Journal> journals = journalRepository.findJournalByLraId(lraId);
         if (journals.size() == 0) {
-            journalRepository.save(new Journal("unknown", -1, 0, lraId,
-                    AccountTransferDAO.getStatusString(ParticipantStatus.FailedToComplete)));
+            journalRepository.save(
+                new Journal(
+                    "unknown", 
+                    -1, 
+                    0, 
+                    lraId,
+                    AccountTransferDAO.getStatusString(ParticipantStatus.FailedToComplete)
+                )
+            );
             throw new Exception("Journal entry does not exist for lraId:" + lraId);
         }
         journal = journals.get(0);
@@ -622,6 +636,22 @@ TODO
     public Response deposit(@HeaderParam(LRA_HTTP_CONTEXT_HEADER) String lraId,
                             @QueryParam("accountId") long accountId,
                             @QueryParam("amount") long depositAmount) {
+        log.info("...deposit " + depositAmount + " in account:" + accountId +
+                " (lraId:" + lraId + ") finished (in pending state)");
+        Account account = AccountTransferDAO.instance().getAccountForAccountId(accountId);
+        if (account == null) {
+            log.info("deposit failed: account does not exist");
+            AccountTransferDAO.instance().saveJournal(
+                new Journal(
+                    DEPOSIT, 
+                    accountId, 
+                    0, 
+                    lraId,
+                    AccountTransferDAO.getStatusString(ParticipantStatus.Active)
+                )
+            );
+            return Response.ok("deposit failed: account does not exist").build();
+        }
         AccountTransferDAO.instance().saveJournal(
             new Journal(
                 DEPOSIT, 
@@ -645,6 +675,9 @@ TODO
     @Produces(MediaType.APPLICATION_JSON)
     @Complete
     public Response completeWork(@HeaderParam(LRA_HTTP_CONTEXT_HEADER) String lraId) throws Exception {
+        log.info("deposit complete called for LRA : " + lraId);
+
+        // get the journal and account...
         Journal journal = AccountTransferDAO.instance().getJournalForLRAid(lraId, DEPOSIT);
         Account account = AccountTransferDAO.instance().getAccountForJournal(journal);
 
@@ -662,19 +695,216 @@ TODO
     }</copy>
     ```  
 
-1. do some more things
+1. Implement the **compensate** method
 
-   TODO TODO TODO
+   This method should update both the deposit record in the journal and the LRA status to **compensated**.  Here is the code for this method:
 
-   
+    ```java
+    <copy>
+    @PUT
+    @Path("/compensate")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Compensate
+    public Response compensateWork(@HeaderParam(LRA_HTTP_CONTEXT_HEADER) String lraId) throws Exception {
+        log.info("deposit compensate called for LRA : " + lraId);
+        Journal journal = AccountTransferDAO.instance().getJournalForLRAid(lraId, DEPOSIT);
+        journal.setLraState(AccountTransferDAO.getStatusString(ParticipantStatus.Compensated));
+        AccountTransferDAO.instance().saveJournal(journal);
+        return Response.ok(ParticipantStatus.Compensated.name()).build();
+    }
+    </copy>
+    ```
+
+1. Implement the **status** method
+
+   This method returns the LRA status.  Here is the code for this method: 
+
+    ```java
+    <copy>@GET
+    @Path("/status")
+    @Produces(MediaType.TEXT_PLAIN)
+    @Status
+    public Response status(@HeaderParam(LRA_HTTP_CONTEXT_HEADER) String lraId,
+                           @HeaderParam(LRA_HTTP_PARENT_CONTEXT_HEADER) String parentLRA) throws Exception {
+        return AccountTransferDAO.instance().status(lraId, DEPOSIT);
+    }</copy>
+    ```
+
+1. Implement the **after LRA** method
+
+   This method should perform any steps necessary to finalize or clean up after the LRA.  In this case, all you need to do is update the status of the deposit entry in the journal.  Here is the code for this method:
+
+    ```java
+    <copy> @PUT
+    @Path("/after")
+    @AfterLRA
+    @Consumes(MediaType.TEXT_PLAIN)
+    public Response afterLRA(@HeaderParam(LRA_HTTP_ENDED_CONTEXT_HEADER) String lraId, String status) throws Exception {
+        log.info("After LRA Called : " + lraId);
+        AccountTransferDAO.instance().afterLRA(lraId, status, DEPOSIT);
+        return Response.ok().build();
+    }</copy>
+    ```
+
+   That completes the implementation of the deposit service.
 
 ## Task 7: Create the Withdraw service
 
-TODO what thing
+Next, you need to implement the withdraw service, which will be the second participant in the transfer LRA.
 
-1. This thing
+1. Implement the withdraw service
 
-  TODO how.
+  Create a new Java file called `WithdrawService.java` in `src/main/java/com/example/accounts/services`.  This service is very similar to the deposit service, and no new concepts are introduced here.  Here is the code for this service:
+
+    ```java
+    <copy>package com.example.accounts.services;
+
+    import static org.eclipse.microprofile.lra.annotation.ws.rs.LRA.LRA_HTTP_CONTEXT_HEADER;
+    import static org.eclipse.microprofile.lra.annotation.ws.rs.LRA.LRA_HTTP_ENDED_CONTEXT_HEADER;
+    import static org.eclipse.microprofile.lra.annotation.ws.rs.LRA.LRA_HTTP_PARENT_CONTEXT_HEADER;
+
+    import java.util.logging.Logger;
+
+    import javax.enterprise.context.RequestScoped;
+    import javax.ws.rs.Consumes;
+    import javax.ws.rs.GET;
+    import javax.ws.rs.HeaderParam;
+    import javax.ws.rs.POST;
+    import javax.ws.rs.PUT;
+    import javax.ws.rs.Path;
+    import javax.ws.rs.Produces;
+    import javax.ws.rs.QueryParam;
+    import javax.ws.rs.core.MediaType;
+    import javax.ws.rs.core.Response;
+
+    import org.eclipse.microprofile.lra.annotation.AfterLRA;
+    import org.eclipse.microprofile.lra.annotation.Compensate;
+    import org.eclipse.microprofile.lra.annotation.Complete;
+    import org.eclipse.microprofile.lra.annotation.ParticipantStatus;
+    import org.eclipse.microprofile.lra.annotation.Status;
+    import org.eclipse.microprofile.lra.annotation.ws.rs.LRA;
+    import org.springframework.stereotype.Component;
+
+    import com.example.accounts.model.Account;
+    import com.example.accounts.model.Journal;
+
+    @RequestScoped
+    @Path("/withdraw")
+    @Component
+    public class WithdrawService {
+        private static final Logger log = Logger.getLogger(WithdrawService.class.getName());
+        public static final String WITHDRAW = "WITHDRAW";
+
+        /**
+        * Reduce account balance by given amount and write journal entry re the same.
+        * Both actions in same local tx
+        */
+        @POST
+        @Path("/withdraw")
+        @Produces(MediaType.APPLICATION_JSON)
+        @LRA(value = LRA.Type.MANDATORY, end = false)
+        public Response withdraw(@HeaderParam(LRA_HTTP_CONTEXT_HEADER) String lraId,
+                @QueryParam("accountId") long accountId,
+                @QueryParam("amount") long withdrawAmount) {
+            log.info("withdraw " + withdrawAmount + " in account:" + accountId + " (lraId:" + lraId + ")...");
+            Account account = AccountTransferDAO.instance().getAccountForAccountId(accountId);
+            if (account == null) {
+                log.info("withdraw failed: account does not exist");
+                AccountTransferDAO.instance().saveJournal(
+                        new Journal(
+                                WITHDRAW,
+                                accountId,
+                                0,
+                                lraId,
+                                AccountTransferDAO.getStatusString(ParticipantStatus.Active)));
+                return Response.ok("withdraw failed: account does not exist").build();
+            }
+            if (account.getAccountBalance() < withdrawAmount) {
+                log.info("withdraw failed: insufficient funds");
+                AccountTransferDAO.instance().saveJournal(
+                        new Journal(
+                                WITHDRAW,
+                                accountId,
+                                0,
+                                lraId,
+                                AccountTransferDAO.getStatusString(ParticipantStatus.Active)));
+                return Response.ok("withdraw failed: insufficient funds").build();
+            }
+            log.info("withdraw current balance:" + account.getAccountBalance() +
+                    " new balance:" + (account.getAccountBalance() - withdrawAmount));
+            account.setAccountBalance(account.getAccountBalance() - withdrawAmount);
+            AccountTransferDAO.instance().saveAccount(account);
+            AccountTransferDAO.instance().saveJournal(
+                    new Journal(
+                            WITHDRAW,
+                            accountId,
+                            withdrawAmount,
+                            lraId,
+                            AccountTransferDAO.getStatusString(ParticipantStatus.Active)));
+            return Response.ok("withdraw succeeded").build();
+        }
+
+        /**
+        * Update LRA state. Do nothing else.
+        */
+        @PUT
+        @Path("/complete")
+        @Produces(MediaType.APPLICATION_JSON)
+        @Complete
+        public Response completeWork(@HeaderParam(LRA_HTTP_CONTEXT_HEADER) String lraId) throws Exception {
+            log.info("withdraw complete called for LRA : " + lraId);
+            Journal journal = AccountTransferDAO.instance().getJournalForLRAid(lraId, WITHDRAW);
+            journal.setLraState(AccountTransferDAO.getStatusString(ParticipantStatus.Completed));
+            AccountTransferDAO.instance().saveJournal(journal);
+            return Response.ok(ParticipantStatus.Completed.name()).build();
+        }
+
+        /**
+        * Read the journal and increase the balance by the previous withdraw amount
+        * before the LRA
+        */
+        @PUT
+        @Path("/compensate")
+        @Produces(MediaType.APPLICATION_JSON)
+        @Compensate
+        public Response compensateWork(@HeaderParam(LRA_HTTP_CONTEXT_HEADER) String lraId) throws Exception {
+            log.info("Account withdraw compensate() called for LRA : " + lraId);
+            Journal journal = AccountTransferDAO.instance().getJournalForLRAid(lraId, WITHDRAW);
+            journal.setLraState(AccountTransferDAO.getStatusString(ParticipantStatus.Compensating));
+            Account account = AccountTransferDAO.instance().getAccountForAccountId(journal.getAccountId());
+            if (account != null) {
+                account.setAccountBalance(account.getAccountBalance() + journal.getJournalAmount());
+                AccountTransferDAO.instance().saveAccount(account);
+            }
+            journal.setLraState(AccountTransferDAO.getStatusString(ParticipantStatus.Compensated));
+            AccountTransferDAO.instance().saveJournal(journal);
+            return Response.ok(ParticipantStatus.Compensated.name()).build();
+        }
+
+        @GET
+        @Path("/status")
+        @Produces(MediaType.TEXT_PLAIN)
+        @Status
+        public Response status(@HeaderParam(LRA_HTTP_CONTEXT_HEADER) String lraId,
+                @HeaderParam(LRA_HTTP_PARENT_CONTEXT_HEADER) String parentLRA) throws Exception {
+            return AccountTransferDAO.instance().status(lraId, WITHDRAW);
+        }
+
+        /**
+        * Delete journal entry for LRA
+        */
+        @PUT
+        @Path("/after")
+        @AfterLRA
+        @Consumes(MediaType.TEXT_PLAIN)
+        public Response afterLRA(@HeaderParam(LRA_HTTP_ENDED_CONTEXT_HEADER) String lraId, String status) throws Exception {
+            log.info("After LRA Called : " + lraId);
+            AccountTransferDAO.instance().afterLRA(lraId, status, WITHDRAW);
+            return Response.ok().build();
+        }
+
+    }</copy>
+    ```  
 
 ## Task 8: Create the Transfer Service
 
