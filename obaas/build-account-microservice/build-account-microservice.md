@@ -505,13 +505,13 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
     Open your `AccountsController.java` file and add a final field in the class of type `AccountRepository`.  And update the constructor to accept an argument of this type and set the field to that value.  This tells Spring Boot to inject the JPA repository class we just created into this class.  That will make it available to use in our services.  The updated parts of your class should look like this: 
 
     ```java
-    <copy>import com.example.account.repository.AccountRepository;
+    <copy>import com.example.accounts.repository.AccountRepository;
     
     // ...
     
     final AccountRepository accountRepository;
     
-    public AccountsController(AccountRepository accountRepository) {
+    public AccountController(AccountRepository accountRepository) {
         this.accountRepository = accountRepository;
     }</copy>
     ```
@@ -670,7 +670,9 @@ If you would like to learn more about endpoints and implement the remainder of t
    Here is the code to implement this endpoint:
 
     ```java
-    <copy>import org.springframework.web.bind.annotation.PathVariable;
+    <copy>import org.springframework.http.HttpStatus;
+    import org.springframework.http.ResponseEntity;
+    import org.springframework.web.bind.annotation.PathVariable;
     import java.util.Optional;
     
     // ...
@@ -709,7 +711,11 @@ If you would like to learn more about endpoints and implement the remainder of t
   Here is the code to implement this endpoint:
 
     ```java
-    <copy>@GetMapping("/account/getAccounts/{customerId}")
+    <copy>import java.util.ArrayList;
+    
+    // ...
+    
+    @GetMapping("/account/getAccounts/{customerId}")
     public ResponseEntity<List<Account>> getAccountsByCustomerId(@PathVariable("customerId") String customerId) {
         try {
             List<Account> accountData = new ArrayList<Account>();
