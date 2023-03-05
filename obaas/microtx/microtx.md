@@ -1395,7 +1395,7 @@ TODO that
    You will now have a JAR file for each application, as can be seen with this command: 
 
     ```
-    $ <copy>$ find . -name \*jar</copy>
+    $ <copy>find . -name \*jar</copy>
     ./accounts/target/accounts-0.0.1-SNAPSHOT.jar
     ./transfer/target/transfer-0.0.1-SNAPSHOT.jar
     ```
