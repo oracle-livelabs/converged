@@ -148,17 +148,22 @@ You will update the Account service that you built in the previous lab to add so
 
 1. Create the Jersey configuration
 
-  Create a new Java file called `JerseyConfig.java` in `src/main/java/com/examples/accounts`.  In this file, you need to register the LRA filters, which will process the LRA annotations, create a binding, and configure the filters to forward on a 404 (Not Found).  Here is the code to perform this configuration:
+  Create a new Java file called `JerseyConfig.java` in `src/main/java/com/examples/accounts`.  In this file, you need to register the URL handlers and LRA filters, which will process the LRA annotations, create a binding, and configure the filters to forward on a 404 (Not Found).  Note that you have not created the Deposit or Withdraw services yet, so you may see an error to that effect in your IDE.  Don't worry, you will create them soon!  Here is the code to perform this configuration:
 
     ```java
     <copy>
     package com.example.accounts;
      
     import javax.ws.rs.ApplicationPath;
+
     import org.glassfish.hk2.utilities.binding.AbstractBinder;
     import org.glassfish.jersey.server.ResourceConfig;
     import org.glassfish.jersey.servlet.ServletProperties;
     import org.springframework.stereotype.Component;
+
+    import com.example.accounts.services.DepositService;
+    import com.example.accounts.services.WithdrawService;
+
     import io.narayana.lra.client.internal.proxy.nonjaxrs.LRAParticipantRegistry;
     
     @Component
@@ -166,6 +171,8 @@ You will update the Account service that you built in the previous lab to add so
     public class JerseyConfig extends ResourceConfig {
     
         public JerseyConfig()  {
+            register(DepositService.class);
+            register(WithdrawService.class);
             register(io.narayana.lra.filter.ServerLRAFilter.class);
             register(new AbstractBinder(){
                 @Override
@@ -178,6 +185,38 @@ You will update the Account service that you built in the previous lab to add so
         }
     }
     </copy>
+    ```
+
+1. Create the Application Configuration class
+
+   Create a new Java file called `ApplicationConfig.java` in `src/main/java/com/example/account`.  The ApplicationConfig class reads configuration from `application.yaml` and injects the LRA client bean into the application.  Here is the code for this class:
+
+    ```java
+    <copy>package com.example.accounts;
+
+    import java.net.URISyntaxException;
+    import java.util.logging.Logger;
+
+    import org.springframework.beans.factory.annotation.Value;
+    import org.springframework.context.annotation.Bean;
+    import org.springframework.context.annotation.Configuration;
+
+    import io.narayana.lra.client.NarayanaLRAClient;
+
+    @Configuration
+    public class ApplicationConfig {
+        private static final Logger log = Logger.getLogger(ApplicationConfig.class.getName());
+
+        public ApplicationConfig(@Value("${lra.coordinator.url}") String lraCoordinatorUrl) {
+            log.info(NarayanaLRAClient.LRA_COORDINATOR_URL_KEY + " = " + lraCoordinatorUrl);
+            System.getProperties().setProperty(NarayanaLRAClient.LRA_COORDINATOR_URL_KEY, lraCoordinatorUrl);
+        }
+
+        @Bean
+        public NarayanaLRAClient NarayanaLRAClient() throws URISyntaxException {
+            return new NarayanaLRAClient();
+        }
+    }</copy>
     ```
 
 1. Create the Journal repository and model
@@ -908,9 +947,7 @@ Next, you need to implement the withdraw service, which will be the second parti
     }</copy>
     ```  
 
-1. TODO TODO TODO
- 
-   update the jersey config and create the appconfig class
+   That completes the implementation of the deposit service, and with that you are also done with the modifications for the Account Spring Boot microservice application to allow it to participate int he LRA.  Next, you will create the Transfer Spring Boot microservice application.
 
 
 ## Task 8: Create the Transfer Service
@@ -935,7 +972,7 @@ Now, you will create another new Spring Boot microservice application and implem
         <groupId>com.exmaple</groupId>
 
         <artifactId>transfer</artifactId>
-        <version>1.0.0-SNAPSHOT</version>
+        <version>0.0.1-SNAPSHOT</version>
         <name>transfer</name>
         <description>Transfer Service</description>
 
@@ -977,7 +1014,6 @@ Now, you will create another new Spring Boot microservice application and implem
         </dependencies>
 
         <build>
-            <finalName>${project.name}</finalName>
             <plugins>
                 <plugin>
                     <groupId>org.springframework.boot</groupId>
@@ -1076,7 +1112,7 @@ Now, you will create another new Spring Boot microservice application and implem
 
 1. Create the Jersey Config
 
-   TODO 
+   Next, you need to create the Jersey Config file, as you did for the Account service earlier.  This file registers the URL handlers and LRA filters and sets the filters to forward on 404 (Not Found).  There are no new concepts introduced.  Here is the code for this class:
 
     ```java
     <copy>package com.example.transfer;
@@ -1111,18 +1147,25 @@ Now, you will create another new Spring Boot microservice application and implem
 
 1. Create the Transfer service
 
-   TODO the thing
+   You are now ready to impelement the main logic for the Cloud Cash Payment/transfer LRA.  You will implement this in a new Java file called `TransferService.java` in `src/main/java/com/example/transfer`.  Here are the imports you will need for this class and the member variables.  Note that this class has the `@ApplicationScoped` and `@Path` annotations, as you saw previously in the Account project, to set up the URL contenxt root for the service.
 
     ```java
     <copy>package com.example.transfer;
 
-    import io.narayana.lra.Current;
-    import org.eclipse.microprofile.lra.annotation.ws.rs.LRA;
+    import static org.eclipse.microprofile.lra.annotation.ws.rs.LRA.LRA_HTTP_CONTEXT_HEADER;
+
+    import java.net.URI;
+    import java.net.URISyntaxException;
+    import java.util.logging.Logger;
 
     import javax.annotation.PostConstruct;
     import javax.enterprise.context.ApplicationScoped;
-
-    import javax.ws.rs.*;
+    import javax.ws.rs.HeaderParam;
+    import javax.ws.rs.NotFoundException;
+    import javax.ws.rs.POST;
+    import javax.ws.rs.Path;
+    import javax.ws.rs.Produces;
+    import javax.ws.rs.QueryParam;
     import javax.ws.rs.client.ClientBuilder;
     import javax.ws.rs.client.Entity;
     import javax.ws.rs.client.WebTarget;
@@ -1131,11 +1174,10 @@ Now, you will create another new Spring Boot microservice application and implem
     import javax.ws.rs.core.MediaType;
     import javax.ws.rs.core.Response;
     import javax.ws.rs.core.UriInfo;
-    import java.net.URI;
-    import java.net.URISyntaxException;
-    import java.util.logging.Logger;
 
-    import static org.eclipse.microprofile.lra.annotation.ws.rs.LRA.LRA_HTTP_CONTEXT_HEADER;
+    import org.eclipse.microprofile.lra.annotation.ws.rs.LRA;
+
+    import io.narayana.lra.Current;
 
     @ApplicationScoped
     @Path("/")
@@ -1149,149 +1191,218 @@ Now, you will create another new Spring Boot microservice application and implem
         private URI transferConfirmUri;
         private URI transferProcessCancelUri;
         private URI transferProcessConfirmUri;
-        @PostConstruct
-        private void initController() {
-            try { //todo get from config/env
-                withdrawUri = new URI("http://account.application:8080/withdraw/withdraw");
-                depositUri = new URI("http://account.application:8080/deposit/deposit");
-                transferCancelUri = new URI("http://transfer.application:8080/cancel");
-                transferConfirmUri = new URI("http://transfer.application:8080/confirm");
-                transferProcessCancelUri = new URI("http://transfer.application:8080/processcancel");
-                transferProcessConfirmUri = new URI("http://transfer.application:8080/processconfirm");
-            } catch (URISyntaxException ex) {
-                throw new IllegalStateException("Failed to initialize " + TransferService.class.getName(), ex);
-            }
-        }
+    
+    }</copy>
+    ```
 
-        @POST
-        @Path("/transfer")
-        @Produces(MediaType.APPLICATION_JSON)
-        @LRA(value = LRA.Type.REQUIRES_NEW, end = false)
-        public Response transfer(@QueryParam("fromAccount") long fromAccount,
-                                @QueryParam("toAccount") long toAccount,
-                                @QueryParam("amount") long amount,
-                                @Context UriInfo uriInfo,
-                                @HeaderParam(LRA_HTTP_CONTEXT_HEADER) String lraId,
-                                @Context ContainerRequestContext containerRequestContext)
-        {
-            if (lraId == null) {
-                return Response.serverError().entity("Failed to create LRA").build();
-            }
-            log.info("Started new LRA/transfer Id: " + lraId);
-            boolean isCompensate = false;
-            String returnString = "";
-            returnString += withdraw(fromAccount, amount);
+1. Create an initializer
+
+   TODO - read these from the config and get rid of this
+
+   This method sets the endpoint addresses for the participant actions.
+
+    ```java
+    <copy>@PostConstruct
+    private void initController() {
+        try { //todo get from config/env
+            withdrawUri = new URI("http://account.application:8080/withdraw/withdraw");
+            depositUri = new URI("http://account.application:8080/deposit/deposit");
+            transferCancelUri = new URI("http://transfer.application:8080/cancel");
+            transferConfirmUri = new URI("http://transfer.application:8080/confirm");
+            transferProcessCancelUri = new URI("http://transfer.application:8080/processcancel");
+            transferProcessConfirmUri = new URI("http://transfer.application:8080/processconfirm");
+        } catch (URISyntaxException ex) {
+            throw new IllegalStateException("Failed to initialize " + TransferService.class.getName(), ex);
+        }
+    }</copy>
+    ```
+
+1. Create the **transfer** endpoint
+
+   This is the main entry point for the LRA.  When a client calls this method, a new LRA will be started.  The `@LRA` annotation with the `value` property set to `LRA.Type.REQUIRES_NEW` instructs the interceptors/filters to contact Oracle Transaction Manager for Microservices to start a new LRA instance and obtain the LRA ID, which will be injected into the `LRA_HTTP_CONTEXT_HEADER` HTTP header.  Note that the `end` property is set to `false` which means there will be other actions and participants before the LRA is completed.
+
+   This method will accept three parameters from the caller, in JSON format in the HTTP body: `fromAccount` is the account from which the funds are to be withdrawn, `toAccount` is the account into which the funds are to be deposited, and `amount` is the amount to transfer.
+
+   TODO paul what are the `@Context` things for? 
+
+   In the mehod body, you should first check if the `lraId` was set.  If it is null, that indicates that there was some error trying to create the new LRA instance, and you should return an error response and stop.
+
+   After that, you want to perform the withdrawal, check if it worked, and if so, perform the deposit, and then check if that worked, and if so "complete" the LRA.  If there were any failures, compensate the LRA.
+
+    ```java
+    <copy>@POST
+    @Path("/transfer")
+    @Produces(MediaType.APPLICATION_JSON)
+    @LRA(value = LRA.Type.REQUIRES_NEW, end = false)
+    public Response transfer(@QueryParam("fromAccount") long fromAccount,
+                            @QueryParam("toAccount") long toAccount,
+                            @QueryParam("amount") long amount,
+                            @Context UriInfo uriInfo,
+                            @HeaderParam(LRA_HTTP_CONTEXT_HEADER) String lraId,
+                            @Context ContainerRequestContext containerRequestContext)
+    {
+        if (lraId == null) {
+            return Response.serverError().entity("Failed to create LRA").build();
+        }
+        log.info("Started new LRA/transfer Id: " + lraId);
+
+        boolean isCompensate = false;
+        String returnString = "";
+        
+        // perform the withdrawal
+        returnString += withdraw(fromAccount, amount);
+        log.info(returnString);
+        if (returnString.contains("succeeded")) {
+            // if it worked, perform the deposit
+            returnString += " " + deposit(toAccount, amount);
             log.info(returnString);
-            if (returnString.contains("succeeded")) {
-                returnString += " " + deposit(toAccount, amount);
-                log.info(returnString);
-                if (returnString.contains("failed")) isCompensate = true; //deposit failed
-            } else isCompensate = true; //withdraw failed
-            log.info("LRA/transfer action will be " + (isCompensate?"cancel":"confirm"));
-            WebTarget webTarget = ClientBuilder.newClient().target(isCompensate?transferCancelUri:transferConfirmUri);
-            webTarget.request().header(TRANSFER_ID, lraId)
-                    .post(Entity.text("")).readEntity(String.class);
-            return Response.ok("transfer status:" + returnString).build();
+            if (returnString.contains("failed")) isCompensate = true; //deposit failed
+        } else isCompensate = true; //withdraw failed
+        log.info("LRA/transfer action will be " + (isCompensate?"cancel":"confirm"));
 
-        }
+        // call complete or cancel based on outcome of previous actions
+        WebTarget webTarget = ClientBuilder.newClient().target(isCompensate?transferCancelUri:transferConfirmUri);
+        webTarget.request().header(TRANSFER_ID, lraId)
+                .post(Entity.text("")).readEntity(String.class);
 
-        private String withdraw(long accountId, long amount) {
-            log.info("withdraw accountId = " + accountId + ", amount = " + amount);
-            WebTarget webTarget =
-                    ClientBuilder.newClient().target(withdrawUri).path("/")
-                            .queryParam("accountId", accountId)
-                            .queryParam("amount", amount);
-            URI lraId = Current.peek();
-            log.info("withdraw lraId = " + lraId);
-            String withdrawOutcome =
-                    webTarget.request().header(LRA_HTTP_CONTEXT_HEADER,lraId)
-                            .post(Entity.text("")).readEntity(String.class);
-            return withdrawOutcome;
-        }
-        private String deposit(long accountId, long amount) {
-            log.info("deposit accountId = " + accountId + ", amount = " + amount);
-            WebTarget webTarget =
-                    ClientBuilder.newClient().target(depositUri).path("/")
-                            .queryParam("accountId", accountId)
-                            .queryParam("amount", amount);
-            URI lraId = Current.peek();
-            log.info("deposit lraId = " + lraId);
-            String depositOutcome =
-                    webTarget.request().header(LRA_HTTP_CONTEXT_HEADER,lraId)
-                            .post(Entity.text("")).readEntity(String.class);;
-            return depositOutcome;
-        }
-
-
-
-
-        @POST
-        @Path("/processconfirm")
-        @Produces(MediaType.APPLICATION_JSON)
-        @LRA(value = LRA.Type.MANDATORY)
-        public Response processconfirm(@HeaderParam(LRA_HTTP_CONTEXT_HEADER) String lraId) throws NotFoundException {
-            log.info("Process confirm for transfer : " + lraId);
-            return Response.ok().build();
-        }
-
-        @POST
-        @Path("/processcancel")
-        @Produces(MediaType.APPLICATION_JSON)
-        @LRA(value = LRA.Type.MANDATORY, cancelOn = Response.Status.OK)
-        public Response processcancel(@HeaderParam(LRA_HTTP_CONTEXT_HEADER) String lraId) throws NotFoundException {
-            log.info("Process cancel for transfer : " + lraId);
-            return Response.ok().build();
-        }
-
-
-        // The following two methods could be in an external client.
-        // They are included here for convenience.
-        // The transfer method makes a Rest call to confirm or commit.
-        // The confirm or commit method suspends the LRA (via NOT_SUPPORTED)
-        // The confirm or commit method then proceeds to make a Rest call to the "processconfirm" or "processcommit" method
-        // The "processconfirm" and "processcommit" methods import the LRA (via MANDATORY)
-        //  and end the LRA implicitly accordingly upon return.
-        @POST
-        @Path("/confirm")
-        @Produces(MediaType.APPLICATION_JSON)
-        @LRA(value = LRA.Type.NOT_SUPPORTED)
-        public Response confirm(@HeaderParam(TRANSFER_ID) String transferId) throws NotFoundException {
-            log.info("Received confirm for transfer : " + transferId);
-            String confirmOutcome =
-                    ClientBuilder.newClient().target(transferProcessConfirmUri).request()
-                            .header(LRA_HTTP_CONTEXT_HEADER, transferId)
-                            .post(Entity.text("")).readEntity(String.class);
-            return Response.ok(confirmOutcome).build();
-        }
-
-        @POST
-        @Path("/cancel")
-        @Produces(MediaType.APPLICATION_JSON)
-        @LRA(value = LRA.Type.NOT_SUPPORTED, cancelOn = Response.Status.OK)
-        public Response cancel(@HeaderParam(TRANSFER_ID) String transferId) throws NotFoundException {
-            log.info("Received cancel for transfer : " + transferId);
-            String confirmOutcome =
-                    ClientBuilder.newClient().target(transferProcessCancelUri).request()
-                            .header(LRA_HTTP_CONTEXT_HEADER, transferId)
-                            .post(Entity.text("")).readEntity(String.class);
-            return Response.ok(confirmOutcome).build();
-        }
+        // return status
+        return Response.ok("transfer status:" + returnString).build();
 
     }</copy>
     ```
 
-1. TODO TODO TODO 
+1. Create a method to perform the withdrawal
 
-   build it 
+   This method should perform the withdrawal by calling the Withdraw service in the Account Spring Boot aapplication.  The `accountId` and `amount` need to be passed to the service, and you must set the `LRA_HTTP_CONTEXT_HEADER` to the LRA ID.  You can get the ID of the currently running LRA by calling `Current.peek()`. 
+
+    > **Note**: Normally the LRA inteceptors would automatically add the header for you, however in the version of the library you are using in this lab, that insertion is not working, so you need to do it manually.
+
+    ```java
+    <copy>private String withdraw(long accountId, long amount) {
+        log.info("withdraw accountId = " + accountId + ", amount = " + amount);
+        WebTarget webTarget =
+                ClientBuilder.newClient().target(withdrawUri).path("/")
+                        .queryParam("accountId", accountId)
+                        .queryParam("amount", amount);
+        URI lraId = Current.peek();
+        log.info("withdraw lraId = " + lraId);
+        String withdrawOutcome =
+                webTarget.request().header(LRA_HTTP_CONTEXT_HEADER, lraId)
+                        .post(Entity.text("")).readEntity(String.class);
+        return withdrawOutcome;
+    }</copy>
+    ```
+
+1.  Create a method to perform the deposit
+
+   This method is similar the previous one, no new concepts are introduced here.
+
+    ```java
+    <copy>private String deposit(long accountId, long amount) {
+        log.info("deposit accountId = " + accountId + ", amount = " + amount);
+        WebTarget webTarget =
+                ClientBuilder.newClient().target(depositUri).path("/")
+                        .queryParam("accountId", accountId)
+                        .queryParam("amount", amount);
+        URI lraId = Current.peek();
+        log.info("deposit lraId = " + lraId);
+        String depositOutcome =
+                webTarget.request().header(LRA_HTTP_CONTEXT_HEADER,lraId)
+                        .post(Entity.text("")).readEntity(String.class);;
+        return depositOutcome;
+    }</copy>
+    ```
+
+1. Create a method to process the confirm action for this participant
+
+   This participant does not need to take any actions for the confirm action, so just return a successful response.
+
+    ```java
+    <copy>@POST
+    @Path("/processconfirm")
+    @Produces(MediaType.APPLICATION_JSON)
+    @LRA(value = LRA.Type.MANDATORY)
+    public Response processconfirm(@HeaderParam(LRA_HTTP_CONTEXT_HEADER) String lraId) throws NotFoundException {
+        log.info("Process confirm for transfer : " + lraId);
+        return Response.ok().build();
+    }</copy>
+    ```
+
+1. Create a method to process the cancel action for this participant
+
+   This participant does not need to take any actions for the cancel action, so just return a successful response.
+
+    ```java
+    <copy>@POST
+    @Path("/processcancel")
+    @Produces(MediaType.APPLICATION_JSON)
+    @LRA(value = LRA.Type.MANDATORY, cancelOn = Response.Status.OK)
+    public Response processcancel(@HeaderParam(LRA_HTTP_CONTEXT_HEADER) String lraId) throws NotFoundException {
+        log.info("Process cancel for transfer : " + lraId);
+        return Response.ok().build();
+    }</copy>
+    ```
+
+1. Create the confirm and cancel methods
+  
+   The logic demonstrated in these two methods would probably be in a client in a real-life LRA, but is included here for instructional purposes and convenience.
+
+   The `transfer` method makes a REST call to confirm (or cancel) at the end of its processing.  The confirm or cancel method suspends the LRA (using the `NOT_SUPPORTED` `value` in the `@LRA` annotation).  Then the confirm or cancel method will make a REST call to `processconfirm` or `processcancel` which import the LRA with their `MANDATORY` annotation and then implicitly end the LRA accordingly upon returning.
+
+    ```java
+    <copy>@POST
+    @Path("/confirm")
+    @Produces(MediaType.APPLICATION_JSON)
+    @LRA(value = LRA.Type.NOT_SUPPORTED)
+    public Response confirm(@HeaderParam(TRANSFER_ID) String transferId) throws NotFoundException {
+        log.info("Received confirm for transfer : " + transferId);
+        String confirmOutcome =
+                ClientBuilder.newClient().target(transferProcessConfirmUri).request()
+                        .header(LRA_HTTP_CONTEXT_HEADER, transferId)
+                        .post(Entity.text("")).readEntity(String.class);
+        return Response.ok(confirmOutcome).build();
+    }
+    
+    @POST
+    @Path("/cancel")
+    @Produces(MediaType.APPLICATION_JSON)
+    @LRA(value = LRA.Type.NOT_SUPPORTED, cancelOn = Response.Status.OK)
+    public Response cancel(@HeaderParam(TRANSFER_ID) String transferId) throws NotFoundException {
+        log.info("Received cancel for transfer : " + transferId);
+        String confirmOutcome =
+                ClientBuilder.newClient().target(transferProcessCancelUri).request()
+                        .header(LRA_HTTP_CONTEXT_HEADER, transferId)
+                        .post(Entity.text("")).readEntity(String.class);
+        return Response.ok(confirmOutcome).build();
+    }</copy>
+    ```
+
+   That completes the Transfer service and application.
 
 
 ## Task 9: Deploy the Account and Transfer services to the backend
 
 TODO that
 
-1.  TODO this
+1. Build the Account and Transfer applications into JAR files
 
-   this and that
+   To build a JAR file from the Account application, issue this command in the `account` directory.  Then issue the same command from the `transfer` directory to build the Transfer application into a JAR file too.
+
+    ```
+    $ <copy>mvn package -Dmaven.test.skip=true</copy>
+    ```
+
+   You will now have a JAR file for each application, as can be seen with this command: 
+
+    ```
+    $ <copy>$ find . -name \*jar</copy>
+    ./accounts/target/accounts-0.0.1-SNAPSHOT.jar
+    ./transfer/target/transfer-0.0.1-SNAPSHOT.jar
+    ```
+
+1. Deploy them
+
+   TODO copy the instructions from the other lab
 
 
 ## Task 10: Run LRA test cases
@@ -1300,7 +1411,106 @@ TODO what thing
 
 1. This thing
 
-  TODO how.
+   TODO how.
+
+    ```
+    $ <copy>curl -s http://100.20.30.40/api/v1/account/66 | jq ; curl -s http://100.20.30.40/api/v1/account/67 | jq</copy>
+    {
+    "accountBalance" : 10800,
+    "accountCustomerId" : null,
+    "accountId" : 66,
+    "accountName" : "testpaul1",
+    "accountOpenedDate" : null,
+    "accountOtherDetails" : null,
+    "accountType" : null
+    }
+    {
+    "accountBalance" : 10800,
+    "accountCustomerId" : null,
+    "accountId" : 67,
+    "accountName" : "testpaul2",
+    "accountOpenedDate" : null,
+    "accountOtherDetails" : null,
+    "accountType" : null
+    }
+    ``` 
+
+   TODO
+
+    ```    
+    $ <copy>curl -X POST "http://localhost:8080/transfer?fromAccount=66&toAccount=67&amount=100"</copy>
+    transfer status:withdraw succeeded deposit succeeded
+    ```  
+
+   TODO
+
+    ```
+    $ <copy>curl -s http://100.20.30.40/api/v1/account/66 | jq ; curl -s http://100.20.30.40/api/v1/account/67 | jq</copy>
+    {
+    "accountBalance" : 10800,
+    "accountCustomerId" : null,
+    "accountId" : 66,
+    "accountName" : "testpaul1",
+    "accountOpenedDate" : null,
+    "accountOtherDetails" : null,
+    "accountType" : null
+    }
+    {
+    "accountBalance" : 10800,
+    "accountCustomerId" : null,
+    "accountId" : 67,
+    "accountName" : "testpaul2",
+    "accountOpenedDate" : null,
+    "accountOtherDetails" : null,
+    "accountType" : null
+    }
+    ``` 
+
+    ```
+    $ <copy>curl -X POST "http://localhost:8080/transfer?fromAccount=66&toAccount=67&amount=100"</copy>
+    transfer status:withdraw succeeded deposit succeeded
+    ```  
+
+    ```
+    $ <copy>curl -s http://100.20.30.40/api/v1/account/66 | json_1 ; curl -s http://100.20.30.40/api/v1/account/67 | j1</copy>
+    {
+    "accountBalance" : 10700,
+    "accountCustomerId" : null,
+    "accountId" : 66,
+    "accountName" : "testpaul1",
+    "accountOpenedDate" : null,
+    "accountOtherDetails" : null,
+    "accountType" : null
+    }
+    {
+    "accountBalance" : 10900,
+    "accountCustomerId" : null,
+    "accountId" : 67,
+    "accountName" : "testpaul2",
+    "accountOpenedDate" : null,
+    "accountOtherDetails" : null,
+    "accountType" : null
+    }
+    ``` 
+
+   TODO 
+
+    ```
+    $ <copy>curl -X POST "http://localhost:8080/transfer?fromAccount=66&toAccount=67&amount=100000"</copy>
+    transfer status:withdraw failed: insufficient funds
+    ``` 
+
+   TODO 
+
+    ```
+    $ <copy>curl -X POST "http://localhost:8080/transfer?fromAccount=66&toAccount=6799999&amount=100"</copy>
+    transfer status:withdraw succeeded deposit failed: account does not exist%  
+    ```
+
+
+## TODO OUTRO
+
+TODO TODO 
 
 ## Learn More
 
