@@ -55,8 +55,7 @@ In this lab you will implement a saga that will manage transferring funds from o
 
 When the user submits their request, a microservice will pick up the request and invoke the **Transfer** service (which you will write in this lab) to process the transfer.
 
-The Transfer service will need to find the target customer using the provided email address, then perform a withdrawal and a deposit.  It will need to coordinaate these actions to make sure they all occur, and to perform compensation if there is a problem. 
-
+A Cloud Cash Payment Request Processor service (which you installed in the **Deploy the full CloudBank application** lab) will look up the target customer using the provided email address and invoke the Transfer server that you will write in this lab, which will perform a withdrawal and a deposit.  Your Transfer service will need to coordinaate these actions to make sure they all occur, and to perform compensation if there is a problem. 
 
 ## Task 2: Learn about Long Running Actions
 
@@ -101,7 +100,7 @@ You will update the Account service that you built in the previous lab to add so
 
 1. Add new dependencies to the Maven POM
 
-  TODO explain what these are for
+  Open the `pom.xml` in your `accounts` project and add these new dependencies to the list.  These add suport for Jersey and JAX-RS services and the LRA client libraries themselves.
 
     ```xml
     <copy>
@@ -127,7 +126,7 @@ You will update the Account service that you built in the previous lab to add so
     </copy>
     ```  
 
-   TODO more explanation
+   You will use JAX-RS because the current versions of the LRA libraries require it, as noted earlier.
 
 1. Update the Spring Boot application configuration file
 
@@ -659,11 +658,11 @@ The Data Access Object pattern is considered a best practice and it allows separ
     </copy>
     ```
 
-   TODO something
+   This completes the Data Access Object, now you can start implementing the actual business logic for the services.
 
 ## Task 6: Implement the deposit service's business logic
 
-TODO
+The deposit service will be responsible for depositing funds into accounts.  It will be an LRA participant, and so it will need to implement the LRA lifecycles actions like complete, compensate, and so on.  A significant amount of the logic will be shared with the withdrawal service, so you will also create a separate class for that shared logic, following the Data Access Object pattern, to keep the business layer separate from the persistence layer.
 
 1. Implement the business logic for the **deposit** method.
 
@@ -776,7 +775,7 @@ TODO
    This method should perform any steps necessary to finalize or clean up after the LRA.  In this case, all you need to do is update the status of the deposit entry in the journal.  Here is the code for this method:
 
     ```java
-    <copy> @PUT
+    <copy>@PUT
     @Path("/after")
     @AfterLRA
     @Consumes(MediaType.TEXT_PLAIN)
@@ -1382,7 +1381,20 @@ Now, you will create another new Spring Boot microservice application and implem
 
 ## Task 9: Deploy the Account and Transfer services to the backend
 
-TODO that
+The services are now completed and you are ready to deploy them to the Oracle Backend for Spring Boot.
+
+> **Note**: You already created the Kubernetes secrets necessary for the account service to access the Oracle Autonomous Database in a previous lab, and the Transfer service does not need access to the database.
+
+1. Prepare the Account and Transfer applications for deployment
+
+   Update the data source configuration in your `src/main/resources/application.yaml` as shown in the example below.  This will cause the service to read the correct database details that will be injected into its pod by the Oracle Backend for Spring Boot.  You need to do this for **each** of the two projects.
+
+    ```yaml
+    <copy>datasource:
+      url: ${CONNECT_STRING}
+      username: ${DB_USERNAME}
+      password: ${DB_PASSWORD}</copy>
+    ```
 
 1. Build the Account and Transfer applications into JAR files
 
@@ -1400,105 +1412,188 @@ TODO that
     ./transfer/target/transfer-0.0.1-SNAPSHOT.jar
     ```
 
-1. Deploy them
+1. Deploy the Account and Transfer applications
 
-   TODO copy the instructions from the other lab
+  You will now deploy your udpated account application and new transfer application to the Oracle Backend for Spring Boot using the CLI.  You will deploy into the `application` namespace, and the service names will be `account` and `transfer` respectively.  Run this command to reddeploy your account service, make sure you provide the correct path to your JAR files.  **Note**: You must set **isRedeploy** to **true** since you are updating the existing deployment:
+
+    ```shell
+    oractl> <copy>deploy --isRedeploy true --appName application --serviceName account --jarLocation /path/to/accounts/target/accounts-0.0.1-SNAPSHOT.jar --imageVersion 0.0.1</copy>
+    uploading... upload successful
+    building and pushing image... docker build and push successful
+    creating deployment and service... create deployment and service  = account, appName = application, isRedeploy = true successful
+    successfully deployed
+    ```
+
+   Run this command to reddeploy your account service, make sure you provide the correct path to your JAR files.
+
+    ```shell
+    oractl> <copy>deploy --isRedeploy false --appName application --serviceName transfer --jarLocation /path/to/transfer/target/transfer-0.0.1-SNAPSHOT.jar --imageVersion 0.0.1</copy>
+    uploading... upload successful
+    building and pushing image... docker build and push successful
+    creating deployment and service... create deployment and service  = transfer, appName = application, isRedeploy = true successful
+    successfully deployed
+    ```
+
+   Your applications are now deployed in the backend.
+
+1. Temporary workaround - **will be removed before Level Up 23**
+
+    > **Note**: Hello LiveLab QA testers!  This small workaround is required currently due to a small bug in the CLI.  THis will be removed before the Level Up 23 event.  This just adds the missing env vars and a volume mount for the TNSADMIN secret to the account deployment.
+
+   Create a file called `patch.json` with this content:
+
+    ```json
+    <copy>{
+      "spec": {
+        "template": {
+          "spec": { 
+            "containers": [
+              {
+                "name": "account",
+                "env": [
+                  {
+                    "name": "DB_USERNAME",
+                    "valueFrom": {
+                      "secretKeyRef": {
+                        "key": "db.username",
+                        "name": "account-db-secrets"
+                      }
+                    }
+                  },
+                  {
+                    "name": "DB_PASSWORD",
+                    "valueFrom": {
+                      "secretKeyRef": {
+                        "key": "db.password",
+                        "name": "account-db-secrets"
+                      }
+                    }
+                  }
+                ],
+                "volumeMounts": [
+                  {
+                    "mountPath": "/oracle/tnsadmin",
+                    "name": "tns-admin"
+                  }
+                ]
+              }
+            ],
+            "volumes": [
+              {
+                "name": "tns-admin",
+                "secret": {
+                  "defaultMode": 420,
+                  "secretName": "obaasdevdb-tns-admin"
+                }
+              }
+            ]
+          }
+        }
+      }
+    }</copy>
+    ```
+
+   Apply the patch to the deployments with these commands: 
+
+    ```shell
+    $ <copy>kubectl -n application patch deploy account -p "$(cat patch.json)"
+    kubectl -n application patch deploy transfer -p "$(cat patch.json)"</copy>
+    ```
+
+  This will add the TNSADMIN volume mount to your account deployment (and its pods) and the environment variables required to read the database credentials from the appropriate secret.
 
 
 ## Task 10: Run LRA test cases
 
-TODO what thing
+Now you can test your LRA to verify it performs correctly under various circumstances.
 
-1. This thing
+1. Start a tunnel to access the transfer service
 
-   TODO how.
+   Since the transfer service is not exposed outside the Kubernetes cluster, you will need to start a **kubectl** port forwarding tunnel to access its endpoints.
+
+    > **Note**: If you prefer, you can create a route in the APISIX API Gateway to expose the service.  The service will normally only be invoked from within the cluster, so you did not create a route for it.  However, you have learned how to create routes, so you may do that if you prefer.
+
+   Run this command to start the tunne:
+
+    ```shell
+    $ <copy>kubectl -n application port-forward svc/transfer 8080:8080</copy>
+    ```
+
+   Now the transfer service will be accessible at [http://localhost:8080/api/v1/transfer](http://localhost:8080/api/v1/transfer).
+
+1. Check the starting account balances
+
+   Before you start, check the balances of the two accounts that you will be transfering money between using this command.  Note that these accounts were created in an earlier step.  TODO check they were? or is in the liquibase? TODO 
 
     ```
     $ <copy>curl -s http://100.20.30.40/api/v1/account/66 | jq ; curl -s http://100.20.30.40/api/v1/account/67 | jq</copy>
     {
-    "accountBalance" : 10800,
-    "accountCustomerId" : null,
-    "accountId" : 66,
-    "accountName" : "testpaul1",
-    "accountOpenedDate" : null,
-    "accountOtherDetails" : null,
-    "accountType" : null
+        "accountBalance" : 10800,
+        "accountCustomerId" : null,
+        "accountId" : 66,
+        "accountName" : "testpaul1",
+        "accountOpenedDate" : null,
+        "accountOtherDetails" : null,
+        "accountType" : null
     }
     {
-    "accountBalance" : 10800,
-    "accountCustomerId" : null,
-    "accountId" : 67,
-    "accountName" : "testpaul2",
-    "accountOpenedDate" : null,
-    "accountOtherDetails" : null,
-    "accountType" : null
+        "accountBalance" : 10800,
+        "accountCustomerId" : null,
+        "accountId" : 67,
+        "accountName" : "testpaul2",
+        "accountOpenedDate" : null,
+        "accountOtherDetails" : null,
+        "accountType" : null
     }
     ``` 
 
-   TODO
+   Note that account 66 has $10,800 in this example, and account 67 has $10,800.  Your results may be different.
+
+1. Perform a transfer that should succeed
+
+   Run this command to perform a transfer that should succeed.  Note that both accounts exist and the amount of the transfer is less than the balance of the source account.
 
     ```    
     $ <copy>curl -X POST "http://localhost:8080/transfer?fromAccount=66&toAccount=67&amount=100"</copy>
     transfer status:withdraw succeeded deposit succeeded
     ```  
 
-   TODO
-
-    ```
-    $ <copy>curl -s http://100.20.30.40/api/v1/account/66 | jq ; curl -s http://100.20.30.40/api/v1/account/67 | jq</copy>
-    {
-    "accountBalance" : 10800,
-    "accountCustomerId" : null,
-    "accountId" : 66,
-    "accountName" : "testpaul1",
-    "accountOpenedDate" : null,
-    "accountOtherDetails" : null,
-    "accountType" : null
-    }
-    {
-    "accountBalance" : 10800,
-    "accountCustomerId" : null,
-    "accountId" : 67,
-    "accountName" : "testpaul2",
-    "accountOpenedDate" : null,
-    "accountOtherDetails" : null,
-    "accountType" : null
-    }
-    ``` 
-
-    ```
-    $ <copy>curl -X POST "http://localhost:8080/transfer?fromAccount=66&toAccount=67&amount=100"</copy>
-    transfer status:withdraw succeeded deposit succeeded
-    ```  
+   Check the two accounts again to confirm the transfer behaved as expected: 
 
     ```
     $ <copy>curl -s http://100.20.30.40/api/v1/account/66 | json_1 ; curl -s http://100.20.30.40/api/v1/account/67 | j1</copy>
     {
-    "accountBalance" : 10700,
-    "accountCustomerId" : null,
-    "accountId" : 66,
-    "accountName" : "testpaul1",
-    "accountOpenedDate" : null,
-    "accountOtherDetails" : null,
-    "accountType" : null
+        "accountBalance" : 10700,
+        "accountCustomerId" : null,
+        "accountId" : 66,
+        "accountName" : "testpaul1",
+        "accountOpenedDate" : null,
+        "accountOtherDetails" : null,
+        "accountType" : null
     }
     {
-    "accountBalance" : 10900,
-    "accountCustomerId" : null,
-    "accountId" : 67,
-    "accountName" : "testpaul2",
-    "accountOpenedDate" : null,
-    "accountOtherDetails" : null,
-    "accountType" : null
+        "accountBalance" : 10900,
+        "accountCustomerId" : null,
+        "accountId" : 67,
+        "accountName" : "testpaul2",
+        "accountOpenedDate" : null,
+        "accountOtherDetails" : null,
+        "accountType" : null
     }
     ``` 
 
-   TODO 
+   Notice that account 66 now has only $10,700 and account 67 has $10,900.  So the $100 was successfully transfered as expected.
+
+1. Perform a transfer that should fail due to insufficient funds in the source account
+
+   Run this command to attempt to transfer $100,000 from account 66 to account 67.  This should fail because account 66 does not have enough funds.
 
     ```
     $ <copy>curl -X POST "http://localhost:8080/transfer?fromAccount=66&toAccount=67&amount=100000"</copy>
     transfer status:withdraw failed: insufficient funds
     ``` 
+
+1. Perform a transfer that should fail due to the destination account not existing.
 
    TODO 
 
@@ -1507,6 +1602,36 @@ TODO what thing
     transfer status:withdraw succeeded deposit failed: account does not exist%  
     ```
 
+1. Access the applications logs to verify what happened in each case
+
+   Use the following command to find the names of the pods that your two applications are running in.  Your output will be slightly different:
+
+    ```shell
+    $ <copy>kubectl -n application get pods</copy>
+    NAME                            READY   STATUS    RESTARTS   AGE
+    account-d5d9786f4-jpvkh         1/1     Running   0          21h
+    customer-c6f8d97c-dlfg5         1/1     Running   0          10d
+    transfer-6d5c86576f-rxqdj       1/1     Running   0          21h
+    ```
+
+   Taking the pods names from this output for both account and transfer, access the logs with this command.  Your output will be different:
+
+    ```shell
+    $ <copy>kubectl -n application logs transfer-6d5c86576f-rxqdj</copy>
+    2023-03-04 21:52:12.421  INFO 1 --- [nio-8080-exec-3] TransferService                          : Started new LRA/transfer Id: http://otmm-tcs.otmm.svc.cluster.local:9000/api/v1/lra-coordinator/18a093ef-beb6-4065-bb6c-b9328c8bb3e5
+    2023-03-04 21:52:12.422  INFO 1 --- [nio-8080-exec-3] TransferService                          : withdraw accountId = 66, amount = 100
+    2023-03-04 21:52:12.426  INFO 1 --- [nio-8080-exec-3] TransferService                          : withdraw lraId = http://otmm-tcs.otmm.svc.cluster.local:9000/api/v1/lra-coordinator/18a093ef-beb6-4065-bb6c-b9328c8bb3e5
+    2023-03-04 21:52:12.615  INFO 1 --- [nio-8080-exec-3] TransferService                          : withdraw succeeded
+    2023-03-04 21:52:12.616  INFO 1 --- [nio-8080-exec-3] TransferService                          : deposit accountId = 6799999, amount = 100
+    2023-03-04 21:52:12.619  INFO 1 --- [nio-8080-exec-3] TransferService                          : deposit lraId = http://otmm-tcs.otmm.svc.cluster.local:9000/api/v1/lra-coordinator/18a093ef-beb6-4065-bb6c-b9328c8bb3e5
+    2023-03-04 21:52:12.726  INFO 1 --- [nio-8080-exec-3] TransferService                          : withdraw succeeded deposit failed: account does not exist
+    2023-03-04 21:52:12.726  INFO 1 --- [nio-8080-exec-3] TransferService                          : LRA/transfer action will be cancel
+    2023-03-04 21:52:12.757  INFO 1 --- [nio-8080-exec-1] TransferService                          : Received cancel for transfer : http://otmm-tcs.otmm.svc.cluster.local:9000/api/v1/lra-coordinator/18a093ef-beb6-4065-bb6c-b9328c8bb3e5
+    2023-03-04 21:52:12.817  INFO 1 --- [nio-8080-exec-2] TransferService                          : Process cancel for transfer : http://otmm-tcs.otmm.svc.cluster.local:9000/api/v1/lra-coordinator/18a093ef-beb6-4065-bb6c-b9328c8bb3e5
+    ```
+
+   In the example output above you can see one what happened during that last test you ran a moment ago.  Notice that the LRA started, the withdrawal succeeded, then the deposit failed because the account did not exist.  Then you can see that the next action is cancel, and then the LRA being canceled/compensated.
+   
 
 ## TODO OUTRO
 
