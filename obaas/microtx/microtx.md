@@ -91,6 +91,8 @@ You will add a `JOURNAL` table to the account microservice's database.  This tab
 
 As LRA is an eventual consistency model, the approach you will take in the account service will be to store bank account transactions as "pending" in the journal table.  Pending transactions will not be considered when calculating the account balance until they are finalized ("completed").  When the LRA reaches the "complete" phase, the pending transactions will be considered finalized and the account balance will be updated to reflect those transactions.
 
+> **Note**: Unlike Java Transcation Architecture (JTA) where "in-doubt" tables are created automatically to keep track of pending transactions, LRA is only concerned with the orchestration of the API calls, so particpants need to track transactions themselves.  In this lab you will use the journal table both to store the transactions and to track the lRA.  Of course, this could also be done with separate tables if desired.
+
 You will now start implementing the Cloud Cash Payment LRA.
 
 ## Task 3: Prepare to add LRA participant endpoints to the Account Service
