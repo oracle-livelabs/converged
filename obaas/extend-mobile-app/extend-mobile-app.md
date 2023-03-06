@@ -384,7 +384,12 @@ For the account selector field, you need to get a list of accounts by calling th
    The REST endpoint needs the customer ID, which you can get from the `creds` object's `objectID` property as shown in the code sample below.  You will need to make a couple of other small updates to pass the credentials into this widget.  Here is the code for the `fetchData()` function: 
 
     ```dart
-      <copy>Future<Accounts> fetchData() async {
+      <copy>import 'package:http/http.dart' as http;
+      import 'dart:convert';
+
+      // ...
+      
+      Future<Accounts> fetchData() async {
              String accountsUrl =
                '${widget.creds.backendUrl}/api/v1/account/getAccounts/${widget.creds.objectID}';
              final response = await http.get(Uri.parse(accountsUrl));
@@ -416,12 +421,27 @@ For the account selector field, you need to get a list of accounts by calling th
     }</copy>
     ```
 
-   You will also need to update the route you added to the Cloud Cash card in `home.dart` to pass `creds` in the constructor:
+   You will also need to update the route you added to the Cloud Cash card in `home.dart` to pass `creds` in the constructor.  Replace its `onPressed` property with this:
 
     ```dart
-     <copy>MaterialPageRoute(
-      builder: (context) => CloudCash(creds: creds),</copy>
+    <copy>onPressed: () => Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => CloudCash(creds: creds),
+        // Pass the arguments as part of the RouteSettings. The
+        // DetailScreen reads the arguments from these settings.
+        settings: RouteSettings(
+          arguments: creds,
+        ),
+      ),
+    ),</copy>
     ```       
+
+   And add an import for `CloudCash`:
+
+    ```dart
+    <copy>import 'package:loginapp/screens/cloudcash.dart';</copy>
+    ``` 
 
    Now you will have access to the credentials to get the customer ID.
 
@@ -517,7 +537,11 @@ The final piece to complete the Cloud Cash feature is to handle the form submiss
    Here is the code for the function:   
 
     ```dart
-    <copy>processCloudCash(context, destination, amount, fromAccount) async {
+    <copy>import 'package:loginapp/screens/home.dart';
+    import 'package:parse_server_sdk_flutter/parse_server_sdk.dart';
+
+    // ...
+    processCloudCash(context, destination, amount, fromAccount) async {
       final creds = ModalRoute.of(context)!.settings.arguments as Credentials;
 
       var cloudCashPayment = ParseObject("CloudCashPayment");
@@ -568,7 +592,8 @@ The final piece to complete the Cloud Cash feature is to handle the form submiss
     ```dart
     <copy>onPressed: () {
       processCloudCash(context, destinationController.text,
-      amountController.text, accountDropdownValue);</copy>
+      amountController.text, accountDropdownValue);
+    }</copy>
     ```
 
    That completes the Cloud Cash feature!  Well done!
