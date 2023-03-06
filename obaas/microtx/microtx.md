@@ -323,6 +323,7 @@ The Deposit service will process deposits into bank accounts.  In this task, you
     import org.eclipse.microprofile.lra.annotation.AfterLRA;
     import org.eclipse.microprofile.lra.annotation.Compensate;
     import org.eclipse.microprofile.lra.annotation.Complete;
+    import org.eclipse.microprofile.lra.annotation.ParticipantStatus;
     import org.eclipse.microprofile.lra.annotation.Status;
     import org.eclipse.microprofile.lra.annotation.ws.rs.LRA;
     import org.springframework.stereotype.Component;
@@ -462,6 +463,8 @@ The Data Access Object pattern is considered a best practice and it allows separ
 
     import javax.ws.rs.core.Response;
 
+    import java.util.List;
+
     import org.eclipse.microprofile.lra.annotation.ParticipantStatus;
     import org.slf4j.Logger;
     import org.slf4j.LoggerFactory;
@@ -578,8 +581,8 @@ The Data Access Object pattern is considered a best practice and it allows separ
    Create a method to update the LRA status in the journal table during the "after LRA" phase.
 
     ```java
-    <copy>public void afterLRA(String lraId, String status) throws Exception {
-        Journal journal = getJournalForLRAid(lraId);
+    <copy>public void afterLRA(String lraId, String status, String journalType) throws Exception {
+        Journal journal = getJournalForLRAid(lraId, journalType);
         journal.setLraState(status);
         journalRepository.save(journal);
     }</copy>
@@ -610,41 +613,33 @@ The Data Access Object pattern is considered a best practice and it allows separ
    Update `AccountRepository.java` in `src/main/java/com/example/accounts/repositories` to add these extra JPA methods.  Your updated file should look like this: 
 
     ```java
-    <copy>package oracle.examples.cloudbank.repository;
-
-    import oracle.examples.cloudbank.model.Account;
-    import org.springframework.data.jpa.repository.JpaRepository;
+    <copy>package com.example.accounts.repository;
 
     import java.util.List;
 
-    public interface AccountRepository extends JpaRepository <Account, Long> {
+    import org.springframework.data.jpa.repository.JpaRepository;
+
+    import com.example.accounts.model.Account;
+
+    public interface AccountRepository extends JpaRepository<Account, Long> {   
+        List<Account> findByAccountCustomerId(String customerId); 
         List<Account> findAccountsByAccountNameContains (String accountName);
-        List<Account> findByAccountCustomerId(String customerId);
         Account findByAccountId(long accountId);
     }</copy>
     ```    
 
 1. Create methods to manage the journal
 
-   Create a method to get the journal entry for a given LRA.
+   Back in the `AccountTransferDAO`, create a method to get the journal entry for a given LRA.
 
     ```java
-    <copy>Journal getJournalForLRAid(String lraId) throws Exception {
-        Journal journal;
-        List<Journal> journals = journalRepository.findJournalByLraId(lraId);
-        if (journals.size() == 0) {
-            journalRepository.save(
-                new Journal(
-                    "unknown", 
-                    -1, 
-                    0, 
-                    lraId,
-                    AccountTransferDAO.getStatusString(ParticipantStatus.FailedToComplete)
-                )
-            );
+    <copy>    Journal getJournalForLRAid(String lraId, String journalType) throws Exception {
+        Journal journal = journalRepository.findJournalByLraIdAndJournalType(lraId, journalType);
+        if (journal == null) {
+            journalRepository.save(new Journal("unknown", -1, 0, lraId,
+                    AccountTransferDAO.getStatusString(ParticipantStatus.FailedToComplete)));
             throw new Exception("Journal entry does not exist for lraId:" + lraId);
         }
-        journal = journals.get(0);
         return journal;
     }</copy>
     ```
@@ -1076,7 +1071,7 @@ Now, you will create another new Spring Boot microservice application and implem
 
 1. Create the Application Configuration class
 
-   The ApplicationConfig class reads configuration from `application.yaml` and injects the LRA client bean into the application.
+   The ApplicationConfig class reads configuration from `application.yaml` and injects the LRA client bean into the application.  Create a new Java file called `ApplicationConfig.java` in `src/main/java/com/example/transfer`.  Here is the content for this file:
 
    TODO paul - why doesn't it read the other config?   need to explain why this nrayana client fits in
 
@@ -1385,17 +1380,6 @@ The services are now completed and you are ready to deploy them to the Oracle Ba
 
 > **Note**: You already created the Kubernetes secrets necessary for the account service to access the Oracle Autonomous Database in a previous lab, and the Transfer service does not need access to the database.
 
-1. Prepare the Account and Transfer applications for deployment
-
-   Update the data source configuration in your `src/main/resources/application.yaml` as shown in the example below.  This will cause the service to read the correct database details that will be injected into its pod by the Oracle Backend for Spring Boot.  You need to do this for **each** of the two projects.
-
-    ```yaml
-    <copy>datasource:
-      url: ${CONNECT_STRING}
-      username: ${DB_USERNAME}
-      password: ${DB_PASSWORD}</copy>
-    ```
-
 1. Build the Account and Transfer applications into JAR files
 
    To build a JAR file from the Account application, issue this command in the `account` directory.  Then issue the same command from the `transfer` directory to build the Transfer application into a JAR file too.
@@ -1436,72 +1420,11 @@ The services are now completed and you are ready to deploy them to the Oracle Ba
 
    Your applications are now deployed in the backend.
 
-1. Temporary workaround - **will be removed before Level Up 23**
+1. TODO TODO
 
-    > **Note**: Hello LiveLab QA testers!  This small workaround is required currently due to a small bug in the CLI.  THis will be removed before the Level Up 23 event.  This just adds the missing env vars and a volume mount for the TNSADMIN secret to the account deployment.
+   Account won't work with eureka - have to get rid of it, and update the route to use k8s discovery instead of eureka
 
-   Create a file called `patch.json` with this content:
-
-    ```json
-    <copy>{
-      "spec": {
-        "template": {
-          "spec": { 
-            "containers": [
-              {
-                "name": "account",
-                "env": [
-                  {
-                    "name": "DB_USERNAME",
-                    "valueFrom": {
-                      "secretKeyRef": {
-                        "key": "db.username",
-                        "name": "account-db-secrets"
-                      }
-                    }
-                  },
-                  {
-                    "name": "DB_PASSWORD",
-                    "valueFrom": {
-                      "secretKeyRef": {
-                        "key": "db.password",
-                        "name": "account-db-secrets"
-                      }
-                    }
-                  }
-                ],
-                "volumeMounts": [
-                  {
-                    "mountPath": "/oracle/tnsadmin",
-                    "name": "tns-admin"
-                  }
-                ]
-              }
-            ],
-            "volumes": [
-              {
-                "name": "tns-admin",
-                "secret": {
-                  "defaultMode": 420,
-                  "secretName": "obaasdevdb-tns-admin"
-                }
-              }
-            ]
-          }
-        }
-      }
-    }</copy>
-    ```
-
-   Apply the patch to the deployments with these commands: 
-
-    ```shell
-    $ <copy>kubectl -n application patch deploy account -p "$(cat patch.json)"
-    kubectl -n application patch deploy transfer -p "$(cat patch.json)"</copy>
-    ```
-
-  This will add the TNSADMIN volume mount to your account deployment (and its pods) and the environment variables required to read the database credentials from the appropriate secret.
-
+   TODO TODO 
 
 ## Task 10: Run LRA test cases
 
@@ -1631,7 +1554,7 @@ Now you can test your LRA to verify it performs correctly under various circumst
     ```
 
    In the example output above you can see one what happened during that last test you ran a moment ago.  Notice that the LRA started, the withdrawal succeeded, then the deposit failed because the account did not exist.  Then you can see that the next action is cancel, and then the LRA being canceled/compensated.
-   
+
 
 ## TODO OUTRO
 
