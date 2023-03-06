@@ -409,10 +409,10 @@ The Deposit service will process deposits into bank accounts.  In this task, you
 
 1. Create the LRA status endpoint
 
-   Next, you need to provide a status endpoint.  This must respond to the HTTP GET method.  It returns plain text TODO WHY PAUL?  Notice that it also extracts the parent LRA ID (if present Paul? why??) TODO
+   Next, you need to provide a status endpoint.  This must respond to the HTTP GET method. 
 
     ```java
-    <copy>
+    
     /**
     * Return status
     */
@@ -420,16 +420,15 @@ The Deposit service will process deposits into bank accounts.  In this task, you
     @Path("/status")
     @Produces(MediaType.TEXT_PLAIN)
     @Status
-    public Response status(@HeaderParam(LRA_HTTP_CONTEXT_HEADER) String lraId,
-            @HeaderParam(LRA_HTTP_PARENT_CONTEXT_HEADER) String parentLRA) throws Exception {
-        return Response.ok().build();
+    public Response status(@HeaderParam(LRA_HTTP_CONTEXT_HEADER) String lraId) throws Exception {
+        return AccountTransferDAO.instance().status(lraId, DEPOSIT);
     }
-    </copy>
+    
     ```
 
 1. Create the "after" LRA endpoint
 
-   Finally, you need an "after LRA" endpoint that implements any clean up logic that needs to be run after the completion of the LRA.  (TODO paul successful only or any outcome?)   This method must respond to the HTTP PUT method and is marked with the `@AfterLRA` annotation.
+   Finally, you need an "after LRA" endpoint that implements any clean up logic that needs to be run after the completion of the LRA. This method is called regardless of the outcome of the LRA and must respond to the HTTP PUT method and is marked with the `@AfterLRA` annotation.
 
     ```java
     <copy>
@@ -445,8 +444,6 @@ The Deposit service will process deposits into bank accounts.  In this task, you
     }
     </copy>
     ```
-
-  TODO now implement the business logic - probably need to do the util class first .. 
 
 ## Task 5: Create an Account/Transfer Data Access Object
 
@@ -600,16 +597,6 @@ The Data Access Object pattern is considered a best practice and it allows separ
     }</copy>
     ```
 
-   Create a method to get the account for a given account name TODO paul update?? 
-
-    ```java
-    <copy> Account getAccountForAccountId(long accountId)  {
-      Account account = accountRepository.findByAccountId(accountId);
-      if (account == null) return null;
-      return account;
-    }</copy>
-    ```
-
    Update `AccountRepository.java` in `src/main/java/com/example/accounts/repositories` to add these extra JPA methods.  Your updated file should look like this: 
 
     ```java
@@ -759,8 +746,7 @@ The deposit service will be responsible for depositing funds into accounts.  It 
     @Path("/status")
     @Produces(MediaType.TEXT_PLAIN)
     @Status
-    public Response status(@HeaderParam(LRA_HTTP_CONTEXT_HEADER) String lraId,
-                           @HeaderParam(LRA_HTTP_PARENT_CONTEXT_HEADER) String parentLRA) throws Exception {
+    public Response status(@HeaderParam(LRA_HTTP_CONTEXT_HEADER) String lraId) throws Exception {
         return AccountTransferDAO.instance().status(lraId, DEPOSIT);
     }</copy>
     ```
@@ -920,8 +906,7 @@ Next, you need to implement the withdraw service, which will be the second parti
         @Path("/status")
         @Produces(MediaType.TEXT_PLAIN)
         @Status
-        public Response status(@HeaderParam(LRA_HTTP_CONTEXT_HEADER) String lraId,
-                @HeaderParam(LRA_HTTP_PARENT_CONTEXT_HEADER) String parentLRA) throws Exception {
+        public Response status(@HeaderParam(LRA_HTTP_CONTEXT_HEADER) String lraId) throws Exception {
             return AccountTransferDAO.instance().status(lraId, WITHDRAW);
         }
 
@@ -1022,18 +1007,10 @@ Now, you will create another new Spring Boot microservice application and implem
 
    In the `transfer` project, create new directories `src/main/resources` and in that directory create a new file called `appliction.yaml`.  This will be the Spring Boot application configuration file.  In this file you need to configure the endpoints for the LRA participants and coordinator.
 
-   TODO paul what is the mp.lra stuff for?  need to explain
-
     ```yaml
     <copy>
     server:
       port: 8080
-
-    mp.lra:
-      coordinator.url: http://otmm-tcs.otmm.svc.cluster.local:9000/api/v1/lra-coordinator
-      propagation.active: true
-      participant.url: http://localhost:8080
-      coordinator.headers-propagation.prefix: ["x-b3-", "oracle-tmm-", "authorization", "refresh-"]
 
     deposit:
       account:
@@ -1055,7 +1032,7 @@ Now, you will create another new Spring Boot microservice application and implem
    Create a new directory called `src/main/java/com/example/transfer` and in that directory, create a new Java file called `TransferApplciation.java`.  This will be the main application file for the Spring Boot application.  This is a standard application class, there are no new concepts introduced.  Here is the content for this file: 
 
     ```java
-    <copy>package com.example.transfer;
+    package com.example.transfer;
 
     import org.springframework.boot.SpringApplication;
     import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -1066,14 +1043,14 @@ Now, you will create another new Spring Boot microservice application and implem
         public static void main(String[] args) {
             SpringApplication.run(TransferApplication.class, args);
         }
-    }</copy>
+    }
     ```
 
 1. Create the Application Configuration class
 
    The ApplicationConfig class reads configuration from `application.yaml` and injects the LRA client bean into the application.  Create a new Java file called `ApplicationConfig.java` in `src/main/java/com/example/transfer`.  Here is the content for this file:
 
-   TODO paul - why doesn't it read the other config?   need to explain why this nrayana client fits in
+   This provides the information necessary to locate the LRA coordinator.
 
 
     ```java
@@ -1189,35 +1166,11 @@ Now, you will create another new Spring Boot microservice application and implem
     }</copy>
     ```
 
-1. Create an initializer
-
-   TODO - read these from the config and get rid of this
-
-   This method sets the endpoint addresses for the participant actions.
-
-    ```java
-    <copy>@PostConstruct
-    private void initController() {
-        try { //todo get from config/env
-            withdrawUri = new URI("http://account.application:8080/withdraw/withdraw");
-            depositUri = new URI("http://account.application:8080/deposit/deposit");
-            transferCancelUri = new URI("http://transfer.application:8080/cancel");
-            transferConfirmUri = new URI("http://transfer.application:8080/confirm");
-            transferProcessCancelUri = new URI("http://transfer.application:8080/processcancel");
-            transferProcessConfirmUri = new URI("http://transfer.application:8080/processconfirm");
-        } catch (URISyntaxException ex) {
-            throw new IllegalStateException("Failed to initialize " + TransferService.class.getName(), ex);
-        }
-    }</copy>
-    ```
-
 1. Create the **transfer** endpoint
 
    This is the main entry point for the LRA.  When a client calls this method, a new LRA will be started.  The `@LRA` annotation with the `value` property set to `LRA.Type.REQUIRES_NEW` instructs the interceptors/filters to contact Oracle Transaction Manager for Microservices to start a new LRA instance and obtain the LRA ID, which will be injected into the `LRA_HTTP_CONTEXT_HEADER` HTTP header.  Note that the `end` property is set to `false` which means there will be other actions and participants before the LRA is completed.
 
    This method will accept three parameters from the caller, in JSON format in the HTTP body: `fromAccount` is the account from which the funds are to be withdrawn, `toAccount` is the account into which the funds are to be deposited, and `amount` is the amount to transfer.
-
-   TODO paul what are the `@Context` things for? 
 
    In the mehod body, you should first check if the `lraId` was set.  If it is null, that indicates that there was some error trying to create the new LRA instance, and you should return an error response and stop.
 
@@ -1231,9 +1184,7 @@ Now, you will create another new Spring Boot microservice application and implem
     public Response transfer(@QueryParam("fromAccount") long fromAccount,
                             @QueryParam("toAccount") long toAccount,
                             @QueryParam("amount") long amount,
-                            @Context UriInfo uriInfo,
-                            @HeaderParam(LRA_HTTP_CONTEXT_HEADER) String lraId,
-                            @Context ContainerRequestContext containerRequestContext)
+                            @HeaderParam(LRA_HTTP_CONTEXT_HEADER) String lraId)
     {
         if (lraId == null) {
             return Response.serverError().entity("Failed to create LRA").build();
@@ -1382,7 +1333,7 @@ The services are now completed and you are ready to deploy them to the Oracle Ba
 
 1. Update the service discovery for the Account application
 
-   The updated Account application withe JAX-RS will not coexist with the Eureka client, so you need to remove it.  As noted earlier, you are using a version of the LRA client library that only works with JAX-RS, which imposes some limitations.  When a new version of the library with Spring REST support is available, these limitations will be removed. 
+   The updated Account application with JAX-RS will not coexist with the Eureka client, so you need to remove it.  As noted earlier, you are using a version of the LRA client library that only works with JAX-RS, which imposes some limitations.  When a new version of the library with Spring REST support is available, these limitations will be removed. 
 
    To remove the Eureka client from the Account application: 
 
@@ -1392,7 +1343,114 @@ The services are now completed and you are ready to deploy them to the Oracle Ba
    
    You will also need to update the APISIX route to use Kubernetes service discovery instead of Eureka. 
 
-   TODO write that up.
+1. Temporary workaround
+
+   > **Note**: Hello Live Labs QA testers - this is a temporary workaround that must be used with the 0.2.0 stack -- this will not be required in the Level Up 23 event, and will be removed before then!!!
+
+   Edit the APISIX configuration to add the `kuberentes` service discovery configuration.  To edit the configuration, use this command:
+
+    ```shell
+    $ <copy>kubectl -n apisix edit cm apisix</copy>
+    ```
+
+   Find the `discovery` section.  It will contain only a `eureka` configuration.  Update it to add the `kubernetes` configuration as well, exactly as shown below:
+
+    ```yaml
+    <copy>
+    discovery:
+      kubernetes:
+        service:
+          schema: https
+          host: ${KUBERNETES_SERVICE_HOST}
+          port: ${KUBERNETES_SERVICE_PORT}
+        client:
+          token_file: /run/secrets/kubernetes.io/serviceaccount/token
+      eureka:
+        fetch_interval: 30
+        host:
+        - http://eureka.eureka.svc.cluster.local:8761
+        prefix: /eureka/
+        timeout:
+          connect: 2000
+          read: 5000
+          send: 2000
+        weight: 100
+    </copy>
+    ```   
+
+   Restart the APISIX Gateway to pick up this change.  Use this command to shut down the API Gateway:
+
+    ```shell
+    $ <copy>kubectl -n apisix scale deploy apisix --replicas=0</copy>
+    ```
+
+   Wait until all of the `apisix` pods have finished terminating.  You can check with this command:
+
+    ```shell
+    $ <copy>kubectl -n apisix get pods</copy>
+    ```
+
+   When they are all terminated, restart the API Gateway with this command:
+
+    ```shell
+    $ <copy>kubectl -n apisix scale deploy apisix --replicas=3</copy>
+    ```
+
+   Edit the `account` service to make it a `ClusterIP` service and add a name for the port using this command:
+
+    ```shell
+    $ <copy>kubectl -n application edit svc account</copy>
+    ```
+
+   The updated service should look like this, note that yours may look slightly different and have extra derived fields.  The important updates are the `type: ClusterIP` and the `name: port` in the `ports` section:
+
+    ```yaml
+    <copy>
+    apiVersion: v1
+    kind: Service
+    metadata:
+      labels:
+        app: account
+      name: account
+      namespace: application
+    spec:
+        clusterIP: 10.139.178.230
+        clusterIPs:
+        - 10.139.178.230
+        internalTrafficPolicy: Cluster
+        ipFamilies:
+        - IPv4
+        ipFamilyPolicy: SingleStack
+        ports:
+        - name: port
+          port: 8080
+          protocol: TCP
+          targetPort: 8080
+        selector:
+          app: account
+        sessionAffinity: None
+        type: ClusterIP
+    </copy>
+    ```    
+
+
+1. Update the APISIX route to use Kuberenetes service discovery
+
+   Open the `account` route that you created in the APISIX Dashboard.  To access the APISIX Dashboard, start a tunnel using this command:
+
+    ```shell
+    $ <copy>kubectl -n apisix port-forward svc/apisix-dashboard 8080:80</copy>
+    ```
+
+   Then open your browser to [http://localhost:8080](http://localhost:8080) and navigate to the **Routes** page, log in with `admin`/`admin` if necessary.
+
+   Click on the **Configure** button for the `accont` route, then click on the **Next** button to get to the **Define API Backend Server** page.
+
+   ![APISIX Route with Kubernetes discovery](images/obaas-apisix-k8s-discovery.png)
+
+   As shown in the image above, update the **Discovery Type** to **Kubernetes**, and set the **Service Name** to `application/account:port`.
+
+
 
 1. Build the Account and Transfer applications into JAR files
 
@@ -1457,27 +1515,29 @@ Now you can test your LRA to verify it performs correctly under various circumst
 
    Before you start, check the balances of the two accounts that you will be transfering money between using this command.  Note that these accounts were created in an earlier step.  TODO check they were? or is in the liquibase? TODO 
 
+
     ```
-    $ <copy>curl -s http://100.20.30.40/api/v1/account/66 | jq ; curl -s http://100.20.30.40/api/v1/account/67 | jq</copy>
+    $ <copy>curl -s http://100.20.30.40/api/v1/account/1 | jq ; curl -s http://100.20.30.40/api/v1/account/2 | jq</copy>
     {
-        "accountBalance" : 10800,
-        "accountCustomerId" : null,
-        "accountId" : 66,
-        "accountName" : "testpaul1",
-        "accountOpenedDate" : null,
-        "accountOtherDetails" : null,
-        "accountType" : null
+        "accountId": 1,
+        "accountName": "Andy's checking",
+        "accountType": "CH",
+        "accountCustomerId": "abcDe7ged",
+        "accountOpenedDate": "2023-03-06T13:56:43.000+00:00",
+        "accountOtherDetails": "Account Info",
+        "accountBalance": -20
     }
     {
-        "accountBalance" : 10800,
-        "accountCustomerId" : null,
-        "accountId" : 67,
-        "accountName" : "testpaul2",
-        "accountOpenedDate" : null,
-        "accountOtherDetails" : null,
-        "accountType" : null
+        "accountId": 2,
+        "accountName": "Mark's CCard",
+        "accountType": "CC",
+        "accountCustomerId": "bkzLp8cozi",
+        "accountOpenedDate": "2023-03-06T13:56:44.000+00:00",
+        "accountOtherDetails": "Mastercard account",
+        "accountBalance": 1000
     }
     ``` 
+
 
    Note that account 66 has $10,800 in this example, and account 67 has $10,800.  Your results may be different.
 
@@ -1492,45 +1552,45 @@ Now you can test your LRA to verify it performs correctly under various circumst
 
    Check the two accounts again to confirm the transfer behaved as expected: 
 
+
     ```
-    $ <copy>curl -s http://100.20.30.40/api/v1/account/66 | json_1 ; curl -s http://100.20.30.40/api/v1/account/67 | j1</copy>
+    $ <copy>curl -s http://100.20.30.40/api/v1/account/1 | jq ; curl -s http://100.20.30.40/api/v1/account/2 | jq</copy>
     {
-        "accountBalance" : 10700,
-        "accountCustomerId" : null,
-        "accountId" : 66,
-        "accountName" : "testpaul1",
-        "accountOpenedDate" : null,
-        "accountOtherDetails" : null,
-        "accountType" : null
+        "accountId": 1,
+        "accountName": "Andy's checking",
+        "accountType": "CH",
+        "accountCustomerId": "abcDe7ged",
+        "accountOpenedDate": "2023-03-06T13:56:43.000+00:00",
+        "accountOtherDetails": "Account Info",
+        "accountBalance": 80
     }
     {
-        "accountBalance" : 10900,
-        "accountCustomerId" : null,
-        "accountId" : 67,
-        "accountName" : "testpaul2",
-        "accountOpenedDate" : null,
-        "accountOtherDetails" : null,
-        "accountType" : null
+        "accountId": 2,
+        "accountName": "Mark's CCard",
+        "accountType": "CC",
+        "accountCustomerId": "bkzLp8cozi",
+        "accountOpenedDate": "2023-03-06T13:56:44.000+00:00",
+        "accountOtherDetails": "Mastercard account",
+        "accountBalance": 900
     }
     ``` 
 
-   Notice that account 66 now has only $10,700 and account 67 has $10,900.  So the $100 was successfully transfered as expected.
+
+   Notice that account 2 now has only $900 and account 1 has $80.  So the $100 was successfully transfered as expected.
 
 1. Perform a transfer that should fail due to insufficient funds in the source account
 
-   Run this command to attempt to transfer $100,000 from account 66 to account 67.  This should fail because account 66 does not have enough funds.
+   Run this command to attempt to transfer $100,000 from account 2 to account 1.  This should fail because account 66 does not have enough funds.
 
     ```
-    $ <copy>curl -X POST "http://localhost:8080/transfer?fromAccount=66&toAccount=67&amount=100000"</copy>
+    $ <copy>curl -X POST "http://localhost:8080/transfer?fromAccount=2&toAccount=1&amount=100000"</copy>
     transfer status:withdraw failed: insufficient funds
     ``` 
 
 1. Perform a transfer that should fail due to the destination account not existing.
 
-   TODO 
-
     ```
-    $ <copy>curl -X POST "http://localhost:8080/transfer?fromAccount=66&toAccount=6799999&amount=100"</copy>
+    $ <copy>curl -X POST "http://localhost:8080/transfer?fromAccount=2&toAccount=6799999&amount=100"</copy>
     transfer status:withdraw succeeded deposit failed: account does not exist%  
     ```
 
@@ -1565,9 +1625,10 @@ Now you can test your LRA to verify it performs correctly under various circumst
    In the example output above you can see one what happened during that last test you ran a moment ago.  Notice that the LRA started, the withdrawal succeeded, then the deposit failed because the account did not exist.  Then you can see that the next action is cancel, and then the LRA being canceled/compensated.
 
 
-## TODO OUTRO
+## Summary 
 
-TODO TODO 
+ In this lab you have learned about the Saga pattern by implementing an account transfer scenarios.
+ You did this by implementing the long running activity, including `transfer` and `account` services that connect to a coordinator, according to the Long Running Action specification.
 
 ## Learn More
 
