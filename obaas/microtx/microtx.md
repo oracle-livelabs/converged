@@ -1378,11 +1378,21 @@ Now, you will create another new Spring Boot microservice application and implem
 
 The services are now completed and you are ready to deploy them to the Oracle Backend for Spring Boot.
 
-> **Note**: You already created the Kubernetes secrets necessary for the account service to access the Oracle Autonomous Database in a previous lab, and the Transfer service does not need access to the database.
+> **Note**: You already created the Kubernetes secrets necessary for the account service to access the Oracle Autonomous Database in a previous lab, and the Transfer service does not need access to the database.  You also created the journal table that is needed by the update account application in the previous lab.
 
-1. Create the new Journal table for the account service
+1. Update the service discovery for the Account application
 
-   TODO TODO get the sql ....
+   The updated Account application withe JAX-RS will not coexist with the Eureka client, so you need to remove it.  As noted earlier, you are using a version of the LRA client library that only works with JAX-RS, which imposes some limitations.  When a new version of the library with Spring REST support is available, these limitations will be removed. 
+
+   To remove the Eureka client from the Account application: 
+
+   * Update the POM to remove the dependency for `spring-cloud-starter-netflix-eureka-client`.
+   * Remove the `@EnableDiscoveryClient` annotation on the `AccountsApplication` class.
+   * Remove the `eureka` configuration from `src/main/resources/application.yaml`. 
+   
+   You will also need to update the APISIX route to use Kubernetes service discovery instead of Eureka. 
+
+   TODO write that up.
 
 1. Build the Account and Transfer applications into JAR files
 
@@ -1424,11 +1434,6 @@ The services are now completed and you are ready to deploy them to the Oracle Ba
 
    Your applications are now deployed in the backend.
 
-1. TODO TODO
-
-   Account won't work with eureka - have to get rid of it, and update the route to use k8s discovery instead of eureka
-
-   TODO TODO 
 
 ## Task 10: Run LRA test cases
 

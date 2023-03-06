@@ -252,21 +252,23 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
     comment on table account.accounts 
     is 'CloudBank accounts table';
     
-    -- create transactions table
-    create blockchain table account.transactions (
-        transaction_id     number generated always as identity (start with 1 cache 20),
-        transaction_date   date default sysdate not null,
-        transaction_amount number,
-        transaction_type   varchar(2) check (transaction_type in ('DE', 'CR')),
-        account_id         number not null
-    ) no drop until 0 days idle no delete locked hashing using "SHA2_512" version "v1" logging;
-    
-    alter table account.transactions
-    add constraint transactions_pk
-    primary key (transaction_id) 
+    -- create journal table
+    create table account.journal (
+        journal_id      number generated always as identity (start with 1 cache 20),
+        journal_type    varchar2(20),
+        account_id      varchar2(20),
+        lra_id          varchar2(1024) not null,
+        lra_state       varchar2(40),
+        journal_amount  number
+    ) logging;
+
+    alter table account.journal
+    add constraint journal_pk 
+    primary key (journal_id) 
     using index logging;
-    comment on table account.transactions 
-    is 'CloudBank transactions table';
+
+    comment on table account.journal 
+    is 'CloudBank accounts journal table';
     /</copy>
     ```
 
