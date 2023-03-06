@@ -115,7 +115,7 @@ Oracle Backend for Spring Boot includes a number of platform services which are 
    If you want to view extended information about any object you can specify its name and the output format, as in this example:
 
     ```shell
-    $ <copy>kubectl -n apisix get pod apisix-etcd-0</copy>
+    $ <copy>kubectl -n apisix get pod apisix-etcd-0 -o yaml</copy>
     ```
 
 3. Explore services
@@ -151,7 +151,7 @@ Oracle Backend for Spring Boot includes a number of platform services which are 
 
    Whenever you create a new application namespace with the CLI and bind it to the database, these secrets will be automatically created for you in that namespace.  The first one contains the credentials to access the Oracle Autonomous Database.  The second one contains the database client configuration files (`tnsadmin.ora`, `sqlnet.ora`, the keystores, and so on).  The third secret contains the credentials needed to pull container images from your container registry.  And the final secret contains certificates used within Kubernetes to encrypt traffic between pods and to authenticate to the Kubernetes API server. 
 
-   You can view detailed information about a secret with a command like this (your output will be different). Note that the values are uuencoded in this output: 
+   You can view detailed information about a secret with a command like this, you will need to provide the name of your secret which will be based on the name you chose during installation (your output will be different). Note that the values are uuencoded in this output: 
 
     ```shell
     $ <copy>kubectl -n application get secret obaasdevdb-db-secrets -o yaml</copy>
@@ -195,7 +195,7 @@ Oracle Backend for Spring Boot includes an Oracle Autonomous Database instance. 
 
 2. Explore Oracle Backend for Spring Boot database objects
 
-   Click on the **Database Actions** link to go to the "Database Actions" page which lets you access and manage information in the database.  Depending on choices you made during installation, you may go straight to Database Actions, or you may need to enter credentials first.  If you are prompted to login, use the user name `ADMIN` and obtain the password from Kubernetes with this command: 
+   Click on the **Database Actions** link to go to the "Database Actions" page which lets you access and manage information in the database.  Depending on choices you made during installation, you may go straight to Database Actions, or you may need to enter credentials first.  If you are prompted to login, use the user name `ADMIN` and obtain the password from Kubernetes with this command (make sure to change the secret name to match the name you chose during installation): 
 
     ```shell
     $ <copy> kubectl -n application get secret obaasdevdb-db-secrets -o jsonpath='{.data.db\.password}' | base64 -d</copy>
@@ -214,7 +214,7 @@ Oracle Backend for Spring Boot includes an Oracle Autonomous Database instance. 
     ```sql
     <copy>select owner, table_name
     from dba_tables
-    where owner in ('CUSTOMER_SVC', 'FRAUD_SVC', 'ACCOUNT_SVC',  'USER_SVC', 'CONFIGSERVER')</copy>
+    where owner in ('CUSTOMER', 'FRAUD', 'ACCOUNT',  'USER', 'CONFIGSERVER')</copy>
     ```  
 
    ![Tables associated with Spring Boot services](images/obaas-adb-5.png)

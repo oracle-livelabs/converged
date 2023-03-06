@@ -176,7 +176,7 @@ Download a copy of the CloudBank sample application.
 
     	```shell
     	oractl> <copy>
-		deploy --isRedeploy false --appName application --serviceName customer --jarLocation /path/to/customer/target/customers-0.0.1-SNAPSHOT.jar --imageVersion 0.0.1</copy>
+		deploy --isRedeploy false --appName application --serviceName customer --jarLocation /path/to/customer/target/customer-0.0.1-SNAPSHOT.jar --imageVersion 0.0.1</copy>
 		uploading... upload successful
 		building and pushing image... docker build and push successful	
 		creating deployment and service... create deployment and service  = customer, appName = application, isRedeploy = false successful
