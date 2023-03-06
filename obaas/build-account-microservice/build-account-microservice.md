@@ -296,17 +296,17 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
     <dependency>
       <groupId>com.oracle.database.security</groupId>
       <artifactId>oraclepki</artifactId>
-      <version>${oracle.jdbc.version}</version>
+      <version>21.8.0.0</version>
     </dependency>
     <dependency>
       <groupId>com.oracle.database.security</groupId>
       <artifactId>osdt_core</artifactId>
-      <version>${oracle.jdbc.version}</version>
+      <version>21.8.0.0</version>
     </dependency>
     <dependency>
       <groupId>com.oracle.database.security</groupId>
       <artifactId>osdt_cert</artifactId>
-      <version>${oracle.jdbc.version}</version>
+      <version>21.8.0.0</version>
     </dependency></copy>
     ```
 
