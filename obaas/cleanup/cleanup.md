@@ -10,7 +10,7 @@ In this workshop, you will learn how to:
 
 * Clean up your instance of the Oracle Backend for Spring Boot and other resources you created during this Live Lab
 
-## Prerequisites
+### Prerequisites
 
 This lab assumes you have:
 
