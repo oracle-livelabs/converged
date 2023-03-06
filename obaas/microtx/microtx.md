@@ -1380,6 +1380,10 @@ The services are now completed and you are ready to deploy them to the Oracle Ba
 
 > **Note**: You already created the Kubernetes secrets necessary for the account service to access the Oracle Autonomous Database in a previous lab, and the Transfer service does not need access to the database.
 
+1. Create the new Journal table for the account service
+
+   TODO TODO get the sql ....
+
 1. Build the Account and Transfer applications into JAR files
 
    To build a JAR file from the Account application, issue this command in the `account` directory.  Then issue the same command from the `transfer` directory to build the Transfer application into a JAR file too.
