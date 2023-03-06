@@ -1405,6 +1405,7 @@ The services are now completed and you are ready to deploy them to the Oracle Ba
    Find the `discovery` section.  It will contain only a `eureka` configuration.  Update it to add the `kubernetes` configuration as well, exactly as shown below:    
 
     ```yaml
+    <copy>
     discovery:
       kubernetes:
         service:
@@ -1423,6 +1424,7 @@ The services are now completed and you are ready to deploy them to the Oracle Ba
           read: 5000
           send: 2000
         weight: 100
+    </copy>
     ```   
 
    Restart the APISIX Gateway to pick up this change.  Use this command to shut down the API Gateway:
