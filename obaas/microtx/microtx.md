@@ -1392,7 +1392,112 @@ The services are now completed and you are ready to deploy them to the Oracle Ba
    
    You will also need to update the APISIX route to use Kubernetes service discovery instead of Eureka. 
 
-   TODO write that up.
+1. Temporary workaround
+
+   > **Note**: Hello Live Labs QA testers - this is a temporary workaround that must be used with the 0.2.0 stack -- this will not be required in the Level Up 23 event, and will be removed before then!!!
+
+   Edit the APISIX configuration to add the `kuberentes` service discovery configuration.  To edit the configuration, use this command: 
+
+    ```shell
+    $ <copy>kubectl -n apisix edit cm apisix</copy>
+    ```
+
+   Find the `discovery` section.  It will contain only a `eureka` configuration.  Update it to add the `kubernetes` configuration as well, exactly as shown below:    
+
+    ```yaml
+    discovery:
+      kubernetes:
+        service:
+          schema: https
+          host: ${KUBERNETES_SERVICE_HOST}
+          port: ${KUBERNETES_SERVICE_PORT}
+        client:
+          token_file: /run/secrets/kubernetes.io/serviceaccount/token
+      eureka:
+        fetch_interval: 30
+        host:
+        - http://eureka.eureka.svc.cluster.local:8761
+        prefix: /eureka/
+        timeout:
+          connect: 2000
+          read: 5000
+          send: 2000
+        weight: 100
+    ```   
+
+   Restart the APISIX Gateway to pick up this change.  Use this command to shut down the API Gateway:
+
+    ```shell
+    $ <copy>kubectl -n apisix scale deploy apisix --replicas=0</copy>
+    ```
+
+   Wait until all of the `apisix` pods have finished terminating.  You can check with this command: 
+
+    ```shell
+    $ <copy>kubectl -n apisix get pods</copy>
+    ```
+
+   When they are all terminated, restart the API Gateway with this command:    
+
+    ```shell
+    $ <copy>kubectl -n apisix scale deploy apisix --replicas=3</copy>
+    ```
+
+   Edit the `account` service to make it a `ClusterIP` service and add a name for the port using this command: 
+
+    ```shell
+    $ <copy>kubectl -n application edit svc account</copy>
+    ```
+
+   The updated service should look like this, note that yours may look slightly different and have extra derived fields.  The important updates are the `type: ClusterIP` and the `name: port` in the `ports` section: 
+
+    ```yaml
+    <copy>
+    apiVersion: v1
+    kind: Service
+    metadata:
+      labels:
+        app: account
+      name: account
+      namespace: application
+    spec:
+        clusterIP: 10.139.178.230
+        clusterIPs:
+        - 10.139.178.230
+        internalTrafficPolicy: Cluster
+        ipFamilies:
+        - IPv4
+        ipFamilyPolicy: SingleStack
+        ports:
+        - name: port
+          port: 8080
+          protocol: TCP
+          targetPort: 8080
+        selector:
+          app: account
+        sessionAffinity: None
+        type: ClusterIP
+    </copy>
+    ```    
+
+
+1. Update the APISIX route to use Kuberenetes service discovery
+
+   Open the `account` route that you created in the APISIX Dashboard.  To access the APISIX Dashboard, start a tunnel using this command:
+
+    ```shell
+    $ <copy>kubectl -n apisix port-forward svc/apisix-dashboard 8080:80</copy>
+    ```
+
+   Then open your browser to [http://localhost:8080](http://localhost:8080) and navigate to the **Routes** page, log in with `admin`/`admin` if necessary.
+
+   Click on the **Configure** button for the `accont` route, then click on the **Next** button to get to the **Define API Backend Server** page.
+
+   ![APISIX Route with Kubernetes discovery](images/obaas-apisix-k8s-discovery.png)
+
+   As shown in the image above, update the **Discovery Type** to **Kubernetes**, and set the **Service Name** to `application/account:port`.
+
+
 
 1. Build the Account and Transfer applications into JAR files
 
