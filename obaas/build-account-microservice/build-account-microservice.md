@@ -296,17 +296,17 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
     <dependency>
       <groupId>com.oracle.database.security</groupId>
       <artifactId>oraclepki</artifactId>
-      <version>${oracle.jdbc.version}</version>
+      <version>21.8.0.0</version>
     </dependency>
     <dependency>
       <groupId>com.oracle.database.security</groupId>
       <artifactId>osdt_core</artifactId>
-      <version>${oracle.jdbc.version}</version>
+      <version>21.8.0.0</version>
     </dependency>
     <dependency>
       <groupId>com.oracle.database.security</groupId>
       <artifactId>osdt_cert</artifactId>
-      <version>${oracle.jdbc.version}</version>
+      <version>21.8.0.0</version>
     </dependency></copy>
     ```
 
@@ -356,7 +356,7 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
             format_sql: true
         show-sql: true
       datasource:
-        url: jdbc:oracle:thin:@dbname_alias?TNS_ADMIN=/path/to/wallet/wallet_tns_entry_from_above
+        url: jdbc:oracle:thin:@tns_entry_from_above?TNS_ADMIN=/path/to/wallet
         username: account
         password: Welcome1234##
         driver-class-name: oracle.jdbc.OracleDriver
