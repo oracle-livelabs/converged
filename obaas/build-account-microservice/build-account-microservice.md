@@ -95,7 +95,7 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
     2023-02-25 12:27:21.282  INFO 20507 --- [           main] c.example.accounts.AccountsApplication   : Started AccountsApplication in 0.753 seconds (JVM running for 0.893)
     ```
 
-    Of course, the service does not do anything yet, but you can still make a request and confirm you get a response from it:
+    Of course, the service does not do anything yet, but you can still make a request and confirm you get a response from it. Open a new terminal and execute the following command:
 
     ```shell
     $ <copy>curl http://localhost:8080</copy>
