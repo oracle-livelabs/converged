@@ -130,7 +130,7 @@ Download a copy of the CloudBank sample application.
 
 		```shell
     	oractl:> <copy>bind --appName application --serviceName account --springBindingPrefix spring.db</copy>
-    	database password/servicePassword (defaults to Welcome12345): 
+    	database password/servicePassword (defaults to Welcome12345): *************
     	database secret created successfully and schema already exists for account
     	```
 
@@ -140,7 +140,7 @@ Download a copy of the CloudBank sample application.
 
 		```shell
     	oractl:> <copy>bind --appName application --serviceName customer --springBindingPrefix spring.db</copy>
-    	database password/servicePassword (defaults to Welcome12345): 
+    	database password/servicePassword (defaults to Welcome12345): **************
     	database secret created successfully and schema already exists for customer
 		```
 
@@ -257,7 +257,7 @@ Download a copy of the CloudBank sample application.
 		}</copy>
 		```
 
-		Apply the patch to the deployment with this command: 
+		Apply the patch to the deployment with this command:
 
 		```shell
 		$ <copy>kubectl -n application patch deploy account -p "$(cat patch_account.json)"</copy>
@@ -322,7 +322,6 @@ Download a copy of the CloudBank sample application.
 		$ <copy>kubectl -n application patch deploy account -p "$(cat patch_customer.json)"</copy>
 		```
 
-
 	> What happens when you use the Oracle Backend for Spring Boot CLI **deploy** command?
     When you run the `deploy` command, the Oracle Backend for Spring Boot CLI does several things for you:
 
@@ -332,9 +331,24 @@ Download a copy of the CloudBank sample application.
 	- Create the microservices deployment descriptor (k8s) with the resources supplied
 	- Applies the k8s deployment and create k8s object service to microservice
 
-## Task 4: Verify the deployment
+## Task 4: Verify the deployment of CloudBank
 
-TODO: Some kind of verification perhaps curl to account, customer, transaction and creditscore?
+1. Verification of the services deployment
+
+	Verify that the services are running properly by executing this command:
+
+	```shell
+	$ <copy>kubectl get all -n application</copy>
+	```
+
+	The output should be similar to this, all applications must have `STATUS` as `Running`
+
+	```text
+	NAME                                READY   STATUS    RESTARTS   AGE
+	pod/account-557d9c89b4-9f2ks        1/1     Running   0          62m
+	pod/customer-c6f8d97c-dlfg5         1/1     Running   0          11d
+	pod/transfer-6574b569f4-w9sgg       1/1     Running   0          48m
+	```
 
 ## Task 5: Expose the services using APISIX Gateway
 
@@ -368,92 +382,92 @@ TODO: Some kind of verification perhaps curl to account, customer, transaction a
 
 	In the `scripts` directory where you saved the code repository there are three scripts to create the routes. Run the commands to create the routes:
 
-	 a. Accounts Route:
+	1. Accounts Route:
 
-	 Run this command to create the accounts route, replace the `APIKEY` in the command with the key you got in Step 1
+		Run this command to create the accounts route, replace the `APIKEY` in the command with the key you got in Step 1
 
-	```shell
-	$ <copy>source apisix-routes/create-accounts-route.sh APIKEY</copy>
-	```
-	
-	Output should be similar to this:
-	
-	```text
-	HTTP/1.1 201 Created
-	Date: Thu, 02 Mar 2023 21:57:08 GMT
-	Content-Type: application/json
-	Transfer-Encoding: chunked
-	Connection: keep-alive
-	Server: APISIX/2.15.1
-	Access-Control-Allow-Origin: *
-	Access-Control-Allow-Credentials: true
-	Access-Control-Expose-Headers: *
-	Access-Control-Max-Age: 3600
+		```shell
+		$ <copy>source apisix-routes/create-accounts-route.sh APIKEY</copy>
+		```
+		
+		Output should be similar to this:
+		
+		```text
+		HTTP/1.1 201 Created
+		Date: Thu, 02 Mar 2023 21:57:08 GMT
+		Content-Type: application/json
+		Transfer-Encoding: chunked
+		Connection: keep-alive
+		Server: APISIX/2.15.1
+		Access-Control-Allow-Origin: *
+		Access-Control-Allow-Credentials: true
+		Access-Control-Expose-Headers: *
+		Access-Control-Max-Age: 3600
 
-	{"action":"create","node":{"key":"\/apisix\/routes\/00000000000000000035","value":{"priority":0,"update_time":1677794228,"id":"00000000000000000035","create_time":1677794228,"uri":"\/api\/v1\/account*","plugins":{"zipkin":{"span_version":2,"disable":false,"sample_ratio":1,"service_name":"APISIX","endpoint":"http:\/\/jaegertracing-collector.observability.svc.cluster.local:9411\/api\/v2\/spans"}},"labels":{"version":"1.0"},"status":1,"name":"accounts","upstream":{"type":"roundrobin","hash_on":"vars","pass_host":"pass","discovery_type":"eureka","service_name":"ACCOUNTS","scheme":"http"}}}}
-	```
+		{"action":"create","node":{"key":"\/apisix\/routes\/00000000000000000035","value":{"priority":0,"update_time":1677794228,"id":"00000000000000000035","create_time":1677794228,"uri":"\/api\/v1\/account*","plugins":{"zipkin":{"span_version":2,"disable":false,"sample_ratio":1,"service_name":"APISIX","endpoint":"http:\/\/jaegertracing-collector.observability.svc.cluster.local:9411\/api\/v2\/spans"}},"labels":{"version":"1.0"},"status":1,"name":"accounts","upstream":{"type":"roundrobin","hash_on":"vars","pass_host":"pass","discovery_type":"eureka","service_name":"ACCOUNTS","scheme":"http"}}}}
+		```
 
-	b. Creditscore Route:
+	2. Creditscore Route:
 
-	Run this command to create the creditscore route, replace the `APIKEY` in the command with the key you got in Step 1
+		Run this command to create the creditscore route, replace the `APIKEY` in the command with the key you got in Step 1
 
-	``` shell
-	$ <copy>source apisix-routes/create-creditscore-route.sh APIKEY</copy>
-	```
+		``` shell
+		$ <copy>source apisix-routes/create-creditscore-route.sh APIKEY</copy>
+		```
 
-	Output should be similar to this:
+		Output should be similar to this:
 
-	```text
-	HTTP/1.1 201 Created
-	Date: Thu, 02 Mar 2023 21:59:18 GMT
-	Content-Type: application/json
-	Transfer-Encoding: chunked
-	Connection: keep-alive
-	Server: APISIX/2.15.1
-	Access-Control-Allow-Origin: *
-	Access-Control-Allow-Credentials: true
-	Access-Control-Expose-Headers: *
-	Access-Control-Max-Age: 3600
+		```text
+		HTTP/1.1 201 Created
+		Date: Thu, 02 Mar 2023 21:59:18 GMT
+		Content-Type: application/json
+		Transfer-Encoding: chunked
+		Connection: keep-alive
+		Server: APISIX/2.15.1
+		Access-Control-Allow-Origin: *
+		Access-Control-Allow-Credentials: true
+		Access-Control-Expose-Headers: *
+		Access-Control-Max-Age: 3600
 
-	{"action":"create","node":{"key":"\/apisix\/routes\/00000000000000000037","value":{"priority":0,"update_time":1677794358,"id":"00000000000000000037","create_time":1677794358,"uri":"\/api\/v1\/creditscore*","plugins":{"zipkin":{"span_version":2,"disable":false,"sample_ratio":1,"service_name":"APISIX","endpoint":"http:\/\/jaegertracing-collector.observability.svc.cluster.local:9411\/api\/v2\/spans"}},"labels":{"version":"1.0"},"status":1,"name":"creditscore","upstream":{"type":"roundrobin","hash_on":"vars","pass_host":"pass","discovery_type":"eureka","service_name":"CREDITSCORE","scheme":"http"}}}}
-	```
+		{"action":"create","node":{"key":"\/apisix\/routes\/00000000000000000037","value":{"priority":0,"update_time":1677794358,"id":"00000000000000000037","create_time":1677794358,"uri":"\/api\/v1\/creditscore*","plugins":{"zipkin":{"span_version":2,"disable":false,"sample_ratio":1,"service_name":"APISIX","endpoint":"http:\/\/jaegertracing-collector.observability.svc.cluster.local:9411\/api\/v2\/spans"}},"labels":{"version":"1.0"},"status":1,"name":"creditscore","upstream":{"type":"roundrobin","hash_on":"vars","pass_host":"pass","discovery_type":"eureka","service_name":"CREDITSCORE","scheme":"http"}}}}
+		```
 
-	c. Customer Route:
+	3. Customer Route:
 
-	Run this command to create the customer route, replace the `APIKEY` in the command with the key you got in Step 1
+		Run this command to create the customer route, replace the `APIKEY` in the command with the key you got in Step 1
 
-	```shell
-	$ <copy>source apisix-routes/create-customer-route.sh APIKEY</copy>
-	```
+		```shell
+		$ <copy>source apisix-routes/create-customer-route.sh APIKEY</copy>
+		```
 
-	Output should be similar to this:
+		Output should be similar to this:
 
-	```text
-	HTTP/1.1 201 Created
-	Date: Thu, 02 Mar 2023 22:00:44 GMT
-	Content-Type: application/json
-	Transfer-Encoding: chunked
-	Connection: keep-alive
-	Server: APISIX/2.15.1
-	Access-Control-Allow-Origin: *
-	Access-Control-Allow-Credentials: true
-	Access-Control-Expose-Headers: *
-	Access-Control-Max-Age: 3600
+		```text
+		HTTP/1.1 201 Created
+		Date: Thu, 02 Mar 2023 22:00:44 GMT
+		Content-Type: application/json
+		Transfer-Encoding: chunked
+		Connection: keep-alive
+		Server: APISIX/2.15.1
+		Access-Control-Allow-Origin: *
+		Access-Control-Allow-Credentials: true
+		Access-Control-Expose-Headers: *
+		Access-Control-Max-Age: 3600
 
-	{"action":"create","node":{"key":"\/apisix\/routes\/00000000000000000039","value":{"priority":0,"update_time":1677794444,"id":"00000000000000000039","create_time":1677794444,"uri":"\/api\/v1\/customer*","plugins":{"zipkin":{"span_version":2,"disable":false,"sample_ratio":1,"service_name":"APISIX","endpoint":"http:\/\/jaegertracing-collector.observability.svc.cluster.local:9411\/api\/v2\/spans"}},"labels":{"version":"1.0"},"status":1,"name":"customer","upstream":{"type":"roundrobin","hash_on":"vars","pass_host":"pass","discovery_type":"eureka","service_name":"CUSTOMERS","scheme":"http"}}}}
-	```
+		{"action":"create","node":{"key":"\/apisix\/routes\/00000000000000000039","value":{"priority":0,"update_time":1677794444,"id":"00000000000000000039","create_time":1677794444,"uri":"\/api\/v1\/customer*","plugins":{"zipkin":{"span_version":2,"disable":false,"sample_ratio":1,"service_name":"APISIX","endpoint":"http:\/\/jaegertracing-collector.observability.svc.cluster.local:9411\/api\/v2\/spans"}},"labels":{"version":"1.0"},"status":1,"name":"customer","upstream":{"type":"roundrobin","hash_on":"vars","pass_host":"pass","discovery_type":"eureka","service_name":"CUSTOMERS","scheme":"http"}}}}
+		```
 
 4. Verify the routes in the APISIX Dashboard
 
 	Start the tunnel using this command.  You can run this in the background if you prefer.
 
     ```shell
-    $ <copy>kubectl -n apisix port-forward svc/apisix-dashboard 8080:80</copy>
+    $ <copy>kubectl -n apisix port-forward svc/apisix-dashboard 7070:80</copy>
 	Forwarding from 127.0.0.1:8080 -> 9000
 	Forwarding from [::1]:8080 -> 9000
     ```
 
-   Open a web browser to [http://localhost:8080](http://localhost:8080) to view the APISIX Dashboard web user interface.  It will appear similar to the image below.
+   Open a web browser to [http://localhost:7070](http://localhost:7070) to view the APISIX Dashboard web user interface.  It will appear similar to the image below.
 
    If prompted to login, login with user name `admin` and password `admin`.  Note that Oracle strongly recommends that you change the password, even though this interface is not accessible outside the cluster without a tunnel.
 
@@ -507,9 +521,6 @@ TODO: Some kind of verification perhaps curl to account, customer, transaction a
       "accountBalance": 1040
     }
     ```
-
-
-**TODO - make sure we created some users and accounts, including in parse for the mobile app**
 
 ## Learn More
 
