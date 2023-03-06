@@ -321,13 +321,13 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
     a. Unzip the Wallet you downloaded in the Setup lab (Lab 2)
 
       ```shell
-      $ <code>unzip /path/to/wallet/wallet_name.zip</code>
+      $ <copy>unzip /path/to/wallet/wallet_name.zip</copy>
       ```
 
     b. Edit the `sqlnet.ora` file so that the section `(DIRECTORY="?/network/admin")` matches the full path to the directory where you unzipped the Wallet, for example:
 
       ```text
-      WALLET_LOCATION = (SOURCE = (METHOD = file) (METHOD_DATA = (DIRECTORY="/path/to/unzipped/wallet/network/admin")))
+      WALLET_LOCATION = (SOURCE = (METHOD = file) (METHOD_DATA = (DIRECTORY="/path/to/unzipped/wallet")))
       ```
 
     c. Set the `TNS_ADMIN` environment variable to the directory where the unzipped Wallet is located. Use the following command:
