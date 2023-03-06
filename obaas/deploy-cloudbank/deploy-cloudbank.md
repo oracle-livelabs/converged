@@ -159,7 +159,7 @@ Download a copy of the CloudBank sample application.
     	successfully deployed
     	```
 
-		If you'd like to re-deploy the accounts service (if you didn't finish lab 4) you cana re-deploy the Account Service using the following command, make sure you provide the correct path to your JAR file:
+		If you'd like to re-deploy the accounts service (if you didn't finish lab 4) you can re-deploy the Account Service using the following command, make sure you provide the correct path to your JAR file:
 
 		```shell
     	oractl> <copy>
@@ -189,7 +189,7 @@ Download a copy of the CloudBank sample application.
 
     	```shell
     	oractl> <copy>
-		deploy --isRedeploy false --appName application --serviceName customer --jarLocation /path/to/creditscore/target/creditscore-0.0.1-SNAPSHOT.jar --imageVersion 0.0.1</copy>
+		deploy --isRedeploy false --appName application --serviceName creditscore --jarLocation /path/to/creditscore/target/creditscore-0.0.1-SNAPSHOT.jar --imageVersion 0.0.1</copy>
 		uploading... upload successful
 		building and pushing image... docker build and push successful	
 		creating deployment and service... create deployment and service  = creditscore, appName = application, isRedeploy = false successful
