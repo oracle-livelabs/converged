@@ -1345,7 +1345,7 @@ The services are now completed and you are ready to deploy them to the Oracle Ba
 
 1. Temporary workaround
 
-   > **Note**: Hello Live Labs QA testers - this is a temporary workaround that must be used with the 0.2.0 stack -- this will not be required in the Level Up 23 event, and will be removed before then!!!
+    > **Note**: Hello Live Labs QA testers - this is a temporary workaround that must be used with the 0.2.0 stack -- this will not be required in the Level Up 23 event, and will be removed before then!!!
 
    Edit the APISIX configuration to add the `kuberentes` service discovery configuration.  To edit the configuration, use this command:
 
@@ -1539,14 +1539,14 @@ Now you can test your LRA to verify it performs correctly under various circumst
     ``` 
 
 
-   Note that account 66 has $10,800 in this example, and account 67 has $10,800.  Your results may be different.
+   Note that account 1 has -$20 in this example, and account 2 has $1,800.  Your results may be different.
 
 1. Perform a transfer that should succeed
 
    Run this command to perform a transfer that should succeed.  Note that both accounts exist and the amount of the transfer is less than the balance of the source account.
 
     ```    
-    $ <copy>curl -X POST "http://localhost:8080/transfer?fromAccount=66&toAccount=67&amount=100"</copy>
+    $ <copy>curl -X POST "http://localhost:8080/transfer?fromAccount=2&toAccount=1&amount=100"</copy>
     transfer status:withdraw succeeded deposit succeeded
     ```  
 
@@ -1580,7 +1580,7 @@ Now you can test your LRA to verify it performs correctly under various circumst
 
 1. Perform a transfer that should fail due to insufficient funds in the source account
 
-   Run this command to attempt to transfer $100,000 from account 2 to account 1.  This should fail because account 66 does not have enough funds.
+   Run this command to attempt to transfer $100,000 from account 2 to account 1.  This should fail because account 2 does not have enough funds.
 
     ```
     $ <copy>curl -X POST "http://localhost:8080/transfer?fromAccount=2&toAccount=1&amount=100000"</copy>
@@ -1611,7 +1611,7 @@ Now you can test your LRA to verify it performs correctly under various circumst
     ```shell
     $ <copy>kubectl -n application logs transfer-6d5c86576f-rxqdj</copy>
     2023-03-04 21:52:12.421  INFO 1 --- [nio-8080-exec-3] TransferService                          : Started new LRA/transfer Id: http://otmm-tcs.otmm.svc.cluster.local:9000/api/v1/lra-coordinator/18a093ef-beb6-4065-bb6c-b9328c8bb3e5
-    2023-03-04 21:52:12.422  INFO 1 --- [nio-8080-exec-3] TransferService                          : withdraw accountId = 66, amount = 100
+    2023-03-04 21:52:12.422  INFO 1 --- [nio-8080-exec-3] TransferService                          : withdraw accountId = 2, amount = 100
     2023-03-04 21:52:12.426  INFO 1 --- [nio-8080-exec-3] TransferService                          : withdraw lraId = http://otmm-tcs.otmm.svc.cluster.local:9000/api/v1/lra-coordinator/18a093ef-beb6-4065-bb6c-b9328c8bb3e5
     2023-03-04 21:52:12.615  INFO 1 --- [nio-8080-exec-3] TransferService                          : withdraw succeeded
     2023-03-04 21:52:12.616  INFO 1 --- [nio-8080-exec-3] TransferService                          : deposit accountId = 6799999, amount = 100
