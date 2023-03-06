@@ -185,9 +185,7 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
 
 1. Create the database objects for the Account service
 
-    The Accounts service is going to have two main objects - an `account` and a `transaction`.  These will be stored in the Oracle Database.  The accounts will be stored in a regular relational table, and the transactions will be stored in a Blockchain table.
-
-    > **Note**: Blockchain tables are append-only tables in which only insert operations are allowed. Deleting rows is either prohibited or restricted based on time. Rows in a blockchain table are made tamper-resistant by special sequencing and chaining algorithms. Users can verify that rows have not been tampered. A hash value that is part of the row metadata is used to chain and validate rows.
+    The Accounts service is going to have two main objects - an `account` and a `journal`.
 
     Here are the SQL statements to create the necessary objects in the database. If you installed SQLcl as recommended, you can connect to your database using this command (or use the SQLcl session created during Lab two, Setup)
 
@@ -365,7 +363,7 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
         type: oracle.ucp.jdbc.PoolDataSource
         oracleucp:
           connection-factory-class-name: oracle.jdbc.pool.OracleDataSource
-          connection-pool-name: TransactionConnectionPool
+          connection-pool-name: AccountConnectionPool
           initial-pool-size: 15
           min-pool-size: 10
           max-pool-size: 30</copy>
@@ -569,7 +567,8 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
     <copy>insert into account.accounts (account_name,account_type,customer_id,account_other_details,account_balance)
     values ('Andy''s checking','CH','abcDe7ged','Account Info',-20);
     insert into account.accounts (account_name,account_type,customer_id,account_other_details,account_balance)
-    values ('Mark''s CCard','CC','bkzLp8cozi','Mastercard account',1000);</copy>
+    values ('Mark''s CCard','CC','bkzLp8cozi','Mastercard account',1000);
+    commit;</copy>
     ```
 
    Now, test the service again.  You may want to send the output to `jq` if you have it installed, so that it will be formatted for easier reading:
@@ -663,7 +662,7 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
 
 ## (Optional) Task 6: Add extra account endpoints
 
-If you would like to learn more about endpoints and implement the remainder of the account-related endpoints, this task provides the necessary details.  However, if you prefer, you may skip this task and go on to the next task where you will start implementing endpoints for transactions.  What are accounts without transactions anyway?
+If you would like to learn more about endpoints and implement the remainder of the account-related endpoints, this task provides the necessary details.
 
 1. Implement Get Account by Account ID endpoint
 
@@ -919,8 +918,6 @@ If you would like to learn more about endpoints and implement the remainder of t
    The service is now ready to deploy to the backend.
 
 1. Prepare the backend for deployment
-
-   TODO create an application, setup db access, etc.
 
    The Oracle Backend for Spring Boot admin service is not exposed outside of the Kubernetes cluster by default. Oracle recommends using a **kubectl** port forwarding tunnel to establish a secure connection to the admin service.
 
