@@ -256,7 +256,7 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
     create table account.journal (
         journal_id      number generated always as identity (start with 1 cache 20),
         journal_type    varchar2(20),
-        account_id      varchar2(20),
+        account_id      number,
         lra_id          varchar2(1024) not null,
         lra_state       varchar2(40),
         journal_amount  number
