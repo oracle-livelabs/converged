@@ -522,8 +522,6 @@ Download a copy of the CloudBank sample application.
     }
     ```
 
-**TODO - make sure we created some users and accounts, including in parse for the mobile app**
-
 ## Learn More
 
 * [Oracle Backend for Spring Boot](https://oracle.github.io/microservices-datadriven/spring/)
