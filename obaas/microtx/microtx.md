@@ -1562,73 +1562,73 @@ Now you can test your LRA to verify it performs correctly under various circumst
 
 1. Check the starting account balances
 
-   Before you start, check the balances of the two accounts that you will be transfering money between using this command.  Note that these accounts were created in an earlier step.  TODO check they were? or is in the liquibase? TODO 
+   Before you start, check the balances of the two accounts that you will be transfering money between using this command.  Note that these accounts were created in an earlier step.
 
     ```
-    $ <copy>curl -s http://100.20.30.40/api/v1/account/66 | jq ; curl -s http://100.20.30.40/api/v1/account/67 | jq</copy>
+    $ <copy>curl -s http://100.20.30.40/api/v1/account/1 | jq ; curl -s http://100.20.30.40/api/v1/account/2 | jq</copy>
     {
-        "accountBalance" : 10800,
-        "accountCustomerId" : null,
-        "accountId" : 66,
-        "accountName" : "testpaul1",
-        "accountOpenedDate" : null,
-        "accountOtherDetails" : null,
-        "accountType" : null
+        "accountId": 1,
+        "accountName": "Andy's checking",
+        "accountType": "CH",
+        "accountCustomerId": "abcDe7ged",
+        "accountOpenedDate": "2023-03-06T13:56:43.000+00:00",
+        "accountOtherDetails": "Account Info",
+        "accountBalance": -20
     }
     {
-        "accountBalance" : 10800,
-        "accountCustomerId" : null,
-        "accountId" : 67,
-        "accountName" : "testpaul2",
-        "accountOpenedDate" : null,
-        "accountOtherDetails" : null,
-        "accountType" : null
+        "accountId": 2,
+        "accountName": "Mark's CCard",
+        "accountType": "CC",
+        "accountCustomerId": "bkzLp8cozi",
+        "accountOpenedDate": "2023-03-06T13:56:44.000+00:00",
+        "accountOtherDetails": "Mastercard account",
+        "accountBalance": 1000
     }
     ``` 
 
-   Note that account 66 has $10,800 in this example, and account 67 has $10,800.  Your results may be different.
+   Note that account 1 has -$20 in this example, and account 2 has $1,800.  Your results may be different.
 
 1. Perform a transfer that should succeed
 
    Run this command to perform a transfer that should succeed.  Note that both accounts exist and the amount of the transfer is less than the balance of the source account.
 
     ```    
-    $ <copy>curl -X POST "http://localhost:8080/transfer?fromAccount=66&toAccount=67&amount=100"</copy>
+    $ <copy>curl -X POST "http://localhost:8080/transfer?fromAccount=2&toAccount=1&amount=100"</copy>
     transfer status:withdraw succeeded deposit succeeded
     ```  
 
    Check the two accounts again to confirm the transfer behaved as expected: 
 
     ```
-    $ <copy>curl -s http://100.20.30.40/api/v1/account/66 | json_1 ; curl -s http://100.20.30.40/api/v1/account/67 | j1</copy>
+    $ <copy>curl -s http://100.20.30.40/api/v1/account/1 | jq ; curl -s http://100.20.30.40/api/v1/account/2 | jq</copy>
     {
-        "accountBalance" : 10700,
-        "accountCustomerId" : null,
-        "accountId" : 66,
-        "accountName" : "testpaul1",
-        "accountOpenedDate" : null,
-        "accountOtherDetails" : null,
-        "accountType" : null
+        "accountId": 1,
+        "accountName": "Andy's checking",
+        "accountType": "CH",
+        "accountCustomerId": "abcDe7ged",
+        "accountOpenedDate": "2023-03-06T13:56:43.000+00:00",
+        "accountOtherDetails": "Account Info",
+        "accountBalance": 80
     }
     {
-        "accountBalance" : 10900,
-        "accountCustomerId" : null,
-        "accountId" : 67,
-        "accountName" : "testpaul2",
-        "accountOpenedDate" : null,
-        "accountOtherDetails" : null,
-        "accountType" : null
+        "accountId": 2,
+        "accountName": "Mark's CCard",
+        "accountType": "CC",
+        "accountCustomerId": "bkzLp8cozi",
+        "accountOpenedDate": "2023-03-06T13:56:44.000+00:00",
+        "accountOtherDetails": "Mastercard account",
+        "accountBalance": 900
     }
     ``` 
 
-   Notice that account 66 now has only $10,700 and account 67 has $10,900.  So the $100 was successfully transfered as expected.
+   Notice that account 2 now has only $900 and account 1 has $80.  So the $100 was successfully transfered as expected.
 
 1. Perform a transfer that should fail due to insufficient funds in the source account
 
-   Run this command to attempt to transfer $100,000 from account 66 to account 67.  This should fail because account 66 does not have enough funds.
+   Run this command to attempt to transfer $100,000 from account 2 to account 1.  This should fail because account 66 does not have enough funds.
 
     ```
-    $ <copy>curl -X POST "http://localhost:8080/transfer?fromAccount=66&toAccount=67&amount=100000"</copy>
+    $ <copy>curl -X POST "http://localhost:8080/transfer?fromAccount=2&toAccount=1&amount=100000"</copy>
     transfer status:withdraw failed: insufficient funds
     ``` 
 
@@ -1637,7 +1637,7 @@ Now you can test your LRA to verify it performs correctly under various circumst
    TODO 
 
     ```
-    $ <copy>curl -X POST "http://localhost:8080/transfer?fromAccount=66&toAccount=6799999&amount=100"</copy>
+    $ <copy>curl -X POST "http://localhost:8080/transfer?fromAccount=2&toAccount=6799999&amount=100"</copy>
     transfer status:withdraw succeeded deposit failed: account does not exist%  
     ```
 
