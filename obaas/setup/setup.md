@@ -378,7 +378,7 @@ To access the database from a local machine you need to download the wallet and 
 
     You can now close the connection or leave it open as you are going to need it in later Labs.
 
-## (Optional) Task 9: Install Flutter
+## (Optional) Task 10: Install Flutter
 
 If you plan to complete the Mobile App Development lab, you will need to install Flutter.  This is not required if you are only going to complete the Spring Boot labs.
 
