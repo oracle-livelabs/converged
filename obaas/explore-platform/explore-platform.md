@@ -219,7 +219,7 @@ Oracle Backend for Spring Boot includes an Oracle Autonomous Database instance. 
 
    ![Tables associated with Spring Boot services](images/obaas-adb-5.png)
 
-   TODO more? 
+   Feel free to explore some of these tables to see the data.
 
 ## Task 3: Explore Spring Admin
 
@@ -315,25 +315,27 @@ Oracle Backend for Spring Boot includes APISIX API Gateway to manage which servi
 
 ## Task 6: Explore Spring Config Server
 
-xyz
+The Spring Config Server can be used to store configuration information for Spring Boot applications, so that the configuration can be injected at runtime.  It organized the configuration into properties, which are essentially key/value pairs.  Each property can be assigned to an application, a label, and a profile.  This allows a running application to be configured based on metadata which it will send to the Spring Config Server to obtain the right configuration data. 
 
-1. Do something
+The configuration data is stored in a table in the Oracle Autonomous Database instance associated with the backend.
 
-   instructions
+1. Look at the configuration data
 
-    Execute the query below by pasting it into the worksheet and clicking on the green circle "play" icon.  This query shows the externalized configuration data stored by the Spring Config Server.
+    Execute the query below by pasting it into the SQL worksheet in Database Actions (which you learned how to open in Task 2 above) and clicking on the green circle "play" icon.  This query shows the externalized configuration data stored by the Spring Config Server.
 
     ```sql
     <copy>select * from configserver.properties</copy>
     ```  
 
-   ![pciture](images/obaas-config-server-table.png)
+   ![Configuration data](images/obaas-config-server-table.png)
 
-## Task 7: Explore Prometheus and Grafana
+   In this example you can see there is an application called `fraud`, which has two configuration properties for the profile `kube` and label `latest`.
 
-xyz
+## Task 7: Explore Grafana
 
-1. Do something
+Grafana provides an easy way to access the merics collected in the backend and to view them in dashboards.  It can be used to monitor performance, as well as to identify and analyze problems and to create alerts.
+
+1. Explore the pre-installed Spring Boot Dashboard 
 
     Get the password for the Grafana admin user using this command (your output will be different): 
 
@@ -362,11 +364,9 @@ xyz
 
 ## Task 8: Explore Jaeger
 
-xyz
+Jaeger provides a way to view the distributed tracing information that is automatically collected by the backend.  This allows you to follow requests from the entry point of the platform (the API Gateway) through any number of microservices, including database and messaging operations those services may perform.
 
-1. Do something
-
-   instuctions
+1. View a trace
 
    Start the tunnel using this command.  You can run this in the background if you prefer.
 
@@ -376,11 +376,10 @@ xyz
 
    Open a web broswer to [http://localhost:16686](http://localhost:16686) to view the Jaeger web user interface.  It will appear similar to the image below. 
 
-   ![pciture](images/obaas-jaeger-home-page.png)
+   ![Jaeger web user interface](images/obaas-jaeger-home-page.png)
 
-## Summary
+   Click on the **Find traces** button to find a trace, open any one and explore the details.
 
-TODO - what you learned
 
 ## Learn More
 

@@ -658,7 +658,7 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
     {"timestamp":"2023-02-25T22:05:24.350+00:00","status":400,"error":"Bad Request","path":"/api/v1/account"}
     ```
 
-    TODO you just learned xyz
+    That completes the basic endpoints.  In the next task, you can add some additional endpoints if you wish.  If you prefer, you can skip that task because you have the option to deploy the fully pre-built servce in the next lab if you choose.
 
 ## (Optional) Task 6: Add extra account endpoints
 
