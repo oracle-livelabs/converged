@@ -714,7 +714,7 @@ If you would like to learn more about endpoints and implement the remainder of t
     <copy>import java.util.ArrayList;
     
     // ...
-    
+
     @GetMapping("/account/getAccounts/{customerId}")
     public ResponseEntity<List<Account>> getAccountsByCustomerId(@PathVariable("customerId") String customerId) {
         try {
@@ -830,7 +830,7 @@ If you would like to learn more about endpoints and implement the remainder of t
     ]
     ```
 
-   Delete the account:
+   Delete the account. **Note** that your account ID may be different, check the output from the previous command to get the right ID and replae `42` at the end of the URL with your ID:
 
     ```shell
     $ <copy>curl -i -X DELETE http://localhost:8080/api/v1/account/42</copy>
@@ -848,7 +848,7 @@ If you would like to learn more about endpoints and implement the remainder of t
 
 ## Task 7: Deploy the account service to Oracle Backend for Spring Boot
 
-1. Prepare the application for deployment
+1. Prepare the data source configuration for deployment
 
    Update the data source configuration in your `src/main/resources/application.yaml` as shown in the example below.  This will cause the service to read the correct database details that will be injected into its pod by the Oracle Backend for Spring Boot.
 
@@ -858,6 +858,55 @@ If you would like to learn more about endpoints and implement the remainder of t
       username: ${DB_USERNAME}
       password: ${DB_PASSWORD}</copy>
     ```
+
+1. Add the client and configuration for the Spring Eureka Service Registry
+
+   When you deploy the application to the backend, you want it to register with the Eureka Service Registry so that it can be discovered by other services including the APISIX API Gateway, so that we can easily expost it outside the cluster.
+
+   Add the dependency for the client to the Maven POM file: 
+
+    ```xml
+    <copy>
+    <dependency>
+        <groupId>org.springframework.cloud</groupId>
+        <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+        <version>3.1.4</version>
+    </dependency>
+    </copy>
+    ```
+
+   Add the `@EnableDiscoveryClient` annotation to the `AccountsApplication` class to enable the service registry.
+
+    ```java
+    <copy>
+    import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+
+    // .. 
+
+    @SpringBootApplication
+    @EnableDiscoveryClient
+    public class AccountsApplication {       
+    </copy>
+    ```
+
+   Add the configuration to `src/main/resources/application.yaml` file.
+
+    ```yaml
+    <copy>
+    eureka:
+      instance:
+        hostname: ${spring.application.name}
+        preferIpAddress: true
+      client:
+        service-url:
+          defaultZone: ${eureka.service-url}
+        fetch-registry: true
+        register-with-eureka: true
+        enabled: true
+    </copy>
+    ```
+
+1. Build a JAR file for deployment
 
    Run the following command to build the JAR file.  Note that you will need to skip tests now, since you updated the `application.yaml` and it no longer points to your local test database instance. 
 
@@ -910,15 +959,11 @@ If you would like to learn more about endpoints and implement the remainder of t
     database secret created successfully and schema already exists for account
     ```
 
-   TODO 
-
-1. Create objects in the Oracle Autonomous Database instance
-
-  TODO can we liquibase this please? 
+   This created a Kubernetes secret with the credentials to access the database using this Spring Boot microservice application's username and password.  When you deploy the application, its pods will have the keys in this secret injected as environment variables so the application can use them to authenticate to the database.
 
 1. Deploy the account service
 
-  You will now deploy your account service to the Oracle Backend for Spring Boot using the CLI.  You will deploy into the `application` namespace, and the service name will be `account`.  Run this command to deploy your service, make sure you provide the correct path to your JAR file:
+  You will now deploy your account service to the Oracle Backend for Spring Boot using the CLI.  You will deploy into the `application` namespace, and the service name will be `account`.  Run this command to deploy your service, make sure you provide the correct path to your JAR file.  **Note** that this command may take 1-3 minutes to complete:
 
     ```shell
     oractl> <copy>deploy --isRedeploy false --appName application --serviceName account --jarLocation /path/to/accounts/target/accounts-0.0.1-SNAPSHOT.jar --imageVersion 0.0.1</copy>
@@ -993,6 +1038,24 @@ If you would like to learn more about endpoints and implement the remainder of t
       }
     }</copy>
     ```
+
+   The name of the TNS Admin secret will be different in your environment.  You can get the name with this command: 
+
+    ```shell
+    $ <copy>kubectl -n application get secrets</copy>
+    NAME                     TYPE                             DATA   AGE
+    account-db-secrets       Opaque                           4      6m48s
+    encryption-secret-key    Opaque                           1      60m
+    markbank1db-db-secrets   Opaque                           5      64m
+    markbank1db-tns-admin    Opaque                           8      64m
+    private-key              Opaque                           1      60m
+    public-key               Opaque                           1      60m
+    registry-auth            kubernetes.io/dockerconfigjson   1      68m
+    registry-login           Opaque                           2      68m
+    tls-certificate          kubernetes.io/tls                4      60m
+    ```    
+
+   In this example output, the correct name is `markbank1db-tns-admin`.  Yours will have a differnt prefix.  Before applying the patch file, update the name of this secret, it is the last one mentioned in the patch file.
 
    Apply the patch to the deployment with this command: 
 
