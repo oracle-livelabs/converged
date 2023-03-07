@@ -1104,13 +1104,13 @@ If you would like to learn more about endpoints and implement the remainder of t
     $ <copy>kubectl -n application scale deploy account --replicas=0</copy>
     ```
 
-   Wait until the `account` pod have finished terminating.  You can check with this command:
+   Wait until the `account` pod have finished terminating. You can check with this command:
 
     ```shell
     $ <copy>kubectl -n account get pods</copy>
     ```
 
-   When they are all terminated, restart the API Gateway with this command:
+   When they are all terminated, restart `account` pod` with this command:
 
     ```shell
     $ <copy>kubectl -n application scale deploy account --replicas=1</copy>
