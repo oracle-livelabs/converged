@@ -995,11 +995,12 @@ If you would like to learn more about endpoints and implement the remainder of t
 
     > What happens when you use the Oracle Backend for Spring Boot CLI **deploy** command? 
     When you run the deploy command, the Oracle Backend for Spring Boot CLI does several things for you:
-
-    * Uploads your application's JAR file to the backend
-    * Create a container image to run your application and push it into your container registry
-    * Some magic
-    * Create the Kubernetes objects needed to run your application
+    
+	- Uploads the JAR file to server side
+	- Builds a container image and push it to the OCI Registry
+	- Inspects the JAR file and looks for bind resources (JMS)
+	- Create the microservices deployment descriptor (k8s) with the resources supplied
+	- Applies the k8s deployment and create k8s object service to microservice
 
 
 1. Temporary workaround - **will be removed before Level Up 23**
