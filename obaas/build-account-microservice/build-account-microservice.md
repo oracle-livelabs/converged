@@ -37,46 +37,68 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
    
   ![Start Spring Initializr](images/obaas-spring-init-1.png " ")
    
+1. Select the Spring Boot Version
+
    You will be presented with a list of available Spring Boot versions.  Choose **2.7.9** (or the latest 2.7.x version available).  Do not choose a 3.x version for this lab - there are some breaking changes in 3.x which mean that some of the instructions in this lab will not work with 3.x.
 
    ![Specify Spring Boot version](images/obaas-spring-init-2.png " ")
    
+1. Choose Implementation Language
+
    Next, you will be asked to choose the implementation language.  Choose **Java** from the available options.
 
    ![Specify project language](images/obaas-spring-init-3.png " ")
    
+1. Choose Group ID.
+
    You will be asked for the Maven Group ID for this new project, you can use **com.example** (the default value).
 
    ![Group ID](images/obaas-spring-init-4.png " ")
    
+1. Choose Artifact ID.
+
    You will be asked for the Maven Artifact ID for this new project, enter **accounts**.
 
    ![Artifact ID](images/obaas-spring-init-5.png " ")
    
+1. Sleelect Packaging Type 
+
    You will be asked what type of packaging you want for this new project, select **JAR** from the list of options.
 
    ![Specify packagaing type](images/obaas-spring-init-6.png " ")
    
-   Next, you will be asked what version of Java to use.  Select **17** from the list of options.  Technically you could use an earlier version of Java with Spring Boot 2.7.x, however the lab instructions assume you are using Java 17, so it is better to choose that to avoid issues during this lab.  Note that Spring Boot 3.0 requires Java 17 as the minimum level. 
+1. Choose Java Version
+
+   Next, you will be asked what version of Java to use.  Select **17** from the list of options.  Technically you could use an earlier version of Java with Spring Boot 2.7.x, however the lab instructions assume you are using Java 17, so it is better to choose that to avoid issues during this lab.  Note that Spring Boot 3.0 requires Java 17 as the minimum level.
 
    ![Specify Java version](images/obaas-spring-init-7.png " ")
    
+1. Add Spring Boot dependencies
+
    Now you will have the opportunity to add the Spring Boot dependencies your project needs.  For now just add **Spring Web**, which will let us write some REST services.  We will add more later as we need them.  After you add Spring Web, click on the option to continue with the selected dependencies.
 
    ![Choose dependencies](images/obaas-spring-init-8.png " ")
    
+1. Select where to save the project
+
    You will be asked where to save the project.  Note that this needs to be an existing location.  You may wish to create a directory in another terminal if you do not have a suitable location.  Enter the directory to save the project in and press Enter. 
 
    ![Project directory](images/obaas-spring-init-9.png " ")
    
+1. Open the generated project
+
    Now the Spring Initializr will create a new project based on your selections and place it in the directory you specified.  This will only take a few moments to complete.  You will a message in the bottom right corner of Visual Studio Code telling you it is complete.  Click on the **Open** button in that message to open your new project in Visual Studio Code.
 
    ![Project generated](images/obaas-spring-init-10.png " ")
    
+1. Explore the project
+
    Explore the new project.  You should find the main Spring Boot application class and your Spring Boot `application.properties` file as shown in the image below.
 
    ![Ihe new project](images/obaas-spring-init-11.png " ")
    
+1. Remove some files (Optional)
+
    If desired, you can delete some of the generated files that you will not need.  You can remove `.mvn`, `mvnw`, `mvnw.cmd` and `HELP.md` if you wish.  Leaving them there will not cause any issues.
 
 1. Build and run the service
@@ -106,55 +128,61 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
 
 1. Implement the first simple endpoint
 
-    Create a new directory in the directory `src/main/java/com/example/accounts` called `controller`.  In that new directory, create a new Java file called `AccountController.java`.  When prompted for the type, choose **class**.
+    1. Create `AccountController.java`
 
-    Your new file should look like this:
+        Create a new directory in the directory `src/main/java/com/example/accounts` called `controller`.  In that new directory, create a new Java file called `AccountController.java`.  When prompted for the type, choose **class**.
 
-    ```java
-    <copy>package com.example.accounts.controller;
-    
-    public class AccountController {
+        Your new file should look like this:
+
+        ```java
+        <copy>package com.example.accounts.controller;
         
-    }</copy>
-    ```
+        public class AccountController {
+            
+        }</copy>
+        ```
 
-    Add the `RestController` annotation to this class to tell Spring Boot that we want this class to expose REST services.  You can just start typing `@RestController` before the `public class` statement and Visual Studio Code will offer code completion for you.  When you select from the pop-up, Visual Studio Code will also add the import statement for you.  The list of suggestions is based on the dependencies you added to your project.
+    2. Add the `RestController` annotation
 
-    Add the `RequestMapping` annotation to this class as well, and set the URL path to `/api/v1`.  Your class should now look like this:
+        Add the `RestController` annotation to this class to tell Spring Boot that we want this class to expose REST services.  You can just start typing `@RestController` before the `public class` statement and Visual Studio Code will offer code completion for you.  When you select from the pop-up, Visual Studio Code will also add the import statement for you.  The list of suggestions is based on the dependencies you added to your project.
 
-    ```java
-    <copy>package com.example.accounts.controller;
-    
-    import org.springframework.web.bind.annotation.RequestMapping;
-    import org.springframework.web.bind.annotation.RestController;
-    
-    @RestController
-    @RequestMapping("/api/v1")
-    public class AccountController {
+        Add the `RequestMapping` annotation to this class as well, and set the URL path to `/api/v1`.  Your class should now look like this:
+
+        ```java
+        <copy>package com.example.accounts.controller;
         
-    }</copy>
-    ```
-
-    Add a method to this class called `ping` which returns a `String` with a helpful message.  Add the `GetMapping` annotation to this method and set the URL path to `/hello`.  Your class should now look like this:
-
-    ```java
-    <copy>package com.example.accounts.controller;
-    
-    import org.springframework.web.bind.annotation.GetMapping;
-    import org.springframework.web.bind.annotation.RequestMapping;
-    import org.springframework.web.bind.annotation.RestController;
-    
-    @RestController
-    @RequestMapping("/api/v1")
-    public class AccountController {
+        import org.springframework.web.bind.annotation.RequestMapping;
+        import org.springframework.web.bind.annotation.RestController;
         
-      @GetMapping("/hello")
-      public String ping() {
-        return "Hello from Spring Boot";
-      }
-    
-    }</copy>
-    ```
+        @RestController
+        @RequestMapping("/api/v1")
+        public class AccountController {
+            
+        }</copy>
+        ```
+
+    3. Add `ping` method
+
+        Add a method to this class called `ping` which returns a `String` with a helpful message.  Add the `GetMapping` annotation to this method and set the URL path to `/hello`.  Your class should now look like this:
+
+        ```java
+        <copy>package com.example.accounts.controller;
+        
+        import org.springframework.web.bind.annotation.GetMapping;
+        import org.springframework.web.bind.annotation.RequestMapping;
+        import org.springframework.web.bind.annotation.RestController;
+        
+        @RestController
+        @RequestMapping("/api/v1")
+        public class AccountController {
+            
+        @GetMapping("/hello")
+        public String ping() {
+            return "Hello from Spring Boot";
+        }
+        
+        }</copy>
+        ```
 
     You have just implemented your first REST service in Spring Boot!  This service will be available on `http://localhost:8080/api/v1/hello`.  And the `GetMapping` annotation tells Spring Boot that this service will respond to the HTTP GET method.
 
@@ -195,14 +223,15 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
 
 	SQL>
 	```
-		
+1. Load the Wallet
+
 	When you are connected, run the following command to load the Wallet you downloaded during the Setup lab. Replace the name and location of the Wallet to match your environment.
 
 	```sql
 	SQL> <copy>set cloudconfig ~/path/to/wallet/wallet-name.zip</copy>
 	```
 
-2. Connect to the Database
+1. Connect to the Database
 
 	Connect to the database using the `ADMIN` user. The ADMIN password can be retrieved from a k8s secret using this command:
 		
@@ -238,7 +267,7 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
 	CBANKDB_TPURGENT
 	```
 
-3. Create Database Objects
+1. Create Database Objects
 
 	Run the SQL statements below to create the database objects:
     
@@ -335,6 +364,8 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
 
     ![Updated Project](images/obaas-updated-pom.png " ")
 
+1. Configure JPA datasource
+
     To configure Spring Data JPA access to the database, you will add some configuration information to the Spring Boot application properties (or YAML) file. Access to the database you need to unzip the Wallet and get information from those files.
 
     1. Unzip the Wallet you downloaded in the Setup lab (Lab 2)
@@ -355,40 +386,40 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
       $ <copy>export TNS_ADMIN=/path/to/unzipped/wallet</copy>
       ```
 
-    4 . Get the TNS Entry connection string using this command. Remember the name of the entry as you'll need it in the next steps. In the sample below it is `cbankdb_tp`.
+    4. Get the TNS Entry connection string using this command. Remember the name of the entry as you'll need it in the next steps. In the sample below it is `cbankdb_tp`.
 
       ```shell
       $ <copy>grep "_tp =" /path/to/unzipped/wallet/tnsnames.ora</copy>
       cbankdb_tp = (description= (retry_count=20)(retry_delay=3)(address=(protocol=tcps)(port=1522)(host=adb.us-.....-1.oraclecloud.com))(connect_data=(service_name=....._cbankdb_tp.adb.oraclecloud.com))(security=(ssl_server_dn_match=yes)))
       ```
 
-    You will find a file called `application.properties` in the `src/main/resources` directory in your project.  You can use either properties format or YAML format for this file.  In this lab, you will use YAML.  Rename the file to `application.yaml` and then add this content to the file. Make sure that you modify the url to contain the path to the wallet and the name of the TNS entry you collected earlier.
+      You will find a file called `application.properties` in the `src/main/resources` directory in your project.  You can use either properties format or YAML format for this file.  In this lab, you will use YAML.  Rename the file to `application.yaml` and then add this content to the file. Make sure that you modify the url to contain the path to the wallet and the name of the TNS entry you collected earlier.
 
-    ```yaml
-    <copy>spring:
-      application:
-        name: accounts
-      jpa:
-        hibernate:
-          ddl-auto: validate
-        properties:
-          hibernate:
-            dialect: org.hibernate.dialect.Oracle12cDialect
-            format_sql: true
-        show-sql: true
-      datasource:
-        url: jdbc:oracle:thin:@tns_entry_from_above?TNS_ADMIN=/path/to/wallet
-        username: account
-        password: Welcome1234##
-        driver-class-name: oracle.jdbc.OracleDriver
-        type: oracle.ucp.jdbc.PoolDataSource
-        oracleucp:
-          connection-factory-class-name: oracle.jdbc.pool.OracleDataSource
-          connection-pool-name: AccountConnectionPool
-          initial-pool-size: 15
-          min-pool-size: 10
-          max-pool-size: 30</copy>
-    ```
+        ```yaml
+        <copy>spring:
+        application:
+            name: accounts
+        jpa:
+            hibernate:
+            ddl-auto: validate
+            properties:
+            hibernate:
+                dialect: org.hibernate.dialect.Oracle12cDialect
+                format_sql: true
+            show-sql: true
+        datasource:
+            url: jdbc:oracle:thin:@tns_entry_from_above?TNS_ADMIN=/path/to/wallet
+            username: account
+            password: Welcome1234##
+            driver-class-name: oracle.jdbc.OracleDriver
+            type: oracle.ucp.jdbc.PoolDataSource
+            oracleucp:
+            connection-factory-class-name: oracle.jdbc.pool.OracleDataSource
+            connection-pool-name: AccountConnectionPool
+            initial-pool-size: 15
+            min-pool-size: 10
+            max-pool-size: 30</copy>
+        ```
 
    These parameters will be used by Spring Data JPA to automatically configure the data source and inject it into your application.  This configuration uses [Oracle Universal Connection Pool](https://docs.oracle.com/en/database/oracle/oracle-database/21/jjucp/index.html) to improve performance and better utilize system resources.  The settings in the `jpa.hibernate` section tell Spring Data JPA to use Oracle SQL syntax, and to show the SQL statements in the log, which is useful during development when you may wish to see what statements are being executed as your endpoints are called.
 
@@ -582,6 +613,8 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
     []
     ```
 
+1. Add data to `ACCOUNTS` table
+
    Notice that Spring Boot automatically set the `Content-Type` to `application/json` for us.  The result is an empty JSON array `[]` as you might expect.  Add some accounts to the database using these SQL statements (run these in your SQLcl terminal):
 
     ```sql
@@ -591,6 +624,8 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
     values ('Mark''s CCard','CC','bkzLp8cozi','Mastercard account',1000);
     commit;</copy>
     ```
+
+1. Test the `/accounts` service
 
    Now, test the service again.  You may want to send the output to `jq` if you have it installed, so that it will be formatted for easier reading:
 
@@ -624,9 +659,9 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
 
    Now we want to create an endpoint to create a new account.  Open `AccountController.java` and add a new `createAccount` method.  This method should return `ResponseEntity<Account>` this will allow you to return the account object, but also gives you access to set headers, status code and so on.  The method needs to take an `Account` as an argument.  Add the `RequestBody` annotation to the argument to tell Spring Boot that the input data will be in the HTTP request's body.
 
-   Inside the method, you should use the `saveAndFlush` method on the JPA Repostiory to save a new instance of `Account` in the database.  The `saveAndFlush` method returns the created object.  If the save was successful, return the created object and set the HTTP Status Code to 201 (Created).  If there is an error, set the HTTP Status Code to 500 (Internal Server Error).
+   Inside the method, you should use the `saveAndFlush` method on the JPA Repository to save a new instance of `Account` in the database.  The `saveAndFlush` method returns the created object.  If the save was successful, return the created object and set the HTTP Status Code to 201 (Created).  If there is an error, set the HTTP Status Code to 500 (Internal Server Error).
 
-   Here's what the new method (and imports) should look like: 
+   Here's what the new method (and imports) should look like:
 
     ```java
     <copy>import org.springframework.web.bind.annotation.PostMapping;
@@ -647,6 +682,8 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
     }</copy>
     ```
 
+1. Test the `/account` endpoint
+
    Rebuild and restart the application as you have previously.  Then test the new endpoint.  You will need to make an HTTP POST request, and you will need to set the `Content-Type` header to `application/json`.  Pass the data in as JSON in the HTTP request body.  Note that Spring Boot Web will handle mapping the JSON to the right fields in the type annotated with the `RequestBody` annotation.  So a JSON field called `accountName` will map to the `accountName` field in the JSON, and so on. 
 
    Here is an example request and the expected output (yours will be slightly different):
@@ -665,6 +702,8 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
     ```
 
     Notice the HTTP Status Code is 201 (Created).  The service returns the account that was created in the body.
+
+1. Test endpoint `/account` with bad data
 
     Now try a request with bad data that will not be able to be parsed and observe that the HTTP Status Code is 400 (Bad Request).  If there happened to be an exception thrown during the `save()` method, you would get back a 500 (Internal Server Error):
 
@@ -710,6 +749,8 @@ If you would like to learn more about endpoints and implement the remainder of t
         }
     }</copy>
     ```
+
+1. Restart and test `/account/{accountId}` endpoint
 
     Restart the application and test this new endpoint with this command (note that you created account with ID 2 earlier):
 
@@ -764,6 +805,8 @@ If you would like to learn more about endpoints and implement the remainder of t
     }</copy>
     ```
 
+1. Test the `/account/getAccounts/{customerId}` endpoint
+
    Restart the application and test the new endpoint with this command (note that you created this account and customer ID earlier): 
 
     ```shell
@@ -802,6 +845,8 @@ If you would like to learn more about endpoints and implement the remainder of t
         }
     }</copy>
     ```
+
+1. Test the Delete `/account/{accountId}` endpoint 
 
    Restart the application and test this new endpoint with this command (note that you created an account with this customer ID earlier):
 
@@ -1002,7 +1047,6 @@ If you would like to learn more about endpoints and implement the remainder of t
     - Create the microservices deployment descriptor (k8s) with the resources supplied
     - Applies the k8s deployment and create k8s object service to microservice
 
-
 1. **Temporary workaround until release of Oracle Backend for Spring Boot 0.2.2, expected 3/10/2023** 
 
    Due to a bug in version 0.2.1 of the CLI, you will need to update the database credentials in the secret.  First, uuencode your password using this commmand, which assume your database password is `Welcome1234##`:
@@ -1010,7 +1054,7 @@ If you would like to learn more about endpoints and implement the remainder of t
     ```shell
     $ <copy>echo -n "Welcome1234##" |base64</copy>
     V2VsY29tZTEyMzQjIw==
-    ```   
+    ```
 
    Then use the output from that command to patch the secret:
 
