@@ -68,11 +68,11 @@ The Oracle Backend for Spring Boot can be installed from OCI Marketplace.
 
    Review the details on the **Create Stack** page.  You may wish to update the **Name** or add tags.  In the **Parse Server** section, you _must_ check **Enable Parse Platform** for this Live Lab.  The mobile application lab uses this feature.   When you are ready, click on **Next**.
 
-   ![Create stack screen](images/obaas-create-stack-with-parse.png " ")
+   ![Create stack screen](images/obaas-stack-with-parse.png " ")
 
    Scroll down the the **Vault** section.  If you check **Enable Vault**, an OCI Vault will created for the stack.  Note that OCI Vaults can be a limited resource in some tenancies, and they take 14 days to delete.  So you may wish to reuse an existing OCI Vault, or opt out of OCI Vault for this installation.  You will still get a Hashicorp Vault deployed into your Kubernetes cluster regardless of what choice you make about the OCI Vault.
 
-   ![Create stack screen](images/obaas-create-stack-optional-vault.png " ")
+   ![Create stack screen](images/obaas-stack-optional-vault.png " ")
 
 1. Complete the **Variables** page
 
