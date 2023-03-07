@@ -1343,9 +1343,9 @@ The services are now completed and you are ready to deploy them to the Oracle Ba
    
    You will also need to update the APISIX route to use Kubernetes service discovery instead of Eureka. 
 
-1. Temporary workaround
+1. **Temporary workaround if you used 0.2.0 instead of 0.2.1**
 
-    > **Note**: Hello Live Labs QA testers - this is a temporary workaround that must be used with the 0.2.0 stack -- this will not be required in the Level Up 23 event, and will be removed before then!!!
+   This step is **only** required if you installed 0.2.0 instead of 0.2.1.  If you used 0.2.1 or later (as recommended) skip this step and go to the next step "Update the APISIX route to use Kuberenetes service discovery".
 
    Edit the APISIX configuration to add the `kuberentes` service discovery configuration.  To edit the configuration, use this command:
 
