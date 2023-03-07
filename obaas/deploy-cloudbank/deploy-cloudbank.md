@@ -213,24 +213,25 @@ Download a copy of the CloudBank sample application.
 
 1. **Temporary workaround until release of Oracle Backend for Spring Boot 0.2.2, expected 3/10/2023** 
 
-   Due to a bug in version 0.2.1 of the CLI, you will need to update the database credentials in the secret.  First, uuencode your password using this commmand, which assume your database password is `Welcome1234##`:
+    Due to a bug in version 0.2.1 of the CLI, you will need to update the database credentials in the secret.  First, uuencode your password using this commmand, which assume your database password is `Welcome1234##`:
 
     ```shell
-    $ <copy>echo -n "Welcome1234##" |base64</copy>
+    $ <copy>echo -n "Welcome1234##" | base64</copy>
     V2VsY29tZTEyMzQjIw==
-    ```   
+    ```
 
    Then use the output from that command to patch the secret:
 
     ```shell
-    $ <copy>kubectl -n application patch secret accounts-db-secrets -p='{"data":{"db.password":"V2VsY29tZTEyMzQjIw=="}}'
+    $ <copy>kubectl -n application patch secret accounts-db-secrets -p='{"data":{"db.password":"V2VsY29tZTEyMzQjIw=="}}'</copy>
     secret/accounts-db-secrets patched
     ```
 
    You also need to correct some of the variables and add a volume mount.  Create a file called `patch.json` with this content:
 
-    ```json
-    <copy>{
+	```json
+	<copy>
+	{
       "spec": {
         "template": {
           "spec": { 
@@ -278,7 +279,7 @@ Download a copy of the CloudBank sample application.
         }
       }
     }</copy>
-    ```
+	```
 
    Update the `container.name` field to match the microservice you need to update, e.g. `account`, `customer` or `transfer`.
 
