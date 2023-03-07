@@ -297,7 +297,7 @@ Download a copy of the CloudBank sample application.
     registry-auth            kubernetes.io/dockerconfigjson   1      68m
     registry-login           Opaque                           2      68m
     tls-certificate          kubernetes.io/tls                4      60m
-    ```    
+    ```
 
     In this example output, the correct name is `markbank1db-tns-admin`.  Yours will have a different prefix.  Before applying the patch file, update the name of this secret, it is the last one mentioned in the patch file.
 
@@ -323,13 +323,13 @@ Download a copy of the CloudBank sample application.
     $ <copy>kubectl -n account get pods</copy>
     ```
 
-   When they are all terminated, restart the `account` pod` with this command:
+   When the pod is terminated, restart the `account` pod` with this command:
 
     ```shell
     $ <copy>kubectl -n application scale deploy account --replicas=1</copy>
     ```
 	
-    Repeat this for the `customer` pod.
+    Repeat the restart procedures for the `customer` pod.
 
 ## Task 4: Verify the deployment of CloudBank
 
