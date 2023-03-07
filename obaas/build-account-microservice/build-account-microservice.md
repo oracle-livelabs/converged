@@ -1003,11 +1003,23 @@ If you would like to learn more about endpoints and implement the remainder of t
     - Applies the k8s deployment and create k8s object service to microservice
 
 
-1. Temporary workaround - **will be removed before Level Up 23**
+1. **Temporary workaround until release of Oracle Backend for Spring Boot 0.2.2, expected 3/10/2023**
 
-    > **Note**: Hello LiveLab QA testers!  This small workaround is required currently due to a small bug in the CLI.  This will be removed before the Level Up 23 event.  This just adds the missing env vars and a volume mount for the TNSADMIN secret to the account deployment.
+   Due to a bug in version 0.2.1 of the CLI, you will need to update the database credentials in the secret.  First, uuencode your password using this commmand, which assume your database password is `Welcome1234##`:
 
-   Create a file called `patch.json` with this content:
+    ```shell
+    $ <copy>echo -n "Welcome1234##" |base64</copy>
+    V2VsY29tZTEyMzQjIw==
+    ```   
+
+   Then use the output from that command to patch the secret:
+
+    ```shell
+    $ <copy>kubectl -n application patch secret accounts-db-secrets -p='{"data":{"db.password":"V2VsY29tZTEyMzQjIw=="}}'
+    secret/accounts-db-secrets patched
+    ```
+
+   You also need to correct some of the variables and add a volume mount.  Create a file called `patch.json` with this content:
 
     ```json
     <copy>{
@@ -1059,6 +1071,8 @@ If you would like to learn more about endpoints and implement the remainder of t
       }
     }</copy>
     ```
+
+   Update the `container.name` field to match the microservice you need to update, e.g. `account`, `customer` or `transfer`.
 
    The name of the TNS Admin secret will be different in your environment.  You can get the name with this command: 
 
