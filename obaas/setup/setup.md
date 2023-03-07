@@ -95,7 +95,7 @@ This lab assumes you have:
 
 ## Task 3: Install Maven
 
-You can use either Maven or Gradle to build your Spring Boot applications.  If you prefer Maven, follow the steps in this task.  If you prefer Gradle, skip to the next task instead. 
+You can use either Maven or Gradle to build your Spring Boot applications. If you prefer Maven, follow the steps in this task.  If you prefer Gradle, skip to the next task instead. 
 
 1. Download Maven
 
@@ -155,7 +155,7 @@ If you prefer Gradle, follow the steps in this task.
 
 ## Task 5: Install the Oracle Backend for Spring Boot CLI
 
-The Oracle Backend for Spring Boot CLI is used to configure your backend and to deploy your Spring Boot applications to the backend. 
+The Oracle Backend for Spring Boot CLI is used to configure your backend and to deploy your Spring Boot applications to the backend.
 
 1. Download the Oracle Backend for Spring Boot CLI
 
@@ -175,7 +175,7 @@ The Oracle Backend for Spring Boot CLI is used to configure your backend and to 
 
 3. Verify the installation
 
-  Verify the CLI is installed using this command: 
+  Verify the CLI is installed using this command:
 
     ```shell
     $ <copy>oractl version</copy>
@@ -189,7 +189,7 @@ The Oracle Backend for Spring Boot CLI is used to configure your backend and to 
      Build Version: 011223
      ```
 
-## Task 6: Install **kubectl** and the OCI CLI 
+## Task 6: Install **kubectl** and the OCI CLI
 
 In later labs, you will look various resources in the Kubernetes cluster and access some of them using port forwarding (tunneling).  To do this, you will need to install **kubectl** on your machine, and since Oracle Container Engine for Kubernetes uses token based authentication for **kubectl** access, you will also need to install the OCI CLI so that **kubectl** can obtain the necessary token.
 
@@ -272,13 +272,15 @@ At the end of the previous lab, during the verification of the installation, you
 
 ## Task 8: Install **SQLcl**
 
-If you do not already have a database client, [Oracle SQL Developer Command Line (SQLcl)](https://www.oracle.com/database/sqldeveloper/technologies/sqlcl/) is a free command line interface for Oracle Database which includes great features like auto-completion and command history. All the Labs are using SQLcl as the database client.
+1. (Optional) Install SQLcl
 
-If you choose to use SQLcl make sure it is in your `PATH` variable:
+   If you do not already have a database client, [Oracle SQL Developer Command Line (SQLcl)](https://www.oracle.com/database/sqldeveloper/technologies/sqlcl/) is a free command line interface for Oracle Database which includes great features like auto-completion and command history. All the Labs are using SQLcl as the database client.
 
- ```shell
-<copy>export PATH=/path/to/sqlcl:$PATH</copy>
-```
+   If you choose to use SQLcl make sure it is in your `PATH` variable:
+
+      ```shell
+      <copy>export PATH=/path/to/sqlcl:$PATH</copy>
+      ```
 
 ## Task 9: Getting Database Access
 

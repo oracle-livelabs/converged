@@ -28,7 +28,7 @@ When you adopt microservices architecture and start to apply the patterns, you r
 
 ### Database per service
 
-The [Database per service](https://microservices.io/patterns/data/database-per-service.html) pattern is a generally accepted best practice which dictates that each service must have its own "database" and that the only way other services can access its data is through its public API.  This helps to create loose coupling between services, which in turn makes it easier to evolve them independently and prevents the creation of a web of dependencies that make application changes increasingly difficult over time.  In reality, this pattern may be implemented with database containers, or even schema within one database with strong security isolation, to prevent the proliferation of database instances and the associated management and maintenance cost explosion. 
+The [Database per service](https://microservices.io/patterns/data/database-per-service.html) pattern is a generally accepted best practice which dictates that each service must have its own "database" and that the only way other services can access its data is through its public API.  This helps to create loose coupling between services, which in turn makes it easier to evolve them independently and prevents the creation of a web of dependencies that make application changes increasingly difficult over time.  In reality, this pattern may be implemented with database containers, or even schema within one database with strong security isolation, to prevent the proliferation of database instances and the associated management and maintenance cost explosion.
 
 ### Transactions that span services
 
@@ -55,7 +55,7 @@ In this lab you will implement a saga that will manage transferring funds from o
 
 When the user submits their request, a microservice will pick up the request and invoke the **Transfer** service (which you will write in this lab) to process the transfer.
 
-A Cloud Cash Payment Request Processor service (which you installed in the **Deploy the full CloudBank application** lab) will look up the target customer using the provided email address and invoke the Transfer server that you will write in this lab, which will perform a withdrawal and a deposit.  Your Transfer service will need to coordinaate these actions to make sure they all occur, and to perform compensation if there is a problem. 
+A Cloud Cash Payment Request Processor service (which you installed in the **Deploy the full CloudBank application** lab) will look up the target customer using the provided email address and invoke the Transfer server that you will write in this lab, which will perform a withdrawal and a deposit.  Your Transfer service will need to coordinate these actions to make sure they all occur, and to perform compensation if there is a problem.
 
 ## Task 2: Learn about Long Running Actions
 
@@ -90,7 +90,7 @@ You will add a `JOURNAL` table to the account microservice's database.  This tab
 
 As LRA is an eventual consistency model, the approach you will take in the account service will be to store bank account transactions as "pending" in the journal table.  Pending transactions will not be considered when calculating the account balance until they are finalized ("completed").  When the LRA reaches the "complete" phase, the pending transactions will be considered finalized and the account balance will be updated to reflect those transactions.
 
-> **Note**: Unlike Java Transcation Architecture (JTA) where "in-doubt" tables are created automatically to keep track of pending transactions, LRA is only concerned with the orchestration of the API calls, so particpants need to track transactions themselves.  In this lab you will use the journal table both to store the transactions and to track the lRA.  Of course, this could also be done with separate tables if desired.
+> **Note**: Unlike Java Transaction Architecture (JTA) where "in-doubt" tables are created automatically to keep track of pending transactions, LRA is only concerned with the orchestration of the API calls, so participants need to track transactions themselves.  In this lab you will use the journal table both to store the transactions and to track the lRA.  Of course, this could also be done with separate tables if desired.
 
 You will now start implementing the Cloud Cash Payment LRA.
 
@@ -100,7 +100,7 @@ You will update the Account service that you built in the previous lab to add so
 
 1. Add new dependencies to the Maven POM
 
-  Open the `pom.xml` in your `accounts` project and add these new dependencies to the list.  These add suport for Jersey and JAX-RS services and the LRA client libraries themselves.
+  Open the `pom.xml` in your `accounts` project and add these new dependencies to the list.  These add support for Jersey and JAX-RS services and the LRA client libraries themselves.
 
     ```xml
     <copy>
@@ -339,7 +339,7 @@ The Deposit service will process deposits into bank accounts.  In this task, you
          private static final Logger log = Logger.getLogger(DepositService.class.getName());
          private final static String DEPOSIT = "DEPOSIT";
     }</copy>
-    ``` 
+    ```
 
 1. Create the LRA entry point
 
@@ -447,11 +447,11 @@ The Deposit service will process deposits into bank accounts.  In this task, you
 
 ## Task 5: Create an Account/Transfer Data Access Object
 
-The Data Access Object pattern is considered a best practice and it allows separation of business logic from the persistence layer.  In this task, you will create an Account Data Access Object (DAO) that hides the complexity of the persitence layer logic from the business layer services.  Additionally, it establishes methods that can be reused by each business layer service that needs to operate on accounts - in this lab there will be two such services - deposit and withdraw.
+The Data Access Object pattern is considered a best practice and it allows separation of business logic from the persistence layer.  In this task, you will create an Account Data Access Object (DAO) that hides the complexity of the persistence layer logic from the business layer services.  Additionally, it establishes methods that can be reused by each business layer service that needs to operate on accounts - in this lab there will be two such services - deposit and withdraw.
 
 1. Create the DAO class
 
-   Create a new Java file called `AccountTransferDAO.java` in `src/main/java/com/example/accounts/services`.  This class will contain common data access methods that are needed by multiple partipants.  You will implement this class using the singleton pattern so that there will only be one instance of this class.
+   Create a new Java file called `AccountTransferDAO.java` in `src/main/java/com/example/accounts/services`.  This class will contain common data access methods that are needed by multiple participants.  You will implement this class using the singleton pattern so that there will only be one instance of this class.
 
    Here is the code to set up the class and implement the singleton pattern:
 
@@ -597,7 +597,7 @@ The Data Access Object pattern is considered a best practice and it allows separ
     }</copy>
     ```
 
-   Update `AccountRepository.java` in `src/main/java/com/example/accounts/repositories` to add these extra JPA methods.  Your updated file should look like this: 
+   Update `AccountRepository.java` in `src/main/java/com/example/accounts/repositories` to add these extra JPA methods.  Your updated file should look like this:
 
     ```java
     <copy>package com.example.accounts.repository;
@@ -644,7 +644,7 @@ The Data Access Object pattern is considered a best practice and it allows separ
 
 ## Task 6: Implement the deposit service's business logic
 
-The deposit service will be responsible for depositing funds into accounts.  It will be an LRA participant, and so it will need to implement the LRA lifecycles actions like complete, compensate, and so on.  A significant amount of the logic will be shared with the withdrawal service, so you will also create a separate class for that shared logic, following the Data Access Object pattern, to keep the business layer separate from the persistence layer.
+The deposit service will be responsible for depositing funds into accounts.  It will be an LRA participant, and so it will need to implement the LRA lifecycle actions like complete, compensate, and so on. A significant amount of the logic will be shared with the withdrawal service, so you will also create a separate class for that shared logic, following the Data Access Object pattern, to keep the business layer separate from the persistence layer.
 
 1. Implement the business logic for the **deposit** method.
 
@@ -689,7 +689,7 @@ The deposit service will be responsible for depositing funds into accounts.  It 
 
 1. Implement the **complete** method
 
-  This method should update the LRA status to **completing**, update the account balance, change the bank transaction (journal entry) status from pending to complteted and the set the LRA status to **completed**.  Here is the code for this method: 
+  This method should update the LRA status to **completing**, update the account balance, change the bank transaction (journal entry) status from pending to completed and the set the LRA status to **completed**.  Here is the code for this method:
 
     ```java
     <copy>@PUT
@@ -739,7 +739,7 @@ The deposit service will be responsible for depositing funds into accounts.  It 
 
 1. Implement the **status** method
 
-   This method returns the LRA status.  Here is the code for this method: 
+   This method returns the LRA status.  Here is the code for this method:
 
     ```java
     <copy>@GET
@@ -1005,7 +1005,7 @@ Now, you will create another new Spring Boot microservice application and implem
 
 1. Create the Spring Boot application configuration
 
-   In the `transfer` project, create new directories `src/main/resources` and in that directory create a new file called `appliction.yaml`.  This will be the Spring Boot application configuration file.  In this file you need to configure the endpoints for the LRA participants and coordinator.
+   In the `transfer` project, create new directories `src/main/resources` and in that directory create a new file called `application.yaml`.  This will be the Spring Boot application configuration file.  In this file you need to configure the endpoints for the LRA participants and coordinator.
 
     ```yaml
     <copy>
@@ -1029,7 +1029,7 @@ Now, you will create another new Spring Boot microservice application and implem
 
 1. Create the Spring Boot Application class
 
-   Create a new directory called `src/main/java/com/example/transfer` and in that directory, create a new Java file called `TransferApplciation.java`.  This will be the main application file for the Spring Boot application.  This is a standard application class, there are no new concepts introduced.  Here is the content for this file: 
+   Create a new directory called `src/main/java/com/example/transfer` and in that directory, create a new Java file called `TransferApplication.java`.  This will be the main application file for the Spring Boot application.  This is a standard application class, there are no new concepts introduced.  Here is the content for this file: 
 
     ```java
     package com.example.transfer;
@@ -1048,7 +1048,7 @@ Now, you will create another new Spring Boot microservice application and implem
 
 1. Create the Application Configuration class
 
-   The ApplicationConfig class reads configuration from `application.yaml` and injects the LRA client bean into the application.  Create a new Java file called `ApplicationConfig.java` in `src/main/java/com/example/transfer`.  Here is the content for this file:
+   The ApplicationConfig class reads configuration from `application.yaml` and injects the LRA client bean into the application. Create a new Java file called `ApplicationConfig.java` in `src/main/java/com/example/transfer`. Here is the content for this file:
 
    This provides the information necessary to locate the LRA coordinator.
 
@@ -1083,7 +1083,7 @@ Now, you will create another new Spring Boot microservice application and implem
 
 1. Create the Jersey Config
 
-   Next, you need to create the Jersey Config file, as you did for the Account service earlier.  This file registers the URL handlers and LRA filters and sets the filters to forward on 404 (Not Found).  There are no new concepts introduced.  Here is the code for this class:
+   Next, you need to create the Jersey Config file, as you did for the Account service earlier. This file registers the URL handlers and LRA filters and sets the filters to forward on 404 (Not Found). There are no new concepts introduced. Here is the code for this class:
 
     ```java
     <copy>package com.example.transfer;
@@ -1118,7 +1118,7 @@ Now, you will create another new Spring Boot microservice application and implem
 
 1. Create the Transfer service
 
-   You are now ready to impelement the main logic for the Cloud Cash Payment/transfer LRA.  You will implement this in a new Java file called `TransferService.java` in `src/main/java/com/example/transfer`.  Here are the imports you will need for this class and the member variables.  Note that this class has the `@ApplicationScoped` and `@Path` annotations, as you saw previously in the Account project, to set up the URL contenxt root for the service.
+   You are now ready to implement the main logic for the Cloud Cash Payment/transfer LRA.  You will implement this in a new Java file called `TransferService.java` in `src/main/java/com/example/transfer`.  Here are the imports you will need for this class and the member variables.  Note that this class has the `@ApplicationScoped` and `@Path` annotations, as you saw previously in the Account project, to set up the URL context root for the service.
 
     ```java
     <copy>package com.example.transfer;
@@ -1172,7 +1172,7 @@ Now, you will create another new Spring Boot microservice application and implem
 
    This method will accept three parameters from the caller, in JSON format in the HTTP body: `fromAccount` is the account from which the funds are to be withdrawn, `toAccount` is the account into which the funds are to be deposited, and `amount` is the amount to transfer.
 
-   In the mehod body, you should first check if the `lraId` was set.  If it is null, that indicates that there was some error trying to create the new LRA instance, and you should return an error response and stop.
+   In the method body, you should first check if the `lraId` was set.  If it is null, that indicates that there was some error trying to create the new LRA instance, and you should return an error response and stop.
 
    After that, you want to perform the withdrawal, check if it worked, and if so, perform the deposit, and then check if that worked, and if so "complete" the LRA.  If there were any failures, compensate the LRA.
 
@@ -1218,7 +1218,7 @@ Now, you will create another new Spring Boot microservice application and implem
 
 1. Create a method to perform the withdrawal
 
-   This method should perform the withdrawal by calling the Withdraw service in the Account Spring Boot aapplication.  The `accountId` and `amount` need to be passed to the service, and you must set the `LRA_HTTP_CONTEXT_HEADER` to the LRA ID.  You can get the ID of the currently running LRA by calling `Current.peek()`. 
+   This method should perform the withdrawal by calling the Withdraw service in the Account Spring Boot application.  The `accountId` and `amount` need to be passed to the service, and you must set the `LRA_HTTP_CONTEXT_HEADER` to the LRA ID.  You can get the ID of the currently running LRA by calling `Current.peek()`. 
 
     > **Note**: Normally the LRA inteceptors would automatically add the header for you, however in the version of the library you are using in this lab, that insertion is not working, so you need to do it manually.
 
@@ -1333,9 +1333,9 @@ The services are now completed and you are ready to deploy them to the Oracle Ba
 
 1. Update the service discovery for the Account application
 
-   The updated Account application with JAX-RS will not coexist with the Eureka client, so you need to remove it.  As noted earlier, you are using a version of the LRA client library that only works with JAX-RS, which imposes some limitations.  When a new version of the library with Spring REST support is available, these limitations will be removed. 
+   The updated Account application with JAX-RS will not coexist with the Eureka client, so you need to remove it.  As noted earlier, you are using a version of the LRA client library that only works with JAX-RS, which imposes some limitations.  When a new version of the library with Spring REST support is available, these limitations will be removed.
 
-   To remove the Eureka client from the Account application: 
+   To remove the Eureka client from the Account application:
 
     * Update the POM to remove the dependency for `spring-cloud-starter-netflix-eureka-client`.
     * Remove the `@EnableDiscoveryClient` annotation on the `AccountsApplication` class.
@@ -1345,7 +1345,7 @@ The services are now completed and you are ready to deploy them to the Oracle Ba
 
 1. **Temporary workaround if you used 0.2.0 instead of 0.2.1**
 
-   This step is **only** required if you installed 0.2.0 instead of 0.2.1.  If you used 0.2.1 or later (as recommended) skip this step and go to the next step "Update the APISIX route to use Kuberenetes service discovery".
+   This step is **only** required if you installed 0.2.0 instead of 0.2.1.  If you used 0.2.1 or later (as recommended) skip this step and go to the next step "Update the APISIX route to use Kubernetes service discovery".
 
    Edit the APISIX configuration to add the `kuberentes` service discovery configuration.  To edit the configuration, use this command:
 
@@ -1376,7 +1376,7 @@ The services are now completed and you are ready to deploy them to the Oracle Ba
           send: 2000
         weight: 100
     </copy>
-    ```   
+    ```
 
    Restart the APISIX Gateway to pick up this change.  Use this command to shut down the API Gateway:
 
@@ -1434,7 +1434,7 @@ The services are now completed and you are ready to deploy them to the Oracle Ba
     ```    
 
 
-1. Update the APISIX route to use Kuberenetes service discovery
+1. Update the APISIX route to use Kubernetes service discovery
 
    Open the `account` route that you created in the APISIX Dashboard.  To access the APISIX Dashboard, start a tunnel using this command:
 
@@ -1449,8 +1449,6 @@ The services are now completed and you are ready to deploy them to the Oracle Ba
    ![APISIX Route with Kubernetes discovery](images/obaas-apisix-k8s-discovery.png)
 
    As shown in the image above, update the **Discovery Type** to **Kubernetes**, and set the **Service Name** to `application/account:port`.
-
-
 
 1. Build the Account and Transfer applications into JAR files
 
@@ -1470,7 +1468,7 @@ The services are now completed and you are ready to deploy them to the Oracle Ba
 
 1. Deploy the Account and Transfer applications
 
-  You will now deploy your udpated account application and new transfer application to the Oracle Backend for Spring Boot using the CLI.  You will deploy into the `application` namespace, and the service names will be `account` and `transfer` respectively.  Run this command to reddeploy your account service, make sure you provide the correct path to your JAR files.  **Note**: You must set **isRedeploy** to **true** since you are updating the existing deployment:
+  You will now deploy your updated account application and new transfer application to the Oracle Backend for Spring Boot using the CLI.  You will deploy into the `application` namespace, and the service names will be `account` and `transfer` respectively.  Run this command to redeploy your account service, make sure you provide the correct path to your JAR files.  **Note**: You must set **isRedeploy** to **true** since you are updating the existing deployment:
 
     ```shell
     oractl> <copy>deploy --isRedeploy true --appName application --serviceName account --jarLocation /path/to/accounts/target/accounts-0.0.1-SNAPSHOT.jar --imageVersion 0.0.1</copy>
@@ -1480,7 +1478,7 @@ The services are now completed and you are ready to deploy them to the Oracle Ba
     successfully deployed
     ```
 
-   Run this command to reddeploy your account service, make sure you provide the correct path to your JAR files.
+   Run this command to redeploy your account service, make sure you provide the correct path to your JAR files.
 
     ```shell
     oractl> <copy>deploy --isRedeploy false --appName application --serviceName transfer --jarLocation /path/to/transfer/target/transfer-0.0.1-SNAPSHOT.jar --imageVersion 0.0.1</copy>
@@ -1491,7 +1489,6 @@ The services are now completed and you are ready to deploy them to the Oracle Ba
     ```
 
    Your applications are now deployed in the backend.
-
 
 ## Task 10: Run LRA test cases
 
@@ -1513,10 +1510,9 @@ Now you can test your LRA to verify it performs correctly under various circumst
 
 1. Check the starting account balances
 
-   Before you start, check the balances of the two accounts that you will be transfering money between using this command.  Note that these accounts were created in an earlier step.  TODO check they were? or is in the liquibase? TODO 
+   Before you start, check the balances of the two accounts that you will be transferring money between using this command.  Note that these accounts were created in an earlier step.  TODO check they were? or is in the liquibase? TODO 
 
-
-    ```
+    ```shell
     $ <copy>curl -s http://100.20.30.40/api/v1/account/1 | jq ; curl -s http://100.20.30.40/api/v1/account/2 | jq</copy>
     {
         "accountId": 1,
@@ -1536,8 +1532,7 @@ Now you can test your LRA to verify it performs correctly under various circumst
         "accountOtherDetails": "Mastercard account",
         "accountBalance": 1000
     }
-    ``` 
-
+    ```
 
    Note that account 1 has -$20 in this example, and account 2 has $1,800.  Your results may be different.
 
@@ -1545,15 +1540,14 @@ Now you can test your LRA to verify it performs correctly under various circumst
 
    Run this command to perform a transfer that should succeed.  Note that both accounts exist and the amount of the transfer is less than the balance of the source account.
 
-    ```    
+    ```shell
     $ <copy>curl -X POST "http://localhost:8080/transfer?fromAccount=2&toAccount=1&amount=100"</copy>
     transfer status:withdraw succeeded deposit succeeded
     ```  
 
    Check the two accounts again to confirm the transfer behaved as expected: 
 
-
-    ```
+    ```shell
     $ <copy>curl -s http://100.20.30.40/api/v1/account/1 | jq ; curl -s http://100.20.30.40/api/v1/account/2 | jq</copy>
     {
         "accountId": 1,
@@ -1573,23 +1567,22 @@ Now you can test your LRA to verify it performs correctly under various circumst
         "accountOtherDetails": "Mastercard account",
         "accountBalance": 900
     }
-    ``` 
+    ```
 
-
-   Notice that account 2 now has only $900 and account 1 has $80.  So the $100 was successfully transfered as expected.
+   Notice that account 2 now has only $900 and account 1 has $80.  So the $100 was successfully transferred as expected.
 
 1. Perform a transfer that should fail due to insufficient funds in the source account
 
    Run this command to attempt to transfer $100,000 from account 2 to account 1.  This should fail because account 2 does not have enough funds.
 
-    ```
+    ```shell
     $ <copy>curl -X POST "http://localhost:8080/transfer?fromAccount=2&toAccount=1&amount=100000"</copy>
     transfer status:withdraw failed: insufficient funds
     ``` 
 
 1. Perform a transfer that should fail due to the destination account not existing.
 
-    ```
+    ```shell
     $ <copy>curl -X POST "http://localhost:8080/transfer?fromAccount=2&toAccount=6799999&amount=100"</copy>
     transfer status:withdraw succeeded deposit failed: account does not exist%  
     ```
@@ -1624,9 +1617,6 @@ Now you can test your LRA to verify it performs correctly under various circumst
 
    In the example output above you can see one what happened during that last test you ran a moment ago.  Notice that the LRA started, the withdrawal succeeded, then the deposit failed because the account did not exist.  Then you can see that the next action is cancel, and then the LRA being canceled/compensated.
 
-
-## Summary 
-
  In this lab you have learned about the Saga pattern by implementing an account transfer scenarios.
  You did this by implementing the long running activity, including `transfer` and `account` services that connect to a coordinator, according to the Long Running Action specification.
 
@@ -1640,6 +1630,6 @@ Now you can test your LRA to verify it performs correctly under various circumst
 
 ## Acknowledgements
 
-* **Author** - Paul Parkinson, Mark Nelson, Developer Evangelists, Oracle Database
+* **Author** - Paul Parkinson, Mark Nelson, Andy Tael, Developer Evangelists, Oracle Database
 * **Contributors** - [](var:contributors)
 * **Last Updated By/Date** - Mark Nelson, March 2023
