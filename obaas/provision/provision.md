@@ -66,7 +66,7 @@ The Oracle Backend for Spring Boot can be installed from OCI Marketplace.
 
 1. Review the **Create Stack** page
 
-   Review the details on the **Create Stack** page.  You may wish to update the **Name** or add tags.  In the **Parse Server** section, you _must_ check **Enable Parse Platform** for this Live Lab.  The mobile application lab uses this feature.   When you are ready, click on **Next**.
+   Review the details on the **Create Stack** page.  You may wish to update the **Name** or add tags.  In the **Parse Server** section, you _must_ check **Enable Parse Platform** for this Live Lab.  The mobile application lab uses this feature.  Provide an **Application ID** and a username and password for the Parse Dashboard.  Make a note of these details - you will need them later.  When you are ready, click on **Next**.
 
    ![Create stack screen](images/obaas-stack-with-parse.png " ")
 
