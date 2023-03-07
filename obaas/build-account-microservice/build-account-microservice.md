@@ -1171,6 +1171,9 @@ Now that the account service is deployed, you need to expose it through the API 
 
 * [Oracle Backend for Spring Boot](https://oracle.github.io/microservices-datadriven/spring/)
 * [Oracle Backend for Parse Platform](https://oracle.github.io/microservices-datadriven/mbaas/)
+* [Kubernetes](https://kubernetes.io/docs/home/)
+* [Apache APISIX](https://apisix.apache.org)
+* [Oracle Cloud Infrastructure](https://docs.oracle.com/en-us/iaas/Content/home.htm)
 
 ## Acknowledgements
 
