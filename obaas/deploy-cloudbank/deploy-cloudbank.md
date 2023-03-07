@@ -150,8 +150,8 @@ Download a copy of the CloudBank sample application.
 
 6. Deploy the services
 
-	**NOTE**: If you have finished Lab three (Build the Account Microservice) and Lab four (Manage Transactions across Microservices) you can skip step one (Deploy/Redeploy the Account Service) below and deploy the other services. << DOES THIS MATTER EG WHAT HAPPENS IF YOU DO BIND AGAIN >>
-
+	**NOTE**: If you have finished Lab three (Build the Account Microservice) and Lab four (Manage Transactions across Microservices) you can skip step one (Deploy/Redeploy the Account Service) below and deploy the other services.
+	
 	1. Deploy/Redeploy the Account Service
 
 		You will now deploy your Account service to the Oracle Backend for Spring Boot using the CLI.  You will deploy into the `application` namespace, and the service name will be `account`. Run this command to deploy your service, make sure you provide the correct path to your JAR file:
