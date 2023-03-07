@@ -1337,9 +1337,9 @@ The services are now completed and you are ready to deploy them to the Oracle Ba
 
    To remove the Eureka client from the Account application: 
 
-   * Update the POM to remove the dependency for `spring-cloud-starter-netflix-eureka-client`.
-   * Remove the `@EnableDiscoveryClient` annotation on the `AccountsApplication` class.
-   * Remove the `eureka` configuration from `src/main/resources/application.yaml`. 
+    * Update the POM to remove the dependency for `spring-cloud-starter-netflix-eureka-client`.
+    * Remove the `@EnableDiscoveryClient` annotation on the `AccountsApplication` class.
+    * Remove the `eureka` configuration from `src/main/resources/application.yaml`. 
    
    You will also need to update the APISIX route to use Kubernetes service discovery instead of Eureka. 
 
