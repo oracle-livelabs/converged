@@ -1015,7 +1015,7 @@ If you would like to learn more about endpoints and implement the remainder of t
    Then use the output from that command to patch the secret:
 
     ```shell
-    $ <copy>kubectl -n application patch secret accounts-db-secrets -p='{"data":{"db.password":"V2VsY29tZTEyMzQjIw=="}}'</copy>
+    $ <copy>kubectl -n application patch secret account-db-secrets -p='{"data":{"db.password":"V2VsY29tZTEyMzQjIw=="}}'</copy>
     secret/accounts-db-secrets patched
     ```
 
