@@ -1345,7 +1345,7 @@ The services are now completed and you are ready to deploy them to the Oracle Ba
 
 1. Temporary workaround
 
-   > **Note**: Hello Live Labs QA testers - this is a temporary workaround that must be used with the 0.2.0 stack -- this will not be required in the Level Up 23 event, and will be removed before then!!!
+    > **Note**: Hello Live Labs QA testers - this is a temporary workaround that must be used with the 0.2.0 stack -- this will not be required in the Level Up 23 event, and will be removed before then!!!
 
    Edit the APISIX configuration to add the `kuberentes` service discovery configuration.  To edit the configuration, use this command:
 
