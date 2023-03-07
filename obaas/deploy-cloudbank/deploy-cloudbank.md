@@ -299,17 +299,37 @@ Download a copy of the CloudBank sample application.
     tls-certificate          kubernetes.io/tls                4      60m
     ```    
 
-   In this example output, the correct name is `markbank1db-tns-admin`.  Yours will have a differnt prefix.  Before applying the patch file, update the name of this secret, it is the last one mentioned in the patch file.
+    In this example output, the correct name is `markbank1db-tns-admin`.  Yours will have a different prefix.  Before applying the patch file, update the name of this secret, it is the last one mentioned in the patch file.
 
-   You need to apply the patch to both the **account** and **customer** deployments - make sure you update the `container.name` to match (or just create two different patch files, one for each sdeployment).  Apply the patch with this command: 
+    You need to apply the patch to both the **account** and **customer** deployments - make sure you update the `container.name` to match (or just create two different patch files, one for each deployment).  Apply the patch with this command: 
 
     ```shell
     $ <copy>kubectl -n application patch deploy account -p "$(cat patch.json)"</copy>
     ```
 
-   This will add the TNSADMIN volume mount to your account deployment (and its pods) and the environment variables required to read the database credentials from the appropriate secret.
+    This will add the TNSADMIN volume mount to your account deployment (and its pods) and the environment variables required to read the database credentials from the appropriate secret.
 
-   Repeat this for the customer deployment.
+    Repeat this for the `customer` deployment.
+
+    Restart the `account` pod to pick up this change.  Use this command to shut down the pod:
+    
+    ```shell
+    $ <copy>kubectl -n application scale deploy account --replicas=0</copy>
+    ```
+
+   Wait until the `account` pod have finished terminating. You can check with this command:
+
+    ```shell
+    $ <copy>kubectl -n account get pods</copy>
+    ```
+
+   When they are all terminated, restart the `account` pod` with this command:
+
+    ```shell
+    $ <copy>kubectl -n application scale deploy account --replicas=1</copy>
+    ```
+	
+    Repeat this for the `customer` pod.
 
 ## Task 4: Verify the deployment of CloudBank
 
