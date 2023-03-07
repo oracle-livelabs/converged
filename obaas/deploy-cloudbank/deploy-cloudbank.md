@@ -207,53 +207,54 @@ Download a copy of the CloudBank sample application.
 		Create a file called `patch_account.json` with this content. **NOTE** The secretName value `obaasdevdb-tns-admin` needs to be changed to reflect your installation.
 
 		```json
-		<copy>{
-		"spec": {
-			"template": {
-			"spec": { 
-				"containers": [
-				{
-					"name": "account",
-					"env": [
+		<copy>
+			{
+			"spec": {
+				"template": {
+				"spec": { 
+					"containers": [
 					{
-						"name": "DB_USERNAME",
-						"valueFrom": {
-						"secretKeyRef": {
-							"key": "db.username",
-							"name": "account-db-secrets"
+						"name": "account",
+						"env": [
+						{
+							"name": "DB_USERNAME",
+							"valueFrom": {
+							"secretKeyRef": {
+								"key": "db.username",
+								"name": "account-db-secrets"
+							}
+							}
+						},
+						{
+							"name": "DB_PASSWORD",
+							"valueFrom": {
+							"secretKeyRef": {
+								"key": "db.password",
+								"name": "account-db-secrets"
+							}
+							}
 						}
+						],
+						"volumeMounts": [
+						{
+							"mountPath": "/oracle/tnsadmin",
+							"name": "tns-admin"
 						}
-					},
-					{
-						"name": "DB_PASSWORD",
-						"valueFrom": {
-						"secretKeyRef": {
-							"key": "db.password",
-							"name": "account-db-secrets"
-						}
-						}
+						]
 					}
 					],
-					"volumeMounts": [
+					"volumes": [
 					{
-						"mountPath": "/oracle/tnsadmin",
-						"name": "tns-admin"
+						"name": "tns-admin",
+						"secret": {
+						"defaultMode": 420,
+						"secretName": "obaasdevdb-tns-admin"
+						}
 					}
 					]
 				}
-				],
-				"volumes": [
-				{
-					"name": "tns-admin",
-					"secret": {
-					"defaultMode": 420,
-					"secretName": "obaasdevdb-tns-admin"
-					}
 				}
-				]
 			}
-			}
-		}
 		}</copy>
 		```
 
@@ -266,53 +267,54 @@ Download a copy of the CloudBank sample application.
 		Create a file called `patch_customer.json` with this content. **NOTE** The secretName value `obaasdevdb-tns-admin` needs to be changed to reflect your installation.
 
 		```json
-		<copy>{
-		"spec": {
-			"template": {
-			"spec": { 
-				"containers": [
-				{
-					"name": "account",
-					"env": [
+		<copy>
+			{
+			"spec": {
+				"template": {
+				"spec": { 
+					"containers": [
 					{
-						"name": "DB_USERNAME",
-						"valueFrom": {
-						"secretKeyRef": {
-							"key": "db.username",
-							"name": "customer-db-secrets"
+						"name": "account",
+						"env": [
+						{
+							"name": "DB_USERNAME",
+							"valueFrom": {
+							"secretKeyRef": {
+								"key": "db.username",
+								"name": "customer-db-secrets"
+							}
+							}
+						},
+						{
+							"name": "DB_PASSWORD",
+							"valueFrom": {
+							"secretKeyRef": {
+								"key": "db.password",
+								"name": "customer-db-secrets"
+							}
+							}
 						}
+						],
+						"volumeMounts": [
+						{
+							"mountPath": "/oracle/tnsadmin",
+							"name": "tns-admin"
 						}
-					},
-					{
-						"name": "DB_PASSWORD",
-						"valueFrom": {
-						"secretKeyRef": {
-							"key": "db.password",
-							"name": "customer-db-secrets"
-						}
-						}
+						]
 					}
 					],
-					"volumeMounts": [
+					"volumes": [
 					{
-						"mountPath": "/oracle/tnsadmin",
-						"name": "tns-admin"
+						"name": "tns-admin",
+						"secret": {
+						"defaultMode": 420,
+						"secretName": "obaasdevdb-tns-admin"
+						}
 					}
 					]
 				}
-				],
-				"volumes": [
-				{
-					"name": "tns-admin",
-					"secret": {
-					"defaultMode": 420,
-					"secretName": "obaasdevdb-tns-admin"
-					}
 				}
-				]
 			}
-			}
-		}
 		}</copy>
 		```
 
