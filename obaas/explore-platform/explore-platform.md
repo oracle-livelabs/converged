@@ -185,7 +185,7 @@ Oracle Backend for Spring Boot includes an Oracle Autonomous Database instance. 
 
    ![List of OraCle Autonomous Database instances](images/obaas-adb-1.png)
 
-   Click on the database name link to view more information about that instance.  ON this page, you can see important information about your Oracle Autonomous Database instance and you can manage backups, access and so on.  You can also click on the **Performance Hub** button to access information about the performance of your database instance. 
+   Click on the database name link to view more information about that instance.  ON this page, you can see important information about your Oracle Autonomous Database instance, and you can manage backups, access and so on.  You can also click on the **Performance Hub** button to access information about the performance of your database instance. 
 
    ![Details of Oracle Autonomous Database instance](images/obaas-adb-2.png)
 
@@ -195,7 +195,7 @@ Oracle Backend for Spring Boot includes an Oracle Autonomous Database instance. 
 
 2. Explore Oracle Backend for Spring Boot database objects
 
-   Click on the **Database Actions** link to go to the "Database Actions" page which lets you access and manage information in the database.  Depending on choices you made during installation, you may go straight to Database Actions, or you may need to enter credentials first.  If you are prompted to login, use the user name `ADMIN` and obtain the password from Kubernetes with this command (make sure to change the secret name to match the name you chose during installation): 
+   Click on the **Database Actions** link to go to the "Database Actions" page which lets you access and manage information in the database.  Depending on choices you made during installation, you may go straight to Database Actions, or you may need to enter credentials first.  If you are prompted to login, use the username `ADMIN` and obtain the password from Kubernetes with this command (make sure to change the secret name to match the name you chose during installation): 
 
     ```shell
     $ <copy> kubectl -n application get secret obaasdevdb-db-secrets -o jsonpath='{.data.db\.password}' | base64 -d</copy>
@@ -237,7 +237,7 @@ Oracle Backend for Spring Boot includes Spring Admin which provides a web user i
 
     Open a web browser to [http://localhost:8989](http://localhost:8989) to view the Spring Admin web user interface.
 
-    Click on the **Wallboard** link in the top menu to view the "wallboard" which shows all of the discovered services.  Spring Admin discovers services from the Spring Eureka Service Registry. 
+    Click on the **Wallboard** link in the top menu to view the "wallboard" which shows all the discovered services.  Spring Admin discovers services from the Spring Eureka Service Registry. 
 
    ![Spring Admin Wallboard](images/obaas-spring-admin-1.png)
 
@@ -260,7 +260,7 @@ Oracle Backend for Spring Boot includes Spring Admin which provides a web user i
 
 ## Task 4: Explore Spring Eureka Service Registry
 
-Spring Eureka Service Registry is an application that holds information about what microservices are running in your environment, how many instances of each are running, and on which addresses and ports.  Spring Boot microservices register with Eureka at startup and it regularly checks the health of all registered services.  Services can use Eureka to make calls to other services, thereby eliminating the need to hard code service addresses into other services.
+Spring Eureka Service Registry is an application that holds information about what microservices are running in your environment, how many instances of each are running, and on which addresses and ports.  Spring Boot microservices register with Eureka at startup, and it regularly checks the health of all registered services.  Services can use Eureka to make calls to other services, thereby eliminating the need to hard code service addresses into other services.
 
 1. Start a port-forward tunnel to access the Eureka web user interface
 
@@ -290,7 +290,7 @@ Oracle Backend for Spring Boot includes APISIX API Gateway to manage which servi
 
    Open a web browser to [http://localhost:8081](http://localhost:8081) to view the APISIX Dashboard web user interface.  It will appear similar to the image below.
    
-   If prompted to login, login with user name `admin` and password `admin`.  Note that Oracle strongly recommends that you change the password, even though this interface is not accessible outside the cluster without a tunnel.
+   If prompted to login, login with username `admin` and password `admin`.  Note that Oracle strongly recommends that you change the password, even though this interface is not accessible outside the cluster without a tunnel.
 
    Open the routes page from the left hand side menu.  You will see the routes that you defined in earlier labs:
 

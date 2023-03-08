@@ -126,7 +126,7 @@ Download a copy of the CloudBank sample application.
 	
 	1. Account Service
 
-		Create a database "binding" by tunning this command. Enter the password (`Welcome1234##`) when prompted.  This will create a Kubernetes secret in the `application` namespace called `account-db-secrets` which contains the username (`account`), password, and URL to connect to the Oracle Autonomous Database instance associated with the Oracle Backend for Spring Boot.
+		Create a database "binding" by running this command. Enter the password (`Welcome1234##`) when prompted.  This will create a Kubernetes secret in the `application` namespace called `account-db-secrets` which contains the username (`account`), password, and URL to connect to the Oracle Autonomous Database instance associated with the Oracle Backend for Spring Boot.
 
 		```shell
     	oractl:> <copy>bind --appName application --serviceName account --springBindingPrefix spring.db</copy>
@@ -136,7 +136,7 @@ Download a copy of the CloudBank sample application.
 
 	2. Customer Service
 
-		Create a database "binding" by tunning this command. Enter the password (`Welcome1234##`) when prompted.  This will create a Kubernetes secret in the `application` namespace called `customer-db-secrets` which contains the username (`customer`), password, and URL to connect to the Oracle Autonomous Database instance associated with the Oracle Backend for Spring Boot.
+		Create a database "binding" by running this command. Enter the password (`Welcome1234##`) when prompted.  This will create a Kubernetes secret in the `application` namespace called `customer-db-secrets` which contains the username (`customer`), password, and URL to connect to the Oracle Autonomous Database instance associated with the Oracle Backend for Spring Boot.
 
 		```shell
     	oractl:> <copy>bind --appName application --serviceName customer --springBindingPrefix spring.db</copy>
@@ -234,7 +234,7 @@ Download a copy of the CloudBank sample application.
 
 1. Get APISIX Gateway Admin Key
 
-	You are going to need the Admin Key for the APISIX Gateway to configure the route. It is stored in a k8s ConfigMap. Run the command and make a note of the admin key. The command will return a long YAML document so you need to scroll up to find the Admin Key.
+	You are going to need the Admin Key for the APISIX Gateway to configure the route. It is stored in a k8s ConfigMap. Run the command and make a note of the admin key. The command will return a long YAML document, so you need to scroll up to find the Admin Key.
 
 	```shell
 	<copy>kubectl -n apisix get configmap apisix -o yaml</copy>
@@ -349,7 +349,7 @@ Download a copy of the CloudBank sample application.
 
    Open a web browser to [http://localhost:7070](http://localhost:7070) to view the APISIX Dashboard web user interface.  It will appear similar to the image below.
 
-   If prompted to login, login with user name `admin` and password `admin`.  Note that Oracle strongly recommends that you change the password, even though this interface is not accessible outside the cluster without a tunnel.
+   If prompted to login, login with username `admin` and password `admin`.  Note that Oracle strongly recommends that you change the password, even though this interface is not accessible outside the cluster without a tunnel.
 
     ![APISIX Dashboard Login](images/apisix-login.png " ")
 
