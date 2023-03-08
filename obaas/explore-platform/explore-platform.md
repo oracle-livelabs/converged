@@ -191,7 +191,7 @@ Oracle Backend for Spring Boot includes an Oracle Autonomous Database instance. 
 
    You can manage scaling from here by clicking on the **Manage scaling** button which will open this form where you can adjust the OCPU and storage for the Autonomous Database instance.  
 
-   ![Mangge scaling](images/obaas-adb-2a.png)
+   ![Manage scaling](images/obaas-adb-2a.png)
 
 2. Explore Oracle Backend for Spring Boot database objects
 
@@ -270,7 +270,7 @@ Spring Eureka Service Registry is an application that holds information about wh
     $ <copy>kubectl -n eureka port-forward svc/eureka 8761:8761</copy>
     ```
 
-   Open a web broswer to [http://localhost:8761](http://localhost:8761) to view the Eureka web user interface.  It will appear similar to the image below.
+   Open a web browser to [http://localhost:8761](http://localhost:8761) to view the Eureka web user interface.  It will appear similar to the image below.
 
    ![Eureka web user interface](images/obaas-eureka.png)
 
@@ -288,7 +288,7 @@ Oracle Backend for Spring Boot includes APISIX API Gateway to manage which servi
     $ <copy>kubectl -n apisix port-forward svc/apisix-dashboard 8081:80</copy>
     ```
 
-   Open a web broswer to [http://localhost:8081](http://localhost:8081) to view the APISIX Dashboard web user interface.  It will appear similar to the image below.
+   Open a web browser to [http://localhost:8081](http://localhost:8081) to view the APISIX Dashboard web user interface.  It will appear similar to the image below.
    
    If prompted to login, login with user name `admin` and password `admin`.  Note that Oracle strongly recommends that you change the password, even though this interface is not accessible outside the cluster without a tunnel.
 
@@ -298,7 +298,7 @@ Oracle Backend for Spring Boot includes APISIX API Gateway to manage which servi
 
 1. View details of a route
 
-   Click on the **Configure** button next to the **account** route.  The first page shows information about the route defintion.  Scroll down to the **Request Basic Define** section.  Notice how you can set the host, port, paths, HTTP Methods and other information for the API.
+   Click on the **Configure** button next to the **account** route.  The first page shows information about the route definition.  Scroll down to the **Request Basic Define** section.  Notice how you can set the host, port, paths, HTTP Methods and other information for the API.
 
    ![APISIX route definition](images/obaas-apisix-route-1.png)
 
@@ -333,7 +333,7 @@ The configuration data is stored in a table in the Oracle Autonomous Database in
 
 ## Task 7: Explore Grafana
 
-Grafana provides an easy way to access the merics collected in the backend and to view them in dashboards.  It can be used to monitor performance, as well as to identify and analyze problems and to create alerts.
+Grafana provides an easy way to access the metrics collected in the backend and to view them in dashboards.  It can be used to monitor performance, as well as to identify and analyze problems and to create alerts.
 
 1. Explore the pre-installed Spring Boot Dashboard 
 
@@ -350,17 +350,17 @@ Grafana provides an easy way to access the merics collected in the backend and t
     $ <copy>kubectl -n grafana port-forward svc/grafana 8080:80</copy>
     ```
 
-   Open a web broswer to [http://localhost:8080](http://localhost:8080) to view the Grafana web user interface.  It will appear similar to the image below.  Log in with the username **admin** and the password you just got.
+   Open a web browser to [http://localhost:8080](http://localhost:8080) to view the Grafana web user interface.  It will appear similar to the image below.  Log in with the username **admin** and the password you just got.
 
-   ![pciture](images/obaas-grafana-signin.png)
+   ![picture](images/obaas-grafana-signin.png)
 
-   In the lower left there is a list of pre-installed dashbaords, click on the link to open the **Spring Boot Dashboard**. 
+   In the lower left there is a list of pre-installed dashboards, click on the link to open the **Spring Boot Dashboard**. 
 
-   ![pciture](images/obaas-grafana-home-page.png)
+   ![picture](images/obaas-grafana-home-page.png)
 
-   The Spring Boot Dashboard looks like the image below.  Use the **Instance** selctor at the top to choose which microservice you wish to view information for.
+   The Spring Boot Dashboard looks like the image below.  Use the **Instance** selector at the top to choose which microservice you wish to view information for.
 
-   ![pciture](images/obaas-grafana-spring-dashboard.png)
+   ![picture](images/obaas-grafana-spring-dashboard.png)
 
 ## Task 8: Explore Jaeger
 
@@ -374,7 +374,7 @@ Jaeger provides a way to view the distributed tracing information that is automa
     $ <copy>kubectl -n observability port-forward svc/jaegertracing-query 16686:16686</copy>
     ```
 
-   Open a web broswer to [http://localhost:16686](http://localhost:16686) to view the Jaeger web user interface.  It will appear similar to the image below. 
+   Open a web browser to [http://localhost:16686](http://localhost:16686) to view the Jaeger web user interface.  It will appear similar to the image below.
 
    ![Jaeger web user interface](images/obaas-jaeger-home-page.png)
 
