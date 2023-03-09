@@ -4,6 +4,8 @@
 
 This lab walks you through implementing the [Saga pattern](https://microservices.io/patterns/data/saga.html) using a [Long Running Action](https://download.eclipse.org/microprofile/microprofile-lra-1.0-M1/microprofile-lra-spec.html) to manage transactions across microservices.
 
+Watch this short introduction video to get an idea of what you will be building: [](youtube:gk4BMX-KuaY)
+
 Estimated Time: 30 minutes
 
 ### Objectives
