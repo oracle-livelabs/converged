@@ -2,7 +2,7 @@
 
 ## About this Workshop
 
-In this workshop you will learn how to build microservices using Spring Boot and deploy them to the Oracle Backend for Spring Boot.  You'll learn about accessing the database using JPA, service discovery, exposing services with the API Gateway, managing transactions across microservices, workflow, and using observability tools to monitor your services and diagnost issues.  You will also learn about building a web and mobile user interface for your services using Flutter and Parse Platform.
+In this workshop you will learn how to build microservices using Spring Boot and deploy them to the Oracle Backend for Spring Boot.  You'll learn about accessing the database using JPA, service discovery, exposing services with the API Gateway, managing transactions across microservices, workflow, and using observability tools to monitor your services and diagnose issues.  You will also learn about building a web and mobile user interface for your services using Flutter and Parse Platform.
 
 Learn more about this workshop by watching this short introductory video:  [](youtube:n5yJd7bEcy8)
 

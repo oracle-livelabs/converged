@@ -61,7 +61,7 @@ A Cloud Cash Payment Request Processor service (which you installed in the **Dep
 
 ## Task 2: Learn about Long Running Actions
 
-There are different models that can be used to coordinate transactions across services.  Three of the most common are XA (Extended Architcture) which focuses on strong consistency, LRA (Long Running Action) which provides eventual consistency, and TCC (Try-Confirm/Cancel) which uses a reservation model.  Oracle Backend for Spring Boot includes [Oracle Transaction Manager for Microservices](https://www.oracle.com/database/transaction-manager-for-microservices/) which supports all three of these options. 
+There are different models that can be used to coordinate transactions across services.  Three of the most common are XA (Extended Architecture) which focuses on strong consistency, LRA (Long Running Action) which provides eventual consistency, and TCC (Try-Confirm/Cancel) which uses a reservation model.  Oracle Backend for Spring Boot includes [Oracle Transaction Manager for Microservices](https://www.oracle.com/database/transaction-manager-for-microservices/) which supports all three of these options. 
 
 In this lab, you will explore the Long Running Action model.  In this model there is a logical coordinator and a number of participants.  Each participant is responsible for performing work and being able to compensate if necessary.  The coordinator essentially manages the lifecycle of the LRA, for example by telling participants when to cancel or complete.
 
@@ -937,7 +937,7 @@ Now, you will create another new Spring Boot microservice application and implem
 
 1. Create the project
 
-  Create a new directory called `transfer` in your `cloudbank` directory, i.e. the same directory where your `accounts` project is located.  In this new `transfer` directory, create a new file called `pom.xml` for your Maven POM.  This project is similar to the accounts project, there are no new concepts introduced here.  Here is the content for the POM file: 
+  Create a new directory called `transfer` in your `cloudbank` directory, i.e. the same directory where your `accounts` project is located.  In this new `transfer` directory, create a new file called `pom.xml` for your Maven POM.  This project is similar to the accounts project, there are no new concepts introduced here.  Here is the content for the POM file:
 
     ```xml
     <copy><?xml version="1.0" encoding="UTF-8"?>
@@ -950,7 +950,7 @@ Now, you will create another new Spring Boot microservice application and implem
             <version>2.7.8</version>
             <relativePath/>
         </parent>
-        <groupId>com.exmaple</groupId>
+        <groupId>com.example</groupId>
 
         <artifactId>transfer</artifactId>
         <version>0.0.1-SNAPSHOT</version>
@@ -1222,7 +1222,7 @@ Now, you will create another new Spring Boot microservice application and implem
 
    This method should perform the withdrawal by calling the Withdraw service in the Account Spring Boot application.  The `accountId` and `amount` need to be passed to the service, and you must set the `LRA_HTTP_CONTEXT_HEADER` to the LRA ID.  You can get the ID of the currently running LRA by calling `Current.peek()`. 
 
-    > **Note**: Normally the LRA inteceptors would automatically add the header for you, however in the version of the library you are using in this lab, that insertion is not working, so you need to do it manually.
+    > **Note**: Normally the LRA interceptors would automatically add the header for you, however in the version of the library you are using in this lab, that insertion is not working, so you need to do it manually.
 
     ```java
     <copy>private String withdraw(long accountId, long amount) {
@@ -1502,7 +1502,7 @@ Now you can test your LRA to verify it performs correctly under various circumst
 
     > **Note**: If you prefer, you can create a route in the APISIX API Gateway to expose the service.  The service will normally only be invoked from within the cluster, so you did not create a route for it.  However, you have learned how to create routes, so you may do that if you prefer.
 
-   Run this command to start the tunne:
+   Run this command to start the tunnel:
 
     ```shell
     $ <copy>kubectl -n application port-forward svc/transfer 8080:8080</copy>
