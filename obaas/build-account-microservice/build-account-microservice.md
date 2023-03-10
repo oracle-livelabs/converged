@@ -397,29 +397,30 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
       You will find a file called `application.properties` in the `src/main/resources` directory in your project.  You can use either properties format or YAML format for this file.  In this lab, you will use YAML.  Rename the file to `application.yaml` and then add this content to the file. Make sure that you modify the url to contain the path to the wallet and the name of the TNS entry you collected earlier.
 
         ```yaml
-        <copy>spring:
-        application:
+        <copy>
+        spring:
+          application:
             name: accounts
-        jpa:
+          jpa:
             hibernate:
             ddl-auto: validate
             properties:
             hibernate:
-                dialect: org.hibernate.dialect.Oracle12cDialect
-                format_sql: true
+              dialect: org.hibernate.dialect.Oracle12cDialect
+              format_sql: true
             show-sql: true
-        datasource:
+          datasource:
             url: jdbc:oracle:thin:@tns_entry_from_above?TNS_ADMIN=/path/to/wallet
             username: account
             password: Welcome1234##
             driver-class-name: oracle.jdbc.OracleDriver
             type: oracle.ucp.jdbc.PoolDataSource
             oracleucp:
-            connection-factory-class-name: oracle.jdbc.pool.OracleDataSource
-            connection-pool-name: AccountConnectionPool
-            initial-pool-size: 15
-            min-pool-size: 10
-            max-pool-size: 30</copy>
+              connection-factory-class-name: oracle.jdbc.pool.OracleDataSource
+              connection-pool-name: AccountConnectionPool
+              initial-pool-size: 15
+              min-pool-size: 10
+              max-pool-size: 30</copy>
         ```
 
    These parameters will be used by Spring Data JPA to automatically configure the data source and inject it into your application.  This configuration uses [Oracle Universal Connection Pool](https://docs.oracle.com/en/database/oracle/oracle-database/21/jjucp/index.html) to improve performance and better utilize system resources.  The settings in the `jpa.hibernate` section tell Spring Data JPA to use Oracle SQL syntax, and to show the SQL statements in the log, which is useful during development when you may wish to see what statements are being executed as your endpoints are called.
