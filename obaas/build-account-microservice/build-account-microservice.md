@@ -397,24 +397,25 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
       You will find a file called `application.properties` in the `src/main/resources` directory in your project.  You can use either properties format or YAML format for this file.  In this lab, you will use YAML.  Rename the file to `application.yaml` and then add this content to the file. Make sure that you modify the url to contain the path to the wallet and the name of the TNS entry you collected earlier.
 
         ```yaml
-        <copy>spring:
+        <copy>
+        spring:
           application:
-              name: accounts
+            name: accounts
           jpa:
-              hibernate:
-              ddl-auto: validate
-              properties:
-              hibernate:
-                  dialect: org.hibernate.dialect.Oracle12cDialect
-                  format_sql: true
-              show-sql: true
+            hibernate:
+            ddl-auto: validate
+            properties:
+            hibernate:
+              dialect: org.hibernate.dialect.Oracle12cDialect
+              format_sql: true
+            show-sql: true
           datasource:
-              url: jdbc:oracle:thin:@tns_entry_from_above?TNS_ADMIN=/path/to/wallet
-              username: account
-              password: Welcome1234##
-              driver-class-name: oracle.jdbc.OracleDriver
-              type: oracle.ucp.jdbc.PoolDataSource
-              oracleucp:
+            url: jdbc:oracle:thin:@tns_entry_from_above?TNS_ADMIN=/path/to/wallet
+            username: account
+            password: Welcome1234##
+            driver-class-name: oracle.jdbc.OracleDriver
+            type: oracle.ucp.jdbc.PoolDataSource
+            oracleucp:
               connection-factory-class-name: oracle.jdbc.pool.OracleDataSource
               connection-pool-name: AccountConnectionPool
               initial-pool-size: 15
