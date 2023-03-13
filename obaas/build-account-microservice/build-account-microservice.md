@@ -1020,7 +1020,7 @@ If you would like to learn more about endpoints and implement the remainder of t
    Create a database "binding" by tunning this command.  Enter the password (`Welcome1234##`) when prompted.  This will create a Kubernetes secret in the `application` namespace called `account-db-secrets` which contains the username (`account`), password, and URL to connect to the Oracle Autonomous Database instance associated with the Oracle Backend for Spring Boot.
 
     ```shell
-    oractl:> <copy>bind --appName application --serviceName account --springBindingPrefix spring.db</copy>
+    oractl:> <copy>bind --appName application --serviceName account</copy>
     database password/servicePassword (defaults to Welcome12345): 
     database secret created successfully and schema already exists for account
     ```
