@@ -176,10 +176,10 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
         @RequestMapping("/api/v1")
         public class AccountController {
             
-        @GetMapping("/hello")
-        public String ping() {
+          @GetMapping("/hello")
+          public String ping() {
             return "Hello from Spring Boot";
-        }
+          }
         
         }</copy>
         ```
@@ -398,28 +398,28 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
 
         ```yaml
         <copy>spring:
-        application:
-            name: accounts
-        jpa:
-            hibernate:
-            ddl-auto: validate
-            properties:
-            hibernate:
-                dialect: org.hibernate.dialect.Oracle12cDialect
-                format_sql: true
-            show-sql: true
-        datasource:
-            url: jdbc:oracle:thin:@tns_entry_from_above?TNS_ADMIN=/path/to/wallet
-            username: account
-            password: Welcome1234##
-            driver-class-name: oracle.jdbc.OracleDriver
-            type: oracle.ucp.jdbc.PoolDataSource
-            oracleucp:
-            connection-factory-class-name: oracle.jdbc.pool.OracleDataSource
-            connection-pool-name: AccountConnectionPool
-            initial-pool-size: 15
-            min-pool-size: 10
-            max-pool-size: 30</copy>
+          application:
+              name: accounts
+          jpa:
+              hibernate:
+              ddl-auto: validate
+              properties:
+              hibernate:
+                  dialect: org.hibernate.dialect.Oracle12cDialect
+                  format_sql: true
+              show-sql: true
+          datasource:
+              url: jdbc:oracle:thin:@tns_entry_from_above?TNS_ADMIN=/path/to/wallet
+              username: account
+              password: Welcome1234##
+              driver-class-name: oracle.jdbc.OracleDriver
+              type: oracle.ucp.jdbc.PoolDataSource
+              oracleucp:
+              connection-factory-class-name: oracle.jdbc.pool.OracleDataSource
+              connection-pool-name: AccountConnectionPool
+              initial-pool-size: 15
+              min-pool-size: 10
+              max-pool-size: 30</copy>
         ```
 
    These parameters will be used by Spring Data JPA to automatically configure the data source and inject it into your application.  This configuration uses [Oracle Universal Connection Pool](https://docs.oracle.com/en/database/oracle/oracle-database/21/jjucp/index.html) to improve performance and better utilize system resources.  The settings in the `jpa.hibernate` section tell Spring Data JPA to use Oracle SQL syntax, and to show the SQL statements in the log, which is useful during development when you may wish to see what statements are being executed as your endpoints are called.
@@ -922,9 +922,9 @@ If you would like to learn more about endpoints and implement the remainder of t
 
     ```yaml
     <copy>datasource:
-      url: ${CONNECT_STRING}
-      username: ${DB_USERNAME}
-      password: ${DB_PASSWORD}</copy>
+      url: ${spring.datasource.url}
+      username: ${spring.datasource.username}
+      password: ${spring.datasource.password}</copy>
     ```
 
 1. Add the client and configuration for the Spring Eureka Service Registry
