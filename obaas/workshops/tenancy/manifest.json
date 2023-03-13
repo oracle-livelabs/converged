@@ -1,7 +1,7 @@
 {
     "workshoptitle": "Oracle Backend Platform for Microservices with Oracle Database",
     "variables": ["../../variables/variables.json"],
-    "help": "livelabs-help-db_us@oracle.com",
+    "help": "obaas_ww@oracle.com",
     "tutorials": [
         {
             "title": "Introduction",
