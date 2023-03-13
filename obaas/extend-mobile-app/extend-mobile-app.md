@@ -39,11 +39,20 @@ The sample CloudBank mobile application is provided as a starting point.  It alr
     $ <copy>cd microservices-datadriven/cloudbank-v2/flutter-app</copy>
     ```
 
+1. Download the dependencies
+
+   Run this command to download the dependencies for this project: 
+
+    ```shell
+    $ <copy>dart pub get</copy>
+    ```
+
+
 ## Task 2: Run the application as-is against your environmnet
 
 1. Update the application to point to your Oracle Backend for Spring Boot instance
 
-   Open the `main.dart` file in Visual Studio Code and update the following two lines of code. 
+   Open the `lib/main.dart` file in Visual Studio Code and update the following two lines of code. 
 
     ```
     <copy>const ServerUrl = "1.2.3.4";
@@ -60,7 +69,34 @@ The sample CloudBank mobile application is provided as a starting point.  It alr
 
    You need the address listed under `EXTERNAL-IP`.
 
-   The value for `APPLICATION_ID` was provided in the summary at the end of the apply/install log, it is called **parse_application_id** and is a alphanumeric string.  You were asked to keep keep a copy of that information at the end of the **Provision an instance** lab.  If you do not have it, you can go to the OCI Console and navigate to the main ("hamburger") menu then **Developer Services** and **Stacks** under the **Resource Manager** heading.  Make sure you have the right compartment (left hand side drop down) and region (top right).  Open your stack and then open the apply job and scroll to the end of the log.
+   The value for `APPLICATION_ID` was provided in the summary at the end of the apply/install log, it is called `parse_application_id` and is a alphanumeric string.  You were asked to keep keep a copy of that information at the end of the **Provision an instance** lab.  If you do not have it, you can go to the OCI Console and navigate to the main ("hamburger") menu then **Developer Services** and **Stacks** under the **Resource Manager** heading.  Make sure you have the right compartment (left hand side drop down) and region (top right).  Open your stack and then open the apply job and scroll to the end of the log.
+
+1. Create a user and some bank accounts 
+
+   The application needs a user in the backend so that it can login.  Create a user with a command like this, note that you must your IP address and parse application ID (the same ones you used in the previous step).  You can change the username and password if you wish:
+
+    ```shell
+    $ <copy>curl -X POST \
+        -H "X-Parse-Application-Id: APPLICATION_ID"  \
+        -H "Content-Type: application/json" \
+        -d '{"username":"mark","password":"welcome1","phone":"605-555-1212"}' \
+         http://100.20.30.40/parse/users</copy>
+    {"objectId":"H1O3VQd40J","createdAt":"2023-03-13T16:35:46.369Z","sessionToken":"r:59f90218ffb3c0963a20423a4dc92001"}
+    ```
+
+   Note the `objectId` in the response (yours will be different) and then create some accounts with that objectId and some iniital balance by running these SQL statements in the SQL Worksheet or SQLcl.  **Note**: You learned how to get access to SQL Worksheet in the previous lab **Explore the Backend Platform** in Task 2.
+
+   Make sure you update the `customer_id` to match the `objectId` from the output of the last command, as shown here: 
+
+    ```sql
+    <copy>
+    insert into account.accounts (account_name,account_type,customer_id,account_other_details,account_balance)
+    values ('Mark''s checking','CH','H1O3VQd40J','Account Info',800);
+    insert into account.accounts (account_name,account_type,customer_id,account_other_details,account_balance)
+    values ('Mark''s CCard','CC','H1O3VQd40J','Mastercard account',1000);
+    commit;
+    </copy>
+    ```    
 
 1. Build and run the application
 
@@ -115,10 +151,7 @@ The sample CloudBank mobile application is provided as a starting point.  It alr
             child: Container(
                height: 50,
                padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-               child: ElevatedButton(
-                  child: const Text('Send Cash Now'),
-                  onPressed: () => GoRouter.of(context).go('/home'),
-               ),
+               child: const Text("CloudCash screen will go here"),
             ),
             ),
          );
@@ -127,7 +160,7 @@ The sample CloudBank mobile application is provided as a starting point.  It alr
     </copy>  
     ```
 
-    This will create a new screen with an "AppBar" with the title "Cloud Cash" and a single button labeled "Send Cash Now" that will just return to the home page when pressed.  This screen will look like this: 
+    This will create a new screen with an "AppBar" with the title "Cloud Cash" and a text field so you know you got the the right screen.  This screen will look like this: 
 
     ![First Cloud Cash Scrren](images/obaas-flutter-first-cloud-cash-screen.png)
 
@@ -195,7 +228,7 @@ The sample CloudBank mobile application is provided as a starting point.  It alr
 
    At this point, you have done enough to be able to run the application again and navigate from the home page to the new Cloud Cash page and back.  Note that you cannot simply refresh since the routes are loaded at startup time and are not dynamic.  Hit Ctrl+C (or equivalent) to stop the application and then start it again with th command `flutter run`.
 
-   Login and then click on the "Send Cash Now" link the in the Cloud Cash card.  You will see the new Cloud Cash page.  Click on the button to return to the home screen.
+   Login and then click on the "Send Cash Now" link the in the Cloud Cash card.  You will see the new Cloud Cash page.  
 
 ## Task 4: Build the real user interface for the **Cloud Cash** feature
 
@@ -417,7 +450,11 @@ For the account selector field, you need to get a list of accounts by calling th
    To accept the credentials in this widget, you will need to update the `CloudCash` class to have a `creds` property and update the constructor.  The updated code is as follows:
 
     ```dart
-    <copy>class CloudCash extends StatefulWidget {
+    <copy>import 'package:loginapp/components/credentials.dart';
+    
+    // ...
+    
+    class CloudCash extends StatefulWidget {
       final Credentials creds;
 
       const CloudCash({Key? key, required this.creds}) : super(key: key);
@@ -451,9 +488,11 @@ For the account selector field, you need to get a list of accounts by calling th
 
    Now you will have access to the credentials to get the customer ID.
 
+   You also need to remove the `GoRoute` entry in `main.dart` that you created for `/cloudcash` since this did not pass the credentials, and it is no longer needed.
+
 1. Add a UI component to display the drop down selector on the screen
 
-   In the `build()` method, insert a new `Container` between the existing first container ("Send cash to anyone instantly") and the second container ("Email address of recipient").  This new `Container` should contain a `FutureBuilder<Accounts>`.  A `FutureBuilder` lets you deal with data that may not be present yet.  Set the `future` property to your `futureData` variable.  In the `buidler`, which receives `context, snapshot`, check if `snapshot.hasData` to see if the future has completed yet.  If this is `true` then you can expect to have the data available to render the UI.  If it is not `true`, you can check if `shapshot.hasError` if you want to handle errors or just return a generic error.
+   Back in `cloudcash.dart`, in the `build()` method, insert a new `Container` between the existing first container ("Send cash to anyone instantly") and the second container ("Email address of recipient").  This new `Container` should contain a `FutureBuilder<Accounts>`.  A `FutureBuilder` lets you deal with data that may not be present yet.  Set the `future` property to your `futureData` variable.  In the `buidler`, which receives `context, snapshot`, check if `snapshot.hasData` to see if the future has completed yet.  If this is `true` then you can expect to have the data available to render the UI.  If it is not `true`, you can check if `shapshot.hasError` if you want to handle errors or just return a generic error.
 
    If the future has completed, you can check `snapshot.data` to get access to the data.  You will need to iterate through the results and use them to populate the drop down list, you will do that in a moment, the code is commented out in the example below.
 
@@ -593,7 +632,7 @@ The final piece to complete the Cloud Cash feature is to handle the form submiss
 
 1. Update the button to pass in the data
 
-   You now need to update the button's `onPressed` property to pass in the data to this updated function.  You need to pass the context and then the destination email address, the amount and the source account.  Here is the updated code:
+   You now need to update the "Send Cash Now" button's `onPressed` property to pass in the data to this updated function.  You need to pass the context and then the destination email address, the amount and the source account.  Here is the updated code:
 
     ```dart
     <copy>onPressed: () {
