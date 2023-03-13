@@ -126,20 +126,20 @@ Download a copy of the CloudBank sample application.
 	
 	1. Account Service
 
-		Create a database "binding" by tunning this command. Enter the password (`Welcome1234##`) when prompted.  This will create a Kubernetes secret in the `application` namespace called `account-db-secrets` which contains the username (`account`), password, and URL to connect to the Oracle Autonomous Database instance associated with the Oracle Backend for Spring Boot.
+		Create a database "binding" by running this command. Enter the password (`Welcome1234##`) when prompted.  This will create a Kubernetes secret in the `application` namespace called `account-db-secrets` which contains the username (`account`), password, and URL to connect to the Oracle Autonomous Database instance associated with the Oracle Backend for Spring Boot.
 
 		```shell
-    	oractl:> <copy>bind --appName application --serviceName account --springBindingPrefix spring.db</copy>
+    	oractl:> <copy>bind --appName application --serviceName account</copy>
     	database password/servicePassword (defaults to Welcome12345): *************
     	database secret created successfully and schema already exists for account
     	```
 
 	2. Customer Service
 
-		Create a database "binding" by tunning this command. Enter the password (`Welcome1234##`) when prompted.  This will create a Kubernetes secret in the `application` namespace called `customer-db-secrets` which contains the username (`customer`), password, and URL to connect to the Oracle Autonomous Database instance associated with the Oracle Backend for Spring Boot.
+		Create a database "binding" by running this command. Enter the password (`Welcome1234##`) when prompted.  This will create a Kubernetes secret in the `application` namespace called `customer-db-secrets` which contains the username (`customer`), password, and URL to connect to the Oracle Autonomous Database instance associated with the Oracle Backend for Spring Boot.
 
 		```shell
-    	oractl:> <copy>bind --appName application --serviceName customer --springBindingPrefix spring.db</copy>
+    	oractl:> <copy>bind --appName application --serviceName customer</copy>
     	database password/servicePassword (defaults to Welcome12345): **************
     	database secret created successfully and schema already exists for customer
 		```
@@ -151,7 +151,7 @@ Download a copy of the CloudBank sample application.
 6. Deploy the services
 
 	**NOTE**: If you have finished Lab three (Build the Account Microservice) and Lab four (Manage Transactions across Microservices) you can skip step one (Deploy/Redeploy the Account Service) below and deploy the other services.
-	
+
 	1. Deploy/Redeploy the Account Service
 
 		You will now deploy your Account service to the Oracle Backend for Spring Boot using the CLI.  You will deploy into the `application` namespace, and the service name will be `account`. Run this command to deploy your service, make sure you provide the correct path to your JAR file:
@@ -211,126 +211,6 @@ Download a copy of the CloudBank sample application.
 	- Create the microservices deployment descriptor (k8s) with the resources supplied
 	- Applies the k8s deployment and create k8s object service to microservice
 
-1. **Temporary workaround until release of Oracle Backend for Spring Boot 0.2.2, expected 3/10/2023** 
-
-    Due to a bug in version 0.2.1 of the CLI, you will need to update the database credentials in the secret.  First, uuencode your password using this commmand, which assume your database password is `Welcome1234##`:
-
-    ```shell
-    $ <copy>echo -n "Welcome1234##" | base64</copy>
-    V2VsY29tZTEyMzQjIw==
-    ```
-
-   Then use the output from that command to patch the secret:
-
-    ```shell
-    $ <copy>kubectl -n application patch secret accounts-db-secrets -p='{"data":{"db.password":"V2VsY29tZTEyMzQjIw=="}}'</copy>
-    secret/accounts-db-secrets patched
-    ```
-
-   You also need to correct some of the variables and add a volume mount.  Create a file called `patch.json` with this content:
-
-	```json
-	<copy>
-	{
-      "spec": {
-        "template": {
-          "spec": { 
-            "containers": [
-              {
-                "name": "account",
-                "env": [
-                  {
-                    "name": "DB_USERNAME",
-                    "valueFrom": {
-                      "secretKeyRef": {
-                        "key": "db.username",
-                        "name": "account-db-secrets"
-                      }
-                    }
-                  },
-                  {
-                    "name": "DB_PASSWORD",
-                    "valueFrom": {
-                      "secretKeyRef": {
-                        "key": "db.password",
-                        "name": "account-db-secrets"
-                      }
-                    }
-                  }
-                ],
-                "volumeMounts": [
-                  {
-                    "mountPath": "/oracle/tnsadmin",
-                    "name": "tns-admin"
-                  }
-                ]
-              }
-            ],
-            "volumes": [
-              {
-                "name": "tns-admin",
-                "secret": {
-                  "defaultMode": 420,
-                  "secretName": "obaasdevdb-tns-admin"
-                }
-              }
-            ]
-          }
-        }
-      }
-    }</copy>
-	```
-
-   Update the `container.name` field to match the microservice you need to update, e.g. `account`, `customer` or `transfer`.
-
-   The name of the TNS Admin secret will be different in your environment.  You can get the name with this command: 
-
-    ```shell
-    $ <copy>kubectl -n application get secrets</copy>
-    NAME                     TYPE                             DATA   AGE
-    account-db-secrets       Opaque                           4      6m48s
-    encryption-secret-key    Opaque                           1      60m
-    markbank1db-db-secrets   Opaque                           5      64m
-    markbank1db-tns-admin    Opaque                           8      64m
-    private-key              Opaque                           1      60m
-    public-key               Opaque                           1      60m
-    registry-auth            kubernetes.io/dockerconfigjson   1      68m
-    registry-login           Opaque                           2      68m
-    tls-certificate          kubernetes.io/tls                4      60m
-    ```
-
-    In this example output, the correct name is `markbank1db-tns-admin`.  Yours will have a different prefix.  Before applying the patch file, update the name of this secret, it is the last one mentioned in the patch file.
-
-    You need to apply the patch to both the **account** and **customer** deployments - make sure you update the `container.name` to match (or just create two different patch files, one for each deployment).  Apply the patch with this command: 
-
-    ```shell
-    $ <copy>kubectl -n application patch deploy account -p "$(cat patch.json)"</copy>
-    ```
-
-    This will add the TNSADMIN volume mount to your account deployment (and its pods) and the environment variables required to read the database credentials from the appropriate secret.
-
-    Repeat this for the `customer` deployment.
-
-    Restart the `account` pod to pick up this change.  Use this command to shut down the pod:
-    
-    ```shell
-    $ <copy>kubectl -n application scale deploy account --replicas=0</copy>
-    ```
-
-   Wait until the `account` pod have finished terminating. You can check with this command:
-
-    ```shell
-    $ <copy>kubectl -n account get pods</copy>
-    ```
-
-   When the pod is terminated, restart the `account` pod` with this command:
-
-    ```shell
-    $ <copy>kubectl -n application scale deploy account --replicas=1</copy>
-    ```
-	
-    Repeat the restart procedures for the `customer` pod.
-
 ## Task 4: Verify the deployment of CloudBank
 
 1. Verification of the services deployment
@@ -354,7 +234,7 @@ Download a copy of the CloudBank sample application.
 
 1. Get APISIX Gateway Admin Key
 
-	You are going to need the Admin Key for the APISIX Gateway to configure the route. It is stored in a k8s ConfigMap. Run the command and make a note of the admin key. The command will return a long YAML document so you need to scroll up to find the Admin Key.
+	You are going to need the Admin Key for the APISIX Gateway to configure the route. It is stored in a k8s ConfigMap. Run the command and make a note of the admin key. The command will return a long YAML document, so you need to scroll up to find the Admin Key.
 
 	```shell
 	<copy>kubectl -n apisix get configmap apisix -o yaml</copy>
@@ -469,7 +349,7 @@ Download a copy of the CloudBank sample application.
 
    Open a web browser to [http://localhost:7070](http://localhost:7070) to view the APISIX Dashboard web user interface.  It will appear similar to the image below.
 
-   If prompted to login, login with user name `admin` and password `admin`.  Note that Oracle strongly recommends that you change the password, even though this interface is not accessible outside the cluster without a tunnel.
+   If prompted to login, login with username `admin` and password `admin`.  Note that Oracle strongly recommends that you change the password, even though this interface is not accessible outside the cluster without a tunnel.
 
     ![APISIX Dashboard Login](images/apisix-login.png " ")
 
