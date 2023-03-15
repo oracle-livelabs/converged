@@ -591,8 +591,8 @@ The Data Access Object pattern is considered a best practice and it allows separ
 
    Create a method to get the account for a given account ID. 
 
-    ```<copy>java
-        Account getAccountForAccountId(long accountId) {
+    ```java
+    <copy>Account getAccountForAccountId(long accountId) {
         Account account = accountRepository.findByAccountId(accountId);
         if (account == null)
             return null;
@@ -604,7 +604,7 @@ The Data Access Object pattern is considered a best practice and it allows separ
 
     ```java
     <copy>Account getAccountForJournal(Journal journal) throws Exception {
-    Account account = accountRepository.findByAccountId(journal.getAccountId());
+        Account account = accountRepository.findByAccountId(journal.getAccountId());
         if (account == null) throw new Exception("Invalid accountName:" + journal.getAccountId());
         return account;
     }</copy>
