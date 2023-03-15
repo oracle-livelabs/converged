@@ -589,6 +589,17 @@ The Data Access Object pattern is considered a best practice and it allows separ
 
 1. Create methods to manage accounts
 
+   Create a method to get the account for a given account ID. 
+
+    ```<copy>java
+        Account getAccountForAccountId(long accountId) {
+        Account account = accountRepository.findByAccountId(accountId);
+        if (account == null)
+            return null;
+        return account;
+    }</copy>
+    ```
+
    Create a method to get the account that is related to a journal entry.
 
     ```java
@@ -1013,16 +1024,21 @@ Now, you will create another new Spring Boot microservice application and implem
     <copy>
     server:
       port: 8080
-
-    deposit:
-      account:
-        service:
-          url: http://account.application:8080/deposit
-    withdraw:
-      account:
-        service:
-          url: http://account.application:8080/withdraw
-
+    
+    account:
+      deposit:
+        url: http://account.application:8080/deposit/deposit
+      withdraw:
+        url: http://account.application:8080/withdraw/withdraw
+    transfer:
+      cancel:
+        url: http://transfer.application:8080/cancel
+        process:
+          url: http://transfer.application:8080/processcancel
+      confirm:
+        url: http://transfer.application:8080/confirm
+        process:
+          url: http://transfer.application:8080/processconfirm
     lra:
       coordinator:
         url: http://otmm-tcs.otmm.svc.cluster.local:9000/api/v1/lra-coordinator
@@ -1034,7 +1050,7 @@ Now, you will create another new Spring Boot microservice application and implem
    Create a new directory called `src/main/java/com/example/transfer` and in that directory, create a new Java file called `TransferApplication.java`.  This will be the main application file for the Spring Boot application.  This is a standard application class, there are no new concepts introduced.  Here is the content for this file: 
 
     ```java
-    package com.example.transfer;
+    <copy>package com.example.transfer;
 
     import org.springframework.boot.SpringApplication;
     import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -1045,7 +1061,7 @@ Now, you will create another new Spring Boot microservice application and implem
         public static void main(String[] args) {
             SpringApplication.run(TransferApplication.class, args);
         }
-    }
+    }</copy>
     ```
 
 1. Create the Application Configuration class
@@ -1058,28 +1074,35 @@ Now, you will create another new Spring Boot microservice application and implem
     ```java
     <copy>package com.example.transfer;
 
-    import io.narayana.lra.client.NarayanaLRAClient;
     import org.springframework.beans.factory.annotation.Value;
-    import org.springframework.context.annotation.Bean;
     import org.springframework.context.annotation.Configuration;
 
-    import java.net.URISyntaxException;
-    import java.util.logging.Logger;
+    import io.narayana.lra.client.NarayanaLRAClient;
 
     @Configuration
     public class ApplicationConfig {
-        private static final Logger log = Logger.getLogger(ApplicationConfig.class.getName());
+        static String accountWithdrawUrl;
+        static String accountDepositUrl;
+        static String transferCancelURL;
+        static String transferCancelProcessURL;
+        static String transferConfirmURL;
+        static String transferConfirmProcessURL;
 
-        public ApplicationConfig(@Value("${lra.coordinator.url}") String lraCoordinatorUrl) {
-            log.info(NarayanaLRAClient.LRA_COORDINATOR_URL_KEY + " = " + lraCoordinatorUrl);
+        public ApplicationConfig(@Value("${lra.coordinator.url}") String lraCoordinatorUrl,
+                @Value("${account.withdraw.url}") String accountWithdrawUrl,
+                @Value("${account.deposit.url}") String accountDepositUrl,
+                @Value("${transfer.cancel.url}") String transferCancelURL,
+                @Value("${transfer.cancel.process.url}") String transferCancelProcessURL,
+                @Value("${transfer.confirm.url}") String transferConfirmURL,
+                @Value("${transfer.confirm.process.url}") String transferConfirmProcessURL) {
             System.getProperties().setProperty(NarayanaLRAClient.LRA_COORDINATOR_URL_KEY, lraCoordinatorUrl);
+            this.accountWithdrawUrl = accountWithdrawUrl;
+            this.accountDepositUrl = accountDepositUrl;
+            this.transferCancelURL = transferCancelURL;
+            this.transferCancelProcessURL = transferCancelProcessURL;
+            this.transferConfirmURL = transferConfirmURL;
+            this.transferConfirmProcessURL = transferConfirmProcessURL;
         }
-
-        @Bean
-        public NarayanaLRAClient NarayanaLRAClient() throws URISyntaxException {
-            return new NarayanaLRAClient();
-        }
-
     }</copy>
     ```
 
@@ -1165,6 +1188,20 @@ Now, you will create another new Spring Boot microservice application and implem
         private URI transferProcessCancelUri;
         private URI transferProcessConfirmUri;
     
+        @PostConstruct
+        private void initController() {
+            try {
+                withdrawUri = new URI(ApplicationConfig.accountWithdrawUrl);
+                depositUri = new URI(ApplicationConfig.accountDepositUrl);
+                transferCancelUri = new URI(ApplicationConfig.transferCancelURL);
+                transferConfirmUri = new URI(ApplicationConfig.transferConfirmURL);
+                transferProcessCancelUri = new URI(ApplicationConfig.transferCancelProcessURL);
+                transferProcessConfirmUri = new URI(ApplicationConfig.transferConfirmProcessURL);
+            } catch (URISyntaxException ex) {
+                throw new IllegalStateException("Failed to initialize " + TransferService.class.getName(), ex);
+            }
+        }
+
     }</copy>
     ```
 
