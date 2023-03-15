@@ -604,7 +604,7 @@ The Data Access Object pattern is considered a best practice and it allows separ
 
     ```java
     <copy>Account getAccountForJournal(Journal journal) throws Exception {
-        Account account = accountRepository.findByAccountId(journal.getAccountId());
+    Account account = accountRepository.findByAccountId(journal.getAccountId());
         if (account == null) throw new Exception("Invalid accountName:" + journal.getAccountId());
         return account;
     }</copy>
