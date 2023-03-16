@@ -5,7 +5,11 @@
       {
         "title": "Get started",
         "description": "Login to Oracle Cloud",
+<<<<<<< HEAD
         "filename": "https://objectstorage.us-phoenix-1.oraclecloud.com/p/SJgQwcGUvQ4LqtQ9xGsxRcgoSN19Wip9vSdk-D_lBzi7bhDP6eG1zMBl0I21Qvaz/n/c4u02/b/common/o/labs/cloud-login/cloud-login-livelabs2.md"
+=======
+        "filename": "https://oracle-livelabs.github.io/common/labs/cloud-login/pre-register-free-tier-account.md"
+>>>>>>> upstream/main
       },
       {
         "title": "Introduction",
@@ -13,7 +17,11 @@
       },
       {
         "title": "Lab 1: Setup",
+<<<<<<< HEAD
         "filename": "../../setup/setup-gb.md"
+=======
+        "filename": "../../../microservices-with-converged-db/setup/setup-gb.md"
+>>>>>>> upstream/main
       },
       {
         "title": "Lab 2: Deploy and Test Data-centric Microservices Application",
@@ -26,34 +34,54 @@
         "type": "livelabs"
       },
       {
+<<<<<<< HEAD
         "title": "Lab 4: Configure Alert Channel",
+=======
+        "title": "Lab 4: (Optional) Configure Alert Channel",
+>>>>>>> upstream/main
         "filename": "../../configure-alert-channel/configure-alert-channel.md",
         "type": "livelabs"
       },
       {
+<<<<<<< HEAD
         "title": "Lab 5: Diagnosability and Debugging Use Case",
         "filename": "../../diagnosability-usecase/diagnosability-usecase.md",
         "type": "livelabs"
       },
       {
         "title": "Lab 6: Performance Analysis Use Case",
+=======
+        "title": "Lab 5: Performance Analysis Use Case",
+>>>>>>> upstream/main
         "filename": "../../performance-usecase/performance-usecase.md",
         "type": "livelabs"
       },
       {
+<<<<<<< HEAD
         "title": "Lab 7: Better Understand and Modify Metrics, Logging, and Tracing",
+=======
+        "title": "Lab 6: Better Understand and Modify Metrics, Logging, and Tracing",
+>>>>>>> upstream/main
         "filename": "../../extended-usage/extended-usage.md",
         "type": "livelabs"
       },
       {
+<<<<<<< HEAD
         "title": "Lab 8: Tear down",
+=======
+        "title": "Lab 7: Tear down",
+>>>>>>> upstream/main
         "filename": "../../../microservices-with-converged-db/teardown/teardown.md",
         "type": "livelabs"
       },
       {
         "title": "Need Help?",
         "description": "Solutions to Common Problems and Directions for Receiving Live Help",
+<<<<<<< HEAD
         "filename":"https://objectstorage.us-phoenix-1.oraclecloud.com/p/SJgQwcGUvQ4LqtQ9xGsxRcgoSN19Wip9vSdk-D_lBzi7bhDP6eG1zMBl0I21Qvaz/n/c4u02/b/common/o/labs/need-help/need-help-livelabs.md"
+=======
+        "filename":"https://oracle-livelabs.github.io/common/labs/need-help/need-help-livelabs.md"
+>>>>>>> upstream/main
       }
     ]
 }

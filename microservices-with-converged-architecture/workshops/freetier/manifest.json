@@ -1,0 +1,43 @@
+{
+  "workshoptitle": "Simplify Microservices with a 2-tier Converged Database Architecture",
+  "help": "richard.exley@oracle.com",
+	"tutorials": [
+      {
+        "title": "Introduction",
+        "filename": "../../intro/intro.md"
+      },
+      {
+        "title": "Get started",
+        "filename": "https://oracle-livelabs.github.io/common/labs/cloud-login/cloud-login.md"
+      },
+      {
+        "title": "Lab 1: Additional setup for non-admin tenancy users",
+        "filename": "../../non-admin-setup/non-admin-setup.md"
+      },
+      {
+        "title": "Lab 2: Setup",
+        "filename": "../../setup/setup.md"
+      },
+      {
+        "title": "Lab 3: Deploy the grabdish application and logon",
+        "filename": "../../deploy-grabdish/deploy-grabdish.md"
+      },
+      {
+        "title": "Lab 4: Walkthrough the grabdish functionality implemented in PL/SQL",
+        "filename": "../../walkthrough-plsql/walkthrough-plsql.md"
+      },
+      {
+        "title": "Lab 5: Switch to the MLE JavaScript microservice implementation",
+        "filename": "../../walkthrough-js/walkthrough-js.md"
+      },
+      {
+        "title": "Lab 6: Tear down",
+        "filename": "../../teardown/teardown.md"
+      },
+      {
+        "title": "Need Help?",
+        "description": "Solutions to Common Problems and Directions for Receiving Live Help",
+        "filename":"https://oracle-livelabs.github.io/common/labs/need-help/need-help-freetier.md"
+      }
+    ]
+}

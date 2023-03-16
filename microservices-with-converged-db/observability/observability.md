@@ -44,7 +44,7 @@ You will see some warning messages related to configmaps not existing as this is
 
 ## Task 2: Launch Grafana Dashboard
 
-1. Identify the EXTERNAL-IP address of the Grafana LoadBalancer by executing the following command:
+1. Identify the EXTERNAL-IP address of the `ingress-nginx-controller` by executing the following command:
 
        ```
        <copy>services</copy>
@@ -54,9 +54,9 @@ You will see some warning messages related to configmaps not existing as this is
 
      Note, it will take a few minutes for the LoadBalancer to provision during which time it will be in a `pending` state
 
-2. Open a new browser tab and enter the external IP URL:
+2. Open a new browser tab and enter the external IP of the `ingress-nginx-controller` appended with the `grafana` path as the URL :
 
-     `https://<EXTERNAL-IP>`
+     `https://<EXTERNAL-IP>/grafana`
 
       Note, for convenience a self-signed certificate is used to secure this https address and so you will be prompted by the browser to allow access.
 

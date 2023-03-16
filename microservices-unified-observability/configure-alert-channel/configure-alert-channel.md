@@ -54,6 +54,7 @@ Estimated Time:  5 minutes
      ![Copy Webhook URL](images/copythewebhookurl.png " ")
      
 
+<<<<<<< HEAD
 ## Task 2: Configure Alert Channel for Slack notifications
 
 1. Add a Slack Notification channel in Grafana and configure it with the webhook URL.
@@ -92,3 +93,48 @@ You may now **proceed to the next lab.**.
 ## Acknowledgements
 * **Author** - Paul Parkinson, Architect and Developer Advocate
 * **Last Updated By/Date** - Paul Parkinson, August 2021
+=======
+## Task 2: Configure Contact Points for Slack notifications
+
+1. Add a Slack Notification Contact Point in Grafana and configure it with the webhook URL.
+
+   Select the alarm bell icon on the left-hand side of Grafana and select `Contact points` under the `Alerting` menu.
+
+     ![Contact Points](images/contactpoints.png " ")
+
+   Click `New contact point`
+
+     ![Click Add Contact Point](images/newcontactpoint.png " ")
+     
+   Name the channel, select `Slack` from the dropdown 
+   
+     ![New Contact Point](images/contactpointtypeslack.png " ")
+     
+   Paste the Webhook URL in the appropriate textfield. 
+   
+     ![Enter WebHook](images/webhookurlinslack.png " ")
+
+   Save Contact Point.
+
+2. Test Slack contact point
+
+      Click `Send test notification` button and notice test notification sent to Slack.
+     
+     ![Test Alert](images/testalertinslack.png " ")
+
+3. Set Slack as default contact point
+
+   On the main `Alerting` page, select the `Notification polices` tab, select `Slack contact point` in the  `Default contact point` drop down list, and click `Save` button.
+
+   ![Test Alert](images/notificationpolicies.png " ")
+    
+You may now **proceed to the next lab.**.
+
+## Learn More
+
+* Ask for help and connect with developers on the [Oracle DB Microservices Slack Channel](https://bit.ly/oracle-db-microservices-help-slack)   
+
+## Acknowledgements
+* **Author** - Paul Parkinson, Architect and Developer Advocate;
+* **Last Updated By/Date** - Paul Parkinson, June 2022
+>>>>>>> upstream/main

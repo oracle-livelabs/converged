@@ -373,7 +373,7 @@ Now that your environment is configured and you can connect to database from Pyt
 In this section you will connect to the Oracle database you provisioned in your previous lab. This is the database environment that you configured your Python programs to connect to.
 
 1. Go back to your ATP screen by clicking on the Hamburger Menu -> **Autonomous Transaction Processing**
-    ![](https://objectstorage.us-phoenix-1.oraclecloud.com/p/SJgQwcGUvQ4LqtQ9xGsxRcgoSN19Wip9vSdk-D_lBzi7bhDP6eG1zMBl0I21Qvaz/n/c4u02/b/common/o/images/console/database-atp.png " ")
+    ![](https://oracle-livelabs.github.io/common/images/console/database-atp.png " ")
 
 2. Click on the **Display Name,**
 

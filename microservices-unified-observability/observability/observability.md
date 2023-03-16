@@ -2,13 +2,24 @@
 
 ## Introduction
 
+<<<<<<< HEAD
 This lab will show you how you can trace microservice activity using Jaeger.
+=======
+This lab will show you how to view and correlate metrics, logs, and tracing of application and data tiers in a single Grafana dashboard.
+
+Please see the  [Unified Observability in Grafana with converged Oracle Database Workshop](http://bit.ly/unifiedobservability) 
+for an more in-depth look at this topic including details of the metrics, logs, and tracing exporters.
+>>>>>>> upstream/main
 
 Estimated Time: 25 minutes
 
 Watch the video below for a quick walk through of the lab.
 
+<<<<<<< HEAD
 [](youtube:MuoMHJ54PHE)
+=======
+[](youtube:hg2gihhblZ8)
+>>>>>>> upstream/main
 
 ### Objectives
 
@@ -28,6 +39,12 @@ Watch the video below for a quick walk through of the lab.
     <copy>cd $GRABDISH_HOME/observability;./install.sh</copy>
     ```
 
+<<<<<<< HEAD
+=======
+   You will see some warning messages related to versions, .kube/config, etc. that may safely be ignored.
+
+
+>>>>>>> upstream/main
 2. Run the `/createMonitorsAndExporters.sh` script. This will do the following:
    - Create Prometheus ServiceMonitors to scrape the Frontend, Order, and Inventory microservices.
    - Create Prometheus ServiceMonitors to scrape the Order PDB, and Inventory PDB metric exporter services.
@@ -38,14 +55,23 @@ Watch the video below for a quick walk through of the lab.
     <copy>cd $GRABDISH_HOME/observability;./createMonitorsAndExporters.sh</copy>
     ```
 
+<<<<<<< HEAD
 ## Task 2: Configure Grafana
 
 1. Identify the EXTERNAL-IP address of the Grafana LoadBalancer by executing the following command:
+=======
+   You will see some warning messages related to configmaps not existing, as this is the initial setup, that may safely be ignored.
+
+## Task 2: Configure Grafana
+
+1. Identify the EXTERNAL-IP address of the `ingress-nginx-controller` service by executing the following command:
+>>>>>>> upstream/main
 
        ```
        <copy>services</copy>
        ```
 
+<<<<<<< HEAD
      ![Grafana LB](images/grafana-loadbalancer-externalip.png " ")
 
      Note, it will take a few minutes for the LoadBalancer to provision during which time it will be in a `pending` state
@@ -61,14 +87,39 @@ Watch the video below for a quick walk through of the lab.
       ![Grafana login](images/grafana_login_screen.png " ")
 
 4. View pre-configured Prometheus data source:
+=======
+     ![Grafana LB IP](images/grafana-loadbalancer-externalip.png " ")
+
+     Note, it will take a few minutes for the LoadBalancer to provision during which time it will be in a `pending` state
+
+2. Open a new browser tab and enter the external IP of the `ingress-nginx-controller` appended with the `grafana` path as the URL :
+
+   `https://<EXTERNAL-IP>/grafana`
+
+      Note, for convenience a self-signed certificate is used to secure this https address and so you will be prompted by the browser to allow access.
+
+3. Login using the default username `admin` and password `prom-operator` . Do not save the login as part of browser settings if prompted. 
+
+      ![Grafana Login](images/grafana_login_screen.png " ")
+
+   #### Note that if the Grafana console is not used for a period of time, when attempting to access the url again you may encounter a `invalid username or password` error in which case you will need to clear the history/cache for the Grafana console (admin user) to log in again.
+
+5. View pre-configured Prometheus data source:
+>>>>>>> upstream/main
 
     Select the `Configuration` gear icon on the left-hand side and select `Data Sources`.
 
       ![Configuration](images/configurationdatasourcesidemenu.png " ")
 
+<<<<<<< HEAD
     Click `select` button of Prometheus option.
 
       ![Select Prometheus](images/selectprometheusdatasource.png " ")
+=======
+    Click the Prometheus option.
+
+      ![Select](images/selectprometheusdatasource.png " ")
+>>>>>>> upstream/main
 
     The URL for Prometheus should be pre-populated
 
@@ -80,6 +131,7 @@ Watch the video below for a quick walk through of the lab.
 
     Click the `Back` button.
 
+<<<<<<< HEAD
 5. Select the `Data sources` tab and select `Jaeger`
 
     Click `Add data source`.
@@ -91,6 +143,23 @@ Watch the video below for a quick walk through of the lab.
       ![Click select](images/addjaegerdatasource.png " ")
 
     Enter `http://jaeger-query.msdataworkshop:8086/jaeger` in the URL field.
+=======
+6. Select the `Data sources` tab and select `Jaeger`
+
+    Click `Add data source`.
+
+      ![Add data source](images/adddatasourcebutton.png " ")
+
+    Click the Jaeger option.
+
+      ![Select Jaeger](images/addjaegerdatasource.png " ")
+
+    Copy and paste the following address in the URL field
+    
+    ```
+    <copy>http://jaeger-query.msdataworkshop:8086/jaeger</copy>
+    ```
+>>>>>>> upstream/main
 
       ![Jaeger URL](images/jaegerdatasourceurl.png " ")
 
@@ -99,6 +168,7 @@ Watch the video below for a quick walk through of the lab.
 
     Click the `Back` button.
 
+<<<<<<< HEAD
 6. Add and configure Loki data source:
 
     Click `Add data source`.
@@ -135,6 +205,71 @@ Watch the video below for a quick walk through of the lab.
       ![Trace id from span](images/traceidfromspan.png " ")
 
       ![Trace id from ECID](images/traceIdFromEcid.png " ")
+=======
+7. Add and configure Loki data source:
+
+    Click `Add data source`.
+
+      ![Add datasource button](images/adddatasourcebutton.png " ")
+
+    Click `select` button of Loki option.
+
+      ![Loki Datasource](images/lokidatasource.png " ")
+
+    Copy and paste the following address in the URL field
+    
+       ```
+       <copy>http://loki-stack.loki-stack:3100</copy>
+       ```
+
+      ![Loki URL](images/lokidatasourceurl.png " ")
+
+    Create the two Derived Fields as shown in the pictures below.
+    For each, first set `Internal link` to enabled and select `Jaeger` from the drop-down list.
+    Then copy and paste the following values for each field accordingly...
+    
+    ####First Derived Field (this is for Kubernetes microservice log to trace correlation)
+
+    Name:
+    ```
+    <copy>traceIDFromSpanReported</copy>
+    ```
+    Regex:
+    ```
+    <copy>Span reported: (\w+)</copy>
+    ```
+    Query:
+    ```
+    <copy>${__value.raw}</copy>
+    ```
+    (Optionally to test) Debug log message::
+    ```
+    <copy>Span reported: dfeda5242866aceb:b5de9f0883e2910e:ac6a4b699921e090:1</copy>
+    ```
+
+    ####Second Derived Field (this is for database/ECID log to trace correlation)
+
+    Name:
+    ```
+    <copy>traceIDFromECID</copy>
+    ```
+    Regex:
+    ```
+    <copy>ECID=(\w+)</copy>
+    ```
+    Query:
+    ```
+    <copy>${__value.raw}</copy>
+    ```
+    (Optionally to test) Debug log message::
+    ```
+    <copy>Debug log message: ECID=dfeda5242866aceb</copy>
+    ```
+       
+      ![Traceid from span](images/traceidfromspan.png " ")
+
+      ![Traceid from ECID](images/traceIdFromEcid.png " ")
+>>>>>>> upstream/main
 
     Click the `Save & Test` button and verify successful connection message.
 
@@ -142,6 +277,7 @@ Watch the video below for a quick walk through of the lab.
 
     Click the `Back` button.
 
+<<<<<<< HEAD
 7. Install the GrabDish Dashboard
 
     Select the `+` icon on the left-hand side and select `Import`
@@ -155,22 +291,46 @@ Watch the video below for a quick walk through of the lab.
 
     Confirm upload and click `Import` button.
       ![Click import](images/confirmdashimport.png " ")
+=======
+8. Install the GrabDish Dashboard
+
+     Select the `+` icon on the left-hand side and select `Import`
+
+      ![Import](images/importsidemenu.png " ")
+
+     Copy the contents of the [GrabDish Dashboard JSON](https://raw.githubusercontent.com/oracle/microservices-datadriven/main/grabdish/observability/dashboards/grabdish-dashboard.json)
+
+     Paste the contents in the `Import via panel json` text field and click the `Load` button
+      ![Import via panel json](images/jsondashboardupload.png " ")
+
+     Confirm upload and click `Import` button.
+      ![Import button](images/confirmdashimport.png " ")
+>>>>>>> upstream/main
 
 
 ## Task 3: Open and Study the Main GrabDish Grafana Dashboard Screen and Metrics
 
 1. Select the four squares icon on the left-hand side and select 'Dashboards'
+<<<<<<< HEAD
       ![Select four squares icon on left](images/dashboardsidemenu.png " ")
 
 2. In the `Dashboards` panel select `GrabDish Dashboard`
 
       ![Select GrabDish dashboard](images/dashboardlist.png " ")
+=======
+      ![Dashboard side menu](images/dashboardsidemenu.png " ")
+
+2. In the `Dashboards` panel select `GrabDish Dashboard`
+
+      ![Dashboard list](images/dashboardlist.png " ")
+>>>>>>> upstream/main
 
 3. Notice the collapsible panels for each microservices and their content which includes
     - Metrics about the kubernetes microservice runtime (CPU load, etc.)
     - Metrics about the kubernetes microservice specific to that microservice (`PlaceOrder Count`, etc.)
     - Metrics about the PDB used by the microservice (open sessions, etc.)
     - Metrics about the PDB specific to that microservice (inventory count)
+<<<<<<< HEAD
 
       ![Frontend Dash](images/frontenddashscreen.png " ")
       ![Order Dash](images/orderdashscreen.png " ")
@@ -181,10 +341,26 @@ Watch the video below for a quick walk through of the lab.
 5. Select the 'Explore' option from the drop-down menu of any panel to show that metric and time-span on the Explore screen
 
       ![Select Explore](images/grabdishdashexplorebutton.png " ")
+=======
+      ![Frontend Dashboard](images/frontenddashscreen.png " ")
+      ![Order Dashboard](images/orderdashscreen.png " ")
+      ![Inventory Dashboard](images/inventorydashscreen.png " ")
+
+   * Note that you may need to click the metric description(s) at the bottom of a panel in order to see them represented on the graph.
+     ![Frontend Dashboard](images/selectmetricdescr.png " ")
+   
+4. If not already done, place an order using the curl command in `curlpod` as described in Task 1, steps 3 and 4, of the previous `Deploy and Test Data-centric Microservices Application` lab.
+
+5. Select the 'Explore' option from the drop-down menu of any panel to show that metric and time-span on the Explore screen
+
+      ![Grabdish Explore](images/grabdishdashexplorebutton.png " ")
+      ![Grabdish Explore](images/dropdownexplore.png " ")
+>>>>>>> upstream/main
 
 ## Task 4: Use Grafana to Drill Down on Metrics, Tracing, and Log Correlation and Logs to Trace Feature
 
 1. Click the `Split` button on the Explore screen.
+<<<<<<< HEAD
       ![Select split](images/grafanaexploresplitpanebutton.png " ")
 
 2. Click the `Loki` option from the drop-down list on the right-hand panel.
@@ -211,3 +387,67 @@ You may now **proceed to the next lab.**
 ## Acknowledgements
 * **Author** - Paul Parkinson, Developer Evangelist
 * **Last Updated By/Date** - Paul Parkinson, August 2021
+=======
+      ![Split](images/grafanaexploresplitpanebutton.png " ")
+
+2. Click the `Loki` option from the drop-down list on the right-hand panel.
+      ![Loki](images/explorerscreen.png " ")
+
+3. Click the chain icon on either panel. This will result in the Prometheus metrics on the left and Loki logs on the right are of the same time-span.
+      ![Sync chain](images/syncchain.png " ")
+
+4. Click the `Code` option in the upper-right hand corner of the Loki query panel.
+      ![Log browswer](images/selectcodeoption.png " ")
+
+5. Click the `Log browser` drop-down list on the right-hand panel and select the `app` label under "1. Select labels to search in"
+      ![Log browswer](images/logbrowser.png " ")
+
+6. Select the `order` (microservice) and `db-log-exporter-orderpdb` values under "2. Find values for selected label" and click `Show logs` button.
+      ![Order label](images/ordermslabel.png " ")
+      ![DB log exporter](images/dblogexporterorderpdblabel.png " ")
+
+7. Select one of the green info log entries to expand it. Notice the `Jaeger` button next to the trace id.
+      ![Jaeger](images/spanreportedlogentry.png " ")
+
+8. Click the `Jaeger` to view the corresponding trace information and drill down into detail.
+      ![Jaeger trace](images/traceinfo.png " ")
+
+## Task 5: Install and Study the AQ/TEQ Dashboard Screen and Metrics
+
+1. Install the AQ/TEQ ("AQ Monitor") Dashboard
+
+   Select the `+` icon on the left-hand side and select `Import`
+
+   ![Import](images/importsidemenu.png " ")
+
+   Copy the contents of the [AQ/TEQ Dashboard JSON](https://raw.githubusercontent.com/oracle/microservices-datadriven/main/grabdish/observability/dashboards/aq-dashboard-basics.json)
+
+   Paste the contents in the `Import via panel json` text field and click the `Load` button, followed by `Import`
+   ![Import via panel json](images/jsondashboardupload.png " ")
+
+3. Select the four squares icon on the left-hand side and select 'Dashboards'
+   ![Dashboard side menu](images/dashboardsidemenu.png " ")
+
+4. In the `Dashboards` panel select `AQ Monitor`
+
+   ![Dashboard list](images/dashboardlistwithaqdashboard.png " ")
+
+5. Notice the collapsible panels for each microservices and their content which includes metrics about
+   - Order and Inventory Queues/Topics propagated across the Order and Inventory PDBs
+   - Subscribers
+   - Message counts, latency, etc.
+   - Enqueue and Dequeue rates
+
+   ![Frontend Dashboard](images/aqteqdash.png " ")
+
+You may now proceed to the next lab.
+
+## Learn More
+
+* Ask for help and connect with developers on the [Oracle DB Microservices Slack Channel](https://bit.ly/oracle-db-microservices-help-slack)   
+
+## Acknowledgements
+* **Author** - Paul Parkinson, Architect and Developer Advocate;
+* **Last Updated By/Date** - Paul Parkinson, June 2022
+
+>>>>>>> upstream/main

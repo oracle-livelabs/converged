@@ -1,0 +1,47 @@
+{
+  "workshoptitle": "DevOps and CI/CD for Microservices Deployments with Oracle Database Cloud",
+  "help": "livelabs-help-db_us@oracle.com",
+	"tutorials": [
+      {
+        "title": "Introduction",
+        "filename": "../../intro/intro.md"
+      },
+      {
+        "title": "Get Started",
+        "filename": "https://oracle-livelabs.github.io/common/labs/cloud-login/cloud-login.md"
+      },
+      {
+        "title": "Lab 1: Setup",
+        "filename": "../../setup/setup.md"
+      },
+      {
+        "title": "Lab 2: Integrate GitHub with Jenkins for Liquibase with SQLcl Use Case",
+        "filename": "../../int-jenkins-liquibase/integration-jenkins-liquibase.md"
+      },
+      {
+        "title": "Lab 3: Walkthrough CI/CD Pipeline for Liquibase with SQLcl Integration",
+        "filename": "../../walkthrough-jenkins-liquibase/walkthrough-jenkins-liquibase.md"
+      },
+      {
+        "title": "Lab 4: Deploy and Test Data-centric Microservices Application",
+        "filename": "../../app-deploy/app-deploy.md"
+      },
+      {
+        "title": "Lab 5: Integrate Jenkins with GitHub and Oracle Cloud Infrastructure",
+        "filename": "../../int-jenkins-oke/integration-jenkins-oke.md"
+      },
+      {
+        "title": "Lab 6: Walkthrough CI/CD Pipeline for Jenkins Integration with Oracle Cloud Infrastructure",
+        "filename": "../../walkthrough-jenkins-oke/walkthrough-jenkins-oke.md"
+      },
+      {
+        "title": "Lab 7: Tear Down",
+        "filename": "../../teardown/teardown.md"
+      },
+      {
+        "title": "Oracle CloudWorld 2022 - Get Help",
+        "description": "Solutions to Common Problems and Directions for Receiving Live Help",
+        "filename":"https://oracle-livelabs.github.io/common/support/ocwsupportlab/ocwsupportlab.md"
+      }
+    ]
+}
