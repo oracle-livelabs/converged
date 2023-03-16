@@ -1459,7 +1459,15 @@ Now you can test your LRA to verify it performs correctly under various circumst
 
 1. Check the starting account balances
 
-   Before you start, check the balances of the two accounts that you will be transferring money between using this command.  Note that these accounts were created in an earlier step.  TODO check they were? or is in the liquibase? TODO 
+   In several of the next few commands, you need to provide the correct IP address for the API Gateway in your backend environment.  Not the ones that use `localhost`, jsut those where the example uses `100.20.30.40` as the address. You can find the IP address using this command, you need the one listed in the `EXTERNAL-IP` column:
+
+    ```shell
+    $ <copy>kubectl -n ingress-nginx get service ingress-nginx-controller</copy>
+    NAME                       TYPE           CLUSTER-IP      EXTERNAL-IP   PORT(S)                      AGE
+    ingress-nginx-controller   LoadBalancer   10.123.10.127   100.20.30.40  80:30389/TCP,443:30458/TCP   13d
+    ```
+
+   Before you start, check the balances of the two accounts that you will be transferring money between using this command.  Note that these accounts were created in an earlier step. 
 
     ```shell
     $ <copy>curl -s http://100.20.30.40/api/v1/account/1 | jq ; curl -s http://100.20.30.40/api/v1/account/2 | jq</copy>
