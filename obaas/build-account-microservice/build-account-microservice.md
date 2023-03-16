@@ -403,12 +403,12 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
             name: accounts
           jpa:
             hibernate:
-            ddl-auto: validate
+              ddl-auto: validate
             properties:
-            hibernate:
-              dialect: org.hibernate.dialect.Oracle12cDialect
-              format_sql: true
-            show-sql: true
+              hibernate:
+                dialect: org.hibernate.dialect.Oracle12cDialect
+                format_sql: true
+              show-sql: true
           datasource:
             url: jdbc:oracle:thin:@tns_entry_from_above?TNS_ADMIN=/path/to/wallet
             username: account
