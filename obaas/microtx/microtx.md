@@ -8,6 +8,10 @@ Watch this short introduction video to get an idea of what you will be building:
 
 Estimated Time: 30 minutes
 
+Quick walk through on how to manage saga transactions across microservices.
+
+[](videohub:1_cqlnw2s0)
+
 ### Objectives
 
 In this lab, you will:

@@ -6,6 +6,10 @@ This lab walks you through setting up your development environment to work with 
 
 Estimated Lab Time: 20 minutes
 
+Quick walk through on how to setup your development environment.
+
+[](videohub:1_7jlh626t)
+
 ### Recommended Development Environment platforms and tools
 
 The following platforms are recommended for a development environment:
