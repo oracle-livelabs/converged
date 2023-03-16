@@ -6,6 +6,10 @@ This lab walks you through various features of Oracle Backend for Spring Boot, i
 
 Estimated Time: 20 minutes
 
+Quick walk through on how to explore backend platform.
+
+[](videohub:1_r5to9bp7)
+
 ### Objectives
 
 In this lab, you will:

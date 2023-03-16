@@ -4,6 +4,10 @@ When you have finished this Live Lab you may wish to clean up the resources you 
 
 Estimated Lab Time: 20 minutes
 
+Quick walk through on how to clean up the lab environment.
+
+[](videohub:1_61xelvjd)
+
 ## Objectives
 
 In this workshop, you will learn how to:
