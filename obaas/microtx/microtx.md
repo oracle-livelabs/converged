@@ -1393,11 +1393,11 @@ The services are now completed and you are ready to deploy them to the Oracle Ba
 
    Then open your browser to [http://localhost:8080](http://localhost:8080) and navigate to the **Routes** page, log in with `admin`/`admin` if necessary.
 
-   Click on the **Configure** button for the `accont` route, then click on the **Next** button to get to the **Define API Backend Server** page.
+   Click on the **Configure** button for the `account` route, then click on the **Next** button to get to the **Define API Backend Server** page.
 
    ![APISIX Route with Kubernetes discovery](images/obaas-apisix-k8s-discovery.png)
 
-   As shown in the image above, update the **Discovery Type** to **Kubernetes**, and set the **Service Name** to `application/account:port`.
+   As shown in the image above, update the **Discovery Type** to **Kubernetes**, and set the **Service Name** to `application/account:spring`.
 
 1. Build the Account and Transfer applications into JAR files
 
