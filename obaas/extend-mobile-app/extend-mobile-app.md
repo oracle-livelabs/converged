@@ -8,6 +8,10 @@ The CloudBank mobile application is written in [Flutter](https://flutter.dev) wh
 
 Estimated Time: 30 minutes
 
+Quick walk through on how to extend the CloudBank mobile application.
+
+[](videohub:1_cp2mdl5p)
+
 ### Objectives
 
 In this lab, you will:

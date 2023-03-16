@@ -6,6 +6,10 @@ Now that you know how to build a Spring Boot microservice and deploy it to the O
 
 Estimated Lab Time: 20 minutes
 
+Quick walk through on how to deploy full CloudBank application.
+
+[](videohub:1_3r1te1ii)
+
 ### Objectives
 
 In this lab, you will:
