@@ -8,6 +8,10 @@ Watch this short introduction video to get an idea of what you will be building:
 
 Estimated Time: 30 minutes
 
+Quick walk through on how to manage saga transactions across microservices.
+
+[](videohub:1_cqlnw2s0)
+
 ### Objectives
 
 In this lab, you will:
@@ -589,6 +593,17 @@ The Data Access Object pattern is considered a best practice and it allows separ
 
 1. Create methods to manage accounts
 
+   Create a method to get the account for a given account ID. 
+
+    ```java
+    <copy>Account getAccountForAccountId(long accountId) {
+        Account account = accountRepository.findByAccountId(accountId);
+        if (account == null)
+            return null;
+        return account;
+    }</copy>
+    ```
+
    Create a method to get the account that is related to a journal entry.
 
     ```java
@@ -1013,16 +1028,21 @@ Now, you will create another new Spring Boot microservice application and implem
     <copy>
     server:
       port: 8080
-
-    deposit:
-      account:
-        service:
-          url: http://account.application:8080/deposit
-    withdraw:
-      account:
-        service:
-          url: http://account.application:8080/withdraw
-
+    
+    account:
+      deposit:
+        url: http://account.application:8080/deposit/deposit
+      withdraw:
+        url: http://account.application:8080/withdraw/withdraw
+    transfer:
+      cancel:
+        url: http://transfer.application:8080/cancel
+        process:
+          url: http://transfer.application:8080/processcancel
+      confirm:
+        url: http://transfer.application:8080/confirm
+        process:
+          url: http://transfer.application:8080/processconfirm
     lra:
       coordinator:
         url: http://otmm-tcs.otmm.svc.cluster.local:9000/api/v1/lra-coordinator
@@ -1034,7 +1054,7 @@ Now, you will create another new Spring Boot microservice application and implem
    Create a new directory called `src/main/java/com/example/transfer` and in that directory, create a new Java file called `TransferApplication.java`.  This will be the main application file for the Spring Boot application.  This is a standard application class, there are no new concepts introduced.  Here is the content for this file: 
 
     ```java
-    package com.example.transfer;
+    <copy>package com.example.transfer;
 
     import org.springframework.boot.SpringApplication;
     import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -1045,7 +1065,7 @@ Now, you will create another new Spring Boot microservice application and implem
         public static void main(String[] args) {
             SpringApplication.run(TransferApplication.class, args);
         }
-    }
+    }</copy>
     ```
 
 1. Create the Application Configuration class
@@ -1058,28 +1078,35 @@ Now, you will create another new Spring Boot microservice application and implem
     ```java
     <copy>package com.example.transfer;
 
-    import io.narayana.lra.client.NarayanaLRAClient;
     import org.springframework.beans.factory.annotation.Value;
-    import org.springframework.context.annotation.Bean;
     import org.springframework.context.annotation.Configuration;
 
-    import java.net.URISyntaxException;
-    import java.util.logging.Logger;
+    import io.narayana.lra.client.NarayanaLRAClient;
 
     @Configuration
     public class ApplicationConfig {
-        private static final Logger log = Logger.getLogger(ApplicationConfig.class.getName());
+        static String accountWithdrawUrl;
+        static String accountDepositUrl;
+        static String transferCancelURL;
+        static String transferCancelProcessURL;
+        static String transferConfirmURL;
+        static String transferConfirmProcessURL;
 
-        public ApplicationConfig(@Value("${lra.coordinator.url}") String lraCoordinatorUrl) {
-            log.info(NarayanaLRAClient.LRA_COORDINATOR_URL_KEY + " = " + lraCoordinatorUrl);
+        public ApplicationConfig(@Value("${lra.coordinator.url}") String lraCoordinatorUrl,
+                @Value("${account.withdraw.url}") String accountWithdrawUrl,
+                @Value("${account.deposit.url}") String accountDepositUrl,
+                @Value("${transfer.cancel.url}") String transferCancelURL,
+                @Value("${transfer.cancel.process.url}") String transferCancelProcessURL,
+                @Value("${transfer.confirm.url}") String transferConfirmURL,
+                @Value("${transfer.confirm.process.url}") String transferConfirmProcessURL) {
             System.getProperties().setProperty(NarayanaLRAClient.LRA_COORDINATOR_URL_KEY, lraCoordinatorUrl);
+            this.accountWithdrawUrl = accountWithdrawUrl;
+            this.accountDepositUrl = accountDepositUrl;
+            this.transferCancelURL = transferCancelURL;
+            this.transferCancelProcessURL = transferCancelProcessURL;
+            this.transferConfirmURL = transferConfirmURL;
+            this.transferConfirmProcessURL = transferConfirmProcessURL;
         }
-
-        @Bean
-        public NarayanaLRAClient NarayanaLRAClient() throws URISyntaxException {
-            return new NarayanaLRAClient();
-        }
-
     }</copy>
     ```
 
@@ -1165,6 +1192,20 @@ Now, you will create another new Spring Boot microservice application and implem
         private URI transferProcessCancelUri;
         private URI transferProcessConfirmUri;
     
+        @PostConstruct
+        private void initController() {
+            try {
+                withdrawUri = new URI(ApplicationConfig.accountWithdrawUrl);
+                depositUri = new URI(ApplicationConfig.accountDepositUrl);
+                transferCancelUri = new URI(ApplicationConfig.transferCancelURL);
+                transferConfirmUri = new URI(ApplicationConfig.transferConfirmURL);
+                transferProcessCancelUri = new URI(ApplicationConfig.transferCancelProcessURL);
+                transferProcessConfirmUri = new URI(ApplicationConfig.transferConfirmProcessURL);
+            } catch (URISyntaxException ex) {
+                throw new IllegalStateException("Failed to initialize " + TransferService.class.getName(), ex);
+            }
+        }
+
     }</copy>
     ```
 
@@ -1345,96 +1386,6 @@ The services are now completed and you are ready to deploy them to the Oracle Ba
    
    You will also need to update the APISIX route to use Kubernetes service discovery instead of Eureka. 
 
-1. **Temporary workaround if you used 0.2.0 instead of 0.2.1**
-
-   This step is **only** required if you installed 0.2.0 instead of 0.2.1.  If you used 0.2.1 or later (as recommended) skip this step and go to the next step "Update the APISIX route to use Kubernetes service discovery".
-
-   Edit the APISIX configuration to add the `kuberentes` service discovery configuration.  To edit the configuration, use this command:
-
-    ```shell
-    $ <copy>kubectl -n apisix edit cm apisix</copy>
-    ```
-
-   Find the `discovery` section.  It will contain only a `eureka` configuration.  Update it to add the `kubernetes` configuration as well, exactly as shown below:
-
-    ```yaml
-    <copy>
-    discovery:
-      kubernetes:
-        service:
-          schema: https
-          host: ${KUBERNETES_SERVICE_HOST}
-          port: ${KUBERNETES_SERVICE_PORT}
-        client:
-          token_file: /run/secrets/kubernetes.io/serviceaccount/token
-      eureka:
-        fetch_interval: 30
-        host:
-        - http://eureka.eureka.svc.cluster.local:8761
-        prefix: /eureka/
-        timeout:
-          connect: 2000
-          read: 5000
-          send: 2000
-        weight: 100
-    </copy>
-    ```
-
-   Restart the APISIX Gateway to pick up this change.  Use this command to shut down the API Gateway:
-
-    ```shell
-    $ <copy>kubectl -n apisix scale deploy apisix --replicas=0</copy>
-    ```
-
-   Wait until all of the `apisix` pods have finished terminating.  You can check with this command:
-
-    ```shell
-    $ <copy>kubectl -n apisix get pods</copy>
-    ```
-
-   When they are all terminated, restart the API Gateway with this command:
-
-    ```shell
-    $ <copy>kubectl -n apisix scale deploy apisix --replicas=3</copy>
-    ```
-
-   Edit the `account` service to make it a `ClusterIP` service and add a name for the port using this command:
-
-    ```shell
-    $ <copy>kubectl -n application edit svc account</copy>
-    ```
-
-   The updated service should look like this, note that yours may look slightly different and have extra derived fields.  The important updates are the `type: ClusterIP` and the `name: port` in the `ports` section:
-
-    ```yaml
-    <copy>
-    apiVersion: v1
-    kind: Service
-    metadata:
-      labels:
-        app: account
-      name: account
-      namespace: application
-    spec:
-        clusterIP: 10.139.178.230
-        clusterIPs:
-        - 10.139.178.230
-        internalTrafficPolicy: Cluster
-        ipFamilies:
-        - IPv4
-        ipFamilyPolicy: SingleStack
-        ports:
-        - name: port
-          port: 8080
-          protocol: TCP
-          targetPort: 8080
-        selector:
-          app: account
-        sessionAffinity: None
-        type: ClusterIP
-    </copy>
-    ```    
-
 
 1. Update the APISIX route to use Kubernetes service discovery
 
@@ -1446,11 +1397,11 @@ The services are now completed and you are ready to deploy them to the Oracle Ba
 
    Then open your browser to [http://localhost:8080](http://localhost:8080) and navigate to the **Routes** page, log in with `admin`/`admin` if necessary.
 
-   Click on the **Configure** button for the `accont` route, then click on the **Next** button to get to the **Define API Backend Server** page.
+   Click on the **Configure** button for the `account` route, then click on the **Next** button to get to the **Define API Backend Server** page.
 
    ![APISIX Route with Kubernetes discovery](images/obaas-apisix-k8s-discovery.png)
 
-   As shown in the image above, update the **Discovery Type** to **Kubernetes**, and set the **Service Name** to `application/account:port`.
+   As shown in the image above, update the **Discovery Type** to **Kubernetes**, and set the **Service Name** to `application/account:spring`.
 
 1. Build the Account and Transfer applications into JAR files
 
@@ -1512,7 +1463,15 @@ Now you can test your LRA to verify it performs correctly under various circumst
 
 1. Check the starting account balances
 
-   Before you start, check the balances of the two accounts that you will be transferring money between using this command.  Note that these accounts were created in an earlier step.  TODO check they were? or is in the liquibase? TODO 
+   In several of the next few commands, you need to provide the correct IP address for the API Gateway in your backend environment.  Not the ones that use `localhost`, jsut those where the example uses `100.20.30.40` as the address. You can find the IP address using this command, you need the one listed in the `EXTERNAL-IP` column:
+
+    ```shell
+    $ <copy>kubectl -n ingress-nginx get service ingress-nginx-controller</copy>
+    NAME                       TYPE           CLUSTER-IP      EXTERNAL-IP   PORT(S)                      AGE
+    ingress-nginx-controller   LoadBalancer   10.123.10.127   100.20.30.40  80:30389/TCP,443:30458/TCP   13d
+    ```
+
+   Before you start, check the balances of the two accounts that you will be transferring money between using this command.  Note that these accounts were created in an earlier step. 
 
     ```shell
     $ <copy>curl -s http://100.20.30.40/api/v1/account/1 | jq ; curl -s http://100.20.30.40/api/v1/account/2 | jq</copy>
