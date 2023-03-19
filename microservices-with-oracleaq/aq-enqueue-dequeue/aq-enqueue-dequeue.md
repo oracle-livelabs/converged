@@ -85,7 +85,7 @@ This lab will give an understanding of Advanced Queues creation using different 
         </copy>
         ```
 
-    You can view the source code for this lab [here.](https://github.com/oracle/microservices-datadriven/tree/main/workshops/oracleAQ/aqJava/src/main/java/com/examples/enqueueDequeueAQ/EnqueueDequeueAQ.java)
+    You can view the source code for this lab [here.](https://github.com/oracle/microservices-datadriven/tree/main/workshops/oracleAQ/qJava/src/main/java/com/examples/enqueueDequeueAQ/EnqueueDequeueAQ.java)
 
 ## Task 5: Create AQ, Enqueue and Dequeue using Python
 
