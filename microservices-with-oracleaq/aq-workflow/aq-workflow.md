@@ -116,7 +116,7 @@ Below are the code samples to create the workflow
 
     ```
 
-    You can view the source code for this lab [here.](https://github.com/oracle/microservices-datadriven/tree/main/workshops/oracleAQ/aqJava/src/main/java/com/examples/workflowAQ/WorkflowAQ.java)
+    You can view the source code for this lab [here.](https://github.com/oracle/microservices-datadriven/tree/main/workshops/oracleAQ/qJava/src/main/java/com/examples/workflowAQ/WorkflowAQ.java)
 
 ## Task 6: Drop the queues
 
@@ -145,5 +145,5 @@ Below are the code samples to create the workflow
 ## Acknowledgements
 
 - **Author** - Mayank Tayal, Developer Advocate
-- **Contributors** - Sanjay Goil, VP Microservices and Oracle Database; Paul Parkinson, Developer Evangelist; Paulo Simoes, Developer Evangelist; Richard Exley, Maximum Availability Architecture; Shivani Karnewar, Senior Member Technical Staff
-- **Last Updated By/Date** - Mayank Tayal, February 2022
+- **Contributors** - Shivani Karnewar, Senior Member Technical Staff
+- **Last Updated By/Date** - Mayank Tayal, March 2023
