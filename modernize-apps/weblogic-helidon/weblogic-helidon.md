@@ -41,16 +41,24 @@ This lab is designed for people with no prior experience with Kubernetes, Docker
 ## Task 1: Develop new Credit Score Function
 Proceed to Develop new Credit Score Function as microservice using Helidon SE and deploy on local JVM
 
-1.	Create a directory called “microservice” under `/u01/middleware_demo/wls-helidon` and navigate to `/u01/middleware_demo/wls-helidon/microservice`
+1. Source the `setWLS14Profile.sh` and `setBankAppEnv.sh` to set the environment variables required to start the WebLogic 14c Admin server and run commands to build Helidon and Bank applications
+
+    ```
+    <copy>cd /u01/middleware_demo/scripts/
+    . ./setWLS14Profile.sh
+    . ./setBankAppEnv.sh</copy>
+    ```
+
+2.	Create a directory called “microservice” under `/u01/middleware_demo/wls-helidon` and navigate to `/u01/middleware_demo/wls-helidon/microservice`
 
     ```
     <copy>
-    mkdir microservice
+    mkdir /u01/middleware_demo/wls-helidon/microservice
     cd /u01/middleware_demo/wls-helidon/microservice
     </copy>
     ```
 
-2.	Generate the project sources using Helidon SE Maven archetypes. The result is a simple project that shows the basics of configuring the WebServer and implementing basic routing rule
+3.	Generate the project sources using Helidon SE Maven archetypes. The result is a simple project that shows the basics of configuring the WebServer and implementing basic routing rule
 
     ```
     <copy>
@@ -64,17 +72,17 @@ Proceed to Develop new Credit Score Function as microservice using Helidon SE an
     </copy>
     ```
 
-3.	When the project generation is ready open the Main.java for edit:
+4.	When the project generation is ready open the Main.java for edit:
 
     ```
     <copy>vi helidon-creditscore-se/src/main/java/io/helidon/bestbank/creditscore/Main.java</copy>
     ```
 
-4.	Register the creditscore route after line 108 by adding `".register("/creditscore", new CreditscoreService())"` as indicated below. This basically the context path for the service endpoint.
+5.	Register the creditscore route after line 108 by adding `".register("/creditscore", new CreditscoreService())"` as indicated below. This basically the context path for the service endpoint.
 
     ![](./images/register-creditscore-route.png " ")  
 
-5.	Now create a new class called CreditscoreService in the same package where the Main.java is located. For ease of execution the class file has already been created and is located at *"/u01/middleware_demo/scripts/CreditscoreService.java"*. Simply run the following to copy it to the correct location:
+6.	Now create a new class called CreditscoreService in the same package where the Main.java is located. For ease of execution the class file has already been created and is located at *"/u01/middleware_demo/scripts/CreditscoreService.java"*. Simply run the following to copy it to the correct location:
 
     ```
     <copy>cp /u01/middleware_demo/scripts/CreditscoreService.java helidon-creditscore-se/src/main/java/io/helidon/bestbank/creditscore/</copy>
@@ -82,7 +90,7 @@ Proceed to Develop new Credit Score Function as microservice using Helidon SE an
 
     Please note the code above accepts a GET for healthcheck and POST method to calculate the credit score value based on the account owner's details which passed using JSON.
 
-6. Build the project:
+7. Build the project:
 
     ```
     <copy>cd /u01/middleware_demo/wls-helidon/microservice/helidon-creditscore-se/
