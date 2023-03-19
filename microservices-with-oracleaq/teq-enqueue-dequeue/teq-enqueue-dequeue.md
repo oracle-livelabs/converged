@@ -1,8 +1,8 @@
-# Understand TEQ
+# Understand Transactional Event Queues(TxEventQ)
 
 ## Introduction
 
-Transactional Event Queues(TEQ) samples to create queues using different payloads, Enqueue, dequeue, and cleanups using PL/SQL.
+Transactional Event Queues(TxEventQ) samples to create queues using different payloads, Enqueue, dequeue, and cleanups using PL/SQL.
 
 - Estimated Time: 10 minutes
 
@@ -16,64 +16,64 @@ Transactional Event Queues(TEQ) samples to create queues using different payload
 
 - This workshop assumes you have an Oracle cloud account and configured setup in Lab 1.
 
-## Task 1: Create TEQ
+## Task 1: Create TxEventQ
 
-1. Below are the code samples to create TEQ
+1. Below are the code samples to create TxEventQ
 
     ![teqCreate](./images/create-teq.png " ")
 
-    - Multi-consumer TEQ with Payload as RAW using PL/SQL.
+    - Multi-consumer TxEventQ with Payload as RAW using PL/SQL.
 
-    - Multi-Consumer TEQ with Payload as Object Type using PL/SQL.
+    - Multi-Consumer TxEventQ with Payload as Object Type using PL/SQL.
 
-    - Multi-Consumer TEQ with Payload as JSON Type using PL/SQL.
+    - Multi-Consumer TxEventQ with Payload as JSON Type using PL/SQL.
 
 2. Execute the following sequence of commands into cloud shell
 
     ```bash
-    <copy>cd $ORACLEAQ_HOME; source createTEQ.sh;
+    <copy>cd $ORACLEAQ_HOME; source createTxEventQ.sh;
     </copy>
     ```
 
-## Task 2: Enqueue in TEQ
+## Task 2: Enqueue in TxEventQ
 
-1. Below are the code samples to enqueue TEQ
+1. Below are the code samples to enqueue TxEventQ
 
     ![enqueueTEQ](./images/enqueue-teq.png " ")
 
-    - Enqueue for multi-consumer TEQ with Payload as RAW using PL/SQL.
+    - Enqueue for multi-consumer TxEventQ with Payload as RAW using PL/SQL.
 
-    - Enqueue for multi-Consumer TEQ with Payload as Object Type using PL/SQL.
+    - Enqueue for multi-Consumer TxEventQ with Payload as Object Type using PL/SQL.
 
-    - Enqueue for multi-Consumer TEQ with Payload as JSON Type using PL/SQL.
+    - Enqueue for multi-Consumer TxEventQ with Payload as JSON Type using PL/SQL.
 
 1. Execute the following sequence of commands into cloud shell
 
     ```bash
-    <copy>cd $ORACLEAQ_HOME; source enqueueTEQ.sh;
+    <copy>cd $ORACLEAQ_HOME; source enqueueTxEventQ.sh;
     </copy>
     ```
 
-## Task 3: Dequeue in TEQ
+## Task 3: Dequeue in TxEventQ
 
-1. Below are the code samples to dequque TEQ
+1. Below are the code samples to dequque TxEventQ
 
     ![dequeueTEQ](./images/dequeue-teq.png " ")
 
-    - Enqueue for multi-consumer TEQ with Payload as RAW using PL/SQL.
+    - Enqueue for multi-consumer TxEventQ with Payload as RAW using PL/SQL.
 
-    - Enqueue for multi-Consumer TEQ with Payload as Object Type using PL/SQL.
+    - Enqueue for multi-Consumer TxEventQ with Payload as Object Type using PL/SQL.
 
-    - Enqueue for multi-Consumer TEQ with Payload as JSON Type using PL/SQL.
+    - Enqueue for multi-Consumer TxEventQ with Payload as JSON Type using PL/SQL.
 
 2. Execute the following sequence of commands into cloud shell
 
     ```bash
-    <copy>cd $ORACLEAQ_HOME; source dequeueTEQ.sh;
+    <copy>cd $ORACLEAQ_HOME; source dequeueTxEventQ.sh;
     </copy>
     ```
 
-## Task 4: TEQ Enqueue and Dequeue using Java
+## Task 4: TxEventQ Enqueue and Dequeue using Java
 
 1. Execute the following sequence of commands into cloud shell
 
@@ -83,9 +83,9 @@ Transactional Event Queues(TEQ) samples to create queues using different payload
 
     You can view the source code for this lab [here.](https://github.com/oracle/microservices-datadriven/tree/main/workshops/oracleAQ/aqJava/src/main/java/com/examples/enqueueDequeueTEQ/EnqueueDequeueTEQ.java)
 
-## Task 5: Drop TEQ
+## Task 5: Drop TxEventQ
 
-1. Below are the code samples to cleanup TEQ
+1. Below are the code samples to cleanup TxEventQ
 
     ![cleanupTEQ](./images/cleanup-teq.png " ")
 
@@ -96,7 +96,7 @@ Transactional Event Queues(TEQ) samples to create queues using different payload
 2. Execute the following sequence of commands into cloud shell
 
     ```bash
-    <copy>cd $ORACLEAQ_HOME; source cleanupTEQ.sh;
+    <copy>cd $ORACLEAQ_HOME; source cleanupTxEventQ.sh;
     </copy>
     ```
 
@@ -105,5 +105,5 @@ Transactional Event Queues(TEQ) samples to create queues using different payload
 ## Acknowledgements
 
 - **Author** - Mayank Tayal, Developer Advocate
-- **Contributors** - Sanjay Goil, VP Microservices and Oracle Database; Paul Parkinson, Developer Evangelist; Paulo Simoes, Developer Evangelist; Richard Exley, Maximum Availability Architecture; Shivani Karnewar, Senior Member Technical Staff
-- **Last Updated By/Date** - Mayank Tayal, February 2022
+- **Contributors** - Shivani Karnewar, Senior Member Technical Staff
+- **Last Updated By/Date** - Mayank Tayal, March 2023
