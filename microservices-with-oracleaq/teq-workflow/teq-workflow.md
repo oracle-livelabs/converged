@@ -1,4 +1,4 @@
-# Use workflow with TEQ (Second-factor Authentication)
+# Use workflow with TxEventQ (Second-factor Authentication)
 
 ## Introduction
 
@@ -8,7 +8,7 @@ This workflow relies on a secure and verified delivery from an Application to th
 
 ### Objectives
 
-This Lab will help you understand OTP workflow (one-time-password)/ Second-Factor Authentication/ 2FA based on order delivery with multiconsumer TEQ.
+This Lab will help you understand OTP workflow (one-time-password)/ Second-Factor Authentication/ 2FA based on order delivery with multiconsumer TxEventQ.
 
 ![workflow](./images/workflow.png " ")
 
@@ -26,7 +26,7 @@ This Lab will help you understand OTP workflow (one-time-password)/ Second-Facto
 
     ```bash
 
-    <copy>cd $ORACLEAQ_HOME; source workflowCreateTEQ.sh;
+    <copy>cd $ORACLEAQ_HOME; source workflowCreateTxEventQ.sh;
 
     </copy>
 
@@ -36,7 +36,7 @@ This Lab will help you understand OTP workflow (one-time-password)/ Second-Facto
 
 Below are the code samples to create the workflow
 
-  ![workflowTEQ](./images/workflow-teq.png " ")
+  ![workflowTxEventQ](./images/workflow-teq.png " ")
 
   1. User places an order
 
@@ -98,7 +98,7 @@ Below are the code samples to create the workflow
 
     ```bash
 
-    <copy>cd $ORACLEAQ_HOME; source workflowEnqueueDequeueTEQ.sh;
+    <copy>cd $ORACLEAQ_HOME; source workflowEnqueueDequeueTxEventQ.sh;
 
     </copy>
 
@@ -116,7 +116,7 @@ Below are the code samples to create the workflow
 
     ```
 
-    You can view the java source code for this lab [here.](https://github.com/oracle/microservices-datadriven/tree/main/workshops/oracleAQ/aqJava/src/main/java/com/examples/workflowTEQ/WorkflowTEQ.java)
+    You can view the java source code for this lab [here.](https://github.com/oracle/microservices-datadriven/tree/main/workshops/oracleAQ/qJava/src/main/java/com/examples/workflowTEQ/WorkflowTEQ.java)
 
 ## Task 6: Drop queues
 
@@ -132,7 +132,7 @@ Below are the code samples to create the workflow
 
     ```bash
 
-    <copy>cd $ORACLEAQ_HOME; source workflowCleanupTEQ.sh;
+    <copy>cd $ORACLEAQ_HOME; source workflowCleanupTxEventQ.sh;
 
     </copy>
 
@@ -143,5 +143,5 @@ You may now **proceed to the next lab.**
 ## Acknowledgements
 
 - **Author** - Mayank Tayal, Developer Advocate
-- **Contributors** - Sanjay Goil, VP Microservices and Oracle Database; Paul Parkinson, Developer Evangelist; Paulo Simoes, Developer Evangelist; Richard Exley, Maximum Availability Architecture; Shivani Karnewar, Senior Member Technical Staff
-- **Last Updated By/Date** - Mayank Tayal, February 2022
+- **Contributors** - Shivani Karnewar, Senior Member Technical Staff
+- **Last Updated By/Date** - Mayank Tayal, March 2023
