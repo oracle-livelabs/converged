@@ -26,7 +26,7 @@ This Lab will help you understand OTP workflow (one-time-password)/ Second-Facto
 
     ```bash
 
-    <copy>cd $ORACLEAQ_HOME; source workflowCreateTxEventQ.sh;
+    <copy>cd $ORACLEAQ_PLSQL_TxEventQ; source workflowCreateTxEventQ.sh;
 
     </copy>
 
@@ -98,7 +98,7 @@ Below are the code samples to create the workflow
 
     ```bash
 
-    <copy>cd $ORACLEAQ_HOME; source workflowEnqueueDequeueTxEventQ.sh;
+    <copy>cd $ORACLEAQ_PLSQL_TxEventQ; source workflowEnqueueDequeueTxEventQ.sh;
 
     </copy>
 
@@ -132,7 +132,7 @@ Below are the code samples to create the workflow
 
     ```bash
 
-    <copy>cd $ORACLEAQ_HOME; source workflowCleanupTxEventQ.sh;
+    <copy>cd $ORACLEAQ_PLSQL_TxEventQ; source workflowCleanupTxEventQ.sh;
 
     </copy>
 
