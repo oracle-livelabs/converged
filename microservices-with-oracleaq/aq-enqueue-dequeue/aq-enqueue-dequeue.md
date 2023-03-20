@@ -29,7 +29,7 @@ This lab will give an understanding of Advanced Queues creation using different 
 2. Execute the following sequence of commands into cloud shell:
 
     ```bash
-    <copy>cd $ORACLEAQ_HOME; source createAQ.sh;
+    <copy>cd $ORACLEAQ_PLSQL_AQ; source createAQ.sh;
     </copy>
     ```
 
@@ -46,7 +46,7 @@ This lab will give an understanding of Advanced Queues creation using different 
 2. Execute the following sequence of commands into cloud shell:
 
     ```bash
-    <copy>cd $ORACLEAQ_HOME; source enqueueAQ.sh;
+    <copy>cd $ORACLEAQ_PLSQL_AQ; source enqueueAQ.sh;
     </copy>
     ```
 
@@ -63,7 +63,7 @@ This lab will give an understanding of Advanced Queues creation using different 
 2. Execute the following sequence of commands into cloud shell:
 
     ```bash
-    <copy>cd $ORACLEAQ_HOME; source dequeueAQ.sh;
+    <copy>cd $ORACLEAQ_PLSQL_AQ; source dequeueAQ.sh;
     </copy>
     ```
 
@@ -94,7 +94,7 @@ This lab will give an understanding of Advanced Queues creation using different 
       - Execute the following sequence of commands into cloud shell:
 
         ```bash
-        <copy>cd $ORACLEAQ_HOME; source createAQPython.sh;
+        <copy>cd $ORACLEAQ_PYTHON_AQ; source createAQPython.sh;
         </copy>
         ```
 
@@ -103,7 +103,7 @@ This lab will give an understanding of Advanced Queues creation using different 
       - Execute the following sequence of commands into cloud shell:
 
         ```bash
-        <copy>cd $ORACLEAQ_HOME; pyhton3 PythonAQ.py;
+        <copy>cd $ORACLEAQ_PYTHON_AQ; pyhton3 PythonAQ.py;
         </copy>
         ```
 
@@ -112,7 +112,7 @@ This lab will give an understanding of Advanced Queues creation using different 
       - Execute the following sequence of commands into cloud shell:
 
         ```bash
-        <copy>cd $ORACLEAQ_HOME; source cleanupAQPython.sh;
+        <copy>cd $ORACLEAQ_PYTHON_AQ; source cleanupAQPython.sh;
         </copy>
         ```
 
@@ -131,7 +131,7 @@ This lab will give an understanding of Advanced Queues creation using different 
 2. Execute the following sequence of commands into cloud shell:
 
     ```bash
-    <copy>cd $ORACLEAQ_HOME; source cleanupAQ.sh;
+    <copy>cd $ORACLEAQ_PLSQL_AQ; source cleanupAQ.sh;
     </copy>
     ```
 
