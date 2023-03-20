@@ -26,7 +26,7 @@ This Lab will help you understand OTP workflow (one-time-password)/ Second-Facto
 
     ```bash
 
-    <copy>cd $ORACLEAQ_PLSQL_AQ;; source workflowCreateAQ.sh;
+    <copy>cd $ORACLEAQ_PLSQL_AQ; source workflowCreateAQ.sh;
 
     </copy>
 
