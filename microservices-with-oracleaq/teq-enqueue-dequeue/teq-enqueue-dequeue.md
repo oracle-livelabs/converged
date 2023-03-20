@@ -31,7 +31,7 @@ Transactional Event Queues(TxEventQ) samples to create queues using different pa
 2. Execute the following sequence of commands into cloud shell
 
     ```bash
-    <copy>cd $ORACLEAQ_HOME; source createTxEventQ.sh;
+    <copy>cd $ORACLEAQ_PLSQL_TxEventQ; source createTxEventQ.sh;
     </copy>
     ```
 
@@ -50,7 +50,7 @@ Transactional Event Queues(TxEventQ) samples to create queues using different pa
 1. Execute the following sequence of commands into cloud shell
 
     ```bash
-    <copy>cd $ORACLEAQ_HOME; source enqueueTxEventQ.sh;
+    <copy>cd $ORACLEAQ_PLSQL_TxEventQ; source enqueueTxEventQ.sh;
     </copy>
     ```
 
@@ -69,7 +69,7 @@ Transactional Event Queues(TxEventQ) samples to create queues using different pa
 2. Execute the following sequence of commands into cloud shell
 
     ```bash
-    <copy>cd $ORACLEAQ_HOME; source dequeueTxEventQ.sh;
+    <copy>cd $ORACLEAQ_PLSQL_TxEventQ; source dequeueTxEventQ.sh;
     </copy>
     ```
 
@@ -96,7 +96,7 @@ Transactional Event Queues(TxEventQ) samples to create queues using different pa
 2. Execute the following sequence of commands into cloud shell
 
     ```bash
-    <copy>cd $ORACLEAQ_HOME; source cleanupTxEventQ.sh;
+    <copy>cd $ORACLEAQ_PLSQL_TxEventQ; source cleanupTxEventQ.sh;
     </copy>
     ```
 
