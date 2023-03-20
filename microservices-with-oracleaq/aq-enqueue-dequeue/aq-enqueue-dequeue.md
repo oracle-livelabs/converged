@@ -94,7 +94,7 @@ This lab will give an understanding of Advanced Queues creation using different 
       - Execute the following sequence of commands into cloud shell:
 
         ```bash
-        <copy>cd $ORACLEAQ_PYTHON_AQ; source createAQPython.sh;
+        <copy>cd $ORACLEAQ_PYTHON_AQ; python3 pythonCreateAQ.py
         </copy>
         ```
 
@@ -103,7 +103,7 @@ This lab will give an understanding of Advanced Queues creation using different 
       - Execute the following sequence of commands into cloud shell:
 
         ```bash
-        <copy>cd $ORACLEAQ_PYTHON_AQ; pyhton3 PythonAQ.py;
+        <copy>cd $ORACLEAQ_PYTHON_AQ; python3 pythonEnqDeqAQ.py;
         </copy>
         ```
 
@@ -112,7 +112,7 @@ This lab will give an understanding of Advanced Queues creation using different 
       - Execute the following sequence of commands into cloud shell:
 
         ```bash
-        <copy>cd $ORACLEAQ_PYTHON_AQ; source cleanupAQPython.sh;
+        <copy>cd $ORACLEAQ_PYTHON_AQ; python3 pythonCleanupAQ.py;
         </copy>
         ```
 
@@ -140,5 +140,5 @@ You may now **proceed to the next lab.**
 ## Acknowledgements
 
 - **Author** - Mayank Tayal, Developer Advocate
-- **Contributors** - Sanjay Goil, VP Microservices and Oracle Database; Paul Parkinson, Developer Evangelist; Paulo Simoes, Developer Evangelist; Richard Exley, Maximum Availability Architecture; Shivani Karnewar, Senior Member Technical Staff
-- **Last Updated By/Date** - Mayank Tayal, February 2022
+- **Contributors** - Shivani Karnewar, Senior Member Technical Staff
+- **Last Updated By/Date** - Mayank Tayal, March 2023
