@@ -8,7 +8,7 @@ This workshop will help you understand the technical capabilities of Advanced Qu
 
 ### About Product/Technology
 
-PL/SQL, Java, and Python AQ/ TEQ Workflow examples will be demonstrated.
+PL/SQL, Java, and Python AQ/ TxEventQ Workflow examples will be demonstrated.
 
 ### Objectives
 
@@ -23,22 +23,22 @@ PL/SQL, Java, and Python AQ/ TEQ Workflow examples will be demonstrated.
 
 **What is Queuing?**
 
-Transactional Event Queue (TEQ) and Advanced Queuing (AQ) stores user messages in abstract storage units called queues. When web, mobile, IoT, and other data-driven and event-driven applications stream events or communicate with each other as part of a workflow, producer applications enqueue messages and consumer applications dequeue messages.
+Transactional Event Queue (TxEventQ) and Advanced Queuing (AQ) stores user messages in abstract storage units called queues. When web, mobile, IoT, and other data-driven and event-driven applications stream events or communicate with each other as part of a workflow, producer applications enqueue messages and consumer applications dequeue messages.
 
 **Introduction to Transactional Event Queues and Advanced Queuing**
 
-Transactional Event Queues (TEQ) are highly optimized implementations of AQ previously called AQ Sharded Queues. Both TEQ and AQ in the Oracle database address the requirements from data-driven and event-driven architectures in modern enterprise applications.
+Transactional Event Queues (TxEventQ) are highly optimized implementations of AQ previously called AQ Sharded Queues. Both TxEventQ and AQ in the Oracle database address the requirements from data-driven and event-driven architectures in modern enterprise applications.
  ![intro](./images/intro.gif " ")
 
 **Transactional Event Queues Leverage Oracle Database**
 
-Oracle Transactional Event Queues (TEQ) provide database-integrated message queuing functionality. This highly optimized and partitioned implementation leverages the functions of Oracle database so that producers and consumers can exchange messages with high throughput, by storing messages persistently, and propagating messages between queues on different databases.
-Oracle Transactional Event Queues (TEQ) are a high-performance partitioned implementation with multiple event streams per queue, while Advanced Queuing (AQ) is a disk-based implementation for simpler workflow use cases. Naming nomenclature for TEQ and AQ in Oracle Database Release 21c are as follows:
+Oracle Transactional Event Queues (TxEventQ) provide database-integrated message queuing functionality. This highly optimized and partitioned implementation leverages the functions of Oracle database so that producers and consumers can exchange messages with high throughput, by storing messages persistently, and propagating messages between queues on different databases.
+Oracle Transactional Event Queues (TxEventQ) are a high-performance partitioned implementation with multiple event streams per queue, while Advanced Queuing (AQ) is a disk-based implementation for simpler workflow use cases. Naming nomenclature for TxEventQ and AQ in Oracle Database Release 21c are as follows:
 
 | Message type        | Old Name          | New Name           |
 |---------------------|:-----------------:|--------------------|
 | Persistent messages | AQ classic queues | AQ queues          |
-| Persistent messages | AQ Sharded queues | TEQ queues         |
+| Persistent messages | AQ Sharded queues | TxEventQ queues         |
 | Buffered messages   | AQ classic queues | AQ buffered queues |
 
 **Transactional Event Queues and Advanced Queuing Implementation**
@@ -63,5 +63,5 @@ You may now **proceed to the next lab.**
 ## Acknowledgements
 
 - **Author** - Mayank Tayal, Developer Advocate
-- **Contributors** - Sanjay Goil, VP Microservices and Oracle Database; Paul Parkinson, Developer Evangelist; Paulo Simoes, Developer Evangelist; Richard Exley, Maximum Availability Architecture; Shivani Karnewar, Senior Member Technical Staff
-- **Last Updated By/Date** - Mayank Tayal, February 2022
+- **Contributors** - Sanjay Goil, VP Microservices and Oracle Database
+- **Last Updated By/Date** - Mayank Tayal, March 2023

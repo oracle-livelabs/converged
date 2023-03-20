@@ -29,7 +29,7 @@ This lab will give an understanding of Advanced Queues creation using different 
 2. Execute the following sequence of commands into cloud shell:
 
     ```bash
-    <copy>cd $ORACLEAQ_HOME; source createAQ.sh;
+    <copy>cd $ORACLEAQ_PLSQL_AQ; source createAQ.sh;
     </copy>
     ```
 
@@ -46,7 +46,7 @@ This lab will give an understanding of Advanced Queues creation using different 
 2. Execute the following sequence of commands into cloud shell:
 
     ```bash
-    <copy>cd $ORACLEAQ_HOME; source enqueueAQ.sh;
+    <copy>cd $ORACLEAQ_PLSQL_AQ; source enqueueAQ.sh;
     </copy>
     ```
 
@@ -63,7 +63,7 @@ This lab will give an understanding of Advanced Queues creation using different 
 2. Execute the following sequence of commands into cloud shell:
 
     ```bash
-    <copy>cd $ORACLEAQ_HOME; source dequeueAQ.sh;
+    <copy>cd $ORACLEAQ_PLSQL_AQ; source dequeueAQ.sh;
     </copy>
     ```
 
@@ -85,7 +85,7 @@ This lab will give an understanding of Advanced Queues creation using different 
         </copy>
         ```
 
-    You can view the source code for this lab [here.](https://github.com/oracle/microservices-datadriven/tree/main/workshops/oracleAQ/aqJava/src/main/java/com/examples/enqueueDequeueAQ/EnqueueDequeueAQ.java)
+    You can view the source code for this lab [here.](https://github.com/oracle/microservices-datadriven/tree/main/workshops/oracleAQ/qJava/src/main/java/com/examples/enqueueDequeueAQ/EnqueueDequeueAQ.java)
 
 ## Task 5: Create AQ, Enqueue and Dequeue using Python
 
@@ -94,7 +94,7 @@ This lab will give an understanding of Advanced Queues creation using different 
       - Execute the following sequence of commands into cloud shell:
 
         ```bash
-        <copy>cd $ORACLEAQ_HOME; source createAQPython.sh;
+        <copy>cd $ORACLEAQ_PYTHON_AQ; python3 pythonCreateAQ.py
         </copy>
         ```
 
@@ -103,7 +103,7 @@ This lab will give an understanding of Advanced Queues creation using different 
       - Execute the following sequence of commands into cloud shell:
 
         ```bash
-        <copy>cd $ORACLEAQ_HOME; pyhton3 PythonAQ.py;
+        <copy>cd $ORACLEAQ_PYTHON_AQ; python3 pythonEnqDeqAQ.py;
         </copy>
         ```
 
@@ -112,7 +112,7 @@ This lab will give an understanding of Advanced Queues creation using different 
       - Execute the following sequence of commands into cloud shell:
 
         ```bash
-        <copy>cd $ORACLEAQ_HOME; source cleanupAQPython.sh;
+        <copy>cd $ORACLEAQ_PYTHON_AQ; python3 pythonCleanupAQ.py;
         </copy>
         ```
 
@@ -131,7 +131,7 @@ This lab will give an understanding of Advanced Queues creation using different 
 2. Execute the following sequence of commands into cloud shell:
 
     ```bash
-    <copy>cd $ORACLEAQ_HOME; source cleanupAQ.sh;
+    <copy>cd $ORACLEAQ_PLSQL_AQ; source cleanupAQ.sh;
     </copy>
     ```
 
@@ -140,5 +140,5 @@ You may now **proceed to the next lab.**
 ## Acknowledgements
 
 - **Author** - Mayank Tayal, Developer Advocate
-- **Contributors** - Sanjay Goil, VP Microservices and Oracle Database; Paul Parkinson, Developer Evangelist; Paulo Simoes, Developer Evangelist; Richard Exley, Maximum Availability Architecture; Shivani Karnewar, Senior Member Technical Staff
-- **Last Updated By/Date** - Mayank Tayal, February 2022
+- **Contributors** - Shivani Karnewar, Senior Member Technical Staff
+- **Last Updated By/Date** - Mayank Tayal, March 2023
