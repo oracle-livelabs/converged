@@ -6,6 +6,10 @@ This lab walks you through the steps to build a Spring Boot microservice from sc
 
 Estimated Time: 20 minutes
 
+Quick walk through on how to build an account microservice.
+
+[](videohub:1_qijspt83)
+
 ### About Spring Boot
 
 Enter background information here about the technology/feature or product used in this lab - no need to repeat what you covered in the introduction. Keep this section fairly concise. If you find yourself needing more than two sections/paragraphs, please utilize the "Learn More" section.
@@ -403,12 +407,12 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
             name: accounts
           jpa:
             hibernate:
-            ddl-auto: validate
+              ddl-auto: validate
             properties:
-            hibernate:
-              dialect: org.hibernate.dialect.Oracle12cDialect
-              format_sql: true
-            show-sql: true
+              hibernate:
+                dialect: org.hibernate.dialect.Oracle12cDialect
+                format_sql: true
+              show-sql: true
           datasource:
             url: jdbc:oracle:thin:@tns_entry_from_above?TNS_ADMIN=/path/to/wallet
             username: account
