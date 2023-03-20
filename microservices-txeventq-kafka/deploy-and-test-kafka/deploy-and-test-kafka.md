@@ -279,7 +279,7 @@ You session of cloud shell may expire or disconnect during the process [bellow i
 
 3. Restart components
 
-    If they are not running like bellow image, execute again [Task 1](#task1runkafkabrokerandcreateatopic).
+    If they are not running like below image, execute again [Task 1](#task1runkafkabrokerandcreateatopic).
 
     ![Kafka Cluster Services exist 1](images/kafka-platform-containers-status-exit.png)
 
