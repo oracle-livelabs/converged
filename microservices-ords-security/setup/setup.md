@@ -14,7 +14,7 @@ Estimated Time: 30 minutes
 ### Prerequisites
 
 This lab requires completion of the Get Started section in the Contents menu on the left.
-An Oracle Cloud paid account or free trial. To sign up for a trial account with $300 in credits for 30 days, click [Sign Up](http://oracle.com/cloud/free).
+An Oracle Cloud paid account or free trial.
 
 ## IAM Policies requirements
 
@@ -32,9 +32,9 @@ If you're running the workshop in your tenancy the assumptions are that you have
 
 You will also need 3 terminal windows open (for Desktop deployment) or 3 Browser tabs for Cloud Shell deployments for the following purposes:
 
-- Running the terraform scripts
-- Starting the SSH Tunnel to the ADB-S (Oracle Autonomous Database Shared) instance
-- Accessing the ORDS (Oracle REST Data Services) Server and the ADB-S instance via SQLcl
+* Running the terraform scripts
+* Starting the SSH Tunnel to the ADB-S (Oracle Autonomous Database Shared) instance
+* Accessing the ORDS (Oracle REST Data Services) Server and the ADB-S instance via SQLcl
 
 ## Architecture and deployment
 
@@ -43,30 +43,30 @@ The Terraform scripts will deploy the infrastructure for this architecture. You 
 
 There are two ways to run deploy this architecture. You can not do both unless you teardown the environment and start from scratch.
 
-- Cloud Shell via the OCI Console. This will require that you have multiple browser tabs with Cloud Shell running. [Cloud Shell Deployment](#deployment-using-cloud-shell).
-- Using your own computer and locally installed software. [Local Deployment](#deploying-using-local-machine)
+* Cloud Shell via the OCI Console. This will require that you have multiple browser tabs with Cloud Shell running. [Cloud Shell Deployment](#deployment-using-cloud-shell).
+* Using your own computer and locally installed software. [Local Deployment](#deploying-using-local-machine)
 
 Required software for Desktop usage:
 
-- jq (<https://stedolan.github.io/jq/>)
-- Postman (<https://www.postman.com>)
-- terraform (<https://learn.hashicorp.com/tutorials/terraform/install-cli>)
-- OCI CLI (<https://docs.oracle.com/en-us/iaas/Content/API/Concepts/cliconcepts.htm>)
-- Terminal software
+* jq (<https://stedolan.github.io/jq/>)
+* Postman (<https://www.postman.com>)
+* terraform (<https://learn.hashicorp.com/tutorials/terraform/install-cli>)
+* OCI CLI (<https://docs.oracle.com/en-us/iaas/Content/API/Concepts/cliconcepts.htm>)
+* Terminal software
 
-# Deployment using Cloud Shell - Alternative 1
+## Deployment using Cloud Shell - Alternative 1
 
-## Task 1. Log in to Oracle Cloud Console
+### Task 1. Log in to Oracle Cloud Console
 
 If you haven't already, sign into your account.
 
-## Task 2. Select the Home Region
+### Task 2. Select the Home Region
 
 Be sure to select the *home region* of your tenancy. Setup will only work in the home region.
 
 ![Home Region](./images/home-region.png " ")
 
-## Task 3. Launch Cloud Shell
+### Task 3. Launch Cloud Shell
 
 Cloud Shell is a small virtual machine running a "bash" shell which you access through the Oracle Cloud Console. Cloud Shell comes with a pre-authenticated command line interface in the tenancy region. It also provides up-to-date tools and utilities.
 
@@ -75,7 +75,7 @@ Cloud Shell is a small virtual machine running a "bash" shell which you access t
 
 *Note:* Cloud Shell uses websockets to communicate between your browser and the service. If your browser has websockets disabled or uses a corporate proxy that has websockets disabled, you will see an error message ("An unexpected error occurred") when attempting to start Cloud Shell from the console. You also can change the browser cookies settings for a specific site to allow the traffic from *.oracle.com
 
-## Task 4. Make a Clone of the Workshop Setup Script and Source Code
+### Task 4. Make a Clone of the Workshop Setup Script and Source Code
 
 To work with the application code, you need to make a clone from the GitHub repository. Execute the following sequence of commands:
 
@@ -91,7 +91,7 @@ cd dcms-ords-sec;
 
 You should now see the directory `dcms-ords-sec` in your home directory.
 
-## Task 5. Setup Environment Variables
+### Task 5. Setup Environment Variables
 
 Copy the terraform-env-template.sh to terraform-env.sh
 
@@ -125,13 +125,13 @@ TF_VAR_size=XS
 TF_VAR_proj_abrv=at
 ```
 
-## Task 6. Build the OCI Infrastructures environment using IaC
+### Task 6. Build the OCI Infrastructures environment using IaC
 
 Execute the following commands to build out the OCI Infrastructure, this will take approximately 20 minutes.
 
-- `terraform init`
-- `terraform plan -out=plan.out`
-- `terraform apply plan.out`
+* `terraform init`
+* `terraform plan -out=plan.out`
+* `terraform apply plan.out`
 
 The `terraform apply` command should end with the following output.
 
@@ -156,15 +156,15 @@ Error: 400-InvalidParameter, To create a Managed SSH session, the Bastion plugin
 
 The reason is that the Bastion plugin on the Compute VM (used for the Bastion Service Server) hasn't initialized yet and the plugin is required for the Bastion Service. Wait a minute and run the following commands again will resolve the problem:
 
-- `terraform plan -out=plan.out`
-- `terraform apply plan.out`
+* `terraform plan -out=plan.out`
+* `terraform apply plan.out`
 
 **NOTE:** If the Cloud Shell session times out (Cloud Shell times out after 20 minutes) before finishing, launch Cloud Shell again and do the following:
 
-- `source ./terraform-env.sh`
-- `terraform apply plan.out`
+* `source ./terraform-env.sh`
+* `terraform apply plan.out`
 
-## Task 7. Update ADMIN password in the OCI Console
+### Task 7. Update ADMIN password in the OCI Console
 
 The database password for the ADMIN user is expired and must be changed using the OCI Console. Follow these steps:
 
@@ -176,9 +176,9 @@ The database password for the ADMIN user is expired and must be changed using th
 4. Update the password.
    ![Admin Pwd](./images/admin-pwd.png " ")
 
-## Task 8. Test access to the ATP-S using APEX and SQL Developer Web
+### Task 8. Test access to the ATP-S using APEX and SQL Developer Web
 
-### 1. Accessing APEX (Web)
+#### 1. Accessing APEX (Web)
 
 Find the Load Balancer IP via the OCI Console or execute the following command from the directory containing the IaC code:
 
@@ -207,7 +207,7 @@ oci compute instance action --instance-id ${instance_id} --action SOFTRESET --pr
 You can also reboot the Compute VM from the OCI Console.
 ![Console Reboot](./images/console-reboot.png " ")
 
-### 2. Access SQL Developer Web (Database Actions)
+#### 2. Access SQL Developer Web (Database Actions)
 
 If you haven't already, find the Load Balancer IP via the OCI Console, or the output from the setup, or execute the following command from the directory containing the IaC code:
 
@@ -228,19 +228,19 @@ SQLDeveloper Web (Database Actions) can be used instead of using the local SQLCl
 
 Once the setup and testing of access has been completed you are ready to proceed to the next lab.
 
-# Deploying using Local machine - Alternative 2
+## Deploying using Local machine - Alternative 2
 
-## Task 1. Log in to Oracle Cloud Console
+### Task 1. Log in to Oracle Cloud Console (Alt 2)
 
 If you haven't already, sign into your account.
 
-## Task 2. Select the Home Region
+### Task 2. Select the Home Region (Alt 2)
 
 Be sure to select the *home region* of your tenancy. Setup will only work in the home region.
 
 ![Home Region](./images/home-region.png " ")
 
-## Task 3. Open a Terminal Window and a Clone of the Workshop Setup Script and Source Code
+### Task 3. Open a Terminal Window and a Clone of the Workshop Setup Script and Source Code
 
 To work with the application code, you need to make a clone from the GitHub repository. Execute the following sequence of commands:
 
@@ -256,7 +256,7 @@ cd dcms-ords-sec;
 
 You should now see the directory `dcms-ords-sec` where in the directory where you launched the terminal.
 
-## Task 4. Generate an API key
+### Task 4. Generate an API key
 
 Locate your menu bar and click the person icon at the far upper right. From the drop-down menu, select your user's name.
 
@@ -280,7 +280,7 @@ Copy the Configuration File Preview and save this information. It will be needed
 
 Click close.
 
-## Task 5. Setup Environment Variables
+### Task 5. Setup Environment Variables (Alt 2)
 
 Copy the terraform-env-template.sh to terraform-env.sh
 
@@ -319,13 +319,13 @@ TF_VAR_fingerprint=42:f0:f2:92:3d:58:11:8a:8a:7............
 TF_VAR_private_key_path=/Path/.ssh/private_key_file.pem
 ```
 
-## Task 6. Build the OCI Infrastructures environment using IaC
+### Task 6. Build the OCI Infrastructures environment using IaC (Alt 2)
 
 Execute the following commands from `the security directory` to build out the OCI Infrastructure, this will take approximately 20 minutes.
 
-- `terraform init`
-- `terraform plan -out=plan.out`
-- `terraform apply plan.out`
+* `terraform init`
+* `terraform plan -out=plan.out`
+* `terraform apply plan.out`
 
 The `terraform apply` command should end with the following output.
 
@@ -350,10 +350,10 @@ Error: 400-InvalidParameter, To create a Managed SSH session, the Bastion plugin
 
 The reason is that the Bastion plugin on the Compute VM (used for the Bastion Service Server) hasn't initialized yet and the plugin is required for the Bastion Service. Wait a minute and run the following commands again will resolve the problem:
 
-- `terraform plan -out=plan.out`
-- `terraform apply plan.out`
+* `terraform plan -out=plan.out`
+* `terraform apply plan.out`
 
-## Task 7. Update ADMIN password in the OCI Console
+### Task 7. Update ADMIN password in the OCI Console (Alt 2)
 
 The database password for the ADMIN user is expired and must be changed using the OCI Console. Follow these steps:
 
@@ -365,9 +365,9 @@ The database password for the ADMIN user is expired and must be changed using th
 4. Update the password.
    ![Admin Pwd](./images/admin-pwd.png " ")
 
-## Task 8. Test access to the ATP-S using APEX and SQL Developer Web
+### Task 8. Test access to the ATP-S using APEX and SQL Developer Web (Alt 2)
 
-### 1. Accessing APEX (Web)
+#### 1. Accessing APEX (Web) (Alt 2)
 
 Find the Load Balancer IP via the OCI Console or execute the following command from the directory containing the IaC code:
 
@@ -396,7 +396,7 @@ oci compute instance action --instance-id ${instance_id} --action SOFTRESET --pr
 You can also reboot the Compute VM from the OCI Console.
 ![Console Reboot](./images/console-reboot.png " ")
 
-### 2. Access SQL Developer Web (Database Actions)
+#### 2. Access SQL Developer Web (Database Actions) (Alt 2)
 
 If you haven't already, find the Load Balancer IP via the OCI Console, or the output from the setup, or execute the following command from the directory containing the IaC code:
 

@@ -1,0 +1,48 @@
+{
+    "workshoptitle": "Data Refactoring Advisor for Migrating a Monolith to Microservices",
+    "help": "livelabs-help-db_us@oracle.com",
+    "tutorials": [
+        {
+            "title": "Introduction",
+            "filename": "../../intro/intro.md"
+        },
+        {
+            "title": "Get Started",
+            "description": "This is the prerequisites for customers using Free Trial and Paid tenancies, and Always Free accounts (if applicable). The title of the lab and the Contents Menu title (the title above) match for Prerequisite lab.",
+            "filename": "https://oracle-livelabs.github.io/common/labs/cloud-login/cloud-login.md"
+        },
+        {
+            "title": "Lab 1: Setup the lab environment",
+            "filename": "../../setup/setup.md"
+        },
+        {
+            "title": "Lab 2: Collect details of the application using SQL Tuning Sets",
+            "filename": "../../collect-usage/collect-usage.md"
+        },
+        {
+            "title": "Lab 3: Determine the affinity between tables",
+            "filename": "../../calculate-affinity/calculate-affinity.md"
+        },
+        {
+            "title": "Lab 4: Construct a graph using the collected data",
+            "filename": "../../construct-graph/construct-graph.md"
+        },
+		{
+            "title": "Lab 5: Run community detection",
+            "filename": "../../detect-communities/detect-communities.md"
+        },
+        {
+            "title": "Lab 6: Run community detection on medical records",
+            "filename": "../../detect-communities/detect-communities-med-records.md"
+        },
+        {
+            "title": "Lab 7: Extract a smaller graph from the main graph",
+            "filename": "../../extract-smaller-graph/extract-smaller-graph.md"
+        },
+        {
+            "title": "Need Help?",
+            "description": "Solutions to Common Problems and Directions for Receiving Live Help",
+            "filename":"https://oracle-livelabs.github.io/common/labs/need-help/need-help-freetier.md"
+        }
+    ]
+}
