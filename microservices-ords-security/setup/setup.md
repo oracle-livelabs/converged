@@ -82,7 +82,7 @@ To work with the application code, you need to make a clone from the GitHub repo
 ```bash
 <copy>
 cd $HOME
-git clone --single-branch https://github.com/oracle/microservices-datadriven.git;
+git clone -b 22.7.3 --single-branch https://github.com/oracle/microservices-datadriven.git;
 cp -r ./microservices-datadriven/workshops/dcms-ords-sec $HOME;     
 rm -rf microservices-datadriven; 
 cd dcms-ords-sec;
@@ -112,13 +112,7 @@ export TF_VAR_proj_abrv="[ABBRV]"
 
 The `TF_VAR_proj_abrv` variable needs to be set to something unique in the tenancy as the naming of certain OCI Services must be unique. Use your initials for example. The compartment OCID can be found in the [OCI console](https://cloud.oracle.com/).
 
-When you've set all the variables, source the file with the command:
-
-```bash
-<copy>
-source ./terraform-env.sh
-</copy>
-```
+When you've set all the variables, source the file with the command `source ./terraform-env.sh`
 
 Use the command `env | grep TF_VAR` to see the variables set by the environment file. It should look something like the following:
 
@@ -135,13 +129,9 @@ TF_VAR_proj_abrv=at
 
 Execute the following commands to build out the OCI Infrastructure, this will take approximately 20 minutes.
 
-```bash
-<copy>
-terraform init
-terraform plan -out=plan.out
-terraform apply plan.out
-</copy>
-```
+- `terraform init`
+- `terraform plan -out=plan.out`
+- `terraform apply plan.out`
 
 The `terraform apply` command should end with the following output.
 
@@ -166,21 +156,13 @@ Error: 400-InvalidParameter, To create a Managed SSH session, the Bastion plugin
 
 The reason is that the Bastion plugin on the Compute VM (used for the Bastion Service Server) hasn't initialized yet and the plugin is required for the Bastion Service. Wait a minute and run the following commands again will resolve the problem:
 
-```bash
-<copy>
-terraform plan -out=plan.out
-terraform apply plan.out
-</copy>
-```
+- `terraform plan -out=plan.out`
+- `terraform apply plan.out`
 
 **NOTE:** If the Cloud Shell session times out (Cloud Shell times out after 20 minutes) before finishing, launch Cloud Shell again and do the following:
 
-```bash
-<copy>
-source ./terraform-env.sh
-terraform apply plan.out
-</copy>
-```
+- `source ./terraform-env.sh`
+- `terraform apply plan.out`
 
 ## Task 7. Update ADMIN password in the OCI Console
 
