@@ -154,9 +154,9 @@ This lab assumes that you have already completed the earlier labs.
 
 	![Navigate to Autonomous Transaction Processing page](https://oracle-livelabs.github.io/common/images/console/database-atp.png " ")
 
-2. Select DB1, the database that contains the order schema, click **More Actions**, then **Manage Scaling**. Enter 2 in the OCPU field. Click **Apply**.
+2. Select DB1, the database that contains the order schema, click **Manage Scaling**. Enter 2 in the OCPU field. Click **Apply**.
 
-    ![More Actions](images/ScaleTo2dbocpuScreen1.png " ")
+    ![More Actions](images/ScaleTo2dbocpuScreen.png " ")
 
     ![Update OCPU Field](images/manage-scaling.png " ")
 
