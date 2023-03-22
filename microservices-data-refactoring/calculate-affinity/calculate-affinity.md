@@ -274,7 +274,7 @@ In this task, we will create a set of metadata tables that we will use to store 
     /</copy>
     ```
 
-	**Procedure COMPUTE_AFFINITY_TKDRA compiled** is the expected output.
+	**Procedure `COMPUTE_AFFINITY_TKDRA compiled`** is the expected output.
 	
     >**Note:** This code is provided in the file `compute-affinity.sql`.
 
