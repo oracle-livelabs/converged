@@ -78,10 +78,10 @@ Transactional Event Queues(TxEventQ) samples to create queues using different pa
 1. Execute the following sequence of commands into cloud shell
 
     ```bash
-    <copy> curl http://localhost:8081/oracleAQ/pubSubTEQ </copy>
+    <copy> curl http://localhost:8081/oracleAQ/pubSubTxEventQ | jq </copy>
     ```
 
-    You can view the source code for this lab [here.](https://github.com/oracle/microservices-datadriven/tree/main/workshops/oracleAQ/qJava/src/main/java/com/examples/enqueueDequeueTEQ/EnqueueDequeueTEQ.java)
+    You can view the source code for this lab [here.](https://github.com/oracle/microservices-datadriven/tree/main/workshops/oracleAQ/qJava/src/main/java/com/examples/enqueueDequeueTxEventQ/EnqueueDequeueTxEventQ.java)
 
 ## Task 5: Drop TxEventQ
 
