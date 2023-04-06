@@ -116,7 +116,7 @@ Below are the code samples to create the workflow
 
     ```
 
-    You can view the java source code for this lab [here.](https://github.com/oracle/microservices-datadriven/tree/main/workshops/oracleAQ/qJava/src/main/java/com/examples/workflowTEQ/WorkflowTxEventQ.java)
+    You can view the java source code for this lab [here.](https://github.com/oracle/microservices-datadriven/tree/main/workshops/oracleAQ/qJava/src/main/java/com/examples/workflowTxEventQ/WorkflowTxEventQ.java)
 
 ## Task 6: Drop queues
 
