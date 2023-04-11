@@ -112,7 +112,7 @@ Below are the code samples to create the workflow
 
     ```bash
 
-    <copy> curl http://localhost:8081/oracleAQ/workflowAQ </copy>
+    <copy> curl http://localhost:8081/oracleAQ/workflowAQ | jq</copy>
 
     ```
 

@@ -73,7 +73,7 @@ This lab will give an understanding of Advanced Queues creation using different 
     - Execute the following sequence of commands into cloud shell:
 
         ```bash
-        <copy> curl http://localhost:8081/oracleAQ/pointToPointAQ 
+        <copy> curl http://localhost:8081/oracleAQ/pointToPointAQ | jq
         </copy>
         ```
 
