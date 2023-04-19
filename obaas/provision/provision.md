@@ -159,7 +159,7 @@ The Oracle Backend for Spring Boot can be installed from OCI Marketplace.
     ingress-nginx-controller   LoadBalancer   10.123.10.127   100.20.30.40  80:30389/TCP,443:30458/TCP   13d
     ```
 
-    Now use this command (with your IP address) to make a request to the API Gateway.  You should receive a response with an HTTP Status Code 4040 (Not Found) and an error message in JSON format as shown below.  Don't worry about the 404, you will deploy some services soon, but this test is enough to know the API Gateway started up successfully:
+    Now use this command (with your IP address) to make a request to the API Gateway.  You should receive a response with an HTTP Status Code 404 (Not Found) and an error message in JSON format as shown below.  Don't worry about the 404, you will deploy some services soon, but this test is enough to know the API Gateway started up successfully:
 
     ```shell
     $ <copy>curl -i http://100.20.30.40</copy>
@@ -192,4 +192,4 @@ The Oracle Backend for Spring Boot can be installed from OCI Marketplace.
 
 * **Author** - Mark Nelson, Andy Tael, Developer Evangelist, Oracle Database
 * **Contributors** - [](var:contributors)
-* **Last Updated By/Date** - Andy Tael, February 2023
+* **Last Updated By/Date** - Andy Tael, April 2023
