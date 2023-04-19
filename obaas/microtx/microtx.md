@@ -65,7 +65,7 @@ A Cloud Cash Payment Request Processor service (which you installed in the **Dep
 
 ## Task 2: Learn about Long Running Actions
 
-There are different models that can be used to coordinate transactions across services.  Three of the most common are XA (Extended Architecture) which focuses on strong consistency, LRA (Long Running Action) which provides eventual consistency, and TCC (Try-Confirm/Cancel) which uses a reservation model.  Oracle Backend for Spring Boot includes [Oracle Transaction Manager for Microservices](https://www.oracle.com/database/transaction-manager-for-microservices/) which supports all three of these options. 
+There are different models that can be used to coordinate transactions across services.  Three of the most common are XA (Extended Architecture) which focuses on strong consistency, LRA (Long Running Action) which provides eventual consistency, and TCC (Try-Confirm/Cancel) which uses a reservation model.  Oracle Backend for Spring Boot includes [Oracle Transaction Manager for Microservices](https://www.oracle.com/database/transaction-manager-for-microservices/) which supports all three of these options.
 
 In this lab, you will explore the Long Running Action model.  In this model there is a logical coordinator and a number of participants.  Each participant is responsible for performing work and being able to compensate if necessary.  The coordinator essentially manages the lifecycle of the LRA, for example by telling participants when to cancel or complete.
 
@@ -77,7 +77,7 @@ You will implement the LRA using the Eclipse Microprofile LRA library which prov
 
 > **Note**: The current version of the library (at the time of the Level Up 2023 event) uses JAX-RS, not Spring Boot's REST annotations provided by `spring-boot-starter-web`, so until a version of the library with better support for Spring is available, we will need to do a little extra work to use JAX-RS.
 
-The main annotations used in an LRA application are as follows: 
+The main annotations used in an LRA application are as follows:
 
 * `@LRA` - Controls the life cycle of an LRA.
 * `@Compensate` - Indicates that the method should be invoked if the LRA is cancelled.
@@ -90,7 +90,7 @@ If you would like to learn more, there is a lot of detail in the [Long Running A
 
 ### Keeping track of local transactions made in an LRA
 
-Microservices are often designed to be stateless, to push all the state into the datastore.  This makes it easier to scale by running more instances of services, and it makes it easier to debug issues because there is no state stored in process memory.  It also means you need a way to correlate transactions with the LRA they were performed by. 
+Microservices are often designed to be stateless, to push all the state into the datastore.  This makes it easier to scale by running more instances of services, and it makes it easier to debug issues because there is no state stored in process memory.  It also means you need a way to correlate transactions with the LRA they were performed by.
 
 You will add a `JOURNAL` table to the account microservice's database.  This table will contain the "bank account transactions" (deposits, withdrawals, interest payments, etc.) for this account (not to be confused with "database transactions" as in the two-phase commit protocol).  The account service will track LRA's associated with each journal entry (bank account transaction) in a column in the journal table.
 
@@ -418,7 +418,7 @@ The Deposit service will process deposits into bank accounts.  In this task, you
    Next, you need to provide a status endpoint.  This must respond to the HTTP GET method. 
 
     ```java
-    
+    <copy>
     /**
     * Return status
     */
@@ -429,7 +429,7 @@ The Deposit service will process deposits into bank accounts.  In this task, you
     public Response status(@HeaderParam(LRA_HTTP_CONTEXT_HEADER) String lraId) throws Exception {
         return AccountTransferDAO.instance().status(lraId, DEPOSIT);
     }
-    
+    </copy>
     ```
 
 1. Create the "after" LRA endpoint
@@ -593,7 +593,7 @@ The Data Access Object pattern is considered a best practice and it allows separ
 
 1. Create methods to manage accounts
 
-   Create a method to get the account for a given account ID. 
+   Create a method to get the account for a given account ID.
 
     ```java
     <copy>Account getAccountForAccountId(long accountId) {
@@ -630,7 +630,7 @@ The Data Access Object pattern is considered a best practice and it allows separ
         List<Account> findAccountsByAccountNameContains (String accountName);
         Account findByAccountId(long accountId);
     }</copy>
-    ```    
+    ```
 
 1. Create methods to manage the journal
 
@@ -945,7 +945,6 @@ Next, you need to implement the withdraw service, which will be the second parti
 
    That completes the implementation of the deposit service, and with that you are also done with the modifications for the Account Spring Boot microservice application to allow it to participate int he LRA.  Next, you will create the Transfer Spring Boot microservice application.
 
-
 ## Task 8: Create the Transfer Service
 
 Now, you will create another new Spring Boot microservice application and implement the Transfer Service.  This service will initiate the LRA and act as the logical coordinator - it will call the deposit and withdraw services you just implemented to effect the transfer to process the Cloud Cash Payment.
@@ -1047,11 +1046,11 @@ Now, you will create another new Spring Boot microservice application and implem
       coordinator:
         url: http://otmm-tcs.otmm.svc.cluster.local:9000/api/v1/lra-coordinator
     </copy>
-    ```   
+    ```
 
 1. Create the Spring Boot Application class
 
-   Create a new directory called `src/main/java/com/example/transfer` and in that directory, create a new Java file called `TransferApplication.java`.  This will be the main application file for the Spring Boot application.  This is a standard application class, there are no new concepts introduced.  Here is the content for this file: 
+   Create a new directory called `src/main/java/com/example/transfer` and in that directory, create a new Java file called `TransferApplication.java`.  This will be the main application file for the Spring Boot application.  This is a standard application class, there are no new concepts introduced.  Here is the content for this file:
 
     ```java
     <copy>package com.example.transfer;
@@ -1073,7 +1072,6 @@ Now, you will create another new Spring Boot microservice application and implem
    The ApplicationConfig class reads configuration from `application.yaml` and injects the LRA client bean into the application. Create a new Java file called `ApplicationConfig.java` in `src/main/java/com/example/transfer`. Here is the content for this file:
 
    This provides the information necessary to locate the LRA coordinator.
-
 
     ```java
     <copy>package com.example.transfer;
@@ -1261,7 +1259,7 @@ Now, you will create another new Spring Boot microservice application and implem
 
 1. Create a method to perform the withdrawal
 
-   This method should perform the withdrawal by calling the Withdraw service in the Account Spring Boot application.  The `accountId` and `amount` need to be passed to the service, and you must set the `LRA_HTTP_CONTEXT_HEADER` to the LRA ID.  You can get the ID of the currently running LRA by calling `Current.peek()`. 
+   This method should perform the withdrawal by calling the Withdraw service in the Account Spring Boot application.  The `accountId` and `amount` need to be passed to the service, and you must set the `LRA_HTTP_CONTEXT_HEADER` to the LRA ID.  You can get the ID of the currently running LRA by calling `Current.peek()`.
 
     > **Note**: Normally the LRA interceptors would automatically add the header for you, however in the version of the library you are using in this lab, that insertion is not working, so you need to do it manually.
 
@@ -1281,7 +1279,7 @@ Now, you will create another new Spring Boot microservice application and implem
     }</copy>
     ```
 
-1.  Create a method to perform the deposit
+1. Create a method to perform the deposit
 
    This method is similar the previous one, no new concepts are introduced here.
 
@@ -1367,7 +1365,6 @@ Now, you will create another new Spring Boot microservice application and implem
 
    That completes the Transfer service and application.
 
-
 ## Task 9: Deploy the Account and Transfer services to the backend
 
 The services are now completed and you are ready to deploy them to the Oracle Backend for Spring Boot.
@@ -1382,10 +1379,9 @@ The services are now completed and you are ready to deploy them to the Oracle Ba
 
     * Update the POM to remove the dependency for `spring-cloud-starter-netflix-eureka-client`.
     * Remove the `@EnableDiscoveryClient` annotation on the `AccountsApplication` class.
-    * Remove the `eureka` configuration from `src/main/resources/application.yaml`. 
-   
-   You will also need to update the APISIX route to use Kubernetes service discovery instead of Eureka. 
+    * Remove the `eureka` configuration from `src/main/resources/application.yaml`.
 
+   You will also need to update the APISIX route to use Kubernetes service discovery instead of Eureka.
 
 1. Update the APISIX route to use Kubernetes service discovery
 
@@ -1407,13 +1403,13 @@ The services are now completed and you are ready to deploy them to the Oracle Ba
 
    To build a JAR file from the Account application, issue this command in the `account` directory.  Then issue the same command from the `transfer` directory to build the Transfer application into a JAR file too.
 
-    ```
+     ```shell
     $ <copy>mvn package -Dmaven.test.skip=true</copy>
     ```
 
-   You will now have a JAR file for each application, as can be seen with this command: 
+   You will now have a JAR file for each application, as can be seen with this command:
 
-    ```
+    ```shell
     $ <copy>find . -name \*jar</copy>
     ./accounts/target/accounts-0.0.1-SNAPSHOT.jar
     ./transfer/target/transfer-0.0.1-SNAPSHOT.jar
@@ -1424,21 +1420,21 @@ The services are now completed and you are ready to deploy them to the Oracle Ba
   You will now deploy your updated account application and new transfer application to the Oracle Backend for Spring Boot using the CLI.  You will deploy into the `application` namespace, and the service names will be `account` and `transfer` respectively.  Run this command to redeploy your account service, make sure you provide the correct path to your JAR files.  **Note**: You must set **isRedeploy** to **true** since you are updating the existing deployment:
 
     ```shell
-    oractl> <copy>deploy --isRedeploy true --appName application --serviceName account --jarLocation /path/to/accounts/target/accounts-0.0.1-SNAPSHOT.jar --imageVersion 0.0.1</copy>
-    uploading... upload successful
-    building and pushing image... docker build and push successful
-    creating deployment and service... create deployment and service  = account, appName = application, isRedeploy = true successful
-    successfully deployed
+    oractl:> <copy>deploy --redeploy true --app-name application --service-name account --artifact-path /path/to/accounts-0.0.1-SNAPSHOT.jar --image-version 0.0.1</copy>
+    uploading: account/target/accounts-0.0.1-SNAPSHOT.jar
+    building and pushing image...
+    creating deployment and service... successfully deployed
+    oractl:>
     ```
 
    Run this command to redeploy your account service, make sure you provide the correct path to your JAR files.
 
     ```shell
-    oractl> <copy>deploy --isRedeploy false --appName application --serviceName transfer --jarLocation /path/to/transfer/target/transfer-0.0.1-SNAPSHOT.jar --imageVersion 0.0.1</copy>
-    uploading... upload successful
-    building and pushing image... docker build and push successful
-    creating deployment and service... create deployment and service  = transfer, appName = application, isRedeploy = true successful
-    successfully deployed
+    oractl:> <copy>deploy --app-name application --service-name transfer --artifact-path transfer/target/transfer-0.0.1-SNAPSHOT.jar --image-version 0.0.1</copy>
+    uploading: transfer/target/transfer-0.0.1-SNAPSHOT.jar
+    building and pushing image...
+    creating deployment and service... successfully deployed
+    oractl:>
     ```
 
    Your applications are now deployed in the backend.
@@ -1471,7 +1467,7 @@ Now you can test your LRA to verify it performs correctly under various circumst
     ingress-nginx-controller   LoadBalancer   10.123.10.127   100.20.30.40  80:30389/TCP,443:30458/TCP   13d
     ```
 
-   Before you start, check the balances of the two accounts that you will be transferring money between using this command.  Note that these accounts were created in an earlier step. 
+   Before you start, check the balances of the two accounts that you will be transferring money between using this command.  Note that these accounts were created in an earlier step.
 
     ```shell
     $ <copy>curl -s http://100.20.30.40/api/v1/account/1 | jq ; curl -s http://100.20.30.40/api/v1/account/2 | jq</copy>
@@ -1506,7 +1502,7 @@ Now you can test your LRA to verify it performs correctly under various circumst
     transfer status:withdraw succeeded deposit succeeded
     ```  
 
-   Check the two accounts again to confirm the transfer behaved as expected: 
+   Check the two accounts again to confirm the transfer behaved as expected:
 
     ```shell
     $ <copy>curl -s http://100.20.30.40/api/v1/account/1 | jq ; curl -s http://100.20.30.40/api/v1/account/2 | jq</copy>
@@ -1539,7 +1535,7 @@ Now you can test your LRA to verify it performs correctly under various circumst
     ```shell
     $ <copy>curl -X POST "http://localhost:8080/transfer?fromAccount=2&toAccount=1&amount=100000"</copy>
     transfer status:withdraw failed: insufficient funds
-    ``` 
+    ```
 
 1. Perform a transfer that should fail due to the destination account not existing.
 
@@ -1593,4 +1589,4 @@ Now you can test your LRA to verify it performs correctly under various circumst
 
 * **Author** - Paul Parkinson, Mark Nelson, Andy Tael, Developer Evangelists, Oracle Database
 * **Contributors** - [](var:contributors)
-* **Last Updated By/Date** - Mark Nelson, March 2023
+* **Last Updated By/Date** - Andy Tael, April 2023
