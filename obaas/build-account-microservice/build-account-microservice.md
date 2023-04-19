@@ -1003,13 +1003,14 @@ If you would like to learn more about endpoints and implement the remainder of t
 
     ```shell
     $ <copy>oractl</copy>
-     _   _           __    _    ___
+    _   _           __    _    ___
     / \ |_)  _.  _. (_    /  |   |
     \_/ |_) (_| (_| __)   \_ |_ _|_
 
-    2023-03-01T10:25:17.749-05:00  INFO 27945 --- [           main] o.s.s.cli.OracleSpringCLIApplication     : Starting AOT-processed OracleSpringCLIApplication using Java 17.0.5 with PID 27945 (/home/mark/ebaas/oractl started by mark in /home/mark/accounts/accounts)
-    2023-03-01T10:25:17.749-05:00  INFO 27945 --- [           main] o.s.s.cli.OracleSpringCLIApplication     : No active profile set, falling back to 1 default profile: "default"
-    2023-03-01T10:25:17.786-05:00  INFO 27945 --- [           main] o.s.s.cli.OracleSpringCLIApplication     : Started OracleSpringCLIApplication in 0.047 seconds (process running for 0.05)
+    09:35:14.801 [main] INFO  o.s.s.cli.shell.ShellApplication - Starting AOT-processed ShellApplication using Java 17.0.5 with PID 29373 (/Users/atael/bin/oractl started by atael in /Users/atael)
+    09:35:14.801 [main] DEBUG o.s.s.cli.shell.ShellApplication - Running with Spring Boot v3.0.0, Spring v6.0.2
+    09:35:14.801 [main] INFO  o.s.s.cli.shell.ShellApplication - The following 1 profile is active: "obaas"
+    09:35:14.875 [main] INFO  o.s.s.cli.shell.ShellApplication - Started ShellApplication in 0.097 seconds (process running for 0.126)
     oractl:>
     ```
 
@@ -1019,15 +1020,17 @@ If you would like to learn more about endpoints and implement the remainder of t
     oractl> <copy>connect</copy>
     password (defaults to oractl):
     using default value...
-    connect successful server version:011223
+    connect successful server version:0.3.0
+    oractl:>
     ```
 
    Create a database "binding" by tunning this command.  Enter the password (`Welcome1234##`) when prompted.  This will create a Kubernetes secret in the `application` namespace called `account-db-secrets` which contains the username (`account`), password, and URL to connect to the Oracle Autonomous Database instance associated with the Oracle Backend for Spring Boot.
 
     ```shell
-    oractl:> <copy>bind --appName application --serviceName account</copy>
-    database password/servicePassword (defaults to Welcome12345): 
-    database secret created successfully and schema already exists for account
+    oractl:> <copy>bind --app-name application --service-name account</copy>
+    database password/servicePassword (defaults to Welcome12345): *************
+    database secret created successfully and schema already exists for account  
+    oractl:>
     ```
 
    This created a Kubernetes secret with the credentials to access the database using this Spring Boot microservice application's username and password.  When you deploy the application, its pods will have the keys in this secret injected as environment variables so the application can use them to authenticate to the database.
@@ -1037,11 +1040,10 @@ If you would like to learn more about endpoints and implement the remainder of t
   You will now deploy your account service to the Oracle Backend for Spring Boot using the CLI.  You will deploy into the `application` namespace, and the service name will be `account`.  Run this command to deploy your service, make sure you provide the correct path to your JAR file.  **Note** that this command may take 1-3 minutes to complete:
 
     ```shell
-    oractl> <copy>deploy --isRedeploy false --appName application --serviceName account --jarLocation /path/to/accounts/target/accounts-0.0.1-SNAPSHOT.jar --imageVersion 0.0.1</copy>
-    uploading... upload successful
-    building and pushing image... docker build and push successful
-    creating deployment and service... create deployment and service  = account, appName = application, isRedeploy = true successful
-    successfully deployed
+    oractl:> <copy>deploy --app-name application --service-name account --artifact-path /path/to/accounts-0.0.1-SNAPSHOT.jar --image-version 0.0.1</copy>
+    uploading: account/target/accounts-0.0.1-SNAPSHOT.jarbuilding and pushing image...
+    creating deployment and service... successfully deployed
+    oractl:>
     ```
 
     > What happens when you use the Oracle Backend for Spring Boot CLI **deploy** command? 
