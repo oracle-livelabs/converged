@@ -410,21 +410,21 @@ If you plan to do the optional part of Lab. 5, you need to install in VS Code th
 
 2. On the VS Code right menu bar, click on **Extensions** item:
 
-    ![Extensions list](images/extensions.jpg " ")
+    ![Extensions list](images/extensions.png " ")
 
 3. From the up-right corner menu, choose **Install from VSIX...**:
 
-    ![Install](images/install.jpg " ")
+    ![Install](images/install.png " ")
 
    and upload plug-in binaries previously downloaded.
 
 4. Re-start VS Code to make fully operative the plugin, in command palette execute a window reload:
 
-   ![VSReload](images/reloadWindow.jpg " ")
+   ![VSReload](images/reloadWindow.png " ")
 
 5. If you don't see the plugin in the left bar, with the Oracle logo, as shown here:
 
-    ![Additiona](images/additional.jpg " ")
+    ![Additiona](images/additional.png " ")
 
    click on **Additional Views** menu to select the **eBaaS Explorer**.
 

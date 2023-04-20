@@ -449,30 +449,30 @@ Download a copy of the CloudBank sample application.
 1. If you have done the optional **Task 11** of **Lab. 2**, you could proceed doing the activities from **Task 3** to **Task 5** using **Oracle Backend for Spring Boot VS Code plugin**. 
     If you don't see the plugin in the left bar, with the Oracle logo, as shown here:
 
-    ![Additiona](images/additional.jpg " ")
+    ![Additional](images/additional.png " ")
 
     click on **Additional Views** menu to select the **eBaaS Explorer**.
 
     The Oracle Backend for Spring Boot VS Code plugin will ask to specify the Kubernetes config file full path as shown here:
 
-    ![kubeConfig](images/getKubeConfig.jpg " ")
+    ![kubeConfig](images/getkubeconfig.png " ")
 
     By default it's shown the path in the user's Home directory **.kube/config** in which normally **kubectl** stores all the information regarding the K8S clusters configured. You could set the full path of another Kubernetes config file.
     If the file is correctly loaded, the plugin will show the list of contexts available in which select one:
 
-    ![kubeContextList](images/choseContext.jpg " ")
+    ![kubeContextList](images/chosecontext.png " ")
 
     In positive case, you should see a tree view with one node and the context chosen:
 
-    ![onenode](images/onenode.jpg " ")
+    ![onenode](images/onenode.png " ")
 
     If the file path it hasn't been correctly set, it will shown an error message:
 
-    ![kubeFileError](images/reloadWindowError.jpg " ")
+    ![kubeFileError](images/reloadwindowerror.png " ")
 
     To restart the plugin and proceed again in Kubernetes config file setting, in command palette execute a **Reload Window** command:
 
-    ![kubeReload](images/reloadWindow.jpg " ")
+    ![kubeReload](images/reloadwindow.png " ")
 
 
 2. How to access to cluster
@@ -481,31 +481,31 @@ Download a copy of the CloudBank sample application.
 
     * Select the cluster and click on the wheel symbol to set the credentials:
 
-        ![Credentials](images/credentials.jpg " ")
+        ![Credentials](images/credentials.png " ")
 
     * On top menu, it will be required the Oracle Backend for Spring Boot admin **password**:
 
-        ![Credentials](images/password.jpg " ")
+        ![Credentials](images/password.png " ")
 
         and **admin** Oracle Backend for Spring Boot's user for the deployment:
 
-        ![Credentials](images/admin.jpg " ")
+        ![Credentials](images/admin.png " ")
 
     * Two message boxes will confirm credentials have been set correctly:
 
-        ![confirmCredentials](images/confirm.jpg " ")
+        ![confirmCredentials](images/confirm.png " ")
 
         **WARNING**: if you don't execute this steps and try to expand the kubernetes context, you will receive a message:
 
-        ![setCredentials](images/oractlCred.jpg " ")
+        ![setCredentials](images/oractlcred.png " ")
 
     * Select again the cluster and click the right mouse button and choose **Create tunnel** menu item. VS Code will open a new terminal that will try to open a tunnel to the Kubernetes cluster on a local port, starting from 8081:
 
-        ![Tunnel](images/tunnel.jpg " ")
+        ![Tunnel](images/tunnel.png " ")
 
     * Before proceed to connection, please wait until the tunnel is established and the terminal shows a message like this:
 
-        ![okTunnel](images/oktunnel.jpg " ")
+        ![okTunnel](images/oktunnel.png " ")
 
         **NOTE**: if the K8s cluster it's not related to an Oracle Backend for Spring Boot deployment, the tunnel creation will fail. In this case in command palette execute a window reload to chose another cluster. If you have any problem in connection, you could start another tunnel: the plugin will try on another local port to connect to the cluster.
 
@@ -515,7 +515,7 @@ Download a copy of the CloudBank sample application.
 
     As soon as completed the steps to create tunnel and you get connected to the backend, it's possible to expand or refresh the tree related to the deployment.
 
-   ![Browse](images/browse.jpg " ")
+   ![Browse](images/browse.png " ")
 
     You'll see four top classes of resources that can be exploded in underlying items:
     * **applications**: the list of applications deployed and the services holding
@@ -527,21 +527,21 @@ Download a copy of the CloudBank sample application.
 
     Open the list clicking on the arrow at the left of **applications**, and then expand the application about you want to know which services includes:
 
-    ![Application](images/application.jpg " ")
+    ![Application](images/application.png " ")
 
     it should be empty. If not, proceed to delete the full **application** and re-create it through the plug-in:
 
     * First, select the default **application** and with right-click on mouse, select **Delete application**:
 
-        ![Delete application](images/deleteapplication.jpg " ")
+        ![Delete application](images/deleteapplication.png " ")
 
     * Wait a moment and refresh the content of **applications** leaf. When empty, select **applications** and with right-click on mouse, select **Add application**:
 
-        ![Add application](images/addapplication.jpg " ")
+        ![Add application](images/addapplication.png " ")
 
     * Fill in the command palette the (application name) with **application**:
 
-        ![Create application](images/createapplication.jpg " ")
+        ![Create application](images/createapplication.png " ")
 
 4. The four Spring Boot microservices deployment
 
@@ -549,15 +549,15 @@ Download a copy of the CloudBank sample application.
 
     * Select **application** under **applications** and Right-click on mouse to select **Add service -> upload .jar**:
 
-        ![add service](images/addservice.jpg " ")
+        ![add service](images/addservice.png " ")
 
     * Look for the **accounts-0.0.1-SNAPSHOT.jar** file built previously:
 
-        ![account jar](images/accountjar.jpg " ")
+        ![account jar](images/accountjar.png " ")
 
     * In the command palette will be asked all the parameters needed to upload the services, starting from binding, that for **account** service requires a **True** answer:
 
-        ![bind](images/bind.jpg " ")
+        ![bind](images/bind.png " ")
 
     and then:
     * **Service Name** : `account`
@@ -572,15 +572,15 @@ Download a copy of the CloudBank sample application.
 
     * You will see messages that confirm the deployment is started:
 
-        ![upoloadstarted](images/upoloadstarted.jpg " ")
+        ![upoloadstarted](images/upoloadstarted.png " ")
 
     * Finally you'll receive the message "**Service deployed successfully**":
 
-        ![deploysuccess](images/deploysuccess.jpg " ")
+        ![deploysuccess](images/deploysuccess.png " ")
 
     * Refreshing the **application** leaf, you should see now:
 
-        ![accountdeployed](images/accountdeployed.jpg " ")
+        ![accountdeployed](images/accountdeployed.png " ")
 
     Let's start with the **customer** service deployment:
 
@@ -590,7 +590,7 @@ Download a copy of the CloudBank sample application.
 
     * In the command palette will be asked all the parameters needed to upload the services, starting from binding, that for **customer** service requires a **True** answer:
 
-        ![bind](images/bind.jpg " ")
+        ![bind](images/bind.png " ")
 
     and then:
     * **Service Name** : `customer`
@@ -613,7 +613,7 @@ Download a copy of the CloudBank sample application.
 
     * In the command palette will be asked all the parameters needed to upload the services, starting from binding, that for **creditscore** service requires a **False** answer:
 
-        ![bind](images/bind.jpg " ")
+        ![bind](images/bind.png " ")
 
     and then:
     * **Service Name** : `creditscore`
@@ -636,7 +636,7 @@ Download a copy of the CloudBank sample application.
 
     * In the command palette will be asked all the parameters needed to upload the services, starting from binding, that for **transfer** service requires a **False** answer:
 
-        ![bind](images/bind.jpg " ")
+        ![bind](images/bind.png " ")
 
     and then:
     * **Service Name** : `transfer`
@@ -653,7 +653,7 @@ Download a copy of the CloudBank sample application.
 
     Now we have the three services up & running as you should see from VS Code plug-in:
 
-    ![thefourservices](images/thefourservices.jpg " ")
+    ![thefourservices](images/thefourservices.png " ")
 
  5. Verify that the services are running properly by executing this command:
 
@@ -695,11 +695,11 @@ Download a copy of the CloudBank sample application.
 
     * Select under **platformServices** the leaf **apisix console** and, with a right-click on mouse, select **open apisix console**:
 
-        ![tunnelapisix](images/tunnelapisix.jpg " ")
+        ![tunnelapisix](images/tunnelapisix.png " ")
 
     * It will open a terminal window in which it will be started a tunneling to that service, that will end opening a message box with a button you can click to open the APISIX admin console in a new browser:
 
-        ![apisixbrowser](images/apisixbrowser.jpg " ")
+        ![apisixbrowser](images/apisixbrowser.png " ")
 
 
 
