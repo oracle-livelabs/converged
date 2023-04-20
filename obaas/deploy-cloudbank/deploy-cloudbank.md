@@ -77,6 +77,8 @@ Download a copy of the CloudBank sample application.
     [INFO] ------------------------------------------------------------------------
     ```
 
+    **NOTE**: You can optionally jump to the **Task 6** to do the deployment through the Oracle Backend for Spring Boot VS Code plugin.
+
 ## Task 3: Install CloudBank in your Oracle Backend for Spring Boot instance
 
 1. Prepare the backend for deployment
@@ -442,6 +444,267 @@ Download a copy of the CloudBank sample application.
     }
     ```
 
+## (Optional) Task 6: Using Oracle Backend for Spring Boot VS Code plugin
+
+1. If you have done the optional **Task 11** of **Lab. 2**, you could proceed doing the activities from **Task 3** to **Task 5** using **Oracle Backend for Spring Boot VS Code plugin**. 
+    If you don't see the plugin in the left bar, with the Oracle logo, as shown here:
+
+    ![Additiona](images/additional.jpg " ")
+
+    click on **Additional Views** menu to select the **eBaaS Explorer**.
+
+    The Oracle Backend for Spring Boot VS Code plugin will ask to specify the Kubernetes config file full path as shown here:
+
+    ![kubeConfig](images/getKubeConfig.jpg " ")
+
+    By default it's shown the path in the user's Home directory **.kube/config** in which normally **kubectl** stores all the information regarding the K8S clusters configured. You could set the full path of another Kubernetes config file.
+    If the file is correctly loaded, the plugin will show the list of contexts available in which select one:
+
+    ![kubeContextList](images/choseContext.jpg " ")
+
+    In positive case, you should see a tree view with one node and the context chosen:
+
+    ![onenode](images/onenode.jpg " ")
+
+    If the file path it hasn't been correctly set, it will shown an error message:
+
+    ![kubeFileError](images/reloadWindowError.jpg " ")
+
+    To restart the plugin and proceed again in Kubernetes config file setting, in command palette execute a **Reload Window** command:
+
+    ![kubeReload](images/reloadWindow.jpg " ")
+
+
+2. How to access to cluster
+
+    Until you create a dedicated ssh tunnel to the Kubernetes cluster, and you don't connect to Oracle Backend for Spring Boot admin services, you will not be able to browse resources included into the Oracle Backend for Spring Boot deployment. To do this, follow these steps:
+
+    * Select the cluster and click on the wheel symbol to set the credentials:
+
+        ![Credentials](images/credentials.jpg " ")
+
+    * On top menu, it will be required the Oracle Backend for Spring Boot admin **password**:
+
+        ![Credentials](images/password.jpg " ")
+
+        and **admin** Oracle Backend for Spring Boot's user for the deployment:
+
+        ![Credentials](images/admin.jpg " ")
+
+    * Two message boxes will confirm credentials have been set correctly:
+
+        ![confirmCredentials](images/confirm.jpg " ")
+
+        **WARNING**: if you don't execute this steps and try to expand the kubernetes context, you will receive a message:
+
+        ![setCredentials](images/oractlCred.jpg " ")
+
+    * Select again the cluster and click the right mouse button and choose **Create tunnel** menu item. VS Code will open a new terminal that will try to open a tunnel to the Kubernetes cluster on a local port, starting from 8081:
+
+        ![Tunnel](images/tunnel.jpg " ")
+
+    * Before proceed to connection, please wait until the tunnel is established and the terminal shows a message like this:
+
+        ![okTunnel](images/oktunnel.jpg " ")
+
+        **NOTE**: if the K8s cluster it's not related to an Oracle Backend for Spring Boot deployment, the tunnel creation will fail. In this case in command palette execute a window reload to chose another cluster. If you have any problem in connection, you could start another tunnel: the plugin will try on another local port to connect to the cluster.
+
+    * Again select the cluster and by clicking the right mouse button choose **Connect** menu item. This will create a session with credentials set at the first step.
+
+3. Explore resources
+
+    As soon as completed the steps to create tunnel and you get connected to the backend, it's possible to expand or refresh the tree related to the deployment.
+
+   ![Browse](images/browse.jpg " ")
+
+    You'll see four top classes of resources that can be exploded in underlying items:
+    * **applications**: the list of applications deployed and the services holding
+    * **ADB**: in this release we have one ADB in which are stored configuration and schema related to services deployed
+    * **platformServices**: the list of Oracle Backend for Spring Boot deployed services, like Grafana, Spring, Apisix, Eureka and Jaeger. 
+    * **oBaasConf**: the list of keys defined by application, stored in the ADB provisioned and available to share configuration information among services in each application.
+
+    Let's go to show the operations you can do on each item of browse tree.
+
+    Open the list clicking on the arrow at the left of **applications**, and then expand the application about you want to know which services includes:
+
+    ![Application](images/application.jpg " ")
+
+    it should be empty. If not, proceed to delete the full **application** and re-create it through the plug-in:
+
+    * First, select the default **application** and with right-click on mouse, select **Delete application**:
+
+        ![Delete application](images/deleteapplication.jpg " ")
+
+    * Wait a moment and refresh the content of **applications** leaf. When empty, select **applications** and with right-click on mouse, select **Add application**:
+
+        ![Add application](images/addapplication.jpg " ")
+
+    * Fill in the command palette the (application name) with **application**:
+
+        ![Create application](images/createapplication.jpg " ")
+
+4. The four Spring Boot microservices deployment
+
+    Let's start with the first service deployment:
+
+    * Select **application** under **applications** and Right-click on mouse to select **Add service -> upload .jar**:
+
+        ![add service](images/addservice.jpg " ")
+
+    * Look for the **accounts-0.0.1-SNAPSHOT.jar** file built previously:
+
+        ![account jar](images/accountjar.jpg " ")
+
+    * In the command palette will be asked all the parameters needed to upload the services, starting from binding, that for **account** service requires a **True** answer:
+
+        ![bind](images/bind.jpg " ")
+
+    and then:
+    * **Service Name** : `account`
+    * **DB User Password (for bind only)**:  `Welcome1234##`
+    * **Spring Binding Prefix**: leave default `spring.datasource`
+    * **Image Version**:  `0.0.1`
+    * **Java Image**: leave default `ghcr.io/graalvm/jdk:ol7-java17-22.2.0`
+    * **is it a redeploy**: **False**
+    * **Add Health probe?**: **False**
+    * **Service Port**: leave default `8080`
+    * **Service Profile**: leave default `obaas`
+
+    * You will see messages that confirm the deployment is started:
+
+        ![upoloadstarted](images/upoloadstarted.jpg " ")
+
+    * Finally you'll receive the message "**Service deployed successfully**":
+
+        ![deploysuccess](images/deploysuccess.jpg " ")
+
+    * Refreshing the **application** leaf, you should see now:
+
+        ![accountdeployed](images/accountdeployed.jpg " ")
+
+    Let's start with the **customer** service deployment:
+
+    * Select **application** under **applications** and Right-click on mouse to select **Add service -> upload .jar**.
+
+    * Look for the **customer-0.0.1-SNAPSHOT.jar** file built previously:
+
+    * In the command palette will be asked all the parameters needed to upload the services, starting from binding, that for **customer** service requires a **True** answer:
+
+        ![bind](images/bind.jpg " ")
+
+    and then:
+    * **Service Name** : `customer`
+    * **DB User Password (for bind only)**:  `Welcome1234##`
+    * **Spring Binding Prefix**: leave default `spring.datasource`
+    * **Image Version**:  `0.0.1`
+    * **Java Image**: leave default `ghcr.io/graalvm/jdk:ol7-java17-22.2.0`
+    * **is it a redeploy**: **False**
+    * **Add Health probe?**: **False**
+    * **Service Port**: leave default `8080`
+    * **Service Profile**: leave default `obaas`
+
+    * As before, you will see messages that will confirm the deployment is started and finally "**Service deployed successfully**".
+
+    Finally, we'll deploy the services that don't require to be bound to a schema, the **creditscore** and **transfer**:
+
+    * Select **application** under **applications** and Right-click on mouse to select **Add service -> upload .jar**.
+
+    * Look for the **creditscore-0.0.1-SNAPSHOT.jar** file built previously:
+
+    * In the command palette will be asked all the parameters needed to upload the services, starting from binding, that for **creditscore** service requires a **False** answer:
+
+        ![bind](images/bind.jpg " ")
+
+    and then:
+    * **Service Name** : `creditscore`
+    * **DB User Password (for bind only)**:  leave `null`
+    * **Spring Binding Prefix**: leave default `spring.datasource`
+    * **Image Version**:  `0.0.1`
+    * **Java Image**: leave default `ghcr.io/graalvm/jdk:ol7-java17-22.2.0`
+    * **is it a redeploy**: **False**
+    * **Add Health probe?**: **False**
+    * **Service Port**: leave default `8080`
+    * **Service Profile**: leave default `obaas`
+
+    * As before, you will see messages that will confirm the deployment is started and finally "**Service deployed successfully**".
+
+    Proceed to the final CloudBank service deployment, for **transfer**:
+
+    * Select **application** under **applications** and Right-click on mouse to select **Add service -> upload .jar**.
+
+    * Look for the **transfer-0.0.1-SNAPSHOT.jar** file built previously:
+
+    * In the command palette will be asked all the parameters needed to upload the services, starting from binding, that for **transfer** service requires a **False** answer:
+
+        ![bind](images/bind.jpg " ")
+
+    and then:
+    * **Service Name** : `transfer`
+    * **DB User Password (for bind only)**:  leave `null`
+    * **Spring Binding Prefix**: leave default `spring.datasource`
+    * **Image Version**:  `0.0.1`
+    * **Java Image**: leave default `ghcr.io/graalvm/jdk:ol7-java17-22.2.0`
+    * **is it a redeploy**: **False**
+    * **Add Health probe?**: **False**
+    * **Service Port**: leave default `8080`
+    * **Service Profile**: leave default `obaas`
+
+    * As before, you will see messages that will confirm the deployment is started and finally "**Service deployed successfully**".
+
+    Now we have the three services up & running as you should see from VS Code plug-in:
+
+    ![thefourservices](images/thefourservices.jpg " ")
+
+ 5. Verify that the services are running properly by executing this command:
+
+    ```shell
+    $ <copy>kubectl get all -n application</copy>
+    ```
+
+    The output should be similar to this, all applications must have `STATUS` as `Running`
+
+    ```text
+    NAME                              READY   STATUS    RESTARTS   AGE
+    pod/account-5cd5dbdd7f-m7zlf      1/1     Running   0          14m
+    pod/creditscore-fcf8d985b-f8q4n   1/1     Running   0          5m37s
+    pod/customer-6b6f58f59-f6vl9      1/1     Running   0          7m18s
+    pod/transfer-f9c96cb56-6796s      1/1     Running   0          113s
+
+    NAME                  TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)    AGE
+    service/account       ClusterIP   10.191.135.77    <none>        8080/TCP   19m
+    service/creditscore   ClusterIP   10.191.68.122    <none>        8080/TCP   5m38s
+    service/customer      ClusterIP   10.191.172.239   <none>        8080/TCP   7m19s
+    service/transfer      ClusterIP   10.191.172.125   <none>        8080/TCP   114s
+
+    NAME                          READY   UP-TO-DATE   AVAILABLE   AGE
+    deployment.apps/account       1/1     1            1           19m
+    deployment.apps/creditscore   1/1     1            1           5m39s
+    deployment.apps/customer      1/1     1            1           7m20s
+    deployment.apps/transfer      1/1     1            1           115s
+
+    NAME                                    DESIRED   CURRENT   READY   AGE
+    replicaset.apps/account-5cd5dbdd7f      1         1         1       19m
+    replicaset.apps/creditscore-fcf8d985b   1         1         1       5m39s
+    replicaset.apps/customer-6b6f58f59      1         1         1       7m20s
+    replicaset.apps/transfer-f9c96cb56      1         1         1       115s
+    ```
+
+6. Expose the services using APISIX Gateway
+
+    Execute the same actions as described in **Lab. 5, Task 5** except for the **step 4.**, that it could be executed in the following alternative way, accessing comfortably to the APISIX admin console straight from VS Code.
+
+    * Select under **platformServices** the leaf **apisix console** and, with a right-click on mouse, select **open apisix console**:
+
+        ![tunnelapisix](images/tunnelapisix.jpg " ")
+
+    * It will open a terminal window in which it will be started a tunneling to that service, that will end opening a message box with a button you can click to open the APISIX admin console in a new browser:
+
+        ![apisixbrowser](images/apisixbrowser.jpg " ")
+
+
+
+
+
 ## Learn More
 
 * [Oracle Backend for Spring Boot](https://oracle.github.io/microservices-datadriven/spring/)
@@ -452,6 +715,6 @@ Download a copy of the CloudBank sample application.
 
 ## Acknowledgements
 
-* **Author** - Andy Tael, Mark Nelson, Developer Evangelists, Oracle Database
+* **Author** - Andy Tael, Corrado De Bari, Mark Nelson, Developer Evangelists, Oracle Database
 * **Contributors** - [](var:contributors)
 * **Last Updated By/Date** - Andy Tael, April 2023
