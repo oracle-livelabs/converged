@@ -214,118 +214,111 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
 
 1. Start SQLcl and load the Wallet
 
-	The Accounts service is going to have two main objects - an `account` and a `journal`.
+  The Accounts service is going to have two main objects - an `account` and a `journal`.
 
-	Here are the SQL statements to create the necessary objects in the database. If you installed SQLcl as recommended, you can connect to your database using this command (or use the SQLcl session created during Lab two, Setup)
+  Here are the SQL statements to create the necessary objects in the database. If you installed SQLcl as recommended, you can connect to your database using this command (or use the SQLcl session created during Lab two, Setup)
 
-	```shell
-	$ <copy>sql /nolog</copy>
+  ```shell
+  $ <copy>sql /nolog</copy>
 
-	SQLcl: Release 22.4 Production on Fri Mar 03 12:25:24 2023
+  SQLcl: Release 22.4 Production on Fri Mar 03 12:25:24 2023
 
-	Copyright (c) 1982, 2023, Oracle.  All rights reserved.
+  Copyright (c) 1982, 2023, Oracle.  All rights reserved.
 
-	SQL>
-	```
+  SQL>
+  ```
 
 1. Load the Wallet
 
-	When you are connected, run the following command to load the Wallet you downloaded during the Setup lab. Replace the name and location of the Wallet to match your environment.
+  When you are connected, run the following command to load the Wallet you downloaded during the Setup lab. Replace the name and location of the Wallet to match your environment.
 
-	```sql
-	SQL> <copy>set cloudconfig ~/path/to/wallet/wallet-name.zip</copy>
-	```
+  ```sql
+  SQL> <copy>set cloudconfig ~/path/to/wallet/wallet-name.zip</copy>
+  ```
 
 1. Connect to the Database
 
-	Connect to the database using the `ADMIN` user. The ADMIN password can be retrieved from a k8s secret using this command:
+  Connect to the database using the `ADMIN` user. The ADMIN password can be retrieved from a k8s secret using this command:
 
-	```shell
-	$ <copy>kubectl -n application get secret cbankdb-db-secrets -o jsonpath='{.data.db\.password}' | base64 -d</copy>
-	```
+  ```shell
+  $ <copy>kubectl -n application get secret cbankdb-db-secrets -o jsonpath='{.data.db\.password}' | base64 -d</copy>
+  ```
 
-	```sql
-	SQL> <copy>connect ADMIN/your-ADMIN-password@your-TNS-entry</copy>
-	Connected.
-	```
+  ```sql
+  SQL> <copy>connect ADMIN/your-ADMIN-password@your-TNS-entry</copy>
+  Connected.
+  ```
 
-	If you need to see what TNS Entries you have run the `show tns` command. For example:
+  If you need to see what TNS Entries you have run the `show tns` command. For example:
 
-	```sql
-	<copy>show tns</copy>
-	CLOUD CONFIG set to: /Users/atael/tmp/wallet/Wallet_CBANKDB.zip
+  ```sql
+  <copy>show tns</copy>
+  CLOUD CONFIG set to: /Users/atael/tmp/wallet/Wallet_CBANKDB.zip
 
-	TNS Lookup Locations
-	--------------------
+  TNS Lookup Locations
+  --------------------
 
-	TNS Locations Used
-	------------------
-	1.  /Users/atael/tmp/wallet/Wallet_CBANKDB.zip
-	2.  /Users/atael
+  TNS Locations Used
+  ------------------
+  1.  /Users/atael/tmp/wallet/Wallet_CBANKDB.zip
+  2.  /Users/atael
 
-	Available TNS Entries
-	---------------------
-	CBANKDB_HIGH
-	CBANKDB_LOW
-	CBANKDB_MEDIUM
-	CBANKDB_TP
-	CBANKDB_TPURGENT
-	```
+  Available TNS Entries
+  ---------------------
+  CBANKDB_HIGH
+  CBANKDB_LOW
+  CBANKDB_MEDIUM
+  CBANKDB_TP
+  CBANKDB_TPURGENT
+  ```
 
 1. Create Database Objects
 
-	Run the SQL statements below to create the database objects:
+  Run the SQL statements below to create the database objects:
 
-	```sql
-	<copy>
-	-- create a database user for the account service
-	create user account identified by "Welcome1234##";
-		
-	-- add roles and quota
-	grant connect to account;
-	grant resource to account;
-	alter user account default role connect, resource;
-	alter user account quota unlimited on users;
-		
-	-- create accounts table
-	create table account.accounts (
-		account_id            number generated always as identity (start with 1 cache 20),
-		account_name          varchar2(40) not null,
-		account_type          varchar2(2) check (account_type in ('CH', 'SA', 'CC', 'LO')),
-		customer_id           varchar2 (20),
-		account_opened_date   date default sysdate not null,
-		account_other_details varchar2(4000),
-		account_balance       number
-	) logging;
-		
-	alter table account.accounts 
-	add constraint accounts_pk 
-	primary key (account_id) 
-	using index logging;
-	comment on table account.accounts 
-	is 'CloudBank accounts table';
-		
-	-- create journal table
-		create table account.journal (
-		journal_id      number generated always as identity (start with 1 cache 20),
-		journal_type    varchar2(20),
-		account_id      number,
-		lra_id          varchar2(1024) not null,
-		lra_state       varchar2(40),
-		journal_amount  number
-	) logging;
+  ```sql
+  <copy>
+  -- create a database user for the account service
+  create user account identified by "Welcome1234##";
 
-	alter table account.journal
-	add constraint journal_pk 
-	primary key (journal_id) 
-	using index logging;
+  -- add roles and quota
+  grant connect to account;
+  grant resource to account;
+  alter user account default role connect, resource;
+  alter user account quota unlimited on users;
 
-	comment on table account.journal 
-	is 'CloudBank accounts journal table';
-	/</copy>
-	```
+  -- create accounts table
+  create table account.accounts (
+    account_id            number generated always as identity (start with 1 cache 20),
+    account_name          varchar2(40) not null,
+    account_type          varchar2(2) check (account_type in ('CH', 'SA', 'CC', 'LO')),
+    customer_id           varchar2 (20),
+    account_opened_date   date default sysdate not null,
+    account_other_details varchar2(4000),
+    account_balance       number
+  ) logging;
 
-	Now that the database objects are created, you can configure Spring Data JPA to use them in your microservice.
+  alter table account.accounts add constraint accounts_pk primary key (account_id) using index logging;
+  
+  comment on table account.accounts is 'CloudBank accounts table';
+
+  -- create journal table
+  create table account.journal (
+    journal_id      number generated always as identity (start with 1 cache 20),
+    journal_type    varchar2(20),
+    account_id      number,
+    lra_id          varchar2(1024) not null,
+    lra_state       varchar2(40),
+    journal_amount  number
+  ) logging;
+
+  alter table account.journal add constraint journal_pk primary key (journal_id) using index logging;
+
+  comment on table account.journal is 'CloudBank accounts journal table';
+  /</copy>
+  ```
+
+  Now that the database objects are created, you can configure Spring Data JPA to use them in your microservice.
 
 ## Task 4: Use Spring Data JPA to access the database
 
@@ -344,7 +337,7 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
         <groupId>com.oracle.database.spring</groupId>
         <artifactId>oracle-spring-boot-starter-ucp</artifactId>
         <type>pom</type>
-        <version>2.7.7</version>
+        <version>2.7.9</version>
     </dependency>
 
     <!-- For Oracle Wallet (ADB-S); oraclepki, osdt_core, and osdt_cert artifacts -->
@@ -379,19 +372,19 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
       $ <copy>unzip /path/to/wallet/wallet_name.zip</copy>
       ```
 
-    2. Edit the `sqlnet.ora` file so that the section `(DIRECTORY="?/network/admin")` matches the full path to the directory where you unzipped the Wallet, for example:
+    1. Edit the `sqlnet.ora` file so that the section `(DIRECTORY="?/network/admin")` matches the full path to the directory where you unzipped the Wallet, for example:
 
       ```text
       WALLET_LOCATION = (SOURCE = (METHOD = file) (METHOD_DATA = (DIRECTORY="/path/to/unzipped/wallet")))
       ```
 
-    3. Set the `TNS_ADMIN` environment variable to the directory where the unzipped Wallet is located. Use the following command:
+    1. Set the `TNS_ADMIN` environment variable to the directory where the unzipped Wallet is located. Use the following command:
 
       ```shell
       $ <copy>export TNS_ADMIN=/path/to/unzipped/wallet</copy>
       ```
 
-    4. Get the TNS Entry connection string using this command. Remember the name of the entry as you'll need it in the next steps. In the sample below it is `cbankdb_tp`.
+    1. Get the TNS Entry connection string using this command. Remember the name of the entry as you'll need it in the next steps. In the sample below it is `cbankdb_tp`.
 
       ```shell
       $ <copy>grep "_tp =" /path/to/unzipped/wallet/tnsnames.ora</copy>
@@ -1003,13 +996,14 @@ If you would like to learn more about endpoints and implement the remainder of t
 
     ```shell
     $ <copy>oractl</copy>
-     _   _           __    _    ___
+    _   _           __    _    ___
     / \ |_)  _.  _. (_    /  |   |
     \_/ |_) (_| (_| __)   \_ |_ _|_
 
-    2023-03-01T10:25:17.749-05:00  INFO 27945 --- [           main] o.s.s.cli.OracleSpringCLIApplication     : Starting AOT-processed OracleSpringCLIApplication using Java 17.0.5 with PID 27945 (/home/mark/ebaas/oractl started by mark in /home/mark/accounts/accounts)
-    2023-03-01T10:25:17.749-05:00  INFO 27945 --- [           main] o.s.s.cli.OracleSpringCLIApplication     : No active profile set, falling back to 1 default profile: "default"
-    2023-03-01T10:25:17.786-05:00  INFO 27945 --- [           main] o.s.s.cli.OracleSpringCLIApplication     : Started OracleSpringCLIApplication in 0.047 seconds (process running for 0.05)
+    09:35:14.801 [main] INFO  o.s.s.cli.shell.ShellApplication - Starting AOT-processed ShellApplication using Java 17.0.5 with PID 29373 (/Users/atael/bin/oractl started by atael in /Users/atael)
+    09:35:14.801 [main] DEBUG o.s.s.cli.shell.ShellApplication - Running with Spring Boot v3.0.0, Spring v6.0.2
+    09:35:14.801 [main] INFO  o.s.s.cli.shell.ShellApplication - The following 1 profile is active: "obaas"
+    09:35:14.875 [main] INFO  o.s.s.cli.shell.ShellApplication - Started ShellApplication in 0.097 seconds (process running for 0.126)
     oractl:>
     ```
 
@@ -1019,15 +1013,17 @@ If you would like to learn more about endpoints and implement the remainder of t
     oractl> <copy>connect</copy>
     password (defaults to oractl):
     using default value...
-    connect successful server version:011223
+    connect successful server version:0.3.0
+    oractl:>
     ```
 
    Create a database "binding" by tunning this command.  Enter the password (`Welcome1234##`) when prompted.  This will create a Kubernetes secret in the `application` namespace called `account-db-secrets` which contains the username (`account`), password, and URL to connect to the Oracle Autonomous Database instance associated with the Oracle Backend for Spring Boot.
 
     ```shell
-    oractl:> <copy>bind --appName application --serviceName account</copy>
-    database password/servicePassword (defaults to Welcome12345): 
-    database secret created successfully and schema already exists for account
+    oractl:> <copy>bind --app-name application --service-name account</copy>
+    database password/servicePassword (defaults to Welcome12345): *************
+    database secret created successfully and schema already exists for account  
+    oractl:>
     ```
 
    This created a Kubernetes secret with the credentials to access the database using this Spring Boot microservice application's username and password.  When you deploy the application, its pods will have the keys in this secret injected as environment variables so the application can use them to authenticate to the database.
@@ -1037,11 +1033,10 @@ If you would like to learn more about endpoints and implement the remainder of t
   You will now deploy your account service to the Oracle Backend for Spring Boot using the CLI.  You will deploy into the `application` namespace, and the service name will be `account`.  Run this command to deploy your service, make sure you provide the correct path to your JAR file.  **Note** that this command may take 1-3 minutes to complete:
 
     ```shell
-    oractl> <copy>deploy --isRedeploy false --appName application --serviceName account --jarLocation /path/to/accounts/target/accounts-0.0.1-SNAPSHOT.jar --imageVersion 0.0.1</copy>
-    uploading... upload successful
-    building and pushing image... docker build and push successful
-    creating deployment and service... create deployment and service  = account, appName = application, isRedeploy = true successful
-    successfully deployed
+    oractl:> <copy>deploy --app-name application --service-name account --artifact-path /path/to/accounts-0.0.1-SNAPSHOT.jar --image-version 0.0.1</copy>
+    uploading: account/target/accounts-0.0.1-SNAPSHOT.jarbuilding and pushing image...
+    creating deployment and service... successfully deployed
+    oractl:>
     ```
 
     > What happens when you use the Oracle Backend for Spring Boot CLI **deploy** command? 
@@ -1146,4 +1141,4 @@ Now that the account service is deployed, you need to expose it through the API 
 
 * **Author** - Andy Tael, Mark Nelson, Developer Evangelists, Oracle Database
 * **Contributors** - [](var:contributors)
-* **Last Updated By/Date** - Andy Tael, February 2023
+* **Last Updated By/Date** - Andy Tael, April 2023
