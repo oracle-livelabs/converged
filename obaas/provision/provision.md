@@ -29,11 +29,11 @@ In this lab, you will:
 This lab assumes you have:
 
 * An Oracle Cloud account in a tenancy with sufficient quota to create:
-    * An OCI Container Engine for Kubernetes cluster, plus a node pool with three worker nodes
-    * A VCN with at least two public IP’s available
-    * A public load balancer
-    * An Oracle Autonomous Database - Shared instance
-    * At least one free OCI Auth Token (note that the maximum is two per user)
+  * An OCI Container Engine for Kubernetes cluster, plus a node pool with three worker nodes
+  * A VCN with at least two public IP’s available
+  * A public load balancer
+  * An Oracle Autonomous Database - Shared instance
+  * At least one free OCI Auth Token (note that the maximum is two per user)
 
 ## Task 1: Install the Oracle Backend for Spring Boot from OCI Marketplace
 
@@ -139,7 +139,7 @@ The Oracle Backend for Spring Boot can be installed from OCI Marketplace.
     $ <copy>export KUBECONFIG=/path/to/kubeconfig</copy>
     ```
 
-    Check that you can access the cluster using this command: 
+    Check that you can access the cluster using this command:
 
     ```shell
     $ <copy>kubectl get pods -n obaas-admin</copy>

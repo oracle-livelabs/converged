@@ -446,7 +446,7 @@ Download a copy of the CloudBank sample application.
 
 ## (Optional) Task 6: Using Oracle Backend for Spring Boot VS Code plugin
 
-1. If you have done the optional **Task 11** of **Lab. 2**, you could proceed doing the activities from **Task 3** to **Task 5** using **Oracle Backend for Spring Boot VS Code plugin**. 
+1. If you have done the optional **Task 11** of **Lab. 2**, you could proceed doing the activities from **Task 3** to **Task 5** using **Oracle Backend for Spring Boot VS Code plugin**.
     If you don't see the plugin in the left bar, with the Oracle logo, as shown here:
 
     ![Additional](images/additional.png " ")
@@ -473,7 +473,6 @@ Download a copy of the CloudBank sample application.
     To restart the plugin and proceed again in Kubernetes config file setting, in command palette execute a **Reload Window** command:
 
     ![kubeReload](images/reloadwindow.png " ")
-
 
 2. How to access to cluster
 
@@ -520,7 +519,7 @@ Download a copy of the CloudBank sample application.
     You'll see four top classes of resources that can be exploded in underlying items:
     * **applications**: the list of applications deployed and the services holding
     * **ADB**: in this release we have one ADB in which are stored configuration and schema related to services deployed
-    * **platformServices**: the list of Oracle Backend for Spring Boot deployed services, like Grafana, Spring, Apisix, Eureka and Jaeger. 
+    * **platformServices**: the list of Oracle Backend for Spring Boot deployed services, like Grafana, Spring, Apisix, Eureka and Jaeger.
     * **oBaasConf**: the list of keys defined by application, stored in the ADB provisioned and available to share configuration information among services in each application.
 
     Let's go to show the operations you can do on each item of browse tree.
@@ -655,7 +654,7 @@ Download a copy of the CloudBank sample application.
 
     ![thefourservices](images/thefourservices.png " ")
 
- 5. Verify that the services are running properly by executing this command:
+5. Verify that the services are running properly by executing this command:
 
     ```shell
     $ <copy>kubectl get all -n application</copy>
@@ -700,10 +699,6 @@ Download a copy of the CloudBank sample application.
     * It will open a terminal window in which it will be started a tunneling to that service, that will end opening a message box with a button you can click to open the APISIX admin console in a new browser:
 
         ![apisixbrowser](images/apisixbrowser.png " ")
-
-
-
-
 
 ## Learn More
 
