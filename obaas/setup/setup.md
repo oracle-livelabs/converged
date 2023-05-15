@@ -163,7 +163,7 @@ The Oracle Backend for Spring Boot CLI is used to configure your backend and to 
 
 1. Download the Oracle Backend for Spring Boot CLI
 
-   Download the CLI from [here](#)
+   Download the CLI from [here](https://github.com/oracle/microservices-datadriven/releases/tag/OBAAS-1.0.0)
 
 2. Install the Oracle Backend for Spring Boot CLI
 
