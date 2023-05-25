@@ -337,7 +337,7 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
         <groupId>com.oracle.database.spring</groupId>
         <artifactId>oracle-spring-boot-starter-ucp</artifactId>
         <type>pom</type>
-        <version>2.7.9</version>
+        <version>2.7.7</version>
     </dependency>
 
     <!-- For Oracle Wallet (ADB-S); oraclepki, osdt_core, and osdt_cert artifacts -->
@@ -405,7 +405,7 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
               hibernate:
                 dialect: org.hibernate.dialect.Oracle12cDialect
                 format_sql: true
-              show-sql: true
+            show-sql: true
           datasource:
             url: jdbc:oracle:thin:@tns_entry_from_above?TNS_ADMIN=/path/to/wallet
             username: account
@@ -1048,6 +1048,23 @@ If you would like to learn more about endpoints and implement the remainder of t
     - Create the microservices deployment descriptor (k8s) with the resources supplied
     - Applies the k8s deployment and create k8s object service to microservice
 
+1. Check the `account` service log file
+
+  You can verify that the `account` application is running by executing the following command:
+
+    ```shell
+    <copy>kubectl logs -n application svc/account</copy>
+    ```
+
+  The last lines of the output should be similar to this, look for the sentence `Completed initialization`
+
+    ```text
+    2023-05-25 14:15:49.093  INFO 1 --- [           main] c.example.accounts.AccountsApplication   : Started AccountsApplication in 13.967 seconds (JVM running for 15.183)
+    2023-05-25 14:16:06.379  INFO 1 --- [nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+    2023-05-25 14:16:06.380  INFO 1 --- [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+    2023-05-25 14:16:06.382  INFO 1 --- [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
+    ```
+
 ## Task 8: Expose the account service using the API Gateway
 
 Now that the account service is deployed, you need to expose it through the API Gateway so that clients will be able to access it.  This is done by creating a "route" in APISIX Dashboard.
@@ -1057,10 +1074,10 @@ Now that the account service is deployed, you need to expose it through the API 
    Start the tunnel using this command.  You can run this in the background if you prefer.
 
     ```shell
-    $ <copy>kubectl -n apisix port-forward svc/apisix-dashboard 8080:80</copy>
+    $ <copy>kubectl -n apisix port-forward svc/apisix-dashboard 8090:80</copy>
     ```
 
-   Open a web browser to [http://localhost:8080](http://localhost:8080) to view the APISIX Dashboard web user interface.  It will appear similar to the image below.
+   Open a web browser to [http://localhost:8090](http://localhost:8090) to view the APISIX Dashboard web user interface. It will appear similar to the image below.
 
    If prompted to login, login with username `admin` and password `admin`.  Note that Oracle strongly recommends that you change the password, even though this interface is not accessible outside the cluster without a tunnel.
 
@@ -1141,4 +1158,4 @@ Now that the account service is deployed, you need to expose it through the API 
 
 * **Author** - Andy Tael, Mark Nelson, Developer Evangelists, Oracle Database
 * **Contributors** - [](var:contributors)
-* **Last Updated By/Date** - Andy Tael, April 2023
+* **Last Updated By/Date** - Andy Tael, May 2023
