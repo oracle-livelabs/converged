@@ -15,6 +15,8 @@ In this workshop, you will learn how to:
 * Provision an instance of the Oracle Backend for Spring Boot
 * Setup your development environment for Spring Boot and Flutter development
 * Build a Spring Boot microservice from scratch
+* Use Java Persistence Architecture to manage the microservice's data in Oracle Autonomous Database
+* Create Spring Boot microservices that send and receive asyncrhonous messages using Java Message Service (JMS)
 * Implement the saga pattern for managing transactions across microservices
 * Deploy the Cloud Bank application
 * Learn about platform services like service discovery, externalized configuration, transaction management, and workflow
