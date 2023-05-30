@@ -47,15 +47,94 @@ You will implement this using three microservices:
 
 
 
-## Task 2: Create a Spring Boot project
+## Task 2: Update the Account service to add the Journal
 
-Create a project to hold your Account service.  In this lab, you will use the Spring Initialzr directly from Visual Studio Code, however it is also possible to use [Spring Initialzr](http://start.spring.io) online and download a zip file with the generated project.
+Starting with the account service that you built in the previous lab, you will the the JPA model and repository for the journal and some new endpoints.
 
-1. Create the project
+1. Create the Journal model
 
-   In Visual Studio Code, press Ctrl+Shift+P (or equivalent) to access the command window.  Start typing "Spring Init" and you will see a number of options to create a Spring project, as shown in the image below.  Select the option to **Create a Maven Project**.
+   Create a new Java file in `src/main/java/com/example/accounts/model` called `JournalModel.java`.  In this class you can define the fields that make up the journal.  Note that you created the Journal table in the previous lab.  You will not use the `lraId` and `lraState` fields until the next lab.  To simplify this lab, create an additional constructor that defaults those feilds to suitable values.  Your new class should look like this: 
 
-  
+    ```java
+    <copy>package com.example.accounts.model;
+
+    import javax.persistence.Column;
+    import javax.persistence.Entity;
+    import javax.persistence.GeneratedValue;
+    import javax.persistence.GenerationType;
+    import javax.persistence.Id;
+    import javax.persistence.Table;
+
+    import lombok.Data;
+    import lombok.NoArgsConstructor;
+
+    @Entity
+    @Table(name = "JOURNAL")
+    @Data
+    @NoArgsConstructor
+    public class Journal {
+
+        @Id
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
+        @Column(name = "JOURNAL_ID")
+        private long journalId;
+
+        // type is withdraw or deposit
+        @Column(name = "JOURNAL_TYPE")
+        private String journalType;
+
+        @Column(name = "ACCOUNT_ID")
+        private long accountId;
+
+        @Column(name = "LRA_ID")
+        private String lraId;
+
+        @Column(name = "LRA_STATE")
+        private String lraState;
+
+        @Column(name = "JOURNAL_AMOUNT")
+        private long journalAmount;
+
+        public Journal(String journalType, long accountId, long journalAmount) {
+            this.journalType = journalType;
+            this.accountId = accountId;
+            this.journalAmount = journalAmount;
+        }
+
+        public Journal(String journalType, long accountId, long journalAmount, String lraId, String lraState) {
+            this.journalType = journalType;
+            this.accountId = accountId;
+            this.lraId = lraId;
+            this.lraState = lraState;
+            this.journalAmount = journalAmount;
+        }
+    }</copy>
+    ```   
+
+1. Create the Journal repository
+
+   Create a new Java file in `src/main/java/com/example/accounts/repository` called `JournalRepository.java`.  This should be an interface that extends `JpaRepository` and you will need to define a method to find journal entries by `accountId`.  Your interface should look like this: 
+
+    ```java
+    <copy>package com.example.accounts.repository;
+
+    import java.util.List;
+
+    import org.springframework.data.jpa.repository.JpaRepository;
+
+    import com.example.accounts.model.Journal;
+
+    public interface JournalRepository extends JpaRepository<Journal, Long> {
+        List<Journal> findJournalByAccountId(long accountId);
+    }</copy>
+    ```   
+
+1. Update the `AccountController` constructor
+
+   Xxx
+
+
+
 ## Learn More
 
 * [Oracle Backend for Spring Boot](https://oracle.github.io/microservices-datadriven/spring/)
