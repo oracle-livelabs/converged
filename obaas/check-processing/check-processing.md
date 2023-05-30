@@ -28,7 +28,7 @@ This lab assumes you have:
 
 In the previous lab, you created an Account service that includes endpoints to create and query accounts, lookup accounts for a given customer, and so on.  In this lab you will extend that service to add some new endpoints to allow recording bank transactions, in this case check deposits, in the account journal.
 
-In this lab, we will assume that customers can deposit a check at an Automated Teller Machine (ATM) by typing in the check amount and placing the actual check into a deposit envelope and then inserting that envelope into the ATM.  When this occurs, the ATM will send a "deposit" message with details of the check deposit.  You will record this as a "pending" deposit in the account journal.
+In this lab, we will assume that customers can deposit a check at an Automated Teller Machine (ATM) by typing in the check amount, placing the check into a deposit envelope and then inserting that envelope into the ATM.  When this occurs, the ATM will send a "deposit" message with details of the check deposit.  You will record this as a "pending" deposit in the account journal.
 
 ![Deposit check](images/deposit-check.png " ")
 
@@ -42,7 +42,9 @@ You will implement this using three microservices:
 * A new "Check Processing" service will listen for messages and process them by calling calling the appropriate endpoints on the Account service
 * A "Test Runner" service will simulate the ATM and the back office and allow you to send the "deposit" and "clearance" messages to test your other services
 
-TODO DIAGRAM HERE
+![The Check service](images/check-service.png " ")
+
+
 
 
 ## Task 2: Create a Spring Boot project
