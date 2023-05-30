@@ -131,7 +131,76 @@ Starting with the account service that you built in the previous lab, you will t
 
 1. Update the `AccountController` constructor
 
-   Xxx
+   Update the constructor for `AccountController` so that both the repositories are injected.  You will need to create a variable to hold each.  Your updated constructor should look like this:
+
+    ```java
+    <copy>final AccountRepository accountRepository;
+    final JournalRepository journalRepository;
+
+    public AccountController(AccountRepository accountRepository, JournalRepository journalRepository) {
+        this.accountRepository = accountRepository;
+        this.journalRepository = journalRepository;
+    }</copy>
+    ```
+
+1. Add new method to post entries to the journal
+
+   Add a new HTTP POST endpoint that accepts a journal entry in the request body and saves it into the database.  Your new method should look like this:
+
+    ```java
+    <copy>@PostMapping("/account/journal")
+    public ResponseEntity<Journal> postSimpleJournalEntry(@RequestBody Journal journalEntry) {
+        try {
+            Journal _journalEntry = journalRepository.saveAndFlush(journalEntry);
+            return new ResponseEntity<>(_journalEntry, HttpStatus.CREATED);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }</copy>
+    ```
+
+1. Add new method to get journal entries
+
+   Add a new HTTP GET endpoint to get a list of journal entries for a given `accountId`.  Your new method should look like this:
+
+    ```java
+    <copy>@GetMapping("/account/{accountId}/journal")
+    public List<Journal> getJournalEntriesForAccount(@PathVariable("accountId") long accountId) {
+        return journalRepository.findJournalByAccountId(accountId);
+    }</copy>
+    ```
+
+1. Add new method to update an existing journal entry
+
+   Add a new HTTP POST endpoint to update and existing journal entry to a cleared deposit.  To do this, you set the `journalType` field to `DEPOSIT`.  Your method should accept the `journalId` as a path variable.  If the specified journal entry does not exist, return a 404 (Not Found).  Your new method should look like this:
+
+    ```java
+    <copy>@PostMapping("/account/journal/{journalId}/clear")
+    public ResponseEntity<Journal> clearJournalEntry(@PathVariable long journalId) {
+        try {
+            Optional<Journal> data = journalRepository.findById(journalId);
+            if (data.isPresent()) {
+                Journal _journalEntry = data.get();
+                _journalEntry.setJournalType("DEPOSIT");
+                journalRepository.saveAndFlush(_journalEntry);
+                return new ResponseEntity<Journal>(_journalEntry, HttpStatus.OK);
+            } else {
+                return new ResponseEntity<Journal>(new Journal(), HttpStatus.NOT_FOUND);
+            }
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }</copy>
+    ```   
+
+1. Redeploy and test your new endpoints
+
+   xxx
+
+
+   That completes the updates for the Account service.
+
+## Task 3: Create the    
 
 
 
