@@ -658,7 +658,7 @@ Next, you will create the "Test Runner" microservice which you will use to simul
    Call the clear endpoint to send a clearance notification using this command.  Note that you can use any `journalId` since there is nothing recieving and processing these messages yet:
 
     ```shell
-    $ <copy>curl -i -X POST -H 'Content-Type: application/json' -d '{"journalId": 4}' http://129.153.21.241/api/v1/testrunner/clear</copy>
+    $ <copy>curl -i -X POST -H 'Content-Type: application/json' -d '{"journalId": 4}' http://localhost:8080/api/v1/testrunner/clear</copy>
     HTTP/1.1 201
     Date: Wed, 31 May 2023 15:12:54 GMT
     Content-Type: application/json
@@ -678,8 +678,6 @@ Next, you will create the "Test Runner" microservice which you will use to simul
     USER_DATA.TEXT_VC
     _______________________________
     {"accountId":2,"amount":200}
-
-    6 rows selected.
     ```
 
    Issue this SQL statement to check the payloads of the messages on the clearances queue: 
@@ -690,8 +688,6 @@ Next, you will create the "Test Runner" microservice which you will use to simul
     USER_DATA.TEXT_VC
     ____________________
     {"journalId":4}
-
-    SQL>
     ```
 
    That completes the Test Runner service.  Next, you will build the Check Processing service which will receive these messages and process them.
@@ -699,13 +695,165 @@ Next, you will create the "Test Runner" microservice which you will use to simul
 
 ## Task 5: Create the Check Processing microservice
 
-1. Do the thing
+Next, you will create the "Check Processing" microservice which you will receive messages from the ATM and Back Office and process them by calling the appropriate endpoints on the Account service.  This service will also introduce the use of service discovery using OpenFeign clients.
 
-   The thing about the thing
+1. Create the Check Processing Spring Boot project
 
+   Create a new directory called `checks` alongside your `account` directory.  This new directory will hold the new Test Runner Spring Boot project.  In this directory create a file called `pom.xml` with the following content.  This will be the Maven POM for this project.  It is very simliar to the POM for the account and test runner services, however the dependencies are slightly different.  This service will use the "Web" Spring Boot Starter which will allow it to expose REST endpoints and make REST calls to other services.  It also uses the two Oracle Spring Boot Starters for UCP and Wallet to access the database.  You will also add the Eureka client and OpenFeign dependencies to allow service discovery and client side load balancing:
 
+    ```xml
+    <copy><?xml version="1.0" encoding="UTF-8"?>
+    <project xmlns="http://maven.apache.org/POM/4.0.0"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+        <modelVersion>4.0.0</modelVersion>
+        <parent>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-parent</artifactId>
+            <version>2.7.7</version>
+            <relativePath /> <!-- lookup parent from repository -->
+        </parent>
 
+        <groupId>com.example</groupId>
+        <artifactId>checks</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+        <name>checks</name>
+        <description>Demo project for Spring Boot</description>
 
+        <properties>
+            <java.version>17</java.version>
+        </properties>
+
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-web</artifactId>
+            </dependency>
+            <dependency>
+                <groupId>com.oracle.database.spring</groupId>
+                <artifactId>oracle-spring-boot-starter-aqjms</artifactId>
+                <version>2.7.7</version>
+            </dependency>
+            <dependency>
+                <groupId>com.oracle.database.spring</groupId>
+                <artifactId>oracle-spring-boot-starter-wallet</artifactId>
+                <type>pom</type>
+                <version>2.7.7</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+                <version>3.1.6</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-starter-openfeign</artifactId>
+                <version>3.1.6</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+            </dependency>
+        </dependencies>
+
+        <build>
+            <plugins>
+                <plugin>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-maven-plugin</artifactId>
+                </plugin>
+            </plugins>
+        </build>
+
+    </project></copy>
+    ```   
+
+1. Create the Spring Boot application YAML file
+
+   In the `checks` directory, create a new directory called `src/main/resources` and in that directory, create a file called `application.yaml` with the following content:
+
+    ```yaml
+    <copy>spring:
+      application:
+        name: checks
+
+    oracle:
+      aq:
+        url: ${spring.datasource.url}
+        username: ${spring.datasource.username}
+        password: ${spring.datasource.password}</copy>
+    ```   
+
+   This is the Spring Boot application YAML file, which contains the configuration information for this service.  In this case, you only need to provide the application name and the connection details for the database hosting the queues.  **Note**: the connection details are the same as those you used for JPA in the previous lab, but there are provided under a different name (`oracle.aq`) in this case.
+
+1. Create the main Spring Application class
+
+   In the `checks` directory, create a new directory called `src/main/java/com/example/checks` and in that directory, create a new Java file called `ChecksApplication.java` with this content.  This is a standard Spring Boot main class, notice the `SpringBootApplication` annotation on the class.  It also has the `EnableJms` annotation which tells Spring Boot to enable JMS functionality in this application.  The `main` method is a normal Spring Boot main method:
+
+    ```java
+    <copy>package com.example.checks;
+
+    import javax.jms.ConnectionFactory;
+
+    import org.springframework.boot.SpringApplication;
+    import org.springframework.boot.autoconfigure.SpringBootApplication;
+    import org.springframework.boot.autoconfigure.jms.DefaultJmsListenerContainerFactoryConfigurer;
+    import org.springframework.cloud.openfeign.EnableFeignClients;
+    import org.springframework.context.annotation.Bean;
+    import org.springframework.jms.annotation.EnableJms;
+    import org.springframework.jms.config.DefaultJmsListenerContainerFactory;
+    import org.springframework.jms.config.JmsListenerContainerFactory;
+    import org.springframework.jms.core.JmsTemplate;
+    import org.springframework.jms.support.converter.MappingJackson2MessageConverter;
+    import org.springframework.jms.support.converter.MessageConverter;
+    import org.springframework.jms.support.converter.MessageType;
+
+    @SpringBootApplication
+    @EnableFeignClients
+    @EnableJms
+    public class ChecksApplication {
+
+        public static void main(String[] args) {
+            SpringApplication.run(ChecksApplication.class, args);
+        }
+    
+        @Bean // Serialize message content to json using TextMessage
+        public MessageConverter jacksonJmsMessageConverter() {
+        MappingJackson2MessageConverter converter = new MappingJackson2MessageConverter();
+        converter.setTargetType(MessageType.TEXT);
+        converter.setTypeIdPropertyName("_type");
+        return converter;
+        }
+
+        @Bean 
+        public JmsTemplate jmsTemplate(ConnectionFactory connectionFactory) {
+        JmsTemplate jmsTemplate = new JmsTemplate();
+        jmsTemplate.setConnectionFactory(connectionFactory);
+        jmsTemplate.setMessageConverter(jacksonJmsMessageConverter());
+        return jmsTemplate;
+        }
+
+        @Bean
+        public JmsListenerContainerFactory<?> factory(ConnectionFactory connectionFactory,
+                                DefaultJmsListenerContainerFactoryConfigurer configurer) {
+        DefaultJmsListenerContainerFactory factory = new DefaultJmsListenerContainerFactory();
+        // This provides all boot's default to this factory, including the message converter
+        configurer.configure(factory, connectionFactory);
+        // You could still override some of Boot's default if necessary.
+        return factory;
+        }
+
+    }</copy>
+    ```  
+
+   As in the Test Runner service, you will also need the `MessageConverter` and `JmsTemplate` beans.  You will also need an additional bean in this service, the `JmsListenerConnectionFactory`.  This bean will be used to create listeners that recieve messages from JMS queues.  Note that the JMS `ConnectionFactory` is injected as in the Test Runner service.
+
+1. That other thing
+
+   Do that thing
+      
 
 
 ## Learn More
