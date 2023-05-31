@@ -193,10 +193,115 @@ Starting with the account service that you built in the previous lab, you will t
     }</copy>
     ```   
 
-1. Redeploy and test your new endpoints
+1. Build a JAR file for deployment
 
-   xxx
+   Run the following command to build the JAR file.  Note that you will need to skip tests now, since you updated the `application.yaml` and it no longer points to your local test database instance.
 
+    ```shell
+    $ <copy>mvn package -Dmaven.test.skip=true</copy>
+    ```
+
+   The service is now ready to deploy to the backend.
+
+1. Prepare the backend for deployment
+
+   The Oracle Backend for Spring Boot admin service is not exposed outside of the Kubernetes cluster by default. Oracle recommends using a **kubectl** port forwarding tunnel to establish a secure connection to the admin service.
+
+   Start a tunnel using this command:
+
+    ```shell
+    $ <copy>kubectl -n obaas-admin port-forward svc/obaas-admin 8080:8080</copy>
+    ```
+
+   Start the Oracle Backend for Spring Boot CLI using this command:
+
+    ```shell
+    $ <copy>oractl</copy>
+    _   _           __    _    ___
+    / \ |_)  _.  _. (_    /  |   |
+    \_/ |_) (_| (_| __)   \_ |_ _|_
+
+    09:35:14.801 [main] INFO  o.s.s.cli.shell.ShellApplication - Starting AOT-processed ShellApplication using Java 17.0.5 with PID 29373 (/Users/atael/bin/oractl started by atael in /Users/atael)
+    09:35:14.801 [main] DEBUG o.s.s.cli.shell.ShellApplication - Running with Spring Boot v3.0.0, Spring v6.0.2
+    09:35:14.801 [main] INFO  o.s.s.cli.shell.ShellApplication - The following 1 profile is active: "obaas"
+    09:35:14.875 [main] INFO  o.s.s.cli.shell.ShellApplication - Started ShellApplication in 0.097 seconds (process running for 0.126)
+    oractl:>
+    ```
+
+   Connect to the Oracle Backend for Spring Boot admin service using this command.  Hit enter when prompted for a password.  **Note**: Oracle recommends changing the password in a real deployment.
+
+    ```shell
+    oractl> <copy>connect</copy>
+    password (defaults to oractl):
+    using default value...
+    connect successful server version:0.3.0
+    oractl:>
+    ```
+
+1. Redeploy the account service
+
+  You will now redeploy your account service to the Oracle Backend for Spring Boot using the CLI.  Run this command to redeploy your service, make sure you provide the correct path to your JAR file.  **Note** that this command may take 1-3 minutes to complete:
+
+    ```shell
+    oractl:> <copy>deploy --app-name application --service-name account --artifact-path /path/to/accounts-0.0.1-SNAPSHOT.jar --image-version 0.0.1 --redeploy true</copy>
+    uploading: account/target/accounts-0.0.1-SNAPSHOT.jarbuilding and pushing image...
+    creating deployment and service... successfully deployed
+    oractl:>
+    ```
+
+1. Verify the new endpoints in the account service
+
+   In the next three commands, you need to provide the correct IP address for the API Gateway in your backend environment.  You can find the IP address using this command, you need the one listed in the `EXTERNAL-IP` column:
+
+    ```shell
+    $ <copy>kubectl -n ingress-nginx get service ingress-nginx-controller</copy>
+    NAME                       TYPE           CLUSTER-IP      EXTERNAL-IP   PORT(S)                      AGE
+    ingress-nginx-controller   LoadBalancer   10.123.10.127   100.20.30.40  80:30389/TCP,443:30458/TCP   13d
+    ```
+
+   Test the create journal entry endpoint with this command, use the IP address for your API Gateway:
+
+    ```shell
+    $ <copy>curl -i -X POST \
+          -H 'Content-Type: application/json' \
+          -d '{"journalType": "PENDING", "accountId": 2, "journalAmount": 100.00, "lraId": "0", "lraState": ""}' \
+          http://100.20.30.40/api/v1/account/journal</copy>
+    HTTP/1.1 201
+    Date: Wed, 31 May 2023 13:02:10 GMT
+    Content-Type: application/json
+    Transfer-Encoding: chunked
+    Connection: keep-alive
+
+    {"journalId":21,"journalType":"PENDING","accountId":2,"lraId":"0","lraState":"","journalAmount":100}
+    ```
+
+   Notice that the response contains a `journalId` which you will need in a later command, and that the `journalType` is `PENDING`.
+
+   Test the get journal entries endpoint with this command, use the IP address for your API Gateway.  Your output may be different:
+
+    ```shell
+    $ <copy>curl -i http://100.20.30.40/api/v1/account/2/journal</copy>
+    HTTP/1.1 200
+    Date: Wed, 31 May 2023 13:03:22 GMT
+    Content-Type: application/json
+    Transfer-Encoding: chunked
+    Connection: keep-alive
+
+    [{"journalId":3,"journalType":"PENDING","accountId":2,"lraId":"0","lraState":null,"journalAmount":100},{"journalId":4,"journalType":"DEPOSIT","accountId":2,"lraId":"0","lraState":null,"journalAmount":100},{"journalId":5,"journalType":"PENDING","accountId":2,"lraId":"0","lraState":null,"journalAmount":222},{"journalId":21,"journalType":"PENDING","accountId":2,"lraId":"0","lraState":null,"journalAmount":100},{"journalId":2,"journalType":"DEPOSIT","accountId":2,"lraId":"0","lraState":null,"journalAmount":100}]
+    ```
+
+   Test the update/clear journal entriy endpoint with this command, use the IP address for your API Gateway and the `journalId` from the first command's response:
+
+    ```shell
+    $ <copy>curl -i -X POST http://100.20.30.40/api/v1/account/journal/2/clear</copy>
+    HTTP/1.1 200
+    Date: Wed, 31 May 2023 13:04:36 GMT
+    Content-Type: application/json
+    Transfer-Encoding: chunked
+    Connection: keep-alive
+
+    {"journalId":2,"journalType":"DEPOSIT","accountId":2,"lraId":"0","lraState":null,"journalAmount":100}
+    ```
 
    That completes the updates for the Account service.
 
