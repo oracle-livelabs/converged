@@ -312,17 +312,17 @@ Starting with the account service that you built in the previous lab, you will t
    Connect to the database as the `ADMIN` user and execute the following statements to give the `account` user the necessary permissions to use queues.  **Note**: Lab 2, Task 9 provided details on how to connect to the database.
 
     ```sql
-    grant execute on dbms_aq to account;
+    <copy>grant execute on dbms_aq to account;
     grant execute on dbms_aqadm to account;
     grant execute on dbms_aqin to account;
     grant execute on dbms_aqjms_internal to account;
-    commit;
+    commit;</copy>
     ```
 
    Now connect as the `account` user and create the queues by executing these statements:
 
     ```sql
-    connect account/Welcome12345;
+    <copy>connect account/Welcome12345;
 
     begin
         -- deposits
@@ -344,16 +344,241 @@ Starting with the account service that you built in the previous lab, you will t
         dbms_aqadm.start_queue(
             queue_name         => 'clearances');
     end;
-    /
+    /</copy>
     ```
 
    You have created two queues named `deposits` and `clearances`.  Both of them use the JMS `TextMessage` format for the payload.
 
-## Task 4: Create the Check Processing microservice
+## Task 4: Create the Test Runner microservice
+
+Next, you will create the "Test Runner" microservice which you will use to simulate the ATM and Back Office.  This service will send messages to the queues that you just created.
+
+1. Create the Test Runner Spring Boot project
+
+   Create a new directory called `testrunner` alongside your `account` directory.  This new directory will hold the new Test Runner Spring Boot project.  In this directory create a file called `pom.xml` with the following content.  This will be the Maven POM for this project.  It is very simliar to the POM for the account service, however the dependencies are slightly different.  This service will use the "Web" Spring Boot Starter which will allow it to expose REST endpoints and make REST calls to other services.  It also uses the two Oracle Spring Boot Starters for UCP and Wallet to access the database:
+
+    ```xml
+    <copy><?xml version="1.0" encoding="UTF-8"?>
+    <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+        <modelVersion>4.0.0</modelVersion>
+        <parent>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-parent</artifactId>
+            <version>2.7.7</version>
+            <relativePath/> <!-- lookup parent from repository -->
+        </parent>
+
+        <groupId>com.example</groupId>
+        <artifactId>testrunner</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+        <name>testrunner</name>
+        <description>Test Runner project for Spring Boot</description>
+
+        <properties>
+            <java.version>17</java.version>
+        </properties>
+
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-web</artifactId>
+            </dependency>
+            <dependency>
+                <groupId>com.oracle.database.spring</groupId>
+                <artifactId>oracle-spring-boot-starter-aqjms</artifactId>
+                <version>2.7.7</version>
+            </dependency>
+            <dependency>
+                <groupId>com.oracle.database.spring</groupId>
+                <artifactId>oracle-spring-boot-starter-wallet</artifactId>
+                <type>pom</type>
+                <version>2.7.7</version>
+            </dependency>
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+            </dependency>
+        </dependencies>
+
+        <build>
+            <plugins>
+                <plugin>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-maven-plugin</artifactId>
+                </plugin>
+            </plugins>
+        </build>
+
+    </project></copy>
+    ```   
+
+1. Create the Spring Boot application YAML file
+
+   In the `testrunner` directory, create a new directory called `src/main/resources` and in that directory, create a file called `application.yaml` with the following content:
+
+    ```yaml
+    <copy>spring:
+      application:
+        name: testrunner
+
+    oracle:
+      aq:
+        url: ${spring.datasource.url}
+        username: ${spring.datasource.username}
+        password: ${spring.datasource.password}</copy>
+    ```   
+
+   This is the Spring Boot application YAML file, which contains the configuration information for this service.  In this case, you only need to provide the application name and the connection details for the database hosting the queues.  **Note**: the connection details are the same as those you used for JPA in the previous lab, but there are provided under a different name (`oracle.aq`) in this case.
+
+1. Create the main Spring Application class
+
+   In the `testrunner` directory, create a new directory called `src/main/java/com/example/testrunner` and in that directory, create a new Java file called `TestrunnerApplication.java` with this content.  This is a standard Spring Boot main class, notice the `SpringBootApplication` annotation on the class.  It also has the `EnableJms` annotation which tells Spring Boot to enable JMS functionality in this application.  The `main` method is a normal Spring Boot main method.:
+
+    ```java
+    <copy>package com.example.testrunner;
+
+    import javax.jms.ConnectionFactory;
+
+    import org.springframework.boot.SpringApplication;
+    import org.springframework.boot.autoconfigure.SpringBootApplication;
+    import org.springframework.context.annotation.Bean;
+    import org.springframework.jms.annotation.EnableJms;
+    import org.springframework.jms.core.JmsTemplate;
+    import org.springframework.jms.support.converter.MappingJackson2MessageConverter;
+    import org.springframework.jms.support.converter.MessageConverter;
+    import org.springframework.jms.support.converter.MessageType;
+
+    @SpringBootApplication
+    @EnableJms
+    public class TestrunnerApplication {
+
+        public static void main(String[] args) {
+            SpringApplication.run(TestrunnerApplication.class, args);
+        }
+    
+        @Bean // Serialize message content to json using TextMessage
+        public MessageConverter jacksonJmsMessageConverter() {
+        MappingJackson2MessageConverter converter = new MappingJackson2MessageConverter();
+        converter.setTargetType(MessageType.TEXT);
+        converter.setTypeIdPropertyName("_type");
+        return converter;
+        }
+
+        @Bean 
+        public JmsTemplate jmsTemplate(ConnectionFactory connectionFactory) {
+        JmsTemplate jmsTemplate = new JmsTemplate();
+        jmsTemplate.setConnectionFactory(connectionFactory);
+        jmsTemplate.setMessageConverter(jacksonJmsMessageConverter());
+        return jmsTemplate;
+        }
+
+    }</copy>
+    ```   
+
+   In addition to the standard parts of a Spring Boot application class, you will add two beans that will be needed in this service.  First, you need a `MessageConverter` bean so that you can convert a Java object (POJO) into JSON format, and vice versa.  This bean will be used to serialize and deserialize the objects you need to write onto the queues. 
+
+   The second bean you need is a `JmsTemplate`.  This is a standard Spring JMS bean that is used to access JMS functionality.  You will use this bean to enqueue messages. Notice that this bean is configured to use the `MessageConverter` bean and that the JMS `ConnectionFactory` is injected.  The Oracle Spring Boot Starter for AQ/JMS will create the JMS `ConnectionFactory` for you.
+
+   **Note**:  The Oracle Spring Boot Starter for AQ/JMS will also inject a JDBC `Connection` bean which shares the same database transaction with the JMS `ConnectionFactory`.  This is not needed in this lab.  The shared transaction enables you to write methods which can perform both JMS and JPA operations in an atomic transaction, which can be very helpful in some use cases and can dramatically reduce the amount of code needed to handle situations like duplicate message delivery or lost messages.
+
+1. Create the model classes
+
+   Create a new directory called `src/main/java/com/exmaple/testrunner/model` and in this directory create two Java files.  First, `CheckDeposit.java` with this content.  This class will be used to simulate the ATM sending the "deposit" notification:
+
+    ```java
+    <copy>package com.example.testrunner.model;
+
+    import lombok.AllArgsConstructor;
+    import lombok.Data;
+    import lombok.Getter;
+    import lombok.NoArgsConstructor;
+    import lombok.Setter;
+    import lombok.ToString;
+
+    @Data
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public class CheckDeposit {
+        private long accountId;
+        private long amount;
+    }</copy>
+    ```   
+
+   Next, `Clearance.java` with this content.  This class will be used to simulate the Back Office sending the "clearance" notification:
+
+    ```java
+    <copy>package com.example.testrunner.model;
+
+    import lombok.AllArgsConstructor;
+    import lombok.Data;
+    import lombok.Getter;
+    import lombok.NoArgsConstructor;
+    import lombok.Setter;
+    import lombok.ToString;
+
+    @Data
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public class Clearance {
+        private long journalId;
+    }</copy>   
+    ```
+
+1. Create the controller 
+
+   Create a new directory called `src/main/java/com/example/testrunner/controller` and in this directory create a new Java file called `TestrunnerController.java` with the following content.  This class will have the `RestController` annotation so that it can expose REST APIs that you can call to trigger the simulation of the ATM and Back Office notifications.  It will need the `JmsTemplate` to access JMS functionality, this can be injected with the `AutoWired` annotation.  Create two methods, one to send each notification:
+
+    ```java
+    <copy>package com.example.testrunner.controller;
+
+    import org.springframework.beans.factory.annotation.Autowired;
+    import org.springframework.http.HttpStatus;
+    import org.springframework.http.ResponseEntity;
+    import org.springframework.jms.core.JmsTemplate;
+    import org.springframework.web.bind.annotation.PostMapping;
+    import org.springframework.web.bind.annotation.RequestBody;
+    import org.springframework.web.bind.annotation.RequestMapping;
+    import org.springframework.web.bind.annotation.RestController;
+
+    import com.example.testrunner.model.CheckDeposit;
+    import com.example.testrunner.model.Clearance;
+
+    @RestController
+    @RequestMapping("/api/v1/testrunner")
+    public class TestRunnerController {
+
+        @Autowired
+        private JmsTemplate jmsTemplate;
+        
+        @PostMapping("/deposit")
+        public ResponseEntity<CheckDeposit> depositCheck(@RequestBody CheckDeposit deposit) {       
+            jmsTemplate.convertAndSend("deposits", deposit);
+            return new ResponseEntity<CheckDeposit>(deposit, HttpStatus.CREATED);
+        }
+
+        @PostMapping("/clear")
+        public ResponseEntity<Clearance> clearCheck(@RequestBody Clearance clearance) {
+            jmsTemplate.convertAndSend("clearances", clearance);
+            return new ResponseEntity<Clearance>(clearance, HttpStatus.CREATED);
+        }
+
+    }</copy>
+    ```
+
+1. Build and deploy the Test Runner service
+
+   The thing
+
+## Task 5: Create the Check Processing microservice
 
 1. Do the thing
 
    The thing about the thing
+
+
+
+
 
 
 ## Learn More
