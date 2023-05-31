@@ -566,9 +566,136 @@ Next, you will create the "Test Runner" microservice which you will use to simul
     }</copy>
     ```
 
-1. Build and deploy the Test Runner service
+1. Build a JAR file for deployment
 
-   The thing
+   Run the following command to build the JAR file.
+
+    ```shell
+    $ <copy>mvn package -Dmaven.test.skip=true</copy>
+    ```
+
+   The service is now ready to deploy to the backend.
+
+1. Prepare the backend for deployment
+
+   The Oracle Backend for Spring Boot admin service is not exposed outside of the Kubernetes cluster by default. Oracle recommends using a **kubectl** port forwarding tunnel to establish a secure connection to the admin service.
+
+   Start a tunnel using this command:
+
+    ```shell
+    $ <copy>kubectl -n obaas-admin port-forward svc/obaas-admin 8080:8080</copy>
+    ```
+
+   Start the Oracle Backend for Spring Boot CLI using this command:
+
+    ```shell
+    $ <copy>oractl</copy>
+    _   _           __    _    ___
+    / \ |_)  _.  _. (_    /  |   |
+    \_/ |_) (_| (_| __)   \_ |_ _|_
+
+    09:35:14.801 [main] INFO  o.s.s.cli.shell.ShellApplication - Starting AOT-processed ShellApplication using Java 17.0.5 with PID 29373 (/Users/atael/bin/oractl started by atael in /Users/atael)
+    09:35:14.801 [main] DEBUG o.s.s.cli.shell.ShellApplication - Running with Spring Boot v3.0.0, Spring v6.0.2
+    09:35:14.801 [main] INFO  o.s.s.cli.shell.ShellApplication - The following 1 profile is active: "obaas"
+    09:35:14.875 [main] INFO  o.s.s.cli.shell.ShellApplication - Started ShellApplication in 0.097 seconds (process running for 0.126)
+    oractl:>
+    ```
+
+   Connect to the Oracle Backend for Spring Boot admin service using this command.  Hit enter when prompted for a password.  **Note**: Oracle recommends changing the password in a real deployment.
+
+    ```shell
+    oractl> <copy>connect</copy>
+    password (defaults to oractl):
+    using default value...
+    connect successful server version:0.3.0
+    oractl:>
+    ```
+
+1. Create a binding for the Test Runner service
+
+   Create a binding so the Test Runner service can access the Oracle Autonomous Database as the `account` user.  Run this command to create the binding, and type in the passowrd for the `account` user when prompted (if you used the example password, this is `Welcome12345`):
+
+    ```shell
+    oractl:> <copy>bind --app-name application --service-name testrunner --username account</copy>
+    ```
+
+    **Note for reviewers**: This wont work on 0.3.0 version of oractl and obaas-admin - Paulo is adding this new username param, will be in a new rev. 
+
+1. Deploy the Test Runner service
+
+  You will now deploy your Test Runner service to the Oracle Backend for Spring Boot using the CLI.  Run this command to deploy your service, make sure you provide the correct path to your JAR file.  **Note** that this command may take 1-3 minutes to complete:
+
+    ```shell
+    oractl:> <copy>deploy --app-name application --service-name testrunner --artifact-path /path/to/testrunner-0.0.1-SNAPSHOT.jar --image-version 0.0.1</copy>
+    uploading: testrunner/target/testrunner-0.0.1-SNAPSHOT.jarbuilding and pushing image...
+    creating deployment and service... successfully deployed
+    oractl:>
+    ```
+
+   You can close the port forwarding session for the CLI now (just type a Ctrl+C in its console window).    
+
+1. Test the endpoints
+
+   The Test Runner service is not exposed outside your Kubernetes cluster, so you must create a port-forwarding tunnel to access it.  Create a tunnel using this command: 
+
+    ```shell
+    $ <copy>kubectl -n application port-forward svc/testrunner 8080</copy>
+    ```
+
+   Call the deposit endpoint to send a deposit notification using this command: 
+
+    ```shell
+    $ <copy>curl -i -X POST -H 'Content-Type: application/json' -d '{"accountId": 2, "amount": 200}' http://localhost:8080/api/v1/testrunner/deposit</copy>
+    HTTP/1.1 201
+    Date: Wed, 31 May 2023 15:11:55 GMT
+    Content-Type: application/json
+    Transfer-Encoding: chunked
+    Connection: keep-alive
+
+    {"accountId":2,"amount":200}
+    ```
+
+   Call the clear endpoint to send a clearance notification using this command.  Note that you can use any `journalId` since there is nothing recieving and processing these messages yet:
+
+    ```shell
+    $ <copy>curl -i -X POST -H 'Content-Type: application/json' -d '{"journalId": 4}' http://129.153.21.241/api/v1/testrunner/clear</copy>
+    HTTP/1.1 201
+    Date: Wed, 31 May 2023 15:12:54 GMT
+    Content-Type: application/json
+    Transfer-Encoding: chunked
+    Connection: keep-alive
+
+    {"journalId":4}
+    ```
+
+1. Verify the expected messages are on the queues
+
+   Connect to the database as the `account user` and issue this SQL statement to check the payloads of the messages on the deposits queue: 
+
+    ```sql
+    SQL> <copy>select qt.user_data.text_vc from deposits_qt qt;</copy>
+
+    USER_DATA.TEXT_VC
+    _______________________________
+    {"accountId":2,"amount":200}
+
+    6 rows selected.
+    ```
+
+   Issue this SQL statement to check the payloads of the messages on the clearances queue: 
+
+    ```sql
+    SQL> <copy>select qt.user_data.text_vc from clearances_qt qt;</copy>
+
+    USER_DATA.TEXT_VC
+    ____________________
+    {"journalId":4}
+
+    SQL>
+    ```
+
+   That completes the Test Runner service.  Next, you will build the Check Processing service which will receive these messages and process them.
+
 
 ## Task 5: Create the Check Processing microservice
 
