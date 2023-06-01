@@ -1015,17 +1015,17 @@ Next, you will create the "Check Processing" microservice which you will receive
     @Component
     public class CheckReceiver {
 
-    private AccountService accountService;
+        private AccountService accountService;
 
-    public CheckReceiver(AccountService accountService) {
-        this.accountService = accountService;
-    }
+        public CheckReceiver(AccountService accountService) {
+            this.accountService = accountService;
+        }
 
-    @JmsListener(destination = "deposits", containerFactory = "factory")
-    public void receiveMessage(CheckDeposit deposit) {
-        System.out.println("Received deposit <" + deposit + ">");
-        accountService.journal(new Journal("PENDING", deposit.getAccountId(), deposit.getAmount()));
-    }
+        @JmsListener(destination = "deposits", containerFactory = "factory")
+        public void receiveMessage(CheckDeposit deposit) {
+            System.out.println("Received deposit <" + deposit + ">");
+            accountService.journal(new Journal("PENDING", deposit.getAccountId(), deposit.getAmount()));
+        }
 
     }</copy>
     ```
@@ -1046,17 +1046,17 @@ Next, you will create the "Check Processing" microservice which you will receive
     @Component
     public class ClearanceReceiver {
 
-    private AccountService accountService;
+        private AccountService accountService;
 
-    public ClearanceReceiver(AccountService accountService) {
-        this.accountService = accountService;
-    }
+        public ClearanceReceiver(AccountService accountService) {
+            this.accountService = accountService;
+        }
 
-    @JmsListener(destination = "clearances", containerFactory = "factory")
-    public void receiveMessage(Clearance clearance) {
-        System.out.println("Received clearance <" + clearance + ">");
-        accountService.clear(clearance);
-    }
+        @JmsListener(destination = "clearances", containerFactory = "factory")
+        public void receiveMessage(Clearance clearance) {
+            System.out.println("Received clearance <" + clearance + ">");
+            accountService.clear(clearance);
+        }
 
     }</copy>
     ```
