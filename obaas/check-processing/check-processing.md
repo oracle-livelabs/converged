@@ -459,18 +459,18 @@ Next, you will create the "Test Runner" microservice which you will use to simul
     
         @Bean // Serialize message content to json using TextMessage
         public MessageConverter jacksonJmsMessageConverter() {
-        MappingJackson2MessageConverter converter = new MappingJackson2MessageConverter();
-        converter.setTargetType(MessageType.TEXT);
-        converter.setTypeIdPropertyName("_type");
-        return converter;
+            MappingJackson2MessageConverter converter = new MappingJackson2MessageConverter();
+            converter.setTargetType(MessageType.TEXT);
+            converter.setTypeIdPropertyName("_type");
+            return converter;
         }
 
         @Bean 
         public JmsTemplate jmsTemplate(ConnectionFactory connectionFactory) {
-        JmsTemplate jmsTemplate = new JmsTemplate();
-        jmsTemplate.setConnectionFactory(connectionFactory);
-        jmsTemplate.setMessageConverter(jacksonJmsMessageConverter());
-        return jmsTemplate;
+            JmsTemplate jmsTemplate = new JmsTemplate();
+            jmsTemplate.setConnectionFactory(connectionFactory);
+            jmsTemplate.setMessageConverter(jacksonJmsMessageConverter());
+            return jmsTemplate;
         }
 
     }</copy>
