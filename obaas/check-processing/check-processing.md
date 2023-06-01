@@ -821,28 +821,28 @@ Next, you will create the "Check Processing" microservice which you will receive
     
         @Bean // Serialize message content to json using TextMessage
         public MessageConverter jacksonJmsMessageConverter() {
-        MappingJackson2MessageConverter converter = new MappingJackson2MessageConverter();
-        converter.setTargetType(MessageType.TEXT);
-        converter.setTypeIdPropertyName("_type");
-        return converter;
+            MappingJackson2MessageConverter converter = new MappingJackson2MessageConverter();
+            converter.setTargetType(MessageType.TEXT);
+            converter.setTypeIdPropertyName("_type");
+            return converter;
         }
 
         @Bean 
         public JmsTemplate jmsTemplate(ConnectionFactory connectionFactory) {
-        JmsTemplate jmsTemplate = new JmsTemplate();
-        jmsTemplate.setConnectionFactory(connectionFactory);
-        jmsTemplate.setMessageConverter(jacksonJmsMessageConverter());
-        return jmsTemplate;
+            JmsTemplate jmsTemplate = new JmsTemplate();
+            jmsTemplate.setConnectionFactory(connectionFactory);
+            jmsTemplate.setMessageConverter(jacksonJmsMessageConverter());
+            return jmsTemplate;
         }
 
         @Bean
         public JmsListenerContainerFactory<?> factory(ConnectionFactory connectionFactory,
                                 DefaultJmsListenerContainerFactoryConfigurer configurer) {
-        DefaultJmsListenerContainerFactory factory = new DefaultJmsListenerContainerFactory();
-        // This provides all boot's default to this factory, including the message converter
-        configurer.configure(factory, connectionFactory);
-        // You could still override some of Boot's default if necessary.
-        return factory;
+            DefaultJmsListenerContainerFactory factory = new DefaultJmsListenerContainerFactory();
+            // This provides all boot's default to this factory, including the message converter
+            configurer.configure(factory, connectionFactory);
+            // You could still override some of Boot's default if necessary.
+            return factory;
         }
 
     }</copy>
@@ -850,10 +850,75 @@ Next, you will create the "Check Processing" microservice which you will receive
 
    As in the Test Runner service, you will also need the `MessageConverter` and `JmsTemplate` beans.  You will also need an additional bean in this service, the `JmsListenerConnectionFactory`.  This bean will be used to create listeners that recieve messages from JMS queues.  Note that the JMS `ConnectionFactory` is injected as in the Test Runner service.
 
-1. That other thing
+1. Create the model classes 
+
+   Create a directory called `src/main/java/com/example/testrunner/model` and in that directory create the two model classes.  
+   
+   **Note**: These are in the `testrunner` package, not the `checks` package!  The classes used for serialization and deserization of the messages need to be the same so that the `MessageConverter` knows what to do.
+
+   First, `CheckDeposit.java` with this content:
+
+    ```java
+    <copy>package com.example.testrunner.model;
+
+    import lombok.AllArgsConstructor;
+    import lombok.Data;
+    import lombok.Getter;
+    import lombok.NoArgsConstructor;
+    import lombok.Setter;
+    import lombok.ToString;
+
+    @Data
+    @AllArgsConstructor
+    @NoArgsConstructor
+    @Getter
+    @Setter
+    @ToString
+    public class CheckDeposit {
+        private long accountId;
+        private long amount;
+    }</copy>
+    ```
+
+   And then, `Clearance.java` with this content: 
+
+    ```java
+    <copy>package com.example.testrunner.model;
+
+    import lombok.AllArgsConstructor;
+    import lombok.Data;
+    import lombok.Getter;
+    import lombok.NoArgsConstructor;
+    import lombok.Setter;
+    import lombok.ToString;
+
+    @Data
+    @AllArgsConstructor
+    @NoArgsConstructor
+    @Getter
+    @Setter
+    @ToString
+    public class Clearance {
+        private long journalId;
+    }</copy>
+    ```    
+
+1. Create the OpenFeign clients
+
+   Do this
+
+1. Create the services 
+
+   Do that
+
+1. Create the controller
+
+   Do the other thing
+
+1. Build, deploy, test...
 
    Do that thing
-      
+
 
 
 ## Learn More
