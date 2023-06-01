@@ -217,7 +217,7 @@ Starting with the account service that you built in the previous lab, you will t
 
     ```shell
     $ <copy>oractl</copy>
-    _   _           __    _    ___
+     _   _           __    _    ___
     / \ |_)  _.  _. (_    /  |   |
     \_/ |_) (_| (_| __)   \_ |_ _|_
 
@@ -590,7 +590,7 @@ Next, you will create the "Test Runner" microservice which you will use to simul
 
     ```shell
     $ <copy>oractl</copy>
-    _   _           __    _    ___
+     _   _           __    _    ___
     / \ |_)  _.  _. (_    /  |   |
     \_/ |_) (_| (_| __)   \_ |_ _|_
 
@@ -1087,7 +1087,7 @@ Next, you will create the "Check Processing" microservice which you will receive
 
     ```shell
     $ <copy>oractl</copy>
-    _   _           __    _    ___
+     _   _           __    _    ___
     / \ |_)  _.  _. (_    /  |   |
     \_/ |_) (_| (_| __)   \_ |_ _|_
 
@@ -1209,7 +1209,7 @@ Now you can test the full end-to-end flow for the Check Processing scenario.
    Using the `journalId` you received in the output of the previous command (in this example it is `6`), update and then run this command to simulate the Back Office clearing that check:
 
     ```shell
-    $ <copy>curl -i -X POST -H 'Content-Type: application/json' -d '{"journalId": 6}' http://localhost:8080/api/v1/testrunner/clear
+    $ <copy>curl -i -X POST -H 'Content-Type: application/json' -d '{"journalId": 6}' http://localhost:8080/api/v1/testrunner/clear</copy>
     HTTP/1.1 201
     Date: Wed, 31 May 2023 15:12:54 GMT
     Content-Type: application/json
