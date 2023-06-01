@@ -2,7 +2,7 @@
 
 ## Introduction
 
-This lab walks you through the steps to build Spring Boot microservices that use Java Message Service (JMS) to send and receive aysnchronous messages.  This service will also use service discovery to lookup and use the previously built Account service.  In this lab, we will extend the Account microservice built in the previous lab, build a new "Check Processing" microservice and another "Test Runner" microservice to help with testing.
+This lab walks you through the steps to build Spring Boot microservices that use Java Message Service (JMS) to send and receive aysnchronous messages using Transactional Event Queues in the Oracle Database.  This service will also use service discovery to lookup and use the previously built Account service.  In this lab, we will extend the Account microservice built in the previous lab, build a new "Check Processing" microservice and another "Test Runner" microservice to help with testing.
 
 Estimated Time: 20 minutes
 
@@ -12,7 +12,7 @@ In this lab, you will:
 
 * Create new Spring Boot projects in your IDE
 * Plan your queues and message formats
-* Use Spring JMS to allow your microservice to use JMS queues in the Oracle database
+* Use Spring JMS to allow your microservice to use JMS Transactional Event Queues in the Oracle database
 * Use OpenFeign to allow the Check Processing service to discover and use the Account service
 * Create a "Test Runner" service to simulate the sending of messages 
 * Deploy your microservices into the backend
