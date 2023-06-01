@@ -930,13 +930,138 @@ Next, you will create the "Check Processing" microservice which you will receive
     }</copy>
     ```
 
+   In the interface, you define methods for each of the endpoints you want to be able to call.  As you see, you specify the request type with an annotation, the endpoint path, and you can sepcify path variables and the body type.  You will need to define the `Journal` class.
+
+   In the same directory, create a Java class called `Journal.java` with the following content:
+
+    ```java
+    <copy>package com.example.checks.clients;
+
+    import lombok.AllArgsConstructor;
+    import lombok.Data;
+    import lombok.NoArgsConstructor;
+
+    @Data
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public class Journal {
+        private long journalId;
+        private String journalType;
+        private long accountId;
+        private String lraId;
+        private String lraState;
+        private long journalAmount;
+
+        public Journal(String journalType, long accountId, long journalAmount) {
+            this.journalType = journalType;
+            this.accountId = accountId;
+            this.journalAmount = journalAmount;
+            this.lraId = "0";
+            this.lraState = "";
+        }
+    }</copy>
+    ```
+
+   **Note**:  The `lraId` and `lraState` field are set to reasonable default values, since we are not going to be using those fields in this lab.
+
 1. Create the services 
 
-   Do that
+   Next, you will create a service to implement the methods defined in the OpenFeign client interface.  Create a directory called `src/main/java/com/example/checks/service` and in that directory create a Java class called `AccountService.java` with this content.  The services are very simple, you just need to use the `accountClient` to call the appropraite endpoint on the Account service and pass through the data.  **Note** the `AccountClient` will be injected by Spring Boot because of the `RequiredArgsConstuctor` annotation, which saves some boilerplate constructor code: 
 
-1. Create the controller
+    ```java
+    <copy>package com.example.checks.services;
 
-   Do the other thing
+    import org.springframework.stereotype.Service;
+
+    import com.example.checks.clients.AccountClient;
+    import com.example.checks.clients.Journal;
+    import com.example.testrunner.model.Clearance;
+
+    import lombok.RequiredArgsConstructor;
+
+    @Service
+    @RequiredArgsConstructor
+    public class AccountService {
+        
+        private final AccountClient accountClient;
+
+        public void journal(Journal journal) {
+            accountClient.journal(journal);
+        }
+
+        public void clear(Clearance clearance) {
+            accountClient.clear(clearance.getJournalId());
+        }
+
+    }</copy>
+    ```
+
+1. Create the Check Receiver controller
+
+   This controller will receive messages on the `deposits` JMS queue and process them by calling the `journal` method in the `AccountService` that you jsut created, which will make a REST POST to the Account service, which in turn will write the journal entry into the accounts database.
+
+   Create a directory called `src/main/java/com/exmaple/checks/controllers` and in that directory, create a new Java class called `CheckReceiver.java` with the following content.  You will need to inject an instance of the `AccountService` (in this example the constructor is provided so you can compare to the annotation used previously).  Implement a method to receive and process the messages.  To receive messages from the queus, use the `JmsListener` annotation and provide the queue and factory names.  This method should call the `journal` method on the `AccountService` and pass through the necessary data.  Also, notice that you need to add the `Component` annotation to the class so that Spring Boot will load an instance of it into the application:
+
+    ```java
+    <copy>package com.example.checks.controller;
+
+    import org.springframework.jms.annotation.JmsListener;
+    import org.springframework.stereotype.Component;
+
+    import com.example.checks.clients.Journal;
+    import com.example.checks.services.AccountService;
+    import com.example.testrunner.model.CheckDeposit;
+
+    @Component
+    public class CheckReceiver {
+
+    private AccountService accountService;
+
+    public CheckReceiver(AccountService accountService) {
+        this.accountService = accountService;
+    }
+
+    @JmsListener(destination = "deposits", containerFactory = "factory")
+    public void receiveMessage(CheckDeposit deposit) {
+        System.out.println("Received deposit <" + deposit + ">");
+        accountService.journal(new Journal("PENDING", deposit.getAccountId(), deposit.getAmount()));
+    }
+
+    }</copy>
+    ```
+
+1. Create the Clearance Receiver controller
+
+   In the same directory, create another Java class called `ClearanceReceiver.java` with the following content.  This is very similar to the previous controller, but listens to the `clearances` queue instead, and calls the `clear` method on the `AccountService`:
+
+    ```java
+    <copy>package com.example.checks.controller;
+
+    import org.springframework.jms.annotation.JmsListener;
+    import org.springframework.stereotype.Component;
+
+    import com.example.checks.services.AccountService;
+    import com.example.testrunner.model.Clearance;
+
+    @Component
+    public class ClearanceReceiver {
+
+    private AccountService accountService;
+
+    public ClearanceReceiver(AccountService accountService) {
+        this.accountService = accountService;
+    }
+
+    @JmsListener(destination = "clearances", containerFactory = "factory")
+    public void receiveMessage(Clearance clearance) {
+        System.out.println("Received clearance <" + clearance + ">");
+        accountService.clear(clearance);
+    }
+
+    }</copy>
+    ```
+
+   That completes the Check Processing service.  Now you can deploy and test it.
 
 1. Build, deploy, test...
 
