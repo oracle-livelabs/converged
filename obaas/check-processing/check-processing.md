@@ -903,9 +903,32 @@ Next, you will create the "Check Processing" microservice which you will receive
     }</copy>
     ```    
 
+   > **OpenFeign** 
+   > In the next step you will use OpenFeign to create a client.  OpenFeign allows you to lookup an instance of a service from the Spring Eureka Service Registry using its key/identifier, and will create a client for you to call endpoints on that service.  It also provides client-side load balancing.  This allows you to easily create REST clients without needing to know the address of the service or how many isntances are running.
+
 1. Create the OpenFeign clients
 
-   Do this
+   Create a directory called `src/main/java/com/example/checks/clients` and in this directory create a new Java interface called `AccountClient.java` to define the OpenFeign client for the account service.  Here is the content:
+
+    ```java
+    <copy>package com.example.checks.clients;
+
+    import org.springframework.cloud.openfeign.FeignClient;
+    import org.springframework.web.bind.annotation.PathVariable;
+    import org.springframework.web.bind.annotation.PostMapping;
+    import org.springframework.web.bind.annotation.RequestBody;
+
+    @FeignClient("accounts")
+    public interface AccountClient {
+        
+        @PostMapping("/api/v1/account/journal")
+        void journal(@RequestBody Journal journal);
+
+        @PostMapping("/api/v1/account/journal/{journalId}/clear")
+        void clear(@PathVariable long journalId);
+
+    }</copy>
+    ```
 
 1. Create the services 
 
