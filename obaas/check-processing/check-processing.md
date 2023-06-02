@@ -179,7 +179,7 @@ Starting with the account service that you built in the previous lab, you will t
 
 1. Add new method to update an existing journal entry
 
-   Add a new HTTP POST endpoint to update and existing journal entry to a cleared deposit.  To do this, you set the `journalType` field to `DEPOSIT`.  Your method should accept the `journalId` as a path variable.  If the specified journal entry does not exist, return a 404 (Not Found).  Your new method should look like this:
+   Add a new HTTP POST endpoint to update and existing journal entry to a cleared deposit.  To do this, you set the `journalType` field to `DEPOSIT`.  Your method should accept the `journalId` as a path variable.  If the specified journal entry does not exist, return a 202 (Accepted) to indicate the message was received but there was nothing to do.  Returning a 404 (Not found) would cause an error and the message would get requeued and reprocessed, which we don't want.  Your new method should look like this:
 
     ```java
     <copy>@PostMapping("/account/journal/{journalId}/clear")
@@ -192,7 +192,7 @@ Starting with the account service that you built in the previous lab, you will t
                 journalRepository.saveAndFlush(_journalEntry);
                 return new ResponseEntity<Journal>(_journalEntry, HttpStatus.OK);
             } else {
-                return new ResponseEntity<Journal>(new Journal(), HttpStatus.NOT_FOUND);
+                return new ResponseEntity<Journal>(new Journal(), HttpStatus.ACCEPTED);
             }
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
