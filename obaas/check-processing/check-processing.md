@@ -493,10 +493,7 @@ Next, you will create the "Test Runner" microservice which you will use to simul
 
     import lombok.AllArgsConstructor;
     import lombok.Data;
-    import lombok.Getter;
     import lombok.NoArgsConstructor;
-    import lombok.Setter;
-    import lombok.ToString;
 
     @Data
     @AllArgsConstructor
@@ -514,10 +511,7 @@ Next, you will create the "Test Runner" microservice which you will use to simul
 
     import lombok.AllArgsConstructor;
     import lombok.Data;
-    import lombok.Getter;
     import lombok.NoArgsConstructor;
-    import lombok.Setter;
-    import lombok.ToString;
 
     @Data
     @AllArgsConstructor
@@ -636,6 +630,22 @@ Next, you will create the "Test Runner" microservice which you will use to simul
 
    You can close the port forwarding session for the CLI now (just type a Ctrl+C in its console window).
 
+1. Check that the `testrunner` service is running
+
+    Verify that the testrunner application is up and running by running this command:
+
+    ```shell
+    $ <copy>kubectl log -n application svc/testrunner</copy>
+    ```
+
+    The output should be similar to this, look for `Started TestrunnerApplication`
+
+    ```text
+    2023-06-02 15:18:39.620  INFO 1 --- [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1806 ms
+    2023-06-02 15:18:40.915  INFO 1 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+    2023-06-02 15:18:40.938  INFO 1 --- [           main] c.e.testrunner.TestrunnerApplication     : Started TestrunnerApplication in 4.174 seconds (JVM running for 5.237)
+    ```
+
 1. Test the endpoints
 
    The Test Runner service is not exposed outside your Kubernetes cluster, so you must create a port-forwarding tunnel to access it. Create a tunnel using this command:
@@ -672,7 +682,7 @@ Next, you will create the "Test Runner" microservice which you will use to simul
 
 1. Verify the expected messages are on the queues
 
-   Connect to the database as the `account user` and issue this SQL statement to check the payloads of the messages on the deposits queue:
+   Connect to the database as the `account` (password `Welcome12343##`) and issue this SQL statement to check the payloads of the messages on the deposits queue:
 
     ```sql
     SQL> <copy>select qt.user_data.text_vc from deposits_qt qt;</copy>
@@ -904,10 +914,10 @@ Next, you will create the "Check Processing" microservice which you will receive
     }</copy>
     ```
 
-    > **OpenFeign**
-    > In the next step you will use OpenFeign to create a client.  OpenFeign allows you to lookup an instance of a service from the Spring Eureka Service Registry using its key/identifier, and will create a client for you to call endpoints on that service.  It also provides client-side load balancing.  This allows you to easily create REST clients without needing to know the address of the service or how many instances are running.
-
 1. Create the OpenFeign clients
+
+    > **OpenFeign**
+    > In this step you will use OpenFeign to create a client.  OpenFeign allows you to lookup an instance of a service from the Spring Eureka Service Registry using its key/identifier, and will create a client for you to call endpoints on that service.  It also provides client-side load balancing.  This allows you to easily create REST clients without needing to know the address of the service or how many instances are running.
 
    Create a directory called `src/main/java/com/example/checks/clients` and in this directory create a new Java interface called `AccountClient.java` to define the OpenFeign client for the account service. Here is the content:
 
@@ -970,7 +980,7 @@ Next, you will create the "Check Processing" microservice which you will receive
    Next, you will create a service to implement the methods defined in the OpenFeign client interface.  Create a directory called `src/main/java/com/example/checks/service` and in that directory create a Java class called `AccountService.java` with this content.  The services are very simple, you just need to use the `accountClient` to call the appropriate endpoint on the Account service and pass through the data. **Note** the `AccountClient` will be injected by Spring Boot because of the `RequiredArgsConstructor` annotation, which saves some boilerplate constructor code:
 
     ```java
-    <copy>package com.example.checks.services;
+    <copy>package com.example.checks.service;
 
     import org.springframework.stereotype.Service;
 
@@ -1001,7 +1011,7 @@ Next, you will create the "Check Processing" microservice which you will receive
 
    This controller will receive messages on the `deposits` JMS queue and process them by calling the `journal` method in the `AccountService` that you just created, which will make a REST POST to the Account service, which in turn will write the journal entry into the accounts database.
 
-   Create a directory called `src/main/java/com/example/checks/controllers` and in that directory, create a new Java class called `CheckReceiver.java` with the following content.  You will need to inject an instance of the `AccountService` (in this example the constructor is provided so you can compare to the annotation used previously).  Implement a method to receive and process the messages.  To receive messages from the queues, use the `JmsListener` annotation and provide the queue and factory names.  This method should call the `journal` method on the `AccountService` and pass through the necessary data.  Also, notice that you need to add the `Component` annotation to the class so that Spring Boot will load an instance of it into the application:
+   Create a directory called `src/main/java/com/example/checks/controller` and in that directory, create a new Java class called `CheckReceiver.java` with the following content.  You will need to inject an instance of the `AccountService` (in this example the constructor is provided so you can compare to the annotation used previously). Implement a method to receive and process the messages. To receive messages from the queues, use the `JmsListener` annotation and provide the queue and factory names. This method should call the `journal` method on the `AccountService` and pass through the necessary data.  Also, notice that you need to add the `Component` annotation to the class so that Spring Boot will load an instance of it into the application:
 
     ```java
     <copy>package com.example.checks.controller;
@@ -1010,7 +1020,7 @@ Next, you will create the "Check Processing" microservice which you will receive
     import org.springframework.stereotype.Component;
 
     import com.example.checks.clients.Journal;
-    import com.example.checks.services.AccountService;
+    import com.example.checks.service.AccountService;
     import com.example.testrunner.model.CheckDeposit;
 
     @Component
@@ -1041,7 +1051,7 @@ Next, you will create the "Check Processing" microservice which you will receive
     import org.springframework.jms.annotation.JmsListener;
     import org.springframework.stereotype.Component;
 
-    import com.example.checks.services.AccountService;
+    import com.example.checks.service.AccountService;
     import com.example.testrunner.model.Clearance;
 
     @Component
