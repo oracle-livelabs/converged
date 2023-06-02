@@ -131,7 +131,11 @@ Starting with the account service that you built in the previous lab, you will t
    Update the constructor for `AccountController` so that both the repositories are injected.  You will need to create a variable to hold each.  Your updated constructor should look like this:
 
     ```java
-    <copy>final AccountRepository accountRepository;
+    <copy>import com.example.repository.JournalRepository;
+    
+    // ...
+    
+    final AccountRepository accountRepository;
     final JournalRepository journalRepository;
 
     public AccountController(AccountRepository accountRepository, JournalRepository journalRepository) {
@@ -145,7 +149,11 @@ Starting with the account service that you built in the previous lab, you will t
    Add a new HTTP POST endpoint in the `AccountRepository.java` class. The method accepts a journal entry in the request body and saves it into the database. Your new method should look like this:
 
     ```java
-    <copy>@PostMapping("/account/journal")
+    <copy>import com.example.model.Journal;
+    
+    // ...
+    
+    @PostMapping("/account/journal")
     public ResponseEntity<Journal> postSimpleJournalEntry(@RequestBody Journal journalEntry) {
         try {
             Journal _journalEntry = journalRepository.saveAndFlush(journalEntry);
