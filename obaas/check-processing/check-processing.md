@@ -643,7 +643,7 @@ Next, you will create the "Test Runner" microservice which you will use to simul
     Verify that the testrunner application is up and running by running this command:
 
     ```shell
-    $ <copy>kubectl log -n application svc/testrunner</copy>
+    $ <copy>kubectl logs -n application svc/testrunner</copy>
     ```
 
     The output should be similar to this, look for `Started TestrunnerApplication`
