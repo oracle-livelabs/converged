@@ -214,105 +214,105 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
 
   Here are the SQL statements to create the necessary objects in the database. If you installed SQLcl as recommended, you can connect to your database using this command (or use the SQLcl session created during Lab two, Setup)
 
-  ```shell
-  $ <copy>sql /nolog</copy>
+    ```shell
+    $ <copy>sql /nolog</copy>
 
-  SQLcl: Release 22.4 Production on Fri Mar 03 12:25:24 2023
+    SQLcl: Release 22.4 Production on Fri Mar 03 12:25:24 2023
 
-  Copyright (c) 1982, 2023, Oracle.  All rights reserved.
+    Copyright (c) 1982, 2023, Oracle.  All rights reserved.
 
-  SQL>
-  ```
+    SQL>
+    ```
 
 1. Load the Wallet
 
   When you are connected, run the following command to load the Wallet you downloaded during the Setup lab. Replace the name and location of the Wallet to match your environment.
 
-  ```sql
-  SQL> <copy>set cloudconfig ~/path/to/wallet/wallet-name.zip</copy>
-  ```
+    ```sql
+    SQL> <copy>set cloudconfig ~/path/to/wallet/wallet-name.zip</copy>
+    ```
 
 1. Connect to the Database
 
-  Connect to the database using the `ADMIN` user. The ADMIN password can be retrieved from a k8s secret using this command:
+  Connect to the database using the `ADMIN` user. The ADMIN password can be retrieved from a k8s secret using this command. Replace the **DBNAME** with the name of your database.
 
-  ```shell
-  $ <copy>kubectl -n application get secret cbankdb-db-secrets -o jsonpath='{.data.db\.password}' | base64 -d</copy>
-  ```
+    ```shell
+    $ <copy>kubectl -n application get secret DBNAME-db-secrets -o jsonpath='{.data.db\.password}' | base64 -d</copy>
+    ```
 
-  ```sql
-  SQL> <copy>connect ADMIN/your-ADMIN-password@your-TNS-entry</copy>
-  Connected.
-  ```
+    ```sql
+    SQL> <copy>connect ADMIN/your-ADMIN-password@your-TNS-entry</copy>
+    Connected.
+    ```
 
   If you need to see what TNS Entries you have run the `show tns` command. For example:
 
-  ```sql
-  <copy>show tns</copy>
-  CLOUD CONFIG set to: /Users/atael/tmp/wallet/Wallet_CBANKDB.zip
+    ```sql
+    <copy>show tns</copy>
+    CLOUD CONFIG set to: /Users/atael/tmp/wallet/Wallet_CBANKDB.zip
 
-  TNS Lookup Locations
-  --------------------
+    TNS Lookup Locations
+    --------------------
 
-  TNS Locations Used
-  ------------------
-  1.  /Users/atael/tmp/wallet/Wallet_CBANKDB.zip
-  2.  /Users/atael
+    TNS Locations Used
+    ------------------
+    1.  /Users/atael/tmp/wallet/Wallet_CBANKDB.zip
+    2.  /Users/atael
 
-  Available TNS Entries
-  ---------------------
-  CBANKDB_HIGH
-  CBANKDB_LOW
-  CBANKDB_MEDIUM
-  CBANKDB_TP
-  CBANKDB_TPURGENT
-  ```
+    Available TNS Entries
+    ---------------------
+    CBANKDB_HIGH
+    CBANKDB_LOW
+    CBANKDB_MEDIUM
+    CBANKDB_TP
+    CBANKDB_TPURGENT
+    ```
 
 1. Create Database Objects
 
   Run the SQL statements below to create the database objects:
 
-  ```sql
-  <copy>
-  -- create a database user for the account service
-  create user account identified by "Welcome1234##";
+    ```sql
+    <copy>
+    -- create a database user for the account service
+    create user account identified by "Welcome1234##";
 
-  -- add roles and quota
-  grant connect to account;
-  grant resource to account;
-  alter user account default role connect, resource;
-  alter user account quota unlimited on users;
+    -- add roles and quota
+    grant connect to account;
+    grant resource to account;
+    alter user account default role connect, resource;
+    alter user account quota unlimited on users;
 
-  -- create accounts table
-  create table account.accounts (
-    account_id            number generated always as identity (start with 1 cache 20),
-    account_name          varchar2(40) not null,
-    account_type          varchar2(2) check (account_type in ('CH', 'SA', 'CC', 'LO')),
-    customer_id           varchar2 (20),
-    account_opened_date   date default sysdate not null,
-    account_other_details varchar2(4000),
-    account_balance       number
-  ) logging;
+    -- create accounts table
+    create table account.accounts (
+      account_id            number generated always as identity (start with 1 cache 20),
+      account_name          varchar2(40) not null,
+      account_type          varchar2(2) check (account_type in ('CH', 'SA', 'CC', 'LO')),
+      customer_id           varchar2 (20),
+      account_opened_date   date default sysdate not null,
+      account_other_details varchar2(4000),
+      account_balance       number
+    ) logging;
 
-  alter table account.accounts add constraint accounts_pk primary key (account_id) using index logging;
-  
-  comment on table account.accounts is 'CloudBank accounts table';
+    alter table account.accounts add constraint accounts_pk primary key (account_id) using index logging;
+    
+    comment on table account.accounts is 'CloudBank accounts table';
 
-  -- create journal table
-  create table account.journal (
-    journal_id      number generated always as identity (start with 1 cache 20),
-    journal_type    varchar2(20),
-    account_id      number,
-    lra_id          varchar2(1024) not null,
-    lra_state       varchar2(40),
-    journal_amount  number
-  ) logging;
+    -- create journal table
+    create table account.journal (
+      journal_id      number generated always as identity (start with 1 cache 20),
+      journal_type    varchar2(20),
+      account_id      number,
+      lra_id          varchar2(1024) not null,
+      lra_state       varchar2(40),
+      journal_amount  number
+    ) logging;
 
-  alter table account.journal add constraint journal_pk primary key (journal_id) using index logging;
+    alter table account.journal add constraint journal_pk primary key (journal_id) using index logging;
 
-  comment on table account.journal is 'CloudBank accounts journal table';
-  /</copy>
-  ```
+    comment on table account.journal is 'CloudBank accounts journal table';
+    /</copy>
+    ```
 
   Now that the database objects are created, you can configure Spring Data JPA to use them in your microservice.
 
@@ -322,10 +322,11 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
 
     Spring Data JPA allows our Spring Boot application to easily use the database.  It uses simple Java POJOs to represent the data model and provides a lot of out-of-the-box features which means there is a lot less boilerplate code to be written.
 
-    To add Spring Data JPA and the Oracle Database drivers to your project, open the Maven POM (`pom.xml`) and add these extra dependencies for Spring Data JPA, Oracle Wallet dependencies and the Oracle Spring Boot Starter for Oracle Database UCP (Universal Connection Pool):
+    To add Spring Data JPA and the Oracle Database drivers to your project, open the Maven POM (`pom.xml`) and add these extra dependencies for Spring Data JPA, Oracle Spring Boot Starters for Oracle Database UCP (Universal Connection Pool) and Wallet:
 
     ```xml
-    <copy><dependency>
+    <copy>
+    <dependency>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-data-jpa</artifactId>
     </dependency>
@@ -333,24 +334,13 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
         <groupId>com.oracle.database.spring</groupId>
         <artifactId>oracle-spring-boot-starter-ucp</artifactId>
         <type>pom</type>
-        <version>2.7.9</version>
+        <version>2.7.7</version>
     </dependency>
-
-    <!-- For Oracle Wallet (ADB-S); oraclepki, osdt_core, and osdt_cert artifacts -->
-    <dependency>
-      <groupId>com.oracle.database.security</groupId>
-      <artifactId>oraclepki</artifactId>
-      <version>21.8.0.0</version>
-    </dependency>
-    <dependency>
-      <groupId>com.oracle.database.security</groupId>
-      <artifactId>osdt_core</artifactId>
-      <version>21.8.0.0</version>
-    </dependency>
-    <dependency>
-      <groupId>com.oracle.database.security</groupId>
-      <artifactId>osdt_cert</artifactId>
-      <version>21.8.0.0</version>
+        <dependency>
+        <groupId>com.oracle.database.spring</groupId>
+        <artifactId>oracle-spring-boot-starter-wallet</artifactId>
+        <version>2.7.7</version>
+        <type>pom</type>
     </dependency></copy>
     ```
 
@@ -372,12 +362,6 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
 
       ```text
       WALLET_LOCATION = (SOURCE = (METHOD = file) (METHOD_DATA = (DIRECTORY="/path/to/unzipped/wallet")))
-      ```
-
-    1. Set the `TNS_ADMIN` environment variable to the directory where the unzipped Wallet is located. Use the following command:
-
-      ```shell
-      $ <copy>export TNS_ADMIN=/path/to/unzipped/wallet</copy>
       ```
 
     1. Get the TNS Entry connection string using this command. Remember the name of the entry as you'll need it in the next steps. In the sample below it is `cbankdb_tp`.
@@ -970,10 +954,10 @@ If you would like to learn more about endpoints and implement the remainder of t
 
 1. Build a JAR file for deployment
 
-   Run the following command to build the JAR file.  Note that you will need to skip tests now, since you updated the `application.yaml` and it no longer points to your local test database instance.
+   Run the following command to build the JAR file (it will also remove any earlier builds).  Note that you will need to skip tests now, since you updated the `application.yaml` and it no longer points to your local test database instance.
 
     ```shell
-    $ <copy>mvn package -Dmaven.test.skip=true</copy>
+    $ <copy>mvn clean package -Dmaven.test.skip=true</copy>
     ```
 
    The service is now ready to deploy to the backend.
@@ -985,10 +969,10 @@ If you would like to learn more about endpoints and implement the remainder of t
    Start a tunnel using this command:
 
     ```shell
-    $ <copy>kubectl -n obaas-admin port-forward svc/obaas-admin 8080:8080</copy>
+    $ <copy>kubectl -n obaas-admin port-forward svc/obaas-admin 8080</copy>
     ```
 
-   Start the Oracle Backend for Spring Boot CLI using this command:
+   Start the Oracle Backend for Spring Boot CLI in a new terminal window using this command:
 
     ```shell
     $ <copy>oractl</copy>
@@ -1044,23 +1028,42 @@ If you would like to learn more about endpoints and implement the remainder of t
     - Create the microservices deployment descriptor (k8s) with the resources supplied
     - Applies the k8s deployment and create k8s object service to microservice
 
+1. Verify account service
+
+  You can check if the account service is running properly by running the following command:
+
+    ```shell
+    $ <copy>kubectl logs -n application svc/account</copy>
+    ```
+  
+  The command will return the logfile content for the account service. If everything is running properly you should see something like this:
+
+    ```text
+    2023-06-01 20:44:24.882  INFO 1 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+    2023-06-01 20:44:24.883  INFO 1 --- [           main] .s.c.n.e.s.EurekaAutoServiceRegistration : Updating port to 8080
+    2023-06-01 20:44:24.903  INFO 1 --- [           main] c.example.accounts.AccountsApplication   : Started AccountsApplication in 14.6 seconds (JVM running for 15.713)
+    2023-06-01 20:44:31.971  INFO 1 --- [nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+    2023-06-01 20:44:31.971  INFO 1 --- [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+    2023-06-01 20:44:31.975  INFO 1 --- [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 4 ms
+    ```
+
 ## Task 8: Expose the account service using the API Gateway
 
 Now that the account service is deployed, you need to expose it through the API Gateway so that clients will be able to access it.  This is done by creating a "route" in APISIX Dashboard.
 
 1. Access the APISIX Dashboard
 
-   Start the tunnel using this command.  You can run this in the background if you prefer.
+   The APISIX Dashboard isn't exposed outside of the cluster. You need to start a tunnel to be able to access APISIX Dashboard. Start the tunnel using this command in a new terminal window:
 
     ```shell
-    $ <copy>kubectl -n apisix port-forward svc/apisix-dashboard 8080:80</copy>
+    $ <copy>kubectl -n apisix port-forward svc/apisix-dashboard 8090:80</copy>
     ```
 
-   Open a web browser to [http://localhost:8080](http://localhost:8080) to view the APISIX Dashboard web user interface.  It will appear similar to the image below.
+   Open a web browser to [http://localhost:8090](http://localhost:8090) to view the APISIX Dashboard web user interface.  It will appear similar to the image below.
 
    If prompted to login, login with username `admin` and password `admin`.  Note that Oracle strongly recommends that you change the password, even though this interface is not accessible outside the cluster without a tunnel.
 
-   Open the routes page from the left hand side menu.  You will not have any routes yet.
+   Open the **routes** page from the left hand side menu.  You will not have any routes yet.
 
    ![APISIX Dashboard route list](images/obaas-apisix-route-list.png " ")
 
@@ -1082,9 +1085,11 @@ Now that the account service is deployed, you need to expose it through the API 
 
    When you return to the route list page, you will see your new `account` route in the list now.
 
+   ![APISIX Route Created](images/obaas-apisix-route-created.png " ")
+
 1. Verify the account service
 
-   In the next two commands, you need to provide the correct IP address for the API Gateway in your backend environment.  You can find the IP address using this command, you need the one listed in the `EXTERNAL-IP` column:
+   In the next two commands, you need to provide the correct IP address for the API Gateway in your backend environment.  You can find the IP address using this command, you need the one listed in the **`EXTERNAL-IP`** column:
 
     ```shell
     $ <copy>kubectl -n ingress-nginx get service ingress-nginx-controller</copy>
@@ -1092,13 +1097,13 @@ Now that the account service is deployed, you need to expose it through the API 
     ingress-nginx-controller   LoadBalancer   10.123.10.127   100.20.30.40  80:30389/TCP,443:30458/TCP   13d
     ```
 
-   Test the create account endpoint with this command, use the IP address for your API Gateway:
+   Test the create account endpoint with this command, use the IP address (**EXTERNAL-IP** in the table above) for your API Gateway:
 
     ```shell
     $ <copy>curl -i -X POST \
       -H 'Content-Type: application/json' \
       -d '{"accountName": "Sanjay''s Savings", "accountType": "SA", "accountCustomerId": "bkzLp8cozi", "accountOtherDetails": "Savings Account"}' \
-      http://100.20.30.40/api/v1/account</copy>
+      http://<EXTERNAL-IP>/api/v1/account</copy>
     HTTP/1.1 201
     Date: Wed, 01 Mar 2023 18:35:31 GMT
     Content-Type: application/json
@@ -1111,7 +1116,7 @@ Now that the account service is deployed, you need to expose it through the API 
    Test the get account endpoint with this command, use the IP address for your API Gateway and the `accountId` that was returned in the previous command:
 
     ```shell
-    $ <copy>curl -s http://100.20.30.40/api/v1/account/24 | jq .</copy>
+    $ <copy>curl -s http://<EXTERNAL-IP>/api/v1/account/24 | jq .</copy>
     {
       "accountId": 24,
       "accountName": "Sanjay's Savings",
