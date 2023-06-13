@@ -21,7 +21,7 @@ The following platforms are recommended for a development environment:
 The following tools are recommended for a development environment:
 
 - Integrated Development Environment, e.g., Visual Studio Code
-- Java Development Kit, e.g., Oracle, OpenJDK, or GraalVM 
+- Java Development Kit, e.g., Oracle, OpenJDK, or GraalVM
 - Maven or Gradle for build and testing automation
 
 If you wish to test locally or offline, the following additional tools are recommended:
@@ -424,7 +424,7 @@ If you plan to do the optional part of Lab. 5, you need to install in VS Code th
 
 5. If you don't see the plugin in the left bar, with the Oracle logo, as shown here:
 
-    ![Additiona](images/additional.png " ")
+    ![Additional](images/additional.png " ")
 
    click on **Additional Views** menu to select the **eBaaS Explorer**.
 
@@ -432,4 +432,4 @@ If you plan to do the optional part of Lab. 5, you need to install in VS Code th
 
 * **Author** - Mark Nelson, Andy Tael, Developer Evangelist, Oracle Database
 * **Contributors** - [](var:contributors)
-* **Last Updated By/Date** - Andy Tael, April 2023
+* **Last Updated By/Date** - Andy Tael, June 2023

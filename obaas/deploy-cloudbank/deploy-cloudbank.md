@@ -156,7 +156,7 @@ Download a copy of the CloudBank sample application.
 
 5. Create Database Objects
 
-    The services are using Liquibase [Liquibase](https://www.liquibase.org/. Liquibase is an open-source database schema change management solution which enables you to manage revisions of your database changes easily. When the service get's deployed the `tables` and sample `data` will be created and inserted by Liquibase.
+    The services are using [Liquibase](https://www.liquibase.org/). Liquibase is an open-source database schema change management solution which enables you to manage revisions of your database changes easily. When the service get's deployed the `tables` and sample `data` will be created and inserted by Liquibase.
 
 6. Deploy the services
 
