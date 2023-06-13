@@ -28,6 +28,7 @@ This lab assumes you have:
 
 * An Oracle Cloud account
 * All previous labs successfully completed
+* Deployed the full CloudBank Application
 
 ## Task 1: Explore the Kubernetes cluster
 
