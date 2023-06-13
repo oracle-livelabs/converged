@@ -99,15 +99,14 @@ Download a copy of the CloudBank sample application.
 
     ```shell
     $ <copy>oractl</copy>
-    _   _           __    _    ___
-    / \ |_)  _.  _. (_    /  |   |
-    \_/ |_) (_| (_| __)   \_ |_ _|_
+       _   _           __    _    ___
+      / \ |_)  _.  _. (_    /  |   |
+      \_/ |_) (_| (_| __)   \_ |_ _|_
+      Application Version: 0.3.1
+        :: Spring Boot (v3.0.0) ::
 
-    09:35:14.801 [main] INFO  o.s.s.cli.shell.ShellApplication - Starting AOT-processed ShellApplication using Java 17.0.5 with PID 29373 (/Users/atael/bin/oractl started by atael in /Users/atael)
-    09:35:14.801 [main] DEBUG o.s.s.cli.shell.ShellApplication - Running with Spring Boot v3.0.0, Spring v6.0.2
-    09:35:14.801 [main] INFO  o.s.s.cli.shell.ShellApplication - The following 1 profile is active: "obaas"
-    09:35:14.875 [main] INFO  o.s.s.cli.shell.ShellApplication - Started ShellApplication in 0.097 seconds (process running for 0.126)
-    oractl:>
+
+      oractl:>
     ```
 
 3. Connect to the Oracle Backend for Spring Boot admin service
@@ -118,7 +117,7 @@ Download a copy of the CloudBank sample application.
     oractl> <copy>connect</copy>
     password (defaults to oractl):
     using default value...
-    connect successful server version:0.3.0
+    connect successful server version:0.3.1
     oractl:>
     ```
 

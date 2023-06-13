@@ -183,14 +183,14 @@ The Oracle Backend for Spring Boot CLI is used to configure your backend and to 
 
     ```shell
     $ <copy>oractl version</copy>
-       _   _           __    _    ___
+      _   _           __    _    ___
       / \ |_)  _.  _. (_    /  |   |
       \_/ |_) (_| (_| __)   \_ |_ _|_
-       
-     2023-02-22T15:05:40.835-05:00  INFO 29309 --- [           main] o.s.s.cli.OracleSpringCLIApplication     : Starting AOT-processed OracleSpringCLIApplication using Java 17.0.5 with PID 29309 (/home/mark/ebaas/oractl started by mark in /home/mark/ebaas/SECOND-COPY/microservices-datadriven)
-     2023-02-22T15:05:40.835-05:00  INFO 29309 --- [           main] o.s.s.cli.OracleSpringCLIApplication     : No active profile set, falling back to 1 default profile: "default"
-     2023-02-22T15:05:40.873-05:00  INFO 29309 --- [           main] o.s.s.cli.OracleSpringCLIApplication     : Started OracleSpringCLIApplication in 0.047 seconds (process running for 0.049)
-     Build Version: 011223
+      Application Version: 0.3.1
+      :: Spring Boot (v3.0.0) ::
+
+
+      Build Version: 0.3.1
      ```
 
 ## Task 6: Install **kubectl** and the OCI CLI

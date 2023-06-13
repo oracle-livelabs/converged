@@ -2,7 +2,7 @@
 
 ## Introduction
 
-There are different ways to use this Live Lab at the **Oracle Cloud World 2023** event.  Your hands-on lab session is scheduled for 105 minutes.  Depending on how fast you work through the labs, you may not have time to complete all of the available labs in the room.  But don't worry!  You can always finish the extra labs later on.
+There are different ways to use this Live Lab at the **Oracle Cloud World 2023** event. Your hands-on lab session is scheduled for 105 minutes.  Depending on how fast you work through the labs, you may not have time to complete all of the available labs in the room.  But don't worry! You can always finish the extra labs later on.
 
 If you would like to focus on a particular topic area, here are some recommended paths through the labs you might like to take.  Of course, you are also welcome to do all the labs!  
 

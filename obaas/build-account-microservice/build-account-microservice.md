@@ -976,15 +976,14 @@ If you would like to learn more about endpoints and implement the remainder of t
 
     ```shell
     $ <copy>oractl</copy>
-    _   _           __    _    ___
-    / \ |_)  _.  _. (_    /  |   |
-    \_/ |_) (_| (_| __)   \_ |_ _|_
+       _   _           __    _    ___
+      / \ |_)  _.  _. (_    /  |   |
+      \_/ |_) (_| (_| __)   \_ |_ _|_
+      Application Version: 0.3.1
+        :: Spring Boot (v3.0.0) ::
 
-    09:35:14.801 [main] INFO  o.s.s.cli.shell.ShellApplication - Starting AOT-processed ShellApplication using Java 17.0.5 with PID 29373 (/Users/atael/bin/oractl started by atael in /Users/atael)
-    09:35:14.801 [main] DEBUG o.s.s.cli.shell.ShellApplication - Running with Spring Boot v3.0.0, Spring v6.0.2
-    09:35:14.801 [main] INFO  o.s.s.cli.shell.ShellApplication - The following 1 profile is active: "obaas"
-    09:35:14.875 [main] INFO  o.s.s.cli.shell.ShellApplication - Started ShellApplication in 0.097 seconds (process running for 0.126)
-    oractl:>
+
+      oractl:>
     ```
 
    Connect to the Oracle Backend for Spring Boot admin service using this command.  Hit enter when prompted for a password.  **Note**: Oracle recommends changing the password in a real deployment.
@@ -993,7 +992,7 @@ If you would like to learn more about endpoints and implement the remainder of t
     oractl> <copy>connect</copy>
     password (defaults to oractl):
     using default value...
-    connect successful server version:0.3.0
+    connect successful server version:0.3.1
     oractl:>
     ```
 
@@ -1142,4 +1141,4 @@ Now that the account service is deployed, you need to expose it through the API 
 
 * **Author** - Andy Tael, Mark Nelson, Developer Evangelists, Oracle Database
 * **Contributors** - [](var:contributors)
-* **Last Updated By/Date** - Andy Tael, April 2023
+* **Last Updated By/Date** - Andy Tael, June 2023

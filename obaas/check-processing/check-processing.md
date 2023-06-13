@@ -46,7 +46,7 @@ You will implement this using three microservices:
 
 ## Task 2: Update the Account service to add the Journal
 
-Starting with the account service that you built in the previous lab, you will the the JPA model and repository for the journal and some new endpoints. **List the endpoints and why they are needed - Andy Comment**
+Starting with the account service that you built in the previous lab, you will the the JPA model and repository for the journal and some new endpoints.
 
 1. Create the Journal model
 
@@ -224,15 +224,14 @@ Starting with the account service that you built in the previous lab, you will t
 
     ```shell
     $ <copy>oractl</copy>
-     _   _           __    _    ___
-    / \ |_)  _.  _. (_    /  |   |
-    \_/ |_) (_| (_| __)   \_ |_ _|_
+       _   _           __    _    ___
+      / \ |_)  _.  _. (_    /  |   |
+      \_/ |_) (_| (_| __)   \_ |_ _|_
+      Application Version: 0.3.1
+        :: Spring Boot (v3.0.0) ::
 
-    09:35:14.801 [main] INFO  o.s.s.cli.shell.ShellApplication - Starting AOT-processed ShellApplication using Java 17.0.5 with PID 29373 (/Users/atael/bin/oractl started by atael in /Users/atael)
-    09:35:14.801 [main] DEBUG o.s.s.cli.shell.ShellApplication - Running with Spring Boot v3.0.0, Spring v6.0.2
-    09:35:14.801 [main] INFO  o.s.s.cli.shell.ShellApplication - The following 1 profile is active: "obaas"
-    09:35:14.875 [main] INFO  o.s.s.cli.shell.ShellApplication - Started ShellApplication in 0.097 seconds (process running for 0.126)
-    oractl:>
+
+      oractl:>
     ```
 
    Connect to the Oracle Backend for Spring Boot admin service using this command.  Hit enter when prompted for a password.  **Note**: Oracle recommends changing the password in a real deployment.
@@ -241,7 +240,7 @@ Starting with the account service that you built in the previous lab, you will t
     oractl> <copy>connect</copy>
     password (defaults to oractl):
     using default value...
-    connect successful server version:0.3.0
+    connect successful server version:0.3.1
     oractl:>
     ```
 
@@ -313,8 +312,6 @@ Starting with the account service that you built in the previous lab, you will t
    That completes the updates for the Account service.
 
 ## Task 3: Create the queues in the database
-
-**Why do we need these queues - why isn't oractl taking care of this - Andy comment**
 
 1. Create the queues
 
@@ -594,15 +591,14 @@ Next, you will create the "Test Runner" microservice which you will use to simul
 
     ```shell
     $ <copy>oractl</copy>
-     _   _           __    _    ___
-    / \ |_)  _.  _. (_    /  |   |
-    \_/ |_) (_| (_| __)   \_ |_ _|_
+       _   _           __    _    ___
+      / \ |_)  _.  _. (_    /  |   |
+      \_/ |_) (_| (_| __)   \_ |_ _|_
+      Application Version: 0.3.1
+        :: Spring Boot (v3.0.0) ::
 
-    09:35:14.801 [main] INFO  o.s.s.cli.shell.ShellApplication - Starting AOT-processed ShellApplication using Java 17.0.5 with PID 29373 (/Users/atael/bin/oractl started by atael in /Users/atael)
-    09:35:14.801 [main] DEBUG o.s.s.cli.shell.ShellApplication - Running with Spring Boot v3.0.0, Spring v6.0.2
-    09:35:14.801 [main] INFO  o.s.s.cli.shell.ShellApplication - The following 1 profile is active: "obaas"
-    09:35:14.875 [main] INFO  o.s.s.cli.shell.ShellApplication - Started ShellApplication in 0.097 seconds (process running for 0.126)
-    oractl:>
+
+      oractl:>
     ```
 
    Connect to the Oracle Backend for Spring Boot admin service using this command. Hit enter when prompted for a password. **Note**: Oracle recommends changing the password in a real deployment.
@@ -611,7 +607,7 @@ Next, you will create the "Test Runner" microservice which you will use to simul
     oractl> <copy>connect</copy>
     password (defaults to oractl):
     using default value...
-    connect successful server version:0.3.0
+    connect successful server version:0.3.1
     oractl:>
     ```
 
@@ -622,8 +618,6 @@ Next, you will create the "Test Runner" microservice which you will use to simul
     ```shell
     oractl:> <copy>bind --app-name application --service-name testrunner --username account</copy>
     ```
-
-    **Note for reviewers**: This wont work on 0.3.0 version of oractl and obaas-admin - Paulo is adding this new username param, will be in a new rev.
 
 1. Deploy the Test Runner service
 
@@ -1106,15 +1100,14 @@ Next, you will create the "Check Processing" microservice which you will receive
 
     ```shell
     $ <copy>oractl</copy>
-     _   _           __    _    ___
-    / \ |_)  _.  _. (_    /  |   |
-    \_/ |_) (_| (_| __)   \_ |_ _|_
+       _   _           __    _    ___
+      / \ |_)  _.  _. (_    /  |   |
+      \_/ |_) (_| (_| __)   \_ |_ _|_
+      Application Version: 0.3.1
+        :: Spring Boot (v3.0.0) ::
 
-    09:35:14.801 [main] INFO  o.s.s.cli.shell.ShellApplication - Starting AOT-processed ShellApplication using Java 17.0.5 with PID 29373 (/Users/atael/bin/oractl started by atael in /Users/atael)
-    09:35:14.801 [main] DEBUG o.s.s.cli.shell.ShellApplication - Running with Spring Boot v3.0.0, Spring v6.0.2
-    09:35:14.801 [main] INFO  o.s.s.cli.shell.ShellApplication - The following 1 profile is active: "obaas"
-    09:35:14.875 [main] INFO  o.s.s.cli.shell.ShellApplication - Started ShellApplication in 0.097 seconds (process running for 0.126)
-    oractl:>
+
+      oractl:>
     ```
 
    Connect to the Oracle Backend for Spring Boot admin service using this command.  Hit enter when prompted for a password.  **Note**: Oracle recommends changing the password in a real deployment.
@@ -1123,7 +1116,7 @@ Next, you will create the "Check Processing" microservice which you will receive
     oractl> <copy>connect</copy>
     password (defaults to oractl):
     using default value...
-    connect successful server version:0.3.0
+    connect successful server version:0.3.1
     oractl:>
     ```
 
@@ -1134,8 +1127,6 @@ Next, you will create the "Check Processing" microservice which you will receive
     ```shell
     oractl:> <copy>bind --app-name application --service-name checks --username account</copy>
     ```
-
-    **Note for reviewers**: This wont work on 0.3.0 version of oractl and obaas-admin - Paulo is adding this new username param, will be in a new rev.
 
 1. Deploy the Test Runner service
 
