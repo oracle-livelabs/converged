@@ -385,7 +385,7 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
               hibernate:
                 dialect: org.hibernate.dialect.Oracle12cDialect
                 format_sql: true
-              show-sql: true
+            show-sql: true
           datasource:
             url: jdbc:oracle:thin:@tns_entry_from_above?TNS_ADMIN=/path/to/wallet
             username: account
@@ -1044,6 +1044,7 @@ If you would like to learn more about endpoints and implement the remainder of t
     2023-06-01 20:44:31.971  INFO 1 --- [nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
     2023-06-01 20:44:31.971  INFO 1 --- [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
     2023-06-01 20:44:31.975  INFO 1 --- [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 4 ms
+
     ```
 
 ## Task 8: Expose the account service using the API Gateway
