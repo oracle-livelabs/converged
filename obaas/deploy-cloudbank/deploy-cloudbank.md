@@ -51,29 +51,25 @@ Download a copy of the CloudBank sample application.
     In the directory where you cloned (or unzipped) the application and build the application JARs using the following command:
 
     ```shell
-    $ <copy>mvn package -Dmaven.test.skip=true</copy>
+    $ <copy>mvn clean package -Dmaven.test.skip=true</copy>
     ```
 
     The output should be similar to this:
 
     ```text
-    [INFO] -------------------< com.example:sample-spring-apps >-------------------
-    [INFO] Building cloudbank 0.0.1-SNAPSHOT                                  [5/5]
-    [INFO]   from pom.xml
-    [INFO] --------------------------------[ pom ]---------------------------------
     [INFO] ------------------------------------------------------------------------
     [INFO] Reactor Summary for cloudbank 0.0.1-SNAPSHOT:
-    [INFO]
-    [INFO] accounts ........................................... SUCCESS [  7.620 s]
-    [INFO] customer ........................................... SUCCESS [  2.539 s]
-    [INFO] creditscore ........................................ SUCCESS [  0.404 s]
-    [INFO] transfer ........................................... SUCCESS [  0.504 s]
-    [INFO] cloudbank .......................................... SUCCESS [  0.000 s]
+    [INFO] 
+    [INFO] cloudbank .......................................... SUCCESS [  3.225 s]
+    [INFO] account ............................................ SUCCESS [  2.773 s]
+    [INFO] customer ........................................... SUCCESS [  0.848 s]
+    [INFO] creditscore ........................................ SUCCESS [  0.344 s]
+    [INFO] transfer ........................................... SUCCESS [  0.511 s]
     [INFO] ------------------------------------------------------------------------
     [INFO] BUILD SUCCESS
     [INFO] ------------------------------------------------------------------------
-    [INFO] Total time:  11.877 s
-    [INFO] Finished at: 2023-04-19T09:33:12-05:00
+    [INFO] Total time:  8.276 s
+    [INFO] Finished at: 2023-06-27T11:50:56-05:00
     [INFO] ------------------------------------------------------------------------
     ```
 
@@ -167,7 +163,7 @@ Download a copy of the CloudBank sample application.
         You will now deploy your Account service to the Oracle Backend for Spring Boot using the CLI.  You will deploy into the `application` namespace, and the service name will be `account`. Run this command to deploy your service, make sure you provide the correct path to your JAR file:
 
         ```shell
-        oractl:> <copy>deploy --app-name application --service-name account --artifact-path /path/to/accounts-0.0.1-SNAPSHOT.jar --image-version 0.0.1</copy>
+        oractl:> <copy>deploy --app-name application --service-name account --artifact-path /path/to/account-0.0.1-SNAPSHOT.jar --image-version 0.0.1</copy>
         uploading: account/target/accounts-0.0.1-SNAPSHOT.jarbuilding and pushing image...
         creating deployment and service... successfully deployed
         oractl:>
@@ -176,7 +172,7 @@ Download a copy of the CloudBank sample application.
         If you'd like to re-deploy the accounts service (if you didn't finish lab 4) you can re-deploy the Account Service using the following command, make sure you provide the correct path to your JAR file:
 
         ```shell
-        oractl:> <copy>deploy --redeploy true --app-name application --service-name account --artifact-path /path/to/accounts-0.0.1-SNAPSHOT.jar --image-version 0.0.1</copy>
+        oractl:> <copy>deploy --redeploy true --app-name application --service-name account --artifact-path /path/to/account-0.0.1-SNAPSHOT.jar --image-version 0.0.1</copy>
         uploading: account/target/accounts-0.0.1-SNAPSHOT.jar
         building and pushing image...
         creating deployment and service... successfully deployed
@@ -200,7 +196,7 @@ Download a copy of the CloudBank sample application.
         You will now deploy your Creditscore service to the Oracle Backend for Spring Boot using the CLI.  You will deploy into the `application` namespace, and the service name will be `creditscore`. Run this command to deploy your service, make sure you provide the correct path to your JAR file:
 
         ```shell
-        oractl:> <copy>deploy --app-name application --service-name creditscore --artifact-path path/to/creditscore-0.0.1-SNAPSHOT.jar --image-version 0.0.1</copy>
+        oractl:> <copy>deploy --app-name application --service-name creditscore --artifact-path /path/to/creditscore-0.0.1-SNAPSHOT.jar --image-version 0.0.1</copy>
         uploading: creditscore/target/creditscore-0.0.1-SNAPSHOT.jar
         building and pushing image...
         creating deployment and service... successfully deployed
@@ -212,7 +208,7 @@ Download a copy of the CloudBank sample application.
         You will now deploy your Transfer service to the Oracle Backend for Spring Boot using the CLI.  You will deploy into the `application` namespace, and the service name will be `creditscore`. Run this command to deploy your service, make sure you provide the correct path to your JAR file:
 
         ```shell
-        oractl:> <copy>deploy --app-name application --service-name transfer --artifact-path transfer/target/transfer-0.0.1-SNAPSHOT.jar --image-version 0.0.1</copy>
+        oractl:> <copy>deploy --app-name application --service-name transfer --artifact-path /path/to/transfer-0.0.1-SNAPSHOT.jar --image-version 0.0.1</copy>
         uploading: transfer/target/transfer-0.0.1-SNAPSHOT.jar
         building and pushing image...
         creating deployment and service... successfully deployed
@@ -711,4 +707,4 @@ Download a copy of the CloudBank sample application.
 
 * **Author** - Andy Tael, Corrado De Bari, Mark Nelson, Developer Evangelists, Oracle Database
 * **Contributors** - [](var:contributors)
-* **Last Updated By/Date** - Andy Tael, April 2023
+* **Last Updated By/Date** - Andy Tael, June 2023
