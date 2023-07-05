@@ -2,7 +2,7 @@
 
 ## Introduction
 
-This lab walks you through setting up your development environment to work with Oracle Backend for Spring Boot. 
+This lab walks you through setting up your development environment to work with Oracle Backend for Spring Boot.
 
 Estimated Lab Time: 20 minutes
 
@@ -21,7 +21,7 @@ The following platforms are recommended for a development environment:
 The following tools are recommended for a development environment:
 
 - Integrated Development Environment, e.g., Visual Studio Code
-- Java Development Kit, e.g., Oracle, OpenJDK, or GraalVM 
+- Java Development Kit, e.g., Oracle, OpenJDK, or GraalVM
 - Maven or Gradle for build and testing automation
 
 If you wish to test locally or offline, the following additional tools are recommended:
@@ -33,14 +33,14 @@ If you wish to test locally or offline, the following additional tools are recom
 
 In this lab, you will:
 
-* Install the tools needed to develop and deploy applications using Oracle Backend for Spring Boot
-* (Optional) Install the tools needed to develop mobile and/or web applications using Oracle Backend for Spring Boot (including Parse Platform)
+- Install the tools needed to develop and deploy applications using Oracle Backend for Spring Boot
+- (Optional) Install the tools needed to develop mobile and/or web applications using Oracle Backend for Spring Boot (including Parse Platform)
 
 ### Prerequisites
 
 This lab assumes you have:
 
-* One of the recommended platforms, as listed above
+- One of the recommended platforms, as listed above
 
 ## Task 1: Install the Integrated Development Environment
 
@@ -72,7 +72,7 @@ This lab assumes you have:
 
    Even if you are using Spring Boot 2.x, Oracle encourages you to use at least Java 17, unless you have a specific reason to stay on Java 11.
 
-1. Download and install the Java Development Kit 
+1. Download and install the Java Development Kit
 
    Download the latest x64 Java 17 Development Kit from [this permalink](https://download.oracle.com/java/17/latest/jdk-17_linux-x64_bin.tar.gz).
 
@@ -99,7 +99,7 @@ This lab assumes you have:
 
 ## Task 3: Install Maven
 
-You can use either Maven or Gradle to build your Spring Boot applications. If you prefer Maven, follow the steps in this task.  If you prefer Gradle, skip to the next task instead. 
+You can use either Maven or Gradle to build your Spring Boot applications. If you prefer Maven, follow the steps in this task.  If you prefer Gradle, skip to the next task instead.
 
 1. Download Maven
 
@@ -110,7 +110,7 @@ You can use either Maven or Gradle to build your Spring Boot applications. If yo
    Decompress the archive in your chosen location, e.g., your home directory and then add it to your path:
 
     ```shell
-    <copy>export PATH=$HOME/apache-maven-3.8.6/bin:$PATH</copy>
+    $ <copy>export PATH=$HOME/apache-maven-3.8.6/bin:$PATH</copy>
     ```
 
 3. Verify installation
@@ -163,7 +163,7 @@ The Oracle Backend for Spring Boot CLI is used to configure your backend and to 
 
 1. Download the Oracle Backend for Spring Boot CLI
 
-   Download the CLI from [here](#)
+   Download the CLI from [here](https://github.com/oracle/microservices-datadriven/releases/tag/OBAAS-1.0.0)
 
 2. Install the Oracle Backend for Spring Boot CLI
 
@@ -186,11 +186,11 @@ The Oracle Backend for Spring Boot CLI is used to configure your backend and to 
        _   _           __    _    ___
       / \ |_)  _.  _. (_    /  |   |
       \_/ |_) (_| (_| __)   \_ |_ _|_
-       
-     2023-02-22T15:05:40.835-05:00  INFO 29309 --- [           main] o.s.s.cli.OracleSpringCLIApplication     : Starting AOT-processed OracleSpringCLIApplication using Java 17.0.5 with PID 29309 (/home/mark/ebaas/oractl started by mark in /home/mark/ebaas/SECOND-COPY/microservices-datadriven)
-     2023-02-22T15:05:40.835-05:00  INFO 29309 --- [           main] o.s.s.cli.OracleSpringCLIApplication     : No active profile set, falling back to 1 default profile: "default"
-     2023-02-22T15:05:40.873-05:00  INFO 29309 --- [           main] o.s.s.cli.OracleSpringCLIApplication     : Started OracleSpringCLIApplication in 0.047 seconds (process running for 0.049)
-     Build Version: 011223
+      Application Version: 0.3.1
+      :: Spring Boot (v3.0.0) ::
+
+
+      Build Version: 0.3.1
      ```
 
 ## Task 6: Install **kubectl** and the OCI CLI
@@ -211,7 +211,7 @@ In later labs, you will look various resources in the Kubernetes cluster and acc
 
 2. Install the OCI CLI
 
-   Install the OCI CLI from [the Quickstart documentation](https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/cliinstall.htm).  Click on the link for your operating system and follow the instructions to complete the installation.  After installation is complete, use this command to verify the installation (your output might be slightly different): 
+   Install the OCI CLI from [the Quickstart documentation](https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/cliinstall.htm).  Click on the link for your operating system and follow the instructions to complete the installation.  After installation is complete, use this command to verify the installation (your output might be slightly different):
 
     ```shell
     $ <copy>oci --version</copy>
@@ -244,7 +244,7 @@ In later labs, you will look various resources in the Kubernetes cluster and acc
 
 ## Task 7: Configure **kubectl** to access your Kubernetes cluster
 
-At the end of the previous lab, during the verification of the installation, you looked at the end of the apply log and copied a command to obtain a Kubernetes configuration file to access your cluster.  In that lab, you used OCI CLoud Shell to confirm you could access the cluster.  Now, you need to configure similar access from your own development machine.   You can run that same command on your local machine, we recommend that you choose a different location for the file so it does not overwrite or interfere with any other Kubernetes configuration file you might already have on your machine. 
+At the end of the previous lab, during the verification of the installation, you looked at the end of the apply log and copied a command to obtain a Kubernetes configuration file to access your cluster.  In that lab, you used OCI CLoud Shell to confirm you could access the cluster.  Now, you need to configure similar access from your own development machine.   You can run that same command on your local machine, we recommend that you choose a different location for the file so it does not overwrite or interfere with any other Kubernetes configuration file you might already have on your machine.
 
 1. Create the Kubernetes configuration file
 
@@ -264,7 +264,7 @@ At the end of the previous lab, during the verification of the installation, you
 
 3. Verify access to the cluster
 
-   Check that you can access the cluster using this command: 
+   Check that you can access the cluster using this command:
 
     ```shell
     $ <copy>kubectl get pods -n obaas-admin</copy>
@@ -296,27 +296,27 @@ To access the database from a local machine you need to download the wallet and 
 
 1. Login into the OCI Console. [Oracle Cloud](https://cloud.oracle.com/)
 
-2. Navigate to Autonomous Transaction Processing.
+1. Navigate to Autonomous Transaction Processing.
 
    ![Autonomous Transaction Processing](images/atp-menu.png " ")
 
-3. Make sure that you have the right compartment selected and click on the database name. The database name is composed by the application name you gave during install with the suffix of `DB`. In the picture below the Application Name is `CBANK` so the database name is `CBANKDB`. If you didn't provide an Application name, the database will name will be a random pet name with the suffix `DB` in the compartment you deployed application.
+1. Make sure that you have the right compartment selected and click on the database name. The database name is composed  by the application name you gave during install with the suffix of `DB`. In the picture below the Application Name is `CBANK` so the database name is `CBANKDB`. If you didn't provide an Application name, the database will name will be a random pet name with the suffix `DB` in the compartment you deployed application.
 
    ![Choose ATB Database](images/choose-atp.png " ")
 
-4. Click Database Connection to retrieve the Wallet.
+1. Click Database Connection to retrieve the Wallet.
 
    ![Database Connection](images/db-connection.png " ")
 
-5. Click Download Wallet to download the Wallet. 
+1. Click Download Wallet to download the Wallet.
 
    ![Download Wallet](images/download-wallet.png " ")
 
-6. You will need to provide a password for the Wallet. Make a note of where the wallet is located you'll be needing it when connection to the Database.
+1. You will need to provide a password for the Wallet. Make a note of where the wallet is located you'll be needing it when connection to the Database.
 
    ![Wallet Password](images/wallet-password.png " ")
 
-7. Close the Database Connection Dialog Box
+1. Close the Database Connection Dialog Box
 
    ![Close Dialog Box](images/close-dialog-box.png " ")
 
@@ -330,7 +330,7 @@ To access the database from a local machine you need to download the wallet and 
     $ <copy>kubectl -n application get secret cbankdb-db-secrets -o jsonpath='{.data.db\.password}' | base64 -d</copy>
      ```
 
-2. Start `SQLcl` and connect to the Database:
+1. Start `SQLcl` and connect to the Database:
 
     Start SQLcl using the following command:
 
@@ -402,8 +402,34 @@ If you plan to complete the Mobile App Development lab, you will need to install
 
    If you are installing Android Studio or XCode for the first time, you should also follow the instructions to create a device emulator instance.
 
+## (Optional) Task 11: Oracle Backend for Spring Boot VS Code plugin
+
+If you plan to do the optional part of Lab. 5, you need to install in VS Code the Oracle Backend for Spring Boot VS Code plugin. It is an extension to browse and deploy applications on the Oracle Backend for Spring Boot platform. This plugin allows to inspect the content of an Oracle Backend for Spring Boot deployment, in terms of applications, services and related configurations.
+
+1. Download the plug-in from [here](https://github.com/oracle/microservices-datadriven/releases/tag/OBAAS-1.0.0).
+
+2. On the VS Code right menu bar, click on **Extensions** item:
+
+    ![Extensions list](images/extensions.png " ")
+
+3. From the up-right corner menu, choose **Install from VSIX...**:
+
+    ![Install](images/install.png " ")
+
+   and upload plug-in binaries previously downloaded.
+
+4. Re-start VS Code to make fully operative the plugin, in command palette execute a window reload:
+
+   ![VSReload](images/reloadWindow.png " ")
+
+5. If you don't see the plugin in the left bar, with the Oracle logo, as shown here:
+
+    ![Additional](images/additional.png " ")
+
+   click on **Additional Views** menu to select the **eBaaS Explorer**.
+
 ## Acknowledgements
 
 * **Author** - Mark Nelson, Andy Tael, Developer Evangelist, Oracle Database
 * **Contributors** - [](var:contributors)
-* **Last Updated By/Date** - Andy Tael, February 2023
+* **Last Updated By/Date** - Andy Tael, June 2023

@@ -4,7 +4,7 @@
 
 This lab walks you through the steps to provision an instance of the Oracle Backend for Spring Boot, including Parse Platform in the Oracle Cloud. The Oracle Backend for Parse Platform is available separately, or it can be optionally included when installing the Oracle Backend for Spring Boot by selecting an option during the installation.
 
-Estimated Time: 20 minutes
+Estimated Time: 25 minutes
 
 Quick walk through on how to provision an instance of Oracle backend for Spring Boot.
 
@@ -28,12 +28,12 @@ In this lab, you will:
 
 This lab assumes you have:
 
-* An Oracle Cloud account in a tenancy with sufficient quota to create:
-    * An OCI Container Engine for Kubernetes cluster, plus a node pool with three worker nodes
-    * A VCN with at least two public IP’s available
-    * A public load balancer
-    * An Oracle Autonomous Database - Shared instance
-    * At least one free OCI Auth Token (note that the maximum is two per user)
+* An Oracle Cloud account in a tenancy with sufficient quota and privileges to create:
+  * An OCI Container Engine for Kubernetes cluster, plus a node pool with three worker nodes
+  * A VCN with at least two public IP’s available
+  * A public load balancer
+  * An Oracle Autonomous Database - Shared instance
+  * At least one free OCI Auth Token (note that the maximum is two per user)
 
 ## Task 1: Install the Oracle Backend for Spring Boot from OCI Marketplace
 
@@ -51,7 +51,7 @@ The Oracle Backend for Spring Boot can be installed from OCI Marketplace.
 
 1. Log into your Oracle Cloud Infrastructure account
 
-    You will be taken to a Sign In page.  Choose they type of account you have and click on the **Sign In** button.  If you did not create an account in the **Get Started** lab, you can do so now using the **Sign Up** button.
+    You will be taken to a Sign In page. Choose they type of account you have and click on the **Sign In** button. If you did not create an account in the **Get Started** lab, you can do so now using the **Sign Up** button.
 
     ![Sign In page](images/obaas-install-app.png " ")
 
@@ -63,45 +63,51 @@ The Oracle Backend for Spring Boot can be installed from OCI Marketplace.
 
     ![Install screen](images/obaas-install-2.png " ")
 
-    Review the terms and restrictions, and then click on the checkbox to accept them.  Then, click on **Launch Stack**,
+    Review the terms and restrictions, and then click on the checkbox to accept them. Then, click on **Launch Stack**,
 
-    > **Note:** This Live Lab is tested with **version 0.2.3 (3/8/2023)**.  Later versions should work, but earlier versions do not contain all features used in this Live Lab.
+    > **Note:** This Live Lab is tested with **version 0.3.1**. Later versions should work, but earlier versions do not contain all features used in this Live Lab.
 
 1. Review the **Create Stack** page
 
-    Review the details on the **Create Stack** page.  You may wish to update the **Name** or add tags.  In the **Parse Server** section, you _must_ check **Enable Parse Platform** for this Live Lab.  The mobile application lab uses this feature.  Provide an **Application ID** and a username and password for the Parse Dashboard.  Make a note of these details - you will need them later.  When you are ready, click on **Next**.
+    Review the details on the **Create Stack** page. You may wish to update the **Name** or add tags. When you are ready, click on **Next**.
 
-    ![Create stack screen](images/obaas-stack-with-parse.png " ")
-
-    Scroll down the the **Vault** section.  If you check **Enable Vault**, an OCI Vault will created for the stack.  Note that OCI Vaults can be a limited resource in some tenancies, and they take 14 days to delete.  So you may wish to reuse an existing OCI Vault, or opt out of OCI Vault for this installation.  You will still get a Hashicorp Vault deployed into your Kubernetes cluster regardless of what choice you make about the OCI Vault.
-
-    ![Create stack screen](images/obaas-stack-optional-vault.png " ")
+    ![Create stack screen](images/obaas-create-stack.png " ")
 
 1. Complete the **Variables** page
 
-    Review the details on the **Variables** page.  Set the **Application Name** to "CloudBank".  You may accept the defaults for all other options.  When you are ready, click on **Next**.
+    Review the details on the **Variables** page. You can set the **Application Name** or if you leave the field blank an auto generated application name is used (random pet names are used).
 
     ![Variables screen](images/obaas-create-stack-2.png " ")
 
+    In the **Parse Server** section, you _must_ check **Enable Parse Platform** for this Live Lab. The mobile application lab uses this feature. You can provide an **Application ID** if you like. Enter a username and password for the Parse Dashboard. Make a note of these details - you will need them later.
+
+    ![Parse screen](images/obaas-stack-with-parse.png " ")
+
+    Scroll down the the **Vault** section. If you check **Enable Vault**, an OCI Vault will created for the stack (the OCI Vault is used for auto unsealing the HashiCorp Vault). **Note** that OCI Vaults can be a limited resource in some tenancies, and they take 14 days to delete. So you may wish to reuse an existing OCI Vault, or opt out of OCI Vault for this installation. When you are ready, click on **Next**.
+
+    > **Important**: If you leave the **Enable Vault** unchecked you will still get a HashiCorp Vault deployed into your Kubernetes cluster but in **Development Mode**. In this mode, Vault runs entirely in-memory, which **never** should be used in production mode.
+
+    ![Vault screen](images/obaas-stack-optional-vault.png " ")
+
 1. Complete the **Review** page
 
-    Review the details on the **Review** page.  Check the box next to **Run Apply**.  When you are ready, click on **Create**.
+    Review the details on the **Review** page. Check the box next to **Run Apply**. When you are ready, click on **Create**.
 
     ![Review screen](images/obaas-create-stack-3.png " ")
 
 1. Review the apply screen
 
-    The stack will now be applied.  On the **Apply** screen (see below) you can monitor the progress of the installation in the **Logs** box. The installation should take about 15 to 20 minutes to complete. This includes the time needed to create your Oracle Autonomous Database instance dnd your Oracle Container Engine for Kubernetes cluster and install the various components of the stack into the Kubernetes cluster.
+    The stack will now be applied. On the **Apply** screen (see below) you can monitor the progress of the installation in the **Logs** box. The installation should take about 20 - 25 minutes to complete. This includes the time needed to create your Oracle Autonomous Database instance, your Oracle Container Engine for Kubernetes cluster and install the various components of the stack into the Kubernetes cluster.
 
-    ![Stack apply screen](images/obaas-apply.png" ")
+    ![Stack apply screen](images/obaas-apply.png " ")
 
-     > **Note**: While you are waiting for the installation to complete is a great time to start setting up your development environment (see the next lab).  You can come back here where you are done to check the installation completed successfully.
+     > **Note**: While you are waiting for the installation to complete is a great time to start setting up your development environment (see the next lab). You can come back here where you are done to check the installation completed successfully.
 
 ## Task 2: Confirm the installation was successful
 
 1. Check the logs for errors
 
-    Scroll down to the bottom of the log to see the outcome. If there was an error during installation, details will be included at the end of the log. The most common errors are due to insufficient quota for some resource.  If you get an error about insufficient quota, you may need to clean up unused resources or request a quota increase for the affected resource.  Once you have done that, navigate back to the stack details (for example, using the breadcrumbs) and click on the **Apply** to try again.
+    Scroll down to the bottom of the log to see the outcome. If there was an error during installation, details will be included at the end of the log. The most common errors are due to insufficient quota for some resource. If you get an error about insufficient quota, you may need to clean up unused resources or request a quota increase for the affected resource. Once you have done that, navigate back to the stack details (for example, using the breadcrumbs) and click on the **Apply** to try again.
 
     When the installation completes normally, the end of the log should look something like this:
 
@@ -116,6 +122,10 @@ The Oracle Backend for Spring Boot can be installed from OCI Marketplace.
     parse_endpoint = "100.20.30.40/parse"
     parse_master_key = <sensitive>
     ```
+
+    You can also get the values by clicking on the **Outputs** menu:
+
+    ![Output screen](images/obaas-outputs.png " ")
 
     > **Note**: Keep a copy of the addresses and keys, you will need these in later labs.
 
@@ -139,7 +149,7 @@ The Oracle Backend for Spring Boot can be installed from OCI Marketplace.
     $ <copy>export KUBECONFIG=/path/to/kubeconfig</copy>
     ```
 
-    Check that you can access the cluster using this command: 
+    Check that you can access the cluster using this command:
 
     ```shell
     $ <copy>kubectl get pods -n obaas-admin</copy>
@@ -159,7 +169,7 @@ The Oracle Backend for Spring Boot can be installed from OCI Marketplace.
     ingress-nginx-controller   LoadBalancer   10.123.10.127   100.20.30.40  80:30389/TCP,443:30458/TCP   13d
     ```
 
-    Now use this command (with your IP address) to make a request to the API Gateway.  You should receive a response with an HTTP Status Code 4040 (Not Found) and an error message in JSON format as shown below.  Don't worry about the 404, you will deploy some services soon, but this test is enough to know the API Gateway started up successfully:
+    Now use this command (with your IP address) to make a request to the API Gateway.  You should receive a response with an HTTP Status Code 404 (Not Found) and an error message in JSON format as shown below.  Don't worry about the 404, you will deploy some services soon, but this test is enough to know the API Gateway started up successfully:
 
     ```shell
     $ <copy>curl -i http://100.20.30.40</copy>
@@ -192,4 +202,4 @@ The Oracle Backend for Spring Boot can be installed from OCI Marketplace.
 
 * **Author** - Mark Nelson, Andy Tael, Developer Evangelist, Oracle Database
 * **Contributors** - [](var:contributors)
-* **Last Updated By/Date** - Andy Tael, February 2023
+* **Last Updated By/Date** - Andy Tael, June 2023

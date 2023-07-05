@@ -112,11 +112,11 @@ Below are the code samples to create the workflow
 
     ```bash
 
-    <copy> curl http://localhost:8081/oracleAQ/workflowTEQ </copy>
+    <copy> curl http://localhost:8081/oracleAQ/workflowTxEventQ | jq </copy>
 
     ```
 
-    You can view the java source code for this lab [here.](https://github.com/oracle/microservices-datadriven/tree/main/workshops/oracleAQ/qJava/src/main/java/com/examples/workflowTEQ/WorkflowTEQ.java)
+    You can view the java source code for this lab [here.](https://github.com/oracle/microservices-datadriven/tree/main/workshops/oracleAQ/qJava/src/main/java/com/examples/workflowTxEventQ/WorkflowTxEventQ.java)
 
 ## Task 6: Drop queues
 
