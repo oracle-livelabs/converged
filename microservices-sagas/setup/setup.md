@@ -65,7 +65,7 @@ Cloud Shell is a small virtual machine running a "bash" shell which you access t
 2. Clone from the GitHub repository using the following command.  
 
     ```
-    <copy>git clone -b 22.1.4 --single-branch https://github.com/oracle/microservices-datadriven.git</copy>
+    <copy>git clone https://github.com/oracle/microservices-datadriven.git</copy>
     ```
 
    You should now see the directory `microservices-datadriven` in the home directory.
