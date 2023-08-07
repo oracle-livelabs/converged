@@ -325,7 +325,7 @@ Starting with the account service that you built in the previous lab, you will t
     commit;</copy>
     ```
 
-   Now connect as the `account` user and create the queues by executing these statements (replace `[TNS-ENTRY]` with your environment information):
+   Now connect as the `account` user and create the queues by executing these statements (replace `[TNS-ENTRY]` with your environment information). You can get the TNS Entries by executing `SHOW TNS` in the the sql shell:
 
     ```sql
     connect account/Welcome1234##@[TNS-ENTRY];
@@ -613,7 +613,7 @@ Next, you will create the "Test Runner" microservice which you will use to simul
 
 1. Create a binding for the Test Runner service
 
-   Create a binding so the Test Runner service can access the Oracle Autonomous Database as the `account` user. Run this command to create the binding, and type in the password for the `account` user when prompted. The password is `Welcome1234##`):
+   Create a binding so the Test Runner service can access the Oracle Autonomous Database as the `account` user. Run this command to create the binding, and type in the password for the `account` user when prompted. The password is `Welcome1234##`:
 
     ```shell
     oractl:> <copy>bind --app-name application --service-name testrunner --username account</copy>
@@ -1193,7 +1193,7 @@ Now you can test the full end-to-end flow for the Check Processing scenario.
 
 1. Check the journal entries for this account
 
-   In the next commands, you need to provide the correct IP address for the API Gateway in your backend environment.  You can find the IP address using this command, you need the one listed in the `EXTERNAL-IP` column:
+   In the next commands, you need to provide the correct IP address for the API Gateway in your backend environment.  You can find the IP address using this command, you need the one listed in the **`EXTERNAL-IP`** column:
 
     ```shell
     $ <copy>kubectl -n ingress-nginx get service ingress-nginx-controller</copy>
@@ -1204,7 +1204,7 @@ Now you can test the full end-to-end flow for the Check Processing scenario.
    Use this command to retrieve the journal entries for this account.  Your output may contain more entries.  Find the entry corresponding to the deposit you just simulated (it was for $256) and note the `journalId` - you will need it in the next step:
 
     ```shell
-    $ <copy>curl -i http://100.20.30.40/api/v1/account/2/journal</copy>
+    $ <copy>curl -i http://[EXTERNAL-IP]/api/v1/account/2/journal</copy>
     HTTP/1.1 200
     Date: Wed, 31 May 2023 13:03:22 GMT
     Content-Type: application/json
@@ -1245,7 +1245,7 @@ Now you can test the full end-to-end flow for the Check Processing scenario.
    Retrieve the journal entries again to confirm the `PENDING` entry was updated to a `DEPOSIT`:
 
     ```shell
-    $ <copy>curl -i http://100.20.30.40/api/v1/account/2/journal</copy>
+    $ <copy>curl -i http://[EXTERNAL-IP]/api/v1/account/2/journal</copy>
     HTTP/1.1 200
     Date: Wed, 31 May 2023 13:03:22 GMT
     Content-Type: application/json
@@ -1264,9 +1264,10 @@ Now you can test the full end-to-end flow for the Check Processing scenario.
 * [Kubernetes](https://kubernetes.io/docs/home/)
 * [Apache APISIX](https://apisix.apache.org)
 * [Oracle Cloud Infrastructure](https://docs.oracle.com/en-us/iaas/Content/home.htm)
+* [Spring Cloud OpenFeign](https://spring.io/projects/spring-cloud-openfeign)
 
 ## Acknowledgements
 
 * **Author** - Mark Nelson, Developer Evangelist, Oracle Database
 * **Contributors** - [](var:contributors)
-* **Last Updated By/Date** - Mark Nelson, June 2023
+* **Last Updated By/Date** - Andy Tael, August 2023
