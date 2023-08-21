@@ -25,7 +25,7 @@ This lab assumes you have the following:
 
     Log in to the Oracle Cloud Console, choose the Autonomous Database instance, then Click the **Tools** tab on the details page menu on the left.
 
-   ![Oracle Cloud Console](./images/adw-console-tools-tab.png)
+   ![Oracle Cloud Console](./images/adw-console-tools-tab1.png)
 
 2. Click the **Open Graph Studio** card to open a new page or tab in your browser.
 
@@ -45,16 +45,16 @@ This lab assumes you have the following:
    Then click **Create**.  
    ![Model Create Button](images/modeler-create-button1.png " ")  
 
-   >**Note: If you click on the `Start Modeling` button instead, you'll see the screen shown in the next step.**
+   >**Note: If you click the `Start Modeling` button instead, you'll see the screen shown in the next step.**
 
 2. Then select the `NODES` and `EDGES` tables.
    ![Select tables to create graph](./images/select-tables1.png " ")
 
 3. Move them to the right i,e., click the first icon on the shuttle control.
 
-   ![Selected tables for graph creation](./images/selected-tables1.png " ")
+   ![Selected tables for graph creation](./images/selected-tables2.png " ")
 
-   Select Graph Type as `PG Objects` and Click **Next** to get a suggested model. We will edit and update this model to add an edge and a vertex label.  
+   Select Graph Type as `PG View` and Click **Next** to get a suggested model. We will edit and update this model to add an edge and a vertex label.  
 
    The suggested model has the `NODES` as a vertex table since foreign key constraints are specified on `EDGES` that reference it.
 
@@ -84,14 +84,14 @@ This lab assumes you have the following:
 6. Click **Next** and then click **Create Graph** to move on to the next step in the flow.
 
    Enter `DRA_MEDICAL_RECS_G` as the graph name.  
-   The above graph name will be used throughout the labs.  
+   Will use the above graph name through all the labs.  
    Do not enter a different name because the queries and code snippets in the next lab will fail.  
 
    Enter a model name (for example, `DRA_MEDICAL_RECS_M`) and other optional information.  
    ![Create graph dialog](./images/create-graph-dialog1.png " ")
 
 7. Graph Studio modeler will now save the metadata and start a job to create the graph.  
-   The Jobs page shows the status of this job.
+   The Jobs page shows the status of this job. Make sure that the status of all the jobs are Succeeded. 
 
    ![Jobs list page](./images/23-jobs-create-graph1.png " ")  
 

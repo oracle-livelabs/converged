@@ -25,9 +25,9 @@ Watch the video below for a quick walk through the Task 1 and 2 of the lab.
 
 When you first access APEX you will need to log in as an APEX instance administrator to create a workspace. A workspace is a logical domain where you define APEX applications. Each workspace is linked to one or more database schemas (database users) which are used to store the database objects, such as tables, views, packages, and more.
 
-1. Navigate to the Oracle Autonomous Transaction Processing database instance named DB2 (Display Name), containing the inventory schema, created in Lab 1. Click the **Tools** tab and then the **Open APEX** button.
+1. Navigate to the Oracle Autonomous Transaction Processing database instance named DB2 (Display Name), containing the inventory schema, created in Lab 1. Click the **Tool Configuration** tab and then the copy the access url and paste it in browser.
 
-    ![Open APEX](images/click-open-apex.png)
+    ![Open APEX](images/click-open-apex1.png)
 
 2. Enter the password for the Administration Services and click **Sign In to Administration**. The password should match the one you used when creating the Oracle Autonomous Transaction Processing instance.
 
@@ -37,9 +37,9 @@ When you first access APEX you will need to log in as an APEX instance administr
 
     ![Create Workspace Screen](images/welcome-create-workspace-inv.png)
 
-4. Set **Database User** to **INVENTORYUSER** and then click **Create Workspace**.
+4. Set **Database User, Workspace Username** to **INVENTORYUSER** and then click **Create Workspace**.
 
-    ![Create Workspace](images/create-workspace-inv.png)
+    ![Create Workspace](images/create-workspace-inv1.png)
 
 5. After the workspace has been created, click the **INVENTORYUSER** link in the success message. This will log you out of APEX administration so that you can log into your new workspace.
 
