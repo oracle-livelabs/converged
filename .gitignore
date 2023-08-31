@@ -37,3 +37,7 @@ build/
 ### VS Code ###
 .vscode/
 /.jpb/**
+
+## oractl ##
+*oractl*
+*spring-shell*

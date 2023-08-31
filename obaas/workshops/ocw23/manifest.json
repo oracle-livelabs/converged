@@ -1,5 +1,5 @@
 {
-    "workshoptitle": "Build a Working Application for Cloud Banking",
+    "workshoptitle": "CloudBank - Building an App with Spring Boot and Mobile APIs with Oracle Database and Kubernetes",
     "variables": ["../../variables/variables.json"],
     "help": "obaas_ww@oracle.com",
     "tutorials": [
@@ -14,9 +14,9 @@
             "filename": "https://oracle-livelabs.github.io/common/labs/cloud-login/cloud-login.md"
         },
         {
-            "title": "Level Up 2023 Learning Paths",
+            "title": "OCW 2023 Learning Paths",
             "description": "This section explains different ways to use this Live Lab at the Level UP 2023 event.",
-            "filename": "../../levelup23/levelup23.md"
+            "filename": "../../ocw23/ocw23.md"
         },
         {
             "title": "Lab 1: Provision an Instance",
@@ -32,29 +32,37 @@
             "filename": "../../build-account-microservice/build-account-microservice.md"
         },
         {
-            "title": "Lab 4: Manage Saga Transactions across Microservices",
+            "title": "Lab 4: Build Check Processing Microservices",
+            "filename": "../../check-processing/check-processing.md"
+        },
+        {
+            "title": "Lab 5: Manage Saga Transactions across Microservices",
             "filename": "../../microtx/microtx.md"
         },
         {
-            "title": "Lab 5: Deploy the full CloudBank Application",
+            "title": "Lab 6: Deploy the full CloudBank Application",
             "filename": "../../deploy-cloudbank/deploy-cloudbank.md"
         },
         {
-            "title": "Lab 6: Explore the Backend Platform",
+            "title": "Lab 7: Explore the Backend Platform",
             "filename": "../../explore-platform/explore-platform.md"
         },
         {
-            "title": "Lab 7: Extend the Mobile Application",
+            "title": "Lab 8: Extend the Mobile Application",
             "filename": "../../extend-mobile-app/extend-mobile-app.md"
         },
         {
-            "title": "Lab 8: Clean Up",
+            "title": "Lab 9: Clean Up",
             "filename": "../../cleanup/cleanup.md"
         },
         {
             "title": "Need Help?",
             "description": "Solutions to Common Problems and Directions for Receiving Live Help",
             "filename":"https://oracle-livelabs.github.io/common/labs/need-help/need-help-freetier.md"
+        },
+        { 
+            "title": "Oracle CloudWorld 2023 - Support", 
+            "filename": "https://oracle-livelabs.github.io/common/support/ocwsupportlab/ocwsupportlab.md"
         },
         {
             "title": "Other LiveLabs you might like",

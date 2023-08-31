@@ -231,7 +231,7 @@ This lab assumes you have the following:
 
 ## Task 3: Adjust constraints and reform the communities
 
-1. For example, we consider the node named `DRA_1` and want to move from cluster with community-id 3 to target cluster with community-id 2(Here, the tables from DRA_80 to DRA_100).
+1. For example, we consider the node named `DRA_1` and want to move from cluster with community-id 3 to target cluster with community-id 2(Here, the tables from `DRA_80` to `DRA_100`).
 
 2. Get the nodes of the target cluster to which we want to move node `DRA_1` and check for the edges from `DRA_1` to nodes of the target cluster and update the `TOTAL_AFFINITY` of those edges to 1.
 
@@ -250,7 +250,7 @@ This lab assumes you have the following:
 
 3. Rerun the Infomap algorithm on the updated data. Follow the same steps from Task 2, and verify whether the required node is moved to the intended target cluster. 
 
-If you are doing this on the simulated data, then **you are done with the lab.**
+If you are doing this on the simulated data, then **you are done with the DRA Livelab.**
 
 ## Acknowledgements
 
