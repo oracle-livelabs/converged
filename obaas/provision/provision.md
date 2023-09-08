@@ -10,10 +10,6 @@ Quick walk through on how to provision an instance of Oracle backend for Spring 
 
 [](videohub:1_cc0jjaft)
 
-Quick walk through on how to provision an instance of Oracle backend for Spring Boot.
-
-[](videohub:1_cc0jjaft)
-
 ### About Oracle Backend for Spring Boot
 
 Oracle Backend for Spring Boot allows developers to build microservices in Spring Boot and provision a backend as a service with the Oracle Database and other infrastructure components that operate on multiple clouds. This service vastly simplifies the task of building, testing, and operating microservices platforms for reliable, secure, and scalable enterprise applications.
