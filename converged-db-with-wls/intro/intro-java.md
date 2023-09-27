@@ -46,7 +46,5 @@ Know More:[ Oracle J2EE (JEE)](https://www.oracle.com/in/java/technologies/java-
 - **Last Updated By** - Kay Malcolm, Database Product Management, June 2021
 - **Expiration Date** - June 2021
 
-## Issues?
-Please submit an issue on our [issues](https://github.com/oracle/learning-library/issues) page. We review it regularly.
 
 
