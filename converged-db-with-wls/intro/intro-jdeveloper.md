@@ -22,7 +22,4 @@ JDeveloper offers complete end-to-end development for Oracle's platform and Orac
 - **Expiration Date** - June 2021
 
 
-## Issues?
-Please submit an issue on our [issues](https://github.com/oracle/learning-library/issues) page. We review it regularly.
-
 
