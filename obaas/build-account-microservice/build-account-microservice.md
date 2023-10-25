@@ -15,7 +15,7 @@ Quick walk through on how to build an account microservice.
 In this lab, you will:
 
 * Create a new Spring Boot project in your IDE
-* Plan your accounts database and create Liquibase files to automate creation of the database objects
+* Prepare objects in the Oracle Database using SQLcl
 * Use Spring Data JPA to allow your microservice to use the data in the Oracle database
 * Create REST services to allow clients to perform create, read, update, and delete operations on accounts
 * Deploy your microservice into the backend
@@ -33,7 +33,7 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
 
 1. Create the project
 
-   In Visual Studio Code, press Ctrl+Shift+P (or equivalent) to access the command window.  Start typing "Spring Init" and you will see a number of options to create a Spring project, as shown in the image below.  Select the option to **Create a Maven Project**.
+   In Visual Studio Code, press Ctrl+Shift+P (Cmd+Shift+P on a Mac) to access the command window.  Start typing "Spring Init" and you will see a number of options to create a Spring project, as shown in the image below.  Select the option to **Create a Maven Project**.
 
   ![Start Spring Initializr](images/obaas-spring-init-1.png " ")
 
@@ -78,6 +78,12 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
    Now you will have the opportunity to add the Spring Boot dependencies your project needs.  For now just add **Spring Web**, which will let us write some REST services.  We will add more later as we need them.  After you add Spring Web, click on the option to continue with the selected dependencies.
 
    ![Choose dependencies](images/obaas-spring-init-8.png " ")
+
+1. Continue with the selected dependencies
+
+  After you add Spring Web, click on the option to continue with the selected dependencies.
+
+   ![Create Project](images/obaas-spring-init-12.png " ")
 
 1. Select where to save the project
 
@@ -184,9 +190,9 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
         }</copy>
         ```
 
-    You have just implemented your first REST service in Spring Boot!  This service will be available on `http://localhost:8080/api/v1/hello`.  And the `GetMapping` annotation tells Spring Boot that this service will respond to the HTTP GET method.
+    You have just implemented your first REST service in Spring Boot! This service will be available on `http://localhost:8080/api/v1/hello`. And the `GetMapping` annotation tells Spring Boot that this service will respond to the HTTP GET method.
 
-    You can test your service now by building and running again.  If you still have the application running from before, hit Ctrl+C (or equivalent) to stop it, and then build and run with this command:
+    You can test your service now by building and running again. Make sure you save the file. If you still have the application running from before, hit Ctrl+C (or equivalent) to stop it, and then build and run with this command:
 
     ```shell
     $ <copy>mvn spring-boot:run</copy>
@@ -210,9 +216,9 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
 
 1. Start SQLcl and load the Wallet
 
-  The Accounts service is going to have two main objects - an `account` and a `journal`.
+  The Accounts service is going to have two main objects - an `account` and a `journal`. Here are the necessary steps to create the objects in the database
 
-  Here are the SQL statements to create the necessary objects in the database. If you installed SQLcl as recommended, you can connect to your database using this command (or use the SQLcl session created during Lab two, Setup)
+  If you installed SQLcl as recommended, you can connect to your database using this SQLcl (or use the SQLcl session created during Lab two, Setup).  Start SQLcl in a new terminal window.
 
     ```shell
     $ <copy>sql /nolog</copy>
@@ -334,12 +340,12 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
         <groupId>com.oracle.database.spring</groupId>
         <artifactId>oracle-spring-boot-starter-ucp</artifactId>
         <type>pom</type>
-        <version>2.7.7</version>
+        <version>3.1.0</version>
     </dependency>
         <dependency>
         <groupId>com.oracle.database.spring</groupId>
         <artifactId>oracle-spring-boot-starter-wallet</artifactId>
-        <version>2.7.7</version>
+        <version>3.1.0</version>
         <type>pom</type>
     </dependency></copy>
     ```
@@ -383,30 +389,30 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
               ddl-auto: validate
             properties:
               hibernate:
-                dialect: org.hibernate.dialect.Oracle12cDialect
+                dialect: org.hibernate.dialect.OracleDialect
                 format_sql: true
             show-sql: true
           datasource:
-            url: jdbc:oracle:thin:@tns_entry_from_above?TNS_ADMIN=/path/to/wallet
+            url: jdbc:oracle:thin:@tns_entry_from_above?TNS_ADMIN=/path/to/Wallet
             username: account
             password: Welcome1234##
             driver-class-name: oracle.jdbc.OracleDriver
             type: oracle.ucp.jdbc.PoolDataSource
             oracleucp:
               connection-factory-class-name: oracle.jdbc.pool.OracleDataSource
-              connection-pool-name: AccountConnectionPool
+              connection-pool-name: AccountsConnectionPool
               initial-pool-size: 15
               min-pool-size: 10
-              max-pool-size: 30</copy>
+              max-pool-size: 30
         ```
 
    These parameters will be used by Spring Data JPA to automatically configure the data source and inject it into your application.  This configuration uses [Oracle Universal Connection Pool](https://docs.oracle.com/en/database/oracle/oracle-database/21/jjucp/index.html) to improve performance and better utilize system resources.  The settings in the `jpa.hibernate` section tell Spring Data JPA to use Oracle SQL syntax, and to show the SQL statements in the log, which is useful during development when you may wish to see what statements are being executed as your endpoints are called.
 
 1. Create the data model in the Spring Boot application
 
-   Create a new directory inside `src/main/java/com/example/accounts` called `model` and inside that new directory, create a new Java file called `Account.java`, when prompted for a type, choose **class**.
+    Create a new directory inside `src/main/java/com/example/accounts` called `model` and inside that new directory, create a new Java file called `Account.java`, when prompted for a type, choose **class**.
 
-   In this class you can define the fields that will make up the "account" object, as shown below.  Also add a constructor for the non-generated fields.
+    In this class you can define the fields that will make up the "account" object, as shown below.  Also add a constructor for the non-generated fields.
 
     ```java
     <copy>package com.example.accounts.model;
@@ -415,20 +421,20 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
     
     public class Account {
     
-        private long accountId;
-        private String accountName;
-        private String accountType;
-        private String accountCustomerId;
-        private Date accountOpenedDate;
-        private String accountOtherDetails;
-        private long accountBalance;
+      private long accountId;
+      private String accountName;
+      private String accountType;
+      private String accountCustomerId;
+      private Date accountOpenedDate;
+      private String accountOtherDetails;
+      private long accountBalance;
     
-        public Account(String accountName, String accountType, String accountOtherDetails, String accountCustomerId) {
-            this.accountName = accountName;
-            this.accountType = accountType;
-            this.accountOtherDetails = accountOtherDetails;
-            this.accountCustomerId = accountCustomerId;
-        }
+      public Account(String accountName, String accountType, String accountOtherDetails, String accountCustomerId) {
+        this.accountName = accountName;
+        this.accountType = accountType;
+        this.accountOtherDetails = accountOtherDetails;
+        this.accountCustomerId = accountCustomerId;
+      }
     }</copy>
     ```
 
@@ -455,8 +461,9 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
     <copy>package com.example.accounts.model;
     
     import java.util.Date;
-    import javax.persistence.Entity;
-    import javax.persistence.Table;
+
+    import jakarta.persistence.Entity;
+    import jakarta.persistence.Table;
     import lombok.Data;
     import lombok.NoArgsConstructor;
     
@@ -479,12 +486,13 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
 
     ```java
     <copy>
-    import javax.persistence.Column;
-    import javax.persistence.GeneratedValue;
-    import javax.persistence.GenerationType;
     import org.hibernate.annotations.Generated;
     import org.hibernate.annotations.GenerationTime;
-    import javax.persistence.Id;
+
+    import jakarta.persistence.Column;
+    import jakarta.persistence.GeneratedValue;
+    import jakarta.persistence.GenerationType;
+    import jakarta.persistence.Id;
 
     // ...
 
@@ -511,7 +519,7 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
 
     @Column(name = "ACCOUNT_BALANCE")
     private long accountBalance;</copy>
-    ````
+    ```
 
 1. Create the JPA Repository definition
 
@@ -580,7 +588,7 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
     2023-02-25 15:58:17.977  INFO 29041 --- [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
     ```
 
-   Now you can test the new service with this command:
+   Now you can test the new service with this command. It will not return any data as we haven't loaded any data yet.
 
     ```shell
     $ <copy>curl http://localhost:8080/api/v1/accounts</copy>
@@ -697,7 +705,7 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
     {"timestamp":"2023-02-25T22:05:24.350+00:00","status":400,"error":"Bad Request","path":"/api/v1/account"}
     ```
 
-    That completes the basic endpoints.  In the next task, you can add some additional endpoints if you wish.  If you prefer, you can skip that task because you have the option to deploy the fully pre-built service in the next lab if you choose.
+    That completes the basic endpoints.  In the next task, you can add some additional endpoints if you wish.  If you prefer, you can skip that task because you have the option to deploy the fully pre-built service in a later lab (Deploy the full CloudBank Application) if you choose.
 
 ## (Optional) Task 6: Add extra account endpoints
 
@@ -827,24 +835,7 @@ If you would like to learn more about endpoints and implement the remainder of t
 
 1. Test the Delete `/account/{accountId}` endpoint
 
-   Restart the application and test this new endpoint with this command (note that you created an account with this customer ID earlier):
-
-    ```shell
-    $ <copy>curl -s http://localhost:8080/api/v1/account/getAccounts/abcDe7ged | jq .</copy>
-    [
-      {
-        "accountId": 1,
-        "accountName": "Andy's checking",
-        "accountType": "CH",
-        "accountCustomerId": "abcDe7ged",
-        "accountOpenedDate": "2023-02-26T02:04:54.000+00:00",
-        "accountOtherDetails": "Account Info",
-        "accountBalance": -20
-      }
-    ]
-    ```
-
-   Restart the application and test this new endpoint by creating and deleting an account.  First create an account:
+   Restart the application and test this new endpoint by creating and deleting an account. First create an account:
 
     ```shell
     $ <copy>curl -i -X POST \
@@ -916,7 +907,7 @@ If you would like to learn more about endpoints and implement the remainder of t
     <dependency>
         <groupId>org.springframework.cloud</groupId>
         <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
-        <version>3.1.4</version>
+        <version>4.0.3</version>
     </dependency>
     </copy>
     ```
@@ -962,11 +953,17 @@ If you would like to learn more about endpoints and implement the remainder of t
 
    The service is now ready to deploy to the backend.
 
+1. Get the password for the `obaas-admin` user. The `obaas-admin` user is the equivalent of the admin or root user.
+
+    ```shell
+    kubectl get secret -n azn-server  oractl-passwords -o jsonpath='{.data.admin}' | base64 -d
+    ```
+
 1. Prepare the backend for deployment
 
    The Oracle Backend for Spring Boot admin service is not exposed outside of the Kubernetes cluster by default. Oracle recommends using a **kubectl** port forwarding tunnel to establish a secure connection to the admin service.
 
-   Start a tunnel using this command:
+   Start a tunnel using this command in a new terminal window:
 
     ```shell
     $ <copy>kubectl -n obaas-admin port-forward svc/obaas-admin 8080</copy>
@@ -976,25 +973,29 @@ If you would like to learn more about endpoints and implement the remainder of t
 
     ```shell
     $ <copy>oractl</copy>
-       _   _           __    _    ___
-      / \ |_)  _.  _. (_    /  |   |
-      \_/ |_) (_| (_| __)   \_ |_ _|_
-      Application Version: 0.3.1
-        :: Spring Boot (v3.0.0) ::
+     _   _           __    _    ___
+    / \ |_)  _.  _. (_    /  |   |
+    \_/ |_) (_| (_| __)   \_ |_ _|_
+    =============================================================================================================================
+      Application Name: Oracle Backend Platform :: Command Line Interface
+      Application Version: (1.0.0)
+      :: Spring Boot (v3.1.3) :: 
+          
 
-
-      oractl:>
+    oractl:>
     ```
 
-   Connect to the Oracle Backend for Spring Boot admin service using this command.  Hit enter when prompted for a password.  **Note**: Oracle recommends changing the password in a real deployment.
+   Connect to the Oracle Backend for Spring Boot admin service using the `connect` command. Enter `obaas-admin` and the username and use the password you collected earlier.
 
     ```shell
     oractl> <copy>connect</copy>
-    password (defaults to oractl):
-    using default value...
-    connect successful server version:0.3.1
+    username: obaas-admin
+    password: **************
+    obaas-cli: Successful connected.
     oractl:>
     ```
+
+   ****TODO FROM HERE****
 
    Create a database "binding" by tunning this command.  Enter the password (`Welcome1234##`) when prompted.  This will create a Kubernetes secret in the `application` namespace called `account-db-secrets` which contains the username (`account`), password, and URL to connect to the Oracle Autonomous Database instance associated with the Oracle Backend for Spring Boot.
 
