@@ -539,30 +539,74 @@ Download a copy of the CloudBank sample application.
 
         ```shell
         $ <copy>curl -s http://API-ADDRESS-OF-API-GW/api/v1/account/24 | jq .</copy>
+
+        Output should be similar to this:
+
+        ```json
         {
-        "accountId": 24,
-        "accountName": "Sanjay's Savings",
-        "accountType": "SA",
-        "accountCustomerId": "bkzLp8cozi",
-        "accountOpenedDate": null,
-        "accountOtherDetails": "Savings Account",
-        "accountBalance": 1040
+            "accountId": 24,
+            "accountName": "Sanjay's Savings",
+            "accountType": "SA",
+            "accountCustomerId": "bkzLp8cozi",
+            "accountOpenedDate": null,
+            "accountOtherDetails": "Savings Account",
+            "accountBalance": 1040
         }
         ```
 
     1. Test on of the customer REST endpoints with this command, use the IP Address for your API Gateway.
 
         ```shell
-        curl -s http://localhost:8082/api/v1/customer | jq
+        $ <copy>curl -s http://API-ADDRESS-OF-API-GW/api/v1/customer | jq</copy>
         ```
+
+        Output should be similar to this:
+
+        ```json
+        [
+            {
+                "customerId": "qwertysdwr",
+                "customerName": "Andy",
+                "customerEmail": "andy@andy.com",
+                "dateBecameCustomer": "2023-11-06T20:06:19.000+00:00",
+                "customerOtherDetails": "Somekind of Info",
+                "customerPassword": "SuperSecret"
+            },
+            {
+                "customerId": "aerg45sffd",
+                "customerName": "Sanjay",
+                "customerEmail": "sanjay@sanjay.com",
+                "dateBecameCustomer": "2023-11-06T20:06:19.000+00:00",
+                "customerOtherDetails": "Information",
+                "customerPassword": "Welcome"
+            },
+            {
+                "customerId": "bkzLp8cozi",
+                "customerName": "Mark",
+                "customerEmail": "mark@mark.com",
+                "dateBecameCustomer": "2023-11-06T20:06:19.000+00:00",
+                "customerOtherDetails": "Important Info",
+                "customerPassword": "Secret"
+            }
+        ]
+        ```json
 
     1. Test the creditscore REST endpoint with this command
 
         ```shell
-        curl -s http://localhost:8083/api/v1/creditscore | jq
+        $ <copy>curl -s http://API-ADDRESS-OF-API-GW/api/v1/creditscore | jq</copy>
         ```
 
-    1. Test the check service
+        Output should be similar to this:
+
+        ```json
+        {
+            "Date": "2023-11-06",
+            "Credit Score": "686"
+        }
+        ```
+
+    1. Test the check service <<<<<START HERE>>>>
 
         1. Start a tunnel to the testrunner service.
 
@@ -598,6 +642,71 @@ Download a copy of the CloudBank sample application.
 
             ```log
             Received deposit <CheckDeposit(accountId=2, amount=256)>
+            ```
+
+        1. Check the Journal entries using the *journal* REST endpoint.
+
+            ```shell
+            $ <copy>curl -i http://localhost:8081/api/v1/account/2/journal</copy>
+            ```
+
+            The output should be similar to this (with your AccountId). Note the *journalId*, you're going to need it in the next step.
+
+            ```log
+            HTTP/1.1 200 
+            Content-Type: application/json
+            Transfer-Encoding: chunked
+            Date: Thu, 02 Nov 2023 18:06:45 GMT
+
+            [{"journalId":1,"journalType":"PENDING","accountId":2,"lraId":"0","lraState":null,"journalAmount":256}]
+            ```
+
+        1. Clearance of a check using the *clear* REST endpoint using your *journalId*:
+
+            ```shell
+            $ <copy>curl -i -X POST -H 'Content-Type: application/json' -d '{"journalId": 1}' http://localhost:8084/api/v1/testrunner/clear</copy>
+            ```
+
+            ```logs
+            HTTP/1.1 201 
+            Content-Type: application/json
+            Transfer-Encoding: chunked
+            Date: Thu, 02 Nov 2023 18:09:17 GMT
+
+            {"journalId":1}
+            ```
+
+        1. Check the logs of the *checks* service
+
+            Execute this command to check the log file of the *check* service:
+
+            ```shell
+            $ <copy>kubectl -n application logs svc/checks</copy>
+            ```
+
+            The log file should contain something similar to this (with your journalId):
+
+            ```log
+            Received clearance <Clearance(journalId=1)>
+            ```
+
+        1. Check the *journal* REST endpoint
+
+            Execute this command to check the Journal. Replace `ACCOUNT-ID` with your account id.
+
+            ```shell
+            curl -i http://localhost:8081/api/v1/account/ACCOUNT-ID/journal
+            ```
+
+            The output should look like this (with your accountId):
+
+            ```log
+            `HTTP/1.1 200
+            Content-Type: application/json
+            Transfer-Encoding: chunked
+            Date: Thu, 02 Nov 2023 18:36:31 GMT
+
+            [{"journalId":1,"journalType":"DEPOSIT","accountId":2,"lraId":"0","lraState":null,"journalAmount":256}]`
             ```
 
 ## (Optional) Task 6: Using Oracle Backend for Spring Boot VS Code plugin
