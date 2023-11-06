@@ -410,9 +410,9 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
 
 1. Create the data model in the Spring Boot application
 
-    Create a new directory inside `src/main/java/com/example/accounts` called `model` and inside that new directory, create a new Java file called `Account.java`, when prompted for a type, choose **class**.
+   Create a new directory inside `src/main/java/com/example/accounts` called `model` and inside that new directory, create a new Java file called `Account.java`, when prompted for a type, choose **class**.
 
-    In this class you can define the fields that will make up the "account" object, as shown below.  Also add a constructor for the non-generated fields.
+   In this class you can define the fields that will make up the "account" object, as shown below.  Also add a constructor for the non-generated fields.
 
     ```java
     <copy>package com.example.accounts.model;
@@ -421,23 +421,23 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
     
     public class Account {
     
-      private long accountId;
-      private String accountName;
-      private String accountType;
-      private String accountCustomerId;
-      private Date accountOpenedDate;
-      private String accountOtherDetails;
-      private long accountBalance;
+        private long accountId;
+        private String accountName;
+        private String accountType;
+        private String accountCustomerId;
+        private Date accountOpenedDate;
+        private String accountOtherDetails;
+        private long accountBalance;
     
-      public Account(String accountName, String accountType, String accountOtherDetails, String accountCustomerId) {
-        this.accountName = accountName;
-        this.accountType = accountType;
-        this.accountOtherDetails = accountOtherDetails;
-        this.accountCustomerId = accountCustomerId;
-      }
+        public Account(String accountName, String accountType, String accountOtherDetails, String accountCustomerId) {
+            this.accountName = accountName;
+            this.accountType = accountType;
+            this.accountOtherDetails = accountOtherDetails;
+            this.accountCustomerId = accountCustomerId;
+        }
     }</copy>
     ```
-
+    
     Now, you need to give Spring Data JPA some hints about how to map these fields to the underlying database objects.  Spring Data JPA can actually automate creation of database objects for you, and that can be very helpful during development and testing.  But in many real-world cases, the database objects will already exist, so in this lab you will work with pre-existing database objects.
 
     Before continuing, open the Maven POM (`pom.xml`) for the project and add this new dependency to the list.  Lombok offers various annotations aimed at replacing Java code that is well known for being boilerplate, repetitive, or tedious to write. You’ll use it to avoid writing getters, setters, constructors and builders.
@@ -1045,8 +1045,19 @@ If you would like to learn more about endpoints and implement the remainder of t
     2023-06-01 20:44:31.971  INFO 1 --- [nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
     2023-06-01 20:44:31.971  INFO 1 --- [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
     2023-06-01 20:44:31.975  INFO 1 --- [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 4 ms
-
     ```
+
+1. Check the Eureka Server
+
+  Create a tunnel to the Eureka server so you can verify the `Accounts` application has registered with the server.
+
+    ```shell
+    $ <copy>kubectl -n eureka port-forward svc/apisix-dashboard 8761</copy>
+    ```
+  
+  Open a web browser to [http://localhost:8761](http://localhost:8761) to vew the Eureka Server dashboard web user interface. It will look similar to this:
+
+  ![Eureka Server Web Interface](***TODO*** " ")
 
 ## Task 8: Expose the account service using the API Gateway
 
@@ -1143,4 +1154,4 @@ Now that the account service is deployed, you need to expose it through the API 
 
 * **Author** - Andy Tael, Mark Nelson, Developer Evangelists, Oracle Database
 * **Contributors** - [](var:contributors)
-* **Last Updated By/Date** - Andy Tael, June 2023
+* **Last Updated By/Date** - Andy Tael, October 2023

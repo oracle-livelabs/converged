@@ -2,7 +2,7 @@
 
 ## Introduction
 
-This lab walks you through the steps to build Spring Boot microservices that use Java Message Service (JMS) to send and receive asynchronous messages using Transactional Event Queues in the Oracle Database.  This service will also use service discovery to lookup and use the previously built Account service.  In this lab, we will extend the Account microservice built in the previous lab, build a new "Check Processing" microservice and another "Test Runner" microservice to help with testing.
+This lab walks you through the steps to build Spring Boot microservices that use Java Message Service (JMS) to send and receive asynchronous messages using Transactional Event Queues in the Oracle Database.  This service will also use service discovery to lookup and use the previously built Account service. In this lab, we will extend the Account microservice built in the previous lab, build a new "Check Processing" microservice and another "Test Runner" microservice to help with testing.
 
 Estimated Time: 20 minutes
 
@@ -50,7 +50,7 @@ Starting with the account service that you built in the previous lab, you will t
 
 1. Create the Journal model
 
-   Create a new Java file in `src/main/java/com/example/accounts/model` called `Journal.java`.  In this class you can define the fields that make up the journal.  Note that you created the Journal table in the previous lab. You will not use the `lraId` and `lraState` fields until the next lab. To simplify this lab, create an additional constructor that defaults those fields to suitable values. Your new class should look like this:
+   Create a new Java file in `src/main/java/com/example/accounts/model` called `Journal.java`. In this class you can define the fields that make up the journal.  Note that you created the Journal table in the previous lab. You will not use the `lraId` and `lraState` fields until a later lab. To simplify this lab, create an additional constructor that defaults those fields to suitable values. Your new class should look like this:
 
     ```java
     <copy>package com.example.accounts.model;
