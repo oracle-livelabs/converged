@@ -112,17 +112,23 @@ If you already have completed the lab *Deploy the full CloudBank Application usi
 
     Until you create a dedicated ssh tunnel to the Kubernetes cluster, and you don't connect to Oracle Backend for Spring Boot admin services, you will not be able to browse resources included into the Oracle Backend for Spring Boot deployment. To do this, follow these steps:
 
-    * Select the cluster and click on the wheel symbol to set the credentials:
+    * Obtain the `obaas-admin` password by executing the following command in a terminal window to get the `obaas-admin` password:
+
+        ```shell
+        $ <copy>kubectl get secret -n azn-server  oractl-passwords -o jsonpath='{.data.admin}' | base64 -d</copy>
+        ```
+
+    * Right click on the cluster name and select **Set UID/Pwd**:
 
         ![Credentials](images/credentials.png " ")
 
-    * On top menu, it will be required the Oracle Backend for Spring Boot admin **password**:
+    * Enter the username *obaas-admin* for the Oracle Backend for Spring Boot.
+
+        ![Username](images/username.png " ")
+
+    * Followed by the password you obtained in an earlier step:
 
         ![Credentials](images/password.png " ")
-
-        and **admin** Oracle Backend for Spring Boot's user for the deployment:
-
-        ![Credentials](images/admin.png " ")
 
     * Two message boxes will confirm credentials have been set correctly:
 
@@ -132,7 +138,11 @@ If you already have completed the lab *Deploy the full CloudBank Application usi
 
         ![setCredentials](images/oractlcred.png " ")
 
-    * Select again the cluster and click the right mouse button and choose **Create tunnel** menu item. VS Code will open a new terminal that will try to open a tunnel to the Kubernetes cluster on a local port, starting from 8081:
+    * Select again the cluster and click the right mouse button and choose **Create Admin tunnel** menu item.
+
+        ![CreateAdminTunnel](images/createadmintunnel.png " ")
+
+        VS Code will open a new terminal that will try to open a tunnel to the Kubernetes cluster on a local port, starting from 8081:
 
         ![Tunnel](images/tunnel.png " ")
 
@@ -143,6 +153,8 @@ If you already have completed the lab *Deploy the full CloudBank Application usi
         **NOTE**: if the K8s cluster it's not related to an Oracle Backend for Spring Boot deployment, the tunnel creation will fail. In this case in command palette execute a window reload to chose another cluster. If you have any problem in connection, you could start another tunnel: the plugin will try on another local port to connect to the cluster.
 
     * Again select the cluster and by clicking the right mouse button choose **Connect** menu item. This will create a session with credentials set at the first step.
+
+        ![connect](images/connect.png " ")
 
 3. Explore resources
 
