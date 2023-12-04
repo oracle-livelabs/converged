@@ -15,12 +15,14 @@ Quick walk through on how to extend the CloudBank mobile application.
 ### Objectives
 
 In this lab, you will:
+
 * Explore the existing CloudBank mobile application
 * Extend the CloudBank mobile application to add the "Cloud Cash" feature
 
 ### Prerequisites
 
 This lab assumes you have:
+
 * An Oracle Cloud account
 * All previous labs successfully completed
 * Completed the optional **Install Flutter** task in the **Setup your Development Environment** lab
@@ -58,14 +60,14 @@ The sample CloudBank mobile application is provided as a starting point.  It alr
 
    Open the `lib/main.dart` file in Visual Studio Code and update the following two lines of code. 
 
-    ```
+   ```dart
     <copy>const ServerUrl = "1.2.3.4";
     const keyApplicationId = 'APPLICATION_ID';</copy>
     ```
 
    You need to provide the correct IP address for your environment.  You can find the IP address using this command:
    
-    ```
+    ```shell
     $ <copy>kubectl -n ingress-nginx get service ingress-nginx-controller</copy>
     NAME                       TYPE           CLUSTER-IP      EXTERNAL-IP   PORT(S)                      AGE
     ingress-nginx-controller   LoadBalancer   10.123.10.127   100.20.30.40  80:30389/TCP,443:30458/TCP   13d
@@ -100,7 +102,7 @@ The sample CloudBank mobile application is provided as a starting point.  It alr
     values ('Mark''s CCard','CC','H1O3VQd40J','Mastercard account',1000);
     commit;
     </copy>
-    ```    
+    ```
 
 1. Build and run the application
 
@@ -111,13 +113,12 @@ The sample CloudBank mobile application is provided as a starting point.  It alr
    Select the device you want to run the application on.  If you can use a mobile device emulator (or a real device) that will probably give you the best experience.  If you cannot, then **Chrome** is a good second choice. 
 
    ![Select device or start emulator](images/obaas-flutter-select-device.png)
-   
-   
+
    Open a new terminal in Visual Studio Code and run the application with this command: 
 
-    ```
+    ```shell
     $ <copy>flutter run</copy>
-    ```    
+    ```
 
    Select the target platform if prompted.  After a short time the application will start and you will see the login screen:
 
@@ -189,7 +190,7 @@ The sample CloudBank mobile application is provided as a starting point.  It alr
 
   Open the file `lib/home.dart` and find the line `// ADD CLOUD CASH CARD HERE`.  You need to add a new `Card` component at that point, simliar to the others that you see already in that file.  This new card will tell the user about the Cloud Cash feature and include a button to allow them to navigate to the new Cloud Cash screen.
 
-    ```dart
+   ```dart
     <copy>
     Card(
       child: Column(
@@ -250,7 +251,7 @@ The sample CloudBank mobile application is provided as a starting point.  It alr
 
    Update `cloudcash.dart` to add the input boxes and button. If you are familiar with Flutter, feel free to skip to the code below!
 
-   In Flutter, the screen layout is created in the `build` method which accepts a `BuildContext` as input and returns a `Widget`.  If you want to create an entire screen, then you can return a `Scaffold` from this method.  If you were create a reusable componeent that could be placed on different screens, then you would most likely return a `Wrap` instead - this is a non-visual component that contains one to many other components.  But in this case, you want to return an entire screen, so `Scaffold` is the best choice. 
+   In Flutter, the screen layout is created in the `build` method which accepts a `BuildContext` as input and returns a `Widget`.  If you want to create an entire screen, then you can return a `Scaffold` from this method.  If you were create a reusable component that could be placed on different screens, then you would most likely return a `Wrap` instead - this is a non-visual component that contains one to many other components.  But in this case, you want to return an entire screen, so `Scaffold` is the best choice. 
 
     > **Note**: This example uses the [Material](https://docs.flutter.dev/development/ui/widgets/material) library, so some of the information presented here is specific to Material applications.
 
@@ -401,7 +402,7 @@ For the account selector field, you need to get a list of accounts by calling th
     ];</copy>
     ```
 
-   Update your `_CloudCashState` class to add a new variable to hold the data received from the API call, note that this will be a `late Future<Accounts>`.  Add a new `String` to hold the current value of the drop down and set the initial value to the first item in the list, i.e. **Select account...**.  Add an overriden `initState()` method in which you call `super.initState()` and then ivoke the API to get the data for that future.  You will write that `fetchData()` method next.  Here is the code so far:
+   Update your `_CloudCashState` class to add a new variable to hold the data received from the API call, note that this will be a `late Future<Accounts>`.  Add a new `String` to hold the current value of the drop down and set the initial value to the first item in the list, i.e. **Select account...**.  Add an overridden `initState()` method in which you call `super.initState()` and then invoke the API to get the data for that future.  You will write that `fetchData()` method next.  Here is the code so far:
 
     ```dart
     <copy>class _CloudCashState extends State<CloudCash> {
@@ -482,7 +483,7 @@ For the account selector field, you need to get a list of accounts by calling th
         ),
       ),
     ),</copy>
-    ```       
+    ```
 
    And add an import for `CloudCash`:
 
@@ -651,7 +652,7 @@ The final piece to complete the Cloud Cash feature is to handle the form submiss
 
 1. Test the app 
 
-   Restart the application and navigate to the Cloud Cash screen.  Verify that you can select an acount and send a request.
+   Restart the application and navigate to the Cloud Cash screen.  Verify that you can select an account and send a request.
 
 1. Verify the Cloud Cash request in the backend
 
