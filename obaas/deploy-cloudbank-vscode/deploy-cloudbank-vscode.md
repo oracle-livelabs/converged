@@ -8,15 +8,11 @@ If you already have completed the lab *Deploy the full CloudBank Application usi
 
 Estimated Lab Time: 30 minutes
 
-Quick walk through on how to deploy full CloudBank application.
-
-[](videohub:1_3r1te1ii)
-
 ### Objectives
 
 In this lab, you will:
 
-* Deploy the full CloudBank sample application into your Oracle Backend for Spring Boot for Microservices instance
+* Deploy the full CloudBank sample application into your Oracle Backend for Spring Boot for Microservices instance using the VSCode Extension.
 
 ### Prerequisites
 

@@ -373,13 +373,13 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
     1. Get the TNS Entry connection string using this command. Remember the name of the entry as you'll need it in the next steps. In the sample below it is `cbankdb_tp`.
 
       ```shell
-      $ <copy>grep "_tp =" /path/to/unzipped/wallet/tnsnames.ora</copy>
+      $ <copy>grep "_tp =" /path/to/unzipped/wallet/tnsnames.ora | cut -d"=" -f 1</copy>
       cbankdb_tp = (description= (retry_count=20)(retry_delay=3)(address=(protocol=tcps)(port=1522)(host=adb.us-.....-1.oraclecloud.com))(connect_data=(service_name=....._cbankdb_tp.adb.oraclecloud.com))(security=(ssl_server_dn_match=yes)))
       ```
 
       You will find a file called `application.properties` in the `src/main/resources` directory in your project.  You can use either properties format or YAML format for this file.  In this lab, you will use YAML.  Rename the file to `application.yaml` and then add this content to the file. Make sure that you modify the url to contain the path to the wallet and the name of the TNS entry you collected earlier.
 
-        ```yaml
+      ```yaml
         <copy>
         spring:
           application:
@@ -437,7 +437,7 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
         }
     }</copy>
     ```
-    
+
     Now, you need to give Spring Data JPA some hints about how to map these fields to the underlying database objects.  Spring Data JPA can actually automate creation of database objects for you, and that can be very helpful during development and testing.  But in many real-world cases, the database objects will already exist, so in this lab you will work with pre-existing database objects.
 
     Before continuing, open the Maven POM (`pom.xml`) for the project and add this new dependency to the list.  Lombok offers various annotations aimed at replacing Java code that is well known for being boilerplate, repetitive, or tedious to write. You’ll use it to avoid writing getters, setters, constructors and builders.
