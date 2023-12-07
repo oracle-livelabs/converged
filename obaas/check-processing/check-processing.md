@@ -321,7 +321,6 @@ Starting with the account service that you built in the previous lab, you will t
     <copy>grant execute on dbms_aq to account;
     grant execute on dbms_aqadm to account;
     grant execute on dbms_aqin to account;
-    grant execute on dbms_aqjms_internal to account;
     commit;</copy>
     ```
 
@@ -393,13 +392,13 @@ Next, you will create the "Test Runner" microservice which you will use to simul
             <dependency>
                 <groupId>com.oracle.database.spring</groupId>
                 <artifactId>oracle-spring-boot-starter-aqjms</artifactId>
-                <version>2.7.7</version>
+                <version>23.4.0</version>
             </dependency>
             <dependency>
                 <groupId>com.oracle.database.spring</groupId>
                 <artifactId>oracle-spring-boot-starter-wallet</artifactId>
                 <type>pom</type>
-                <version>2.7.7</version>
+                <version>23.4.0</version>
             </dependency>
             <dependency>
                 <groupId>org.projectlombok</groupId>

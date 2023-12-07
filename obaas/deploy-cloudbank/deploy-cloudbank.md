@@ -38,7 +38,7 @@ Download a copy of the CloudBank sample application.
 
     > **Note**: If you do not have **git** installed on your machine, you can download a zip file of the source code from [GitHub](https://github.com/oracle/microservices-datadriven) and unzip it on your machine instead.
 
-    The source code for the CloudBank application will be in the `microservices-datadriven` directory you just created, in the `cloudbank-v2/spring-apps` subdirectory.
+    The source code for the CloudBank application will be in the `microservices-datadriven` directory you just created, in the `cloudbank-v3/spring-apps-spring3` subdirectory.
 
     ```shell
     $ <copy>cd microservices-datadriven/cloudbank-v3/spring-apps-spring3</copy>
@@ -204,7 +204,7 @@ Download a copy of the CloudBank sample application.
         Run this command to deploy your account service, make sure you provide the correct path to your JAR file:
 
         ```shell
-        oractl:> <copy>deploy --app-name application --service-name account --artifact-path /path/to/account-0.0.1-SNAPSHOT.jar --image-version 0.0.1 --liquibase admin</copy>
+        oractl:> <copy>deploy --app-name application --service-name account --artifact-path /path/to/account-0.0.1-SNAPSHOT.jar --image-version 0.0.1 --liquibase-db admin</copy>
         uploading: account/target/account-0.0.1-SNAPSHOT.jar
         building and pushing image...
 
@@ -216,7 +216,7 @@ Download a copy of the CloudBank sample application.
         Re-deploy the accounts service. If you finished lab three, you can re-deploy the Account Service using the following command (notice the *--redeploy* option)
 
         ```shell
-        oractl:> <copy>deploy --redeploy --app-name application --service-name account --artifact-path /path/to/account-0.0.1-SNAPSHOT.jar --image-version 0.0.1 --liquibase admin</copy>
+        oractl:> <copy>deploy --redeploy --app-name application --service-name account --artifact-path /path/to/account-0.0.1-SNAPSHOT.jar --image-version 0.0.1 --liquibase-db admin</copy>
         uploading: account/target/account-0.0.1-SNAPSHOT.jar
         building and pushing image...
 
@@ -258,7 +258,7 @@ Download a copy of the CloudBank sample application.
         You will now deploy your Customer service to the Oracle Backend for Spring Boot and Microservices using `oractl`. You will deploy into the `application` namespace, and the service name will be `customer`. Run this command to deploy your service, make sure you provide the correct path to your JAR file:
 
         ```shell
-        oractl:> <copy>deploy --app-name application --service-name customer --artifact-path /path/to/customer-0.0.1-SNAPSHOT.jar --image-version 0.0.1 --liquibase admin</copy>
+        oractl:> <copy>deploy --app-name application --service-name customer --artifact-path /path/to/customer-0.0.1-SNAPSHOT.jar --image-version 0.0.1 --liquibase-db admin</copy>
         uploading: customer/target/customer-0.0.1-SNAPSHOT.jar
         building and pushing image...
 
@@ -272,7 +272,7 @@ Download a copy of the CloudBank sample application.
         You will now deploy your Creditscore service to the Oracle Backend for Spring Boot and Microservices using `oractl`.  You will deploy into the `application` namespace, and the service name will be `creditscore`. Run this command to deploy your service, make sure you provide the correct path to your JAR file:
 
         ```shell
-        oractl:> <copy>deploy --app-name application --service-name creditscore --artifact-path /path/to/creditscore-0.0.1-SNAPSHOT.jar --image-version 0.0.1 --liquibase admin</copy>
+        oractl:> <copy>deploy --app-name application --service-name creditscore --artifact-path /path/to/creditscore-0.0.1-SNAPSHOT.jar --image-version 0.0.1 --liquibase-db admin</copy>
         uploading: creditscore/target/creditscore-0.0.1-SNAPSHOT.jar
         building and pushing image...
 
@@ -283,7 +283,7 @@ Download a copy of the CloudBank sample application.
 
     1. Deploy/Redeploy the Testrunner Service
 
-        You will now deploy your Testrunner service to the Oracle Backend for Spring Boot and Microservices using `oractl`.  You will deploy into the `application` namespace, and the service name will be `testrunner`. If you finished lab four (Build the Check Processing Microservices) you need to use the *--redeploy* option to the *deploy* command.
+        You will now deploy your Testrunner service to the Oracle Backend for Spring Boot and Microservices using `oractl`. You will deploy into the `application` namespace, and the service name will be `testrunner`. If you finished lab four (Build the Check Processing Microservices) you need to use the *--redeploy* option to the *deploy* command.
 
         Run this command to deploy your testrunner service, make sure you provide the correct path to your JAR file:
 
@@ -311,7 +311,7 @@ Download a copy of the CloudBank sample application.
 
     1. Deploy/Redeploy the Transfer service
 
-        You will now deploy your transfer service to the Oracle Backend for Spring Boot and Microservices using `oractl`. You will deploy into the `application` namespace, and the service name will be `testrunner`. If you finished lab five (Manage Saga Transactions across Microservices) you need to use the *--redeploy* option to the *deploy* command.
+        You will now deploy your transfer service to the Oracle Backend for Spring Boot and Microservices using `oractl`. You will deploy into the `application` namespace, and the service name will be `transfer`. If you finished lab five (Manage Saga Transactions across Microservices) you need to use the *--redeploy* option to the *deploy* command.
 
         Run this command to deploy your transfer service, make sure you provide the correct path to your JAR file:
 
@@ -325,7 +325,7 @@ Download a copy of the CloudBank sample application.
         oractl:>
         ```
 
-        Re-deploy the testrunner service. If you finished lab five, you can re-deploy the Transfer Service using the following command (notice the *--redeploy* option)
+        Re-deploy the transfer service. If you finished lab five, you can re-deploy the Transfer Service using the following command (notice the *--redeploy* option)
 
         ```shell
         oractl:> <copy>deploy --redeploy --app-name application --service-name transfer --artifact-path /path/to/transfer-0.0.1-SNAPSHOT.jar --image-version 0.0.1</copy>

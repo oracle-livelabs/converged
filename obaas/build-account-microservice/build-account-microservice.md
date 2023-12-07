@@ -234,7 +234,7 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
 
   When you are connected, run the following command to load the Wallet you downloaded during the Setup lab. Replace the name and location of the Wallet to match your environment.
 
-    ```sql
+  ```sql
     SQL> <copy>set cloudconfig ~/path/to/wallet/wallet-name.zip</copy>
     ```
 
@@ -340,12 +340,12 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
         <groupId>com.oracle.database.spring</groupId>
         <artifactId>oracle-spring-boot-starter-ucp</artifactId>
         <type>pom</type>
-        <version>3.1.0</version>
+        <version>23.4.0</version>
     </dependency>
         <dependency>
         <groupId>com.oracle.database.spring</groupId>
         <artifactId>oracle-spring-boot-starter-wallet</artifactId>
-        <version>3.1.0</version>
+        <version>23.4.0</version>
         <type>pom</type>
     </dependency></copy>
     ```
@@ -354,7 +354,7 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
 
     ![Updated Project](images/obaas-updated-pom.png " ")
 
-1. Configure JPA datasource
+1. Configure JPA Datasource
 
     To configure Spring Data JPA access to the database, you will add some configuration information to the Spring Boot application properties (or YAML) file. Access to the database you need to unzip the Wallet and get information from those files.
 
