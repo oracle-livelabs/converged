@@ -1,8 +1,8 @@
-# Provision an instance of Oracle Backend for Spring Boot
+# Provision an instance of Oracle Backend for Spring Boot and Microservices
 
 ## Introduction
 
-This lab walks you through the steps to provision an instance of the Oracle Backend for Spring Boot, including Parse Platform in the Oracle Cloud. The Oracle Backend for Parse Platform is available separately, or it can be optionally included when installing the Oracle Backend for Spring Boot by selecting an option during the installation.
+This lab walks you through the steps to provision an instance of the Oracle Backend for Spring Boot and Microservices, including Parse Platform in the Oracle Cloud. The Oracle Backend for Parse Platform is available separately, or it can be optionally included when installing the Oracle Backend for Spring Boot by selecting an option during the installation.
 
 Estimated Time: 30 minutes
 

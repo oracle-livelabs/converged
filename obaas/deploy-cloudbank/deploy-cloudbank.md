@@ -272,7 +272,7 @@ Download a copy of the CloudBank sample application.
         You will now deploy your Creditscore service to the Oracle Backend for Spring Boot and Microservices using `oractl`.  You will deploy into the `application` namespace, and the service name will be `creditscore`. Run this command to deploy your service, make sure you provide the correct path to your JAR file:
 
         ```shell
-        oractl:> <copy>deploy --app-name application --service-name creditscore --artifact-path /path/to/creditscore-0.0.1-SNAPSHOT.jar --image-version 0.0.1 --liquibase-db admin</copy>
+        oractl:> <copy>deploy --app-name application --service-name creditscore --artifact-path /path/to/creditscore-0.0.1-SNAPSHOT.jar --image-version 0.0.1</copy>
         uploading: creditscore/target/creditscore-0.0.1-SNAPSHOT.jar
         building and pushing image...
 
