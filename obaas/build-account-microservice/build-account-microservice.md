@@ -346,14 +346,12 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
     <dependency>
         <groupId>com.oracle.database.spring</groupId>
         <artifactId>oracle-spring-boot-starter-ucp</artifactId>
-        <type>pom</type>
         <version>23.4.0</version>
     </dependency>
         <dependency>
         <groupId>com.oracle.database.spring</groupId>
         <artifactId>oracle-spring-boot-starter-wallet</artifactId>
         <version>23.4.0</version>
-        <type>pom</type>
     </dependency></copy>
     ```
 
