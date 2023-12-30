@@ -55,12 +55,12 @@ Starting with the account service that you built in the previous lab, you will t
     ```java
     <copy>package com.example.accounts.model;
 
-    import javax.persistence.Column;
-    import javax.persistence.Entity;
-    import javax.persistence.GeneratedValue;
-    import javax.persistence.GenerationType;
-    import javax.persistence.Id;
-    import javax.persistence.Table;
+    import jakarta.persistence.Column;
+    import jakarta.persistence.Entity;
+    import jakarta.persistence.GeneratedValue;
+    import jakarta.persistence.GenerationType;
+    import jakarta.persistence.Id;
+    import jakarta.persistence.Table;
 
     import lombok.Data;
     import lombok.NoArgsConstructor;
@@ -205,10 +205,16 @@ Starting with the account service that you built in the previous lab, you will t
    Run the following command to build the JAR file.  Note that you will need to skip tests now, since you updated the `application.yaml` and it no longer points to your local test database instance.
 
     ```shell
-    $ <copy>mvn clean package -Dmaven.test.skip=true</copy>
+    $ <copy>mvn clean package -DskipTests</copy>
     ```
 
    The service is now ready to deploy to the backend.
+
+1. Get the password for the `obaas-admin` user. The `obaas-admin` user is the equivalent of the admin or root user in the Oracle Backend for Spring Boot and Microservices backend.
+
+    ```shell
+    $ <copy>kubectl get secret -n azn-server  oractl-passwords -o jsonpath='{.data.admin}' | base64 -d</copy>
+    ```
 
 1. Prepare the backend for deployment
 
@@ -224,29 +230,34 @@ Starting with the account service that you built in the previous lab, you will t
 
     ```shell
     $ <copy>oractl</copy>
-       _   _           __    _    ___
-      / \ |_)  _.  _. (_    /  |   |
-      \_/ |_) (_| (_| __)   \_ |_ _|_
-      Application Version: 0.3.1
-        :: Spring Boot (v3.0.0) ::
-
+     _   _           __    _    ___
+    / \ |_)  _.  _. (_    /  |   |
+    \_/ |_) (_| (_| __)   \_ |_ _|_
+    ========================================================================================
+      Application Name: Oracle Backend Platform :: Command Line Interface
+      Application Version: (1.1.0)
+      :: Spring Boot (v3.2.0) :: 
+      
+      Ask for help:
+      - Slack: https://oracledevs.slack.com/archives/C03ALDSV272 
+      - email: obaas_ww@oracle.com
 
       oractl:>
     ```
 
-   Connect to the Oracle Backend for Spring Boot admin service using this command.  Hit enter when prompted for a password.  **Note**: Oracle recommends changing the password in a real deployment.
+    Connect to the Oracle Backend for Spring Boot admin service using the `connect` command. Enter `obaas-admin` and the username and use the password you collected earlier.
 
     ```shell
     oractl> <copy>connect</copy>
-    password (defaults to oractl):
-    using default value...
-    connect successful server version:0.3.1
+    username: obaas-admin
+    password: **************
+    obaas-cli: Successful connected.
     oractl:>
     ```
 
 1. Redeploy the account service
 
-  You will now redeploy your account service to the Oracle Backend for Spring Boot using the CLI.  Run this command to redeploy your service, make sure you provide the correct path to your JAR file.  **Note** that this command may take 1-3 minutes to complete:
+    You will now redeploy your account service to the Oracle Backend for Spring Boot using the CLI.  Run this command to redeploy your service, make sure you provide the correct path to your JAR file.  **Note** that this command may take 1-3 minutes to complete:
 
     ```shell
     oractl:> <copy>deploy --app-name application --service-name account --artifact-path /path/to/accounts-0.0.1-SNAPSHOT.jar --image-version 0.0.1 --redeploy true</copy>
@@ -265,7 +276,7 @@ Starting with the account service that you built in the previous lab, you will t
     ingress-nginx-controller   LoadBalancer   10.123.10.127   100.20.30.40  80:30389/TCP,443:30458/TCP   13d
     ```
 
-   Test the create journal entry endpoint (make sure you use an `accountId` that exits in your database) with this command, use the IP address for your API Gateway:
+   Test the create journal entry endpoint (make sure you use an `accountId` that exits in your database) with this command, use the IP address for your API Gateway.
 
     ```shell
     $ <copy>curl -i -X POST \
@@ -278,7 +289,7 @@ Starting with the account service that you built in the previous lab, you will t
     Transfer-Encoding: chunked
     Connection: keep-alive
 
-    {"journalId":21,"journalType":"PENDING","accountId":2,"lraId":"0","lraState":"","journalAmount":100}
+    {"journalId":1,"journalType":"PENDING","accountId":2,"lraId":"0","lraState":"","journalAmount":100}
     ```
 
    Notice that the response contains a `journalId` which you will need in a later command, and that the `journalType` is `PENDING`.
@@ -292,8 +303,7 @@ Starting with the account service that you built in the previous lab, you will t
     Content-Type: application/json
     Transfer-Encoding: chunked
     Connection: keep-alive
-
-    [{"journalId":3,"journalType":"PENDING","accountId":2,"lraId":"0","lraState":null,"journalAmount":100},{"journalId":4,"journalType":"DEPOSIT","accountId":2,"lraId":"0","lraState":null,"journalAmount":100},{"journalId":5,"journalType":"PENDING","accountId":2,"lraId":"0","lraState":null,"journalAmount":222},{"journalId":21,"journalType":"PENDING","accountId":2,"lraId":"0","lraState":null,"journalAmount":100},{"journalId":2,"journalType":"DEPOSIT","accountId":2,"lraId":"0","lraState":null,"journalAmount":100}]
+    [{"journalId":1,"journalType":"PENDING","accountId":2,"lraId":"0","lraState":null,"journalAmount":100}]
     ```
 
    Test the update/clear journal entry endpoint with this command, use the IP address for your API Gateway and the `journalId` from the first command's response:
@@ -306,7 +316,7 @@ Starting with the account service that you built in the previous lab, you will t
     Transfer-Encoding: chunked
     Connection: keep-alive
 
-    {"journalId":2,"journalType":"DEPOSIT","accountId":2,"lraId":"0","lraState":null,"journalAmount":100}
+    {"journalId":1,"journalType":"DEPOSIT","accountId":2,"lraId":"0","lraState":null,"journalAmount":100}
     ```
 
    That completes the updates for the Account service.
@@ -360,7 +370,13 @@ Next, you will create the "Test Runner" microservice which you will use to simul
 
 1. Create the Test Runner Spring Boot project
 
-   Create a new directory called `testrunner` alongside your `account` directory. This new directory will hold the new Test Runner Spring Boot project.  In this directory create a file called `pom.xml` with the following content. This will be the Maven POM for this project. It is very similar to the POM for the account service, however the dependencies are slightly different. This service will use the "Web" Spring Boot Starter which will allow it to expose REST endpoints and make REST calls to other services. It also uses the two Oracle Spring Boot Starters for UCP and Wallet to access the database:
+   Create a new directory called `testrunner` alongside your `account` directory. This new directory will hold the new Test Runner Spring Boot project.  
+
+   Open Visual Studio code and make suer you can see both directories in the Explorer section:
+
+  ![VS Code Explorer](images/testrunner_explorer.png " ")
+
+   In this directory create a file called `pom.xml` with the following content. This will be the Maven POM for this project. It is very similar to the POM for the account service, however the dependencies are slightly different. This service will use the "Web" Spring Boot Starter which will allow it to expose REST endpoints and make REST calls to other services. It also uses the two Oracle Spring Boot Starters for UCP and Wallet to access the database:
 
     ```xml
     <copy><?xml version="1.0" encoding="UTF-8"?>
@@ -370,7 +386,7 @@ Next, you will create the "Test Runner" microservice which you will use to simul
         <parent>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-parent</artifactId>
-            <version>2.7.12</version>
+            <version>3.2.1</version>
             <relativePath/> <!-- lookup parent from repository -->
         </parent>
 
@@ -411,6 +427,14 @@ Next, you will create the "Test Runner" microservice which you will use to simul
                 <plugin>
                     <groupId>org.springframework.boot</groupId>
                     <artifactId>spring-boot-maven-plugin</artifactId>
+                    <configuration>
+                      <excludes>
+                        <exclude>
+                          <groupId>org.projectlombok</groupId>
+                          <artifactId>lombok</artifactId>
+                        </exclude>
+                      </excludes>
+                  </configuration>
                 </plugin>
             </plugins>
         </build>
@@ -420,28 +444,28 @@ Next, you will create the "Test Runner" microservice which you will use to simul
 
 1. Create the Spring Boot application YAML file
 
-   In the `testrunner` directory, create a new directory called `src/main/resources` and in that directory, create a file called `application.yaml` with the following content:
+    In the `testrunner` directory, create a new directory called `src/main/resources` and in that directory, create a file called `application.yaml` with the following content:
 
     ```yaml
     <copy>spring:
       application:
         name: testrunner
 
-    oracle:
-      aq:
+      datasource:
         url: ${spring.datasource.url}
         username: ${spring.datasource.username}
-        password: ${spring.datasource.password}</copy>
+        password: ${spring.datasource.password}
     ```
 
-   This is the Spring Boot application YAML file, which contains the configuration information for this service.  In this case, you only need to provide the application name and the connection details for the database hosting the queues.  **Note**: the connection details are the same as those you used for JPA in the previous lab, but there are provided under a different name (`oracle.aq`) in this case.
+    This is the Spring Boot application YAML file, which contains the configuration information for this service.  In this case, you only need to provide the application name and the connection details for the database hosting the queues.
 
 1. Create the main Spring Application class
 
-   In the `testrunner` directory, create a new directory called `src/main/java/com/example/testrunner` and in that directory, create a new Java file called `TestrunnerApplication.java` with this content.  This is a standard Spring Boot main class, notice the `SpringBootApplication` annotation on the class.  It also has the `EnableJms` annotation which tells Spring Boot to enable JMS functionality in this application.  The `main` method is a normal Spring Boot main method:
+    In the `testrunner` directory, create a new directory called `src/main/java/com/example/testrunner` and in that directory, create a new Java file called `TestrunnerApplication.java` with this content.  This is a standard Spring Boot main class, notice the `SpringBootApplication` annotation on the class.  It also has the `EnableJms` annotation which tells Spring Boot to enable JMS functionality in this application.  The `main` method is a normal Spring Boot main method:
 
     ```java
-    <copy>package com.example.testrunner;
+    <copy>
+    package com.example.testrunner;
 
     import javax.jms.ConnectionFactory;
 
@@ -461,7 +485,7 @@ Next, you will create the "Test Runner" microservice which you will use to simul
         public static void main(String[] args) {
             SpringApplication.run(TestrunnerApplication.class, args);
         }
-    
+
         // Serialize message content to json using TextMessage
         @Bean 
         public MessageConverter jacksonJmsMessageConverter() {
@@ -479,18 +503,19 @@ Next, you will create the "Test Runner" microservice which you will use to simul
             return jmsTemplate;
         }
 
-    }</copy>
+    }
+    </copy>
     ```
 
-   In addition to the standard parts of a Spring Boot application class, you will add two beans that will be needed in this service.  First, you need a `MessageConverter` bean so that you can convert a Java object (POJO) into JSON format, and vice versa. This bean will be used to serialize and deserialize the objects you need to write onto the queues.
+    In addition to the standard parts of a Spring Boot application class, you will add two beans that will be needed in this service.  First, you need a `MessageConverter` bean so that you can convert a Java object (POJO) into JSON format, and vice versa. This bean will be used to serialize and deserialize the objects you need to write onto the queues.
 
-   The second bean you need is a `JmsTemplate`. This is a standard Spring JMS bean that is used to access JMS functionality.  You will use this bean to enqueue messages. Notice that this bean is configured to use the `MessageConverter` bean and that the JMS `ConnectionFactory` is injected. The Oracle Spring Boot Starter for AQ/JMS will create the JMS `ConnectionFactory` for you.
+    The second bean you need is a `JmsTemplate`. This is a standard Spring JMS bean that is used to access JMS functionality.  You will use this bean to enqueue messages. Notice that this bean is configured to use the `MessageConverter` bean and that the JMS `ConnectionFactory` is injected. The Oracle Spring Boot Starter for AQ/JMS will create the JMS `ConnectionFactory` for you.
 
-   **Note**: The Oracle Spring Boot Starter for AQ/JMS will also inject a JDBC `Connection` bean which shares the same database transaction with the JMS `ConnectionFactory`. This is not needed in this lab.  The shared transaction enables you to write methods which can perform both JMS and JPA operations in an atomic transaction, which can be very helpful in some use cases and can dramatically reduce the amount of code needed to handle situations like duplicate message delivery or lost messages.
+    **Note**: The Oracle Spring Boot Starter for AQ/JMS will also inject a JDBC `Connection` bean which shares the same database transaction with the JMS `ConnectionFactory`. This is not needed in this lab.  The shared transaction enables you to write methods which can perform both JMS and JPA operations in an atomic transaction, which can be very helpful in some use cases and can dramatically reduce the amount of code needed to handle situations like duplicate message delivery or lost messages.
 
 1. Create the model classes
 
-   Create a new directory called `src/main/java/com/example/testrunner/model` and in this directory create two Java files. First, `CheckDeposit.java` with this content. This class will be used to simulate the ATM sending the "deposit" notification:
+    Create a new directory called `src/main/java/com/example/testrunner/model` and in this directory create two Java files. First, `CheckDeposit.java` with this content. This class will be used to simulate the ATM sending the "deposit" notification:
 
     ```java
     <copy>package com.example.testrunner.model;
@@ -571,48 +596,59 @@ Next, you will create the "Test Runner" microservice which you will use to simul
    Run the following command to build the JAR file.
 
     ```shell
-    $ <copy>mvn clean package -Dmaven.test.skip=true</copy>
+    $ <copy>mvn clean package -DskipTests</copy>
     ```
 
    The service is now ready to deploy to the backend.
 
 1. Prepare the backend for deployment
 
-   The Oracle Backend for Spring Boot admin service is not exposed outside of the Kubernetes cluster by default. Oracle recommends using a **kubectl** port forwarding tunnel to establish a secure connection to the admin service.
+    The Oracle Backend for Spring Boot admin service is not exposed outside of the Kubernetes cluster by default. Oracle recommends using a **kubectl** port forwarding tunnel to establish a secure connection to the admin service.
 
-   Start a tunnel using this command:
+    Start a tunnel using this command in a new terminal window:
 
     ```shell
-    $ <copy>kubectl -n obaas-admin port-forward svc/obaas-admin 8080:8080</copy>
+    $ <copy>kubectl -n obaas-admin port-forward svc/obaas-admin 8080</copy>
     ```
 
-   Start the Oracle Backend for Spring Boot CLI using this command:
+    Get the password for the `obaas-admin` user. The `obaas-admin` user is the equivalent of the admin or root user in the Oracle Backend for Spring Boot and Microservices backend.
+
+    ```shell
+    $ <copy>kubectl get secret -n azn-server  oractl-passwords -o jsonpath='{.data.admin}' | base64 -d</copy>
+    ```
+
+    Start the Oracle Backend for Spring Boot CLI in a new terminal window using this command:
 
     ```shell
     $ <copy>oractl</copy>
-       _   _           __    _    ___
-      / \ |_)  _.  _. (_    /  |   |
-      \_/ |_) (_| (_| __)   \_ |_ _|_
-      Application Version: 0.3.1
-        :: Spring Boot (v3.0.0) ::
+     _   _           __    _    ___
+    / \ |_)  _.  _. (_    /  |   |
+    \_/ |_) (_| (_| __)   \_ |_ _|_
+    ========================================================================================
+      Application Name: Oracle Backend Platform :: Command Line Interface
+      Application Version: (1.1.0)
+      :: Spring Boot (v3.2.0) ::
 
+      Ask for help:
+      - Slack: https://oracledevs.slack.com/archives/C03ALDSV272
+      - email: obaas_ww@oracle.com
 
-      oractl:>
+    oractl:>
     ```
 
-   Connect to the Oracle Backend for Spring Boot admin service using this command. Hit enter when prompted for a password. **Note**: Oracle recommends changing the password in a real deployment.
+    Connect to the Oracle Backend for Spring Boot admin service using the `connect` command. Enter `obaas-admin` and the username and use the password you collected earlier.
 
     ```shell
     oractl> <copy>connect</copy>
-    password (defaults to oractl):
-    using default value...
-    connect successful server version:0.3.1
+    username: obaas-admin
+    password: **************
+    obaas-cli: Successful connected.
     oractl:>
     ```
 
 1. Create a binding for the Test Runner service
 
-   Create a binding so the Test Runner service can access the Oracle Autonomous Database as the `account` user. Run this command to create the binding, and type in the password for the `account` user when prompted. The password is `Welcome1234##`:
+    Create a binding so the Test Runner service can access the Oracle Autonomous Database as the `account` user. Run this command to create the binding, and type in the password for the `account` user when prompted. The password is `Welcome1234##`:
 
     ```shell
     oractl:> <copy>bind --app-name application --service-name testrunner --username account</copy>
@@ -620,7 +656,7 @@ Next, you will create the "Test Runner" microservice which you will use to simul
 
 1. Deploy the Test Runner service
 
-  You will now deploy your Test Runner service to the Oracle Backend for Spring Boot using the CLI. Run this command to deploy your service, make sure you provide the correct path to your JAR file. **Note** that this command may take 1-3 minutes to complete:
+    You will now deploy your Test Runner service to the Oracle Backend for Spring Boot using the CLI. Run this command to deploy your service, make sure you provide the correct path to your JAR file. **Note** that this command may take 1-3 minutes to complete:
 
     ```shell
     oractl:> <copy>deploy --app-name application --service-name testrunner --artifact-path /path/to/testrunner-0.0.1-SNAPSHOT.jar --image-version 0.0.1</copy>
@@ -629,7 +665,7 @@ Next, you will create the "Test Runner" microservice which you will use to simul
     oractl:>
     ```
 
-   You can close the port forwarding session for the CLI now (just type a Ctrl+C in its console window).
+    You can close the port forwarding session for the CLI now (just type a Ctrl+C in its console window).
 
 1. Check that the `testrunner` service is running
 
@@ -715,69 +751,87 @@ Next, you will create the "Check Processing" microservice which you will receive
 
     ```xml
     <copy><?xml version="1.0" encoding="UTF-8"?>
-    <project xmlns="http://maven.apache.org/POM/4.0.0"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
-        <modelVersion>4.0.0</modelVersion>
-        <parent>
+    <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+      <modelVersion>4.0.0</modelVersion>
+      <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.2.1</version>
+        <relativePath/> <!-- lookup parent from repository -->
+      </parent>
+      <groupId>com.example</groupId>
+      <artifactId>checks</artifactId>
+      <version>0.0.1-SNAPSHOT</version>
+      <name>checks</name>
+      <description>Demo project for Spring Boot</description>
+      <properties>
+        <java.version>17</java.version>
+        <spring-cloud.version>2023.0.0</spring-cloud.version>
+      </properties>
+      <dependencies>
+        <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-parent</artifactId>
-            <version>2.7.12</version>
-            <relativePath /> <!-- lookup parent from repository -->
-        </parent>
-
-        <groupId>com.example</groupId>
-        <artifactId>checks</artifactId>
-        <version>0.0.1-SNAPSHOT</version>
-        <name>checks</name>
-        <description>Check Processing Application</description>
-
-        <properties>
-            <java.version>17</java.version>
-        </properties>
-
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+      <dependency>
+        <groupId>org.springframework.cloud</groupId>
+        <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework.cloud</groupId>
+        <artifactId>spring-cloud-starter-openfeign</artifactId>
+      </dependency>
+      <dependency>
+        <groupId>com.oracle.database.spring</groupId>
+        <artifactId>oracle-spring-boot-starter-aqjms</artifactId>
+        <version>23.4.0</version>
+      </dependency>
+      <dependency>
+        <groupId>com.oracle.database.spring</groupId>
+        <artifactId>oracle-spring-boot-starter-wallet</artifactId>
+        <type>pom</type>
+        <version>23.4.0</version>
+      </dependency>
+      <dependency>
+        <groupId>org.projectlombok</groupId>
+        <artifactId>lombok</artifactId>
+        <optional>true</optional>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-test</artifactId>
+        <scope>test</scope>
+      </dependency>
+      </dependencies>
+      <dependencyManagement>
         <dependencies>
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-starter-web</artifactId>
-            </dependency>
-            <dependency>
-                <groupId>com.oracle.database.spring</groupId>
-                <artifactId>oracle-spring-boot-starter-aqjms</artifactId>
-                <version>2.7.7</version>
-            </dependency>
-            <dependency>
-                <groupId>com.oracle.database.spring</groupId>
-                <artifactId>oracle-spring-boot-starter-wallet</artifactId>
-                <type>pom</type>
-                <version>2.7.7</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.springframework.cloud</groupId>
-                <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
-                <version>3.1.6</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework.cloud</groupId>
-                <artifactId>spring-cloud-starter-openfeign</artifactId>
-                <version>3.1.6</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.projectlombok</groupId>
-                <artifactId>lombok</artifactId>
-            </dependency>
+          <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-dependencies</artifactId>
+            <version>${spring-cloud.version}</version>
+            <type>pom</type>
+            <scope>import</scope>
+          </dependency>
         </dependencies>
+      </dependencyManagement>
 
-        <build>
-            <plugins>
-                <plugin>
-                    <groupId>org.springframework.boot</groupId>
-                    <artifactId>spring-boot-maven-plugin</artifactId>
-                </plugin>
-            </plugins>
-        </build>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-maven-plugin</artifactId>
+            <configuration>
+              <excludes>
+                <exclude>
+                  <groupId>org.projectlombok</groupId>
+                  <artifactId>lombok</artifactId>
+                </exclude>
+              </excludes>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
 
     </project></copy>
     ```
@@ -791,14 +845,24 @@ Next, you will create the "Check Processing" microservice which you will receive
       application:
         name: checks
 
-    oracle:
-      aq:
+      datasource:
         url: ${spring.datasource.url}
         username: ${spring.datasource.username}
-        password: ${spring.datasource.password}</copy>
+        password: ${spring.datasource.password}
+
+    eureka:
+      instance:
+        hostname: ${spring.application.name}
+        preferIpAddress: true
+      client:
+        service-url:
+          defaultZone: ${eureka.service-url}
+        fetch-registry: true
+        register-with-eureka: true
+        enabled: true</copy>
     ```
 
-   This is the Spring Boot application YAML file, which contains the configuration information for this service.  In this case, you only need to provide the application name and the connection details for the database hosting the queues. **Note**: the connection details are the same as those you used for JPA in the previous lab, but there are provided under a different name (`oracle.aq`) in this case.
+   This is the Spring Boot application YAML file, which contains the configuration information for this service.  In this case, you need to provide the application name and the connection details for the database hosting the queues and the information for the Eureka server as the checks application will use a Feign client.
 
 1. Create the main Spring Application class
 
@@ -807,7 +871,7 @@ Next, you will create the "Check Processing" microservice which you will receive
     ```java
     <copy>package com.example.checks;
 
-    import javax.jms.ConnectionFactory;
+    import jakarta.jms.ConnectionFactory;
 
     import org.springframework.boot.SpringApplication;
     import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -1024,6 +1088,9 @@ Next, you will create the "Check Processing" microservice which you will receive
     import com.example.checks.service.AccountService;
     import com.example.testrunner.model.CheckDeposit;
 
+    import lombok.extern.slf4j.Slf4j;
+
+    @Slf4j
     @Component
     public class CheckReceiver {
 
@@ -1035,7 +1102,7 @@ Next, you will create the "Check Processing" microservice which you will receive
 
         @JmsListener(destination = "deposits", containerFactory = "factory")
         public void receiveMessage(CheckDeposit deposit) {
-            System.out.println("Received deposit <" + deposit + ">");
+            log.info("Received deposit <" + deposit + ">");
             accountService.journal(new Journal("PENDING", deposit.getAccountId(), deposit.getAmount()));
         }
 
@@ -1055,6 +1122,9 @@ Next, you will create the "Check Processing" microservice which you will receive
     import com.example.checks.service.AccountService;
     import com.example.testrunner.model.Clearance;
 
+    import lombok.extern.slf4j.Slf4j;
+
+    @Slf4j
     @Component
     public class ClearanceReceiver {
 
@@ -1066,7 +1136,7 @@ Next, you will create the "Check Processing" microservice which you will receive
 
         @JmsListener(destination = "clearances", containerFactory = "factory")
         public void receiveMessage(Clearance clearance) {
-            System.out.println("Received clearance <" + clearance + ">");
+            log.info("Received clearance <" + clearance + ">");
             accountService.clear(clearance);
         }
 
@@ -1080,65 +1150,76 @@ Next, you will create the "Check Processing" microservice which you will receive
    Run the following command to build the JAR file.
 
     ```shell
-    $ <copy>mvn clean package -Dmaven.test.skip=true</copy>
+    $ <copy>mvn clean package -DskipTests</copy>
     ```
 
    The service is now ready to deploy to the backend.
 
 1. Prepare the backend for deployment
 
-   The Oracle Backend for Spring Boot admin service is not exposed outside of the Kubernetes cluster by default. Oracle recommends using a **kubectl** port forwarding tunnel to establish a secure connection to the admin service.
+    The Oracle Backend for Spring Boot admin service is not exposed outside of the Kubernetes cluster by default. Oracle recommends using a **kubectl** port forwarding tunnel to establish a secure connection to the admin service.
 
-   Start a tunnel using this command:
+    Start a tunnel using this command in a new terminal window:
 
     ```shell
-    $ <copy>kubectl -n obaas-admin port-forward svc/obaas-admin 8080:8080</copy>
+    $ <copy>kubectl -n obaas-admin port-forward svc/obaas-admin 8080</copy>
     ```
 
-   Start the Oracle Backend for Spring Boot CLI using this command:
+    Get the password for the `obaas-admin` user. The `obaas-admin` user is the equivalent of the admin or root user in the Oracle Backend for Spring Boot and Microservices backend.
+
+    ```shell
+    $ <copy>kubectl get secret -n azn-server  oractl-passwords -o jsonpath='{.data.admin}' | base64 -d</copy>
+    ```
+
+    Start the Oracle Backend for Spring Boot CLI in a new terminal window using this command:
 
     ```shell
     $ <copy>oractl</copy>
-       _   _           __    _    ___
-      / \ |_)  _.  _. (_    /  |   |
-      \_/ |_) (_| (_| __)   \_ |_ _|_
-      Application Version: 0.3.1
-        :: Spring Boot (v3.0.0) ::
+     _   _           __    _    ___
+    / \ |_)  _.  _. (_    /  |   |
+    \_/ |_) (_| (_| __)   \_ |_ _|_
+    ========================================================================================
+      Application Name: Oracle Backend Platform :: Command Line Interface
+      Application Version: (1.1.0)
+      :: Spring Boot (v3.2.0) ::
 
+      Ask for help:
+      - Slack: https://oracledevs.slack.com/archives/C03ALDSV272
+      - email: obaas_ww@oracle.com
 
-      oractl:>
-    ```
-
-   Connect to the Oracle Backend for Spring Boot admin service using this command.  Hit enter when prompted for a password.  **Note**: Oracle recommends changing the password in a real deployment.
-
-    ```shell
-    oractl> <copy>connect</copy>
-    password (defaults to oractl):
-    using default value...
-    connect successful server version:0.3.1
     oractl:>
     ```
 
-1. Create a binding for the Test Runner service
+    Connect to the Oracle Backend for Spring Boot admin service using the `connect` command. Enter `obaas-admin` and the username and use the password you collected earlier.
 
-   Create a binding so the Test Runner service can access the Oracle Autonomous Database as the `account` user. Run this command to create the binding, and type in the password for the `account` user when prompted. The password is `Welcome1234##`:
+    ```shell
+    oractl> <copy>connect</copy>
+    username: obaas-admin
+    password: **************
+    obaas-cli: Successful connected.
+    oractl:>
+    ```
+
+1. Create a binding for the Check service
+
+    Create a binding so the Check service can access the Oracle Autonomous Database as the `account` user. Run this command to create the binding, and type in the password for the `account` user when prompted. The password is `Welcome1234##`:
 
     ```shell
     oractl:> <copy>bind --app-name application --service-name checks --username account</copy>
     ```
 
-1. Deploy the Test Runner service
+1. Deploy the Check service
 
-  You will now deploy your Test Runner service to the Oracle Backend for Spring Boot using the CLI.  Run this command to deploy your service, make sure you provide the correct path to your JAR file.  **Note** that this command may take 1-3 minutes to complete:
+    You will now deploy your Check service to the Oracle Backend for Spring Boot using the CLI. Run this command to deploy your service, make sure you provide the correct path to your JAR file. **Note** that this command may take 1-3 minutes to complete:
 
     ```shell
     oractl:> <copy>deploy --app-name application --service-name checks --artifact-path /path/to/checks-0.0.1-SNAPSHOT.jar --image-version 0.0.1</copy>
-    uploading: checks/target/checks-0.0.1-SNAPSHOT.jarbuilding and pushing image...
+    uploading: testrunner/target/testrunner-0.0.1-SNAPSHOT.jarbuilding and pushing image...
     creating deployment and service... successfully deployed
     oractl:>
     ```
 
-   You can close the port forwarding session for the CLI now (just type a Ctrl+C in its console window).
+    You can close the port forwarding session for the CLI now (just type a Ctrl+C in its console window).
 
 1. Testing the service
 
@@ -1269,4 +1350,4 @@ Now you can test the full end-to-end flow for the Check Processing scenario.
 
 * **Author** - Mark Nelson, Developer Evangelist, Oracle Database
 * **Contributors** - [](var:contributors)
-* **Last Updated By/Date** - Andy Tael, August 2023
+* **Last Updated By/Date** - Andy Tael, December 2023

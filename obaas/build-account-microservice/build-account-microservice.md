@@ -984,12 +984,6 @@ If you would like to learn more about endpoints and implement the remainder of t
 
     The service is now ready to deploy to the backend.
 
-1. Get the password for the `obaas-admin` user. The `obaas-admin` user is the equivalent of the admin or root user in the Oracle Backend for Spring Boot and Microservices backend.
-
-    ```shell
-    $ <copy>kubectl get secret -n azn-server  oractl-passwords -o jsonpath='{.data.admin}' | base64 -d</copy>
-    ```
-
 1. Prepare the backend for deployment
 
     The Oracle Backend for Spring Boot admin service is not exposed outside of the Kubernetes cluster by default. Oracle recommends using a **kubectl** port forwarding tunnel to establish a secure connection to the admin service.
@@ -998,6 +992,12 @@ If you would like to learn more about endpoints and implement the remainder of t
 
     ```shell
     $ <copy>kubectl -n obaas-admin port-forward svc/obaas-admin 8080</copy>
+    ```
+
+    Get the password for the `obaas-admin` user. The `obaas-admin` user is the equivalent of the admin or root user in the Oracle Backend for Spring Boot and Microservices backend.
+
+    ```shell
+    $ <copy>kubectl get secret -n azn-server  oractl-passwords -o jsonpath='{.data.admin}' | base64 -d</copy>
     ```
 
     Start the Oracle Backend for Spring Boot CLI in a new terminal window using this command:
@@ -1104,7 +1104,7 @@ Now that the account service is deployed, you need to expose it through the API 
 
     ***TODO - FIX THE COMMAND***
     ```shell
-    $ <copy>kubectl get secret -n apisix-dashboard -n apisix -o jsonpath='{.data.conf\.yaml}' | base64 -d</copy>
+    $ <copy>kubectl get secret -n apisix apisix-dashboard -o jsonpath='{.data.conf\.yaml}' | base64 -d | grep 'password:'</copy>
     ```
 
 1. Access the APISIX Dashboard
