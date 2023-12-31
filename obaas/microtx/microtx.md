@@ -75,8 +75,6 @@ You will create the **Transfer service** in the diagram above, and the participa
 
 You will implement the LRA using the Eclipse Microprofile LRA library which provides an annotation-based approach to managing the LRA, which is very familiar for Spring Boot developers.  
 
-~~ **Note**: The current version of the library (at the time of the Level Up 2023 event) uses JAX-RS, not Spring Boot's REST annotations provided by `spring-boot-starter-web`, so until a version of the library with better support for Spring is available, we will need to do a little extra work to use JAX-RS.~~
-
 The main annotations used in an LRA application are as follows:
 
 * `@LRA` - Controls the life cycle of an LRA.
@@ -118,113 +116,23 @@ You will update the Account service that you built in the previous lab to add so
       </copy>
       ```
 
-   ~~You will use JAX-RS because the current versions of the LRA libraries require it, as noted earlier.~~
-
-1. ~~Update the service discovery for the Account application~~
-
-   ~~The updated Account application with JAX-RS will not coexist with the Eureka client, so you need to remove it.  You are using a version of the LRA client library that only works with JAX-RS, which imposes some limitations.  When a new version of the library with Spring REST support is available, these limitations will be removed.~~
-
-   ~~To remove the Eureka client from the Account application:~~
-
-    ~~* Update the `pom.xml` to remove the dependency for `spring-cloud-starter-netflix-eureka-client`.~~
-    ~~* Remove the `@EnableDiscoveryClient` annotation on the `AccountsApplication` class.~~
-    ~~* Remove the `eureka` configuration from `src/main/resources/application.yaml`.~~
-
-   ~~In Task #9 in this Lab you will also need to update the APISIX route to use Kubernetes service discovery instead of Eureka.~~
-
 1. Update the Spring Boot application configuration file
 
-  Update your Account service's Spring Boot configuration file, `application.yaml` in `src/main/resources`.  You need to add the `jersey` section under `spring`, and also add a new `lra` section with the URL for the LRA coordinator.  The URL shown here is for the Oracle Transaction Manager for Microservices that was installed as part of the Oracle Backend for Spring Boot.  **Note**: This URL is from the point of view of a service running it the same Kubernetes cluster.  
+  Update your Account service's Spring Boot configuration file, `application.yaml` in `src/main/resources`. Add a new `lra` section with the URL for the LRA coordinator. The URL shown here is for the Oracle Transaction Manager for Microservices that was installed as part of the Oracle Backend for Spring Boot.  **Note**: This URL is from the point of view of a service running it the same Kubernetes cluster.  
 
     ```yaml
     <copy>
-    spring:
-      application:
-        name: accounts
-      ~~jersey:~~
-        ~~type: filter~~
-    lra:
-      coordinator:
-        url: http://otmm-tcs.otmm.svc.cluster.local:9000/api/v1/lra-coordinator
+      microtx:
+        lra:
+          coordinator-url: ${MP_LRA_COORDINATOR_URL}
+          propagation-active: true
+          headers-propagation-prefix: "{x-b3-, oracle-tmm-, authorization, refresh-}"   
     </copy>
     ```  
 
-1. ~~Create the Jersey configuration~~
-
-  ~~Create a new Java file called `JerseyConfig.java` in `src/main/java/com/examples/accounts`.  In this file, you need to register the URL handlers and LRA filters, which will process the LRA annotations, create a binding, and configure the filters to forward on a 404 (Not Found).  Note that you have not created the Deposit or Withdraw services yet, so you may see an error to that effect in your IDE.  Don't worry, you will create them soon!  Here is the code to perform this configuration~~
-
-    ```java
-    <copy>
-    package com.example.accounts;
-     
-    import javax.ws.rs.ApplicationPath;
-
-    import org.glassfish.hk2.utilities.binding.AbstractBinder;
-    import org.glassfish.jersey.server.ResourceConfig;
-    import org.glassfish.jersey.servlet.ServletProperties;
-    import org.springframework.stereotype.Component;
-
-    import com.example.accounts.services.DepositService;
-    import com.example.accounts.services.WithdrawService;
-
-    import io.narayana.lra.client.internal.proxy.nonjaxrs.LRAParticipantRegistry;
-    
-    @Component
-    @ApplicationPath("/")
-    public class JerseyConfig extends ResourceConfig {
-    
-        public JerseyConfig()  {
-            register(DepositService.class);
-            register(WithdrawService.class);
-            register(io.narayana.lra.filter.ServerLRAFilter.class);
-            register(new AbstractBinder(){
-                @Override
-                protected void configure() {
-                    bind(LRAParticipantRegistry.class)
-                        .to(LRAParticipantRegistry.class);
-                }
-            });
-            property(ServletProperties.FILTER_FORWARD_ON_404, true);
-        }
-    }
-    </copy>
-    ```
-
-1. ~~Create the Application Configuration class~~
-
-  ~~Create a new Java file called `ApplicationConfig.java` in `src/main/java/com/example/account`.  The ApplicationConfig class reads configuration from `application.yaml` and injects the LRA client bean into the application.  Here is the code for this class:~~
-
-    ```java
-    <copy>package com.example.accounts;
-
-    import java.net.URISyntaxException;
-    import java.util.logging.Logger;
-
-    import org.springframework.beans.factory.annotation.Value;
-    import org.springframework.context.annotation.Bean;
-    import org.springframework.context.annotation.Configuration;
-
-    import io.narayana.lra.client.NarayanaLRAClient;
-
-    @Configuration
-    public class ApplicationConfig {
-        private static final Logger log = Logger.getLogger(ApplicationConfig.class.getName());
-
-        public ApplicationConfig(@Value("${lra.coordinator.url}") String lraCoordinatorUrl) {
-            log.info(NarayanaLRAClient.LRA_COORDINATOR_URL_KEY + " = " + lraCoordinatorUrl);
-            System.getProperties().setProperty(NarayanaLRAClient.LRA_COORDINATOR_URL_KEY, lraCoordinatorUrl);
-        }
-
-        @Bean
-        public NarayanaLRAClient NarayanaLRAClient() throws URISyntaxException {
-            return new NarayanaLRAClient();
-        }
-    }</copy>
-    ```
-
 1. Check the Journal repository and model
 
-  If you finished lab 3 (Build the Account Service) the file called `Journal.java` in `src/main/com/example/accounts/model` to define the model for the journal table is already created. There are no new concepts in this class, so here is the code:
+  Create a new Java file called Journal.java in src/main/com/example/accounts/model to define the model for the journal table. There are no new concepts in this class, so here is the code:
 
     ```java
     <copy>package com.example.accounts.model;
@@ -646,7 +554,8 @@ The Data Access Object pattern is considered a best practice and it allows separ
   Back in the `AccountTransferDAO`, create a method to get the journal entry for a given LRA.
 
     ```java
-    <copy>    Journal getJournalForLRAid(String lraId, String journalType) throws Exception {
+    <copy>
+    Journal getJournalForLRAid(String lraId, String journalType) throws Exception {
         Journal journal = journalRepository.findJournalByLraIdAndJournalType(lraId, journalType);
         if (journal == null) {
             journalRepository.save(new Journal("unknown", -1, 0, lraId,
@@ -820,58 +729,50 @@ Next, you need to implement the withdraw service, which will be the second parti
 
 1. Implement the withdraw service
 
-  Create a new Java file called `WithdrawService.java` in `src/main/java/com/example/accounts/services`.  This service is very similar to the deposit service, and no new concepts are introduced here.  Here is the code for this service:
+  Create a new Java file called `WithdrawService.java` in `src/main/java/com/example/accounts/services`. This service is very similar to the deposit service, and no new concepts are introduced here. Here is the code for this service:
 
     ```java
-    <copy>package com.example.accounts.services;
-
-    import static org.eclipse.microprofile.lra.annotation.ws.rs.LRA.LRA_HTTP_CONTEXT_HEADER;
-    import static org.eclipse.microprofile.lra.annotation.ws.rs.LRA.LRA_HTTP_ENDED_CONTEXT_HEADER;
-    import static org.eclipse.microprofile.lra.annotation.ws.rs.LRA.LRA_HTTP_PARENT_CONTEXT_HEADER;
-
-    import java.util.logging.Logger;
-
-    import javax.enterprise.context.RequestScoped;
-    import javax.ws.rs.Consumes;
-    import javax.ws.rs.GET;
-    import javax.ws.rs.HeaderParam;
-    import javax.ws.rs.POST;
-    import javax.ws.rs.PUT;
-    import javax.ws.rs.Path;
-    import javax.ws.rs.Produces;
-    import javax.ws.rs.QueryParam;
-    import javax.ws.rs.core.MediaType;
-    import javax.ws.rs.core.Response;
-
-    import org.eclipse.microprofile.lra.annotation.AfterLRA;
-    import org.eclipse.microprofile.lra.annotation.Compensate;
-    import org.eclipse.microprofile.lra.annotation.Complete;
-    import org.eclipse.microprofile.lra.annotation.ParticipantStatus;
-    import org.eclipse.microprofile.lra.annotation.Status;
-    import org.eclipse.microprofile.lra.annotation.ws.rs.LRA;
-    import org.springframework.stereotype.Component;
+    <copy>
+    package com.example.accounts.services;
 
     import com.example.accounts.model.Account;
     import com.example.accounts.model.Journal;
+    import com.oracle.microtx.springboot.lra.annotation.AfterLRA;
+    import com.oracle.microtx.springboot.lra.annotation.Compensate;
+    import com.oracle.microtx.springboot.lra.annotation.Complete;
+    import com.oracle.microtx.springboot.lra.annotation.LRA;
+    import com.oracle.microtx.springboot.lra.annotation.ParticipantStatus;
+    import com.oracle.microtx.springboot.lra.annotation.Status;
+    import lombok.extern.slf4j.Slf4j;
+    import org.springframework.http.ResponseEntity;
+    import org.springframework.web.bind.annotation.PostMapping;
+    import org.springframework.web.bind.annotation.PutMapping;
+    import org.springframework.web.bind.annotation.RequestHeader;
+    import org.springframework.web.bind.annotation.RequestMapping;
+    import org.springframework.web.bind.annotation.RequestParam;
+    import org.springframework.web.bind.annotation.RestController;
 
-    @RequestScoped
-    @Path("/withdraw")
-    @Component
+    import static com.oracle.microtx.springboot.lra.annotation.LRA.LRA_HTTP_CONTEXT_HEADER;
+    import static com.oracle.microtx.springboot.lra.annotation.LRA.LRA_HTTP_ENDED_CONTEXT_HEADER;
+    import static com.oracle.microtx.springboot.lra.annotation.LRA.LRA_HTTP_PARENT_CONTEXT_HEADER;
+
+
+    @RestController
+    @RequestMapping("/withdraw")
+    @Slf4j
     public class WithdrawService {
-        private static final Logger log = Logger.getLogger(WithdrawService.class.getName());
+
         public static final String WITHDRAW = "WITHDRAW";
 
         /**
         * Reduce account balance by given amount and write journal entry re the same.
         * Both actions in same local tx
         */
-        @POST
-        @Path("/withdraw")
-        @Produces(MediaType.APPLICATION_JSON)
+        @PostMapping
         @LRA(value = LRA.Type.MANDATORY, end = false)
-        public Response withdraw(@HeaderParam(LRA_HTTP_CONTEXT_HEADER) String lraId,
-                @QueryParam("accountId") long accountId,
-                @QueryParam("amount") long withdrawAmount) {
+        public ResponseEntity<String> withdraw(@RequestHeader(LRA_HTTP_CONTEXT_HEADER) String lraId,
+                @RequestParam("accountId") long accountId,
+                @RequestParam("amount") long withdrawAmount) {
             log.info("withdraw " + withdrawAmount + " in account:" + accountId + " (lraId:" + lraId + ")...");
             Account account = AccountTransferDAO.instance().getAccountForAccountId(accountId);
             if (account == null) {
@@ -883,7 +784,7 @@ Next, you need to implement the withdraw service, which will be the second parti
                                 0,
                                 lraId,
                                 AccountTransferDAO.getStatusString(ParticipantStatus.Active)));
-                return Response.ok("withdraw failed: account does not exist").build();
+                return ResponseEntity.ok("withdraw failed: account does not exist");
             }
             if (account.getAccountBalance() < withdrawAmount) {
                 log.info("withdraw failed: insufficient funds");
@@ -894,10 +795,10 @@ Next, you need to implement the withdraw service, which will be the second parti
                                 0,
                                 lraId,
                                 AccountTransferDAO.getStatusString(ParticipantStatus.Active)));
-                return Response.ok("withdraw failed: insufficient funds").build();
+                return ResponseEntity.ok("withdraw failed: insufficient funds");
             }
-            log.info("withdraw current balance:" + account.getAccountBalance() +
-                    " new balance:" + (account.getAccountBalance() - withdrawAmount));
+            log.info("withdraw current balance:" + account.getAccountBalance() 
+                + " new balance:" + (account.getAccountBalance() - withdrawAmount));
             account.setAccountBalance(account.getAccountBalance() - withdrawAmount);
             AccountTransferDAO.instance().saveAccount(account);
             AccountTransferDAO.instance().saveJournal(
@@ -907,33 +808,30 @@ Next, you need to implement the withdraw service, which will be the second parti
                             withdrawAmount,
                             lraId,
                             AccountTransferDAO.getStatusString(ParticipantStatus.Active)));
-            return Response.ok("withdraw succeeded").build();
+            return ResponseEntity.ok("withdraw succeeded");
         }
 
         /**
         * Update LRA state. Do nothing else.
         */
-        @PUT
-        @Path("/complete")
-        @Produces(MediaType.APPLICATION_JSON)
+        @PutMapping("/complete")
         @Complete
-        public Response completeWork(@HeaderParam(LRA_HTTP_CONTEXT_HEADER) String lraId) throws Exception {
+        public ResponseEntity<String> completeWork(@RequestHeader(LRA_HTTP_CONTEXT_HEADER) String lraId) throws Exception {
             log.info("withdraw complete called for LRA : " + lraId);
             Journal journal = AccountTransferDAO.instance().getJournalForLRAid(lraId, WITHDRAW);
             journal.setLraState(AccountTransferDAO.getStatusString(ParticipantStatus.Completed));
             AccountTransferDAO.instance().saveJournal(journal);
-            return Response.ok(ParticipantStatus.Completed.name()).build();
+            return ResponseEntity.ok(ParticipantStatus.Completed.name());
         }
 
         /**
-        * Read the journal and increase the balance by the previous withdraw amount
+        * Read the journal and increase the balance by the previous withdraw amount.
         * before the LRA
         */
-        @PUT
-        @Path("/compensate")
-        @Produces(MediaType.APPLICATION_JSON)
+        @PutMapping("/compensate")
         @Compensate
-        public Response compensateWork(@HeaderParam(LRA_HTTP_CONTEXT_HEADER) String lraId) throws Exception {
+        public ResponseEntity<String> compensateWork(@RequestHeader(LRA_HTTP_CONTEXT_HEADER) String lraId) 
+            throws Exception {
             log.info("Account withdraw compensate() called for LRA : " + lraId);
             Journal journal = AccountTransferDAO.instance().getJournalForLRAid(lraId, WITHDRAW);
             journal.setLraState(AccountTransferDAO.getStatusString(ParticipantStatus.Compensating));
@@ -944,28 +842,25 @@ Next, you need to implement the withdraw service, which will be the second parti
             }
             journal.setLraState(AccountTransferDAO.getStatusString(ParticipantStatus.Compensated));
             AccountTransferDAO.instance().saveJournal(journal);
-            return Response.ok(ParticipantStatus.Compensated.name()).build();
+            return ResponseEntity.ok(ParticipantStatus.Compensated.name());
         }
 
-        @GET
-        @Path("/status")
-        @Produces(MediaType.TEXT_PLAIN)
         @Status
-        public Response status(@HeaderParam(LRA_HTTP_CONTEXT_HEADER) String lraId) throws Exception {
+        public ResponseEntity<ParticipantStatus> status(@RequestHeader(LRA_HTTP_CONTEXT_HEADER) String lraId,
+                @RequestHeader(LRA_HTTP_PARENT_CONTEXT_HEADER) String parentLRA) throws Exception {
             return AccountTransferDAO.instance().status(lraId, WITHDRAW);
         }
 
         /**
-        * Delete journal entry for LRA
+        * Delete journal entry for LRA.
         */
-        @PUT
-        @Path("/after")
+        @PutMapping(value = "/after", consumes = "text/plain")
         @AfterLRA
-        @Consumes(MediaType.TEXT_PLAIN)
-        public Response afterLRA(@HeaderParam(LRA_HTTP_ENDED_CONTEXT_HEADER) String lraId, String status) throws Exception {
+        public ResponseEntity<String> afterLRA(@RequestHeader(LRA_HTTP_ENDED_CONTEXT_HEADER) String lraId, 
+            String status) throws Exception {
             log.info("After LRA Called : " + lraId);
             AccountTransferDAO.instance().afterLRA(lraId, status, WITHDRAW);
-            return Response.ok().build();
+            return ResponseEntity.ok("");
         }
 
     }</copy>
@@ -977,90 +872,105 @@ Next, you need to implement the withdraw service, which will be the second parti
 
 Now, you will create another new Spring Boot microservice application and implement the Transfer Service.  This service will initiate the LRA and act as the logical coordinator - it will call the deposit and withdraw services you just implemented to effect the transfer to process the Cloud Cash Payment.
 
-1. Create the project
+1. Create a new Java Project.
 
-  Create a new directory called `transfer` in your `cloudbank` directory, i.e. the same directory where your `accounts` project is located.  In this new `transfer` directory, create a new file called `pom.xml` for your Maven POM.  This project is similar to the accounts project, there are no new concepts introduced here.  Here is the content for the POM file:
+  In the Explorer of VS Code open `Java Project` and click the the **plus** sign to add a Java Project to your workspace.
+
+  ![Add Java Project](images/add_java_project.png " ")
+
+  Select Spring Boot Project.
+
+  ![Spring Boot Project](images/spring-boot-prj.png " ")
+
+  Select Maven Project.
+
+  ![Maven Project](images/maven-project.png " ")
+
+  Specify `3.2.1` as the Spring Boot version.
+
+  ![Spring Boot Version](images/spring-boot-version.png " ")
+
+  Use `com.example` as the Group Id.
+
+  ![Group Id](images/group-id.png " ")
+
+  Enter `transfer` as the Artifact Id.
+
+  ![Artifact Id](images/artifact-id.png " ")
+
+  Use `JAR` as the Packaging Type.
+
+  ![Packaging Type](images/packaging-type.png " ")
+
+  Select Java version `17`.
+
+  ![Java Version](images/java-version.png " ")
+
+  Search for `Spring Web` and press **Enter**
+
+  ![Search for Spring Web](images/search-spring-web.png " ")
+
+  Press **Enter** to continue and create the Java Project
+
+  ![Create Project](images/create-project.png " ")
+
+  Select the `root` location for your project e.g. side by side with the `checks`, `testrunner` and `accounts` projects.
+
+  ![Project Location](images/project-location.png " ")
+
+  When the project opens click **Add to Workspace**
+
+  ![Add to Workspace](images/add-to-workspace.png " ")
+
+1. Add MicroTX to the `pom.xml` file
+
+  Open the `pom.xml` file in the `transfer` project. Add the following to the pom.xml:
+
+  Create a new directory called `transfer` in your `cloudbank` directory, i.e. the same directory where your `accounts` project is located. In this new `transfer` directory, create a new file called `pom.xml` for your Maven POM.  This project is similar to the accounts project, there are no new concepts introduced here.  Here is the content for the POM file:
 
     ```xml
-    <copy><?xml version="1.0" encoding="UTF-8"?>
-    <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
-        <modelVersion>4.0.0</modelVersion>
-        <parent>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-parent</artifactId>
-            <version>2.7.8</version>
-            <relativePath/>
-        </parent>
-        <groupId>com.example</groupId>
-
-        <artifactId>transfer</artifactId>
-        <version>0.0.1-SNAPSHOT</version>
-        <name>transfer</name>
-        <description>Transfer Service</description>
-
-        <properties>
-            <java.version>17</java.version>
-            <spring-cloud.version>2021.0.5</spring-cloud.version>
-            <oracle.jdbc.version>21.8.0.0</oracle.jdbc.version>
-        </properties>
-
-        <dependencies>
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-starter-web</artifactId>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-starter-jersey</artifactId>
-            </dependency>
-            <dependency>
-                <groupId>org.eclipse.microprofile.lra</groupId>
-                <artifactId>microprofile-lra-api</artifactId>
-                <version>1.0</version>
-            </dependency>
-            <dependency>
-                <groupId>org.jboss.narayana.rts</groupId>
-                <artifactId>narayana-lra</artifactId>
-                <version>5.13.1.Final</version>
-            </dependency>
-            <dependency>
-                <groupId>jakarta.enterprise</groupId>
-                <artifactId>jakarta.enterprise.cdi-api</artifactId>
-                <version>2.0.2</version>
-            </dependency>
-            <dependency>
-                <groupId>org.projectlombok</groupId>
-                <artifactId>lombok</artifactId>
-                <optional>true</optional>
-            </dependency>
-        </dependencies>
-
-        <build>
-            <plugins>
-                <plugin>
-                    <groupId>org.springframework.boot</groupId>
-                    <artifactId>spring-boot-maven-plugin</artifactId>
-                </plugin>
-            </plugins>
-        </build>
-    </project></copy>
+    <copy>
+    <dependency>
+      <groupId>com.oracle.microtx.lra</groupId>
+      <artifactId>microtx-lra-spring-boot-starter</artifactId>
+      <version>23.4.1</version>
+    </dependency>
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+    </dependency></copy>
     ```
 
 1. Create the Spring Boot application configuration
 
-  In the `transfer` project, create new directories `src/main/resources` and in that directory create a new file called `application.yaml`.  This will be the Spring Boot application configuration file.  In this file you need to configure the endpoints for the LRA participants and coordinator.
+  In the `transfer` project, rename the file called `application.properties` to `application.yaml` located in the `src/main/resources`. This will be the Spring Boot application configuration file. In this file you need to configure the endpoints for the LRA participants and coordinator.
 
     ```yaml
     <copy>
-    server:
-      port: 8080
-    
+    spring:
+      application:
+        name: transfer
+
+      mvc:
+        enforced-prefixes:
+          - /actuator
+          - /rest
+        url-mappings:
+          - "/rest/*"
+          - "/actuator/*"
+          - "/error/*"
+
+      microtx:
+        lra:
+          coordinator-url: ${MP_LRA_COORDINATOR_URL}
+          propagation-active: true
+          headers-propagation-prefix: "{x-b3-, oracle-tmm-, authorization, refresh-}"
+
     account:
       deposit:
-        url: http://account.application:8080/deposit/deposit
+        url: http://account.application:8080/deposit
       withdraw:
-        url: http://account.application:8080/withdraw/withdraw
+        url: http://account.application:8080/withdraw
     transfer:
       cancel:
         url: http://transfer.application:8080/cancel
@@ -1070,174 +980,60 @@ Now, you will create another new Spring Boot microservice application and implem
         url: http://transfer.application:8080/confirm
         process:
           url: http://transfer.application:8080/processconfirm
-    lra:
-      coordinator:
-        url: http://otmm-tcs.otmm.svc.cluster.local:9000/api/v1/lra-coordinator
     </copy>
-    ```
-
-1. Create the Spring Boot Application class
-
-  Create a new directory called `src/main/java/com/example/transfer` and in that directory, create a new Java file called `TransferApplication.java`.  This will be the main application file for the Spring Boot application.  This is a standard application class, there are no new concepts introduced.  Here is the content for this file:
-
-    ```java
-    <copy>package com.example.transfer;
-
-    import org.springframework.boot.SpringApplication;
-    import org.springframework.boot.autoconfigure.SpringBootApplication;
-
-    @SpringBootApplication
-    public class TransferApplication {
-
-        public static void main(String[] args) {
-            SpringApplication.run(TransferApplication.class, args);
-        }
-    }</copy>
-    ```
-
-1. Create the Application Configuration class
-
-  The ApplicationConfig class reads configuration from `application.yaml` and injects the LRA client bean into the application. Create a new Java file called `ApplicationConfig.java` in `src/main/java/com/example/transfer`. Here is the content for this file:
-
-  This provides the information necessary to locate the LRA coordinator.
-
-    ```java
-    <copy>package com.example.transfer;
-
-    import org.springframework.beans.factory.annotation.Value;
-    import org.springframework.context.annotation.Configuration;
-
-    import io.narayana.lra.client.NarayanaLRAClient;
-
-    @Configuration
-    public class ApplicationConfig {
-        static String accountWithdrawUrl;
-        static String accountDepositUrl;
-        static String transferCancelURL;
-        static String transferCancelProcessURL;
-        static String transferConfirmURL;
-        static String transferConfirmProcessURL;
-
-        public ApplicationConfig(@Value("${lra.coordinator.url}") String lraCoordinatorUrl,
-                @Value("${account.withdraw.url}") String accountWithdrawUrl,
-                @Value("${account.deposit.url}") String accountDepositUrl,
-                @Value("${transfer.cancel.url}") String transferCancelURL,
-                @Value("${transfer.cancel.process.url}") String transferCancelProcessURL,
-                @Value("${transfer.confirm.url}") String transferConfirmURL,
-                @Value("${transfer.confirm.process.url}") String transferConfirmProcessURL) {
-            System.getProperties().setProperty(NarayanaLRAClient.LRA_COORDINATOR_URL_KEY, lraCoordinatorUrl);
-            this.accountWithdrawUrl = accountWithdrawUrl;
-            this.accountDepositUrl = accountDepositUrl;
-            this.transferCancelURL = transferCancelURL;
-            this.transferCancelProcessURL = transferCancelProcessURL;
-            this.transferConfirmURL = transferConfirmURL;
-            this.transferConfirmProcessURL = transferConfirmProcessURL;
-        }
-    }</copy>
-    ```
-
-1. Create the Jersey Config
-
-  Next, you need to create the Jersey Config file, as you did for the Account service earlier. This file registers the URL handlers and LRA filters and sets the filters to forward on 404 (Not Found). There are no new concepts introduced. Here is the code for this class:
-
-    ```java
-    <copy>package com.example.transfer;
-
-    import io.narayana.lra.client.internal.proxy.nonjaxrs.LRAParticipantRegistry;
-    import org.glassfish.hk2.utilities.binding.AbstractBinder;
-    import org.glassfish.jersey.server.ResourceConfig;
-    import org.glassfish.jersey.servlet.ServletProperties;
-    import org.springframework.stereotype.Component;
-
-    import javax.ws.rs.ApplicationPath;
-
-    @Component
-    @ApplicationPath("/")
-    public class JerseyConfig extends ResourceConfig {
-
-        public JerseyConfig()  {
-            register(TransferService.class);
-            register(io.narayana.lra.filter.ServerLRAFilter.class);
-            register(new AbstractBinder(){
-                @Override
-                protected void configure() {
-                    bind(LRAParticipantRegistry.class)
-                        .to(LRAParticipantRegistry.class);
-                }
-            });
-            property(ServletProperties.FILTER_FORWARD_ON_404, true);
-        }
-
-    }</copy>
     ```
 
 1. Create the Transfer service
 
-  You are now ready to implement the main logic for the Cloud Cash Payment/transfer LRA.  You will implement this in a new Java file called `TransferService.java` in `src/main/java/com/example/transfer`.  Here are the imports you will need for this class and the member variables.  Note that this class has the `@ApplicationScoped` and `@Path` annotations, as you saw previously in the Account project, to set up the URL context root for the service.
+  You are now ready to implement the main logic for the Cloud Cash Payment/transfer LRA.  You will implement this in a new Java file called `TransferService.java` in `src/main/java/com/example/transfer`.  Here are the imports you will need for this class and the member variables.  Note that this class has the `@RestController` and `@RequestMapping` annotations, as you saw previously in the Account project, to set up the URL context root for the service.
 
     ```java
-    <copy>package com.example.transfer;
-
-    import static org.eclipse.microprofile.lra.annotation.ws.rs.LRA.LRA_HTTP_CONTEXT_HEADER;
+    <copy>
+    package com.example.transfer;
 
     import java.net.URI;
-    import java.net.URISyntaxException;
-    import java.util.logging.Logger;
 
-    import javax.annotation.PostConstruct;
-    import javax.enterprise.context.ApplicationScoped;
-    import javax.ws.rs.HeaderParam;
-    import javax.ws.rs.NotFoundException;
-    import javax.ws.rs.POST;
-    import javax.ws.rs.Path;
-    import javax.ws.rs.Produces;
-    import javax.ws.rs.QueryParam;
-    import javax.ws.rs.client.ClientBuilder;
-    import javax.ws.rs.client.Entity;
-    import javax.ws.rs.client.WebTarget;
-    import javax.ws.rs.container.ContainerRequestContext;
-    import javax.ws.rs.core.Context;
-    import javax.ws.rs.core.MediaType;
-    import javax.ws.rs.core.Response;
-    import javax.ws.rs.core.UriInfo;
+    import com.oracle.microtx.springboot.lra.annotation.Compensate;
+    import com.oracle.microtx.springboot.lra.annotation.Complete;
+    import com.oracle.microtx.springboot.lra.annotation.LRA;
+    import lombok.extern.slf4j.Slf4j;
+    import org.springframework.beans.factory.annotation.Value;
+    import org.springframework.http.HttpEntity;
+    import org.springframework.http.HttpHeaders;
+    import org.springframework.http.HttpStatus;
+    import org.springframework.http.MediaType;
+    import org.springframework.http.ResponseEntity;
+    import org.springframework.web.bind.annotation.PostMapping;
+    import org.springframework.web.bind.annotation.RequestHeader;
+    import org.springframework.web.bind.annotation.RequestMapping;
+    import org.springframework.web.bind.annotation.RequestParam;
+    import org.springframework.web.bind.annotation.RestController;
+    import org.springframework.web.client.RestTemplate;
+    import org.springframework.web.util.UriComponentsBuilder;
 
-    import org.eclipse.microprofile.lra.annotation.ws.rs.LRA;
+    import static com.oracle.microtx.springboot.lra.annotation.LRA.LRA_HTTP_CONTEXT_HEADER;
 
-    import io.narayana.lra.Current;
-
-    @ApplicationScoped
-    @Path("/")
+    @RestController
+    @RequestMapping("/")
+    @Slf4j
     public class TransferService {
 
-        private static final Logger log = Logger.getLogger(TransferService.class.getSimpleName());
         public static final String TRANSFER_ID = "TRANSFER_ID";
-        private URI withdrawUri;
-        private URI depositUri;
-        private URI transferCancelUri;
-        private URI transferConfirmUri;
-        private URI transferProcessCancelUri;
-        private URI transferProcessConfirmUri;
-    
-        @PostConstruct
-        private void initController() {
-            try {
-                withdrawUri = new URI(ApplicationConfig.accountWithdrawUrl);
-                depositUri = new URI(ApplicationConfig.accountDepositUrl);
-                transferCancelUri = new URI(ApplicationConfig.transferCancelURL);
-                transferConfirmUri = new URI(ApplicationConfig.transferConfirmURL);
-                transferProcessCancelUri = new URI(ApplicationConfig.transferCancelProcessURL);
-                transferProcessConfirmUri = new URI(ApplicationConfig.transferConfirmProcessURL);
-            } catch (URISyntaxException ex) {
-                throw new IllegalStateException("Failed to initialize " + TransferService.class.getName(), ex);
-            }
-        }
+
+        @Value("${account.withdraw.url}") URI withdrawUri;
+        @Value("${account.deposit.url}") URI depositUri;
+        @Value("${transfer.cancel.url}") URI transferCancelUri;
+        @Value("${transfer.cancel.process.url}") URI transferProcessCancelUri;
+        @Value("${transfer.confirm.url}") URI transferConfirmUri;
+        @Value("${transfer.confirm.process.url}") URI transferProcessConfirmUri;
+
 
     }</copy>
     ```
 
 1. Create the **transfer** endpoint
 
-  This is the main entry point for the LRA.  When a client calls this method, a new LRA will be started.  The `@LRA` annotation with the `value` property set to `LRA.Type.REQUIRES_NEW` instructs the interceptors/filters to contact Oracle Transaction Manager for Microservices to start a new LRA instance and obtain the LRA ID, which will be injected into the `LRA_HTTP_CONTEXT_HEADER` HTTP header.  Note that the `end` property is set to `false` which means there will be other actions and participants before the LRA is completed.
+  This is the main entry point for the LRA.  When a client calls this method, a new LRA will be started.  The `@LRA` annotation with the `value` property set to `LRA.Type.REQUIRES_NEW` instructs the interceptors/filters to contact Oracle Transaction Manager for Microservices to start a new LRA instance and obtain the LRA ID, which will be injected into the `LRA_HTTP_CONTEXT_HEADER` HTTP header. Note that the `end` property is set to `false` which means there will be other actions and participants before the LRA is completed.
 
   This method will accept three parameters from the caller, in JSON format in the HTTP body: `fromAccount` is the account from which the funds are to be withdrawn, `toAccount` is the account into which the funds are to be deposited, and `amount` is the amount to transfer.
 
@@ -1246,64 +1042,89 @@ Now, you will create another new Spring Boot microservice application and implem
   After that, you want to perform the withdrawal, check if it worked, and if so, perform the deposit, and then check if that worked, and if so "complete" the LRA.  If there were any failures, compensate the LRA.
 
     ```java
-    <copy>@POST
-    @Path("/transfer")
-    @Produces(MediaType.APPLICATION_JSON)
+    <copy>
+    /**
+     * Transfer amount between two accounts.
+     * @param fromAccount From an account
+     * @param toAccount To an account
+     * @param amount Amount to transfer
+     * @param lraId LRA Id
+     * @return TO-DO
+     */
+    @PostMapping("/transfer")
     @LRA(value = LRA.Type.REQUIRES_NEW, end = false)
-    public Response transfer(@QueryParam("fromAccount") long fromAccount,
-                            @QueryParam("toAccount") long toAccount,
-                            @QueryParam("amount") long amount,
-                            @HeaderParam(LRA_HTTP_CONTEXT_HEADER) String lraId)
-    {
+    public ResponseEntity<String> transfer(@RequestParam("fromAccount") long fromAccount,
+            @RequestParam("toAccount") long toAccount,
+            @RequestParam("amount") long amount,
+            @RequestHeader(LRA_HTTP_CONTEXT_HEADER) String lraId) {
         if (lraId == null) {
-            return Response.serverError().entity("Failed to create LRA").build();
+            return new ResponseEntity<>("Failed to create LRA", HttpStatus.INTERNAL_SERVER_ERROR);
         }
         log.info("Started new LRA/transfer Id: " + lraId);
 
         boolean isCompensate = false;
         String returnString = "";
-        
+
         // perform the withdrawal
-        returnString += withdraw(fromAccount, amount);
+        returnString += withdraw(lraId, fromAccount, amount);
         log.info(returnString);
         if (returnString.contains("succeeded")) {
             // if it worked, perform the deposit
-            returnString += " " + deposit(toAccount, amount);
+            returnString += " " + deposit(lraId, toAccount, amount);
             log.info(returnString);
-            if (returnString.contains("failed")) isCompensate = true; //deposit failed
-        } else isCompensate = true; //withdraw failed
-        log.info("LRA/transfer action will be " + (isCompensate?"cancel":"confirm"));
+            if (returnString.contains("failed")) {
+                isCompensate = true; // deposit failed
+            }
+        } else {
+            isCompensate = true; // withdraw failed
+        }
+        log.info("LRA/transfer action will be " + (isCompensate ? "cancel" : "confirm"));
 
         // call complete or cancel based on outcome of previous actions
-        WebTarget webTarget = ClientBuilder.newClient().target(isCompensate?transferCancelUri:transferConfirmUri);
-        webTarget.request().header(TRANSFER_ID, lraId)
-                .post(Entity.text("")).readEntity(String.class);
+        RestTemplate restTemplate = new RestTemplate();
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.TEXT_PLAIN);
+        headers.set(TRANSFER_ID, lraId);
+        HttpEntity<String> request = new HttpEntity<String>("", headers);
+
+        ResponseEntity<String> response = restTemplate.postForEntity(
+            (isCompensate ? transferCancelUri : transferConfirmUri).toString(), 
+            request, 
+            String.class);
+
+        returnString += response.getBody();
 
         // return status
-        return Response.ok("transfer status:" + returnString).build();
-
+        return ResponseEntity.ok("transfer status:" + returnString);
     }</copy>
     ```
 
 1. Create a method to perform the withdrawal
 
-  This method should perform the withdrawal by calling the Withdraw service in the Account Spring Boot application.  The `accountId` and `amount` need to be passed to the service, and you must set the `LRA_HTTP_CONTEXT_HEADER` to the LRA ID.  You can get the ID of the currently running LRA by calling `Current.peek()`.
-
-  > **Note**: Normally the LRA interceptors would automatically add the header for you, however in the version of the library you are using in this lab, that insertion is not working, so you need to do it manually.
+  This method should perform the withdrawal by calling the Withdraw service in the Account Spring Boot application.  The `lraId`, `accountId` and `amount` need to be passed to the service, and you must set the `LRA_HTTP_CONTEXT_HEADER` to the LRA ID.
 
     ```java
-    <copy>private String withdraw(long accountId, long amount) {
+    <copy>
+    private String withdraw(String lraId, long accountId, long amount) {
         log.info("withdraw accountId = " + accountId + ", amount = " + amount);
-        WebTarget webTarget =
-                ClientBuilder.newClient().target(withdrawUri).path("/")
-                        .queryParam("accountId", accountId)
-                        .queryParam("amount", amount);
-        URI lraId = Current.peek();
         log.info("withdraw lraId = " + lraId);
-        String withdrawOutcome =
-                webTarget.request().header(LRA_HTTP_CONTEXT_HEADER, lraId)
-                        .post(Entity.text("")).readEntity(String.class);
-        return withdrawOutcome;
+        
+        UriComponentsBuilder builder = UriComponentsBuilder.fromUri(withdrawUri)
+            .queryParam("accountId", accountId)
+            .queryParam("amount", amount);
+
+        RestTemplate restTemplate = new RestTemplate();
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.TEXT_PLAIN);
+        headers.set(LRA_HTTP_CONTEXT_HEADER, lraId.toString());
+        HttpEntity<String> request = new HttpEntity<String>("", headers);
+
+        ResponseEntity<String> response = restTemplate.postForEntity(
+            builder.buildAndExpand().toUri(), 
+            request, 
+            String.class);
+
+        return response.getBody();
     }</copy>
     ```
 
@@ -1312,18 +1133,27 @@ Now, you will create another new Spring Boot microservice application and implem
   This method is similar the previous one, no new concepts are introduced here.
 
     ```java
-    <copy>private String deposit(long accountId, long amount) {
+    <copy>
+    private String deposit(String lraId, long accountId, long amount) {
         log.info("deposit accountId = " + accountId + ", amount = " + amount);
-        WebTarget webTarget =
-                ClientBuilder.newClient().target(depositUri).path("/")
-                        .queryParam("accountId", accountId)
-                        .queryParam("amount", amount);
-        URI lraId = Current.peek();
         log.info("deposit lraId = " + lraId);
-        String depositOutcome =
-                webTarget.request().header(LRA_HTTP_CONTEXT_HEADER,lraId)
-                        .post(Entity.text("")).readEntity(String.class);;
-        return depositOutcome;
+        
+        UriComponentsBuilder builder = UriComponentsBuilder.fromUri(depositUri)
+            .queryParam("accountId", accountId)
+            .queryParam("amount", amount);
+
+        RestTemplate restTemplate = new RestTemplate();
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.TEXT_PLAIN);
+        headers.set(LRA_HTTP_CONTEXT_HEADER, lraId.toString());
+        HttpEntity<String> request = new HttpEntity<String>("", headers);
+
+        ResponseEntity<String> response = restTemplate.postForEntity(
+            builder.buildAndExpand().toUri(), 
+            request, 
+            String.class);
+
+        return response.getBody();
     }</copy>
     ```
 
@@ -1332,13 +1162,12 @@ Now, you will create another new Spring Boot microservice application and implem
   This participant does not need to take any actions for the confirm action, so just return a successful response.
 
     ```java
-    <copy>@POST
-    @Path("/processconfirm")
-    @Produces(MediaType.APPLICATION_JSON)
+    <copy>
+    @PostMapping("/processconfirm")
     @LRA(value = LRA.Type.MANDATORY)
-    public Response processconfirm(@HeaderParam(LRA_HTTP_CONTEXT_HEADER) String lraId) throws NotFoundException {
+    public ResponseEntity<String> processconfirm(@RequestHeader(LRA_HTTP_CONTEXT_HEADER) String lraId) {
         log.info("Process confirm for transfer : " + lraId);
-        return Response.ok().build();
+        return ResponseEntity.ok("");
     }</copy>
     ```
 
@@ -1347,13 +1176,12 @@ Now, you will create another new Spring Boot microservice application and implem
   This participant does not need to take any actions for the cancel action, so just return a successful response.
 
     ```java
-    <copy>@POST
-    @Path("/processcancel")
-    @Produces(MediaType.APPLICATION_JSON)
-    @LRA(value = LRA.Type.MANDATORY, cancelOn = Response.Status.OK)
-    public Response processcancel(@HeaderParam(LRA_HTTP_CONTEXT_HEADER) String lraId) throws NotFoundException {
+    <copy>
+    @PostMapping("/processcancel")
+    @LRA(value = LRA.Type.MANDATORY, cancelOn = HttpStatus.OK)
+    public ResponseEntity<String> processcancel(@RequestHeader(LRA_HTTP_CONTEXT_HEADER) String lraId) {
         log.info("Process cancel for transfer : " + lraId);
-        return Response.ok().build();
+        return ResponseEntity.ok("");
     }</copy>
     ```
 
@@ -1361,33 +1189,58 @@ Now, you will create another new Spring Boot microservice application and implem
   
   The logic demonstrated in these two methods would probably be in a client in a real-life LRA, but is included here for instructional purposes and convenience.
 
-  The `transfer` method makes a REST call to confirm (or cancel) at the end of its processing.  The confirm or cancel method suspends the LRA (using the `NOT_SUPPORTED` `value` in the `@LRA` annotation).  Then the confirm or cancel method will make a REST call to `processconfirm` or `processcancel` which import the LRA with their `MANDATORY` annotation and then implicitly end the LRA accordingly upon returning.
+  The `transfer` method makes a REST call to confirm (or cancel) at the end of its processing.  The confirm or cancel method suspends the LRA (using the `NOT_SUPPORTED` `value` in the `@LRA` annotation). Then the confirm or cancel method will make a REST call to `processconfirm` or `processcancel` which import the LRA with their `MANDATORY` annotation and then implicitly end the LRA accordingly upon returning.
 
     ```java
-    <copy>@POST
-    @Path("/confirm")
-    @Produces(MediaType.APPLICATION_JSON)
+    <copy>
+    /**
+     * Confirm a transfer.
+     * @param transferId Transfer Id
+     * @return TO-DO
+     */
+    @PostMapping("/confirm")
+    @Complete
     @LRA(value = LRA.Type.NOT_SUPPORTED)
-    public Response confirm(@HeaderParam(TRANSFER_ID) String transferId) throws NotFoundException {
+    public ResponseEntity<String> confirm(@RequestHeader(TRANSFER_ID) String transferId) {
         log.info("Received confirm for transfer : " + transferId);
-        String confirmOutcome =
-                ClientBuilder.newClient().target(transferProcessConfirmUri).request()
-                        .header(LRA_HTTP_CONTEXT_HEADER, transferId)
-                        .post(Entity.text("")).readEntity(String.class);
-        return Response.ok(confirmOutcome).build();
+
+        RestTemplate restTemplate = new RestTemplate();
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.TEXT_PLAIN);
+        headers.set(LRA_HTTP_CONTEXT_HEADER, transferId);
+        HttpEntity<String> request = new HttpEntity<String>("", headers);
+
+        ResponseEntity<String> response = restTemplate.postForEntity(
+            transferProcessConfirmUri, 
+            request, 
+            String.class);
+
+        return ResponseEntity.ok(response.getBody());
     }
-    
-    @POST
-    @Path("/cancel")
-    @Produces(MediaType.APPLICATION_JSON)
-    @LRA(value = LRA.Type.NOT_SUPPORTED, cancelOn = Response.Status.OK)
-    public Response cancel(@HeaderParam(TRANSFER_ID) String transferId) throws NotFoundException {
+
+    /**
+     * Cancel a transfer.
+     * @param transferId Transfer Id
+     * @return TO-DO
+     */
+    @PostMapping("/cancel")
+    @Compensate
+    @LRA(value = LRA.Type.NOT_SUPPORTED, cancelOn = HttpStatus.OK)
+    public ResponseEntity<String> cancel(@RequestHeader(TRANSFER_ID) String transferId) {
         log.info("Received cancel for transfer : " + transferId);
-        String confirmOutcome =
-                ClientBuilder.newClient().target(transferProcessCancelUri).request()
-                        .header(LRA_HTTP_CONTEXT_HEADER, transferId)
-                        .post(Entity.text("")).readEntity(String.class);
-        return Response.ok(confirmOutcome).build();
+
+        RestTemplate restTemplate = new RestTemplate();
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.TEXT_PLAIN);
+        headers.set(LRA_HTTP_CONTEXT_HEADER, transferId);
+        HttpEntity<String> request = new HttpEntity<String>("", headers);
+
+        ResponseEntity<String> response = restTemplate.postForEntity(
+            transferProcessCancelUri, 
+            request, 
+            String.class);
+
+        return ResponseEntity.ok(response.getBody());
     }</copy>
     ```
 
@@ -1397,38 +1250,24 @@ Now, you will create another new Spring Boot microservice application and implem
 
 The services are now completed and you are ready to deploy them to the Oracle Backend for Spring Boot.
 
-> **Note**: You already created the Kubernetes secrets necessary for the account service to access the Oracle Autonomous Database in a previous lab, and the Transfer service does not need access to the database.  You also created the journal table that is needed by the update account application in the previous lab.
-
-1. Update the APISIX route to use Kubernetes service discovery
-
-  Open the `account` route that you created in the APISIX Dashboard. To access the APISIX Dashboard, start a tunnel using this command:
-
-    ```shell
-    $ <copy>kubectl -n apisix port-forward svc/apisix-dashboard 8090:80</copy>
-    ```
-
-  Then open your browser to [http://localhost:8090](http://localhost:8090) and navigate to the **Routes** page, log in with `admin`/`admin` if necessary.
-
-  Click on the **Configure** button for the `account` route, then click on the **Next** button to get to the **Define API Backend Server** page.
-
-  ![APISIX Route with Kubernetes discovery](images/obaas-apisix-k8s-discovery.png)
-
-  As shown in the image above, update the **Discovery Type** to **Kubernetes**, and set the **Service Name** to `application/account:spring`. Click **Next** to get tot the Plugin Config Page. Click **Next** and finally **Submit**.
+> **Note**: You already created the Kubernetes secrets necessary for the account service to access the Oracle Autonomous Database in a previous lab, and the `transfer` service does not need access to the database. You also created the journal table that is needed by the update account application in the previous lab.
 
 1. Build the Account and Transfer applications into JAR files
 
   To build a JAR file from the Account application, issue this command in the `account` directory.  Then issue the same command from the `transfer` directory to build the Transfer application into a JAR file too.
 
      ```shell
-    $ <copy>mvn clean package -Dmaven.test.skip=true</copy>
+    $ <copy>mvn clean package -DskipTests</copy>
     ```
 
   You will now have a JAR file for each application, as can be seen with this command (the command needs to be executed in the `parent` directory for the Account and Transfer applications):
 
     ```shell
     $ <copy>find . -name \*SNAPSHOT.jar</copy>
-    ./accounts/target/accounts-0.0.1-SNAPSHOT.jar
+    ./testrunner/target/testrunner-0.0.1-SNAPSHOT.jar
+    ./checks/target/checks-0.0.1-SNAPSHOT.jar
     ./transfer/target/transfer-0.0.1-SNAPSHOT.jar
+    ./accounts/target/accounts-0.0.1-SNAPSHOT.jar
     ```
 
 1. Deploy the Account and Transfer applications
@@ -1443,42 +1282,52 @@ The services are now completed and you are ready to deploy them to the Oracle Ba
     $ <copy>kubectl -n obaas-admin port-forward svc/obaas-admin 8080:8080</copy>
     ```
   
-  Start the Oracle Backend for Spring Boot CLI using this command:
+  Start the Oracle Backend for Spring Boot CLI in the `parent` directory using this command:
 
     ```shell
     $ <copy>oractl</copy>
-    _   _           __    _    ___
+     _   _           __    _    ___
     / \ |_)  _.  _. (_    /  |   |
     \_/ |_) (_| (_| __)   \_ |_ _|_
+    ========================================================================================
+      Application Name: Oracle Backend Platform :: Command Line Interface
+      Application Version: (1.1.0)
+      :: Spring Boot (v3.2.0) ::
 
-    09:35:14.801 [main] INFO  o.s.s.cli.shell.ShellApplication - Starting AOT-processed ShellApplication using Java 17.0.5 with PID 29373 (/Users/atael/bin/oractl started by atael in /Users/atael)
-    09:35:14.801 [main] DEBUG o.s.s.cli.shell.ShellApplication - Running with Spring Boot v3.0.0, Spring v6.0.2
-    09:35:14.801 [main] INFO  o.s.s.cli.shell.ShellApplication - The following 1 profile is active: "obaas"
-    09:35:14.875 [main] INFO  o.s.s.cli.shell.ShellApplication - Started ShellApplication in 0.097 seconds (process running for 0.126)
+      Ask for help:
+      - Slack: https://oracledevs.slack.com/archives/C03ALDSV272
+      - email: obaas_ww@oracle.com
+
     oractl:>
     ```
 
-  Connect to the Oracle Backend for Spring Boot admin service using this command.  Hit enter when prompted for a password.  **Note**: Oracle recommends changing the password in a real deployment.
+  Obtain the `obaas-admin` password by executing this command:
 
     ```shell
-    oractl> <copy>connect</copy>
-    password (defaults to oractl):
-    using default value...
-    connect successful server version:0.3.0
+    kubectl get secret -n azn-server oractl-passwords -o jsonpath='{.data.admin}' | base64 -d
+    ```
+
+  Connect to the Oracle Backend for Spring Boot admin service using this command.  Use `obaas-admin` as the username and the password you obtained in the previous step.
+
+    ```shell
+    oractl:>connect
+    username: obaas-admin
+    password: **************
+    obaas-cli: Successful connected.
     oractl:>
     ```
 
-  Run this command to redeploy your account service, make sure you provide the correct path to your JAR files.  **Note**: You must set **isRedeploy** to **true** since you are updating the existing deployment:
+  Run this command to redeploy your account service, make sure you provide the correct path to your JAR files.  **Note**: You must set the **--redeploy** flag since you are updating the existing deployment:
 
     ```shell
-    oractl:> <copy>deploy --redeploy true --app-name application --service-name account --artifact-path /path/to/accounts-0.0.1-SNAPSHOT.jar --image-version 0.0.1</copy>
+    oractl:> <copy>deploy --app-name application --service-name account --artifact-path /path/to/accounts-0.0.1-SNAPSHOT.jar --image-version 0.0.1 --liquibase-db admin --redeploy</copy>
     uploading: account/target/accounts-0.0.1-SNAPSHOT.jar
     building and pushing image...
     creating deployment and service... successfully deployed
     oractl:>
     ```
 
-   Run this command to redeploy your account service, make sure you provide the correct path to your JAR files.
+   Run this command to to deploy the transfer service, make sure you provide the correct path to your JAR files.
 
     ```shell
     oractl:> <copy>deploy --app-name application --service-name transfer --artifact-path /path/to/transfer-0.0.1-SNAPSHOT.jar --image-version 0.0.1</copy>
@@ -1510,7 +1359,7 @@ Now you can test your LRA to verify it performs correctly under various circumst
 
 1. Check the starting account balances
 
-  In several of the next few commands, you need to provide the correct IP address for the API Gateway in your backend environment.  Not the ones that use `localhost`, jsut those where the example uses `100.20.30.40` as the address. You can find the IP address using this command, you need the one listed in the `EXTERNAL-IP` column:
+  In several of the next few commands, you need to provide the correct IP address for the API Gateway in your backend environment.  Not the ones that use `localhost`, just those where the example uses `100.20.30.40` as the address. You can find the IP address using this command, you need the one listed in the `EXTERNAL-IP` column:
 
     ```shell
     $ <copy>kubectl -n ingress-nginx get service ingress-nginx-controller</copy>

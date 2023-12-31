@@ -711,12 +711,6 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
     {"timestamp":"2023-02-25T22:05:24.350+00:00","status":400,"error":"Bad Request","path":"/api/v1/account"}
     ```
 
-    That completes the basic endpoints.  In the next task, you can add some additional endpoints if you wish.  If you prefer, you can skip that task because you have the option to deploy the fully pre-built service in a later lab (Deploy the full CloudBank Application) if you choose.
-
-## (Optional) Task 6: Add extra account endpoints
-
-If you would like to learn more about endpoints and implement the remainder of the account-related endpoints, this task provides the necessary details.
-
 1. Implement Get Account by Account ID endpoint
 
     Add new method to your `AccountController.java` class that responds to the HTTP GET method.  This method should accept the account ID as a path variable.  To accept a path variable, you place the variable name in braces in the URL path in the `@GetMapping` annotation and then reference it in the method's arguments using the `@PathVariable` annotation.  This will map it to the annotated method argument.  If an account is found, you should return that account and set the HTTP Status Code to 200 (OK).  If an account is not found, return an empty body and set the HTTP Status Code to 404 (Not Found).
@@ -759,6 +753,12 @@ If you would like to learn more about endpoints and implement the remainder of t
       "accountBalance": 1000
     }
     ```
+
+    That completes the basic endpoints.  In the next task, you can add some additional endpoints if you wish.  If you prefer, you can skip that task because you have the option to deploy the fully pre-built service in a later lab (Deploy the full CloudBank Application) if you choose.
+
+## (Optional) Task 6: Add extra account endpoints
+
+If you would like to learn more about endpoints and implement the remainder of the account-related endpoints, this task provides the necessary details.
 
 1. Implement Get Accounts for Customer ID endpoint
 
