@@ -50,7 +50,7 @@ Starting with the account service that you built in the previous lab, you will t
 
 1. Create the Journal model
 
-   Create a new Java file in `src/main/java/com/example/accounts/model` called `Journal.java`. In this class you can define the fields that make up the journal.  Note that you created the Journal table in the previous lab. You will not use the `lraId` and `lraState` fields until a later lab. To simplify this lab, create an additional constructor that defaults those fields to suitable values. Your new class should look like this:
+  Create a new Java file in `src/main/java/com/example/accounts/model` called `Journal.java`. In this class you can define the fields that make up the journal.  Note that you created the Journal table in the previous lab. You will not use the `lraId` and `lraState` fields until a later lab. To simplify this lab, create an additional constructor that defaults those fields to suitable values. Your new class should look like this:
 
     ```java
     <copy>package com.example.accounts.model;
@@ -110,7 +110,7 @@ Starting with the account service that you built in the previous lab, you will t
 
 1. Create the Journal repository
 
-   Create a new Java file in `src/main/java/com/example/accounts/repository` called `JournalRepository.java`. This should be an interface that extends `JpaRepository` and you will need to define a method to find journal entries by `accountId`. Your interface should look like this:
+  Create a new Java file in `src/main/java/com/example/accounts/repository` called `JournalRepository.java`. This should be an interface that extends `JpaRepository` and you will need to define a method to find journal entries by `accountId`. Your interface should look like this:
 
     ```java
     <copy>package com.example.accounts.repository;
@@ -128,7 +128,7 @@ Starting with the account service that you built in the previous lab, you will t
 
 1. Update the `AccountController` constructor
 
-   Update the constructor for `AccountController` so that both the repositories are injected.  You will need to create a variable to hold each.  Your updated constructor should look like this:
+  Update the constructor for `AccountController` so that both the repositories are injected.  You will need to create a variable to hold each.  Your updated constructor should look like this:
 
     ```java
     <copy>import com.example.repository.JournalRepository;
@@ -146,7 +146,7 @@ Starting with the account service that you built in the previous lab, you will t
 
 1. Add new method to post entries to the journal
 
-   Add a new HTTP POST endpoint in the `AccountRepository.java` class. The method accepts a journal entry in the request body and saves it into the database. Your new method should look like this:
+  Add a new HTTP POST endpoint in the `AccountRepository.java` class. The method accepts a journal entry in the request body and saves it into the database. Your new method should look like this:
 
     ```java
     <copy>import com.example.model.Journal;
@@ -166,7 +166,7 @@ Starting with the account service that you built in the previous lab, you will t
 
 1. Add new method to get journal entries
 
-   Add a new HTTP GET endpoint in the `AccountRepository.java` class to get a list of journal entries for a given `accountId`. Your new method should look like this:
+  Add a new HTTP GET endpoint in the `AccountRepository.java` class to get a list of journal entries for a given `accountId`. Your new method should look like this:
 
     ```java
     import com.example.accounts.repository.JournalRepository;
@@ -179,7 +179,7 @@ Starting with the account service that you built in the previous lab, you will t
 
 1. Add new method to update an existing journal entry
 
-   Add a new HTTP POST endpoint to update and existing journal entry to a cleared deposit.  To do this, you set the `journalType` field to `DEPOSIT`.  Your method should accept the `journalId` as a path variable.  If the specified journal entry does not exist, return a 202 (Accepted) to indicate the message was received but there was nothing to do.  Returning a 404 (Not found) would cause an error and the message would get requeued and reprocessed, which we don't want.  Your new method should look like this:
+  Add a new HTTP POST endpoint to update and existing journal entry to a cleared deposit.  To do this, you set the `journalType` field to `DEPOSIT`.  Your method should accept the `journalId` as a path variable.  If the specified journal entry does not exist, return a 202 (Accepted) to indicate the message was received but there was nothing to do.  Returning a 404 (Not found) would cause an error and the message would get requeued and reprocessed, which we don't want.  Your new method should look like this:
 
     ```java
     <copy>@PostMapping("/account/journal/{journalId}/clear")
@@ -202,13 +202,13 @@ Starting with the account service that you built in the previous lab, you will t
 
 1. Build a JAR file for deployment
 
-   Run the following command to build the JAR file.  Note that you will need to skip tests now, since you updated the `application.yaml` and it no longer points to your local test database instance.
+  Run the following command to build the JAR file.  Note that you will need to skip tests now, since you updated the `application.yaml` and it no longer points to your local test database instance.
 
     ```shell
     $ <copy>mvn clean package -DskipTests</copy>
     ```
 
-   The service is now ready to deploy to the backend.
+  The service is now ready to deploy to the backend.
 
 1. Get the password for the `obaas-admin` user. The `obaas-admin` user is the equivalent of the admin or root user in the Oracle Backend for Spring Boot and Microservices backend.
 
@@ -218,15 +218,15 @@ Starting with the account service that you built in the previous lab, you will t
 
 1. Prepare the backend for deployment
 
-   The Oracle Backend for Spring Boot admin service is not exposed outside of the Kubernetes cluster by default. Oracle recommends using a **kubectl** port forwarding tunnel to establish a secure connection to the admin service.
+  The Oracle Backend for Spring Boot admin service is not exposed outside of the Kubernetes cluster by default. Oracle recommends using a **kubectl** port forwarding tunnel to establish a secure connection to the admin service.
 
-   Start a tunnel (unless you already have the tunnel running from previous labs) using this command:
+  Start a tunnel (unless you already have the tunnel running from previous labs) using this command:
 
     ```shell
     $ <copy>kubectl -n obaas-admin port-forward svc/obaas-admin 8080</copy>
     ```
 
-   Start the Oracle Backend for Spring Boot CLI using this command:
+  Start the Oracle Backend for Spring Boot CLI using this command:
 
     ```shell
     $ <copy>oractl</copy>
@@ -245,7 +245,7 @@ Starting with the account service that you built in the previous lab, you will t
       oractl:>
     ```
 
-    Connect to the Oracle Backend for Spring Boot admin service using the `connect` command. Enter `obaas-admin` and the username and use the password you collected earlier.
+  Connect to the Oracle Backend for Spring Boot admin service using the `connect` command. Enter `obaas-admin` and the username and use the password you collected earlier.
 
     ```shell
     oractl> <copy>connect</copy>
@@ -257,7 +257,7 @@ Starting with the account service that you built in the previous lab, you will t
 
 1. Redeploy the account service
 
-    You will now redeploy your account service to the Oracle Backend for Spring Boot using the CLI.  Run this command to redeploy your service, make sure you provide the correct path to your JAR file.  **Note** that this command may take 1-3 minutes to complete:
+  You will now redeploy your account service to the Oracle Backend for Spring Boot using the CLI.  Run this command to redeploy your service, make sure you provide the correct path to your JAR file.  **Note** that this command may take 1-3 minutes to complete:
 
     ```shell
     oractl:> <copy>deploy --app-name application --service-name account --artifact-path /path/to/accounts-0.0.1-SNAPSHOT.jar --image-version 0.0.1 --redeploy true</copy>
@@ -268,7 +268,7 @@ Starting with the account service that you built in the previous lab, you will t
 
 1. Verify the new endpoints in the account service
 
-   In the next three commands, you need to provide the correct IP address for the API Gateway in your backend environment.  You can find the IP address using this command, you need the one listed in the **`EXTERNAL-IP`** column:
+  In the next three commands, you need to provide the correct IP address for the API Gateway in your backend environment.  You can find the IP address using this command, you need the one listed in the **`EXTERNAL-IP`** column:
 
     ```shell
     $ <copy>kubectl -n ingress-nginx get service ingress-nginx-controller</copy>
@@ -276,7 +276,7 @@ Starting with the account service that you built in the previous lab, you will t
     ingress-nginx-controller   LoadBalancer   10.123.10.127   100.20.30.40  80:30389/TCP,443:30458/TCP   13d
     ```
 
-   Test the create journal entry endpoint (make sure you use an `accountId` that exits in your database) with this command, use the IP address for your API Gateway.
+  Test the create journal entry endpoint (make sure you use an `accountId` that exits in your database) with this command, use the IP address for your API Gateway.
 
     ```shell
     $ <copy>curl -i -X POST \
@@ -292,9 +292,9 @@ Starting with the account service that you built in the previous lab, you will t
     {"journalId":1,"journalType":"PENDING","accountId":2,"lraId":"0","lraState":"","journalAmount":100}
     ```
 
-   Notice that the response contains a `journalId` which you will need in a later command, and that the `journalType` is `PENDING`.
+  Notice that the response contains a `journalId` which you will need in a later command, and that the `journalType` is `PENDING`.
 
-   Test the get journal entries endpoint with this command, use the IP address for your API Gateway and the same `accountId` as in the previous step. Your output may be different:
+  Test the get journal entries endpoint with this command, use the IP address for your API Gateway and the same `accountId` as in the previous step. Your output may be different:
 
     ```shell
     $ <copy>curl -i http://[EXTERNAL-IP]/api/v1/account/[accountId]/journal</copy>
@@ -306,7 +306,7 @@ Starting with the account service that you built in the previous lab, you will t
     [{"journalId":1,"journalType":"PENDING","accountId":2,"lraId":"0","lraState":null,"journalAmount":100}]
     ```
 
-   Test the update/clear journal entry endpoint with this command, use the IP address for your API Gateway and the `journalId` from the first command's response:
+  Test the update/clear journal entry endpoint with this command, use the IP address for your API Gateway and the `journalId` from the first command's response:
 
     ```shell
     $ <copy>curl -i -X POST http://[EXTERNAL-IP]/api/v1/account/journal/[journalId]/clear</copy>
@@ -319,13 +319,13 @@ Starting with the account service that you built in the previous lab, you will t
     {"journalId":1,"journalType":"DEPOSIT","accountId":2,"lraId":"0","lraState":null,"journalAmount":100}
     ```
 
-   That completes the updates for the Account service.
+  That completes the updates for the Account service.
 
 ## Task 3: Create the queues in the database
 
 1. Create the queues
 
-   Connect to the database as the `ADMIN` user and execute the following statements to give the `account` user the necessary permissions to use queues. **Note**: Lab 2, Task 9 provided details on how to connect to the database.
+  Connect to the database as the `ADMIN` user and execute the following statements to give the `account` user the necessary permissions to use queues. **Note**: Lab 2, Task 9 provided details on how to connect to the database.
 
     ```sql
     <copy>grant execute on dbms_aq to account;
@@ -334,7 +334,7 @@ Starting with the account service that you built in the previous lab, you will t
     commit;</copy>
     ```
 
-   Now connect as the `account` user and create the queues by executing these statements (replace `[TNS-ENTRY]` with your environment information). You can get the TNS Entries by executing `SHOW TNS` in the the sql shell:
+  Now connect as the `account` user and create the queues by executing these statements (replace `[TNS-ENTRY]` with your environment information). You can get the TNS Entries by executing `SHOW TNS` in the the sql shell:
 
     ```sql
     connect account/Welcome1234##@[TNS-ENTRY];
@@ -362,13 +362,13 @@ Starting with the account service that you built in the previous lab, you will t
     /</copy>
     ```
 
-   You have created two queues named `deposits` and `clearances`. Both of them use the JMS `TextMessage` format for the payload.
+  You have created two queues named `deposits` and `clearances`. Both of them use the JMS `TextMessage` format for the payload.
 
 ## Task 4: Create the Test Runner microservice
 
 Next, you will create the "Test Runner" microservice which you will use to simulate the ATM and Back Office.  This service will send messages to the queues that you just created.
 
-11. Create a new Java Project for the `transfer` service.
+1. Create a new Java Project for the `transfer` service.
 
   In the Explorer of VS Code open `Java Project` and click the the **plus** sign to add a Java Project to your workspace.
 
@@ -420,7 +420,7 @@ Next, you will create the "Test Runner" microservice which you will use to simul
 
 1. Modify the `pom.xml` file
 
-    Open the `pom.xml` file in the `testrunner` project. This service will use the "Web" Spring Boot Starter which will allow it to expose REST endpoints and make REST calls to other services. It also uses the two Oracle Spring Boot Starters for UCP and Wallet to access the database: Add the following to the pom.xml:
+  Open the `pom.xml` file in the `testrunner` project. This service will use the "Web" Spring Boot Starter which will allow it to expose REST endpoints and make REST calls to other services. It also uses the two Oracle Spring Boot Starters for UCP and Wallet to access the database: Add the following to the pom.xml:
 
     ```xml
       <copy>
@@ -442,7 +442,7 @@ Next, you will create the "Test Runner" microservice which you will use to simul
 
 1. Create the Spring Boot application YAML file
 
-    In the `testrunner` project, rename the file called `application.properties` to `application.yaml` located in the `src/main/resources`. This will be the Spring Boot application configuration file:
+  In the `testrunner` project, rename the file called `application.properties` to `application.yaml` located in the `src/main/resources`. This will be the Spring Boot application configuration file:
 
     ```yaml
     <copy>spring:
@@ -455,11 +455,11 @@ Next, you will create the "Test Runner" microservice which you will use to simul
         password: ${spring.datasource.password}
     ```
 
-    This is the Spring Boot application YAML file, which contains the configuration information for this service.  In this case, you only need to provide the application name and the connection details for the database hosting the queues.
+  This is the Spring Boot application YAML file, which contains the configuration information for this service.  In this case, you only need to provide the application name and the connection details for the database hosting the queues.
 
 1. Create the main Spring Application class
 
-    In the `testrunner` directory, open the Java Java file called `TestrunnerApplication.java` and add this content. This is a standard Spring Boot main class, notice the `@SpringBootApplication` annotation on the class.  It also has the `@EnableJms` annotation which tells Spring Boot to enable JMS functionality in this application. The `main` method is a normal Spring Boot main method:
+  In the `testrunner` directory, open the Java Java file called `TestrunnerApplication.java` and add this content. This is a standard Spring Boot main class, notice the `@SpringBootApplication` annotation on the class.  It also has the `@EnableJms` annotation which tells Spring Boot to enable JMS functionality in this application. The `main` method is a normal Spring Boot main method:
 
     ```java
     <copy>
@@ -505,15 +505,15 @@ Next, you will create the "Test Runner" microservice which you will use to simul
     </copy>
     ```
 
-    In addition to the standard parts of a Spring Boot application class, you will add two beans that will be needed in this service.  First, you need a `MessageConverter` bean so that you can convert a Java object (POJO) into JSON format, and vice versa. This bean will be used to serialize and deserialize the objects you need to write onto the queues.
+  In addition to the standard parts of a Spring Boot application class, you will add two beans that will be needed in this service.  First, you need a `MessageConverter` bean so that you can convert a Java object (POJO) into JSON format, and vice versa. This bean will be used to serialize and deserialize the objects you need to write onto the queues.
 
-    The second bean you need is a `JmsTemplate`. This is a standard Spring JMS bean that is used to access JMS functionality.  You will use this bean to enqueue messages. Notice that this bean is configured to use the `MessageConverter` bean and that the JMS `ConnectionFactory` is injected. The Oracle Spring Boot Starter for AQ/JMS will create the JMS `ConnectionFactory` for you.
+  The second bean you need is a `JmsTemplate`. This is a standard Spring JMS bean that is used to access JMS functionality.  You will use this bean to enqueue messages. Notice that this bean is configured to use the `MessageConverter` bean and that the JMS `ConnectionFactory` is injected. The Oracle Spring Boot Starter for AQ/JMS will create the JMS `ConnectionFactory` for you.
 
-    **Note**: The Oracle Spring Boot Starter for AQ/JMS will also inject a JDBC `Connection` bean which shares the same database transaction with the JMS `ConnectionFactory`. This is not needed in this lab.  The shared transaction enables you to write methods which can perform both JMS and JPA operations in an atomic transaction, which can be very helpful in some use cases and can dramatically reduce the amount of code needed to handle situations like duplicate message delivery or lost messages.
+  **Note**: The Oracle Spring Boot Starter for AQ/JMS will also inject a JDBC `Connection` bean which shares the same database transaction with the JMS `ConnectionFactory`. This is not needed in this lab.  The shared transaction enables you to write methods which can perform both JMS and JPA operations in an atomic transaction, which can be very helpful in some use cases and can dramatically reduce the amount of code needed to handle situations like duplicate message delivery or lost messages.
 
 1. Create the model classes
 
-    Create a new directory called `src/main/java/com/example/testrunner/model` and in this directory create two Java files. First, `CheckDeposit.java` with this content. This class will be used to simulate the ATM sending the "deposit" notification:
+  Create a new directory called `src/main/java/com/example/testrunner/model` and in this directory create two Java files. First, `CheckDeposit.java` with this content. This class will be used to simulate the ATM sending the "deposit" notification:
 
     ```java
     <copy>package com.example.testrunner.model;
@@ -531,7 +531,7 @@ Next, you will create the "Test Runner" microservice which you will use to simul
     }</copy>
     ```
 
-   Next, `Clearance.java` with this content. This class will be used to simulate the Back Office sending the "clearance" notification:
+  Next, `Clearance.java` with this content. This class will be used to simulate the Back Office sending the "clearance" notification:
 
     ```java
     <copy>package com.example.testrunner.model;
@@ -550,7 +550,7 @@ Next, you will create the "Test Runner" microservice which you will use to simul
 
 1. Create the controller
 
-   Create a new directory called `src/main/java/com/example/testrunner/controller` and in this directory create a new Java file called `TestRunnerController.java` with the following content. This class will have the `RestController` annotation so that it can expose REST APIs that you can call to trigger the simulation of the ATM and Back Office notifications. It will need the `JmsTemplate` to access JMS functionality, this can be injected with the `AutoWired` annotation. Create two methods, one to send each notification:
+  Create a new directory called `src/main/java/com/example/testrunner/controller` and in this directory create a new Java file called `TestRunnerController.java` with the following content. This class will have the `RestController` annotation so that it can expose REST APIs that you can call to trigger the simulation of the ATM and Back Office notifications. It will need the `JmsTemplate` to access JMS functionality, this can be injected with the `AutoWired` annotation. Create two methods, one to send each notification:
 
     ```java
     <copy>package com.example.testrunner.controller;
@@ -591,17 +591,17 @@ Next, you will create the "Test Runner" microservice which you will use to simul
 
 1. Build a JAR file for deployment
 
-   Run the following command to build the JAR file.
+  Run the following command to build the JAR file.
 
     ```shell
     $ <copy>mvn clean package -DskipTests</copy>
     ```
 
-   The service is now ready to deploy to the backend.
+  The service is now ready to deploy to the backend.
 
 1. Prepare the backend for deployment
 
-    The Oracle Backend for Spring Boot admin service is not exposed outside of the Kubernetes cluster by default. Oracle recommends using a **kubectl** port forwarding tunnel to establish a secure connection to the admin service.
+  The Oracle Backend for Spring Boot admin service is not exposed outside of the Kubernetes cluster by default. Oracle recommends using a **kubectl** port forwarding tunnel to establish a secure connection to the admin service.
 
     Start a tunnel using this command in a new terminal window:
 
@@ -609,13 +609,13 @@ Next, you will create the "Test Runner" microservice which you will use to simul
     $ <copy>kubectl -n obaas-admin port-forward svc/obaas-admin 8080</copy>
     ```
 
-    Get the password for the `obaas-admin` user. The `obaas-admin` user is the equivalent of the admin or root user in the Oracle Backend for Spring Boot and Microservices backend.
+  Get the password for the `obaas-admin` user. The `obaas-admin` user is the equivalent of the admin or root user in the Oracle Backend for Spring Boot and Microservices backend.
 
     ```shell
     $ <copy>kubectl get secret -n azn-server  oractl-passwords -o jsonpath='{.data.admin}' | base64 -d</copy>
     ```
 
-    Start the Oracle Backend for Spring Boot CLI in a new terminal window using this command:
+  Start the Oracle Backend for Spring Boot CLI in a new terminal window using this command:
 
     ```shell
     $ <copy>oractl</copy>
@@ -646,7 +646,7 @@ Next, you will create the "Test Runner" microservice which you will use to simul
 
 1. Create a binding for the Test Runner service
 
-    Create a binding so the Test Runner service can access the Oracle Autonomous Database as the `account` user. Run this command to create the binding, and type in the password for the `account` user when prompted. The password is `Welcome1234##`:
+  Create a binding so the Test Runner service can access the Oracle Autonomous Database as the `account` user. Run this command to create the binding, and type in the password for the `account` user when prompted. The password is `Welcome1234##`:
 
     ```shell
     oractl:> <copy>bind --app-name application --service-name testrunner --username account</copy>
@@ -654,7 +654,7 @@ Next, you will create the "Test Runner" microservice which you will use to simul
 
 1. Deploy the Test Runner service
 
-    You will now deploy your Test Runner service to the Oracle Backend for Spring Boot using the CLI. Run this command to deploy your service, make sure you provide the correct path to your JAR file. **Note** that this command may take 1-3 minutes to complete:
+  You will now deploy your Test Runner service to the Oracle Backend for Spring Boot using the CLI. Run this command to deploy your service, make sure you provide the correct path to your JAR file. **Note** that this command may take 1-3 minutes to complete:
 
     ```shell
     oractl:> <copy>deploy --app-name application --service-name testrunner --artifact-path /path/to/testrunner-0.0.1-SNAPSHOT.jar --image-version 0.0.1</copy>
@@ -667,13 +667,13 @@ Next, you will create the "Test Runner" microservice which you will use to simul
 
 1. Check that the `testrunner` service is running
 
-    Verify that the testrunner application is up and running by running this command:
+  Verify that the testrunner application is up and running by running this command:
 
     ```shell
     $ <copy>kubectl logs -n application svc/testrunner</copy>
     ```
 
-    The output should be similar to this, look for `Started TestrunnerApplication`
+  The output should be similar to this, look for `Started TestrunnerApplication`
 
     ```text
     2023-06-02 15:18:39.620  INFO 1 --- [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1806 ms
@@ -683,13 +683,13 @@ Next, you will create the "Test Runner" microservice which you will use to simul
 
 1. Test the endpoints
 
-   The Test Runner service is not exposed outside your Kubernetes cluster, so you must create a port-forwarding tunnel to access it. Create a tunnel using this command:
+  The Test Runner service is not exposed outside your Kubernetes cluster, so you must create a port-forwarding tunnel to access it. Create a tunnel using this command:
 
     ```shell
     $ <copy>kubectl -n application port-forward svc/testrunner 8080</copy>
     ```
 
-   Call the deposit endpoint to send a deposit notification using this command:
+  Call the deposit endpoint to send a deposit notification using this command:
 
     ```shell
     $ <copy>curl -i -X POST -H 'Content-Type: application/json' -d '{"accountId": 2, "amount": 200}' http://localhost:8080/api/v1/testrunner/deposit</copy>
@@ -702,7 +702,7 @@ Next, you will create the "Test Runner" microservice which you will use to simul
     {"accountId":2,"amount":200}
     ```
 
-   Call the clear endpoint to send a clearance notification using this command. Note that you can use any `journalId` since there is nothing receiving and processing these messages yet:
+  Call the clear endpoint to send a clearance notification using this command. Note that you can use any `journalId` since there is nothing receiving and processing these messages yet:
 
     ```shell
     $ <copy>curl -i -X POST -H 'Content-Type: application/json' -d '{"journalId": 4}' http://localhost:8080/api/v1/testrunner/clear</copy>
@@ -717,7 +717,7 @@ Next, you will create the "Test Runner" microservice which you will use to simul
 
 1. Verify the expected messages are on the queues
 
-   Connect to the database as the `account` (password `Welcome12343##`) and issue this SQL statement to check the payloads of the messages on the deposits queue:
+  Connect to the database as the `account` (password `Welcome12343##`) and issue this SQL statement to check the payloads of the messages on the deposits queue:
 
     ```sql
     SQL> <copy>select qt.user_data.text_vc from deposits_qt qt;</copy>
@@ -727,7 +727,7 @@ Next, you will create the "Test Runner" microservice which you will use to simul
     {"accountId":2,"amount":200}
     ```
 
-   Issue this SQL statement to check the payloads of the messages on the clearances queue:
+  Issue this SQL statement to check the payloads of the messages on the clearances queue:
 
     ```sql
     SQL> <copy>select qt.user_data.text_vc from clearances_qt qt;</copy>
@@ -737,7 +737,7 @@ Next, you will create the "Test Runner" microservice which you will use to simul
     {"journalId":4}
     ```
 
-   That completes the Test Runner service. Next, you will build the Check Processing service which will receive these messages and process them.
+   hat completes the Test Runner service. Next, you will build the Check Processing service which will receive these messages and process them.
 
 ## Task 5: Create the Check Processing microservice
 
@@ -795,7 +795,7 @@ Next, you will create the "Check Processing" microservice which you will receive
 
 1. Update the `pom.xml` file for Oracle Spring Boot Starters
 
-   It is very similar to the POM for the account and test runner services, however the dependencies are slightly different.  This service will use the "Web" Spring Boot Starter which will allow it to expose REST endpoints and make REST calls to other services. It also uses the two Oracle Spring Boot Starters for UCP and Wallet to access the database. You will also add the Eureka client and [OpenFeign](https://spring.io/projects/spring-cloud-openfeign) dependencies to allow service discovery and client side load balancing. Open the `pom.xml` and add the following to the `pom.xml`:
+  It is very similar to the POM for the account and test runner services, however the dependencies are slightly different.  This service will use the "Web" Spring Boot Starter which will allow it to expose REST endpoints and make REST calls to other services. It also uses the two Oracle Spring Boot Starters for UCP and Wallet to access the database. You will also add the Eureka client and [OpenFeign](https://spring.io/projects/spring-cloud-openfeign) dependencies to allow service discovery and client side load balancing. Open the `pom.xml` and add the following to the `pom.xml`:
 
     ```xml
     <copy>
@@ -838,11 +838,11 @@ Next, you will create the "Check Processing" microservice which you will receive
         enabled: true</copy>
     ```
 
-   This is the Spring Boot application YAML file, which contains the configuration information for this service.  In this case, you need to provide the application name and the connection details for the database hosting the queues and the information for the Eureka server as the checks application will use a Feign client.
+  This is the Spring Boot application YAML file, which contains the configuration information for this service.  In this case, you need to provide the application name and the connection details for the database hosting the queues and the information for the Eureka server as the checks application will use a Feign client.
 
 1. Create the main Spring Application class
 
-   In the `checks` directory, create a new directory called `src/main/java/com/example/checks` and in that directory, create a new Java file called `ChecksApplication.java` with this content.  This is a standard Spring Boot main class, notice the `SpringBootApplication` annotation on the class.  It also has the `EnableJms` annotation which tells Spring Boot to enable JMS functionality in this application.  The `main` method is a normal Spring Boot main method:
+  In the `checks` directory, create a new directory called `src/main/java/com/example/checks` and in that directory, create a new Java file called `ChecksApplication.java` with this content.  This is a standard Spring Boot main class, notice the `SpringBootApplication` annotation on the class.  It also has the `EnableJms` annotation which tells Spring Boot to enable JMS functionality in this application.  The `main` method is a normal Spring Boot main method:
 
     ```java
     <copy>package com.example.checks;
@@ -900,15 +900,15 @@ Next, you will create the "Check Processing" microservice which you will receive
     }</copy>
     ```  
 
-   As in the Test Runner service, you will also need the `MessageConverter` and `JmsTemplate` beans.  You will also need an additional bean in this service, the `JmsListenerConnectionFactory`.  This bean will be used to create listeners that receive messages from JMS queues.  Note that the JMS `ConnectionFactory` is injected as in the Test Runner service.
+  As in the Test Runner service, you will also need the `MessageConverter` and `JmsTemplate` beans.  You will also need an additional bean in this service, the `JmsListenerConnectionFactory`.  This bean will be used to create listeners that receive messages from JMS queues.  Note that the JMS `ConnectionFactory` is injected as in the Test Runner service.
 
 1. Create the model classes
 
-   Create a directory called `src/main/java/com/example/testrunner/model` and in that directory create the two model classes.  
+  Create a directory called `src/main/java/com/example/testrunner/model` and in that directory create the two model classes.  
 
-   **Note**: These are in the `testrunner` package, not the `checks` package!  The classes used for serialization and deserialization of the messages need to be the same so that the `MessageConverter` knows what to do.
+  **Note**: These are in the `testrunner` package, not the `checks` package!  The classes used for serialization and deserialization of the messages need to be the same so that the `MessageConverter` knows what to do.
 
-   First, `CheckDeposit.java` with this content:
+  First, `CheckDeposit.java` with this content:
 
     ```java
     <copy>package com.example.testrunner.model;
@@ -957,10 +957,10 @@ Next, you will create the "Check Processing" microservice which you will receive
 
 1. Create the OpenFeign clients
 
-    > **OpenFeign**
-    > In this step you will use OpenFeign to create a client.  OpenFeign allows you to lookup an instance of a service from the Spring Eureka Service Registry using its key/identifier, and will create a client for you to call endpoints on that service.  It also provides client-side load balancing.  This allows you to easily create REST clients without needing to know the address of the service or how many instances are running.
+  > **OpenFeign**
+  > In this step you will use OpenFeign to create a client.  OpenFeign allows you to lookup an instance of a service from the Spring Eureka Service Registry using its key/identifier, and will create a client for you to call endpoints on that service.  It also provides client-side load balancing.  This allows you to easily create REST clients without needing to know the address of the service or how many instances are running.
 
-   Create a directory called `src/main/java/com/example/checks/clients` and in this directory create a new Java interface called `AccountClient.java` to define the OpenFeign client for the account service. Here is the content:
+  Create a directory called `src/main/java/com/example/checks/clients` and in this directory create a new Java interface called `AccountClient.java` to define the OpenFeign client for the account service. Here is the content:
 
     ```java
     <copy>package com.example.checks.clients;
@@ -982,9 +982,9 @@ Next, you will create the "Check Processing" microservice which you will receive
     }</copy>
     ```
 
-   In the interface, you define methods for each of the endpoints you want to be able to call.  As you see, you specify the request type with an annotation, the endpoint path, and you can specify path variables and the body type.  You will need to define the `Journal` class.
+  In the interface, you define methods for each of the endpoints you want to be able to call.  As you see, you specify the request type with an annotation, the endpoint path, and you can specify path variables and the body type.  You will need to define the `Journal` class.
 
-   In the same directory, create a Java class called `Journal.java` with the following content:
+  In the same directory, create a Java class called `Journal.java` with the following content:
 
     ```java
     <copy>package com.example.checks.clients;
@@ -1014,11 +1014,11 @@ Next, you will create the "Check Processing" microservice which you will receive
     }</copy>
     ```
 
-   **Note**:  The `lraId` and `lraState` field are set to reasonable default values, since we are not going to be using those fields in this lab.
+  **Note**:  The `lraId` and `lraState` field are set to reasonable default values, since we are not going to be using those fields in this lab.
 
 1. Create the services
 
-   Next, you will create a service to implement the methods defined in the OpenFeign client interface.  Create a directory called `src/main/java/com/example/checks/service` and in that directory create a Java class called `AccountService.java` with this content.  The services are very simple, you just need to use the `accountClient` to call the appropriate endpoint on the Account service and pass through the data. **Note** the `AccountClient` will be injected by Spring Boot because of the `RequiredArgsConstructor` annotation, which saves some boilerplate constructor code:
+  Next, you will create a service to implement the methods defined in the OpenFeign client interface.  Create a directory called `src/main/java/com/example/checks/service` and in that directory create a Java class called `AccountService.java` with this content.  The services are very simple, you just need to use the `accountClient` to call the appropriate endpoint on the Account service and pass through the data. **Note** the `AccountClient` will be injected by Spring Boot because of the `RequiredArgsConstructor` annotation, which saves some boilerplate constructor code:
 
     ```java
     <copy>package com.example.checks.service;
@@ -1050,9 +1050,9 @@ Next, you will create the "Check Processing" microservice which you will receive
 
 1. Create the Check Receiver controller
 
-   This controller will receive messages on the `deposits` JMS queue and process them by calling the `journal` method in the `AccountService` that you just created, which will make a REST POST to the Account service, which in turn will write the journal entry into the accounts database.
+  This controller will receive messages on the `deposits` JMS queue and process them by calling the `journal` method in the `AccountService` that you just created, which will make a REST POST to the Account service, which in turn will write the journal entry into the accounts database.
 
-   Create a directory called `src/main/java/com/example/checks/controller` and in that directory, create a new Java class called `CheckReceiver.java` with the following content.  You will need to inject an instance of the `AccountService` (in this example the constructor is provided so you can compare to the annotation used previously). Implement a method to receive and process the messages. To receive messages from the queues, use the `JmsListener` annotation and provide the queue and factory names. This method should call the `journal` method on the `AccountService` and pass through the necessary data.  Also, notice that you need to add the `Component` annotation to the class so that Spring Boot will load an instance of it into the application:
+  Create a directory called `src/main/java/com/example/checks/controller` and in that directory, create a new Java class called `CheckReceiver.java` with the following content.  You will need to inject an instance of the `AccountService` (in this example the constructor is provided so you can compare to the annotation used previously). Implement a method to receive and process the messages. To receive messages from the queues, use the `JmsListener` annotation and provide the queue and factory names. This method should call the `journal` method on the `AccountService` and pass through the necessary data.  Also, notice that you need to add the `Component` annotation to the class so that Spring Boot will load an instance of it into the application:
 
     ```java
     <copy>package com.example.checks.controller;
@@ -1087,7 +1087,7 @@ Next, you will create the "Check Processing" microservice which you will receive
 
 1. Create the Clearance Receiver controller
 
-   In the same directory, create another Java class called `ClearanceReceiver.java` with the following content.  This is very similar to the previous controller, but listens to the `clearances` queue instead, and calls the `clear` method on the `AccountService`:
+  In the same directory, create another Java class called `ClearanceReceiver.java` with the following content.  This is very similar to the previous controller, but listens to the `clearances` queue instead, and calls the `clear` method on the `AccountService`:
 
     ```java
     <copy>package com.example.checks.controller;
@@ -1123,31 +1123,31 @@ Next, you will create the "Check Processing" microservice which you will receive
 
 1. Build a JAR file for deployment
 
-   Run the following command to build the JAR file.
+  Run the following command to build the JAR file.
 
     ```shell
     $ <copy>mvn clean package -DskipTests</copy>
     ```
 
-   The service is now ready to deploy to the backend.
+  The service is now ready to deploy to the backend.
 
 1. Prepare the backend for deployment
 
-    The Oracle Backend for Spring Boot admin service is not exposed outside of the Kubernetes cluster by default. Oracle recommends using a **kubectl** port forwarding tunnel to establish a secure connection to the admin service.
+  The Oracle Backend for Spring Boot admin service is not exposed outside of the Kubernetes cluster by default. Oracle recommends using a **kubectl** port forwarding tunnel to establish a secure connection to the admin service.
 
-    Start a tunnel using this command in a new terminal window:
+  Start a tunnel using this command in a new terminal window:
 
     ```shell
     $ <copy>kubectl -n obaas-admin port-forward svc/obaas-admin 8080</copy>
     ```
 
-    Get the password for the `obaas-admin` user. The `obaas-admin` user is the equivalent of the admin or root user in the Oracle Backend for Spring Boot and Microservices backend.
+  Get the password for the `obaas-admin` user. The `obaas-admin` user is the equivalent of the admin or root user in the Oracle Backend for Spring Boot and Microservices backend.
 
     ```shell
     $ <copy>kubectl get secret -n azn-server  oractl-passwords -o jsonpath='{.data.admin}' | base64 -d</copy>
     ```
 
-    Start the Oracle Backend for Spring Boot CLI in a new terminal window using this command:
+  Start the Oracle Backend for Spring Boot CLI in a new terminal window using this command:
 
     ```shell
     $ <copy>oractl</copy>
@@ -1166,7 +1166,7 @@ Next, you will create the "Check Processing" microservice which you will receive
     oractl:>
     ```
 
-    Connect to the Oracle Backend for Spring Boot admin service using the `connect` command. Enter `obaas-admin` and the username and use the password you collected earlier.
+  Connect to the Oracle Backend for Spring Boot admin service using the `connect` command. Enter `obaas-admin` and the username and use the password you collected earlier.
 
     ```shell
     oractl> <copy>connect</copy>
@@ -1178,7 +1178,7 @@ Next, you will create the "Check Processing" microservice which you will receive
 
 1. Create a binding for the Check service
 
-    Create a binding so the Check service can access the Oracle Autonomous Database as the `account` user. Run this command to create the binding, and type in the password for the `account` user when prompted. The password is `Welcome1234##`:
+  Create a binding so the Check service can access the Oracle Autonomous Database as the `account` user. Run this command to create the binding, and type in the password for the `account` user when prompted. The password is `Welcome1234##`:
 
     ```shell
     oractl:> <copy>bind --app-name application --service-name checks --username account</copy>
@@ -1186,7 +1186,7 @@ Next, you will create the "Check Processing" microservice which you will receive
 
 1. Deploy the Check service
 
-    You will now deploy your Check service to the Oracle Backend for Spring Boot using the CLI. Run this command to deploy your service, make sure you provide the correct path to your JAR file. **Note** that this command may take 1-3 minutes to complete:
+  You will now deploy your Check service to the Oracle Backend for Spring Boot using the CLI. Run this command to deploy your service, make sure you provide the correct path to your JAR file. **Note** that this command may take 1-3 minutes to complete:
 
     ```shell
     oractl:> <copy>deploy --app-name application --service-name checks --artifact-path /path/to/checks-0.0.1-SNAPSHOT.jar --image-version 0.0.1</copy>
@@ -1195,11 +1195,11 @@ Next, you will create the "Check Processing" microservice which you will receive
     oractl:>
     ```
 
-    You can close the port forwarding session for the CLI now (just type a Ctrl+C in its console window).
+  You can close the port forwarding session for the CLI now (just type a Ctrl+C in its console window).
 
 1. Testing the service
 
-   Since you had messages already sitting on the queues, the service should process those as soon as it starts.  You can check the service logs to see the log messages indicating this happened using this command:
+  Since you had messages already sitting on the queues, the service should process those as soon as it starts.  You can check the service logs to see the log messages indicating this happened using this command:
 
     ```shell
     $ <copy>kubectl -n application logs svc/checks</copy>
@@ -1209,7 +1209,7 @@ Next, you will create the "Check Processing" microservice which you will receive
     ( ... lines omitted ...)
     ```
 
-   You can also look at the journal table in the database to see the results.
+  You can also look at the journal table in the database to see the results.
 
 ## Task 6: Test the end-to-end flow
 
@@ -1217,7 +1217,7 @@ Now you can test the full end-to-end flow for the Check Processing scenario.
 
 1. Simulate a check deposit
 
-   The Test Runner service is not exposed outside your Kubernetes cluster, so you must create a port-forwarding tunnel to access it.  Create a tunnel using this command:
+  The Test Runner service is not exposed outside your Kubernetes cluster, so you must create a port-forwarding tunnel to access it.  Create a tunnel using this command:
 
     ```shell
     $ <copy>kubectl -n application port-forward svc/testrunner 8080</copy>
@@ -1249,7 +1249,7 @@ Now you can test the full end-to-end flow for the Check Processing scenario.
 
 1. Check the journal entries for this account
 
-   In the next commands, you need to provide the correct IP address for the API Gateway in your backend environment.  You can find the IP address using this command, you need the one listed in the **`EXTERNAL-IP`** column:
+  In the next commands, you need to provide the correct IP address for the API Gateway in your backend environment.  You can find the IP address using this command, you need the one listed in the **`EXTERNAL-IP`** column:
 
     ```shell
     $ <copy>kubectl -n ingress-nginx get service ingress-nginx-controller</copy>
@@ -1257,7 +1257,7 @@ Now you can test the full end-to-end flow for the Check Processing scenario.
     ingress-nginx-controller   LoadBalancer   10.123.10.127   100.20.30.40  80:30389/TCP,443:30458/TCP   13d
     ```
 
-   Use this command to retrieve the journal entries for this account.  Your output may contain more entries.  Find the entry corresponding to the deposit you just simulated (it was for $256) and note the `journalId` - you will need it in the next step:
+  Use this command to retrieve the journal entries for this account.  Your output may contain more entries.  Find the entry corresponding to the deposit you just simulated (it was for $256) and note the `journalId` - you will need it in the next step:
 
     ```shell
     $ <copy>curl -i http://[EXTERNAL-IP]/api/v1/account/2/journal</copy>
@@ -1272,7 +1272,7 @@ Now you can test the full end-to-end flow for the Check Processing scenario.
 
 1. Simulate the Back Office clearance of that check
 
-   Using the `journalId` you received in the output of the previous command (in this example it is `6`), update and then run this command to simulate the Back Office clearing that check:
+  Using the `journalId` you received in the output of the previous command (in this example it is `6`), update and then run this command to simulate the Back Office clearing that check:
 
     ```shell
     $ <copy>curl -i -X POST -H 'Content-Type: application/json' -d '{"journalId": 6}' http://localhost:8080/api/v1/testrunner/clear</copy>
@@ -1287,7 +1287,7 @@ Now you can test the full end-to-end flow for the Check Processing scenario.
 
 1. Check the logs for the Check Processing service
 
-   Check the logs for the Check Processing service using this command.  You should see a log message indicating that the message was received and processed:
+  Check the logs for the Check Processing service using this command.  You should see a log message indicating that the message was received and processed:
 
     ```shell
     $ <copy>kubectl -n application logs svc/checks</copy>
@@ -1298,7 +1298,7 @@ Now you can test the full end-to-end flow for the Check Processing scenario.
 
 1. Retrieve the journal entries again
 
-   Retrieve the journal entries again to confirm the `PENDING` entry was updated to a `DEPOSIT`:
+  Retrieve the journal entries again to confirm the `PENDING` entry was updated to a `DEPOSIT`:
 
     ```shell
     $ <copy>curl -i http://[EXTERNAL-IP]/api/v1/account/2/journal</copy>
@@ -1311,7 +1311,7 @@ Now you can test the full end-to-end flow for the Check Processing scenario.
     [{"journalId":6,"journalType":"DEPOSIT","accountId":2,"lraId":"0","lraState":null,"journalAmount":256}]
     ```
 
-   That completes this lab, congratulations, you learned how to use JMS to create loosely coupled services that process asynchronous messages, and also how to use service discovery with OpenFeign.
+  That completes this lab, congratulations, you learned how to use JMS to create loosely coupled services that process asynchronous messages, and also how to use service discovery with OpenFeign.
 
 ## Learn More
 

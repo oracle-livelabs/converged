@@ -1437,6 +1437,8 @@ Now you can test your LRA to verify it performs correctly under various circumst
 
 1. Perform a transfer that should fail due to the destination account not existing.
 
+  Execute the following command to perform a `failed` transfer:
+  
     ```shell
     $ <copy>curl -X POST "http://localhost:7000/transfer?fromAccount=2&toAccount=6799999&amount=100"</copy>
     transfer status:withdraw succeeded deposit failed: account does not exist%  
