@@ -212,6 +212,8 @@ Starting with the account service that you built in the previous lab, you will t
 
 1. Get the password for the `obaas-admin` user. The `obaas-admin` user is the equivalent of the admin or root user in the Oracle Backend for Spring Boot and Microservices backend.
 
+  Execute the following command to get the password:
+
     ```shell
     $ <copy>kubectl get secret -n azn-server  oractl-passwords -o jsonpath='{.data.admin}' | base64 -d</copy>
     ```
@@ -1238,7 +1240,7 @@ Now you can test the full end-to-end flow for the Check Processing scenario.
 
 1. Check the logs for the Check Processing service
 
-   Check the logs for the Check Processing service using this command.  You should see a log message indicating that the message was received and processed:
+  Check the logs for the Check Processing service using this command.  You should see a log message indicating that the message was received and processed:
 
     ```shell
     $ <copy>kubectl -n application logs svc/checks</copy>

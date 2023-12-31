@@ -33,7 +33,7 @@ Download a copy of the CloudBank sample application.
     Create a local clone of the CloudBank source repository using this command.
 
     ```shell
-    $ <copy>git clone https://github.com/oracle/microservices-datadriven.git</copy>
+    <copy>git clone https://github.com/oracle/microservices-datadriven.git</copy>
     ```
 
     > **Note**: If you do not have **git** installed on your machine, you can download a zip file of the source code from [GitHub](https://github.com/oracle/microservices-datadriven) and unzip it on your machine instead.
@@ -41,7 +41,7 @@ Download a copy of the CloudBank sample application.
     The source code for the CloudBank application will be in the `microservices-datadriven` directory you just created, in the `cloudbank-v3/spring-apps-spring3` subdirectory.
 
     ```shell
-    $ <copy>cd microservices-datadriven/cloudbank-v3/spring-apps-spring3</copy>
+    <copy>cd microservices-datadriven/cloudbank-v3/spring-apps-spring3</copy>
     ```
 
 ## Task 2: Build the CloudBank application
@@ -51,7 +51,7 @@ Download a copy of the CloudBank sample application.
     In the directory where you cloned (or unzipped) the application and build the application JARs using the following command:
 
     ```shell
-    $ <copy>mvn clean package</copy>
+    <copy>mvn clean package</copy>
     ```
 
     The output should be similar to this:
@@ -84,7 +84,7 @@ Download a copy of the CloudBank sample application.
     Execute the following command to get the `obaas-admin` password:
 
     ```shell
-    $ <copy>kubectl get secret -n azn-server  oractl-passwords -o jsonpath='{.data.admin}' | base64 -d</copy>
+    <copy>kubectl get secret -n azn-server  oractl-passwords -o jsonpath='{.data.admin}' | base64 -d</copy>
     ```
 
 1. Start a tunnel to the backend service.
@@ -346,7 +346,7 @@ Download a copy of the CloudBank sample application.
     Verify that the services are running properly by executing this command:
 
     ```shell
-    $ <copy>kubectl get pods application</copy>
+    <copy>kubectl get pods application</copy>
     ```
 
     The output should be similar to this, all pods should have `STATUS` as `Running`. If not then you need to look at the logs for the pods/service to determine what is wrong for example `kubectl logs -n application svc/customer`.
@@ -370,7 +370,7 @@ Download a copy of the CloudBank sample application.
     You are going to need the Admin Key for the APISIX Gateway to configure the route. It is stored in a k8s ConfigMap. Run the command and make a note of the admin key. The command will return a long YAML document, so you need to scroll up to find the Admin Key.
 
     ```shell
-    $ <copy>kubectl -n apisix get configmap apisix -o yaml</copy>
+    <copy>kubectl -n apisix get configmap apisix -o yaml</copy>
     ```
 
     Look for the `key:` information in the `admin_key` section and save it. You'll be needing it later in this lab.
@@ -400,7 +400,7 @@ Download a copy of the CloudBank sample application.
         Run this command to create the accounts route, replace the `APIKEY` in the command with the key you got in Step 1
 
         ```shell
-        $ <copy>source apisix-routes/create-accounts-route.sh APIKEY</copy>
+        <copy>source apisix-routes/create-accounts-route.sh APIKEY</copy>
         ```
 
         Output should be similar to this:
@@ -426,7 +426,7 @@ Download a copy of the CloudBank sample application.
         Run this command to create the creditscore route, replace the `APIKEY` in the command with the key you got in Step 1
 
         ``` shell
-        $ <copy>source apisix-routes/create-creditscore-route.sh APIKEY</copy>
+        <copy>source apisix-routes/create-creditscore-route.sh APIKEY</copy>
         ```
 
         Output should be similar to this:
@@ -452,7 +452,7 @@ Download a copy of the CloudBank sample application.
         Run this command to create the customer route, replace the `APIKEY` in the command with the key you got in Step 1
 
         ```shell
-        $ <copy>source apisix-routes/create-customer-route.sh APIKEY</copy>
+        <copy>source apisix-routes/create-customer-route.sh APIKEY</copy>
         ```
 
         Output should be similar to this:
@@ -480,7 +480,7 @@ Download a copy of the CloudBank sample application.
         Retrieve the password for the APISIX dashboard using this command:
 
         ```shell
-        $ kubectl get secret apisix-dashboard -n apisix -o jsonpath='{.data.conf\.yaml}' | base64 --decode</copy>
+        kubectl get secret apisix-dashboard -n apisix -o jsonpath='{.data.conf\.yaml}' | base64 --decode</copy>
         ```
 
     1. Start the tunnel in a new terminal window using this command.
@@ -538,7 +538,7 @@ Download a copy of the CloudBank sample application.
     1. Test the get account REST endpoint with this command, use the IP address for your API Gateway and the `accountId` that was returned in the previous command:
 
         ```shell
-        $ <copy>curl -s http://API-ADDRESS-OF-API-GW/api/v1/account/24 | jq .</copy>
+        <copy>curl -s http://API-ADDRESS-OF-API-GW/api/v1/account/24 | jq .</copy>
         ```
 
         Output should be similar to this:
@@ -558,7 +558,7 @@ Download a copy of the CloudBank sample application.
     1. Test on of the customer REST endpoints with this command, use the IP Address for your API Gateway.
 
         ```shell
-        $ <copy>curl -s http://API-ADDRESS-OF-API-GW/api/v1/customer | jq</copy>
+        <copy>curl -s http://API-ADDRESS-OF-API-GW/api/v1/customer | jq</copy>
         ```
 
         Output should be similar to this:
@@ -595,7 +595,7 @@ Download a copy of the CloudBank sample application.
     1. Test the creditscore REST endpoint with this command
 
         ```shell
-        $ <copy>curl -s http://API-ADDRESS-OF-API-GW/api/v1/creditscore | jq</copy>
+        <copy>curl -s http://API-ADDRESS-OF-API-GW/api/v1/creditscore | jq</copy>
         ```
 
         Output should be similar to this:
@@ -636,7 +636,7 @@ Download a copy of the CloudBank sample application.
             Execute this command to check the log file of the *check* service:
 
             ```shell
-            $ <copy>kubectl -n application logs svc/checks</copy>
+            <copy>kubectl -n application logs svc/checks</copy>
             ```
 
             The log file should contain something similar to this (with your accountId):
@@ -648,7 +648,7 @@ Download a copy of the CloudBank sample application.
         1. Check the Journal entries using the *journal* REST endpoint. Replace `API-ADDRESS-OF-API-GW` with your external IP Address.
 
             ```shell
-            $ <copy>curl -i http://API-ADDRESS-OF-API-GW/api/v1/account/2/journal</copy>
+            <copy>curl -i http://API-ADDRESS-OF-API-GW/api/v1/account/2/journal</copy>
             ```
 
             The output should be similar to this (with your AccountId). Note the *journalId*, you're going to need it in the next step.
@@ -665,7 +665,7 @@ Download a copy of the CloudBank sample application.
         1. Clearance of a check using the *clear* REST endpoint using your *journalId*:
 
             ```shell
-            $ <copy>curl -i -X POST -H 'Content-Type: application/json' -d '{"journalId": 1}' http://localhost:8084/api/v1/testrunner/clear</copy>
+            <copy>curl -i -X POST -H 'Content-Type: application/json' -d '{"journalId": 1}' http://localhost:8084/api/v1/testrunner/clear</copy>
             ```
 
             ```logs
@@ -682,7 +682,7 @@ Download a copy of the CloudBank sample application.
             Execute this command to check the log file of the *check* service:
 
             ```shell
-            $ <copy>kubectl -n application logs svc/checks</copy>
+            <copy>kubectl -n application logs svc/checks</copy>
             ```
 
             The log file should contain something similar to this (with your journalId):
@@ -696,7 +696,7 @@ Download a copy of the CloudBank sample application.
             Execute this command to check the Journal. Replace `API-ADDRESS-OF-API-GW` with your External IP Address and `ACCOUNT-ID` with your account id.
 
             ```shell
-            $ <copy>curl -i http://API-ADDRESS-OF-API-GW/api/v1/account/ACCOUNT-ID/journal</copy>
+            <copy>curl -i http://API-ADDRESS-OF-API-GW/api/v1/account/ACCOUNT-ID/journal</copy>
             ```
 
             The output should look like this (with your accountId):
@@ -723,7 +723,7 @@ Download a copy of the CloudBank sample application.
         1. Check the account balances for two accounts, in this example the account numbers are 20 and 21. Replace `API-ADDRESS-OF-API-GW` with your External IP Address
 
             ```shell
-            $ <copy>curl -s http://API-ADDRESS-OF-API-GW/api/v1/account/1 | jq ; curl -s http://API-ADDRESS-OF-API-GW/api/v1/account/2 | jq</copy>
+            <copy>curl -s http://API-ADDRESS-OF-API-GW/api/v1/account/1 | jq ; curl -s http://API-ADDRESS-OF-API-GW/api/v1/account/2 | jq</copy>
             ```
 
             The output should be similar to this. Make a note of the `accountBalance` values.
@@ -759,7 +759,7 @@ Download a copy of the CloudBank sample application.
         1. Check that the transfer has been made.
 
             ```shell
-            $ <copy>curl -s http://API-ADDRESS-OF-API-GW/api/v1/account/1 | jq ; curl -s http://API-ADDRESS-OF-API-GW/api/v1/account/2 | jq</copy>
+            <copy>curl -s http://API-ADDRESS-OF-API-GW/api/v1/account/1 | jq ; curl -s http://API-ADDRESS-OF-API-GW/api/v1/account/2 | jq</copy>
             ```
 
             The output should be similar to this. Make a note of the `accountBalance` values.
