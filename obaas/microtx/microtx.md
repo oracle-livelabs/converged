@@ -872,7 +872,7 @@ Next, you need to implement the withdraw service, which will be the second parti
 
 Now, you will create another new Spring Boot microservice application and implement the Transfer Service.  This service will initiate the LRA and act as the logical coordinator - it will call the deposit and withdraw services you just implemented to effect the transfer to process the Cloud Cash Payment.
 
-1. Create a new Java Project.
+1. Create a new Java Project for the `transfer` service.
 
   In the Explorer of VS Code open `Java Project` and click the the **plus** sign to add a Java Project to your workspace.
 
@@ -922,11 +922,9 @@ Now, you will create another new Spring Boot microservice application and implem
 
   ![Add to Workspace](images/add-to-workspace.png " ")
 
-1. Add MicroTX to the `pom.xml` file
+1. Add MicroTX  and Lombok to the `pom.xml` file
 
   Open the `pom.xml` file in the `transfer` project. Add the following to the pom.xml:
-
-  Create a new directory called `transfer` in your `cloudbank` directory, i.e. the same directory where your `accounts` project is located. In this new `transfer` directory, create a new file called `pom.xml` for your Maven POM.  This project is similar to the accounts project, there are no new concepts introduced here.  Here is the content for the POM file:
 
     ```xml
     <copy>

@@ -368,83 +368,81 @@ Starting with the account service that you built in the previous lab, you will t
 
 Next, you will create the "Test Runner" microservice which you will use to simulate the ATM and Back Office.  This service will send messages to the queues that you just created.
 
-1. Create the Test Runner Spring Boot project
+11. Create a new Java Project for the `transfer` service.
 
-   Create a new directory called `testrunner` alongside your `account` directory. This new directory will hold the new Test Runner Spring Boot project.  
+  In the Explorer of VS Code open `Java Project` and click the the **plus** sign to add a Java Project to your workspace.
 
-   Open Visual Studio code and make suer you can see both directories in the Explorer section:
+  ![Add Java Project](images/add_java_project.png " ")
 
-  ![VS Code Explorer](images/testrunner_explorer.png " ")
+  Select Spring Boot Project.
 
-   In this directory create a file called `pom.xml` with the following content. This will be the Maven POM for this project. It is very similar to the POM for the account service, however the dependencies are slightly different. This service will use the "Web" Spring Boot Starter which will allow it to expose REST endpoints and make REST calls to other services. It also uses the two Oracle Spring Boot Starters for UCP and Wallet to access the database:
+  ![Spring Boot Project](images/spring-boot-prj.png " ")
+
+  Select Maven Project.
+
+  ![Maven Project](images/maven-project.png " ")
+
+  Specify `3.2.1` as the Spring Boot version.
+
+  ![Spring Boot Version](images/spring-boot-version.png " ")
+
+  Use `com.example` as the Group Id.
+
+  ![Group Id](images/group-id.png " ")
+
+  Enter `testrunner` as the Artifact Id.
+
+  ![Artifact Id](images/artifact-id.png " ")
+
+  Use `JAR` as the Packaging Type.
+
+  ![Packaging Type](images/packaging-type.png " ")
+
+  Select Java version `17`.
+
+  ![Java Version](images/java-version.png " ")
+
+  Search for `Spring Web` and press **Enter**
+
+  ![Search for Spring Web](images/search-spring-web.png " ")
+
+  Press **Enter** to continue and create the Java Project
+
+  ![Create Project](images/create-project.png " ")
+
+  Select the `root` location for your project e.g. side by side with the `accounts` project.
+
+  ![Project Location](images/project-location.png " ")
+
+  When the project opens click **Add to Workspace**
+
+  ![Add to Workspace](images/add-to-workspace.png " ")
+
+1. Modify the `pom.xml` file
+
+    Open the `pom.xml` file in the `testrunner` project. This service will use the "Web" Spring Boot Starter which will allow it to expose REST endpoints and make REST calls to other services. It also uses the two Oracle Spring Boot Starters for UCP and Wallet to access the database: Add the following to the pom.xml:
 
     ```xml
-    <copy><?xml version="1.0" encoding="UTF-8"?>
-    <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
-        <modelVersion>4.0.0</modelVersion>
-        <parent>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-parent</artifactId>
-            <version>3.2.1</version>
-            <relativePath/> <!-- lookup parent from repository -->
-        </parent>
-
-        <groupId>com.example</groupId>
-        <artifactId>testrunner</artifactId>
-        <version>0.0.1-SNAPSHOT</version>
-        <name>testrunner</name>
-        <description>Test Runner Application</description>
-
-        <properties>
-            <java.version>17</java.version>
-        </properties>
-
-        <dependencies>
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-starter-web</artifactId>
-            </dependency>
-            <dependency>
-                <groupId>com.oracle.database.spring</groupId>
-                <artifactId>oracle-spring-boot-starter-aqjms</artifactId>
-                <version>23.4.0</version>
-            </dependency>
-            <dependency>
-                <groupId>com.oracle.database.spring</groupId>
-                <artifactId>oracle-spring-boot-starter-wallet</artifactId>
-                <type>pom</type>
-                <version>23.4.0</version>
-            </dependency>
-            <dependency>
-                <groupId>org.projectlombok</groupId>
-                <artifactId>lombok</artifactId>
-            </dependency>
-        </dependencies>
-
-        <build>
-            <plugins>
-                <plugin>
-                    <groupId>org.springframework.boot</groupId>
-                    <artifactId>spring-boot-maven-plugin</artifactId>
-                    <configuration>
-                      <excludes>
-                        <exclude>
-                          <groupId>org.projectlombok</groupId>
-                          <artifactId>lombok</artifactId>
-                        </exclude>
-                      </excludes>
-                  </configuration>
-                </plugin>
-            </plugins>
-        </build>
-
-    </project></copy>
-    ```
+      <copy>
+      <dependency>
+        <groupId>com.oracle.database.spring</groupId>
+        <artifactId>oracle-spring-boot-starter-aqjms</artifactId>
+        <version>23.4.0</version>
+      </dependency>
+      <dependency>
+        <groupId>com.oracle.database.spring</groupId>
+        <artifactId>oracle-spring-boot-starter-wallet</artifactId>
+        <type>pom</type>
+        <version>23.4.0</version>
+      <dependency>
+        <groupId>org.projectlombok</groupId>
+        <artifactId>lombok</artifactId>
+      </dependency>
+    ```</copy>
 
 1. Create the Spring Boot application YAML file
 
-    In the `testrunner` directory, create a new directory called `src/main/resources` and in that directory, create a file called `application.yaml` with the following content:
+    In the `testrunner` project, rename the file called `application.properties` to `application.yaml` located in the `src/main/resources`. This will be the Spring Boot application configuration file:
 
     ```yaml
     <copy>spring:
@@ -461,7 +459,7 @@ Next, you will create the "Test Runner" microservice which you will use to simul
 
 1. Create the main Spring Application class
 
-    In the `testrunner` directory, create a new directory called `src/main/java/com/example/testrunner` and in that directory, create a new Java file called `TestrunnerApplication.java` with this content.  This is a standard Spring Boot main class, notice the `SpringBootApplication` annotation on the class.  It also has the `EnableJms` annotation which tells Spring Boot to enable JMS functionality in this application.  The `main` method is a normal Spring Boot main method:
+    In the `testrunner` directory, open the Java Java file called `TestrunnerApplication.java` and add this content. This is a standard Spring Boot main class, notice the `@SpringBootApplication` annotation on the class.  It also has the `@EnableJms` annotation which tells Spring Boot to enable JMS functionality in this application. The `main` method is a normal Spring Boot main method:
 
     ```java
     <copy>
@@ -745,100 +743,78 @@ Next, you will create the "Test Runner" microservice which you will use to simul
 
 Next, you will create the "Check Processing" microservice which you will receive messages from the ATM and Back Office and process them by calling the appropriate endpoints on the Account service. This service will also introduce the use of service discovery using [OpenFeign](https://spring.io/projects/spring-cloud-openfeign) clients.
 
-1. Create the Check Processing Spring Boot project
+1. Create a new Java Project for the `checks` service.
 
-   Create a new directory called `checks` alongside your `account` directory.  This new directory will hold the new Test Runner Spring Boot project.  In this directory create a file called `pom.xml` with the following content.  This will be the Maven POM for this project.  It is very similar to the POM for the account and test runner services, however the dependencies are slightly different.  This service will use the "Web" Spring Boot Starter which will allow it to expose REST endpoints and make REST calls to other services.  It also uses the two Oracle Spring Boot Starters for UCP and Wallet to access the database. You will also add the Eureka client and [OpenFeign](https://spring.io/projects/spring-cloud-openfeign) dependencies to allow service discovery and client side load balancing:
+  In the Explorer of VS Code open `Java Project` and click the the **plus** sign to add a Java Project to your workspace.
+
+  ![Add Java Project](images/add_java_project.png " ")
+
+  Select Spring Boot Project.
+
+  ![Spring Boot Project](images/spring-boot-prj.png " ")
+
+  Select Maven Project.
+
+  ![Maven Project](images/maven-project.png " ")
+
+  Specify `3.2.1` as the Spring Boot version.
+
+  ![Spring Boot Version](images/spring-boot-version.png " ")
+
+  Use `com.example` as the Group Id.
+
+  ![Group Id](images/group-id.png " ")
+
+  Enter `checks` as the Artifact Id.
+
+  ![Artifact Id](images/artifact-id-checks.png " ")
+
+  Use `JAR` as the Packaging Type.
+
+  ![Packaging Type](images/packaging-type.png " ")
+
+  Select Java version `17`.
+
+  ![Java Version](images/java-version.png " ")
+
+  Search for `Spring Web`, `Lombok`, `Feign` and `Eureka Client`. When all are selected press **Enter**.
+
+  ![Search for Spring Web](images/checks-dependencies.png " ")
+
+  Press **Enter** to continue and create the Java Project
+
+  ![Create Project](images/create-project.png " ")
+
+  Select the `root` location for your project e.g. side by side with the `checks`, `testrunner` and `accounts` projects.
+
+  ![Project Location](images/project-location.png " ")
+
+  When the project opens click **Add to Workspace**
+
+  ![Add to Workspace](images/add-to-workspace.png " ")
+
+1. Update the `pom.xml` file for Oracle Spring Boot Starters
+
+   It is very similar to the POM for the account and test runner services, however the dependencies are slightly different.  This service will use the "Web" Spring Boot Starter which will allow it to expose REST endpoints and make REST calls to other services. It also uses the two Oracle Spring Boot Starters for UCP and Wallet to access the database. You will also add the Eureka client and [OpenFeign](https://spring.io/projects/spring-cloud-openfeign) dependencies to allow service discovery and client side load balancing. Open the `pom.xml` and add the following to the `pom.xml`:
 
     ```xml
-    <copy><?xml version="1.0" encoding="UTF-8"?>
-    <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
-      <modelVersion>4.0.0</modelVersion>
-      <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.2.1</version>
-        <relativePath/> <!-- lookup parent from repository -->
-      </parent>
-      <groupId>com.example</groupId>
-      <artifactId>checks</artifactId>
-      <version>0.0.1-SNAPSHOT</version>
-      <name>checks</name>
-      <description>Demo project for Spring Boot</description>
-      <properties>
-        <java.version>17</java.version>
-        <spring-cloud.version>2023.0.0</spring-cloud.version>
-      </properties>
-      <dependencies>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-      <dependency>
-        <groupId>org.springframework.cloud</groupId>
-        <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
-      </dependency>
-      <dependency>
-        <groupId>org.springframework.cloud</groupId>
-        <artifactId>spring-cloud-starter-openfeign</artifactId>
-      </dependency>
-      <dependency>
-        <groupId>com.oracle.database.spring</groupId>
-        <artifactId>oracle-spring-boot-starter-aqjms</artifactId>
-        <version>23.4.0</version>
-      </dependency>
-      <dependency>
-        <groupId>com.oracle.database.spring</groupId>
-        <artifactId>oracle-spring-boot-starter-wallet</artifactId>
-        <type>pom</type>
-        <version>23.4.0</version>
-      </dependency>
-      <dependency>
-        <groupId>org.projectlombok</groupId>
-        <artifactId>lombok</artifactId>
-        <optional>true</optional>
-      </dependency>
-      <dependency>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-test</artifactId>
-        <scope>test</scope>
-      </dependency>
-      </dependencies>
-      <dependencyManagement>
-        <dependencies>
-          <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-dependencies</artifactId>
-            <version>${spring-cloud.version}</version>
-            <type>pom</type>
-            <scope>import</scope>
-          </dependency>
-        </dependencies>
-      </dependencyManagement>
-
-      <build>
-        <plugins>
-          <plugin>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-maven-plugin</artifactId>
-            <configuration>
-              <excludes>
-                <exclude>
-                  <groupId>org.projectlombok</groupId>
-                  <artifactId>lombok</artifactId>
-                </exclude>
-              </excludes>
-            </configuration>
-          </plugin>
-        </plugins>
-      </build>
-
-    </project></copy>
+    <copy>
+    <dependency>
+      <groupId>com.oracle.database.spring</groupId>
+      <artifactId>oracle-spring-boot-starter-aqjms</artifactId>
+      <version>23.4.0</version>
+    </dependency>
+    <dependency>
+      <groupId>com.oracle.database.spring</groupId>
+      <artifactId>oracle-spring-boot-starter-wallet</artifactId>
+      <type>pom</type>
+      <version>23.4.0</version>
+    </dependency></copy>
     ```
 
 1. Create the Spring Boot application YAML file
 
-   In the `checks` directory, create a new directory called `src/main/resources` and in that directory, create a file called `application.yaml` with the following content:
+  In the `checks` project, rename the file called `application.properties` to `application.yaml` located in the `src/main/resources`. This will be the Spring Boot application configuration file. Add the following the following content:
 
     ```yaml
     <copy>spring:
