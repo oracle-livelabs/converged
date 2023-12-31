@@ -1339,7 +1339,7 @@ Now you can test the full end-to-end flow for the Check Processing scenario.
 
 ## Learn More
 
-* [Oracle Backend for Spring Boot](https://oracle.github.io/microservices-datadriven/spring/)
+* [Oracle Backend for Spring Boot](http://bit.ly/oraclespringboot/)
 * [Oracle Backend for Parse Platform](https://oracle.github.io/microservices-datadriven/mbaas/)
 * [Kubernetes](https://kubernetes.io/docs/home/)
 * [Apache APISIX](https://apisix.apache.org)
