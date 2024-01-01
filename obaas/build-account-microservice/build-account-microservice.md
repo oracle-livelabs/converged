@@ -1102,7 +1102,6 @@ Now that the account service is deployed, you need to expose it through the API 
 
     Execute the following command to get the password for the `admin` user for the APISIX API Gateway:
 
-    ***TODO - FIX THE COMMAND***
     ```shell
     $ <copy>kubectl get secret -n apisix apisix-dashboard -o jsonpath='{.data.conf\.yaml}' | base64 -d | grep 'password:'</copy>
     ```

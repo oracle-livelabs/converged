@@ -896,7 +896,7 @@ Now, you will create another new Spring Boot microservice application and implem
 
   Enter `transfer` as the Artifact Id.
 
-  ![Artifact Id](images/artifact-id.png " ")
+  ![Artifact Id](images/artifact-id-transfer.png " ")
 
   Use `JAR` as the Packaging Type.
 

@@ -394,7 +394,7 @@ Next, you will create the "Test Runner" microservice which you will use to simul
 
   Enter `testrunner` as the Artifact Id.
 
-  ![Artifact Id](images/artifact-id.png " ")
+  ![Artifact Id](images//artifact-id-testrunner.png " ")
 
   Use `JAR` as the Packaging Type.
 
