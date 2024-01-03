@@ -1469,7 +1469,7 @@ In this lab you have learned about the Saga pattern by implementing an account t
 
 ## Learn More
 
-* [Oracle Backend for Spring Boot](http://bit.ly/oraclespringboot/)
+* [Oracle Backend for Spring Boot](https://bit.ly/oraclespringboot)
 * [Oracle Backend for Parse Platform](https://oracle.github.io/microservices-datadriven/mbaas/)
 * [Oracle Transaction Manager for Microservices](https://www.oracle.com/database/transaction-manager-for-microservices/)
 * [Saga pattern](https://microservices.io/patterns/data/saga.html)

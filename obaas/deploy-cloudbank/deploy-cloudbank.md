@@ -38,10 +38,10 @@ Download a copy of the CloudBank sample application.
 
     > **Note**: If you do not have **git** installed on your machine, you can download a zip file of the source code from [GitHub](https://github.com/oracle/microservices-datadriven) and unzip it on your machine instead.
 
-    The source code for the CloudBank application will be in the `microservices-datadriven` directory you just created, in the `cloudbank-v3/spring-apps-spring3` subdirectory.
+    The source code for the CloudBank application will be in the `microservices-datadriven` directory you just created, in the `cloudbank-v32` subdirectory.
 
     ```shell
-    <copy>cd microservices-datadriven/cloudbank-v3/spring-apps-spring3</copy>
+    <copy>cd microservices-datadriven/cloudbank-v32</copy>
     ```
 
 ## Task 2: Build the CloudBank application
@@ -75,7 +75,7 @@ Download a copy of the CloudBank sample application.
     [INFO] ------------------------------------------------------------------------
     ```
 
-    **NOTE**: You can optionally jump to the **Task 6** to do the deployment through the Oracle Backend for Spring Boot VS Code plugin.
+**NOTE**: You can optionally jump to Lab 7 to do the deployment through the Oracle Backend for Spring Boot VS Code plugin.
 
 ## Task 3: Install CloudBank in your Oracle Backend for Spring Boot and Microservices instance
 
@@ -84,7 +84,7 @@ Download a copy of the CloudBank sample application.
     Execute the following command to get the `obaas-admin` password:
 
     ```shell
-    <copy>kubectl get secret -n azn-server  oractl-passwords -o jsonpath='{.data.admin}' | base64 -d</copy>
+    <copy>kubectl get secret -n azn-server oractl-passwords -o jsonpath='{.data.admin}' | base64 -d</copy>
     ```
 
 1. Start a tunnel to the backend service.
@@ -199,7 +199,7 @@ Download a copy of the CloudBank sample application.
 
     1. Deploy/Redeploy the *Account* Service
 
-        You will now deploy your Account service to the Oracle Backend for Spring Boot and Microservices using the `oractl`.  You will deploy into the `application` namespace, and the service name will be `account`. If you finished lab three (Build the Account Microservice) you need to use the *--redeploy* option to the *deploy* command.
+        You will now deploy your Account service to the Oracle Backend for Spring Boot and Microservices using the `oractl`. You will deploy into the `application` namespace, and the service name will be `account`. If you finished lab three (Build the Account Microservice) you need to use the *--redeploy* option to the *deploy* command. **Note** The `deploy` command have `--liquibas-db` parameter, this is beacuse Liquibase needsto run as the `ADMIN` user so the `account` user can get the right properties to create TXEventQ's.
 
         Run this command to deploy your account service, make sure you provide the correct path to your JAR file:
 
@@ -789,7 +789,7 @@ This concludes the lab *Deploy the full CloudBank Application* using the `oractl
 
 ## Learn More
 
-* [Oracle Backend for Spring Boot](https://oracle.github.io/microservices-datadriven/spring/)
+* [Oracle Backend for Spring Boot](https://bit.ly/oraclespringboot)
 * [Oracle Backend for Parse Platform](https://oracle.github.io/microservices-datadriven/mbaas/)
 * [Kubernetes](https://kubernetes.io/docs/home/)
 * [Apache APISIX](https://apisix.apache.org)
@@ -799,4 +799,4 @@ This concludes the lab *Deploy the full CloudBank Application* using the `oractl
 
 * **Author** - Andy Tael, Corrado De Bari, Mark Nelson, Developer Evangelists, Oracle Database
 * **Contributors** - [](var:contributors)
-* **Last Updated By/Date** - Andy Tael, November 2023
+* **Last Updated By/Date** - Andy Tael, January 2024

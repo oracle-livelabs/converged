@@ -428,8 +428,13 @@ If you plan to do the optional part of Lab. 5, you need to install in VS Code th
 
    click on **Additional Views** menu to select the **eBaaS Explorer**.
 
+## Learn More
+
+* [Oracle Backend for Spring Boot](https://bit.ly/oraclespringboot)
+* [Oracle Backend for Parse Platform](https://oracle.github.io/microservices-datadriven/mbaas/)
+
 ## Acknowledgements
 
 * **Author** - Mark Nelson, Andy Tael, Developer Evangelist, Oracle Database
 * **Contributors** - [](var:contributors)
-* **Last Updated By/Date** - Andy Tael, June 2023
+* **Last Updated By/Date** - Andy Tael, January 2024

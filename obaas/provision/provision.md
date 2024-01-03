@@ -261,7 +261,7 @@ The Oracle Backend for Spring Boot can be installed from OCI Marketplace.
 
 ## Learn More
 
-* [Oracle Backend for Spring Boot](https://oracle.github.io/microservices-datadriven/spring/)
+* [Oracle Backend for Spring Boot](https://bit.ly/oraclespringboot)
 * [Oracle Backend for Parse Platform](https://oracle.github.io/microservices-datadriven/mbaas/)
 
 ## Acknowledgements
