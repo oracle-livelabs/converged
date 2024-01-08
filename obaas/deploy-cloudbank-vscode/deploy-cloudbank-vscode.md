@@ -25,8 +25,6 @@ This lab assumes you have:
 
 ## Task 1: Get a copy of the CloudBank sample application
 
-If you already have completed the lab *Deploy the full CloudBank Application using the CLI* You can skip Task *1*.
-
 Download a copy of the CloudBank sample application.
 
 1. Clone the source repository
@@ -34,27 +32,25 @@ Download a copy of the CloudBank sample application.
     Create a local clone of the CloudBank source repository using this command.
 
     ```shell
-    $ <copy>git clone https://github.com/oracle/microservices-datadriven.git</copy>
+    <copy>git clone https://github.com/oracle/microservices-datadriven.git</copy>
     ```
 
     > **Note**: If you do not have **git** installed on your machine, you can download a zip file of the source code from [GitHub](https://github.com/oracle/microservices-datadriven) and unzip it on your machine instead.
 
-    The source code for the CloudBank application will be in the `microservices-datadriven` directory you just created, in the `cloudbank-v3/spring-apps-spring3` subdirectory.
+    The source code for the CloudBank application will be in the `microservices-datadriven` directory you just created, in the `cloudbank-v32` subdirectory.
 
     ```shell
-    $ <copy>cd microservices-datadriven/cloudbank-v3/spring-apps-spring3</copy>
+    <copy>cd microservices-datadriven/cloudbank-v32</copy>
     ```
 
 ## Task 2: Build the CloudBank application
-
-If you already have completed the lab *Deploy the full CloudBank Application using the CLI* You can skip Task *2*
 
 1. Create application JAR files
 
     In the directory where you cloned (or unzipped) the application and build the application JARs using the following command:
 
     ```shell
-    $ <copy>mvn clean package</copy>
+    <copy>mvn clean package</copy>
     ```
 
     The output should be similar to this:
@@ -348,7 +344,7 @@ If you already have completed the lab *Deploy the full CloudBank Application usi
 
 ## Learn More
 
-* [Oracle Backend for Spring Boot](https://oracle.github.io/microservices-datadriven/spring/)
+* [Oracle Backend for Spring Boot](https://bit.ly/oraclespringboot)
 * [Oracle Backend for Parse Platform](https://oracle.github.io/microservices-datadriven/mbaas/)
 * [Kubernetes](https://kubernetes.io/docs/home/)
 * [Apache APISIX](https://apisix.apache.org)
