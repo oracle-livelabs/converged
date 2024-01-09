@@ -81,9 +81,9 @@ Download a copy of the CloudBank sample application.
 
     ![Additional](images/additional.png " ")
 
-    click on **Additional Views** menu to select the **eBaaS Explorer**.
+    click on **Additional Views** menu to select the **Oracle Backend fo Spring Boot and Microservices**.
 
-    The Oracle Backend for Spring Boot VS Code plugin will ask to specify the Kubernetes config file full path as shown here:
+    The  Oracle Backend fo Spring Boot and Microservices VS Code plugin will ask to specify the Kubernetes config file full path as shown here:
 
     ![kubeConfig](images/getkubeconfig.png " ")
 
@@ -114,7 +114,7 @@ Download a copy of the CloudBank sample application.
         $ <copy>kubectl get secret -n azn-server  oractl-passwords -o jsonpath='{.data.admin}' | base64 -d</copy>
         ```
 
-    * Right click on the cluster name and select **Set UID/Pwd**:
+    * Right click on the cluster name and select **Set UID/PWD**:
 
         ![Credentials](images/credentials.png " ")
 
@@ -160,7 +160,7 @@ Download a copy of the CloudBank sample application.
 
     You'll see four top classes of resources that can be exploded in underlying items:
     * **applications**: the list of applications deployed and the services holding
-    * **ADB**: in this release we have one ADB in which are stored configuration and schema related to services deployed
+    * **Oracle DB**: in this release we have one Database in which are stored configuration and schema related to services deployed
     * **platformServices**: the list of Oracle Backend for Spring Boot deployed services, like Grafana, Spring, Apisix, Eureka and Jaeger.
     * **oBaasConf**: the list of keys defined by application, stored in the ADB provisioned and available to share configuration information among services in each application.
 
@@ -186,6 +186,23 @@ Download a copy of the CloudBank sample application.
 
 4. The four Spring Boot microservices deployment
 
+    First it must be bind the service if the case. For **account** service you have to:
+
+    * Select applications leaf and with right click select **Bind a service** item menu:
+
+        ![bindcommand](images/bindcommand.png " ")
+
+    * and the input following values:
+        * **Service Name**: account
+        * **DB User (optional)**: 
+        * **DB User Password**: Welcome1234## 
+        * **Spring Binding Prefix (optional)**: spring.datasource
+        * **Update**: False
+
+    * you'll get the message:
+
+    ![bind](images/bindsuccessful.png " ")
+
     Let's start with the first service deployment:
 
     * Select **application** under **applications** and Right-click on mouse to select **Add service -> upload .jar**:
@@ -202,14 +219,14 @@ Download a copy of the CloudBank sample application.
 
     and then:
     * **Service Name** : `account`
-    * **DB User Password (for bind only)**:  `Welcome1234##`
-    * **Spring Binding Prefix**: leave default `spring.datasource`
     * **Image Version**:  `0.0.1`
     * **Java Image**: leave default `ghcr.io/graalvm/jdk:ol7-java17-22.2.0`
     * **is it a redeploy**: **False**
     * **Add Health probe?**: **False**
     * **Service Port**: leave default `8080`
     * **Service Profile**: leave default `obaas`
+    * **Initial Replicas** : 1
+    * **Inform the database name for Liquibase**:  
 
     * You will see messages that confirm the deployment is started:
 
@@ -223,6 +240,23 @@ Download a copy of the CloudBank sample application.
 
         ![accountdeployed](images/accountdeployed.png " ")
 
+    Now we have prepare binding for **customer** too before deployment in this way.
+
+    * Select applications leaf and with right click select **Bind a service** item menu:
+
+        ![bindcommand](images/bindcommand.png " ")
+
+    * and the input following values:
+        * **Service Name**: customer
+        * **DB User (optional)**:
+        * **DB User Password**: Welcome1234##
+        * **Spring Binding Prefix (optional)**: spring.datasource
+        * **Update**: False
+
+    * you'll get the message:
+
+    ![bind](images/bindsuccessfulcustomer.png " ")
+
     Let's start with the **customer** service deployment:
 
     * Select **application** under **applications** and Right-click on mouse to select **Add service -> upload .jar**.
@@ -235,16 +269,16 @@ Download a copy of the CloudBank sample application.
 
     and then:
     * **Service Name** : `customer`
-    * **DB User Password (for bind only)**:  `Welcome1234##`
-    * **Spring Binding Prefix**: leave default `spring.datasource`
     * **Image Version**:  `0.0.1`
     * **Java Image**: leave default `ghcr.io/graalvm/jdk:ol7-java17-22.2.0`
     * **is it a redeploy**: **False**
     * **Add Health probe?**: **False**
     * **Service Port**: leave default `8080`
     * **Service Profile**: leave default `obaas`
+    * **Initial Replicas** : 1
+    * **Inform the database name for Liquibase**: 
 
-    * As before, you will see messages that will confirm the deployment is started and finally "**Service deployed successfully**".
+    As before, you will see messages that will confirm the deployment is started and finally "**Service deployed successfully**".
 
     Finally, we'll deploy the services that don't require to be bound to a schema, the **creditscore** and **transfer**:
 
@@ -258,16 +292,16 @@ Download a copy of the CloudBank sample application.
 
     and then:
     * **Service Name** : `creditscore`
-    * **DB User Password (for bind only)**:  leave `null`
-    * **Spring Binding Prefix**: leave default `spring.datasource`
     * **Image Version**:  `0.0.1`
     * **Java Image**: leave default `ghcr.io/graalvm/jdk:ol7-java17-22.2.0`
     * **is it a redeploy**: **False**
     * **Add Health probe?**: **False**
     * **Service Port**: leave default `8080`
     * **Service Profile**: leave default `obaas`
+    * **Initial Replicas** : 1
+    * **Inform the database name for Liquibase**: 
 
-    * As before, you will see messages that will confirm the deployment is started and finally "**Service deployed successfully**".
+    As before, you will see messages that will confirm the deployment is started and finally "**Service deployed successfully**".
 
     Proceed to the final CloudBank service deployment, for **transfer**:
 
@@ -281,16 +315,16 @@ Download a copy of the CloudBank sample application.
 
     and then:
     * **Service Name** : `transfer`
-    * **DB User Password (for bind only)**:  leave `null`
-    * **Spring Binding Prefix**: leave default `spring.datasource`
     * **Image Version**:  `0.0.1`
     * **Java Image**: leave default `ghcr.io/graalvm/jdk:ol7-java17-22.2.0`
     * **is it a redeploy**: **False**
     * **Add Health probe?**: **False**
     * **Service Port**: leave default `8080`
     * **Service Profile**: leave default `obaas`
+    * **Initial Replicas** : 1
+    * **Inform the database name for Liquibase**: 
 
-    * As before, you will see messages that will confirm the deployment is started and finally "**Service deployed successfully**".
+    As before, you will see messages that will confirm the deployment is started and finally "**Service deployed successfully**".
 
     Now we have the three services up & running as you should see from VS Code plug-in:
 
@@ -334,7 +368,7 @@ Download a copy of the CloudBank sample application.
 
     Execute the same actions as described in **Lab. 5, Task 5** except for the **step 4.**, that it could be executed in the following alternative way, accessing comfortably to the APISIX admin console straight from VS Code.
 
-    * Select under **platformServices** the leaf **apisix console** and, with a right-click on mouse, select **open apisix console**:
+    * Select under **platformServices** the leaf **apisix** and, with a right-click on mouse, select **Open Apisix console**:
 
         ![tunnelapisix](images/tunnelapisix.png " ")
 

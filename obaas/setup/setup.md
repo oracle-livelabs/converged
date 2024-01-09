@@ -426,7 +426,7 @@ If you plan to do the optional part of Lab. 5, you need to install in VS Code th
 
     ![Additional](images/additional.png " ")
 
-   click on **Additional Views** menu to select the **eBaaS Explorer**.
+   click on **Additional Views** menu to select the **Oracle Backend for Spring Boot and Microservices**.
 
 ## Learn More
 
