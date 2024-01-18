@@ -1318,7 +1318,7 @@ The services are now completed and you are ready to deploy them to the Oracle Ba
   Run this command to redeploy your account service, make sure you provide the correct path to your JAR files.  **Note**: You must set the **--redeploy** flag since you are updating the existing deployment:
 
     ```shell
-    oractl:> <copy>deploy --app-name application --service-name account --artifact-path /path/to/accounts-0.0.1-SNAPSHOT.jar --image-version 0.0.1 --liquibase-db admin --redeploy</copy>
+    oractl:> <copy>deploy --app-name application --service-name account --cpu-request 100m --artifact-path /path/to/accounts-0.0.1-SNAPSHOT.jar --image-version 0.0.1 --liquibase-db admin --redeploy</copy>
     uploading: account/target/accounts-0.0.1-SNAPSHOT.jar
     building and pushing image...
     creating deployment and service... successfully deployed
@@ -1328,7 +1328,7 @@ The services are now completed and you are ready to deploy them to the Oracle Ba
    Run this command to to deploy the transfer service, make sure you provide the correct path to your JAR files.
 
     ```shell
-    oractl:> <copy>deploy --app-name application --service-name transfer --artifact-path /path/to/transfer-0.0.1-SNAPSHOT.jar --image-version 0.0.1</copy>
+    oractl:> <copy>deploy --app-name application --service-name transfer --cpu-request 100m --artifact-path /path/to/transfer-0.0.1-SNAPSHOT.jar --image-version 0.0.1</copy>
     uploading: transfer/target/transfer-0.0.1-SNAPSHOT.jar
     building and pushing image...
     creating deployment and service... successfully deployed

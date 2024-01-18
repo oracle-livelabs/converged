@@ -44,6 +44,8 @@ Download a copy of the CloudBank sample application.
     <copy>cd microservices-datadriven/cloudbank-v32</copy>
     ```
 
+    This directory will be referred to as the `root` directory for CloudBank.
+
 ## Task 2: Build the CloudBank application
 
 1. Create application JAR files
@@ -58,20 +60,21 @@ Download a copy of the CloudBank sample application.
 
     ```text
     [INFO] ------------------------------------------------------------------------
-    [INFO] Reactor Summary for cloudbank 0.0.1-SNAPSHOT:
+    [INFO] Reactor Summary for CloudBank 0.0.1-SNAPSHOT:
     [INFO]
-    [INFO] cloudbank .......................................... SUCCESS [  0.972 s]
-    [INFO] account ............................................ SUCCESS [  2.877 s]
-    [INFO] customer ........................................... SUCCESS [  1.064 s]
-    [INFO] creditscore ........................................ SUCCESS [  0.922 s]
-    [INFO] transfer ........................................... SUCCESS [  0.465 s]
-    [INFO] testrunner ......................................... SUCCESS [  0.931 s]
-    [INFO] checks ............................................. SUCCESS [  0.948 s]
+    [INFO] CloudBank .......................................... SUCCESS [  0.916 s]
+    [INFO] account ............................................ SUCCESS [  2.900 s]
+    [INFO] checks ............................................. SUCCESS [  1.127 s]
+    [INFO] customer ........................................... SUCCESS [  1.106 s]
+    [INFO] customer32 ......................................... SUCCESS [  1.020 s]
+    [INFO] creditscore ........................................ SUCCESS [  0.908 s]
+    [INFO] transfer ........................................... SUCCESS [  0.455 s]
+    [INFO] testrunner ......................................... SUCCESS [  0.942 s]
     [INFO] ------------------------------------------------------------------------
     [INFO] BUILD SUCCESS
     [INFO] ------------------------------------------------------------------------
-    [INFO] Total time:  8.480 s
-    [INFO] Finished at: 2023-11-06T12:35:17-06:00
+    [INFO] Total time:  9.700 s
+    [INFO] Finished at: 2024-01-18T15:52:56-06:00
     [INFO] ------------------------------------------------------------------------
     ```
 
@@ -172,6 +175,17 @@ Download a copy of the CloudBank sample application.
         oractl:>
         ```
 
+    1. Create binding for the *Customer32* Service
+
+        Create a database "binding" by running this command. Enter the password (`Welcome1234##`) when prompted.  This will create a Kubernetes secret in the `application` namespace called `customer32-db-secrets` which contains the username (`customer32`), password, and URL to connect to the Oracle Autonomous Database instance associated with the Oracle Backend for Spring Boot and Microservices.
+
+        ```shell
+        oractl:> <copy>bind --app-name application --service-name customer32 --username customer</copy>
+        Database/Service Password: *************
+        Schema {customer} was successfully Created and Kubernetes Secret {application/customer32} was successfully Created.
+        oractl:>
+        ```
+
     1. Create Binding for the *Testrunner* Service
 
         Create a database "binding" by running this command. Enter the password (`Welcome1234##`) when prompted.  This will create a Kubernetes secret in the `application` namespace called `testrunner-db-secrets` which contains the username (`account`), password, and URL to connect to the Oracle Autonomous Database instance associated with the Oracle Backend for Spring Boot and Microservices.
@@ -204,7 +218,7 @@ Download a copy of the CloudBank sample application.
         Run this command to deploy your account service, make sure you provide the correct path to your JAR file:
 
         ```shell
-        oractl:> <copy>deploy --app-name application --service-name account --artifact-path /path/to/account-0.0.1-SNAPSHOT.jar --image-version 0.0.1 --liquibase-db admin</copy>
+        oractl:> <copy>deploy --app-name application --service-name account --cpu-request 100m --artifact-path /path/to/account-0.0.1-SNAPSHOT.jar --image-version 0.0.1 --liquibase-db admin</copy>
         uploading: account/target/account-0.0.1-SNAPSHOT.jar
         building and pushing image...
 
@@ -216,7 +230,7 @@ Download a copy of the CloudBank sample application.
         Re-deploy the accounts service. If you finished lab three, you can re-deploy the Account Service using the following command (notice the *--redeploy* option)
 
         ```shell
-        oractl:> <copy>deploy --redeploy --app-name application --service-name account --artifact-path /path/to/account-0.0.1-SNAPSHOT.jar --image-version 0.0.1 --liquibase-db admin</copy>
+        oractl:> <copy>deploy --redeploy --app-name application --service-name account --cpu-request 100m --artifact-path /path/to/account-0.0.1-SNAPSHOT.jar --image-version 0.0.1 --liquibase-db admin</copy>
         uploading: account/target/account-0.0.1-SNAPSHOT.jar
         building and pushing image...
 
@@ -232,7 +246,7 @@ Download a copy of the CloudBank sample application.
         Run this command to deploy your checks service, make sure you provide the correct path to your JAR file:
 
         ```shell
-        oractl:> <copy>deploy --app-name application --service-name checks --artifact-path /path/to/checks-0.0.1-SNAPSHOT.jar --image-version 0.0.1</copy>
+        oractl:> <copy>deploy --app-name application --service-name checks --cpu-request 100m --artifact-path /path/to/checks-0.0.1-SNAPSHOT.jar --image-version 0.0.1</copy>
         uploading: checks/target/checks-0.0.1-SNAPSHOT.jar
         building and pushing image...
 
@@ -244,7 +258,7 @@ Download a copy of the CloudBank sample application.
         Re-deploy the checks service. If you finished lab four, you can re-deploy the Checks Service using the following command (notice the *--redeploy* option)
 
         ```shell
-        oractl:> <copy>deploy --redeploy --app-name application --service-name checks --artifact-path /path/to/checks-0.0.1-SNAPSHOT.jar --image-version 0.0.1</copy>
+        oractl:> <copy>deploy --redeploy --app-name application --service-name checks --cpu-request 100m --artifact-path /path/to/checks-0.0.1-SNAPSHOT.jar --image-version 0.0.1</copy>
         uploading: checks/target/checks-0.0.1-SNAPSHOT.jar
         building and pushing image...
 
@@ -258,7 +272,7 @@ Download a copy of the CloudBank sample application.
         You will now deploy your Customer service to the Oracle Backend for Spring Boot and Microservices using `oractl`. You will deploy into the `application` namespace, and the service name will be `customer`. Run this command to deploy your service, make sure you provide the correct path to your JAR file:
 
         ```shell
-        oractl:> <copy>deploy --app-name application --service-name customer --artifact-path /path/to/customer-0.0.1-SNAPSHOT.jar --image-version 0.0.1 --liquibase-db admin</copy>
+        oractl:> <copy>deploy --app-name application --service-name customer --cpu-request 100m --artifact-path /path/to/customer-0.0.1-SNAPSHOT.jar --image-version 0.0.1 --liquibase-db admin</copy>
         uploading: customer/target/customer-0.0.1-SNAPSHOT.jar
         building and pushing image...
 
@@ -272,7 +286,7 @@ Download a copy of the CloudBank sample application.
         You will now deploy your Creditscore service to the Oracle Backend for Spring Boot and Microservices using `oractl`.  You will deploy into the `application` namespace, and the service name will be `creditscore`. Run this command to deploy your service, make sure you provide the correct path to your JAR file:
 
         ```shell
-        oractl:> <copy>deploy --app-name application --service-name creditscore --artifact-path /path/to/creditscore-0.0.1-SNAPSHOT.jar --image-version 0.0.1</copy>
+        oractl:> <copy>deploy --app-name application --service-name creditscore --cpu-request 100m --artifact-path /path/to/creditscore-0.0.1-SNAPSHOT.jar --image-version 0.0.1</copy>
         uploading: creditscore/target/creditscore-0.0.1-SNAPSHOT.jar
         building and pushing image...
 
@@ -288,7 +302,7 @@ Download a copy of the CloudBank sample application.
         Run this command to deploy your testrunner service, make sure you provide the correct path to your JAR file:
 
         ```shell
-        oractl:> <copy>deploy --app-name application --service-name testrunner --artifact-path /path/to/testrunner-0.0.1-SNAPSHOT.jar --image-version 0.0.1</copy>
+        oractl:> <copy>deploy --app-name application --service-name testrunner --cpu-request 100m --artifact-path /path/to/testrunner-0.0.1-SNAPSHOT.jar --image-version 0.0.1</copy>
         uploading: testrunner/target/testrunner-0.0.1-SNAPSHOT.jar
         building and pushing image...
 
@@ -300,7 +314,7 @@ Download a copy of the CloudBank sample application.
         Re-deploy the testrunner service. If you finished lab four, you can re-deploy the Checks Service using the following command (notice the *--redeploy* option)
 
         ```shell
-        oractl:> <copy>deploy --redeploy --app-name application --service-name testrunner --artifact-path /path/to/testrunner-0.0.1-SNAPSHOT.jar --image-version 0.0.1</copy>
+        oractl:> <copy>deploy --redeploy --app-name application --service-name testrunner --cpu-request 100m --artifact-path /path/to/testrunner-0.0.1-SNAPSHOT.jar --image-version 0.0.1</copy>
         uploading: testrunner/target/testrunner-0.0.1-SNAPSHOT.jar
         building and pushing image...
 
@@ -316,7 +330,7 @@ Download a copy of the CloudBank sample application.
         Run this command to deploy your transfer service, make sure you provide the correct path to your JAR file:
 
         ```shell
-        oractl:> <copy>deploy --app-name application --service-name transfer --artifact-path /path/to/transfer-0.0.1-SNAPSHOT.jar --image-version 0.0.1</copy>
+        oractl:> <copy>deploy --app-name application --service-name transfer --cpu-request 100m --artifact-path /path/to/transfer-0.0.1-SNAPSHOT.jar --image-version 0.0.1</copy>
         uploading: transfer/target/transfer-0.0.1-SNAPSHOT.jar
         building and pushing image...
 
@@ -328,7 +342,7 @@ Download a copy of the CloudBank sample application.
         Re-deploy the transfer service. If you finished lab five, you can re-deploy the Transfer Service using the following command (notice the *--redeploy* option)
 
         ```shell
-        oractl:> <copy>deploy --redeploy --app-name application --service-name transfer --artifact-path /path/to/transfer-0.0.1-SNAPSHOT.jar --image-version 0.0.1</copy>
+        oractl:> <copy>deploy --redeploy --app-name application --service-name transfer --cpu-request 100m --artifact-path /path/to/transfer-0.0.1-SNAPSHOT.jar --image-version 0.0.1</copy>
         uploading: testrunner/target/transfer-0.0.1-SNAPSHOT.jar
         building and pushing image...
 
@@ -337,7 +351,7 @@ Download a copy of the CloudBank sample application.
         oractl:>
         ```
 
-        You have now deployed all the services part of the Cloudbank application.
+        You have now deployed all the services part of the CloudBank application.
 
 ## Task 4: Verify the deployment of CloudBank
 
