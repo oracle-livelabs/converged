@@ -213,7 +213,7 @@ Download a copy of the CloudBank sample application.
 
     1. Deploy the *Account* Service
 
-        You will now deploy your Account service to the Oracle Backend for Spring Boot and Microservices using the `oractl`. You will deploy into the `application` namespace, and the service name will be `account`. **Note** The `deploy` command have `--liquibas-db` parameter, this is beacuse Liquibase needs to run as the `ADMIN` user so the `account` user can get the right properties to create TXEventQ's.
+        You will now deploy your Account service to the Oracle Backend for Spring Boot and Microservices using the `oractl`. You will deploy into the `application` namespace, and the service name will be `account`. **Note** The `deploy` command have `--liquibase-db` parameter, this is because Liquibase needs to run as the `ADMIN` user so the `account` user can get the right properties to create TXEventQ's.
 
         Run this command to deploy your account service, make sure you provide the correct path to your JAR file:
 
