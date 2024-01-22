@@ -203,6 +203,41 @@ Download a copy of the CloudBank sample application.
 
     ![bind](images/bindsuccessful.png " ")
 
+    Repeate the same for:
+    
+    * **checks** service you have to:
+        * **Service Name**: checks
+        * **DB User (optional)**: account
+        * **DB User Password**: Welcome1234## 
+        * **Spring Binding Prefix (optional)**: spring.datasource
+        * **Update**: False
+
+    * **customer** service you have to:
+        * **Service Name**: customer
+        * **DB User (optional)**: 
+        * **DB User Password**: Welcome1234## 
+        * **Spring Binding Prefix (optional)**: spring.datasource
+        * **Update**: False
+
+    * **customer32** service you have to:
+        * **Service Name**: customer32
+        * **DB User (optional)**: customer
+        * **DB User Password**: Welcome1234## 
+        * **Spring Binding Prefix (optional)**: spring.datasource
+        * **Update**: False
+
+    * **testrunner** service you have to:
+        * **Service Name**: testrunner
+        * **DB User (optional)**: account
+        * **DB User Password**: Welcome1234## 
+        * **Spring Binding Prefix (optional)**: spring.datasource
+        * **Update**: False
+
+    * Ensure to get the message like this for all previous binding:
+
+    ![bind](images/bindsuccessful.png " ")
+
+
     Let's start with the first service deployment:
 
     * Select **application** under **applications** and Right-click on mouse to select **Add service -> upload .jar**:
@@ -213,20 +248,18 @@ Download a copy of the CloudBank sample application.
 
         ![account jar](images/accountjar.png " ")
 
-    * In the command palette will be asked all the parameters needed to upload the services, starting from binding, that for **account** service requires a **True** answer:
+    * In the command palette will be asked all the parameters needed to upload the services:
 
-        ![bind](images/bind.png " ")
-
-    and then:
     * **Service Name** : `account`
+    * **Bind [jms]** : ``
     * **Image Version**:  `0.0.1`
     * **Java Image**: leave default `ghcr.io/graalvm/jdk:ol7-java17-22.2.0`
-    * **is it a redeploy**: **False**
     * **Add Health probe?**: **False**
     * **Service Port**: leave default `8080`
     * **Service Profile**: leave default `obaas`
     * **Initial Replicas** : 1
-    * **Inform the database name for Liquibase**:  
+    * **CPU request [default = 500m]** : `100m`
+    * **Inform the database name for Liquibase**: `admin`
 
     * You will see messages that confirm the deployment is started:
 
@@ -240,95 +273,78 @@ Download a copy of the CloudBank sample application.
 
         ![accountdeployed](images/accountdeployed.png " ")
 
-    Now we have prepare binding for **customer** too before deployment in this way.
+    Repeate the same for:
 
-    * Select applications leaf and with right click select **Bind a service** item menu:
+    * **checks** service deployment:
+        * Look for the **checks-0.0.1-SNAPSHOT.jar** file built previously
+        * **Service Name** : `checks`
+        * **Bind [jms]** : ``
+        * **Image Version**:  `0.0.1`
+        * **Java Image**: leave default `ghcr.io/graalvm/jdk:ol7-java17-22.2.0`
+        * **Add Health probe?**: **False**
+        * **Service Port**: leave default `8080`
+        * **Service Profile**: leave default `obaas`
+        * **Initial Replicas** : 1
+        * **CPU request [default = 500m]** : `100m`
+        * **Inform the database name for Liquibase**: `admin`
+    
+    * **customer** service deployment:
+        * Look for the **customer-0.0.1-SNAPSHOT.jar** file built previously
+        * **Service Name** : `customer`
+        * **Bind [jms]** : ``
+        * **Image Version**:  `0.0.1`
+        * **Java Image**: leave default `ghcr.io/graalvm/jdk:ol7-java17-22.2.0`
+        * **Add Health probe?**: **False**
+        * **Service Port**: leave default `8080`
+        * **Service Profile**: leave default `obaas`
+        * **Initial Replicas** : 1
+        * **CPU request [default = 500m]** : `100m`
+        * **Inform the database name for Liquibase**: `admin`
 
-        ![bindcommand](images/bindcommand.png " ")
+    * **creditscore** service deployment:
+        * Look for the **creditscore-0.0.1-SNAPSHOT.jar** file built previously
+        * **Service Name** : `creditscore`
+        * **Bind [jms]** : ``
+        * **Image Version**:  `0.0.1`
+        * **Java Image**: leave default `ghcr.io/graalvm/jdk:ol7-java17-22.2.0`
+        * **Add Health probe?**: **False**
+        * **Service Port**: leave default `8080`
+        * **Service Profile**: leave default `obaas`
+        * **Initial Replicas** : 1
+        * **CPU request [default = 500m]** : `100m`
+        * **Inform the database name for Liquibase**: ``
+    
+    * **testrunner** service deployment:
+        * Look for the **testrunner-0.0.1-SNAPSHOT.jar** file built previously
+        * **Service Name** : `testrunner`
+        * **Bind [jms]** : ``
+        * **Image Version**:  `0.0.1`
+        * **Java Image**: leave default `ghcr.io/graalvm/jdk:ol7-java17-22.2.0`
+        * **Add Health probe?**: **False**
+        * **Service Port**: leave default `8080`
+        * **Service Profile**: leave default `obaas`
+        * **Initial Replicas** : 1
+        * **CPU request [default = 500m]** : `100m`
+        * **Inform the database name for Liquibase**: ``
 
-    * and the input following values:
-        * **Service Name**: customer
-        * **DB User (optional)**:
-        * **DB User Password**: Welcome1234##
-        * **Spring Binding Prefix (optional)**: spring.datasource
-        * **Update**: False
+    * **transfer** service deployment:
+        * Look for the **transfer-0.0.1-SNAPSHOT.jar** file built previously
+        * **Service Name** : `transfer`
+        * **Bind [jms]** : ``
+        * **Image Version**:  `0.0.1`
+        * **Java Image**: leave default `ghcr.io/graalvm/jdk:ol7-java17-22.2.0`
+        * **Add Health probe?**: **False**
+        * **Service Port**: leave default `8080`
+        * **Service Profile**: leave default `obaas`
+        * **Initial Replicas** : 1
+        * **CPU request [default = 500m]** : `100m`
+        * **Inform the database name for Liquibase**: ``
 
-    * you'll get the message:
-
-    ![bind](images/bindsuccessfulcustomer.png " ")
-
-    Let's start with the **customer** service deployment:
-
-    * Select **application** under **applications** and Right-click on mouse to select **Add service -> upload .jar**.
-
-    * Look for the **customer-0.0.1-SNAPSHOT.jar** file built previously:
-
-    * In the command palette will be asked all the parameters needed to upload the services, starting from binding, that for **customer** service requires a **True** answer:
-
-        ![bind](images/bind.png " ")
-
-    and then:
-    * **Service Name** : `customer`
-    * **Image Version**:  `0.0.1`
-    * **Java Image**: leave default `ghcr.io/graalvm/jdk:ol7-java17-22.2.0`
-    * **is it a redeploy**: **False**
-    * **Add Health probe?**: **False**
-    * **Service Port**: leave default `8080`
-    * **Service Profile**: leave default `obaas`
-    * **Initial Replicas** : 1
-    * **Inform the database name for Liquibase**: 
-
-    As before, you will see messages that will confirm the deployment is started and finally "**Service deployed successfully**".
-
-    Finally, we'll deploy the services that don't require to be bound to a schema, the **creditscore** and **transfer**:
-
-    * Select **application** under **applications** and Right-click on mouse to select **Add service -> upload .jar**.
-
-    * Look for the **creditscore-0.0.1-SNAPSHOT.jar** file built previously:
-
-    * In the command palette will be asked all the parameters needed to upload the services, starting from binding, that for **creditscore** service requires a **False** answer:
-
-        ![bind](images/bind.png " ")
-
-    and then:
-    * **Service Name** : `creditscore`
-    * **Image Version**:  `0.0.1`
-    * **Java Image**: leave default `ghcr.io/graalvm/jdk:ol7-java17-22.2.0`
-    * **is it a redeploy**: **False**
-    * **Add Health probe?**: **False**
-    * **Service Port**: leave default `8080`
-    * **Service Profile**: leave default `obaas`
-    * **Initial Replicas** : 1
-    * **Inform the database name for Liquibase**: 
-
-    As before, you will see messages that will confirm the deployment is started and finally "**Service deployed successfully**".
-
-    Proceed to the final CloudBank service deployment, for **transfer**:
-
-    * Select **application** under **applications** and Right-click on mouse to select **Add service -> upload .jar**.
-
-    * Look for the **transfer-0.0.1-SNAPSHOT.jar** file built previously:
-
-    * In the command palette will be asked all the parameters needed to upload the services, starting from binding, that for **transfer** service requires a **False** answer:
-
-        ![bind](images/bind.png " ")
-
-    and then:
-    * **Service Name** : `transfer`
-    * **Image Version**:  `0.0.1`
-    * **Java Image**: leave default `ghcr.io/graalvm/jdk:ol7-java17-22.2.0`
-    * **is it a redeploy**: **False**
-    * **Add Health probe?**: **False**
-    * **Service Port**: leave default `8080`
-    * **Service Profile**: leave default `obaas`
-    * **Initial Replicas** : 1
-    * **Inform the database name for Liquibase**: 
-
-    As before, you will see messages that will confirm the deployment is started and finally "**Service deployed successfully**".
+    Be sure to receive for all the deployments a message that confirms the deployment is started and finally "**Service deployed successfully**".
 
     Now we have the three services up & running as you should see from VS Code plug-in:
 
-    ![thefourservices](images/thefourservices.png " ")
+    ![thesixservices](images/thesixservices.png " ")
 
 5. Verify that the services are running properly by executing this command:
 
@@ -339,29 +355,38 @@ Download a copy of the CloudBank sample application.
     The output should be similar to this, all applications must have `STATUS` as `Running`
 
     ```text
-    NAME                              READY   STATUS    RESTARTS   AGE
-    pod/account-5cd5dbdd7f-m7zlf      1/1     Running   0          14m
-    pod/creditscore-fcf8d985b-f8q4n   1/1     Running   0          5m37s
-    pod/customer-6b6f58f59-f6vl9      1/1     Running   0          7m18s
-    pod/transfer-f9c96cb56-6796s      1/1     Running   0          113s
+    (base) cdebari@cdebari-mac ~ % kubectl get all -n application
+    NAME                               READY   STATUS    RESTARTS   AGE
+    pod/account-777c6b57dc-mgnq9       1/1     Running   0          17m
+    pod/checks-65cf5f77f9-nfqt4        1/1     Running   0          15m
+    pod/creditscore-648fd868ff-twjsl   1/1     Running   0          9m43s
+    pod/customer-5dc57bc575-2n6mf      1/1     Running   0          13m
+    pod/testrunner-7df6f8f4c5-6t6gf    1/1     Running   0          8m50s
+    pod/transfer-59d9c55df5-llppn      1/1     Running   0          7m57s
 
-    NAME                  TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)    AGE
-    service/account       ClusterIP   10.191.135.77    <none>        8080/TCP   19m
-    service/creditscore   ClusterIP   10.191.68.122    <none>        8080/TCP   5m38s
-    service/customer      ClusterIP   10.191.172.239   <none>        8080/TCP   7m19s
-    service/transfer      ClusterIP   10.191.172.125   <none>        8080/TCP   114s
+    NAME                  TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)    AGE
+    service/account       ClusterIP   10.96.140.242   <none>        8080/TCP   17m
+    service/checks        ClusterIP   10.96.61.226    <none>        8080/TCP   15m
+    service/creditscore   ClusterIP   10.96.97.155    <none>        8080/TCP   9m44s
+    service/customer      ClusterIP   10.96.118.193   <none>        8080/TCP   13m
+    service/testrunner    ClusterIP   10.96.235.62    <none>        8080/TCP   8m51s
+    service/transfer      ClusterIP   10.96.98.16     <none>        8080/TCP   7m58s
 
     NAME                          READY   UP-TO-DATE   AVAILABLE   AGE
-    deployment.apps/account       1/1     1            1           19m
-    deployment.apps/creditscore   1/1     1            1           5m39s
-    deployment.apps/customer      1/1     1            1           7m20s
-    deployment.apps/transfer      1/1     1            1           115s
+    deployment.apps/account       1/1     1            1           17m
+    deployment.apps/checks        1/1     1            1           15m
+    deployment.apps/creditscore   1/1     1            1           9m44s
+    deployment.apps/customer      1/1     1            1           13m
+    deployment.apps/testrunner    1/1     1            1           8m51s
+    deployment.apps/transfer      1/1     1            1           7m58s
 
-    NAME                                    DESIRED   CURRENT   READY   AGE
-    replicaset.apps/account-5cd5dbdd7f      1         1         1       19m
-    replicaset.apps/creditscore-fcf8d985b   1         1         1       5m39s
-    replicaset.apps/customer-6b6f58f59      1         1         1       7m20s
-    replicaset.apps/transfer-f9c96cb56      1         1         1       115s
+    NAME                                     DESIRED   CURRENT   READY   AGE
+    replicaset.apps/account-777c6b57dc       1         1         1       17m
+    replicaset.apps/checks-65cf5f77f9        1         1         1       15m
+    replicaset.apps/creditscore-648fd868ff   1         1         1       9m44s
+    replicaset.apps/customer-5dc57bc575      1         1         1       13m
+    replicaset.apps/testrunner-7df6f8f4c5    1         1         1       8m51s
+    replicaset.apps/transfer-59d9c55df5      1         1         1       7m58s
     ```
 
 6. Expose the services using APISIX Gateway
