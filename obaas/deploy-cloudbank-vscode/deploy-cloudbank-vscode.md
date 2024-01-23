@@ -258,7 +258,6 @@ Download a copy of the CloudBank sample application.
     * **Service Port**: leave default `8080`
     * **Service Profile**: leave default `obaas`
     * **Initial Replicas** : 1
-    * **CPU request [default = 500m]** : `100m`
     * **Inform the database name for Liquibase**: `admin`
 
     * You will see messages that confirm the deployment is started:
@@ -285,7 +284,6 @@ Download a copy of the CloudBank sample application.
         * **Service Port**: leave default `8080`
         * **Service Profile**: leave default `obaas`
         * **Initial Replicas** : 1
-        * **CPU request [default = 500m]** : `100m`
         * **Inform the database name for Liquibase**: `admin`
     
     * **customer** service deployment:
@@ -298,7 +296,6 @@ Download a copy of the CloudBank sample application.
         * **Service Port**: leave default `8080`
         * **Service Profile**: leave default `obaas`
         * **Initial Replicas** : 1
-        * **CPU request [default = 500m]** : `100m`
         * **Inform the database name for Liquibase**: `admin`
 
     * **creditscore** service deployment:
@@ -311,7 +308,6 @@ Download a copy of the CloudBank sample application.
         * **Service Port**: leave default `8080`
         * **Service Profile**: leave default `obaas`
         * **Initial Replicas** : 1
-        * **CPU request [default = 500m]** : `100m`
         * **Inform the database name for Liquibase**: ``
     
     * **testrunner** service deployment:
@@ -324,7 +320,6 @@ Download a copy of the CloudBank sample application.
         * **Service Port**: leave default `8080`
         * **Service Profile**: leave default `obaas`
         * **Initial Replicas** : 1
-        * **CPU request [default = 500m]** : `100m`
         * **Inform the database name for Liquibase**: ``
 
     * **transfer** service deployment:
@@ -337,7 +332,6 @@ Download a copy of the CloudBank sample application.
         * **Service Port**: leave default `8080`
         * **Service Profile**: leave default `obaas`
         * **Initial Replicas** : 1
-        * **CPU request [default = 500m]** : `100m`
         * **Inform the database name for Liquibase**: ``
 
     Be sure to receive for all the deployments a message that confirms the deployment is started and finally "**Service deployed successfully**".
