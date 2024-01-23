@@ -211,9 +211,9 @@ Download a copy of the CloudBank sample application.
     * Create the microservices deployment descriptor (k8s) with the resources supplied
     * Applies the k8s deployment and create k8s object service to microservice
 
-    1. Deploy/Redeploy the *Account* Service
+    1. Deploy the *Account* Service
 
-        You will now deploy your Account service to the Oracle Backend for Spring Boot and Microservices using the `oractl`. You will deploy into the `application` namespace, and the service name will be `account`. If you finished lab three (Build the Account Microservice) you need to use the *--redeploy* option to the *deploy* command. **Note** The `deploy` command have `--liquibas-db` parameter, this is beacuse Liquibase needsto run as the `ADMIN` user so the `account` user can get the right properties to create TXEventQ's.
+        You will now deploy your Account service to the Oracle Backend for Spring Boot and Microservices using the `oractl`. You will deploy into the `application` namespace, and the service name will be `account`. **Note** The `deploy` command have `--liquibase-db` parameter, this is because Liquibase needs to run as the `ADMIN` user so the `account` user can get the right properties to create TXEventQ's.
 
         Run this command to deploy your account service, make sure you provide the correct path to your JAR file:
 
@@ -227,38 +227,14 @@ Download a copy of the CloudBank sample application.
         oractl:>
         ```
 
-        Re-deploy the accounts service. If you finished lab three, you can re-deploy the Account Service using the following command (notice the *--redeploy* option)
+    1. Deploy the *Checks* Service
 
-        ```shell
-        oractl:> <copy>deploy --redeploy --app-name application --service-name account --cpu-request 100m --artifact-path /path/to/account-0.0.1-SNAPSHOT.jar --image-version 0.0.1 --liquibase-db admin</copy>
-        uploading: account/target/account-0.0.1-SNAPSHOT.jar
-        building and pushing image...
-
-        creating deployment and service...
-        obaas-cli [deploy]: Application was successfully deployed.
-        oractl:>
-        ```
-
-    1. Deploy/Redeploy the *Checks* Service
-
-        You will now deploy your Checks service to the Oracle Backend for Spring Boot and Microservices using `oractl`.  You will deploy into the `application` namespace, and the service name will be `checks`. If you finished lab four (Build the Check Processing Microservices) you need to use the *--redeploy* option to the *deploy* command.
+        You will now deploy your Checks service to the Oracle Backend for Spring Boot and Microservices using `oractl`.  You will deploy into the `application` namespace, and the service name will be `checks`.
 
         Run this command to deploy your checks service, make sure you provide the correct path to your JAR file:
 
         ```shell
         oractl:> <copy>deploy --app-name application --service-name checks --cpu-request 100m --artifact-path /path/to/checks-0.0.1-SNAPSHOT.jar --image-version 0.0.1</copy>
-        uploading: checks/target/checks-0.0.1-SNAPSHOT.jar
-        building and pushing image...
-
-        creating deployment and service...
-        obaas-cli [deploy]: Application was successfully deployed.
-        oractl:>
-        ```
-
-        Re-deploy the checks service. If you finished lab four, you can re-deploy the Checks Service using the following command (notice the *--redeploy* option)
-
-        ```shell
-        oractl:> <copy>deploy --redeploy --app-name application --service-name checks --cpu-request 100m --artifact-path /path/to/checks-0.0.1-SNAPSHOT.jar --image-version 0.0.1</copy>
         uploading: checks/target/checks-0.0.1-SNAPSHOT.jar
         building and pushing image...
 
@@ -295,9 +271,9 @@ Download a copy of the CloudBank sample application.
         oractl:>
         ```
 
-    1. Deploy/Redeploy the Testrunner Service
+    1. Deploy the Testrunner Service
 
-        You will now deploy your Testrunner service to the Oracle Backend for Spring Boot and Microservices using `oractl`. You will deploy into the `application` namespace, and the service name will be `testrunner`. If you finished lab four (Build the Check Processing Microservices) you need to use the *--redeploy* option to the *deploy* command.
+        You will now deploy your Testrunner service to the Oracle Backend for Spring Boot and Microservices using `oractl`. You will deploy into the `application` namespace, and the service name will be `testrunner`.
 
         Run this command to deploy your testrunner service, make sure you provide the correct path to your JAR file:
 
@@ -311,39 +287,15 @@ Download a copy of the CloudBank sample application.
         oractl:>
         ```
 
-        Re-deploy the testrunner service. If you finished lab four, you can re-deploy the Checks Service using the following command (notice the *--redeploy* option)
+    1. Deploy the Transfer service
 
-        ```shell
-        oractl:> <copy>deploy --redeploy --app-name application --service-name testrunner --cpu-request 100m --artifact-path /path/to/testrunner-0.0.1-SNAPSHOT.jar --image-version 0.0.1</copy>
-        uploading: testrunner/target/testrunner-0.0.1-SNAPSHOT.jar
-        building and pushing image...
-
-        creating deployment and service...
-        obaas-cli [deploy]: Application was successfully deployed.
-        oractl:>
-        ```
-
-    1. Deploy/Redeploy the Transfer service
-
-        You will now deploy your transfer service to the Oracle Backend for Spring Boot and Microservices using `oractl`. You will deploy into the `application` namespace, and the service name will be `transfer`. If you finished lab five (Manage Saga Transactions across Microservices) you need to use the *--redeploy* option to the *deploy* command.
+        You will now deploy your transfer service to the Oracle Backend for Spring Boot and Microservices using `oractl`. You will deploy into the `application` namespace, and the service name will be `transfer`.
 
         Run this command to deploy your transfer service, make sure you provide the correct path to your JAR file:
 
         ```shell
         oractl:> <copy>deploy --app-name application --service-name transfer --cpu-request 100m --artifact-path /path/to/transfer-0.0.1-SNAPSHOT.jar --image-version 0.0.1</copy>
         uploading: transfer/target/transfer-0.0.1-SNAPSHOT.jar
-        building and pushing image...
-
-        creating deployment and service...
-        obaas-cli [deploy]: Application was successfully deployed.
-        oractl:>
-        ```
-
-        Re-deploy the transfer service. If you finished lab five, you can re-deploy the Transfer Service using the following command (notice the *--redeploy* option)
-
-        ```shell
-        oractl:> <copy>deploy --redeploy --app-name application --service-name transfer --cpu-request 100m --artifact-path /path/to/transfer-0.0.1-SNAPSHOT.jar --image-version 0.0.1</copy>
-        uploading: testrunner/target/transfer-0.0.1-SNAPSHOT.jar
         building and pushing image...
 
         creating deployment and service...
