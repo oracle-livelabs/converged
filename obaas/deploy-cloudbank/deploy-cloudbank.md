@@ -78,7 +78,6 @@ Download a copy of the CloudBank sample application.
     [INFO] ------------------------------------------------------------------------
     ```
 
-**NOTE**: You can optionally jump to Lab 7 to do the deployment through the Oracle Backend for Spring Boot VS Code plugin.
 
 ## Task 3: Install CloudBank in your Oracle Backend for Spring Boot and Microservices instance
 
@@ -218,7 +217,7 @@ Download a copy of the CloudBank sample application.
         Run this command to deploy your account service, make sure you provide the correct path to your JAR file:
 
         ```shell
-        oractl:> <copy>deploy --app-name application --service-name account --cpu-request 100m --artifact-path /path/to/account-0.0.1-SNAPSHOT.jar --image-version 0.0.1 --liquibase-db admin</copy>
+        oractl:> <copy>deploy --app-name application --service-name account --artifact-path /path/to/account-0.0.1-SNAPSHOT.jar --image-version 0.0.1 --liquibase-db admin</copy>
         uploading: account/target/account-0.0.1-SNAPSHOT.jar
         building and pushing image...
 
@@ -234,7 +233,7 @@ Download a copy of the CloudBank sample application.
         Run this command to deploy your checks service, make sure you provide the correct path to your JAR file:
 
         ```shell
-        oractl:> <copy>deploy --app-name application --service-name checks --cpu-request 100m --artifact-path /path/to/checks-0.0.1-SNAPSHOT.jar --image-version 0.0.1</copy>
+        oractl:> <copy>deploy --app-name application --service-name checks --artifact-path /path/to/checks-0.0.1-SNAPSHOT.jar --image-version 0.0.1</copy>
         uploading: checks/target/checks-0.0.1-SNAPSHOT.jar
         building and pushing image...
 
@@ -248,7 +247,7 @@ Download a copy of the CloudBank sample application.
         You will now deploy your Customer service to the Oracle Backend for Spring Boot and Microservices using `oractl`. You will deploy into the `application` namespace, and the service name will be `customer`. Run this command to deploy your service, make sure you provide the correct path to your JAR file:
 
         ```shell
-        oractl:> <copy>deploy --app-name application --service-name customer --cpu-request 100m --artifact-path /path/to/customer-0.0.1-SNAPSHOT.jar --image-version 0.0.1 --liquibase-db admin</copy>
+        oractl:> <copy>deploy --app-name application --service-name customer --artifact-path /path/to/customer-0.0.1-SNAPSHOT.jar --image-version 0.0.1 --liquibase-db admin</copy>
         uploading: customer/target/customer-0.0.1-SNAPSHOT.jar
         building and pushing image...
 
@@ -262,7 +261,7 @@ Download a copy of the CloudBank sample application.
         You will now deploy your Creditscore service to the Oracle Backend for Spring Boot and Microservices using `oractl`.  You will deploy into the `application` namespace, and the service name will be `creditscore`. Run this command to deploy your service, make sure you provide the correct path to your JAR file:
 
         ```shell
-        oractl:> <copy>deploy --app-name application --service-name creditscore --cpu-request 100m --artifact-path /path/to/creditscore-0.0.1-SNAPSHOT.jar --image-version 0.0.1</copy>
+        oractl:> <copy>deploy --app-name application --service-name creditscore --artifact-path /path/to/creditscore-0.0.1-SNAPSHOT.jar --image-version 0.0.1</copy>
         uploading: creditscore/target/creditscore-0.0.1-SNAPSHOT.jar
         building and pushing image...
 
@@ -278,7 +277,7 @@ Download a copy of the CloudBank sample application.
         Run this command to deploy your testrunner service, make sure you provide the correct path to your JAR file:
 
         ```shell
-        oractl:> <copy>deploy --app-name application --service-name testrunner --cpu-request 100m --artifact-path /path/to/testrunner-0.0.1-SNAPSHOT.jar --image-version 0.0.1</copy>
+        oractl:> <copy>deploy --app-name application --service-name testrunner --artifact-path /path/to/testrunner-0.0.1-SNAPSHOT.jar --image-version 0.0.1</copy>
         uploading: testrunner/target/testrunner-0.0.1-SNAPSHOT.jar
         building and pushing image...
 
@@ -294,7 +293,7 @@ Download a copy of the CloudBank sample application.
         Run this command to deploy your transfer service, make sure you provide the correct path to your JAR file:
 
         ```shell
-        oractl:> <copy>deploy --app-name application --service-name transfer --cpu-request 100m --artifact-path /path/to/transfer-0.0.1-SNAPSHOT.jar --image-version 0.0.1</copy>
+        oractl:> <copy>deploy --app-name application --service-name transfer --artifact-path /path/to/transfer-0.0.1-SNAPSHOT.jar --image-version 0.0.1</copy>
         uploading: transfer/target/transfer-0.0.1-SNAPSHOT.jar
         building and pushing image...
 

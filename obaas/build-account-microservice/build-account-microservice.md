@@ -39,7 +39,7 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
 
 1. Select the Spring Boot Version
 
-   You will be presented with a list of available Spring Boot versions. Choose **3.2.1** (or the latest 3.2.x version available).
+   You will be presented with a list of available Spring Boot versions. Choose **3.2.2** (or the latest 3.2.x version available).
 
   ![Specify Spring Boot version](images/obaas-spring-init-2.png " ")
 
@@ -1091,7 +1091,7 @@ If you would like to learn more about endpoints and implement the remainder of t
     $ <copy>kubectl -n eureka port-forward svc/eureka 8761</copy>
     ```
   
-    Open a web browser to [Eureka Dashboard](http://localhost:8761) to vew the Eureka Server dashboard web user interface. It will look similar to this. Note that the `ACCOUNTS` application you have built has registered with Eureka.
+    Open a web browser to [Eureka Dashboard](http://localhost:8761) to vew the Eureka Server dashboard web user interface. It will look similar to this. Note that the `ACCOUNT` application you have built has registered with Eureka.
 
   ![Eureka Server Web Interface](images/eureka-dashboard.png " ")
 
@@ -1133,7 +1133,7 @@ Now that the account service is deployed, you need to expose it through the API 
 
     ![APISIX Create route](images/obaas-apisix-create-route-2.png " ")
 
-    Click on the **Next** button to move to the **Define API Backend Server** page.  On this page you configure where to route requests to. In the **Upstream Type** field, select **Service Discovery**.  Then in the **Discovery Type** field, select **Eureka**.  In the **Service Name** field enter `ACCOUNTS`.  This tells APISIX to lookup the service in Spring Eureka Service Registry with the key `ACCOUNTS` and route requests to that service using a Round Robin algorithm to distribute requests.
+    Click on the **Next** button to move to the **Define API Backend Server** page.  On this page you configure where to route requests to. In the **Upstream Type** field, select **Service Discovery**.  Then in the **Discovery Type** field, select **Eureka**.  In the **Service Name** field enter `ACCOUNT`.  This tells APISIX to lookup the service in Spring Eureka Service Registry with the key `ACCOUNT` and route requests to that service using a Round Robin algorithm to distribute requests.
 
     ![APISIX Create route](images/obaas-apisix-create-route-3.png " ")
 
