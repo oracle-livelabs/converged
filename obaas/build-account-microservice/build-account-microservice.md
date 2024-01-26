@@ -1025,7 +1025,7 @@ If you would like to learn more about endpoints and implement the remainder of t
     oractl> <copy>connect</copy>
     username: obaas-admin
     password: **************
-    obaas-cli: Successful connected.
+    Credentials successfully authenticated! obaas-admin -> welcome to OBaaS CLI.
     oractl:>
     ```
 
