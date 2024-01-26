@@ -1045,12 +1045,13 @@ If you would like to learn more about endpoints and implement the remainder of t
     You will now deploy your account service to the Oracle Backend for Spring Boot using the CLI.  You will deploy into the `application` namespace, and the service name will be `account`.  Run this command to deploy your service, make sure you provide the correct path to your JAR file.  **Note** that this command may take 1-3 minutes to complete:
 
     ```shell
-    oractl:> <copy>deploy --app-name application --service-name account --cpu-request 100m --artifact-path /path/to/accounts-0.0.1-SNAPSHOT.jar --image-version 0.0.1</copy>
+    oractl:> <copy>deploy --app-name application --service-name account --artifact-path /path/to/accounts-0.0.1-SNAPSHOT.jar --image-version 0.0.1</copy>
     uploading: /Users/atael/tmp/cloudbank/accounts/target/accounts-0.0.1-SNAPSHOT.jar
     building and pushing image...
 
     creating deployment and service...
     obaas-cli [deploy]: Application was successfully deployed
+    NOTICE: service not accessible outside K8S
     oractl:>
     ```
 
