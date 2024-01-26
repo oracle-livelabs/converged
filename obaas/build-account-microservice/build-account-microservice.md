@@ -1091,7 +1091,7 @@ If you would like to learn more about endpoints and implement the remainder of t
     $ <copy>kubectl -n eureka port-forward svc/eureka 8761</copy>
     ```
   
-    Open a web browser to [Euereka Dashboard](http://localhost:8761) to vew the Eureka Server dashboard web user interface. It will look similar to this. Note that the `ACCOUNTS` application you have built has registered with Eureka.
+    Open a web browser to [Eureka Dashboard](http://localhost:8761) to vew the Eureka Server dashboard web user interface. It will look similar to this. Note that the `ACCOUNTS` application you have built has registered with Eureka.
 
   ![Eureka Server Web Interface](images/eureka-dashboard.png " ")
 
