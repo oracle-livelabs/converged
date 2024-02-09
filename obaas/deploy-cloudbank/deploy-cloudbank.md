@@ -261,7 +261,7 @@ Download a copy of the CloudBank sample application.
         You will now deploy your Customer service to the Oracle Backend for Spring Boot and Microservices using `oractl`. You will deploy into the `application` namespace, and the service name will be `customer32`. Run this command to deploy your service, make sure you provide the correct path to your JAR file:
 
         ```shell
-        oractl:> <copy>deploy --app-name application --service-name customer32 --cpu-request 100m --artifact-path /path/to/customer32-0.0.1-SNAPSHOT.jar --image-version 0.0.1 --liquibase-db admin</copy>
+        oractl:> <copy>deploy --app-name application --service-name customer32 --artifact-path /path/to/customer32-0.0.1-SNAPSHOT.jar --image-version 0.0.1 --liquibase-db admin</copy>
         uploading: customer/target/customer32-0.0.1-SNAPSHOT.jar
         building and pushing image...
 

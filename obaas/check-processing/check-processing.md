@@ -237,8 +237,8 @@ Starting with the account service that you built in the previous lab, you will t
     \_/ |_) (_| (_| __)   \_ |_ _|_
     ========================================================================================
       Application Name: Oracle Backend Platform :: Command Line Interface
-      Application Version: (1.1.0)
-      :: Spring Boot (v3.2.0) :: 
+      Application Version: (1.1.1)
+      :: Spring Boot (v3.2.1) :: 
       
       Ask for help:
       - Slack: https://oracledevs.slack.com/archives/C03ALDSV272 
@@ -250,19 +250,19 @@ Starting with the account service that you built in the previous lab, you will t
   Connect to the Oracle Backend for Spring Boot admin service using the `connect` command. Enter `obaas-admin` and the username and use the password you collected earlier.
 
     ```shell
-    oractl> <copy>connect</copy>
-    username: obaas-admin
-    password: **************
-    obaas-cli: Successful connected.
+    oractl:>connect
+    ? username obaas-admin
+    ? password *************
+    Credentials successfully authenticated! obaas-admin -> welcome to OBaaS CLI.
     oractl:>
     ```
 
-1. Redeploy the account service
+1. Deploy the account service
 
-  You will now redeploy your account service to the Oracle Backend for Spring Boot using the CLI.  Run this command to redeploy your service, make sure you provide the correct path to your JAR file.  **Note** that this command may take 1-3 minutes to complete:
+  You will now deploy your account service to the Oracle Backend for Spring Boot using the CLI. Run this command to redeploy your service, make sure you provide the correct path to your JAR file. **Note** that this command may take 1-3 minutes to complete:
 
     ```shell
-    oractl:> <copy>deploy --app-name application --service-name account --cpu-request 100m --artifact-path /path/to/accounts-0.0.1-SNAPSHOT.jar --image-version 0.0.1 --redeploy true</copy>
+    oractl:> <copy>deploy --app-name application --service-name account --artifact-path /path/to/accounts-0.0.1-SNAPSHOT.jar --image-version 0.0.1</copy>
     uploading: account/target/accounts-0.0.1-SNAPSHOT.jarbuilding and pushing image...
     creating deployment and service... successfully deployed
     oractl:>
@@ -626,8 +626,8 @@ Next, you will create the "Test Runner" microservice which you will use to simul
     \_/ |_) (_| (_| __)   \_ |_ _|_
     ========================================================================================
       Application Name: Oracle Backend Platform :: Command Line Interface
-      Application Version: (1.1.0)
-      :: Spring Boot (v3.2.0) ::
+      Application Version: (1.1.1)
+      :: Spring Boot (v3.2.1) ::
 
       Ask for help:
       - Slack: https://oracledevs.slack.com/archives/C03ALDSV272
@@ -642,7 +642,7 @@ Next, you will create the "Test Runner" microservice which you will use to simul
     oractl> <copy>connect</copy>
     username: obaas-admin
     password: **************
-    obaas-cli: Successful connected.
+    Credentials successfully authenticated! obaas-admin -> welcome to OBaaS CLI.
     oractl:>
     ```
 
@@ -659,7 +659,7 @@ Next, you will create the "Test Runner" microservice which you will use to simul
   You will now deploy your Test Runner service to the Oracle Backend for Spring Boot using the CLI. Run this command to deploy your service, make sure you provide the correct path to your JAR file. **Note** that this command may take 1-3 minutes to complete:
 
     ```shell
-    oractl:> <copy>deploy --app-name application --service-name testrunner --cpu-request 100m --artifact-path /path/to/testrunner-0.0.1-SNAPSHOT.jar --image-version 0.0.1</copy>
+    oractl:> <copy>deploy --app-name application --service-name testrunner --artifact-path /path/to/testrunner-0.0.1-SNAPSHOT.jar --image-version 0.0.1</copy>
     uploading: testrunner/target/testrunner-0.0.1-SNAPSHOT.jarbuilding and pushing image...
     creating deployment and service... successfully deployed
     oractl:>
@@ -934,7 +934,7 @@ Next, you will create the "Check Processing" microservice which you will receive
     }</copy>
     ```
 
-   And then, `Clearance.java` with this content:
+  And then, `Clearance.java` with this content:
 
     ```java
     <copy>package com.example.testrunner.model;
@@ -1158,8 +1158,8 @@ Next, you will create the "Check Processing" microservice which you will receive
     \_/ |_) (_| (_| __)   \_ |_ _|_
     ========================================================================================
       Application Name: Oracle Backend Platform :: Command Line Interface
-      Application Version: (1.1.0)
-      :: Spring Boot (v3.2.0) ::
+      Application Version: (1.1.1)
+      :: Spring Boot (v3.2.1) ::
 
       Ask for help:
       - Slack: https://oracledevs.slack.com/archives/C03ALDSV272
@@ -1174,7 +1174,7 @@ Next, you will create the "Check Processing" microservice which you will receive
     oractl> <copy>connect</copy>
     username: obaas-admin
     password: **************
-    obaas-cli: Successful connected.
+    Credentials successfully authenticated! obaas-admin -> welcome to OBaaS CLI.
     oractl:>
     ```
 
@@ -1191,7 +1191,7 @@ Next, you will create the "Check Processing" microservice which you will receive
   You will now deploy your Check service to the Oracle Backend for Spring Boot using the CLI. Run this command to deploy your service, make sure you provide the correct path to your JAR file. **Note** that this command may take 1-3 minutes to complete:
 
     ```shell
-    oractl:> <copy>deploy --app-name application --service-name checks --cpu-request 100m --artifact-path /path/to/checks-0.0.1-SNAPSHOT.jar --image-version 0.0.1</copy>
+    oractl:> <copy>deploy --app-name application --service-name checks --artifact-path /path/to/checks-0.0.1-SNAPSHOT.jar --image-version 0.0.1</copy>
     uploading: testrunner/target/testrunner-0.0.1-SNAPSHOT.jarbuilding and pushing image...
     creating deployment and service... successfully deployed
     oractl:>

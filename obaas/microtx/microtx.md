@@ -1289,8 +1289,8 @@ The services are now completed and you are ready to deploy them to the Oracle Ba
     \_/ |_) (_| (_| __)   \_ |_ _|_
     ========================================================================================
       Application Name: Oracle Backend Platform :: Command Line Interface
-      Application Version: (1.1.0)
-      :: Spring Boot (v3.2.0) ::
+      Application Version: (1.1.1)
+      :: Spring Boot (v3.2.1) ::
 
       Ask for help:
       - Slack: https://oracledevs.slack.com/archives/C03ALDSV272
@@ -1308,17 +1308,17 @@ The services are now completed and you are ready to deploy them to the Oracle Ba
   Connect to the Oracle Backend for Spring Boot admin service using this command.  Use `obaas-admin` as the username and the password you obtained in the previous step.
 
     ```shell
-    oractl:>connect
+    oractl> <copy>connect</copy>
     username: obaas-admin
     password: **************
-    obaas-cli: Successful connected.
+    Credentials successfully authenticated! obaas-admin -> welcome to OBaaS CLI.
     oractl:>
     ```
 
-  Run this command to redeploy your account service, make sure you provide the correct path to your JAR files.  **Note**: You must set the **--redeploy** flag since you are updating the existing deployment:
+  Run this command to deploy your account service, make sure you provide the correct path to your JAR files.
 
     ```shell
-    oractl:> <copy>deploy --app-name application --service-name account --cpu-request 100m --artifact-path /path/to/accounts-0.0.1-SNAPSHOT.jar --image-version 0.0.1 --liquibase-db admin --redeploy</copy>
+    oractl:> <copy>deploy --app-name application --service-name account --artifact-path /path/to/accounts-0.0.1-SNAPSHOT.jar --image-version 0.0.1 --liquibase-db admin</copy>
     uploading: account/target/accounts-0.0.1-SNAPSHOT.jar
     building and pushing image...
     creating deployment and service... successfully deployed
@@ -1328,7 +1328,7 @@ The services are now completed and you are ready to deploy them to the Oracle Ba
    Run this command to to deploy the transfer service, make sure you provide the correct path to your JAR files.
 
     ```shell
-    oractl:> <copy>deploy --app-name application --service-name transfer --cpu-request 100m --artifact-path /path/to/transfer-0.0.1-SNAPSHOT.jar --image-version 0.0.1</copy>
+    oractl:> <copy>deploy --app-name application --service-name transfer --artifact-path /path/to/transfer-0.0.1-SNAPSHOT.jar --image-version 0.0.1</copy>
     uploading: transfer/target/transfer-0.0.1-SNAPSHOT.jar
     building and pushing image...
     creating deployment and service... successfully deployed
