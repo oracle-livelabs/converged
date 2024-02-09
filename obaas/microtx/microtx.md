@@ -65,7 +65,7 @@ A Cloud Cash Payment Request Processor service (which you installed in the **Dep
 
 ## Task 2: Learn about Long Running Actions
 
-There are different models that can be used to coordinate transactions across services.  Three of the most common are XA (Extended Architecture) which focuses on strong consistency, LRA (Long Running Action) which provides eventual consistency, and TCC (Try-Confirm/Cancel) which uses a reservation model.  Oracle Backend for Spring Boot includes [Oracle Transaction Manager for Microservices](https://www.oracle.com/database/transaction-manager-for-microservices/) which supports all three of these options.
+There are different models that can be used to coordinate transactions across services.  Three of the most common are XA (Extended Architecture) which focuses on strong consistency, LRA (Long Running Action) which provides eventual consistency, and TCC (Try-Confirm/Cancel) which uses a reservation model. Oracle Backend for Spring Boot and Microservices includes [Oracle Transaction Manager for Microservices](https://www.oracle.com/database/transaction-manager-for-microservices/) which supports all three of these options.
 
 In this lab, you will explore the Long Running Action model.  In this model there is a logical coordinator and a number of participants.  Each participant is responsible for performing work and being able to compensate if necessary.  The coordinator essentially manages the lifecycle of the LRA, for example by telling participants when to cancel or complete.
 
@@ -118,7 +118,7 @@ You will update the Account service that you built in the previous lab to add so
 
 1. Update the Spring Boot application configuration file
 
-  Update your Account service's Spring Boot configuration file, `application.yaml` in `src/main/resources`. Add a new `lra` section with the URL for the LRA coordinator. The URL shown here is for the Oracle Transaction Manager for Microservices that was installed as part of the Oracle Backend for Spring Boot.  **Note**: This URL is from the point of view of a service running it the same Kubernetes cluster.  
+  Update your Account service's Spring Boot configuration file, `application.yaml` in `src/main/resources`. Add a new `lra` section with the URL for the LRA coordinator. The URL shown here is for the Oracle Transaction Manager for Microservices that was installed as part of the Oracle Backend for Spring Boot and Microservices. **Note**: This URL is from the point of view of a service running it the same Kubernetes cluster.  
 
     ```yaml
     <copy>
@@ -1246,7 +1246,7 @@ Now, you will create another new Spring Boot microservice application and implem
 
 ## Task 9: Deploy the Account and Transfer services to the backend
 
-The services are now completed and you are ready to deploy them to the Oracle Backend for Spring Boot.
+The services are now completed and you are ready to deploy them to the Oracle Backend for Spring Boot and Microservices.
 
 > **Note**: You already created the Kubernetes secrets necessary for the account service to access the Oracle Autonomous Database in a previous lab, and the `transfer` service does not need access to the database. You also created the journal table that is needed by the update account application in the previous lab.
 
@@ -1270,9 +1270,9 @@ The services are now completed and you are ready to deploy them to the Oracle Ba
 
 1. Deploy the Account and Transfer applications
 
-  You will now deploy your updated account application and new transfer application to the Oracle Backend for Spring Boot using the CLI.  You will deploy into the `application` namespace, and the service names will be `account` and `transfer` respectively.  
+  You will now deploy your updated account application and new transfer application to the Oracle Backend for Spring Boot and Microservices using the CLI.  You will deploy into the `application` namespace, and the service names will be `account` and `transfer` respectively.  
 
-  The Oracle Backend for Spring Boot admin service is not exposed outside of the Kubernetes cluster by default. Oracle recommends using a **kubectl** port forwarding tunnel to establish a secure connection to the admin service.
+  The Oracle Backend for Spring Boot and Microservices admin service is not exposed outside of the Kubernetes cluster by default. Oracle recommends using a **kubectl** port forwarding tunnel to establish a secure connection to the admin service.
 
   Start a tunnel using this command:
 
@@ -1280,7 +1280,7 @@ The services are now completed and you are ready to deploy them to the Oracle Ba
     $ <copy>kubectl -n obaas-admin port-forward svc/obaas-admin 8080:8080</copy>
     ```
   
-  Start the Oracle Backend for Spring Boot CLI in the `parent` directory using this command:
+  Start the Oracle Backend for Spring Boot and Microservices CLI (*oractl*) in the `parent` directory using this command:
 
     ```shell
     $ <copy>oractl</copy>
@@ -1305,7 +1305,7 @@ The services are now completed and you are ready to deploy them to the Oracle Ba
     kubectl get secret -n azn-server oractl-passwords -o jsonpath='{.data.admin}' | base64 -d
     ```
 
-  Connect to the Oracle Backend for Spring Boot admin service using this command.  Use `obaas-admin` as the username and the password you obtained in the previous step.
+  Connect to the Oracle Backend for Spring Boot and Microservices admin service using this command.  Use `obaas-admin` as the username and the password you obtained in the previous step.
 
     ```shell
     oractl> <copy>connect</copy>
@@ -1469,7 +1469,7 @@ In this lab you have learned about the Saga pattern by implementing an account t
 
 ## Learn More
 
-* [Oracle Backend for Spring Boot](https://bit.ly/oraclespringboot)
+* [Oracle Backend for Spring Boot and Microservices](https://bit.ly/oraclespringboot)
 * [Oracle Backend for Parse Platform](https://oracle.github.io/microservices-datadriven/mbaas/)
 * [Oracle Transaction Manager for Microservices](https://www.oracle.com/database/transaction-manager-for-microservices/)
 * [Saga pattern](https://microservices.io/patterns/data/saga.html)
@@ -1479,4 +1479,4 @@ In this lab you have learned about the Saga pattern by implementing an account t
 
 * **Author** - Paul Parkinson, Mark Nelson, Andy Tael, Developer Evangelists, Oracle Database
 * **Contributors** - [](var:contributors)
-* **Last Updated By/Date** - Andy Tael, December 2023
+* **Last Updated By/Date** - Andy Tael, February 2024

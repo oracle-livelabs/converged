@@ -55,7 +55,7 @@ The sample CloudBank mobile application is provided as a starting point.  It alr
 
 ## Task 2: Run the application as-is against your environmnet
 
-1. Update the application to point to your Oracle Backend for Spring Boot instance
+1. Update the application to point to your Oracle Backend for Spring Boot and Microservices instance
 
    Open the `lib/main.dart` file in Visual Studio Code and update the following two lines of code.
 
@@ -663,11 +663,11 @@ The final piece to complete the Cloud Cash feature is to handle the form submiss
 
 * [Flutter](https://flutter.dev)
 * [Parse Platform](https://parseplatform.org/)
-* [Oracle Backend for Spring Boot](https://oracle.github.io/microservices-datadriven/spring/)
+* [Oracle Backend for Spring Boot and Microservices](https://oracle.github.io/microservices-datadriven/spring/)
 * [Oracle Backend for Parse Platform](https://oracle.github.io/microservices-datadriven/mbaas/)
 
 ## Acknowledgements
 
 * **Author** - Doug Drechsel, Mark Nelson, Developer Evangelists, Oracle Database
 * **Contributors** - [](var:contributors)
-* **Last Updated By/Date** - Andy Tael, January 2024
+* **Last Updated By/Date** - Andy Tael, February 2024

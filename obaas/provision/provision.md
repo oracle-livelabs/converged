@@ -2,17 +2,17 @@
 
 ## Introduction
 
-This lab walks you through the steps to provision an instance of the Oracle Backend for Spring Boot and Microservices, including Parse Platform in the Oracle Cloud. The Oracle Backend for Parse Platform is available separately, or it can be optionally included when installing the Oracle Backend for Spring Boot by selecting an option during the installation.
+This lab walks you through the steps to provision an instance of the Oracle Backend for Spring Boot and Microservices, including Parse Platform in the Oracle Cloud. The Oracle Backend for Parse Platform is available separately, or it can be optionally included when installing the Oracle Backend for Spring Boot and Microservices by selecting an option during the installation.
 
 Estimated Time: 30 minutes
 
-Quick walk through on how to provision an instance of Oracle backend for Spring Boot.
+Quick walk through on how to provision an instance of Oracle backend for Spring Boot and Microservices.
 
 [](videohub:1_cc0jjaft)
 
-### About Oracle Backend for Spring Boot
+### About Oracle Backend for Spring Boot and Microservices
 
-Oracle Backend for Spring Boot allows developers to build microservices in Spring Boot and provision a backend as a service with the Oracle Database and other infrastructure components that operate on multiple clouds. This service vastly simplifies the task of building, testing, and operating microservices platforms for reliable, secure, and scalable enterprise applications.
+Oracle Backend for Spring Boot and Microservices allows developers to build microservices in Spring Boot and provision a backend as a service with the Oracle Database and other infrastructure components that operate on multiple clouds. This service vastly simplifies the task of building, testing, and operating microservices platforms for reliable, secure, and scalable enterprise applications.
 
 ### About Oracle Backend for Parse Platform
 
@@ -22,7 +22,7 @@ Oracle Backend for Parse Platform allows developers to build and deploy mobile a
 
 In this lab, you will:
 
-* Provision an instance of Oracle Backend for Spring Boot, with Parse Platform included
+* Provision an instance of Oracle Backend for Spring Boot and Microservices, with Parse Platform included
 
 ### Prerequisites
 
@@ -35,11 +35,11 @@ This lab assumes you have:
   * An Oracle Autonomous Database - Shared instance
   * At least one free OCI Auth Token (note that the maximum is two per user)
 
-## Task 1: Install the Oracle Backend for Spring Boot from OCI Marketplace
+## Task 1: Install the Oracle Backend for Spring Boot and Microservicesfrom OCI Marketplace
 
-The Oracle Backend for Spring Boot can be installed from OCI Marketplace.
+The Oracle Backend for Spring Boot and Microservices can be installed from OCI Marketplace.
 
-> **Note:** Oracle Backend for Spring Boot can also be installed on-premises or in other clouds.
+> **Note:** Oracle Backend for Spring Boot and Microservices can also be installed on-premises or in other clouds.
 
 1. Access the Oracle Cloud Infrastructure Marketplace listing
 
@@ -257,15 +257,15 @@ The Oracle Backend for Spring Boot can be installed from OCI Marketplace.
 
     ![Parse Dashboard](images/obaas-parse-dashboard.png " ")
 
-    This completes the verification process.  Later you will use several other web user interfaces to manage applications in the Oracle Backend for Spring Boot.
+    This completes the verification process.  Later you will use several other web user interfaces to manage applications in the Oracle Backend for Spring Boot and Microservices.
 
 ## Learn More
 
-* [Oracle Backend for Spring Boot](https://bit.ly/oraclespringboot)
+* [Oracle Backend for Spring Boot and Microservices](https://bit.ly/oraclespringboot)
 * [Oracle Backend for Parse Platform](https://oracle.github.io/microservices-datadriven/mbaas/)
 
 ## Acknowledgements
 
 * **Author** - Mark Nelson, Andy Tael, Developer Evangelist, Oracle Database
 * **Contributors** - [](var:contributors)
-* **Last Updated By/Date** - Andy Tael, November 2023
+* **Last Updated By/Date** - Andy Tael, February 2024

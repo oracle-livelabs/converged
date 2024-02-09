@@ -220,7 +220,7 @@ Starting with the account service that you built in the previous lab, you will t
 
 1. Prepare the backend for deployment
 
-  The Oracle Backend for Spring Boot admin service is not exposed outside of the Kubernetes cluster by default. Oracle recommends using a **kubectl** port forwarding tunnel to establish a secure connection to the admin service.
+  The Oracle Backend for Spring Boot and Microservices admin service is not exposed outside of the Kubernetes cluster by default. Oracle recommends using a **kubectl** port forwarding tunnel to establish a secure connection to the admin service.
 
   Start a tunnel (unless you already have the tunnel running from previous labs) using this command:
 
@@ -228,7 +228,7 @@ Starting with the account service that you built in the previous lab, you will t
     $ <copy>kubectl -n obaas-admin port-forward svc/obaas-admin 8080</copy>
     ```
 
-  Start the Oracle Backend for Spring Boot CLI using this command:
+  Start the Oracle Backend for Spring Boot and Microservices CLI (*oractl*) using this command:
 
     ```shell
     $ <copy>oractl</copy>
@@ -247,7 +247,7 @@ Starting with the account service that you built in the previous lab, you will t
       oractl:>
     ```
 
-  Connect to the Oracle Backend for Spring Boot admin service using the `connect` command. Enter `obaas-admin` and the username and use the password you collected earlier.
+  Connect to the Oracle Backend for Spring Boot and Microservices admin service using the `connect` command. Enter `obaas-admin` and the username and use the password you collected earlier.
 
     ```shell
     oractl:>connect
@@ -259,7 +259,7 @@ Starting with the account service that you built in the previous lab, you will t
 
 1. Deploy the account service
 
-  You will now deploy your account service to the Oracle Backend for Spring Boot using the CLI. Run this command to redeploy your service, make sure you provide the correct path to your JAR file. **Note** that this command may take 1-3 minutes to complete:
+  You will now deploy your account service to the Oracle Backend for Spring Boot and Microservices using the CLI. Run this command to redeploy your service, make sure you provide the correct path to your JAR file. **Note** that this command may take 1-3 minutes to complete:
 
     ```shell
     oractl:> <copy>deploy --app-name application --service-name account --artifact-path /path/to/accounts-0.0.1-SNAPSHOT.jar --image-version 0.0.1</copy>
@@ -603,7 +603,7 @@ Next, you will create the "Test Runner" microservice which you will use to simul
 
 1. Prepare the backend for deployment
 
-  The Oracle Backend for Spring Boot admin service is not exposed outside of the Kubernetes cluster by default. Oracle recommends using a **kubectl** port forwarding tunnel to establish a secure connection to the admin service.
+  The Oracle Backend for Spring Boot and Microservices admin service is not exposed outside of the Kubernetes cluster by default. Oracle recommends using a **kubectl** port forwarding tunnel to establish a secure connection to the admin service.
 
     Start a tunnel using this command in a new terminal window:
 
@@ -617,7 +617,7 @@ Next, you will create the "Test Runner" microservice which you will use to simul
     $ <copy>kubectl get secret -n azn-server  oractl-passwords -o jsonpath='{.data.admin}' | base64 -d</copy>
     ```
 
-  Start the Oracle Backend for Spring Boot CLI in a new terminal window using this command:
+  Start the Oracle Backend for Spring Boot and Microservices CLI (*oractl*) in a new terminal window using this command:
 
     ```shell
     $ <copy>oractl</copy>
@@ -636,7 +636,7 @@ Next, you will create the "Test Runner" microservice which you will use to simul
     oractl:>
     ```
 
-    Connect to the Oracle Backend for Spring Boot admin service using the `connect` command. Enter `obaas-admin` and the username and use the password you collected earlier.
+    Connect to the Oracle Backend for Spring Boot and Microservices admin service using the `connect` command. Enter `obaas-admin` and the username and use the password you collected earlier.
 
     ```shell
     oractl> <copy>connect</copy>
@@ -656,7 +656,7 @@ Next, you will create the "Test Runner" microservice which you will use to simul
 
 1. Deploy the Test Runner service
 
-  You will now deploy your Test Runner service to the Oracle Backend for Spring Boot using the CLI. Run this command to deploy your service, make sure you provide the correct path to your JAR file. **Note** that this command may take 1-3 minutes to complete:
+  You will now deploy your Test Runner service to the Oracle Backend for Spring Boot and Microservices using the CLI. Run this command to deploy your service, make sure you provide the correct path to your JAR file. **Note** that this command may take 1-3 minutes to complete:
 
     ```shell
     oractl:> <copy>deploy --app-name application --service-name testrunner --artifact-path /path/to/testrunner-0.0.1-SNAPSHOT.jar --image-version 0.0.1</copy>
@@ -1135,7 +1135,7 @@ Next, you will create the "Check Processing" microservice which you will receive
 
 1. Prepare the backend for deployment
 
-  The Oracle Backend for Spring Boot admin service is not exposed outside of the Kubernetes cluster by default. Oracle recommends using a **kubectl** port forwarding tunnel to establish a secure connection to the admin service.
+  The Oracle Backend for Spring Boot and Microservices admin service is not exposed outside of the Kubernetes cluster by default. Oracle recommends using a **kubectl** port forwarding tunnel to establish a secure connection to the admin service.
 
   Start a tunnel using this command in a new terminal window:
 
@@ -1149,7 +1149,7 @@ Next, you will create the "Check Processing" microservice which you will receive
     $ <copy>kubectl get secret -n azn-server  oractl-passwords -o jsonpath='{.data.admin}' | base64 -d</copy>
     ```
 
-  Start the Oracle Backend for Spring Boot CLI in a new terminal window using this command:
+  Start the Oracle Backend for Spring Boot and Microservices CLI (*oractl*) in a new terminal window using this command:
 
     ```shell
     $ <copy>oractl</copy>
@@ -1168,7 +1168,7 @@ Next, you will create the "Check Processing" microservice which you will receive
     oractl:>
     ```
 
-  Connect to the Oracle Backend for Spring Boot admin service using the `connect` command. Enter `obaas-admin` and the username and use the password you collected earlier.
+  Connect to the Oracle Backend for Spring Boot and Microservices admin service using the `connect` command. Enter `obaas-admin` and the username and use the password you collected earlier.
 
     ```shell
     oractl> <copy>connect</copy>
@@ -1188,7 +1188,7 @@ Next, you will create the "Check Processing" microservice which you will receive
 
 1. Deploy the Check service
 
-  You will now deploy your Check service to the Oracle Backend for Spring Boot using the CLI. Run this command to deploy your service, make sure you provide the correct path to your JAR file. **Note** that this command may take 1-3 minutes to complete:
+  You will now deploy your Check service to the Oracle Backend for Spring Boot and Microservicesusing the CLI. Run this command to deploy your service, make sure you provide the correct path to your JAR file. **Note** that this command may take 1-3 minutes to complete:
 
     ```shell
     oractl:> <copy>deploy --app-name application --service-name checks --artifact-path /path/to/checks-0.0.1-SNAPSHOT.jar --image-version 0.0.1</copy>
@@ -1317,7 +1317,7 @@ Now you can test the full end-to-end flow for the Check Processing scenario.
 
 ## Learn More
 
-* [Oracle Backend for Spring Boot](https://bit.ly/oraclespringboot)
+* [Oracle Backend for Spring Boot and Microservices](https://bit.ly/oraclespringboot)
 * [Oracle Backend for Parse Platform](https://oracle.github.io/microservices-datadriven/mbaas/)
 * [Kubernetes](https://kubernetes.io/docs/home/)
 * [Apache APISIX](https://apisix.apache.org)
@@ -1328,4 +1328,4 @@ Now you can test the full end-to-end flow for the Check Processing scenario.
 
 * **Author** - Mark Nelson, Developer Evangelist, Oracle Database
 * **Contributors** - [](var:contributors)
-* **Last Updated By/Date** - Andy Tael, December 2023
+* **Last Updated By/Date** - Andy Tael, February 2024

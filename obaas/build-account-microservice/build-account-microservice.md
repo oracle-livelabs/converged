@@ -2,7 +2,7 @@
 
 ## Introduction
 
-This lab walks you through the steps to build a Spring Boot microservice from scratch, and to deploy it into the Oracle Backend for Spring Boot.  In this lab, we will build the "Account" microservice.  In the next lab, the remaining Cloud Bank microservices will be provided for you.
+This lab walks you through the steps to build a Spring Boot microservice from scratch, and to deploy it into the  and Microservices.  In this lab, we will build the "Account" microservice.  In the next lab, the remaining Cloud Bank microservices will be provided for you.
 
 Estimated Time: 20 minutes
 
@@ -411,7 +411,7 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
               max-pool-size: 30
         ```
 
-      These parameters will be used by Spring Data JPA to automatically configure the data source and inject it into your application.  This configuration uses [Oracle Universal Connection Pool](https://docs.oracle.com/en/database/oracle/oracle-database/21/jjucp/index.html) to improve performance and better utilize system resources.  The settings in the `jpa.hibernate` section tell Spring Data JPA to use Oracle SQL syntax, and to show the SQL statements in the log, which is useful during development when you may wish to see what statements are being executed as your endpoints are called.
+      These parameters will be used by Spring Data JPA to automatically configure the data source and inject it into your application.  This configuration uses [Oracle Universal Connection Pool](https://docs.oracle.com/en/database/oracle/oracle-database/21/jjucp/index.html) to improve performance and better utilize system resources.  The settings in the `spring.jpa` section tell Spring Data JPA to use Oracle SQL syntax, and to show the SQL statements in the log, which is useful during development when you may wish to see what statements are being executed as your endpoints are called.
 
 1. Create the data model in the Spring Boot application
 
@@ -889,11 +889,11 @@ If you would like to learn more about endpoints and implement the remainder of t
 
    That completes the account endpoints.  Now it is time to deploy your service to the backend.
 
-## Task 7: Deploy the account service to Oracle Backend for Spring Boot
+## Task 7: Deploy the account service to Oracle Backend for Spring Boot and Microservices
 
 1. Prepare the data source configuration for deployment
 
-    Update the data source configuration in your `src/main/resources/application.yaml` as shown in the example below.  This will cause the service to read the correct database details that will be injected into its pod by the Oracle Backend for Spring Boot.
+    Update the data source configuration in your `src/main/resources/application.yaml` as shown in the example below.  This will cause the service to read the correct database details that will be injected into its pod by the Oracle Backend for Spring Boot and Microservices.
 
     ```yaml
     <copy>datasource:
@@ -986,7 +986,7 @@ If you would like to learn more about endpoints and implement the remainder of t
 
 1. Prepare the backend for deployment
 
-    The Oracle Backend for Spring Boot admin service is not exposed outside of the Kubernetes cluster by default. Oracle recommends using a **kubectl** port forwarding tunnel to establish a secure connection to the admin service.
+    The Oracle Backend for Spring Boot and Microservices admin service is not exposed outside of the Kubernetes cluster by default. Oracle recommends using a **kubectl** port forwarding tunnel to establish a secure connection to the admin service.
 
     Start a tunnel using this command in a new terminal window:
 
@@ -1000,7 +1000,7 @@ If you would like to learn more about endpoints and implement the remainder of t
     $ <copy>kubectl get secret -n azn-server  oractl-passwords -o jsonpath='{.data.admin}' | base64 -d</copy>
     ```
 
-    Start the Oracle Backend for Spring Boot CLI in a new terminal window using this command:
+    Start the Oracle Backend for Spring Boot and Microservices CLI (*oractl*) in a new terminal window using this command:
 
     ```shell
     $ <copy>oractl</copy>
@@ -1019,7 +1019,7 @@ If you would like to learn more about endpoints and implement the remainder of t
     oractl:>
     ```
 
-    Connect to the Oracle Backend for Spring Boot admin service using the `connect` command. Enter `obaas-admin` and the username and use the password you collected earlier.
+    Connect to the Oracle Backend for Spring Boot and Microservices admin service using the `connect` command. Enter `obaas-admin` and the username and use the password you collected earlier.
 
     ```shell
     oractl> <copy>connect</copy>
@@ -1029,7 +1029,7 @@ If you would like to learn more about endpoints and implement the remainder of t
     oractl:>
     ```
 
-    Create a database "binding" by tunning this command.  Enter the password (`Welcome1234##`) when prompted.  This will create a Kubernetes secret in the `application` namespace called `account-db-secrets` which contains the username (`account`), password, and URL to connect to the Oracle Autonomous Database instance associated with the Oracle Backend for Spring Boot.
+    Create a database "binding" by tunning this command.  Enter the password (`Welcome1234##`) when prompted.  This will create a Kubernetes secret in the `application` namespace called `account-db-secrets` which contains the username (`account`), password, and URL to connect to the Oracle Autonomous Database instance associated with the Oracle Backend for Spring Boot and Microservices.
 
     ```shell
     oractl:> <copy>bind --app-name application --service-name account</copy>
@@ -1042,7 +1042,7 @@ If you would like to learn more about endpoints and implement the remainder of t
 
 1. Deploy the account service
 
-    You will now deploy your account service to the Oracle Backend for Spring Boot using the CLI.  You will deploy into the `application` namespace, and the service name will be `account`.  Run this command to deploy your service, make sure you provide the correct path to your JAR file.  **Note** that this command may take 1-3 minutes to complete:
+    You will now deploy your account service to the Oracle Backend for Spring Boot and Microservices using the CLI.  You will deploy into the `application` namespace, and the service name will be `account`.  Run this command to deploy your service, make sure you provide the correct path to your JAR file.  **Note** that this command may take 1-3 minutes to complete:
 
     ```shell
     oractl:> <copy>deploy --app-name application --service-name account --artifact-path /path/to/accounts-0.0.1-SNAPSHOT.jar --image-version 0.0.1</copy>
@@ -1055,7 +1055,7 @@ If you would like to learn more about endpoints and implement the remainder of t
     oractl:>
     ```
 
-    > What happens when you use the Oracle Backend for Spring Boot CLI **deploy** command? When you run the deploy command, the Oracle Backend for Spring Boot CLI does several things for you:
+    > What happens when you use the Oracle Backend for Spring Boot and Microservices CLI (*oractl*) **deploy** command? When you run the deploy command, the Oracle Backend for Spring Boot and Microservices CLI does several things for you:
 
     * Uploads the JAR file to server side
     * Builds a container image and push it to the OCI Registry
@@ -1183,7 +1183,7 @@ Now that the account service is deployed, you need to expose it through the API 
     }
     ```
 
-    Your service is deployed in the Oracle Backend for Spring Boot and using the Oracle Autonomous Database instance associated with the backend.
+    Your service is deployed in the Oracle Backend for Spring Boot and Microservices environment and using the Oracle Autonomous Database instance associated with the backend.
 
 ## Learn More
 

@@ -2,7 +2,7 @@
 
 ## Introduction
 
-Now that you know how to build a Spring Boot microservice and deploy it to the Oracle Backend for Spring Boot and Microservices, this lab will guide you through deploying the rest of the Cloud Bank services that we have already built for you and exploring the runtime and management capabilities of the platform.
+Now that you know how to build a Spring Boot microservice and deploy it to the Oracle Backend for Spring Boot and Microservices, this lab will guide you through deploying all of the CloudBank services and exploring the runtime and management capabilities of the platform. **NOTE:** The full CloudBank leverages more features than you have built so far such as monitoring, tracing etc. You will see those features in the lab "Explore The Backend Platform".
 
 Estimated Lab Time: 30 minutes
 
@@ -14,7 +14,7 @@ Quick walk through on how to deploy full CloudBank application.
 
 In this lab, you will:
 
-* Deploy the full CloudBank sample application into your Oracle Backend for Spring Boot for Microservices instance
+* Deploy the full CloudBank sample application into your Oracle Backend for Spring Boot and Microservices Microservices instance
 
 ### Prerequisites
 
@@ -44,13 +44,13 @@ Download a copy of the CloudBank sample application.
     <copy>cd microservices-datadriven/cloudbank-v32</copy>
     ```
 
-    This directory will be referred to as the `root` directory for CloudBank.
+    This directory will be referred to as the `root` directory for CloudBank in this lab.
 
 ## Task 2: Build the CloudBank application
 
 1. Create application JAR files
 
-    In the directory where you cloned (or unzipped) the application and build the application JARs using the following command:
+    In the directory (root) where you cloned (or unzipped) the application and build the application JARs using the following command:
 
     ```shell
     <copy>mvn clean package</copy>
@@ -78,8 +78,7 @@ Download a copy of the CloudBank sample application.
     [INFO] ------------------------------------------------------------------------
     ```
 
-
-## Task 3: Install CloudBank in your Oracle Backend for Spring Boot and Microservices instance
+## Task 3: Deploy CloudBank to your Oracle Backend for Spring Boot and Microservices instance
 
 1. Obtain the `obaas-admin` password.
 
@@ -103,18 +102,21 @@ Download a copy of the CloudBank sample application.
 
 1. Start the Oracle Backend for Spring Boot and Microservices CLI *oractl*
 
-    Open a new terminal Window or Tab and start the Oracle Backend for Spring Boot CLI using this command:
+    Open a new terminal Window or Tab and start the Oracle Backend for Spring Boot and Microservices CLI (*oractl*) using this command:
 
     ```shell
     $ <copy>oractl</copy>
      _   _           __    _    ___
     / \ |_)  _.  _. (_    /  |   |
     \_/ |_) (_| (_| __)   \_ |_ _|_
-    =============================================================================================================================
-    Application Name: Oracle Backend Platform :: Command Line Interface
-    Application Version: (1.0.1)
-    :: Spring Boot (v3.1.3) ::
+    ========================================================================================
+      Application Name: Oracle Backend Platform :: Command Line Interface
+      Application Version: (1.1.1)
+      :: Spring Boot (v3.2.1) ::
 
+      Ask for help:
+      - Slack: https://oracledevs.slack.com/archives/C03ALDSV272
+      - email: obaas_ww@oracle.com
 
     oractl:>
     ```
@@ -127,13 +129,16 @@ Download a copy of the CloudBank sample application.
     oractl> <copy>connect</copy>
     username: obaas-admin
     password: **************
-    obaas-cli: Successful connected.
+    Credentials successfully authenticated! obaas-admin -> welcome to OBaaS CLI.
     oractl:>
     ```
 
-1. Create Database Bindings
+1. Deploy CloudBank
 
-    Create database bindings for the applications by running the following commands in the CLI. You are going to create four different bindings for the account, checks, customer and testrunner services. **Note** The creditscore and transfer services are not using a database binding.
+    CloudBank will be deployed using a script into the namespace `application`. The script does the following:
+
+    * Executes the `bind` command for the services that requires database access.
+    * Deploys the CloudBank services.
 
     > What happens when you use the oractl CLI **bind** command? When you run the `bind` command, the oractl tool does several things for you:
 
@@ -141,68 +146,7 @@ Download a copy of the CloudBank sample application.
     * Creates or updates a k8s secret with the provided user credentials.
     * Creates a Database Schema with the provided user credentials.
 
-    1. Create Binding for the *Account* Service
-
-        Create a database "binding" by running this command. Enter the password (`Welcome1234##`) when prompted.  This will create a Kubernetes secret in the `application` namespace called `account-db-secrets` which contains the username (`account`), password, and URL to connect to the Oracle Autonomous Database instance associated with the Oracle Backend for Spring Boot and Microservices.
-
-        ```shell
-        oractl:> <copy>bind --app-name application --service-name account</copy>
-        Database/Service Password: *************
-        Schema {account} was successfully Created and Kubernetes Secret {application/account} was successfully Created.
-        oractl:>
-        ```
-
-    1. Create Binding for the *Checks* Service
-
-        Create a database "binding" by running this command. Enter the password (`Welcome1234##`) when prompted.  This will create a Kubernetes secret in the `application` namespace called `checks-db-secrets` which contains the username (`account`), password, and URL to connect to the Oracle Autonomous Database instance associated with the Oracle Backend for Spring Boot and Microservices.
-
-        ```shell
-        oractl:> <copy>bind --app-name application --service-name checks --username account</copy>
-        Database/Service Password: *************
-        Schema {account} was successfully Not_Modified and Kubernetes Secret {application/checks} was successfully Created.
-        oractl:>
-        ```
-
-    1. Create binding for the *Customer* Service
-
-        Create a database "binding" by running this command. Enter the password (`Welcome1234##`) when prompted.  This will create a Kubernetes secret in the `application` namespace called `customer-db-secrets` which contains the username (`customer`), password, and URL to connect to the Oracle Autonomous Database instance associated with the Oracle Backend for Spring Boot and Microservices.
-
-        ```shell
-        oractl:> <copy>bind --app-name application --service-name customer</copy>
-        Database/Service Password: *************
-        Schema {customer} was successfully Created and Kubernetes Secret {application/customer} was successfully Created.
-        oractl:>
-        ```
-
-    1. Create binding for the *Customer32* Service
-
-        Create a database "binding" by running this command. Enter the password (`Welcome1234##`) when prompted.  This will create a Kubernetes secret in the `application` namespace called `customer32-db-secrets` which contains the username (`customer32`), password, and URL to connect to the Oracle Autonomous Database instance associated with the Oracle Backend for Spring Boot and Microservices.
-
-        ```shell
-        oractl:> <copy>bind --app-name application --service-name customer32 --username customer</copy>
-        Database/Service Password: *************
-        Schema {customer} was successfully Created and Kubernetes Secret {application/customer32} was successfully Created.
-        oractl:>
-        ```
-
-    1. Create Binding for the *Testrunner* Service
-
-        Create a database "binding" by running this command. Enter the password (`Welcome1234##`) when prompted.  This will create a Kubernetes secret in the `application` namespace called `testrunner-db-secrets` which contains the username (`account`), password, and URL to connect to the Oracle Autonomous Database instance associated with the Oracle Backend for Spring Boot and Microservices.
-
-        ```shell
-        oractl:> <copy>bind --app-name application --service-name testrunner --username account</copy>
-        Database/Service Password: *************
-        Schema {account} was successfully Not_Modified and Kubernetes Secret {application/testrunner} was successfully Created.
-        oractl:>
-        ```
-
-1. Liquibase Creates Database Objects
-
-    The services are using [Liquibase](https://www.liquibase.org/). Liquibase is an open-source database schema change management solution which enables you to manage revisions of your database changes easily. When the service get's deployed the `tables` and sample `data` will be created and inserted by Liquibase. The SQL executed can be found in the source code directories of Cloudbank.
-
-1. Deploy the services
-
-    > What happens when you use the Oracle Backend for Spring Boot and Microservices CLI (*oractl*) **deploy** command? When you run the `deploy` command, *oractl* does several things for you:
+    > What happens when you use the Oracle Backend for Spring Boot and Microservices CLI  (*oractl*) **deploy** command? When you run the `deploy` command, *oractl* does several things for you:
 
     * Uploads the JAR file to server side
     * Builds a container image and push it to the OCI Registry
@@ -210,143 +154,78 @@ Download a copy of the CloudBank sample application.
     * Create the microservices deployment descriptor (k8s) with the resources supplied
     * Applies the k8s deployment and create k8s object service to microservice
 
-    1. Deploy the *Account* Service
+    The services are using [Liquibase](https://www.liquibase.org/). Liquibase is an open-source database schema change management solution which enables you to manage revisions of your database changes easily. When the service get's deployed the `tables` and sample `data` will be created and inserted by Liquibase. The SQL executed can be found in the source code directories of CloudBank.
 
-        You will now deploy your Account service to the Oracle Backend for Spring Boot and Microservices using the `oractl`. You will deploy into the `application` namespace, and the service name will be `account`. **Note** The `deploy` command have `--liquibase-db` parameter, this is because Liquibase needs to run as the `ADMIN` user so the `account` user can get the right properties to create TXEventQ's.
-
-        Run this command to deploy your account service, make sure you provide the correct path to your JAR file:
-
-        ```shell
-        oractl:> <copy>deploy --app-name application --service-name account --artifact-path /path/to/account-0.0.1-SNAPSHOT.jar --image-version 0.0.1 --liquibase-db admin</copy>
-        uploading: account/target/account-0.0.1-SNAPSHOT.jar
-        building and pushing image...
-
-        creating deployment and service...
-        obaas-cli [deploy]: Application was successfully deployed.
-        oractl:>
-        ```
-
-    1. Deploy the *Checks* Service
-
-        You will now deploy your Checks service to the Oracle Backend for Spring Boot and Microservices using `oractl`.  You will deploy into the `application` namespace, and the service name will be `checks`.
-
-        Run this command to deploy your checks service, make sure you provide the correct path to your JAR file:
-
-        ```shell
-        oractl:> <copy>deploy --app-name application --service-name checks --artifact-path /path/to/checks-0.0.1-SNAPSHOT.jar --image-version 0.0.1</copy>
-        uploading: checks/target/checks-0.0.1-SNAPSHOT.jar
-        building and pushing image...
-
-        creating deployment and service...
-        obaas-cli [deploy]: Application was successfully deployed.
-        oractl:>
-        ```
-
-    1. Deploy the *Customer* Service
-
-        You will now deploy your Customer service to the Oracle Backend for Spring Boot and Microservices using `oractl`. You will deploy into the `application` namespace, and the service name will be `customer`. Run this command to deploy your service, make sure you provide the correct path to your JAR file:
-
-        ```shell
-        oractl:> <copy>deploy --app-name application --service-name customer --artifact-path /path/to/customer-0.0.1-SNAPSHOT.jar --image-version 0.0.1 --liquibase-db admin</copy>
-        uploading: customer/target/customer-0.0.1-SNAPSHOT.jar
-        building and pushing image...
-
-        creating deployment and service...
-        obaas-cli [deploy]: Application was successfully deployed.
-        oractl:>
-        ```
-
-    1. Deploy the *Customer32* Service
-
-        You will now deploy your Customer service to the Oracle Backend for Spring Boot and Microservices using `oractl`. You will deploy into the `application` namespace, and the service name will be `customer32`. Run this command to deploy your service, make sure you provide the correct path to your JAR file:
-
-        ```shell
-        oractl:> <copy>deploy --app-name application --service-name customer32 --artifact-path /path/to/customer32-0.0.1-SNAPSHOT.jar --image-version 0.0.1 --liquibase-db admin</copy>
-        uploading: customer/target/customer32-0.0.1-SNAPSHOT.jar
-        building and pushing image...
-
-        creating deployment and service...
-        obaas-cli [deploy]: Application was successfully deployed.
-        oractl:>
-        ```
-
-    1. Deploy the *Creditscore* service
-
-        You will now deploy your Creditscore service to the Oracle Backend for Spring Boot and Microservices using `oractl`.  You will deploy into the `application` namespace, and the service name will be `creditscore`. Run this command to deploy your service, make sure you provide the correct path to your JAR file:
-
-        ```shell
-        oractl:> <copy>deploy --app-name application --service-name creditscore --artifact-path /path/to/creditscore-0.0.1-SNAPSHOT.jar --image-version 0.0.1</copy>
-        uploading: creditscore/target/creditscore-0.0.1-SNAPSHOT.jar
-        building and pushing image...
-
-        creating deployment and service...
-        obaas-cli [deploy]: Application was successfully deployed.
-        oractl:>
-        ```
-
-    1. Deploy the Testrunner Service
-
-        You will now deploy your Testrunner service to the Oracle Backend for Spring Boot and Microservices using `oractl`. You will deploy into the `application` namespace, and the service name will be `testrunner`.
-
-        Run this command to deploy your testrunner service, make sure you provide the correct path to your JAR file:
-
-        ```shell
-        oractl:> <copy>deploy --app-name application --service-name testrunner --artifact-path /path/to/testrunner-0.0.1-SNAPSHOT.jar --image-version 0.0.1</copy>
-        uploading: testrunner/target/testrunner-0.0.1-SNAPSHOT.jar
-        building and pushing image...
-
-        creating deployment and service...
-        obaas-cli [deploy]: Application was successfully deployed.
-        oractl:>
-        ```
-
-    1. Deploy the Transfer service
-
-        You will now deploy your transfer service to the Oracle Backend for Spring Boot and Microservices using `oractl`. You will deploy into the `application` namespace, and the service name will be `transfer`.
-
-        Run this command to deploy your transfer service, make sure you provide the correct path to your JAR file:
-
-        ```shell
-        oractl:> <copy>deploy --app-name application --service-name transfer --artifact-path /path/to/transfer-0.0.1-SNAPSHOT.jar --image-version 0.0.1</copy>
-        uploading: transfer/target/transfer-0.0.1-SNAPSHOT.jar
-        building and pushing image...
-
-        creating deployment and service...
-        obaas-cli [deploy]: Application was successfully deployed.
-        oractl:>
-        ```
-
-        You have now deployed all the services part of the CloudBank application.
-
-## Task 4: Verify the deployment of CloudBank
-
-1. Verification of the services deployment
-
-    Verify that the services are running properly by executing this command:
-
-    ```shell
-    <copy>kubectl get pods application</copy>
-    ```
-
-    The output should be similar to this, all pods should have `STATUS` as `Running`. If not then you need to look at the logs for the pods/service to determine what is wrong for example `kubectl logs -n application svc/customer`.
+    Run the following command to deploy CloudBank. When asked for `Database/Service Password:` enter the password `Welcome1234##`. You need to do this multiple times. **NOTE:** The deployment of CloudBank will take a few minutes.
 
     ```text
-    NAME                           READY   STATUS    RESTARTS   AGE
-    account-65cdc68dd7-k5ntz       1/1     Running   0          8m2s
-    checks-78c988bdcf-n59qz        1/1     Running   0          42m
-    creditscore-7b89d567cd-nm4p6   1/1     Running   0          38m
-    customer-6f4dc67985-nf5kz      1/1     Running   0          41s
-    testrunner-78d679575f-ch4k7    1/1     Running   0          33m
-    transfer-869d796755-gn9lf      1/1     Running   0          27m
+    oractl:>script --file deploy-cmds/deploy-cb.txt
     ```
 
-## Task 5: Expose and test the services using APISIX Gateway and k8s tunnels
+    The output should look similar to this:
 
-**NOTE:** The Transfer service is not exposed via the APISIX GW as it is an internal service.
+    ```text
+    Database/Service Password: *************
+    Schema {account} was successfully Created and Kubernetes Secret {application/account} was successfully Created.
+    Database/Service Password: *************
+    Schema {account} was successfully Not_Modified and Kubernetes Secret {application/checks} was successfully Created.
+    Database/Service Password: *************
+    Schema {customer} was successfully Created and Kubernetes Secret {application/customer} was successfully Created.
+    Database/Service Password: *************
+    Schema {customer} was successfully Not_Modified and Kubernetes Secret {application/customer32} was successfully Created.
+    Database/Service Password: *************
+    Schema {account} was successfully Not_Modified and Kubernetes Secret {application/testrunner} was successfully Created.
+    uploading: account/target/account-0.0.1-SNAPSHOT.jar
+    building and pushing image...
+
+    creating deployment and service...
+    obaas-cli [deploy]: Application was successfully deployed.
+    NOTICE: service not accessible outside K8S
+    uploading: checks/target/checks-0.0.1-SNAPSHOT.jar
+    building and pushing image...
+
+    creating deployment and service...
+    obaas-cli [deploy]: Application was successfully deployed.
+    NOTICE: service not accessible outside K8S
+    uploading: customer/target/customer-0.0.1-SNAPSHOT.jar
+    building and pushing image...
+
+    creating deployment and service...
+    obaas-cli [deploy]: Application was successfully deployed.
+    NOTICE: service not accessible outside K8S
+    uploading: customer32/target/customer32-0.0.1-SNAPSHOT.jar
+    building and pushing image...
+
+    creating deployment and service...
+    obaas-cli [deploy]: Application was successfully deployed.
+    NOTICE: service not accessible outside K8S
+    uploading: creditscore/target/creditscore-0.0.1-SNAPSHOT.jar
+    building and pushing image...
+
+    creating deployment and service...
+    obaas-cli [deploy]: Application was successfully deployed.
+    NOTICE: service not accessible outside K8S
+    uploading: testrunner/target/testrunner-0.0.1-SNAPSHOT.jar
+    building and pushing image...
+
+    creating deployment and service...
+    obaas-cli [deploy]: Application was successfully deployed.
+    NOTICE: service not accessible outside K8S
+    uploading: transfer/target/transfer-0.0.1-SNAPSHOT.jar
+    building and pushing image...
+
+    creating deployment and service...
+    obaas-cli [deploy]: Application was successfully deployed.
+    NOTICE: service not accessible outside K8S
+    ```
+
+## Task 4: Create Apache APISIX routes to the deployed CloudBank services
+
+To be able to access the CLoudBank services from the public internet we need expose the services via the Apache APISIX gateway. We're going to do that using scripts.
 
 1. Get APISIX Gateway Admin Key
 
-    You are going to need the Admin Key for the APISIX Gateway to configure the route. It is stored in a k8s ConfigMap. Run the command and make a note of the admin key. The command will return a long YAML document, so you need to scroll up to find the Admin Key.
+    You are going to need the Admin Key for the APISIX Gateway to configure the route. It is stored in a k8s ConfigMap. Run the command and make a note of the admin key.
 
     ```shell
     <copy>kubectl -n apisix get configmap apisix -o yaml</copy>
@@ -362,95 +241,30 @@ Download a copy of the CloudBank sample application.
           role: admin
     ```
 
-1. Start the tunnel to the APISIX Admin server using this command:
+1. Create tunnel to APISIX
 
     ```shell
-    $ <copy>kubectl -n apisix port-forward svc/apisix-admin 9180:9180</copy>
-    Forwarding from 127.0.0.1:9180 -> 9180
-    Forwarding from [::1]:9180 -> 9180
+    kubectl port-forward -n apisix svc/apisix-admin 9180
     ```
 
 1. Create the routes
 
-    In the `apisix-scripts` directory where you saved the code repository there are three scripts to create the routes. Run the commands to create the routes:
+    In the `root` directory run the following command. *NOTE*, you must add your API-KEY to the command:
 
-    1. Accounts Route:
+    ```shell
+    (cd apisix-routes; source ./create-all-routes.sh <YOUR-API-KEY>)
+    ```
 
-        Run this command to create the accounts route, replace the `APIKEY` in the command with the key you got in Step 1
+    The script will create the following routes:
 
-        ```shell
-        <copy>source apisix-routes/create-accounts-route.sh APIKEY</copy>
-        ```
-
-        Output should be similar to this:
-
-        ```text
-        HTTP/1.1 201 Created
-        Date: Wed, 19 Apr 2023 16:21:56 GMT
-        Content-Type: application/json
-        Transfer-Encoding: chunked
-        Connection: keep-alive
-        Server: APISIX/3.2.0
-        Access-Control-Allow-Origin: *
-        Access-Control-Allow-Credentials: true
-        Access-Control-Expose-Headers: *
-        Access-Control-Max-Age: 3600
-        X-API-VERSION: v3
-
-        {"key":"/apisix/routes/00000000000000000041","value":{"status":1,"uri":"/api/v1/account*","upstream":{"discovery_type":"kubernetes","scheme":"http","service_name":"application/account:spring","type":"roundrobin","pass_host":"pass","hash_on":"vars"},"name":"accounts","create_time":1681921315,"labels":{"version":"1.0"},"priority":0,"update_time":1681921315,"plugins":{"zipkin":{"sample_ratio":1,"endpoint":"http://jaegertracing-collector.observability.svc.cluster.local:9411/api/v2/spans","service_name":"APISIX","span_version":2,"disable":false}},"id":"00000000000000000041"}}
-        ```
-
-    1. Creditscore Route:
-
-        Run this command to create the creditscore route, replace the `APIKEY` in the command with the key you got in Step 1
-
-        ``` shell
-        <copy>source apisix-routes/create-creditscore-route.sh APIKEY</copy>
-        ```
-
-        Output should be similar to this:
-
-        ```text
-        HTTP/1.1 201 Created
-        Date: Wed, 19 Apr 2023 16:23:56 GMT
-        Content-Type: application/json
-        Transfer-Encoding: chunked
-        Connection: keep-alive
-        Server: APISIX/3.2.0
-        Access-Control-Allow-Origin: *
-        Access-Control-Allow-Credentials: true
-        Access-Control-Expose-Headers: *
-        Access-Control-Max-Age: 3600
-        X-API-VERSION: v3
-
-        {"key":"/apisix/routes/00000000000000000043","value":{"status":1,"uri":"/api/v1/creditscore*","upstream":{"discovery_type":"eureka","scheme":"http","service_name":"CREDITSCORE","type":"roundrobin","pass_host":"pass","hash_on":"vars"},"name":"creditscore","create_time":1681921436,"labels":{"version":"1.0"},"priority":0,"update_time":1681921436,"plugins":{"zipkin":{"sample_ratio":1,"endpoint":"http://jaegertracing-collector.observability.svc.cluster.local:9411/api/v2/spans","service_name":"APISIX","span_version":2,"disable":false}},"id":"00000000000000000043"}}
-        ```
-
-    1. Customer Route:
-
-        Run this command to create the customer route, replace the `APIKEY` in the command with the key you got in Step 1
-
-        ```shell
-        <copy>source apisix-routes/create-customer-route.sh APIKEY</copy>
-        ```
-
-        Output should be similar to this:
-
-        ```text
-        HTTP/1.1 201 Created
-        Date: Wed, 19 Apr 2023 16:24:54 GMT
-        Content-Type: application/json
-        Transfer-Encoding: chunked
-        Connection: keep-alive
-        Server: APISIX/3.2.0
-        Access-Control-Allow-Origin: *
-        Access-Control-Allow-Credentials: true
-        Access-Control-Expose-Headers: *
-        Access-Control-Max-Age: 3600
-        X-API-VERSION: v3
-
-        {"key":"/apisix/routes/00000000000000000045","value":{"status":1,"uri":"/api/v1/customer*","upstream":{"discovery_type":"eureka","scheme":"http","service_name":"CUSTOMERS","type":"roundrobin","pass_host":"pass","hash_on":"vars"},"name":"customer","create_time":1681921493,"labels":{"version":"1.0"},"priority":0,"update_time":1681921493,"plugins":{"zipkin":{"sample_ratio":1,"endpoint":"http://jaegertracing-collector.observability.svc.cluster.local:9411/api/v2/spans","service_name":"APISIX","span_version":2,"disable":false}},"id":"00000000000000000045"}}
-        ```
+    | CloudBank Service | URI |
+    | ------------------| ----|
+    | ACCOUNT | /api/v1/account* |
+    | CREDITSCORE | /api/v1/creditscore* |
+    | CUSTOMER | /api/v1/customer* |
+    | CUSTOMER32 | /api/v2/customer* |
+    | TESTRUNNER |  /api/v1/testrunner* |
+    | TRANSFER |  /transfer* |
 
 1. Verify the routes in the APISIX Dashboard
 
@@ -466,8 +280,8 @@ Download a copy of the CloudBank sample application.
 
         ```shell
         $ <copy>kubectl -n apisix port-forward svc/apisix-dashboard 7070:80</copy>
-        Forwarding from 127.0.0.1:8080 -> 9000
-        Forwarding from [::1]:8080 -> 9000
+        Forwarding from 127.0.0.1:7070 -> 9000
+        Forwarding from [::1]:7070 -> 9000
         ```
 
         Open a web browser to [http://localhost:7070](http://localhost:7070) to view the APISIX Dashboard web user interface.  It will appear similar to the image below.
@@ -483,6 +297,30 @@ Download a copy of the CloudBank sample application.
         Verify that you have three routes created
 
         ![APISIX Route Details](images/apisix-route-details.png " ")
+
+## Task 5: Verify the deployment of CloudBank
+
+1. Verification of the services deployment
+
+    Verify that the services are running properly by executing this command:
+
+    ```shell
+    <copy>kubectl get pods -n application</copy>
+    ```
+
+    The output should be similar to this, all pods should have `STATUS` as `Running`. If not then you need to look at the logs for the pods/service to determine what is wrong for example `kubectl logs -n application svc/customer`.
+
+    ```text
+    NAME                           READY   STATUS    RESTARTS   AGE
+    account-65cdc68dd7-k5ntz       1/1     Running   0          8m2s
+    checks-78c988bdcf-n59qz        1/1     Running   0          42m
+    creditscore-7b89d567cd-nm4p6   1/1     Running   0          38m
+    customer-6f4dc67985-nf5kz      1/1     Running   0          41s
+    testrunner-78d679575f-ch4k7    1/1     Running   0          33m
+    transfer-869d796755-gn9lf      1/1     Running   0          27m
+    ```
+
+## Task 6: Verify the deployment of CloudBank services
 
 1. Verify the all the Cloud Bank services deployed
 
@@ -517,7 +355,7 @@ Download a copy of the CloudBank sample application.
     1. Test the get account REST endpoint with this command, use the IP address for your API Gateway and the `accountId` that was returned in the previous command:
 
         ```shell
-        <copy>curl -s http://API-ADDRESS-OF-API-GW/api/v1/account/24 | jq .</copy>
+        <copy>curl -s http://API-ADDRESS-OF-API-GW/api/v1/account/<accountId> | jq .</copy>
         ```
 
         Output should be similar to this:
@@ -699,7 +537,7 @@ Download a copy of the CloudBank sample application.
             Forwarding from [::1]:8085 -> 8080
             ```
 
-        1. Check the account balances for two accounts, in this example the account numbers are 20 and 21. Replace `API-ADDRESS-OF-API-GW` with your External IP Address
+        1. Check the account balances for two accounts, in this example the account numbers are 1 and 2. Replace `API-ADDRESS-OF-API-GW` with your External IP Address
 
             ```shell
             <copy>curl -s http://API-ADDRESS-OF-API-GW/api/v1/account/1 | jq ; curl -s http://API-ADDRESS-OF-API-GW/api/v1/account/2 | jq</copy>
@@ -768,7 +606,7 @@ This concludes the lab *Deploy the full CloudBank Application* using the `oractl
 
 ## Learn More
 
-* [Oracle Backend for Spring Boot](https://bit.ly/oraclespringboot)
+* [Oracle Backend for Spring Boot and Microservices](https://bit.ly/oraclespringboot)
 * [Oracle Backend for Parse Platform](https://oracle.github.io/microservices-datadriven/mbaas/)
 * [Kubernetes](https://kubernetes.io/docs/home/)
 * [Apache APISIX](https://apisix.apache.org)
@@ -778,4 +616,4 @@ This concludes the lab *Deploy the full CloudBank Application* using the `oractl
 
 * **Author** - Andy Tael, Corrado De Bari, Mark Nelson, Developer Evangelists, Oracle Database
 * **Contributors** - [](var:contributors)
-* **Last Updated By/Date** - Andy Tael, January 2024
+* **Last Updated By/Date** - Andy Tael, February 2024
