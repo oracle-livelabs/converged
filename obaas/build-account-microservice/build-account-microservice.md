@@ -333,9 +333,9 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
 
 1. Add Spring Data JPA to the Account service and configure it to access the database
 
-    Spring Data JPA allows our Spring Boot application to easily use the database.  It uses simple Java POJOs to represent the data model and provides a lot of out-of-the-box features which means there is a lot less boilerplate code to be written.
+  Spring Data JPA allows our Spring Boot application to easily use the database.  It uses simple Java POJOs to represent the data model and provides a lot of out-of-the-box features which means there is a lot less boilerplate code to be written.
 
-    To add Spring Data JPA and the Oracle Database drivers to your project, open the Maven POM (`pom.xml`) and add these extra dependencies for Spring Data JPA, Oracle Spring Boot Starters for Oracle Database UCP (Universal Connection Pool) and Wallet:
+  To add Spring Data JPA and the Oracle Database drivers to your project, open the Maven POM (`pom.xml`) and add these extra dependencies for Spring Data JPA, Oracle Spring Boot Starters for Oracle Database UCP (Universal Connection Pool) and Wallet:
 
     ```xml
     <copy>
@@ -355,9 +355,9 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
     </dependency></copy>
     ```
 
-    Visual Studio code will display a notification in the bottom right corner and ask if it should update the project based on the change you just made.  You should select **Yes** or **Always** to this notification.  Doing so will ensure that the auto-completion will have access to the classes in the new dependency that you just added.
+  Visual Studio code will display a notification in the bottom right corner and ask if it should update the project based on the change you just made.  You should select **Yes** or **Always** to this notification.  Doing so will ensure that the auto-completion will have access to the classes in the new dependency that you just added.
 
-    ![Updated Project](images/obaas-updated-pom.png " ")
+  ![Updated Project](images/obaas-updated-pom.png " ")
 
 1. Configure JPA Datasource
 
@@ -365,53 +365,53 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
 
     1. Unzip the Wallet you downloaded in the Setup lab (Lab 2)
 
-    ```shell
-    $ <copy>unzip /path/to/wallet/wallet_name.zip</copy>
-    ```
+      ```shell
+      $ <copy>unzip /path/to/wallet/wallet_name.zip</copy>
+      ```
 
     1. Edit the `sqlnet.ora` file so that the section `(DIRECTORY="?/network/admin")` matches the full path to the directory where you unzipped the Wallet, for example:
 
-    ```text
-    WALLET_LOCATION = (SOURCE = (METHOD = file) (METHOD_DATA = (DIRECTORY="/path/to/unzipped/wallet")))
-    ```
+      ```text
+      WALLET_LOCATION = (SOURCE = (METHOD = file) (METHOD_DATA = (DIRECTORY="/path/to/unzipped/wallet")))
+      ```
 
     1. Get the TNS Entry connection string using this command. Remember the name of the entry as you'll need it in the next steps. In the sample below it is `cbankdb_tp`.
 
-    ```shell
-    $ <copy>grep "_tp =" /path/to/unzipped/wallet/tnsnames.ora | cut -d"=" -f 1</copy>
-    cbankdb_tp
-    ```
-
-    You will find a file called `application.properties` in the `src/main/resources` directory in your project.  You can use either properties format or YAML format for this file.  In this lab, you will use YAML.  Rename the file to `application.yaml` and then add this content to the file. Make sure that you modify the url to contain the path to the wallet and the name of the TNS entry you collected earlier.
-
-    ```yaml
-      <copy>
-      spring:
-        application:
-          name: account
-        jpa:
-          hibernate:
-            ddl-auto: validate
-          properties:
-            hibernate:
-              dialect: org.hibernate.dialect.OracleDialect
-              format_sql: true
-          show-sql: true
-        datasource:
-          url: jdbc:oracle:thin:@tns_entry_from_above?TNS_ADMIN=/path/to/Wallet
-          username: account
-          password: Welcome1234##
-          driver-class-name: oracle.jdbc.OracleDriver
-          type: oracle.ucp.jdbc.PoolDataSource
-          oracleucp:
-            connection-factory-class-name: oracle.jdbc.pool.OracleDataSource
-            connection-pool-name: AccountConnectionPool
-            initial-pool-size: 15
-            min-pool-size: 10
-            max-pool-size: 30
+      ```shell
+      $ <copy>grep "_tp =" /path/to/unzipped/wallet/tnsnames.ora | cut -d"=" -f 1</copy>
+      cbankdb_tp
       ```
 
-    These parameters will be used by Spring Data JPA to automatically configure the data source and inject it into your application.  This configuration uses [Oracle Universal Connection Pool](https://docs.oracle.com/en/database/oracle/oracle-database/21/jjucp/index.html) to improve performance and better utilize system resources.  The settings in the `jpa.hibernate` section tell Spring Data JPA to use Oracle SQL syntax, and to show the SQL statements in the log, which is useful during development when you may wish to see what statements are being executed as your endpoints are called.
+      You will find a file called `application.properties` in the `src/main/resources` directory in your project.  You can use either properties format or YAML format for this file.  In this lab, you will use YAML.  Rename the file to `application.yaml` and then add this content to the file. Make sure that you modify the url to contain the path to the wallet and the name of the TNS entry you collected earlier.
+
+      ```yaml
+        <copy>
+        spring:
+          application:
+            name: account
+          jpa:
+            hibernate:
+              ddl-auto: validate
+            properties:
+              hibernate:
+                dialect: org.hibernate.dialect.OracleDialect
+                format_sql: true
+            show-sql: true
+          datasource:
+            url: jdbc:oracle:thin:@tns_entry_from_above?TNS_ADMIN=/path/to/Wallet
+            username: account
+            password: Welcome1234##
+            driver-class-name: oracle.jdbc.OracleDriver
+            type: oracle.ucp.jdbc.PoolDataSource
+            oracleucp:
+              connection-factory-class-name: oracle.jdbc.pool.OracleDataSource
+              connection-pool-name: AccountConnectionPool
+              initial-pool-size: 15
+              min-pool-size: 10
+              max-pool-size: 30
+        ```
+
+      These parameters will be used by Spring Data JPA to automatically configure the data source and inject it into your application.  This configuration uses [Oracle Universal Connection Pool](https://docs.oracle.com/en/database/oracle/oracle-database/21/jjucp/index.html) to improve performance and better utilize system resources.  The settings in the `jpa.hibernate` section tell Spring Data JPA to use Oracle SQL syntax, and to show the SQL statements in the log, which is useful during development when you may wish to see what statements are being executed as your endpoints are called.
 
 1. Create the data model in the Spring Boot application
 
@@ -1009,8 +1009,8 @@ If you would like to learn more about endpoints and implement the remainder of t
     \_/ |_) (_| (_| __)   \_ |_ _|_
     ========================================================================================
       Application Name: Oracle Backend Platform :: Command Line Interface
-      Application Version: (1.1.0)
-      :: Spring Boot (v3.2.0) ::
+      Application Version: (1.1.1)
+      :: Spring Boot (v3.2.1) ::
 
       Ask for help:
       - Slack: https://oracledevs.slack.com/archives/C03ALDSV272
@@ -1055,14 +1055,13 @@ If you would like to learn more about endpoints and implement the remainder of t
     oractl:>
     ```
 
-  > What happens when you use the Oracle Backend for Spring Boot CLI **deploy** command?
-  When you run the deploy command, the Oracle Backend for Spring Boot CLI does several things for you:
+    > What happens when you use the Oracle Backend for Spring Boot CLI **deploy** command? When you run the deploy command, the Oracle Backend for Spring Boot CLI does several things for you:
 
-  - Uploads the JAR file to server side
-  - Builds a container image and push it to the OCI Registry
-  - Inspects the JAR file and looks for bind resources (JMS)
-  - Create the microservices deployment descriptor (k8s) with the resources supplied
-  - Applies the k8s deployment and create k8s object service to microservice
+    * Uploads the JAR file to server side
+    * Builds a container image and push it to the OCI Registry
+    * Inspects the JAR file and looks for bind resources (JMS)
+    * Create the microservices deployment descriptor (k8s) with the resources supplied
+    * Applies the k8s deployment and create k8s object service to microservice
 
 1. Verify account service
 
