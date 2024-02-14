@@ -53,7 +53,7 @@ Starting with the account service that you built in the previous lab, you will t
   Create a new Java file in `src/main/java/com/example/accounts/model` called `Journal.java`. In this class you can define the fields that make up the journal.  Note that you created the Journal table in the previous lab. You will not use the `lraId` and `lraState` fields until a later lab. To simplify this lab, create an additional constructor that defaults those fields to suitable values. Your new class should look like this:
 
     ```java
-    <copy>package com.example.accounts.model;
+    <copy>package com.example.account.model;
 
     import jakarta.persistence.Column;
     import jakarta.persistence.Entity;
@@ -110,16 +110,16 @@ Starting with the account service that you built in the previous lab, you will t
 
 1. Create the Journal repository
 
-  Create a new Java file in `src/main/java/com/example/accounts/repository` called `JournalRepository.java`. This should be an interface that extends `JpaRepository` and you will need to define a method to find journal entries by `accountId`. Your interface should look like this:
+  Create a new Java file in `src/main/java/com/example/account/repository` called `JournalRepository.java`. This should be an interface that extends `JpaRepository` and you will need to define a method to find journal entries by `accountId`. Your interface should look like this:
 
     ```java
-    <copy>package com.example.accounts.repository;
+    <copy>package com.example.account.repository;
 
     import java.util.List;
 
     import org.springframework.data.jpa.repository.JpaRepository;
 
-    import com.example.accounts.model.Journal;
+    import com.example.account.model.Journal;
 
     public interface JournalRepository extends JpaRepository<Journal, Long> {
         List<Journal> findJournalByAccountId(long accountId);
@@ -146,7 +146,7 @@ Starting with the account service that you built in the previous lab, you will t
 
 1. Add new method to post entries to the journal
 
-  Add a new HTTP POST endpoint in the `AccountRepository.java` class. The method accepts a journal entry in the request body and saves it into the database. Your new method should look like this:
+  Add a new HTTP POST endpoint in the `AccountController.java` class. The method accepts a journal entry in the request body and saves it into the database. Your new method should look like this:
 
     ```java
     <copy>import com.example.model.Journal;
@@ -166,10 +166,10 @@ Starting with the account service that you built in the previous lab, you will t
 
 1. Add new method to get journal entries
 
-  Add a new HTTP GET endpoint in the `AccountRepository.java` class to get a list of journal entries for a given `accountId`. Your new method should look like this:
+  Add a new HTTP GET endpoint in the `AccountController.java` class to get a list of journal entries for a given `accountId`. Your new method should look like this:
 
     ```java
-    import com.example.accounts.repository.JournalRepository;
+    import com.example.account.repository.JournalRepository;
 
     <copy>@GetMapping("/account/{accountId}/journal")
     public List<Journal> getJournalEntriesForAccount(@PathVariable("accountId") long accountId) {
@@ -262,8 +262,8 @@ Starting with the account service that you built in the previous lab, you will t
   You will now deploy your account service to the Oracle Backend for Spring Boot and Microservices using the CLI. Run this command to redeploy your service, make sure you provide the correct path to your JAR file. **Note** that this command may take 1-3 minutes to complete:
 
     ```shell
-    oractl:> <copy>deploy --app-name application --service-name account --artifact-path /path/to/accounts-0.0.1-SNAPSHOT.jar --image-version 0.0.1</copy>
-    uploading: account/target/accounts-0.0.1-SNAPSHOT.jarbuilding and pushing image...
+    oractl:> <copy>deploy --app-name application --service-name account --artifact-path /path/to/account-0.0.1-SNAPSHOT.jar --image-version 0.0.1</copy>
+    uploading: account/target/account-0.0.1-SNAPSHOT.jarbuilding and pushing image...
     creating deployment and service... successfully deployed
     oractl:>
     ```
@@ -412,7 +412,7 @@ Next, you will create the "Test Runner" microservice which you will use to simul
 
   ![Create Project](images/create-project.png " ")
 
-  Select the `root` location for your project e.g. side by side with the `accounts` project.
+  Select the `root` location for your project e.g. side by side with the `account` project.
 
   ![Project Location](images/project-location.png " ")
 
@@ -787,7 +787,7 @@ Next, you will create the "Check Processing" microservice which you will receive
 
   ![Create Project](images/create-project.png " ")
 
-  Select the `root` location for your project e.g. side by side with the `checks`, `testrunner` and `accounts` projects.
+  Select the `root` location for your project e.g. side by side with the `checks`, `testrunner` and `account` projects.
 
   ![Project Location](images/project-location.png " ")
 
@@ -972,7 +972,7 @@ Next, you will create the "Check Processing" microservice which you will receive
     import org.springframework.web.bind.annotation.PostMapping;
     import org.springframework.web.bind.annotation.RequestBody;
 
-    @FeignClient("accounts")
+    @FeignClient("account")
     public interface AccountClient {
         
         @PostMapping("/api/v1/account/journal")
