@@ -16,6 +16,7 @@ In this lab, you will:
 
 * Review the components of the Oracle Backend for Spring Boot and Microservices
 * Explore how microservice data is stored in the Oracle Autonomous Database
+* Learn about the SPring Operations Center included in Oracle Backend for Spring Boot and Microservices
 * Learn about the Spring Admin user interface
 * Learn about Spring Eureka Service Registry
 * Learn about APISIX API Gateway
@@ -232,7 +233,11 @@ Oracle Backend for Spring Boot and Microservices includes an Oracle Autonomous D
 
    Feel free to explore some of these tables to see the data.
 
-## Task 3: Explore Spring Admin
+## Task 3: Explore Spring Operations Center
+
+TBD!!!
+
+## Task 4: Explore Spring Admin
 
 Oracle Backend for Spring Boot and Microservices includes Spring Admin which provides a web user interface for managing and monitoring Spring applications.
 
@@ -268,7 +273,7 @@ Oracle Backend for Spring Boot and Microservices includes Spring Admin which pro
 
    ![Customer service endpoint list](images/obaas-spring-admin-3.png)
 
-## Task 4: Explore Spring Eureka Service Registry
+## Task 5: Explore Spring Eureka Service Registry
 
 Spring Eureka Service Registry is an application that holds information about what microservices are running in your environment, how many instances of each are running, and on which addresses and ports.  Spring Boot microservices register with Eureka at startup, and it regularly checks the health of all registered services.  Services can use Eureka to make calls to other services, thereby eliminating the need to hard code service addresses into other services.
 
@@ -286,7 +291,7 @@ Spring Eureka Service Registry is an application that holds information about wh
 
    Notice that you can see your own services like the Accounts, Credit Score and Customer services from the CloudBank sample application, as well as platform services like Spring Admin, the Spring Config server and Conductor.
 
-## Task 5: Explore APISIX API Gateway
+## Task 6: Explore APISIX API Gateway
 
 Oracle Backend for Spring Boot and Microservices includes APISIX API Gateway to manage which services are made available outside of the Kubernetes cluster.  APISIX allows you to manage many aspects of the services' APIs including authentication, logging, which HTTP methods are accepted, what URL paths are exposed, and also includes capabilities like rewriting, filtering, traffic management and has a rich plugin ecosystem to enhance it with additional capabilities.  You can manage the APISIX API Gateway using the APISIX Dashboard.
 
@@ -322,7 +327,7 @@ Oracle Backend for Spring Boot and Microservices includes APISIX API Gateway to 
 
    > **Note**: You can find detailed information about the available plugins and how to configure them in the [APISIX documentation](https://apisix.apache.org/docs/apisix/getting-started/) in the **Plugins** section.
 
-## Task 6: Explore Spring Config Server
+## Task 7: Explore Spring Config Server
 
 The Spring Config Server can be used to store configuration information for Spring Boot applications, so that the configuration can be injected at runtime.  It organized the configuration into properties, which are essentially key/value pairs.  Each property can be assigned to an application, a label, and a profile.  This allows a running application to be configured based on metadata which it will send to the Spring Config Server to obtain the right configuration data.
 
@@ -340,7 +345,7 @@ The configuration data is stored in a table in the Oracle Autonomous Database in
 
    In this example you can see there is an application called `fraud`, which has two configuration properties for the profile `kube` and label `latest`.
 
-## Task 7: Explore Grafana
+## Task 8: Explore Grafana
 
 Grafana provides an easy way to access the metrics collected in the backend and to view them in dashboards.  It can be used to monitor performance, as well as to identify and analyze problems and to create alerts.
 
@@ -371,7 +376,7 @@ Grafana provides an easy way to access the metrics collected in the backend and 
 
    ![picture](images/obaas-grafana-spring-dashboard.png)
 
-## Task 8: Explore Jaeger
+## Task 9: Explore Jaeger
 
 Jaeger provides a way to view the distributed tracing information that is automatically collected by the backend.  This allows you to follow requests from the entry point of the platform (the API Gateway) through any number of microservices, including database and messaging operations those services may perform.
 

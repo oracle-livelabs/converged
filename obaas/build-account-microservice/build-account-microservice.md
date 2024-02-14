@@ -51,7 +51,7 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
 
 1. Choose Artifact ID.
 
-   You will be asked for the Maven Artifact ID for this new project, enter **accounts**.
+   You will be asked for the Maven Artifact ID for this new project, enter **account**.
 
   ![Artifact ID](images/obaas-spring-init-5.png " ")
 
@@ -116,8 +116,8 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
     The service will take a few seconds to start, and then you will see some messages similar to these:
 
     ```text
-    2023-02-25 12:27:21.277  INFO 20507 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
-    2023-02-25 12:27:21.282  INFO 20507 --- [           main] c.example.accounts.AccountsApplication   : Started AccountsApplication in 0.753 seconds (JVM running for 0.893)
+    2024-02-14T14:39:52.501-06:00  INFO 83614 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path ''
+    2024-02-14T14:39:52.506-06:00  INFO 83614 --- [           main] com.example.account.AccountApplication   : Started AccountApplication in 0.696 seconds (process running for 0.833)
     ```
 
     Of course, the service does not do anything yet, but you can still make a request and confirm you get a response from it. Open a new terminal and execute the following command:
@@ -441,7 +441,8 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
             this.accountOtherDetails = accountOtherDetails;
             this.accountCustomerId = accountCustomerId;
         }
-    }</copy>
+    }
+    </copy>
     ```
 
     Now, you need to give Spring Data JPA some hints about how to map these fields to the underlying database objects.  Spring Data JPA can actually automate creation of database objects for you, and that can be very helpful during development and testing.  But in many real-world cases, the database objects will already exist, so in this lab you will work with pre-existing database objects.
@@ -516,6 +517,7 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
     @Column(name = "CUSTOMER_ID")
     private String accountCustomerId;
 
+    @SuppressWarnings("deprecation")
     @Generated(GenerationTime.INSERT)
     @Column(name = "ACCOUNT_OPENED_DATE", updatable = false, insertable = false)
     private Date accountOpenedDate;
@@ -535,7 +537,7 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
     <copy>package com.example.accounts.repository;
     
     import org.springframework.data.jpa.repository.JpaRepository;
-    import com.example.accounts.model.Account;
+    import com.example.account.model.Account;
     
     public interface AccountRepository extends JpaRepository<Account, Long> {    
     }</copy>
@@ -657,20 +659,30 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
     Here's what the new method (and imports) should look like:
 
     ```java
-    <copy>import org.springframework.web.bind.annotation.PostMapping;
+    <copy>
+    import java.net.URI;
+    ...
+    ...
+    import org.springframework.web.bind.annotation.PostMapping;
     import org.springframework.web.bind.annotation.RequestBody;
     import org.springframework.http.HttpStatus;
     import org.springframework.http.ResponseEntity;
+    import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
     // ...
     
     @PostMapping("/account")
     public ResponseEntity<Account> createAccount(@RequestBody Account account) {
         try {
-            Account _account = accountRepository.saveAndFlush(account);
-            return new ResponseEntity<>(_account, HttpStatus.CREATED);
+            Account newAccount = accountRepository.saveAndFlush(account);
+            URI location = ServletUriComponentsBuilder
+                    .fromCurrentRequest()
+                    .path("/{id}")
+                    .buildAndExpand(newAccount.getAccountId())
+                    .toUri();
+            return ResponseEntity.created(location).build();
         } catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(account, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }</copy>
     ```
@@ -687,14 +699,12 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
           -d '{"accountName": "Dave", "accountType": "CH", "accountOtherDetail": "", "accountCustomerId": "abc123xyz"}' \
           http://localhost:8080/api/v1/account</copy>
     HTTP/1.1 201 
-    Content-Type: application/json
-    Transfer-Encoding: chunked
-    Date: Sat, 25 Feb 2023 21:52:30 GMT
-    
-    {"accountId":3,"accountName":"Dave","accountType":"CH","accountCustomerId":"abc123xyz","accountOpenedDate":"2023-02-26T02:52:30.000+00:00","accountOtherDetails":null,"accountBalance":0}
+    Location: http://localhost:8080/api/v1/account/3
+    Content-Length: 0
+    Date: Wed, 14 Feb 2024 21:33:17 GMT
     ```
 
-    Notice the HTTP Status Code is 201 (Created).  The service returns the account that was created in the body.
+    Notice the HTTP Status Code is 201 (Created). The service returns the URI for the account was created in the header.
 
 1. Test endpoint `/account` with bad data
 
