@@ -15,12 +15,14 @@ Quick walk through on how to extend the CloudBank mobile application.
 ### Objectives
 
 In this lab, you will:
+
 * Explore the existing CloudBank mobile application
 * Extend the CloudBank mobile application to add the "Cloud Cash" feature
 
 ### Prerequisites
 
 This lab assumes you have:
+
 * An Oracle Cloud account
 * All previous labs successfully completed
 * Completed the optional **Install Flutter** task in the **Setup your Development Environment** lab
@@ -45,27 +47,26 @@ The sample CloudBank mobile application is provided as a starting point.  It alr
 
 1. Download the dependencies
 
-   Run this command to download the dependencies for this project: 
+   Run this command to download the dependencies for this project:
 
     ```shell
     $ <copy>dart pub get</copy>
     ```
 
-
 ## Task 2: Run the application as-is against your environmnet
 
-1. Update the application to point to your Oracle Backend for Spring Boot instance
+1. Update the application to point to your Oracle Backend for Spring Boot and Microservices instance
 
-   Open the `lib/main.dart` file in Visual Studio Code and update the following two lines of code. 
+   Open the `lib/main.dart` file in Visual Studio Code and update the following two lines of code.
 
-    ```
+    ```dart
     <copy>const ServerUrl = "1.2.3.4";
     const keyApplicationId = 'APPLICATION_ID';</copy>
     ```
 
    You need to provide the correct IP address for your environment.  You can find the IP address using this command:
-   
-    ```
+
+    ```shell
     $ <copy>kubectl -n ingress-nginx get service ingress-nginx-controller</copy>
     NAME                       TYPE           CLUSTER-IP      EXTERNAL-IP   PORT(S)                      AGE
     ingress-nginx-controller   LoadBalancer   10.123.10.127   100.20.30.40  80:30389/TCP,443:30458/TCP   13d
@@ -75,7 +76,7 @@ The sample CloudBank mobile application is provided as a starting point.  It alr
 
    The value for `APPLICATION_ID` was provided in the summary at the end of the apply/install log, it is called `parse_application_id` and is a alphanumeric string.  You were asked to keep keep a copy of that information at the end of the **Provision an instance** lab.  If you do not have it, you can go to the OCI Console and navigate to the main ("hamburger") menu then **Developer Services** and **Stacks** under the **Resource Manager** heading.  Make sure you have the right compartment (left hand side drop down) and region (top right).  Open your stack and then open the apply job and scroll to the end of the log.
 
-1. Create a user and some bank accounts 
+1. Create a user and some bank accounts
 
    The application needs a user in the backend so that it can login.  Create a user with a command like this, note that you must your IP address and parse application ID (the same ones you used in the previous step).  You can change the username and password if you wish:
 
@@ -88,9 +89,9 @@ The sample CloudBank mobile application is provided as a starting point.  It alr
     {"objectId":"H1O3VQd40J","createdAt":"2023-03-13T16:35:46.369Z","sessionToken":"r:59f90218ffb3c0963a20423a4dc92001"}
     ```
 
-   Note the `objectId` in the response (yours will be different) and then create some accounts with that objectId and some iniital balance by running these SQL statements in the SQL Worksheet or SQLcl.  **Note**: You learned how to get access to SQL Worksheet in the previous lab **Explore the Backend Platform** in Task 2.
+   Note the `objectId` in the response (yours will be different) and then create some accounts with that objectId and some initial balance by running these SQL statements in the SQL Worksheet or SQLcl.  **Note**: You learned how to get access to SQL Worksheet in the previous lab **Explore the Backend Platform** in Task 2.
 
-   Make sure you update the `customer_id` to match the `objectId` from the output of the last command, as shown here: 
+   Make sure you update the `customer_id` to match the `objectId` from the output of the last command, as shown here:
 
     ```sql
     <copy>
@@ -100,7 +101,7 @@ The sample CloudBank mobile application is provided as a starting point.  It alr
     values ('Mark''s CCard','CC','H1O3VQd40J','Mastercard account',1000);
     commit;
     </copy>
-    ```    
+    ```
 
 1. Build and run the application
 
@@ -108,16 +109,15 @@ The sample CloudBank mobile application is provided as a starting point.  It alr
 
    ![Target device](images/obaas-flutter-target-device-footer.png)
 
-   Select the device you want to run the application on.  If you can use a mobile device emulator (or a real device) that will probably give you the best experience.  If you cannot, then **Chrome** is a good second choice. 
+   Select the device you want to run the application on.  If you can use a mobile device emulator (or a real device) that will probably give you the best experience.  If you cannot, then **Chrome** is a good second choice.
 
    ![Select device or start emulator](images/obaas-flutter-select-device.png)
-   
-   
-   Open a new terminal in Visual Studio Code and run the application with this command: 
 
-    ```
+   Open a new terminal in Visual Studio Code and run the application with this command:
+
+    ```shell
     $ <copy>flutter run</copy>
-    ```    
+    ```
 
    Select the target platform if prompted.  After a short time the application will start and you will see the login screen:
 
@@ -127,8 +127,7 @@ The sample CloudBank mobile application is provided as a starting point.  It alr
 
    ![CloudBank home screen](images/obaas-flutter-app-home.png)
 
-
-## Task 3: Create an intial placeholder user interface for the **Cloud Cash** feature
+## Task 3: Create an initial placeholder user interface for the **Cloud Cash** feature
 
 1. Create the new Cloud Cash Screen
 
@@ -164,11 +163,11 @@ The sample CloudBank mobile application is provided as a starting point.  It alr
     </copy>  
     ```
 
-    This will create a new screen with an "AppBar" with the title "Cloud Cash" and a text field so you know you got the the right screen.  This screen will look like this: 
+    This will create a new screen with an "AppBar" with the title "Cloud Cash" and a text field so you know you got the the right screen.  This screen will look like this:
 
-    ![First Cloud Cash Scrren](images/obaas-flutter-first-cloud-cash-screen.png)
+    ![First Cloud Cash Screen](images/obaas-flutter-first-cloud-cash-screen.png)
 
-1. Update the app navigaton to add the new screen
+1. Update the app navigation to add the new screen
 
    Open the file `lib/main.dart` and add a new `import` statement to include that file we just created.  Then scroll down to the route definitions, and add one more entry to create a route for the new Cloud Cash screen:
 
@@ -187,7 +186,7 @@ The sample CloudBank mobile application is provided as a starting point.  It alr
 
 1. Update the home page to add a new card for the Cloud Cash feature
 
-  Open the file `lib/home.dart` and find the line `// ADD CLOUD CASH CARD HERE`.  You need to add a new `Card` component at that point, simliar to the others that you see already in that file.  This new card will tell the user about the Cloud Cash feature and include a button to allow them to navigate to the new Cloud Cash screen.
+   Open the file `lib/home.dart` and find the line `// ADD CLOUD CASH CARD HERE`.  You need to add a new `Card` component at that point, similar to the others that you see already in that file.  This new card will tell the user about the Cloud Cash feature and include a button to allow them to navigate to the new Cloud Cash screen.
 
     ```dart
     <copy>
@@ -220,9 +219,9 @@ The sample CloudBank mobile application is provided as a starting point.  It alr
       ),
     ),
     </copy>
-    ```
-   
-   This card should look like this: 
+   ```
+
+   This card should look like this:
 
    ![Cloud Cash Card on Home Screen](images/obaas-flutter-cloud-cash-card-on-home-screen.png)
 
@@ -238,11 +237,11 @@ The sample CloudBank mobile application is provided as a starting point.  It alr
 
 1. Review the design for the Cloud Cash feature
 
-   Here is what this screen should look like when it is finished: 
+   Here is what this screen should look like when it is finished:
 
    ![Cloud Cash screen](images/obaas-flutter-cloud-cash-screen-design.png)
 
-   The first field - the drop down selection list - will let the user choose which account they want to send funds from.  You will need to make a REST call to get a list of accounts for the current user.  You wrote an API to provide that information in an earlier lab! 
+   The first field - the drop down selection list - will let the user choose which account they want to send funds from.  You will need to make a REST call to get a list of accounts for the current user.  You wrote an API to provide that information in an earlier lab!
 
    Then there is a field to enter the email address of the recipient - this will be used by Cloud Bank to work out who to send the money to.  And a field to specify how much money to send.  And finally, a button to submit the request.  When the user clicks on the button, you will use the Parse APIs to create a new Cloud Cash payment request document.  A backend service will pick up that request and start the process that actually transfers the money.  You wrote most of that in the "Manage Saga Transactions across Microservices" lab!  
 
@@ -250,19 +249,19 @@ The sample CloudBank mobile application is provided as a starting point.  It alr
 
    Update `cloudcash.dart` to add the input boxes and button. If you are familiar with Flutter, feel free to skip to the code below!
 
-   In Flutter, the screen layout is created in the `build` method which accepts a `BuildContext` as input and returns a `Widget`.  If you want to create an entire screen, then you can return a `Scaffold` from this method.  If you were create a reusable componeent that could be placed on different screens, then you would most likely return a `Wrap` instead - this is a non-visual component that contains one to many other components.  But in this case, you want to return an entire screen, so `Scaffold` is the best choice. 
+   In Flutter, the screen layout is created in the `build` method which accepts a `BuildContext` as input and returns a `Widget`.  If you want to create an entire screen, then you can return a `Scaffold` from this method.  If you were create a reusable component that could be placed on different screens, then you would most likely return a `Wrap` instead - this is a non-visual component that contains one to many other components.  But in this case, you want to return an entire screen, so `Scaffold` is the best choice.
 
     > **Note**: This example uses the [Material](https://docs.flutter.dev/development/ui/widgets/material) library, so some of the information presented here is specific to Material applications.
 
    A `Scaffold` has an `appBar` property which controls the bar at the top of the screen which typically contains a title, and often also contains an icon to access a global menu (sometimes called a "hamburger").  It also has a `body` property which contains the component (and that components children) that make up the main part of the screen.  In this example we use the `Center` component as the root or base component.  It centers its children on the screen.
 
-   Put a `Container` in the `Center` and a `ListView` in the `Container`.  A `ListView` displays it children in a list, typically horizontally, and if the list is too long to fit on the screen, it handles scrolling for you automatically - so a `ListView` is a very common component for laying out a screen in a mobile application. 
+   Put a `Container` in the `Center` and a `ListView` in the `Container`.  A `ListView` displays it children in a list, typically horizontally, and if the list is too long to fit on the screen, it handles scrolling for you automatically - so a `ListView` is a very common component for laying out a screen in a mobile application.
 
-   Inside the `ListView` put some more `Container`s and in those `Container`s put the actual `TextFields` which are used for input. 
+   Inside the `ListView` put some more `Container`s and in those `Container`s put the actual `TextFields` which are used for input.
 
    Of course, at this point, you need some state!  Notice that the `CloudCash` class extends `StatefulWidget` - this allows you to have state in this class.  Also notice that you can override the `createState()` method to control what state you require.  As you can see in the code below, a second cladd `_CloudCashState` is created, which extends `State<?>` and inside that class you can create stateful object, such as the two `TextEditingController`s that are defined, one for each of the two fields.
 
-   If you look again at the `TextField`s in the `build()` method, you will notice that they each have a `controller` property which points to the appropriate one of these two conrtollers.  This is how the link is established so that whatever a user enters in those controls will be stored in the state.
+   If you look again at the `TextField`s in the `build()` method, you will notice that they each have a `controller` property which points to the appropriate one of these two controllers.  This is how the link is established so that whatever a user enters in those controls will be stored in the state.
 
    Finally, notice that the `ElevatedButton` in the last `Container` has an `onPressed` property.  In that property there is a call to a function called `processCloudCash` which is defined later in that same class.  Right now, that function just logs a message.  Later, you will update that function to make a REST call and give the user feedback about what happened.
 
@@ -344,16 +343,16 @@ The sample CloudBank mobile application is provided as a starting point.  It alr
 
 ## Task 5: Add the account selector and wire it up to the Account microservice
 
-For the account selector field, you need to get a list of accounts by calling the accounts API you created in an earlier lab.  You will need to extract some data and format it for display.  You will need to add the `intl` library for currency formatting. 
+For the account selector field, you need to get a list of accounts by calling the accounts API you created in an earlier lab.  You will need to extract some data and format it for display.  You will need to add the `intl` library for currency formatting.
 
 1. Create a currency formatter
 
    Add the `intl` library with this command:
 
-    ```
+    ```shell
     $ <copy>dart pub add intl</copy>
     ```
-   
+
    In the `cloudcash.dart` file, add a new import and create a currency formatter:
 
     ```dart
@@ -401,7 +400,7 @@ For the account selector field, you need to get a list of accounts by calling th
     ];</copy>
     ```
 
-   Update your `_CloudCashState` class to add a new variable to hold the data received from the API call, note that this will be a `late Future<Accounts>`.  Add a new `String` to hold the current value of the drop down and set the initial value to the first item in the list, i.e. **Select account...**.  Add an overriden `initState()` method in which you call `super.initState()` and then ivoke the API to get the data for that future.  You will write that `fetchData()` method next.  Here is the code so far:
+   Update your `_CloudCashState` class to add a new variable to hold the data received from the API call, note that this will be a `late Future<Accounts>`.  Add a new `String` to hold the current value of the drop down and set the initial value to the first item in the list, i.e. **Select account...**.  Add an overridden `initState()` method in which you call `super.initState()` and then invoke the API to get the data for that future.  You will write that `fetchData()` method next.  Here is the code so far:
 
     ```dart
     <copy>class _CloudCashState extends State<CloudCash> {
@@ -424,7 +423,7 @@ For the account selector field, you need to get a list of accounts by calling th
 
    Create the `fetchData()` method in the same class.  Note that it is an `async` method and returns a `Future<Account>`.  In this method, use the http libraries' `get` method to invoke the API.  This returns a response object which contains the HTTP Status Code, body, and so on.  YOu should check the status code to see if the API call was successful, and if so, decode/convert the body into a variable, and then use your `Accounts.fromJson` method to convert that into your `Accounts` object.
 
-   The REST endpoint needs the customer ID, which you can get from the `creds` object's `objectID` property as shown in the code sample below.  You will need to make a couple of other small updates to pass the credentials into this widget.  Here is the code for the `fetchData()` function: 
+   The REST endpoint needs the customer ID, which you can get from the `creds` object's `objectID` property as shown in the code sample below.  You will need to make a couple of other small updates to pass the credentials into this widget.  Here is the code for the `fetchData()` function:
 
     ```dart
       <copy>import 'package:http/http.dart' as http;
@@ -482,13 +481,13 @@ For the account selector field, you need to get a list of accounts by calling th
         ),
       ),
     ),</copy>
-    ```       
+    ```
 
    And add an import for `CloudCash`:
 
     ```dart
     <copy>import 'package:loginapp/screens/cloudcash.dart';</copy>
-    ``` 
+    ```
 
    Now you will have access to the credentials to get the customer ID.
 
@@ -496,7 +495,7 @@ For the account selector field, you need to get a list of accounts by calling th
 
 1. Add a UI component to display the drop down selector on the screen
 
-   Back in `cloudcash.dart`, in the `build()` method, insert a new `Container` between the existing first container ("Send cash to anyone instantly") and the second container ("Email address of recipient").  This new `Container` should contain a `FutureBuilder<Accounts>`.  A `FutureBuilder` lets you deal with data that may not be present yet.  Set the `future` property to your `futureData` variable.  In the `buidler`, which receives `context, snapshot`, check if `snapshot.hasData` to see if the future has completed yet.  If this is `true` then you can expect to have the data available to render the UI.  If it is not `true`, you can check if `shapshot.hasError` if you want to handle errors or just return a generic error.
+   Back in `cloudcash.dart`, in the `build()` method, insert a new `Container` between the existing first container ("Send cash to anyone instantly") and the second container ("Email address of recipient").  This new `Container` should contain a `FutureBuilder<Accounts>`.  A `FutureBuilder` lets you deal with data that may not be present yet.  Set the `future` property to your `futureData` variable.  In the `builder`, which receives `context, snapshot`, check if `snapshot.hasData` to see if the future has completed yet.  If this is `true` then you can expect to have the data available to render the UI.  If it is not `true`, you can check if `shapshot.hasError` if you want to handle errors or just return a generic error.
 
    If the future has completed, you can check `snapshot.data` to get access to the data.  You will need to iterate through the results and use them to populate the drop down list, you will do that in a moment, the code is commented out in the example below.
 
@@ -568,8 +567,7 @@ For the account selector field, you need to get a list of accounts by calling th
     }</copy>
     ```
 
-   With this done, you can restart the application and test the Cloud Cash screen.  It will now populate the drop down list with the accounts names and balances.  Next, you need to handle the form submission.    
-
+   With this done, you can restart the application and test the Cloud Cash screen.  It will now populate the drop down list with the accounts names and balances.  Next, you need to handle the form submission.
 
 ## Task 6: Handle the form submission
 
@@ -583,7 +581,7 @@ The final piece to complete the Cloud Cash feature is to handle the form submiss
 
    Once you have saved the data, you want to tell the user.  This can be done with an `AlertDialog` which can tell them the process was saved.  When they click on the **OK** button, redirect them to the `Home` screen, passing the `creds` object back to it.
 
-   Here is the code for the function:   
+   Here is the code for the function:
 
     ```dart
     <copy>import 'package:loginapp/screens/home.dart';
@@ -630,9 +628,9 @@ The final piece to complete the Cloud Cash feature is to handle the form submiss
          },
       );
     }</copy>
-    ```   
+    ```
 
-    Now, all that remains is to update the `onPressed` property to make sure the data is passed into this udpated function.
+    Now, all that remains is to update the `onPressed` property to make sure the data is passed into this updated function.
 
 1. Update the button to pass in the data
 
@@ -649,13 +647,13 @@ The final piece to complete the Cloud Cash feature is to handle the form submiss
 
 ## Task 7: Test the finished Cloud Cash feature
 
-1. Test the app 
+1. Test the application
 
-   Restart the application and navigate to the Cloud Cash screen.  Verify that you can select an acount and send a request.
+   Restart the application and navigate to the Cloud Cash screen.  Verify that you can select an account and send a request.
 
 1. Verify the Cloud Cash request in the backend
 
-   Open a web browser to the Parse Dashboard.  The URL was provided in the log at the end of the stack apply.  See Task 2 in this Lab for details on how to get it. 
+   Open a web browser to the Parse Dashboard.  The URL was provided in the log at the end of the stack apply.  See Task 2 in this Lab for details on how to get it.
 
    Log in to the dashboard with the userid `ADMIN` (this is case sensitive) and the password you specified when you installed the backend stack.  Click on your application, and in the browser menu (on the left) click on the `CloudCashPayment` class to see the records.  You should see your payments, it will looks something like this:
 
@@ -665,11 +663,11 @@ The final piece to complete the Cloud Cash feature is to handle the form submiss
 
 * [Flutter](https://flutter.dev)
 * [Parse Platform](https://parseplatform.org/)
-* [Oracle Backend for Spring Boot](https://oracle.github.io/microservices-datadriven/spring/)
+* [Oracle Backend for Spring Boot and Microservices](https://oracle.github.io/microservices-datadriven/spring/)
 * [Oracle Backend for Parse Platform](https://oracle.github.io/microservices-datadriven/mbaas/)
 
 ## Acknowledgements
 
 * **Author** - Doug Drechsel, Mark Nelson, Developer Evangelists, Oracle Database
 * **Contributors** - [](var:contributors)
-* **Last Updated By/Date** - Mark Nelson, March 2023
+* **Last Updated By/Date** - Andy Tael, February 2024

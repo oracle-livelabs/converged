@@ -8,7 +8,7 @@ If you would like to focus on a particular topic area, here are some recommended
 
 ## Learning Path 1: Focus on Spring Boot development
 
-If you would like to focus on Spring Boot microservices application development with the Oracle Backend for Spring Boot, you could consider taking this path through the labs:
+If you would like to focus on Spring Boot microservices application development with the Oracle Backend for Spring Boot and Microservices, you could consider taking this path through the labs:
 
 * Complete Lab 1: Provision an Instance
 * Complete Lab 2: Setup your Development Environment, up to but not including the optional Flutter task
@@ -20,7 +20,7 @@ If you would like to focus on Spring Boot microservices application development 
 
 ## Learning Path 2: Focus on the backend
 
-If you would just like to learn about Oracle Backend for Spring Boot, and you do not want to dive into the development topics, you could consider taking this path through the labs:
+If you would just like to learn about Oracle Backend for Spring Boot and Microservices, and you do not want to dive into the development topics, you could consider taking this path through the labs:
 
 * Complete Lab 1: Provision an Instance
 * In Lab 2: Setup your Development Environment, just complete the two tasks to set up **kubectl** and OCI CLI so you can access your Kubernetes cluster
@@ -30,7 +30,7 @@ If you would just like to learn about Oracle Backend for Spring Boot, and you do
 
 ## Learning Path 3: Focus on mobile application development
 
-If you would just like to learn about Oracle Backend for Spring Boot, and you do not want to dive into the development topics, you could consider taking this path through the labs:
+If you would just like to learn about Oracle Backend for Spring Boot and Microservices, and you do not want to dive into the development topics, you could consider taking this path through the labs:
 
 * Complete Lab 1: Provision an Instance
 * In Lab 2: Setup your Development Environment, just complete the last task to set up your Flutter development environment
