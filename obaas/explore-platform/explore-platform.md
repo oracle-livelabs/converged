@@ -16,7 +16,6 @@ In this lab, you will:
 
 * Review the components of the Oracle Backend for Spring Boot and Microservices
 * Explore how microservice data is stored in the Oracle Autonomous Database
-* Learn about the SPring Operations Center included in Oracle Backend for Spring Boot and Microservices
 * Learn about the Spring Admin user interface
 * Learn about Spring Eureka Service Registry
 * Learn about APISIX API Gateway
@@ -43,31 +42,33 @@ Oracle Backend for Spring Boot and Microservices includes a number of platform s
     ```shell
     $ <copy>kubectl get ns</copy>
       NAME                              STATUS   AGE
-      admin-server                      Active   54m
-      apisix                            Active   54m
-      application                       Active   55m
-      cert-manager                      Active   56m
-      cloudbank                         Active   55m
-      conductor-server                  Active   54m
-      config-server                     Active   54m
-      default                           Active   65m
-      eureka                            Active   54m
-      grafana                           Active   54m
-      ingress-nginx                     Active   55m
-      kafka                             Active   55m
-      kaniko                            Active   56m
-      kube-node-lease                   Active   65m
-      kube-public                       Active   65m
-      kube-system                       Active   65m
-      obaas-admin                       Active   54m
-      observability                     Active   54m
-      open-telemetry                    Active   54m
-      oracle-database-operator-system   Active   56m
-      otmm                              Active   54m
-      parse-dashboard                   Active   54m
-      parse-server                      Active   54m
-      prometheus                        Active   55m
-      vault                             Active   54m
+      admin-server                      Active   4h44m
+      apisix                            Active   4h44m
+      application                       Active   4h45m
+      azn-server                        Active   4h44m
+      cert-manager                      Active   4h47m
+      coherence                         Active   4h44m
+      conductor-server                  Active   4h44m
+      config-server                     Active   4h44m
+      default                           Active   5h29m
+      eureka                            Active   4h45m
+      grafana                           Active   4h44m
+      ingress-nginx                     Active   4h45m
+      kafka                             Active   4h45m
+      kaniko                            Active   4h47m
+      kube-node-lease                   Active   5h29m
+      kube-public                       Active   5h29m
+      kube-state-metrics                Active   4h45m
+      kube-system                       Active   5h29m
+      metrics-server                    Active   4h45m
+      obaas-admin                       Active   4h44m
+      observability                     Active   4h44m
+      open-telemetry                    Active   4h44m
+      oracle-database-exporter          Active   4h43m
+      oracle-database-operator-system   Active   4h47m
+      otmm                              Active   4h43m
+      prometheus                        Active   4h45m
+      vault                             Active   4h43m
     ```
 
    Here is a summary of what is in each of these namespaces:
@@ -233,11 +234,7 @@ Oracle Backend for Spring Boot and Microservices includes an Oracle Autonomous D
 
    Feel free to explore some of these tables to see the data.
 
-## Task 3: Explore Spring Operations Center
-
-TBD!!!
-
-## Task 4: Explore Spring Admin
+## Task 3: Explore Spring Admin
 
 Oracle Backend for Spring Boot and Microservices includes Spring Admin which provides a web user interface for managing and monitoring Spring applications.
 
@@ -248,7 +245,7 @@ Oracle Backend for Spring Boot and Microservices includes Spring Admin which pro
    Open a tunnel to the Spring Admin server using this command:
 
     ```shell
-    <copy>kubectl -n admin-server port-forward svc/admin-server 8989:8989</copy>
+    <copy>kubectl -n admin-server port-forward svc/admin-server 8989</copy>
     ```
 
     Open a web browser to [http://localhost:8989](http://localhost:8989) to view the Spring Admin web user interface.
@@ -273,7 +270,7 @@ Oracle Backend for Spring Boot and Microservices includes Spring Admin which pro
 
    ![Customer service endpoint list](images/obaas-spring-admin-3.png)
 
-## Task 5: Explore Spring Eureka Service Registry
+## Task 4: Explore Spring Eureka Service Registry
 
 Spring Eureka Service Registry is an application that holds information about what microservices are running in your environment, how many instances of each are running, and on which addresses and ports.  Spring Boot microservices register with Eureka at startup, and it regularly checks the health of all registered services.  Services can use Eureka to make calls to other services, thereby eliminating the need to hard code service addresses into other services.
 
@@ -291,7 +288,7 @@ Spring Eureka Service Registry is an application that holds information about wh
 
    Notice that you can see your own services like the Accounts, Credit Score and Customer services from the CloudBank sample application, as well as platform services like Spring Admin, the Spring Config server and Conductor.
 
-## Task 6: Explore APISIX API Gateway
+## Task 5: Explore APISIX API Gateway
 
 Oracle Backend for Spring Boot and Microservices includes APISIX API Gateway to manage which services are made available outside of the Kubernetes cluster.  APISIX allows you to manage many aspects of the services' APIs including authentication, logging, which HTTP methods are accepted, what URL paths are exposed, and also includes capabilities like rewriting, filtering, traffic management and has a rich plugin ecosystem to enhance it with additional capabilities.  You can manage the APISIX API Gateway using the APISIX Dashboard.
 
@@ -327,7 +324,7 @@ Oracle Backend for Spring Boot and Microservices includes APISIX API Gateway to 
 
    > **Note**: You can find detailed information about the available plugins and how to configure them in the [APISIX documentation](https://apisix.apache.org/docs/apisix/getting-started/) in the **Plugins** section.
 
-## Task 7: Explore Spring Config Server
+## Task 6: Explore Spring Config Server
 
 The Spring Config Server can be used to store configuration information for Spring Boot applications, so that the configuration can be injected at runtime.  It organized the configuration into properties, which are essentially key/value pairs.  Each property can be assigned to an application, a label, and a profile.  This allows a running application to be configured based on metadata which it will send to the Spring Config Server to obtain the right configuration data.
 
@@ -345,7 +342,7 @@ The configuration data is stored in a table in the Oracle Autonomous Database in
 
    In this example you can see there is an application called `fraud`, which has two configuration properties for the profile `kube` and label `latest`.
 
-## Task 8: Explore Grafana
+## Task 7: Explore Grafana
 
 Grafana provides an easy way to access the metrics collected in the backend and to view them in dashboards.  It can be used to monitor performance, as well as to identify and analyze problems and to create alerts.
 
@@ -376,7 +373,7 @@ Grafana provides an easy way to access the metrics collected in the backend and 
 
    ![picture](images/obaas-grafana-spring-dashboard.png)
 
-## Task 9: Explore Jaeger
+## Task 8: Explore Jaeger
 
 Jaeger provides a way to view the distributed tracing information that is automatically collected by the backend.  This allows you to follow requests from the entry point of the platform (the API Gateway) through any number of microservices, including database and messaging operations those services may perform.
 

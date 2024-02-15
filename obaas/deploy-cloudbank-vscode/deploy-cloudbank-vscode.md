@@ -194,8 +194,8 @@ Download a copy of the CloudBank sample application.
 
     * and the input following values:
         * **Service Name**: account
-        * **DB User (optional)**: 
-        * **DB User Password**: Welcome1234## 
+        * **DB User (optional)**:
+        * **DB User Password**: Welcome1234##
         * **Spring Binding Prefix (optional)**: spring.datasource
         * **Update**: False
 
@@ -204,39 +204,31 @@ Download a copy of the CloudBank sample application.
     ![bind](images/bindsuccessful.png " ")
 
     Repeate the same for:
-    
+
     * **checks** service you have to:
         * **Service Name**: checks
         * **DB User (optional)**: account
-        * **DB User Password**: Welcome1234## 
+        * **DB User Password**: Welcome1234##
         * **Spring Binding Prefix (optional)**: spring.datasource
         * **Update**: False
 
     * **customer** service you have to:
         * **Service Name**: customer
-        * **DB User (optional)**: 
-        * **DB User Password**: Welcome1234## 
-        * **Spring Binding Prefix (optional)**: spring.datasource
-        * **Update**: False
-
-    * **customer32** service you have to:
-        * **Service Name**: customer32
-        * **DB User (optional)**: customer
-        * **DB User Password**: Welcome1234## 
+        * **DB User (optional)**:
+        * **DB User Password**: Welcome1234##
         * **Spring Binding Prefix (optional)**: spring.datasource
         * **Update**: False
 
     * **testrunner** service you have to:
         * **Service Name**: testrunner
         * **DB User (optional)**: account
-        * **DB User Password**: Welcome1234## 
+        * **DB User Password**: Welcome1234##
         * **Spring Binding Prefix (optional)**: spring.datasource
         * **Update**: False
 
     * Ensure to get the message like this for all previous binding:
 
     ![bind](images/bindsuccessful.png " ")
-
 
     Let's start with the first service deployment:
 
@@ -272,7 +264,7 @@ Download a copy of the CloudBank sample application.
 
         ![accountdeployed](images/accountdeployed.png " ")
 
-    Repeate the same for:
+    Repeat the same for:
 
     * **checks** service deployment:
         * Look for the **checks-0.0.1-SNAPSHOT.jar** file built previously
@@ -285,7 +277,7 @@ Download a copy of the CloudBank sample application.
         * **Service Profile**: leave default `obaas`
         * **Initial Replicas** : 1
         * **Inform the database name for Liquibase**: `admin`
-    
+
     * **customer** service deployment:
         * Look for the **customer-0.0.1-SNAPSHOT.jar** file built previously
         * **Service Name** : `customer`
@@ -309,7 +301,7 @@ Download a copy of the CloudBank sample application.
         * **Service Profile**: leave default `obaas`
         * **Initial Replicas** : 1
         * **Inform the database name for Liquibase**: ``
-    
+
     * **testrunner** service deployment:
         * Look for the **testrunner-0.0.1-SNAPSHOT.jar** file built previously
         * **Service Name** : `testrunner`
@@ -407,4 +399,4 @@ Download a copy of the CloudBank sample application.
 
 * **Author** - Andy Tael, Corrado De Bari, Mark Nelson, Developer Evangelists, Oracle Database
 * **Contributors** - [](var:contributors)
-* **Last Updated By/Date** - Andy Tael, November 2023
+* **Last Updated By/Date** - Andy Tael, February 2024

@@ -66,7 +66,6 @@ Download a copy of the CloudBank sample application.
     [INFO] account ............................................ SUCCESS [  2.900 s]
     [INFO] checks ............................................. SUCCESS [  1.127 s]
     [INFO] customer ........................................... SUCCESS [  1.106 s]
-    [INFO] customer32 ......................................... SUCCESS [  1.020 s]
     [INFO] creditscore ........................................ SUCCESS [  0.908 s]
     [INFO] transfer ........................................... SUCCESS [  0.455 s]
     [INFO] testrunner ......................................... SUCCESS [  0.942 s]
@@ -172,8 +171,6 @@ Download a copy of the CloudBank sample application.
     Database/Service Password: *************
     Schema {customer} was successfully Created and Kubernetes Secret {application/customer} was successfully Created.
     Database/Service Password: *************
-    Schema {customer} was successfully Not_Modified and Kubernetes Secret {application/customer32} was successfully Created.
-    Database/Service Password: *************
     Schema {account} was successfully Not_Modified and Kubernetes Secret {application/testrunner} was successfully Created.
     uploading: account/target/account-0.0.1-SNAPSHOT.jar
     building and pushing image...
@@ -188,12 +185,6 @@ Download a copy of the CloudBank sample application.
     obaas-cli [deploy]: Application was successfully deployed.
     NOTICE: service not accessible outside K8S
     uploading: customer/target/customer-0.0.1-SNAPSHOT.jar
-    building and pushing image...
-
-    creating deployment and service...
-    obaas-cli [deploy]: Application was successfully deployed.
-    NOTICE: service not accessible outside K8S
-    uploading: customer32/target/customer32-0.0.1-SNAPSHOT.jar
     building and pushing image...
 
     creating deployment and service...
@@ -262,7 +253,6 @@ To be able to access the CLoudBank services from the public internet we need exp
     | ACCOUNT | /api/v1/account* |
     | CREDITSCORE | /api/v1/creditscore* |
     | CUSTOMER | /api/v1/customer* |
-    | CUSTOMER32 | /api/v2/customer* |
     | TESTRUNNER |  /api/v1/testrunner* |
     | TRANSFER |  /transfer* |
 
