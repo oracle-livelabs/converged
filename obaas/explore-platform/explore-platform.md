@@ -2,7 +2,7 @@
 
 ## Introduction
 
-This lab walks you through various features of Oracle Backend for Spring Boot, including Parse Platform, and shows you how to use them.
+This lab walks you through various features of Oracle Backend for Spring Boot and Microservices, including Parse Platform, and shows you how to use them.
 
 Estimated Time: 20 minutes
 
@@ -14,13 +14,14 @@ Quick walk through on how to explore backend platform.
 
 In this lab, you will:
 
-* Review the components of the Oracle Backend for Spring Boot
+* Review the components of the Oracle Backend for Spring Boot and Microservices
 * Explore how microservice data is stored in the Oracle Autonomous Database
 * Learn about the Spring Admin user interface
 * Learn about Spring Eureka Service Registry
 * Learn about APISIX API Gateway
 * Learn about Spring Config Server
-* Learn about the observability tools included in Oracle Backend for Spring Boot
+* Learn about the observability tools included in Oracle Backend for Spring Boot and Microservices
+* Learn about the tracing tools included in Oracle Backend for Spring Boot and Microservices
 
 ### Prerequisites
 
@@ -32,7 +33,7 @@ This lab assumes you have:
 
 ## Task 1: Explore the Kubernetes cluster
 
-Oracle Backend for Spring Boot includes a number of platform services which are deployed into the Oracle Container Engine for Kubernetes cluster.  You configured **kubectl** to access your cluster in an earlier lab.  In this task, you will explore the services deployed in the Kubernetes cluster.  A detailed explanation of Kubernetes concepts is beyond the scope of this course.
+Oracle Backend for Spring Boot and Microservices includes a number of platform services which are deployed into the Oracle Container Engine for Kubernetes cluster.  You configured **kubectl** to access your cluster in an earlier lab.  In this task, you will explore the services deployed in the Kubernetes cluster.  A detailed explanation of Kubernetes concepts is beyond the scope of this course.
 
 1. Explore namespaces
 
@@ -41,31 +42,33 @@ Oracle Backend for Spring Boot includes a number of platform services which are 
     ```shell
     $ <copy>kubectl get ns</copy>
       NAME                              STATUS   AGE
-      admin-server                      Active   54m
-      apisix                            Active   54m
-      application                       Active   55m
-      cert-manager                      Active   56m
-      cloudbank                         Active   55m
-      conductor-server                  Active   54m
-      config-server                     Active   54m
-      default                           Active   65m
-      eureka                            Active   54m
-      grafana                           Active   54m
-      ingress-nginx                     Active   55m
-      kafka                             Active   55m
-      kaniko                            Active   56m
-      kube-node-lease                   Active   65m
-      kube-public                       Active   65m
-      kube-system                       Active   65m
-      obaas-admin                       Active   54m
-      observability                     Active   54m
-      open-telemetry                    Active   54m
-      oracle-database-operator-system   Active   56m
-      otmm                              Active   54m
-      parse-dashboard                   Active   54m
-      parse-server                      Active   54m
-      prometheus                        Active   55m
-      vault                             Active   54m
+      admin-server                      Active   4h44m
+      apisix                            Active   4h44m
+      application                       Active   4h45m
+      azn-server                        Active   4h44m
+      cert-manager                      Active   4h47m
+      coherence                         Active   4h44m
+      conductor-server                  Active   4h44m
+      config-server                     Active   4h44m
+      default                           Active   5h29m
+      eureka                            Active   4h45m
+      grafana                           Active   4h44m
+      ingress-nginx                     Active   4h45m
+      kafka                             Active   4h45m
+      kaniko                            Active   4h47m
+      kube-node-lease                   Active   5h29m
+      kube-public                       Active   5h29m
+      kube-state-metrics                Active   4h45m
+      kube-system                       Active   5h29m
+      metrics-server                    Active   4h45m
+      obaas-admin                       Active   4h44m
+      observability                     Active   4h44m
+      open-telemetry                    Active   4h44m
+      oracle-database-exporter          Active   4h43m
+      oracle-database-operator-system   Active   4h47m
+      otmm                              Active   4h43m
+      prometheus                        Active   4h45m
+      vault                             Active   4h43m
     ```
 
    Here is a summary of what is in each of these namespaces:
@@ -81,7 +84,7 @@ Oracle Backend for Spring Boot includes a number of platform services which are 
       * `grafana` contains Grafana which can be used to monitor and manage your environment
       * `ingress-nginx` contains the NGINX ingress controller which is used to manage external access to the cluster
       * `kafka` contains a three-node Kafka cluster that can be used by your application
-      * `obaas-admin` contains the Oracle Backend for Spring Boot administration server that manages deployment of your services
+      * `obaas-admin` contains the Oracle Backend for Spring Boot and Microservices administration server that manages deployment of your services
       * `observability` contains Jaeger tracing which is used for viewing distributed traces
       * `open-telemetry` contains the Open Telemetry Collector which is used to collect distributed tracing information for your services
       * `oracle-database-operator-system` contains the Oracle Database Operator for Kubernetes which can be used to manage Oracle Databases in Kubernetes environments
@@ -149,7 +152,7 @@ Oracle Backend for Spring Boot includes a number of platform services which are 
 
    Sensitive information in Kubernetes is often kept in secrets that are mounted into the pods at runtime.  This means that the container images do not need to have the sensitive information stored in them.  It also helps with deploying to different environments where sensitive information like URLs and credentials for databases changes based on the environment.
 
-   Oracle Backend for Spring Boot creates a number of secrets for you so that your applications can securely access the Oracle Autonomous Database instance.  Review the secrets in the pre-created `application` namespace using this command. **Note**, the name of the secrets will be different in your environment depending on the application name you gave when deploying the application.
+   Oracle Backend for Spring Boot and Microservices creates a number of secrets for you so that your applications can securely access the Oracle Autonomous Database instance.  Review the secrets in the pre-created `application` namespace using this command. **Note**, the name of the secrets will be different in your environment depending on the application name you gave when deploying the application.
 
     ```shell
     $ <copy>kubectl -n application get secret</copy>
@@ -183,15 +186,15 @@ Oracle Backend for Spring Boot includes a number of platform services which are 
     type: Opaque
     ```
 
-   When you deploy a Spring Boot microservice application into Oracle Backend for Spring Boot, the pods that are created will have the values from this secret injected as environment variables that are referenced from the `application.yaml` to connect to the database.  The `xxxxxx-tns-admin` secret will be mounted in the pod to provide access to the configuration and keystores to allow your application to authenticate to the database.
+   When you deploy a Spring Boot microservice application into Oracle Backend for Spring Boot and Microservices, the pods that are created will have the values from this secret injected as environment variables that are referenced from the `application.yaml` to connect to the database.  The `xxxxxx-tns-admin` secret will be mounted in the pod to provide access to the configuration and keystores to allow your application to authenticate to the database.
 
 ## Task 2: Explore the Oracle Autonomous Database instance
 
-Oracle Backend for Spring Boot includes an Oracle Autonomous Database instance.  You can manage and access the database from the OCI Console.
+Oracle Backend for Spring Boot and Microservices includes an Oracle Autonomous Database instance.  You can manage and access the database from the OCI Console.
 
 1. View details of the Oracle Autonomous Database
 
-   In the OCI Console, in the main ("hamburger") menu navigate to the **Oracle Database** category and then **Oracle Autonomous Database**.  Make sure you have the correct region selected (in the top right corner) and the compartment where you installed Oracle Backend for Spring Boot (in the left hand side pull down list).  You will a list of Oracle Autonomous Database instances (you will probably only have one):
+   In the OCI Console, in the main ("hamburger") menu navigate to the **Oracle Database** category and then **Oracle Autonomous Database**.  Make sure you have the correct region selected (in the top right corner) and the compartment where you installed Oracle Backend for Spring Boot and Microservices (in the left hand side pull down list).  You will a list of Oracle Autonomous Database instances (you will probably only have one):
 
    ![List of OraCle Autonomous Database instances](images/obaas-adb-1.png)
 
@@ -203,7 +206,7 @@ Oracle Backend for Spring Boot includes an Oracle Autonomous Database instance. 
 
    ![Manage scaling](images/obaas-adb-2a.png)
 
-2. Explore Oracle Backend for Spring Boot database objects
+2. Explore Oracle Backend for Spring Boot and Microservices database objects
 
    Click on the **Database Actions** link to go to the "Database Actions" page which lets you access and manage information in the database.  Depending on choices you made during installation, you may go straight to Database Actions, or you may need to enter credentials first.  If you are prompted to login, use the username `ADMIN` and obtain the password from Kubernetes with this command (make sure to change the secret name to match the name you chose during installation):
 
@@ -233,16 +236,16 @@ Oracle Backend for Spring Boot includes an Oracle Autonomous Database instance. 
 
 ## Task 3: Explore Spring Admin
 
-Oracle Backend for Spring Boot includes Spring Admin which provides a web user interface for managing and monitoring Spring applications.
+Oracle Backend for Spring Boot and Microservices includes Spring Admin which provides a web user interface for managing and monitoring Spring applications.
 
 1. Connect to Spring Admin
 
-   Oracle Backend for Spring Boot does not expose management interfaces outside the Kubernetes cluster for improved security.  Oracle recommends you access these interfaces using **kubectl** port forwarding, which creates an encrypted tunnel from your client machine to the cluster to access a specific service in the cluster.
+   Oracle Backend for Spring Boot and Microservices does not expose management interfaces outside the Kubernetes cluster for improved security.  Oracle recommends you access these interfaces using **kubectl** port forwarding, which creates an encrypted tunnel from your client machine to the cluster to access a specific service in the cluster.
 
    Open a tunnel to the Spring Admin server using this command:
 
     ```shell
-    <copy>kubectl -n admin-server port-forward svc/admin-server 8989:8989</copy>
+    <copy>kubectl -n admin-server port-forward svc/admin-server 8989</copy>
     ```
 
     Open a web browser to [http://localhost:8989](http://localhost:8989) to view the Spring Admin web user interface.
@@ -287,7 +290,7 @@ Spring Eureka Service Registry is an application that holds information about wh
 
 ## Task 5: Explore APISIX API Gateway
 
-Oracle Backend for Spring Boot includes APISIX API Gateway to manage which services are made available outside of the Kubernetes cluster.  APISIX allows you to manage many aspects of the services' APIs including authentication, logging, which HTTP methods are accepted, what URL paths are exposed, and also includes capabilities like rewriting, filtering, traffic management and has a rich plugin ecosystem to enhance it with additional capabilities.  You can manage the APISIX API Gateway using the APISIX Dashboard.
+Oracle Backend for Spring Boot and Microservices includes APISIX API Gateway to manage which services are made available outside of the Kubernetes cluster.  APISIX allows you to manage many aspects of the services' APIs including authentication, logging, which HTTP methods are accepted, what URL paths are exposed, and also includes capabilities like rewriting, filtering, traffic management and has a rich plugin ecosystem to enhance it with additional capabilities.  You can manage the APISIX API Gateway using the APISIX Dashboard.
 
 1. Access the APISIX Dashboard
 
@@ -390,11 +393,11 @@ Jaeger provides a way to view the distributed tracing information that is automa
 
 ## Learn More
 
-* [Oracle Backend for Spring Boot](https://oracle.github.io/microservices-datadriven/spring/)
+* [Oracle Backend for Spring Boot and Microservices](https://oracle.github.io/microservices-datadriven/spring/)
 * [Oracle Backend for Parse Platform](https://oracle.github.io/microservices-datadriven/mbaas/)
 
 ## Acknowledgements
 
 * **Author** - Mark Nelson, Andy Tael, Developer Evangelist, Oracle Database
 * **Contributors** - [](var:contributors)
-* **Last Updated By/Date** - Andy Tael, June 2023
+* **Last Updated By/Date** - Andy Tael, February 2024

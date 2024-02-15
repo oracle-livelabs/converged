@@ -2,7 +2,7 @@
 
 ## Introduction
 
-This lab walks you through setting up your development environment to work with Oracle Backend for Spring Boot.
+This lab walks you through setting up your development environment to work with Oracle Backend for Spring Boot and Microservices.
 
 Estimated Lab Time: 20 minutes
 
@@ -33,8 +33,8 @@ If you wish to test locally or offline, the following additional tools are recom
 
 In this lab, you will:
 
-- Install the tools needed to develop and deploy applications using Oracle Backend for Spring Boot
-- (Optional) Install the tools needed to develop mobile and/or web applications using Oracle Backend for Spring Boot (including Parse Platform)
+- Install the tools needed to develop and deploy applications using Oracle Backend for Spring Boot and Microservices
+- (Optional) Install the tools needed to develop mobile and/or web applications using Oracle Backend for Spring Boot and Microservices (including Parse Platform)
 
 ### Prerequisites
 
@@ -157,15 +157,15 @@ If you prefer Gradle, follow the steps in this task.
     OS:           Linux 5.10.102.1-microsoft-standard-WSL2 amd64
     ```
 
-## Task 5: Install the Oracle Backend for Spring Boot CLI
+## Task 5: Install the Oracle Backend for Spring Boot and Microservices CLI (*oractl*)
 
 The Oracle Backend for Spring Boot CLI is used to configure your backend and to deploy your Spring Boot applications to the backend.
 
-1. Download the Oracle Backend for Spring Boot CLI
+1. Download the Oracle Backend for Spring Boot and Microservices CLI (*oractl*)
 
-   Download the CLI from [here](https://github.com/oracle/microservices-datadriven/releases/tag/OBAAS-1.0.0)
+   Download the CLI from [here](https://github.com/oracle/microservices-datadriven/releases/tag/OBAAS-1.1.1)
 
-2. Install the Oracle Backend for Spring Boot CLI
+2. Install the Oracle Backend for Spring Boot and Microservices CLI (*oractl*)
 
    To install the CLI, you just need to make sure it is executable and add it to your PATH environment variable.
 
@@ -288,7 +288,7 @@ At the end of the previous lab, during the verification of the installation, you
 
 ## Task 9: Getting Database Access
 
-The Oracle Backend for Spring Boot includes an Oracle Database. An instance of an Oracle Autonomous Database (Shared) is created during installation.
+The Oracle Backend for Spring Boot and Microservices includes an Oracle Database. An instance of an Oracle Autonomous Database (Shared) is created during installation.
 
 To access the database from a local machine you need to download the wallet and configure `SQLcl` to use the downloaded wallet.
 
@@ -402,11 +402,11 @@ If you plan to complete the Mobile App Development lab, you will need to install
 
    If you are installing Android Studio or XCode for the first time, you should also follow the instructions to create a device emulator instance.
 
-## (Optional) Task 11: Oracle Backend for Spring Boot VS Code plugin
+## (Optional) Task 11: Oracle Backend for Spring Boot and Microservices VS Code plugin
 
-If you plan to do the optional part of Lab. 5, you need to install in VS Code the Oracle Backend for Spring Boot VS Code plugin. It is an extension to browse and deploy applications on the Oracle Backend for Spring Boot platform. This plugin allows to inspect the content of an Oracle Backend for Spring Boot deployment, in terms of applications, services and related configurations.
+If you plan to do the optional part of Lab. 5, you need to install in VS Code the Oracle Backend for Spring Boot and Microservices VS Code plugin. It is an extension to browse and deploy applications on the Oracle Backend for Spring Boot and Microservices platform. This plugin allows to inspect the content of an Oracle Backend for Spring Boot and Microservices deployment, in terms of applications, services and related configurations.
 
-1. Download the plug-in from [here](https://github.com/oracle/microservices-datadriven/releases/tag/OBAAS-1.0.0).
+1. Download the plug-in from [here](https://github.com/oracle/microservices-datadriven/releases/tag/OBAAS-1.1.1).
 
 2. On the VS Code right menu bar, click on **Extensions** item:
 
@@ -426,10 +426,15 @@ If you plan to do the optional part of Lab. 5, you need to install in VS Code th
 
     ![Additional](images/additional.png " ")
 
-   click on **Additional Views** menu to select the **eBaaS Explorer**.
+   click on **Additional Views** menu to select the **Oracle Backend for Spring Boot and Microservices**.
+
+## Learn More
+
+* [Oracle Backend for Spring Boot and Microservices](https://bit.ly/oraclespringboot)
+* [Oracle Backend for Parse Platform](https://oracle.github.io/microservices-datadriven/mbaas/)
 
 ## Acknowledgements
 
 * **Author** - Mark Nelson, Andy Tael, Developer Evangelist, Oracle Database
 * **Contributors** - [](var:contributors)
-* **Last Updated By/Date** - Andy Tael, June 2023
+* **Last Updated By/Date** - Andy Tael, February 2024
