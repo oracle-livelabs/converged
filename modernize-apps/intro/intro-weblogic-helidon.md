@@ -25,9 +25,7 @@ The REST framework for Helidon SE is the Helidon WebServer. It’s built on top 
 ### Prerequisites
 * This lab assumes you have:
 * An Oracle Cloud Account - Please view this workshop's LiveLabs landing page to see which environments are supported
-* You have completed:
-    * Lab: Prepare Setup (Free Tier and Paid Tenants only)
-    * Lab: Environment Setup
+
 
 *Note: If you have a **Free Trial** account, when your Free Trial expires your account will be converted to an **Always Free** account. You will not be able to conduct Free Tier workshops unless the Always Free environment is available. **[Click here for the Free Tier FAQ page.](https://www.oracle.com/cloud/free/faq.html)***
 
@@ -39,4 +37,4 @@ The REST framework for Helidon SE is the Helidon WebServer. It’s built on top 
 ## Acknowledgements
 * **Authors** - Srinivas Pothukuchi, Pradeep Chandramouli, Chethan BR, AppDev & Integration Team, Oracle, October 2020
 * **Contributors** - Meghana Banka, Rene Fontcha
-* **Last Updated By/Date** - Rene Fontcha, LiveLabs Platform Lead, NA Technology, December 2020
+* **Last Updated By/Date** - Ankit Pandey, February 2024
