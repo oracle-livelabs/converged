@@ -12,28 +12,28 @@ Quick walk through on how to clean up the lab environment.
 
 In this workshop, you will learn how to:
 
-* Clean up your instance of the Oracle Backend for Spring Boot and other resources you created during this Live Lab
+* Clean up your instance of the Oracle Backend for Spring Boot and Microservices and other resources you created during this Live Lab
 
 ### Prerequisites
 
 This lab assumes you have:
 
 * An Oracle account
-* Have successfully or partially completed Lab 1 (Provision an instance of Oracle Backend for Spring Boot)
+* Have successfully or partially completed Lab 1 (Provision an instance of Oracle Backend for Spring Boot and Microservices)
 
-## Task 1: Uninstall Oracle Backend for Spring Boot
+## Task 1: Uninstall Oracle Backend for Spring Boot and Microservices
 
-The Oracle Backend for Spring Boot environment was deployed using ORM and Terraform.  The uninstall will use OCI Resource Manager (ORM) to Destroy the stack.
+The Oracle Backend for Spring Boot and Microservices environment was deployed using ORM and Terraform.  The uninstall will use OCI Resource Manager (ORM) to Destroy the stack.
 
 1. Navigate to OCI Resource Manager Stacks
 
    ![OCI ORM](images/orm-stacks.png " ")
 
-2. Make sure you choose the Compartment where you installed Oracle Backend for Spring Boot. Click on the Stack Name (which will be different from the screenshot)
+2. Make sure you choose the Compartment where you installed Oracle Backend for Spring Boot and Microservices. Click on the Stack Name (which will be different from the screenshot)
 
    ![Select Stack](images/pick-stack.png " ")
 
-3. After picking the stack. Click destroy. **NOTE** This will stop all resources and remove the Oracle Backend for Spring Boot environment. The only way to get it back is to re-deploy the stack
+3. After picking the stack. Click destroy. **NOTE** This will stop all resources and remove the Oracle Backend for Spring Boot and Microservices environment. The only way to get it back is to re-deploy the stack
 
    ![Destroy Stack](images/destroy-stack.png " ")
 
@@ -51,7 +51,7 @@ Even after the Destroy job has finished there will be one resource left in the t
 
 ## Learn More
 
-* [Oracle Backend for Spring Boot](https://oracle.github.io/microservices-datadriven/spring/)
+* [Oracle Backend for Spring Boot and Microservices](http://bit.ly/oraclespringboot/)
 * [Oracle Backend for Parse Platform](https://oracle.github.io/microservices-datadriven/mbaas/)
 * [Oracle Cloud Infrastructure Resource Manager](https://docs.oracle.com/en-us/iaas/Content/ResourceManager/home.htm#top)
 
@@ -59,4 +59,4 @@ Even after the Destroy job has finished there will be one resource left in the t
 
 * **Author** - Andy Tael, Mark Nelson, Developer Evangelists, Oracle Database
 * **Contributors** - [](var:contributors)
-* **Last Updated By/Date** - Andy Tael, February 2023
+* **Last Updated By/Date** - Andy Tael, February 2024

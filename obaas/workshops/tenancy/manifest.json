@@ -35,19 +35,23 @@
             "filename": "../../microtx/microtx.md"
         },
         {
-            "title": "Lab 6: Deploy the full CloudBank Application",
+            "title": "Lab 6: Deploy the full CloudBank Application using the CLI",
             "filename": "../../deploy-cloudbank/deploy-cloudbank.md"
         },
         {
-            "title": "Lab 7: Explore the Backend Platform",
+            "title": "Lab 7: Deploy the full CloudBank Application using the VS Code Extension",
+            "filename": "../../deploy-cloudbank-vscode/deploy-cloudbank-vscode.md"
+        },
+        {
+            "title": "Lab 8: Explore the Backend Platform",
             "filename": "../../explore-platform/explore-platform.md"
         },
         {
-            "title": "Lab 8: Extend the Mobile Application",
+            "title": "Lab 9: Extend the Mobile Application",
             "filename": "../../extend-mobile-app/extend-mobile-app.md"
         },
         {
-            "title": "Lab 9: Clean Up",
+            "title": "Lab 10: Clean Up",
             "filename": "../../cleanup/cleanup.md"
         },
         {
