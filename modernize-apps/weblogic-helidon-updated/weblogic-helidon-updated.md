@@ -251,6 +251,110 @@ Before the deployment of the Bank Web Application to consume Microservice, the f
 Only that one`(!)`, but that full line of comment which contains. (4 lines needs to be removed.) Save the file.
 If you are familiar with JSF to check what has changed in the code.
 
+> Your updated file should be same as shown below
+    ```bash
+    <html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="template.xhtml">
+        <ui:define name="head">
+        
+	</ui:define>
+        <ui:define name="title">
+            <h:outputText value="BestBank Webapp"></h:outputText>
+        </ui:define>
+
+        <ui:define name="header">
+            <div>
+                <h2>BestBank Webapp</h2>
+                <p class="lead">This project shows a basic example of a web application working with JSF and CDI to simulate some functionality of bank system.</p>
+            </div>
+        </ui:define>
+
+        <ui:define name="body">
+            <div class="well">
+                <h:form id="form" styleClass="form">
+                    <legend>Account Owners</legend>
+                    
+                    <p:dataTable id="singleDT" var="owner" value="#{accountOwnerBean.accountOwnerList}" 
+                    selectionMode="single" selection="#{accountOwnerBean.selectedAccountOwner}" rowKey="#{owner.id}">
+			            <p:column headerText="IBAN">
+			                <h:outputText value="#{owner.id}"/>
+			            </p:column>
+			
+			            <p:column headerText="First Name">
+			                <h:outputText value="#{owner.firstname}"/>
+			            </p:column>
+			            
+			            <p:column headerText="Last Name">
+			                <h:outputText value="#{owner.lastname}"/>
+			            </p:column>
+			
+			            <p:column headerText="Date of Birth">
+			                <h:outputText value="#{owner.dateofbirth}"/>
+			            </p:column>
+			
+			            <p:column headerText="SSN">
+			                <h:outputText value="#{owner.ssn}"/>
+			            </p:column>
+			           
+			            <f:facet name="footer">
+			            	<p:commandButton process="singleDT" update=":form:ownerDetail" icon="pi pi-search" value="View" oncomplete="PF('ownerDialog').show()" />
+			        	</f:facet>
+			        	
+			        </p:dataTable>
+
+                    <br/>
+					
+	                <p:dialog header="Account Owner Info" widgetVar="ownerDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+				        <p:outputPanel id="ownerDetail" style="text-align:center;">
+				            <p:panelGrid  columns="2" rendered="#{not empty accountOwnerBean.selectedAccountOwner}" columnClasses="label,value">
+				                 
+				                 <f:facet name="header">
+				                    <p:graphicImage name="images/person.details.png"/> 
+				                </f:facet>
+				                 
+				                <h:outputText value="IBAN:" />
+				                <h:outputText value="#{accountOwnerBean.selectedAccountOwner.id}" />
+				 
+				                <h:outputText value="First Name:" />
+				                <h:outputText value="#{accountOwnerBean.selectedAccountOwner.firstname}" />
+
+				                <h:outputText value="Last Name:" />
+				                <h:outputText value="#{accountOwnerBean.selectedAccountOwner.lastname}" />
+				                				 
+				                <h:outputText value="Date of Birth:" />
+				                <h:outputText value="#{accountOwnerBean.selectedAccountOwner.dateofbirth}" />
+				             
+				                <h:outputText value="SSN:" />
+				                <h:outputText value="#{accountOwnerBean.selectedAccountOwner.ssn}" />
+				                
+				                <h:outputText value="Credit Score" />
+				                <h:outputText value="#{accountOwnerBean.selectedAccountOwner.score}" style="color:#{(accountOwnerBean.selectedAccountOwner.score lt 600) ? 'Red' : 'Green'}"/>
+				                
+				 		
+				            </p:panelGrid>
+				        </p:outputPanel>
+				    </p:dialog>
+				
+                </h:form>
+            </div>
+        </ui:define>
+
+        <ui:define name="footer">   
+            <footer>
+                <p>BestBank Limited</p>
+            </footer>
+        </ui:define>
+    </ui:composition>
+</html>
+
+    ```
+
+
 ### Modify Server Side Bean
 4. Open for edit `/u01/middleware_demo/wls-helidon/src/main/java/com/oracle/oow19/wls/bestbank/AccountOwnerBean.java` class file.
 
@@ -258,11 +362,116 @@ If you are familiar with JSF to check what has changed in the code.
     <copy>vi /u01/middleware_demo/wls-helidon/src/main/java/com/oracle/oow19/wls/bestbank/AccountOwnerBean.java</copy>
     ```
 
-6. Find and delete the 4 lines which contain the *REMOVE THIS LINE* comment. Save the file and Check what has changed in the code.
+6. Find and delete the lines which contain the *REMOVE THIS LINE* comment. Save the file and Check what has changed in the code.
 
     - The postConstruct method modified to read the end point URL from the property file.
     - New getCreditScore method created to calculate the credit score value of the Account Owner.
     - Finally include the new method invocation in getSelectedAccountOwner method which is triggered by the View button on the User Interface.
+
+> Your updated code should be same as shown below:
+    ```bash
+    package com.oracle.oow19.wls.bestbank;
+
+    import java.io.IOException;
+    import java.io.Serializable;
+    import java.text.SimpleDateFormat;
+    import java.util.ArrayList;
+    import java.util.List;
+    import java.util.Properties;
+    import java.util.Random;
+    import java.util.logging.Logger;
+
+    import javax.annotation.PostConstruct;
+    import javax.faces.bean.ManagedBean;
+    import javax.faces.bean.SessionScoped;
+    import javax.ws.rs.client.ClientBuilder;
+    import javax.ws.rs.client.Entity;
+    import javax.ws.rs.client.WebTarget;
+    import javax.ws.rs.core.MediaType;
+    import javax.ws.rs.core.Response;
+
+    import com.github.javafaker.Faker;
+
+    @ManagedBean
+    @SessionScoped
+    public class AccountOwnerBean implements Serializable {
+
+        private static final long serialVersionUID = 4417676256979648115L;
+        
+        private static final Logger logger = Logger.getLogger(AccountOwnerBean.class.getName());
+
+        private List<AccountOwner> accountOwnerList = new ArrayList<>();
+
+        private AccountOwner selectedAccountOwner;
+        
+        private String creditScoreUrl;
+
+        @PostConstruct
+        private void postConstruct () {
+            Random random = new Random();
+            Faker faker = new Faker();
+            for (int i = 1; i < 15; i++) {
+                AccountOwner owner = new AccountOwner();
+                owner.setId(faker.finance().iban("DE"));
+                owner.setFirstname(faker.name().firstName());
+                owner.setLastname(faker.name().lastName());
+                owner.setDateofbirth(new SimpleDateFormat("MM/dd/yyyy").format(faker.date().birthday()));
+                owner.setSsn(String.format("%s-%s-%s", random.nextInt((999 - 100) + 1) + 100, 
+                        random.nextInt((99 - 10) + 1) + 10, 
+                        random.nextInt((9999 - 1000) + 1) + 1000));
+                accountOwnerList.add(owner);
+            }
+            
+        
+            Properties props = new Properties();
+            try {
+                props.load(this.getClass().getResourceAsStream("/app.properties"));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            this.creditScoreUrl = props.getProperty("creditscore.url");
+            
+        }
+
+        public List<AccountOwner> getAccountOwnerList() {
+            return accountOwnerList;
+        }
+        
+        public void setSelectedAccountOwner(AccountOwner selectedOwner) {
+            this.selectedAccountOwner = selectedOwner;
+        }
+
+            
+        public AccountOwner getSelectedAccountOwner() {
+            
+            if (this.selectedAccountOwner != null) {
+                this.selectedAccountOwner = getCreditScore(this.selectedAccountOwner);
+            }
+            
+            return this.selectedAccountOwner;
+        }
+
+        private AccountOwner getCreditScore (AccountOwner owner) {
+            
+            WebTarget webTarget = ClientBuilder.newClient().target(this.creditScoreUrl);
+
+            Response response = webTarget.request(MediaType.APPLICATION_JSON).post(Entity.entity(owner, MediaType.APPLICATION_JSON));
+            
+            if (response.getStatus() != 200) {
+                logger.warning("Failed : HTTP error code : " + response.getStatus() + ", " + response.readEntity(String.class));
+                return owner;
+            }
+    
+            owner = response.readEntity(AccountOwner.class);
+            
+            response.close();
+    
+            return owner;
+        }
+        
+
+    }
+    ```
 
 ### Configure End-Point
 1. The last file to modify is the `/u01/middleware_demo/wls-helidon/src/main/resources/app.properties` file.
@@ -274,6 +483,11 @@ If you are familiar with JSF to check what has changed in the code.
    	```
 
 2. Replace the URL to your given value and save: `creditscore.url=http://cvgdb.oraclevcn.com:8080/creditscore`
+
+> Your updated code should be same as shown below:
+    ```bash
+    creditscore.url=http://cvgdb.oraclevcn.com:8080/creditscore
+    ```
 
 ### Deploy Modified Web Application
 
@@ -297,9 +511,10 @@ If you are familiar with JSF to check what has changed in the code.
     <copy>mvn clean package</copy>
     ```
 
-    When the build is complete and successful, open the browser and access the new bank application using the URL *`http://cvgdb.oraclevcn.com:7101/bestbank2020_01`*
+    When the build is complete and successful, open the browser and access the new bank application using the URL *`http://cvgdb.oraclevcn.com:7101/bestbank2020_01/`*
 
 4. Select an Account Owner and click the new View button. A pop-up window with no information about the credit score of the user is seen. This is because the microservice is not yet started !!!
+    ![modify webapp](./images/modify-webapp.png)
 
 ### Start The Helidon Microservice
 1. Go back to the tab, where you have set Maven and JDK 21..
@@ -318,7 +533,10 @@ If you are familiar with JSF to check what has changed in the code.
     ![](./images/start-microservice.png " ")  
 
 4. In the browser, check if the CreditScore Microservice application is running by checking the health check url `http://cvgdb.oraclevcn.com:8080/creditscore/healthcheck`
-5. Open the browser and access the new bank application using the URL `http://cvgdb.oraclevcn.com:7101/bestbank2020_01` or refresh the existing browser window with the above URL
+    ![check microservice](./images/check-microservice.png)
+
+5. Open the browser and access the new bank application using the URL `http://cvgdb.oraclevcn.com:7101/bestbank2020_01/` or refresh the existing browser window with the above URL
+
 6. Select an Account Owner and click the new View button.	A pop-up window with CreditScore information of the user is seen.  
 
     ![](./images/creditscore.png " ")  
