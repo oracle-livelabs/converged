@@ -44,7 +44,8 @@ This lab assumes you have:
 
 	![](./images/deployments.png " ")  
 
-5.	Still on the same browser window on the right, switch to the second tab preloaded with  tab *BestBank* application UI and confirm that the page loaded successfully
+5.	Still on the same browser window on the right, switch to the second tab preloaded with  tab *BestBank* application UI and confirm that the page loaded successfully.
+    ![bestbank app](./images/bestbank-app.png)
 
 You may now [proceed to the next lab](#next).
 
