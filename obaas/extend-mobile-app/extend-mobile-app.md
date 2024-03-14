@@ -36,7 +36,7 @@ The sample CloudBank mobile application is provided as a starting point.  It alr
    Use the following command to make a clone of the source code repository into a suitable location.  **Note**: If you do not have git installed, you can also download a zip from that URL and unzip it into a new directory.
 
     ```shell
-    $ <copy>git clone https://github.com/oracle/microservices-datadriven.git</copy>
+    $ <copy>git -b OBAAS-1.1.3 clone https://github.com/oracle/microservices-datadriven.git</copy>
     ```
 
    The source code for the CloudBank application will be in the `microservices-datadriven` directory you just created, in the `cloudbank-v2/flutter-app` subdirectory.
