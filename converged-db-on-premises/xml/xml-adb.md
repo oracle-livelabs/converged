@@ -114,8 +114,8 @@ The password to all the schemas is *Oracle_4U*.
      ![](./images/xml_s4_p1.png " ")
 
 
-<!-- 2. Click the link to download the insert.sql script from the object store. [Objectstore](https://objectstorage.us-ashburn-1.oraclecloud.com/p/LNAcA6wNFvhkvHGPcWIbKlyGkicSOVCIgWLIu6t7W2BQfwq2NSLCsXpTL9wVzjuP/n/c4u04/b/livelabsfiles/o/developer-library/Workshop_xml_script_atp.zip) -->
-2. Click the link to download the insert.sql script from the object store. [Objectstore](https://objectstorage.us-ashburn-1.oraclecloud.com/p/LNAcA6wNFvhkvHGPcWIbKlyGkicSOVCIgWLIu6t7W2BQfwq2NSLCsXpTL9wVzjuP/n/c4u04/b/livelabsfiles/o/developer-library/Workshop_xml_script_atp.zip)
+<!-- 2. Click the link to download the insert.sql script from the object store. [Objectstore](https://c4u04.objectstorage.us-ashburn-1.oci.customer-oci.com/p/EcTjWk2IuZPZeNnD_fYMcgUhdNDIDA6rt9gaFj_WZMiL7VvxPBNMY60837hu5hga/n/c4u04/b/livelabsfiles/o/developer-library/Workshop_xml_script_atp.zip) -->
+2. Click the link to download the insert.sql script from the object store. [Objectstore](https://c4u04.objectstorage.us-ashburn-1.oci.customer-oci.com/p/EcTjWk2IuZPZeNnD_fYMcgUhdNDIDA6rt9gaFj_WZMiL7VvxPBNMY60837hu5hga/n/c4u04/b/livelabsfiles/o/developer-library/Workshop_xml_script_atp.zip)
     
 3. Unzip the downloaded folder and paste the contents of **insert.sql** and press play to run the script. 
    
@@ -131,7 +131,7 @@ The password to all the schemas is *Oracle_4U*.
 
 ## Task 4: Update XML table
 
-1. Click the link to download the update.sql script from the object store. [Objectstore](https://objectstorage.us-ashburn-1.oraclecloud.com/p/LNAcA6wNFvhkvHGPcWIbKlyGkicSOVCIgWLIu6t7W2BQfwq2NSLCsXpTL9wVzjuP/n/c4u04/b/livelabsfiles/o/developer-library/Workshop_xml_script_atp.zip)
+1. Click the link to download the update.sql script from the object store. [Objectstore](https://c4u04.objectstorage.us-ashburn-1.oci.customer-oci.com/p/EcTjWk2IuZPZeNnD_fYMcgUhdNDIDA6rt9gaFj_WZMiL7VvxPBNMY60837hu5hga/n/c4u04/b/livelabsfiles/o/developer-library/Workshop_xml_script_atp.zip)
 
 2. Unzip the downloaded folder and paste the contents of **update.sql** and press play to run the script. 
 
