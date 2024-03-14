@@ -72,11 +72,12 @@ For ease of execution of this workshop, your VM instance has been pre-configured
 4. Once you open the Remote Desktop URL, you will see an arrow, click on it and you will notice the **clipboard**. Use this clipboard to copy/paste the command from local to remote desktop and vice versa.
     ![use clipboard](images/use-clipboard.png)
 
-5. In the remote desktop, you will find workshop document on left side. Close this document. Open a new Chrome window and copy/paste the below URL to use the updated document. From Lab 2, you need to follow the instruction from this Workshop document.
+5. In the remote desktop, you will find workshop document on left side. Close this document. To access the **updated workshop document**, copy and paste the below URL in new Chrome Window.
     ```bash
-    <copy>https://oracle-livelabs.github.io/converged/modernize-apps/workshops/freetier-helidon-microservice/</copy>
+    <copy>https://oracle-livelabs.github.io/converged/modernize-apps/workshops/freetier-weblogic-helidon-updated/</copy>
     ```
 
+    > From Lab 2, use this workshop document to copy and paste the commands in terminal/browser.
 
 You may now [proceed to the next lab](#next).
 
