@@ -61,7 +61,7 @@ The Oracle Backend for Spring Boot and Microservices can be installed from OCI M
 
     Review the terms and restrictions, and then click on the checkbox to accept them. Then, click on **Launch Stack**,
 
-    > **Note:** This Live Lab is tested with **version 1.1.2**. Later versions should work, but earlier versions do not contain all features used in this Live Lab.
+    > **Note:** This Live Lab is tested with **version 1.1.3**. Later versions should work, but earlier versions do not contain all features used in this Live Lab.
 
 1. Review the **Create Stack** page
 
