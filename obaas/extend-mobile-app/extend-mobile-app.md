@@ -53,7 +53,7 @@ The sample CloudBank mobile application is provided as a starting point.  It alr
     $ <copy>dart pub get</copy>
     ```
 
-## Task 2: Run the application as-is against your environmnet
+## Task 2: Run the application as-is against your environment
 
 1. Update the application to point to your Oracle Backend for Spring Boot and Microservices instance
 
@@ -74,7 +74,7 @@ The sample CloudBank mobile application is provided as a starting point.  It alr
 
    You need the address listed under `EXTERNAL-IP`.
 
-   The value for `APPLICATION_ID` was provided in the summary at the end of the apply/install log, it is called `parse_application_id` and is a alphanumeric string.  You were asked to keep keep a copy of that information at the end of the **Provision an instance** lab.  If you do not have it, you can go to the OCI Console and navigate to the main ("hamburger") menu then **Developer Services** and **Stacks** under the **Resource Manager** heading.  Make sure you have the right compartment (left hand side drop down) and region (top right).  Open your stack and then open the apply job and scroll to the end of the log.
+   The value for `APPLICATION_ID` was provided in the summary at the end of the apply/install log, it is called `parse_application_id` and is an alphanumeric string.  You were asked to keep a copy of that information at the end of the **Provision an instance** lab.  If you do not have it, you can go to the OCI Console and navigate to the main ("hamburger") menu then **Developer Services** and **Stacks** under the **Resource Manager** heading.  Make sure you have the right compartment (left hand side drop down) and region (top right).  Open your stack and then open the apply job and scroll to the end of the log.
 
 1. Create a user and some bank accounts
 
@@ -163,7 +163,7 @@ The sample CloudBank mobile application is provided as a starting point.  It alr
     </copy>  
     ```
 
-    This will create a new screen with an "AppBar" with the title "Cloud Cash" and a text field so you know you got the the right screen.  This screen will look like this:
+    This will create a new screen with an "AppBar" with the title "Cloud Cash" and a text field, so you know you got the right screen.  This screen will look like this:
 
     ![First Cloud Cash Screen](images/obaas-flutter-first-cloud-cash-screen.png)
 
@@ -241,7 +241,7 @@ The sample CloudBank mobile application is provided as a starting point.  It alr
 
    ![Cloud Cash screen](images/obaas-flutter-cloud-cash-screen-design.png)
 
-   The first field - the drop down selection list - will let the user choose which account they want to send funds from.  You will need to make a REST call to get a list of accounts for the current user.  You wrote an API to provide that information in an earlier lab!
+   The first field - the drop-down selection list - will let the user choose which account they want to send funds from.  You will need to make a REST call to get a list of accounts for the current user.  You wrote an API to provide that information in an earlier lab!
 
    Then there is a field to enter the email address of the recipient - this will be used by Cloud Bank to work out who to send the money to.  And a field to specify how much money to send.  And finally, a button to submit the request.  When the user clicks on the button, you will use the Parse APIs to create a new Cloud Cash payment request document.  A backend service will pick up that request and start the process that actually transfers the money.  You wrote most of that in the "Manage Saga Transactions across Microservices" lab!  
 
@@ -261,7 +261,7 @@ The sample CloudBank mobile application is provided as a starting point.  It alr
 
    Of course, at this point, you need some state!  Notice that the `CloudCash` class extends `StatefulWidget` - this allows you to have state in this class.  Also notice that you can override the `createState()` method to control what state you require.  As you can see in the code below, a second cladd `_CloudCashState` is created, which extends `State<?>` and inside that class you can create stateful object, such as the two `TextEditingController`s that are defined, one for each of the two fields.
 
-   If you look again at the `TextField`s in the `build()` method, you will notice that they each have a `controller` property which points to the appropriate one of these two controllers.  This is how the link is established so that whatever a user enters in those controls will be stored in the state.
+   If you look again at the `TextField`s in the `build()` method, you will notice that they each have a `controller` property which points to the appropriate one of these two controllers.  This is how the link is established so that whatever a user inputs in those controls will be stored in the state.
 
    Finally, notice that the `ElevatedButton` in the last `Container` has an `onPressed` property.  In that property there is a call to a function called `processCloudCash` which is defined later in that same class.  Right now, that function just logs a message.  Later, you will update that function to make a REST call and give the user feedback about what happened.
 
@@ -390,7 +390,7 @@ For the account selector field, you need to get a list of accounts by calling th
 
    You will store the result from calling the API in a `List<dynamic>` which means you do not need to define the entire data structure.  The `fromJson` method in this class will handle conversion of the JSON data to a Dart class.
 
-1. Create the state needed for the drop down selector UI component
+1. Create the state needed for the drop-down selector UI component
 
    Define a variable to hold the list of accounts using this code, at the top level, not inside a class:
 
@@ -400,7 +400,7 @@ For the account selector field, you need to get a list of accounts by calling th
     ];</copy>
     ```
 
-   Update your `_CloudCashState` class to add a new variable to hold the data received from the API call, note that this will be a `late Future<Accounts>`.  Add a new `String` to hold the current value of the drop down and set the initial value to the first item in the list, i.e. **Select account...**.  Add an overridden `initState()` method in which you call `super.initState()` and then invoke the API to get the data for that future.  You will write that `fetchData()` method next.  Here is the code so far:
+   Update your `_CloudCashState` class to add a new variable to hold the data received from the API call, note that this will be a `late Future<Accounts>`.  Add a new `String` to hold the current value of the drop-down and set the initial value to the first item in the list, i.e. **Select account...**.  Add an overridden `initState()` method in which you call `super.initState()` and then invoke the API to get the data for that future.  You will write that `fetchData()` method next.  Here is the code so far:
 
     ```dart
     <copy>class _CloudCashState extends State<CloudCash> {
@@ -493,15 +493,15 @@ For the account selector field, you need to get a list of accounts by calling th
 
    You also need to remove the `GoRoute` entry in `main.dart` that you created for `/cloudcash` since this did not pass the credentials, and it is no longer needed.
 
-1. Add a UI component to display the drop down selector on the screen
+1. Add a UI component to display the drop-down selector on the screen
 
    Back in `cloudcash.dart`, in the `build()` method, insert a new `Container` between the existing first container ("Send cash to anyone instantly") and the second container ("Email address of recipient").  This new `Container` should contain a `FutureBuilder<Accounts>`.  A `FutureBuilder` lets you deal with data that may not be present yet.  Set the `future` property to your `futureData` variable.  In the `builder`, which receives `context, snapshot`, check if `snapshot.hasData` to see if the future has completed yet.  If this is `true` then you can expect to have the data available to render the UI.  If it is not `true`, you can check if `shapshot.hasError` if you want to handle errors or just return a generic error.
 
-   If the future has completed, you can check `snapshot.data` to get access to the data.  You will need to iterate through the results and use them to populate the drop down list, you will do that in a moment, the code is commented out in the example below.
+   If the future has completed, you can check `snapshot.data` to get access to the data.  You will need to iterate through the results and use them to populate the drop-down list, you will do that in a moment, the code is commented out in the example below.
 
-   The builder should then return a `DropDownButton<String>` with its `value` property set to the `accountDropdownValue` state variable you created earlier.  In the `onChanged` property you need to update the state to the currently selected value.  The `Items` property should point at the list of values you want displayed in the drop down.  You created a variable to hold these values earlier and pre-populated it with one value (**Select account...**).  
+   The builder should then return a `DropDownButton<String>` with its `value` property set to the `accountDropdownValue` state variable you created earlier.  In the `onChanged` property you need to update the state to the currently selected value.  The `Items` property should point at the list of values you want displayed in the drop-down.  You created a variable to hold these values earlier and pre-populated it with one value (**Select account...**).  
 
-   With this done, you can restart the application and test the new screen.  The drop down box will not populate yet, but you will see it on the screen.  Here is the code so far:
+   With this done, you can restart the application and test the new screen.  The drop-down box will not populate yet, but you will see it on the screen.  Here is the code so far:
 
     ```dart
     <copy>Container(
@@ -547,15 +547,15 @@ For the account selector field, you need to get a list of accounts by calling th
     ),</copy>
     ```
 
-1. Populate the drop down list with the data from the REST API
+1. Populate the drop-down list with the data from the REST API
 
-   The last step is to populate the drop down list with the data you got back from the REST API.  Uncomment this line in the `FutureBuilder`.  This will call the `updateAccountList` method once for each item in `data`, i.e., once for each account.
+   The last step is to populate the drop-down list with the data you got back from the REST API.  Uncomment this line in the `FutureBuilder`.  This will call the `updateAccountList` method once for each item in `data`, i.e., once for each account.
 
     ```dart
     <copy>data.forEach(updateAccountList);</copy>
     ```
 
-   Now, you need to write that method.  It should accept the account as an argument and extract the `accountName` and `accountBalance` fields and format them into a string that you can display in the drop down list.  This is where you will want to use the currency formatter that you created earlier.  Make sure you only add the new entry if it does not already exist in the list.  Here is the code:
+   Now, you need to write that method.  It should accept the account as an argument and extract the `accountName` and `accountBalance` fields and format them into a string that you can display in the drop-down list.  This is where you will want to use the currency formatter that you created earlier.  Make sure you only add the new entry if it does not already exist in the list.  Here is the code:
 
     ```dart
     <copy>updateAccountList(element) {
@@ -567,7 +567,7 @@ For the account selector field, you need to get a list of accounts by calling th
     }</copy>
     ```
 
-   With this done, you can restart the application and test the Cloud Cash screen.  It will now populate the drop down list with the accounts names and balances.  Next, you need to handle the form submission.
+   With this done, you can restart the application and test the Cloud Cash screen.  It will now populate the drop-down list with the accounts names and balances.  Next, you need to handle the form submission.
 
 ## Task 6: Handle the form submission
 
@@ -655,7 +655,7 @@ The final piece to complete the Cloud Cash feature is to handle the form submiss
 
    Open a web browser to the Parse Dashboard.  The URL was provided in the log at the end of the stack apply.  See Task 2 in this Lab for details on how to get it.
 
-   Log in to the dashboard with the userid `ADMIN` (this is case sensitive) and the password you specified when you installed the backend stack.  Click on your application, and in the browser menu (on the left) click on the `CloudCashPayment` class to see the records.  You should see your payments, it will looks something like this:
+   Log in to the dashboard with the userid `ADMIN` (this is case sensitive) and the password you specified when you installed the backend stack.  Click on your application, and in the browser menu (on the left) click on the `CloudCashPayment` class to see the records.  You should see your payments, it will look something like this:
 
    ![Parse Dashboard](images/obaas-parse-dashboard-cloud-cash-payments.png)
 
@@ -670,4 +670,4 @@ The final piece to complete the Cloud Cash feature is to handle the form submiss
 
 * **Author** - Doug Drechsel, Mark Nelson, Developer Evangelists, Oracle Database
 * **Contributors** - [](var:contributors)
-* **Last Updated By/Date** - Andy Tael, February 2024
+* **Last Updated By/Date** - Andy Tael, March 2024

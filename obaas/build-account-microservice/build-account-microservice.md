@@ -2,7 +2,7 @@
 
 ## Introduction
 
-This lab walks you through the steps to build a Spring Boot microservice from scratch, and to deploy it into the  and Microservices.  In this lab, we will build the "Account" microservice.  In the next lab, the remaining Cloud Bank microservices will be provided for you.
+This lab walks you through the steps to build a Spring Boot microservice from scratch, and to deploy it into the Oracle Backend for SpringBoot and Microservices.  In this lab, we will build the "Account" microservice.  In the next lab, the remaining Cloud Bank microservices will be provided for you.
 
 Estimated Time: 20 minutes
 
@@ -211,7 +211,7 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
 
 ## Task 3: Prepare objects in the Oracle Database
 
-1. Get the the database user `ADMIN` password
+1. Get the database user `ADMIN` password
 
     The ADMIN password can be retrieved from a k8s secret using this command. Replace the **DBNAME** with the name of your database. Save the password as it will be needed in later steps.
 
@@ -274,7 +274,7 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
     CBANKDB_TPURGENT
     ```
 
-    Connect to the database using the `ADMIN` user, the password you retrieved earlier ans the TNS name `DBNAME_tp`.
+    Connect to the database using the `ADMIN` user, the password you retrieved earlier and the TNS name `DBNAME_tp`.
 
     ```sql
     SQL> <copy>connect ADMIN/your-ADMIN-password@your-TNS-entry</copy>
@@ -935,7 +935,7 @@ If you would like to learn more about endpoints and implement the remainder of t
     </copy>
     ```
 
-    Add the the dependency management to the Maven POM file:
+    Add the dependency management to the Maven POM file:
 
     ```xml
     <copy>
@@ -996,7 +996,7 @@ If you would like to learn more about endpoints and implement the remainder of t
 
 1. Prepare the backend for deployment
 
-    The Oracle Backend for Spring Boot and Microservices admin service is not exposed outside of the Kubernetes cluster by default. Oracle recommends using a **kubectl** port forwarding tunnel to establish a secure connection to the admin service.
+    The Oracle Backend for Spring Boot and Microservices admin service is not exposed outside the Kubernetes cluster by default. Oracle recommends using a **kubectl** port forwarding tunnel to establish a secure connection to the admin service.
 
     Start a tunnel using this command in a new terminal window:
 
@@ -1065,7 +1065,7 @@ If you would like to learn more about endpoints and implement the remainder of t
     oractl:>
     ```
 
-    > What happens when you use the Oracle Backend for Spring Boot and Microservices CLI (*oractl*) **deploy** command? When you run the deploy command, the Oracle Backend for Spring Boot and Microservices CLI does several things for you:
+    > What happens when you use the Oracle Backend for Spring Boot and Microservices CLI (*oractl*) **deploy** command? When you run the **deploy** command, the Oracle Backend for Spring Boot and Microservices CLI does several things for you:
 
     * Uploads the JAR file to server side
     * Builds a container image and push it to the OCI Registry
@@ -1094,7 +1094,7 @@ If you would like to learn more about endpoints and implement the remainder of t
 
 1. Check the Eureka Server
 
-    Create a tunnel to the Eureka server so you can verify the `ACCOUNTS` application has registered with the server.
+    Create a tunnel to the Eureka server, so you can verify the `ACCOUNTS` application has registered with the server.
 
     ```shell
     $ <copy>kubectl -n eureka port-forward svc/eureka 8761</copy>
@@ -1118,7 +1118,7 @@ Now that the account service is deployed, you need to expose it through the API 
 
 1. Access the APISIX Dashboard
 
-    The APISIX Dashboard isn't exposed outside of the cluster. You need to start a tunnel to be able to access APISIX Dashboard. Start the tunnel using this command in a new terminal window:
+    The APISIX Dashboard isn't exposed outside the cluster. You need to start a tunnel to be able to access APISIX Dashboard. Start the tunnel using this command in a new terminal window:
 
     ```shell
     $ <copy>kubectl -n apisix port-forward svc/apisix-dashboard 8090:80</copy>
@@ -1207,4 +1207,4 @@ Now that the account service is deployed, you need to expose it through the API 
 
 * **Author** - Andy Tael, Mark Nelson, Developer Evangelists, Oracle Database
 * **Contributors** - [](var:contributors)
-* **Last Updated By/Date** - Andy Tael, December 2023
+* **Last Updated By/Date** - Andy Tael, March 2024

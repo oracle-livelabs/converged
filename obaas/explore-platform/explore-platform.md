@@ -194,7 +194,7 @@ Oracle Backend for Spring Boot and Microservices includes an Oracle Autonomous D
 
 1. View details of the Oracle Autonomous Database
 
-   In the OCI Console, in the main ("hamburger") menu navigate to the **Oracle Database** category and then **Oracle Autonomous Database**.  Make sure you have the correct region selected (in the top right corner) and the compartment where you installed Oracle Backend for Spring Boot and Microservices (in the left hand side pull down list).  You will a list of Oracle Autonomous Database instances (you will probably only have one):
+   In the OCI Console, in the main ("hamburger") menu navigate to the **Oracle Database** category and then **Oracle Autonomous Database**.  Make sure you have the correct region selected (in the top right corner) and the compartment where you installed Oracle Backend for Spring Boot and Microservices (on the left hand side pull down list).  You will a list of Oracle Autonomous Database instances (you will probably only have one):
 
    ![List of OraCle Autonomous Database instances](images/obaas-adb-1.png)
 
@@ -266,7 +266,7 @@ Oracle Backend for Spring Boot and Microservices includes Spring Admin which pro
 
 3. View endpoints
 
-   Click on the **Mappings** link in the left hand side menu.  This page shows you information about the URL Path mappings (or endpoints) exposed by this service.  You will notice several endpoints exposed by Spring Actuator, which enables this management and monitoring to be possible.  And you will see your service's own endpoints, in this example the ones that start with `/api/v1/...`:
+   Click on the **Mappings** link on the left hand side menu.  This page shows you information about the URL Path mappings (or endpoints) exposed by this service.  You will notice several endpoints exposed by Spring Actuator, which enables this management and monitoring to be possible.  And you will see your service's own endpoints, in this example the ones that start with `/api/v1/...`:
 
    ![Customer service endpoint list](images/obaas-spring-admin-3.png)
 
@@ -290,7 +290,7 @@ Spring Eureka Service Registry is an application that holds information about wh
 
 ## Task 5: Explore APISIX API Gateway
 
-Oracle Backend for Spring Boot and Microservices includes APISIX API Gateway to manage which services are made available outside of the Kubernetes cluster.  APISIX allows you to manage many aspects of the services' APIs including authentication, logging, which HTTP methods are accepted, what URL paths are exposed, and also includes capabilities like rewriting, filtering, traffic management and has a rich plugin ecosystem to enhance it with additional capabilities.  You can manage the APISIX API Gateway using the APISIX Dashboard.
+Oracle Backend for Spring Boot and Microservices includes APISIX API Gateway to manage which services are made available outside the Kubernetes cluster.  APISIX allows you to manage many aspects of the services' APIs including authentication, logging, which HTTP methods are accepted, what URL paths are exposed, and also includes capabilities like rewriting, filtering, traffic management and has a rich plugin ecosystem to enhance it with additional capabilities.  You can manage the APISIX API Gateway using the APISIX Dashboard.
 
 1. Access the APISIX Dashboard
 
@@ -318,7 +318,7 @@ Oracle Backend for Spring Boot and Microservices includes APISIX API Gateway to 
 
    ![Configure route](images/obaas-apisix-route-2.png)
 
-   Click on the **Next** button to move to the **Plugin Config** page.  The routes in the CloudBank sample do no use any of the plugins, however you can scroll through this page to get an idea of what plugins are available for your services.
+   Click on the **Next** button to move to the **Plugin Config** page.  The routes in the CloudBank sample do not use any of the plugins, however you can scroll through this page to get an idea of what plugins are available for your services.
 
    ![APISIX plugin config](images/obaas-apisix-route-3.png)
 
@@ -400,4 +400,4 @@ Jaeger provides a way to view the distributed tracing information that is automa
 
 * **Author** - Mark Nelson, Andy Tael, Developer Evangelist, Oracle Database
 * **Contributors** - [](var:contributors)
-* **Last Updated By/Date** - Andy Tael, February 2024
+* **Last Updated By/Date** - Andy Tael, March 2024

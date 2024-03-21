@@ -2,7 +2,7 @@
 
 ## Introduction
 
-Now that you know how to build a Spring Boot microservice and deploy it to the Oracle Backend for Spring Boot and Microservices, this lab will guide you through deploying all of the CloudBank services and exploring the runtime and management capabilities of the platform. **NOTE:** The full CloudBank leverages more features than you have built so far such as monitoring, tracing etc. You will see those features in the lab "Explore The Backend Platform".
+Now that you know how to build a Spring Boot microservice and deploy it to the Oracle Backend for Spring Boot and Microservices, this lab will guide you through deploying all the CloudBank services and exploring the runtime and management capabilities of the platform. **NOTE:** The full CloudBank leverages more features than you have built so far such as monitoring, tracing etc. You will see those features in the lab "Explore The Backend Platform".
 
 Estimated Lab Time: 30 minutes
 
@@ -14,7 +14,7 @@ Quick walk through on how to deploy full CloudBank application.
 
 In this lab, you will:
 
-* Deploy the full CloudBank sample application into your Oracle Backend for Spring Boot and Microservices Microservices instance
+* Deploy the full CloudBank sample application into your Oracle Backend for Spring Boot and Microservices instance
 
 ### Prerequisites
 
@@ -89,7 +89,7 @@ Download a copy of the CloudBank sample application.
 
 1. Start a tunnel to the backend service.
 
-    The Oracle Backend for Spring Boot and Microservices admin service is not exposed outside of the Kubernetes cluster by default. Use kubectl to start a port forwarding tunnel to establish a secure connection to the admin service.
+    The Oracle Backend for Spring Boot and Microservices admin service is not exposed outside the Kubernetes cluster by default. Use kubectl to start a port forwarding tunnel to establish a secure connection to the admin service.
 
     Start a tunnel using this command:
 
@@ -153,7 +153,7 @@ Download a copy of the CloudBank sample application.
     * Create the microservices deployment descriptor (k8s) with the resources supplied
     * Applies the k8s deployment and create k8s object service to microservice
 
-    The services are using [Liquibase](https://www.liquibase.org/). Liquibase is an open-source database schema change management solution which enables you to manage revisions of your database changes easily. When the service get's deployed the `tables` and sample `data` will be created and inserted by Liquibase. The SQL executed can be found in the source code directories of CloudBank.
+    The services are using [Liquibase](https://www.liquibase.org/). Liquibase is an open-source database schema change management solution which enables you to manage revisions of your database changes easily. When the service gets deployed the `tables` and sample `data` will be created and inserted by Liquibase. The SQL executed can be found in the source code directories of CloudBank.
 
     Run the following command to deploy CloudBank. When asked for `Database/Service Password:` enter the password `Welcome1234##`. You need to do this multiple times. **NOTE:** The deployment of CloudBank will take a few minutes.
 
@@ -606,4 +606,4 @@ This concludes the lab *Deploy the full CloudBank Application* using the `oractl
 
 * **Author** - Andy Tael, Corrado De Bari, Mark Nelson, Developer Evangelists, Oracle Database
 * **Contributors** - [](var:contributors)
-* **Last Updated By/Date** - Andy Tael, February 2024
+* **Last Updated By/Date** - Andy Tael, March 2024
