@@ -87,7 +87,7 @@ Download a copy of the CloudBank sample application.
 
     ![kubeConfig](images/getkubeconfig.png " ")
 
-    By default it's shown the path in the user's Home directory **.kube/config** in which normally **kubectl** stores all the information regarding the K8S clusters configured. You could set the full path of another Kubernetes config file.
+    By default, it's shown the path in the user's Home directory **.kube/config** in which normally **kubectl** stores all the information regarding the K8S clusters configured. You could set the full path of another Kubernetes config file.
     If the file is correctly loaded, the plugin will show the list of contexts available in which select one:
 
     ![kubeContextList](images/chosecontext.png " ")
@@ -96,7 +96,7 @@ Download a copy of the CloudBank sample application.
 
     ![onenode](images/onenode.png " ")
 
-    If the file path it hasn't been correctly set, it will shown an error message:
+    If the file path it hasn't been correctly set, it will show an error message:
 
     ![kubeFileError](images/reloadwindowerror.png " ")
 
@@ -114,7 +114,7 @@ Download a copy of the CloudBank sample application.
         $ <copy>kubectl get secret -n azn-server  oractl-passwords -o jsonpath='{.data.admin}' | base64 -d</copy>
         ```
 
-    * Right click on the cluster name and select **Set UID/PWD**:
+    * Right-click on the cluster name and select **Set UID/PWD**:
 
         ![Credentials](images/credentials.png " ")
 
@@ -146,7 +146,7 @@ Download a copy of the CloudBank sample application.
 
         ![okTunnel](images/oktunnel.png " ")
 
-        **NOTE**: if the K8s cluster it's not related to an Oracle Backend for Spring Boot deployment, the tunnel creation will fail. In this case in command palette execute a window reload to chose another cluster. If you have any problem in connection, you could start another tunnel: the plugin will try on another local port to connect to the cluster.
+        **NOTE**: if the K8s cluster it's not related to an Oracle Backend for Spring Boot deployment, the tunnel creation will fail. In this case in command palette execute a window reload too chose another cluster. If you have any problem in connection, you could start another tunnel: the plugin will try on another local port to connect to the cluster.
 
     * Again select the cluster and by clicking the right mouse button choose **Connect** menu item. This will create a session with credentials set at the first step.
 
@@ -154,7 +154,7 @@ Download a copy of the CloudBank sample application.
 
 3. Explore resources
 
-    As soon as completed the steps to create tunnel and you get connected to the backend, it's possible to expand or refresh the tree related to the deployment.
+    As soon as completed the steps to create tunnel, and you get connected to the backend, it's possible to expand or refresh the tree related to the deployment.
 
    ![Browse](images/browse.png " ")
 
@@ -203,7 +203,7 @@ Download a copy of the CloudBank sample application.
 
     ![bind](images/bindsuccessful.png " ")
 
-    Repeate the same for:
+    Repeat the same for:
 
     * **checks** service you have to:
         * **Service Name**: checks
@@ -256,7 +256,7 @@ Download a copy of the CloudBank sample application.
 
         ![uploadstarted](images/upoloadstarted.png " ")
 
-    * Finally you'll receive the message "**Service deployed successfully**":
+    * Finally, you'll receive the message "**Service deployed successfully**":
 
         ![deploysuccess](images/deploysuccess.png " ")
 
@@ -399,4 +399,4 @@ Download a copy of the CloudBank sample application.
 
 * **Author** - Andy Tael, Corrado De Bari, Mark Nelson, Developer Evangelists, Oracle Database
 * **Contributors** - [](var:contributors)
-* **Last Updated By/Date** - Andy Tael, February 2024
+* **Last Updated By/Date** - Andy Tael, March 2024

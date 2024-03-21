@@ -47,15 +47,15 @@ The Oracle Backend for Spring Boot and Microservices can be installed from OCI M
 
 1. Log into your Oracle Cloud Infrastructure account
 
-    You will be taken to a Sign In page. Choose they type of account you have and click on the **Sign In** button. If you did not create an account in the **Get Started** lab, you can do so now using the **Sign Up** button.
+    You will be taken to a Sign-In page. Choose they type of account you have and click on the **Sign In** button. If you did not create an account in the **Get Started** lab, you can do so now using the **Sign Up** button.
 
     ![Sign In page](images/obaas-install-app.png " ")
 
-    Sign into your account as you normally do, using Single Sign-On or Direct Sign-In.
+    Sign in to your account as you normally do, using Single Sign-On or Direct Sign-In.
 
 1. Choose the region and compartment
 
-    In the next screen you can choose the region using the pulldown in the top right hand corner, and then choose the compartment you want to install into.
+    In the next screen you can choose the region using the pull down in the top right hand corner, and then choose the compartment you want to install into.
 
     ![Install screen](images/obaas-install-2.png " ")
 
@@ -81,7 +81,7 @@ The Oracle Backend for Spring Boot and Microservices can be installed from OCI M
 
     * `Application ID` (optional) : Leave blank to auto-generate.
     * `Server Master Key` (optional) : Leave blank to auto-generate.
-    * `Dashboard Username` : The user name of the user to whom access to the dashboard is granted.
+    * `Dashboard Username` : The username of the user to whom access to the dashboard is granted.
     * `Dashboard Password` (optional) : The password of the dashboard user (a minimum of 12 characters). Leave blank to auto-generate.
     * `Enable Parse S3 Storage` : Check the checkbox to enable Parse Server S3 Adaptor and create a S3 compatible Object Storage Bucket.
 
@@ -91,12 +91,12 @@ The Oracle Backend for Spring Boot and Microservices can be installed from OCI M
 
     * `APISIX Administrator Password` (optional) : Leave blank to auto-generate.
     * `Grafana Administrator Password` (optional) : Leave blank to auto-generate.
-    * `ORACTL Administrator Password` optional) : Leave blank to auto-generate. This is the password for the `obaas-admin` user.
+    * `ORACTL Administrator Password` (optional) : Leave blank to auto-generate. This is the password for the `obaas-admin` user.
     * `ORACTL User Password` (optional) : Leave blank to auto-generate. This is the password for the `obaas-user` user.
 
     ![Passwords](images/oci-stack-passwords.png " ")
 
-1. In the **Kubernetes Cluster Options**. fill in the following for the OKE CLusters Options:
+1. In the **Kubernetes Cluster Options**. fill in the following for the OKE Clusters Options:
 
     * `Public API Endpoint?` : For the Live Lba you *must* check the checkbox *Public API Endpoint*
     * `API Endpoint Access` Control : Enter the CIDR block you want to give access to the Control Plane API. Leave the default value 0.0.0.0/0.
@@ -127,7 +127,7 @@ The Oracle Backend for Spring Boot and Microservices can be installed from OCI M
     * `Autonomous Database Network Access` : Choose the Autonomous Database network access. Leave the default value of *SECURE_ACCESS*
     * `ADB Access Control` : Comma separated list of CIDR blocks from which the ADB can be accessed. This only applies if *SECURE_ACCESS* was chosen. Leave default value of `0.0.0.0/0`.
     * `Autonomous Database ECPU Core Count` : Choose how many ECPU cores will be elastically allocated. Leave default value of 2.
-    * `Allow Autonomous Database OCPU Auto Scaling` : Enable auto scaling for the ADB ECPU core count (x3 ADB ECPU). Leave the default value of *un-checked*.
+    * `Allow Autonomous Database OCPU Auto Scaling` : Enable auto-scaling for the ADB ECPU core count (x3 ADB ECPU). Leave the default value of *un-checked*.
     * `Autonomous Database Data Storage Size` : Choose ADB Database Data Storage Size in gigabytes. Leave the default value of *20GB*.
     * `Autonomous Database License Model` : The Autonomous Database license model. Leave the default value of *LICENSE_INCLUDED*.
     * `Create an Object Storage Bucket for ADB?` : Leave the default value of *un-checked*.
@@ -239,7 +239,7 @@ The Oracle Backend for Spring Boot and Microservices can be installed from OCI M
 
 1. Verify you can connect to the Parse Dashboard
 
-    Open a web browser to the Parse Dashboard address that was given at the end of your apply log, for example `https://<IP-ADDRESS>/parse-dashboard`. (You will get a cretificate warning which can be ignored). You can login to the dashboard with the username `ADMIN` (that's case sensitive) and the password you specified during the installation.  
+    Open a web browser to the Parse Dashboard address that was given at the end of your apply log, for example `https://<IP-ADDRESS>/parse-dashboard`. (You will get a certificate warning which can be ignored). Login to the dashboard with the username `ADMIN` (that's case sensitive) and the password you specified during the installation.  
 
     ![Parse Login](images/obaas-parse-login.png " ")
 

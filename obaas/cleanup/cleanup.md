@@ -37,7 +37,7 @@ The Oracle Backend for Spring Boot and Microservices environment was deployed us
 
    ![Destroy Stack](images/destroy-stack.png " ")
 
-4. Confirm that you want to shutdown and destroy the resources
+4. Confirm that you want to shut down and destroy the resources
 
    ![Destroy Stack](images/confirm-destroy.png " ")
 
@@ -59,4 +59,4 @@ Even after the Destroy job has finished there will be one resource left in the t
 
 * **Author** - Andy Tael, Mark Nelson, Developer Evangelists, Oracle Database
 * **Contributors** - [](var:contributors)
-* **Last Updated By/Date** - Andy Tael, February 2024
+* **Last Updated By/Date** - Andy Tael, March 2024

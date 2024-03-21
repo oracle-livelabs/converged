@@ -27,7 +27,7 @@ The following tools are recommended for a development environment:
 If you wish to test locally or offline, the following additional tools are recommended:
 
 - A container platform, e.g., Rancher Desktop
-- An Oracle Database (in a container). If you are using a Apple Silicon environment you can't run the Oracle Database locally. One alternative is to use an ADB in Oracle OCI.
+- An Oracle Database (in a container). If you are using an Apple Silicon environment you can't run the Oracle Database locally. One alternative is to use an ADB in Oracle OCI.
 
 ### Objectives
 
@@ -50,11 +50,11 @@ This lab assumes you have:
    - [Extension Pack for Java](https://marketplace.visualstudio.com/items?itemName=vscjava.vscode-java-pack)
    - [Oracle Developer Tools](https://marketplace.visualstudio.com/items?itemName=Oracle.oracledevtools)
 
-   > **Note**: It is possible to use other Integrated Development Environments however all of the instructions in this Live Lab are written for and tested with Visual Studio Code, so we recommend that you use it for this Live Lab.
+   > **Note**: It is possible to use other Integrated Development Environments however all the instructions in this Live Lab are written for and tested with Visual Studio Code, so we recommend that you use it for this Live Lab.
 
 1. Download and install Visual Studio Code
 
-   Download Visual Studio Code from [this web site](https://code.visualstudio.com/) and run the installer for your operating system to install it on your machine.
+   Download Visual Studio Code from [this website](https://code.visualstudio.com/) and run the installer for your operating system to install it on your machine.
 
    ![Download Visual Studio Code](images/obaas-vscode.png " ")
 
@@ -130,7 +130,7 @@ You can use either Maven or Gradle to build your Spring Boot applications. If yo
 
 If you prefer Gradle, follow the steps in this task.  
 
-> **Note**:  All of the examples in this Live Lab use Maven.  We strongly recommend that you use Maven for this Live Lab.  
+> **Note**:  All the examples in this Live Lab use Maven.  We strongly recommend that you use Maven for this Live Lab.  
 
 1. Download and install Gradle
 
@@ -244,7 +244,7 @@ In later labs, you will look various resources in the Kubernetes cluster and acc
 
 ## Task 7: Configure **kubectl** to access your Kubernetes cluster
 
-At the end of the previous lab, during the verification of the installation, you looked at the end of the apply log and copied a command to obtain a Kubernetes configuration file to access your cluster.  In that lab, you used OCI CLoud Shell to confirm you could access the cluster.  Now, you need to configure similar access from your own development machine.   You can run that same command on your local machine, we recommend that you choose a different location for the file so it does not overwrite or interfere with any other Kubernetes configuration file you might already have on your machine.
+At the end of the previous lab, during the verification of the installation, you looked at the end of the apply log and copied a command to obtain a Kubernetes configuration file to access your cluster.  In that lab, you used OCI CLoud Shell to confirm you could access the cluster.  Now, you need to configure similar access from your own development machine.   You can run that same command on your local machine, we recommend that you choose a different location for the file, so it does not overwrite or interfere with any other Kubernetes configuration file you might already have on your machine.
 
 1. Create the Kubernetes configuration file
 
@@ -437,4 +437,4 @@ If you plan to do the optional part of Lab. 5, you need to install in VS Code th
 
 * **Author** - Mark Nelson, Andy Tael, Developer Evangelist, Oracle Database
 * **Contributors** - [](var:contributors)
-* **Last Updated By/Date** - Andy Tael, February 2024
+* **Last Updated By/Date** - Andy Tael, March 2024
