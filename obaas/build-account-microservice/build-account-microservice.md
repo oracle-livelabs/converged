@@ -1019,7 +1019,7 @@ If you would like to learn more about endpoints and implement the remainder of t
     \_/ |_) (_| (_| __)   \_ |_ _|_
     ========================================================================================
       Application Name: Oracle Backend Platform :: Command Line Interface
-      Application Version: (1.1.1)
+      Application Version: (1.1.3)
       :: Spring Boot (v3.2.1) ::
 
       Ask for help:

@@ -237,7 +237,7 @@ Starting with the account service that you built in the previous lab, you will t
     \_/ |_) (_| (_| __)   \_ |_ _|_
     ========================================================================================
       Application Name: Oracle Backend Platform :: Command Line Interface
-      Application Version: (1.1.1)
+      Application Version: (1.1.3)
       :: Spring Boot (v3.2.1) :: 
       
       Ask for help:
@@ -626,7 +626,7 @@ Next, you will create the "Test Runner" microservice which you will use to simul
     \_/ |_) (_| (_| __)   \_ |_ _|_
     ========================================================================================
       Application Name: Oracle Backend Platform :: Command Line Interface
-      Application Version: (1.1.1)
+      Application Version: (1.1.3)
       :: Spring Boot (v3.2.1) ::
 
       Ask for help:
@@ -1158,7 +1158,7 @@ Next, you will create the "Check Processing" microservice which you will receive
     \_/ |_) (_| (_| __)   \_ |_ _|_
     ========================================================================================
       Application Name: Oracle Backend Platform :: Command Line Interface
-      Application Version: (1.1.1)
+      Application Version: (1.1.3)
       :: Spring Boot (v3.2.1) ::
 
       Ask for help:

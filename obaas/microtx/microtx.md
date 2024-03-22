@@ -1289,7 +1289,7 @@ The services are now completed, and you are ready to deploy them to the Oracle B
     \_/ |_) (_| (_| __)   \_ |_ _|_
     ========================================================================================
       Application Name: Oracle Backend Platform :: Command Line Interface
-      Application Version: (1.1.1)
+      Application Version: (1.1.3)
       :: Spring Boot (v3.2.1) ::
 
       Ask for help:
