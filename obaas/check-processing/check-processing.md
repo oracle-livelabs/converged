@@ -237,7 +237,7 @@ Starting with the account service that you built in the previous lab, you will t
     \_/ |_) (_| (_| __)   \_ |_ _|_
     ========================================================================================
       Application Name: Oracle Backend Platform :: Command Line Interface
-      Application Version: (1.1.1)
+      Application Version: (1.1.3)
       :: Spring Boot (v3.2.1) :: 
       
       Ask for help:
@@ -436,6 +436,7 @@ Next, you will create the "Test Runner" microservice which you will use to simul
         <artifactId>oracle-spring-boot-starter-wallet</artifactId>
         <type>pom</type>
         <version>23.4.0</version>
+      </dependency>
       <dependency>
         <groupId>org.projectlombok</groupId>
         <artifactId>lombok</artifactId>
@@ -626,7 +627,7 @@ Next, you will create the "Test Runner" microservice which you will use to simul
     \_/ |_) (_| (_| __)   \_ |_ _|_
     ========================================================================================
       Application Name: Oracle Backend Platform :: Command Line Interface
-      Application Version: (1.1.1)
+      Application Version: (1.1.3)
       :: Spring Boot (v3.2.1) ::
 
       Ask for help:
@@ -688,13 +689,13 @@ Next, you will create the "Test Runner" microservice which you will use to simul
   The Test Runner service is not exposed outside your Kubernetes cluster, so you must create a port-forwarding tunnel to access it. Create a tunnel using this command:
 
     ```shell
-    $ <copy>kubectl -n application port-forward svc/testrunner 8080</copy>
+    $ <copy>kubectl -n application port-forward svc/testrunner 8084:8080</copy>
     ```
 
   Call the deposit endpoint to send a deposit notification using this command:
 
     ```shell
-    $ <copy>curl -i -X POST -H 'Content-Type: application/json' -d '{"accountId": 2, "amount": 200}' http://localhost:8080/api/v1/testrunner/deposit</copy>
+    $ <copy>curl -i -X POST -H 'Content-Type: application/json' -d '{"accountId": 2, "amount": 200}' http://localhost:8084/api/v1/testrunner/deposit</copy>
     HTTP/1.1 201
     Date: Wed, 31 May 2023 15:11:55 GMT
     Content-Type: application/json
@@ -707,7 +708,7 @@ Next, you will create the "Test Runner" microservice which you will use to simul
   Call the clear endpoint to send a clearance notification using this command. Note that you can use any `journalId` since there is nothing receiving and processing these messages yet:
 
     ```shell
-    $ <copy>curl -i -X POST -H 'Content-Type: application/json' -d '{"journalId": 4}' http://localhost:8080/api/v1/testrunner/clear</copy>
+    $ <copy>curl -i -X POST -H 'Content-Type: application/json' -d '{"journalId": 4}' http://localhost:8084/api/v1/testrunner/clear</copy>
     HTTP/1.1 201
     Date: Wed, 31 May 2023 15:12:54 GMT
     Content-Type: application/json
@@ -1158,7 +1159,7 @@ Next, you will create the "Check Processing" microservice which you will receive
     \_/ |_) (_| (_| __)   \_ |_ _|_
     ========================================================================================
       Application Name: Oracle Backend Platform :: Command Line Interface
-      Application Version: (1.1.1)
+      Application Version: (1.1.3)
       :: Spring Boot (v3.2.1) ::
 
       Ask for help:
@@ -1222,13 +1223,13 @@ Now you can test the full end-to-end flow for the Check Processing scenario.
   The Test Runner service is not exposed outside your Kubernetes cluster, so you must create a port-forwarding tunnel to access it.  Create a tunnel using this command:
 
     ```shell
-    $ <copy>kubectl -n application port-forward svc/testrunner 8080</copy>
+    $ <copy>kubectl -n application port-forward svc/testrunner 8084:8080</copy>
     ```
 
    Simulate a check being deposited at the ATM using the Test Runner service:
 
     ```shell
-    $ <copy>curl -i -X POST -H 'Content-Type: application/json' -d '{"accountId": 2, "amount": 256}' http://localhost:8080/api/v1/testrunner/deposit</copy>
+    $ <copy>curl -i -X POST -H 'Content-Type: application/json' -d '{"accountId": 2, "amount": 256}' http://localhost:8084/api/v1/testrunner/deposit</copy>
     HTTP/1.1 201
     Date: Wed, 31 May 2023 15:11:55 GMT
     Content-Type: application/json
@@ -1277,7 +1278,7 @@ Now you can test the full end-to-end flow for the Check Processing scenario.
   Using the `journalId` you received in the output of the previous command (in this example it is `6`), update and then run this command to simulate the Back Office clearing that check:
 
     ```shell
-    $ <copy>curl -i -X POST -H 'Content-Type: application/json' -d '{"journalId": 6}' http://localhost:8080/api/v1/testrunner/clear</copy>
+    $ <copy>curl -i -X POST -H 'Content-Type: application/json' -d '{"journalId": 6}' http://localhost:8084/api/v1/testrunner/clear</copy>
     HTTP/1.1 201
     Date: Wed, 31 May 2023 15:12:54 GMT
     Content-Type: application/json
