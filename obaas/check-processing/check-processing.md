@@ -436,6 +436,7 @@ Next, you will create the "Test Runner" microservice which you will use to simul
         <artifactId>oracle-spring-boot-starter-wallet</artifactId>
         <type>pom</type>
         <version>23.4.0</version>
+      </dependency>
       <dependency>
         <groupId>org.projectlombok</groupId>
         <artifactId>lombok</artifactId>
