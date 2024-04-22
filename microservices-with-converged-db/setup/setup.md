@@ -85,7 +85,7 @@ Cloud Shell is a small virtual machine running a "bash" shell which you access t
 
 	```
 	<copy>
-	git clone -b 22.7.1 --single-branch https://github.com/oracle/microservices-datadriven.git
+	git clone https://github.com/oracle/microservices-datadriven.git
 	</copy>
 	```
     You should now see the directory `microservices-datadriven` in the directory that you created.
@@ -246,4 +246,4 @@ Search for and join the `oracle-db-microservices` channel.
 * **Adapted for Cloud by** - Nenad Jovicic, Enterprise Strategist, North America Technology Enterprise Architect Solution Engineering Team
 * **Documentation** - Lisa Jamen, User Assistance Developer - Helidon
 * **Contributors** - Jaden McElvey, Technical Lead - Oracle LiveLabs Intern
-* **Last Updated By/Date** - Irina Granat, March 2022
+* **Last Updated By/Date** - Paul Parkinson, 2024
