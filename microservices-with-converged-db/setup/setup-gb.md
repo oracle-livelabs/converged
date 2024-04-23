@@ -148,7 +148,7 @@ Search for and join the `oracle-db-microservices` channel.
 
 ## Acknowledgements
 
-* **Authors** - Paul Parkinson, Dev Lead for Data and Transaction Processing, Oracle Microservices Platform, Helidon; Richard Exley, Consulting Member of Technical Staff, Oracle MAA and Exadata; Irina Granat, Consulting Member of Technical Staff, Oracle MAA and Exadata
+* **Authors** - Paul Parkinson, Architect and Developer Advocate; Richard Exley, Consulting Member of Technical Staff, Oracle MAA and Exadata; Irina Granat, Consulting Member of Technical Staff, Oracle MAA and Exadata
 
 * **Adapted for Cloud by** - Nenad Jovicic, Enterprise Strategist, North America Technology Enterprise Architect Solution Engineering Team
 * **Documentation** - Lisa Jamen, User Assistance Developer - Helidon
