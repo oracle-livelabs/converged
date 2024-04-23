@@ -37,7 +37,7 @@ Quick walk through on how to deploy the microservices on your Kubernetes cluster
 
     ![Pods All After Deploy](images/pods-all-after-deploy.png " ")
 
-    Or, you can execute the `pods` shortcut command:
+    Or, you can execute the `pods` shortcut command.
 
 3. Check that the **ingress-nginx-controller** load balancer service is running, and write down the external IP address.
 

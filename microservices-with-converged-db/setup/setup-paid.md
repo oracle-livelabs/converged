@@ -291,4 +291,4 @@ Search for and join the `oracle-db-microservices` channel.
 * **Adapted for Cloud by** - Nenad Jovicic, Enterprise Strategist, North America Technology Enterprise Architect Solution Engineering Team
 * **Documentation** - Lisa Jamen, User Assistance Developer - Helidon
 * **Contributors** - Jaden McElvey, Technical Lead - Oracle LiveLabs Intern
-* **Last Updated By/Date** - Paul Parkinson, 2024
+* **Last Updated By/Date** - Irina Granat, March 2022

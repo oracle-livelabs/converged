@@ -145,7 +145,7 @@ There are multiple ways to create an Oracle Wallet for ADB.  We will be using Or
       <copy>
       cd $HOME
       pwd
-      wget https://objectstorage.us-ashburn-1.oraclecloud.com/p/ew-K0IQrTXaBF3OeT8NT-q8fMsqFZapho_rpbDelTM4dvibgVxOv0bZRyxk3gc5l/n/c4u04/b/livelabsfiles/o/developer-library/load-atp.sh
+      wget https://c4u04.objectstorage.us-ashburn-1.oci.customer-oci.com/p/EcTjWk2IuZPZeNnD_fYMcgUhdNDIDA6rt9gaFj_WZMiL7VvxPBNMY60837hu5hga/n/c4u04/b/livelabsfiles/o/developer-library/load-atp.sh
       </copy>
       ````
 
@@ -189,7 +189,7 @@ There are multiple ways to create an Oracle Wallet for ADB.  We will be using Or
 
       ````
       <copy>cd /u01/script
-      wget https://objectstorage.us-ashburn-1.oraclecloud.com/p/LNAcA6wNFvhkvHGPcWIbKlyGkicSOVCIgWLIu6t7W2BQfwq2NSLCsXpTL9wVzjuP/n/c4u04/b/livelabsfiles/o/developer-library/env_script_setup_atp.sh
+      wget https://c4u04.objectstorage.us-ashburn-1.oci.customer-oci.com/p/EcTjWk2IuZPZeNnD_fYMcgUhdNDIDA6rt9gaFj_WZMiL7VvxPBNMY60837hu5hga/n/c4u04/b/livelabsfiles/o/developer-library/env_script_setup_atp.sh
       chmod +x env_script_setup_atp.sh
       ./env_script_setup_atp.sh</copy>
       ````
