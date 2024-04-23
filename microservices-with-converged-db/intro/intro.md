@@ -19,7 +19,7 @@ If you would like to watch us do the workshop, click [here](https://youtu.be/yLB
 
 ### Objectives
 
-- Learn about Oracle Database unique abilityty to provide native support for modern data types, key data center components, and the latest development paradigms like Spatial data for location awareness, JSON for document stores, IoT for device integration, in-memory technologies and many more. 
+- Learn about Oracle Database unique ability to provide native support for modern data types, key data center components, and the latest development paradigms like Spatial data for location awareness, JSON for document stores, IoT for device integration, in-memory technologies and many more. 
 - Learn about microservices architecture major tiers - the application tier, the messaging tier, and the database tier - to bring agility, horizontal scale, and robustness to enterprise applications. 
 
 ### Prerequisites
@@ -40,4 +40,4 @@ Search for and join the `oracle-db-microservices` channel.
 * **Authors** - Paul Parkinson, Developer Evangelist; Richard Exley, Consulting Member of Technical Staff, Oracle MAA and Exadata, Rena Granat, Consulting Member of Technical Staff, Oracle MAA and Exadata
 * **Adapted for Cloud by** -  Nenad Jovicic, Enterprise Strategist, North America Technology Enterprise Architect Solution Engineering Team
 * **Contributors** - Jaden McElvey, Technical Lead - Oracle LiveLabs Intern
-* **Last Updated By/Date** - Irina Granat, March 2022
+* **Last Updated By/Date** - Paul Parkinson, 2024
