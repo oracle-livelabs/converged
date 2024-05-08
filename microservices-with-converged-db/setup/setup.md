@@ -57,6 +57,14 @@ Cloud Shell is a small virtual machine running a "bash" shell which you access t
 
   ![Oracle Cloud Infrastructure Cloud Shell Opening](images/open-cloud-shell.png " ")
 
+  Select the x86 architecture for the shell by going to the upper left of the shell and clicking `Architecture`
+
+  ![Oracle Cloud Infrastructure Cloud Shell Opening](images/cloudshellselectarchitecture.png " ")
+
+  Then select the x86 architecture for the shell and restart.
+
+  ![Oracle Cloud Infrastructure Cloud Shell Opening](images/cloudshellarchitecture-confirmandrestart.png " ")
+
   > **Note:** Cloud Shell uses websockets to communicate between your browser and the service. If your browser has websockets disabled or uses a corporate proxy that has websockets disabled you will see an error message ("An unexpected error occurred") when attempting to start Cloud Shell from the console. You also can change the browser cookies settings for a specific site to allow the traffic from *.oracle.com
 
 ## Task 5: Create a Folder to Contain the Workshop Code
@@ -85,7 +93,7 @@ Cloud Shell is a small virtual machine running a "bash" shell which you access t
 
 	```
 	<copy>
-	git clone https://github.com/oracle/microservices-datadriven.git
+	git clone https://github.com/oracle-devrel/microservices-datadriven.git
 	</copy>
 	```
     You should now see the directory `microservices-datadriven` in the directory that you created.
@@ -234,11 +242,6 @@ The setup will provision the following resources in your tenancy:
 	```
 
 You may now proceed to the next lab.
-
-## Learn More
-
-* Ask for help and connect with developers on the [Oracle DB Microservices Slack Channel](https://bit.ly/oracle-database-microservices-slack)   
-Search for and join the `oracle-db-microservices` channel.
 
 ## Acknowledgements
 
