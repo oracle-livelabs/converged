@@ -222,12 +222,12 @@ Oracle Backend for Spring Boot and Microservices includes an Oracle Autonomous D
 
    In the SQL Worksheet, you can the first pull down list in the **Navigator** on the left hand side to see the users and schema in the database.  Choose the **CONFIGSERVER** user to view tables (or other objects) for that user.  This is the user associated with the Spring Config Server.
 
-   Execute this query to view tables associated with various Spring Boot services:
+   Execute this query to view tables associated with various Spring Boot services and the CloudBank:
 
     ```sql
     <copy>select owner, table_name
-    from dba_tables
-    where owner in ('CUSTOMER', 'FRAUD', 'ACCOUNT',  'USER', 'CONFIGSERVER')</copy>
+   from dba_tables
+   where owner in ('ACCOUNT', 'CUSTOMER', 'CONFIGSERVER', 'AZNSERVER')</copy>
     ```  
 
    ![Tables associated with Spring Boot services](images/obaas-adb-5.png)
