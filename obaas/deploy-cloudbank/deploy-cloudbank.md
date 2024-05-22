@@ -235,7 +235,7 @@ To be able to access the CLoudBank services from the public internet we need exp
 1. Create tunnel to APISIX
 
     ```shell
-    kubectl port-forward -n apisix svc/apisix-admin 9180
+    <copy>kubectl port-forward -n apisix svc/apisix-admin 9180</copy>
     ```
 
 1. Create the routes
@@ -243,7 +243,7 @@ To be able to access the CLoudBank services from the public internet we need exp
     In the `root` directory run the following command. *NOTE*, you must add your API-KEY to the command:
 
     ```shell
-    (cd apisix-routes; source ./create-all-routes.sh <YOUR-API-KEY>)
+    <copy>(cd apisix-routes; source ./create-all-routes.sh <YOUR-API-KEY>)</copy>
     ```
 
     The script will create the following routes:
@@ -263,7 +263,7 @@ To be able to access the CLoudBank services from the public internet we need exp
         Retrieve the password for the APISIX dashboard using this command:
 
         ```shell
-        kubectl get secret apisix-dashboard -n apisix -o jsonpath='{.data.conf\.yaml}' | base64 --decode</copy>
+        <copy>kubectl get secret apisix-dashboard -n apisix -o jsonpath='{.data.conf\.yaml}' | base64 --decode</copy>
         ```
 
     1. Start the tunnel in a new terminal window using this command.
