@@ -117,7 +117,7 @@ You can use either Maven or Gradle to build your Spring Boot applications. If yo
     $ <copy>mvn -v</copy>
     Apache Maven 3.8.6 (84538c9988a25aec085021c365c560670ad80f63)
     Maven home: /home/mark/apache-maven-3.8.6
-    Java version: 17.0.3, vendor: Oracle Corporation, runtime: /home/mark/jdk-17.0.3
+    Java version: 21.0.3, vendor: Oracle Corporation, runtime: /home/mark/jdk-21.0.3
     Default locale: en, platform encoding: UTF-8
     OS name: "linux", version: "5.10.102.1-microsoft-standard-wsl2", arch: "amd64", family: "unix"
     ```
