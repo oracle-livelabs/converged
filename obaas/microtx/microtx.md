@@ -107,7 +107,7 @@ You will update the Account service that you built in the previous lab to add so
       <dependency>
         <groupId>com.oracle.microtx.lra</groupId>
         <artifactId>microtx-lra-spring-boot-starter</artifactId>
-        <version>24.2.1</version>
+        <version>23.4.2</version>
       </dependency>
       </copy>
       ```
@@ -927,7 +927,7 @@ Now, you will create another new Spring Boot microservice application and implem
     <dependency>
       <groupId>com.oracle.microtx.lra</groupId>
       <artifactId>microtx-lra-spring-boot-starter</artifactId>
-      <version>24.2.1</version>
+      <version>23.4.2</version>
     </dependency>
     <dependency>
       <groupId>org.projectlombok</groupId>
