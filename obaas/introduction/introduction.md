@@ -4,9 +4,7 @@
 
 In this workshop you will learn how to build microservices using Spring Boot and deploy them to the Oracle Backend for Spring Boot and Microservices. You'll learn about accessing the database using JPA, service discovery, exposing services with the API Gateway, managing transactions across microservices, workflow, and using observability tools to monitor your services and diagnose issues.
 
-Learn more about this workshop by watching this short introductory video:  [](youtube:n5yJd7bEcy8)
-
-Estimated Workshop Time: 1 hour 30 minutes
+Estimated Workshop Time: 2 hour 30 minutes
 
 ### Objectives
 
@@ -37,4 +35,4 @@ This lab assumes you have:
 
 * **Author** - Mark Nelson, Developer Evangelist, Oracle Database
 * **Contributors** - [](var:contributors)
-* **Last Updated By/Date** - Andy Tael, June 2024
+* **Last Updated By/Date** - Andy Tael, July 2024
