@@ -52,11 +52,10 @@ Even after the Destroy job has finished there will be one resource left in the t
 ## Learn More
 
 * [Oracle Backend for Spring Boot and Microservices](http://bit.ly/oraclespringboot/)
-* [Oracle Backend for Parse Platform](https://oracle.github.io/microservices-datadriven/mbaas/)
 * [Oracle Cloud Infrastructure Resource Manager](https://docs.oracle.com/en-us/iaas/Content/ResourceManager/home.htm#top)
 
 ## Acknowledgements
 
 * **Author** - Andy Tael, Mark Nelson, Developer Evangelists, Oracle Database
 * **Contributors** - [](var:contributors)
-* **Last Updated By/Date** - Andy Tael, March 2024
+* **Last Updated By/Date** - Andy Tael, June 2024
