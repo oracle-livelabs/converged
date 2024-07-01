@@ -1,5 +1,5 @@
 {
-    "workshoptitle": "CloudBank - Building an App with Spring Boot and Mobile APIs with Oracle Database and Kubernetes",
+    "workshoptitle": "CloudBank - Building an App with Spring Boot, Oracle Database and Kubernetes",
     "variables": ["../../variables/variables.json"],
     "help": "obaas_ww@oracle.com",
     "tutorials": [
