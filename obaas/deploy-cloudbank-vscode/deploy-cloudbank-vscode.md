@@ -32,7 +32,7 @@ Download a copy of the CloudBank sample application.
     Create a local clone of the CloudBank source repository using this command.
 
     ```shell
-    <copy>git clone -b OBAAS-1.1.3 https://github.com/oracle/microservices-datadriven.git</copy>
+    <copy>git clone -b OBAAS-1.2.0 https://github.com/oracle/microservices-datadriven.git</copy>
     ```
 
     > **Note**: If you do not have **git** installed on your machine, you can download a zip file of the source code from [GitHub](https://github.com/oracle/microservices-datadriven) and unzip it on your machine instead.
@@ -390,7 +390,6 @@ Download a copy of the CloudBank sample application.
 ## Learn More
 
 * [Oracle Backend for Spring Boot](https://bit.ly/oraclespringboot)
-* [Oracle Backend for Parse Platform](https://oracle.github.io/microservices-datadriven/mbaas/)
 * [Kubernetes](https://kubernetes.io/docs/home/)
 * [Apache APISIX](https://apisix.apache.org)
 * [Oracle Cloud Infrastructure](https://docs.oracle.com/en-us/iaas/Content/home.htm)
@@ -399,4 +398,4 @@ Download a copy of the CloudBank sample application.
 
 * **Author** - Andy Tael, Corrado De Bari, Mark Nelson, Developer Evangelists, Oracle Database
 * **Contributors** - [](var:contributors)
-* **Last Updated By/Date** - Andy Tael, March 2024
+* **Last Updated By/Date** - Andy Tael, June 2024

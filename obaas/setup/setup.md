@@ -27,14 +27,13 @@ The following tools are recommended for a development environment:
 If you wish to test locally or offline, the following additional tools are recommended:
 
 - A container platform, e.g., Rancher Desktop
-- An Oracle Database (in a container). If you are using an Apple Silicon environment you can't run the Oracle Database locally. One alternative is to use an ADB in Oracle OCI.
+- An Oracle Database (in a container).
 
 ### Objectives
 
 In this lab, you will:
 
 - Install the tools needed to develop and deploy applications using Oracle Backend for Spring Boot and Microservices
-- (Optional) Install the tools needed to develop mobile and/or web applications using Oracle Backend for Spring Boot and Microservices (including Parse Platform)
 
 ### Prerequisites
 
@@ -66,33 +65,30 @@ This lab assumes you have:
 
 ## Task 2: Install a Java Development Kit
 
-   Oracle recommends the [Java SE Development Kit](https://www.oracle.com/java/technologies/downloads/#java17).
-   If you are using Spring Boot version 2.x, then Java 11 is recommended.
-   If you are using Spring Boot version 3.x, then Java 17 is recommended, note that Spring Boot 3.0 requires at least Java 17.
-
-   Even if you are using Spring Boot 2.x, Oracle encourages you to use at least Java 17, unless you have a specific reason to stay on Java 11.
+   Oracle recommends the [Java SE Development Kit](https://www.oracle.com/java/technologies/downloads/#java21).
+   The lab is using Spring Boot 3.3.x so Java 21 is required.
 
 1. Download and install the Java Development Kit
 
-   Download the latest x64 Java 17 Development Kit from [this permalink](https://download.oracle.com/java/17/latest/jdk-17_linux-x64_bin.tar.gz).
+   Download the latest x64 Java 21 Development Kit from [Java SE Development Kit](https://www.oracle.com/java/technologies/downloads/#java21).
 
-   Decompress the archive in your chosen location, e.g., your home directory and then add it to your path:
+   Decompress the archive in your chosen location, e.g., your home directory and then add it to your path (the exact version of Java might differ in your environment):
 
     ```shell
     <copy>
-    export JAVA_HOME=$HOME/jdk-17.0.3
+    export JAVA_HOME=$HOME/jdk-21.0.3
     export PATH=$JAVA_HOME/bin:$PATH</copy>
     ```
 
 2. Verify the installation
 
-   Verify the Java Development Kit is installed with this command:
+   Verify the Java Development Kit is installed with this command (the exact version of Java might differ in your environment):
 
     ```shell
     $ <copy>java -version</copy>
-    java version "17.0.3" 2022-04-19 LTS
-    Java(TM) SE Runtime Environment (build 17.0.3+8-LTS-111)
-    Java HotSpot(TM) 64-Bit Server VM (build 17.0.3+8-LTS-111, mixed mode, sharing)
+    java version "21.0.3" 2022-04-19 LTS
+    Java(TM) SE Runtime Environment (build 21.0.3+8-LTS-111)
+    Java HotSpot(TM) 64-Bit Server VM (build 21.0.3+8-LTS-111, mixed mode, sharing)
     ```
 
     > **Note: Native Images:** If you want to compile your Spring Boot microservices into native images, you must use GraalVM, which can be downloaded [from here](https://www.graalvm.org/downloads/).
@@ -107,7 +103,7 @@ You can use either Maven or Gradle to build your Spring Boot applications. If yo
 
 2. Install Maven
 
-   Decompress the archive in your chosen location, e.g., your home directory and then add it to your path:
+   Decompress the archive in your chosen location, e.g., your home directory and then add it to your path (the exact version of maven might differ in your environment):
 
     ```shell
     $ <copy>export PATH=$HOME/apache-maven-3.8.6/bin:$PATH</copy>
@@ -121,49 +117,18 @@ You can use either Maven or Gradle to build your Spring Boot applications. If yo
     $ <copy>mvn -v</copy>
     Apache Maven 3.8.6 (84538c9988a25aec085021c365c560670ad80f63)
     Maven home: /home/mark/apache-maven-3.8.6
-    Java version: 17.0.3, vendor: Oracle Corporation, runtime: /home/mark/jdk-17.0.3
+    Java version: 21.0.3, vendor: Oracle Corporation, runtime: /home/mark/jdk-21.0.3
     Default locale: en, platform encoding: UTF-8
     OS name: "linux", version: "5.10.102.1-microsoft-standard-wsl2", arch: "amd64", family: "unix"
     ```
 
-## Task 4: Install Gradle (Optional)
-
-If you prefer Gradle, follow the steps in this task.  
-
-> **Note**:  All the examples in this Live Lab use Maven.  We strongly recommend that you use Maven for this Live Lab.  
-
-1. Download and install Gradle
-
-   Download Gradle using [the instructions on the Gradle website](https://gradle.org/install/).  Spring Boot is compatible with Gradle version 7.5 or later.
-
-2. Verify the installation
-
-   Run the command below to verify Gradle was installed correctly:
-
-    ```shell
-    $ <copy>gradle -v</copy>
-       
-    ------------------------------------------------------------
-    Gradle 7.6
-    ------------------------------------------------------------
-       
-    Build time:   2022-11-25 13:35:10 UTC
-    Revision:     daece9dbc5b79370cc8e4fd6fe4b2cd400e150a8
-       
-    Kotlin:       1.7.10
-    Groovy:       3.0.13
-    Ant:          Apache Ant(TM) version 1.10.11 compiled on July 10 2021
-    JVM:          17.0.3 (Oracle Corporation 17.0.3+8-LTS-111)
-    OS:           Linux 5.10.102.1-microsoft-standard-WSL2 amd64
-    ```
-
-## Task 5: Install the Oracle Backend for Spring Boot and Microservices CLI (*oractl*)
+## Task 4: Install the Oracle Backend for Spring Boot and Microservices CLI (*oractl*)
 
 The Oracle Backend for Spring Boot CLI is used to configure your backend and to deploy your Spring Boot applications to the backend.
 
 1. Download the Oracle Backend for Spring Boot and Microservices CLI (*oractl*)
 
-   Download the CLI from [here](https://github.com/oracle/microservices-datadriven/releases/tag/OBAAS-1.1.3)
+   Download the CLI from [here](https://github.com/oracle/microservices-datadriven/releases/tag/OBAAS-1.2.0)
 
 2. Install the Oracle Backend for Spring Boot and Microservices CLI (*oractl*)
 
@@ -179,21 +144,26 @@ The Oracle Backend for Spring Boot CLI is used to configure your backend and to 
 
 3. Verify the installation
 
-  Verify the CLI is installed using this command:
+   Verify the CLI is installed using this command:
 
-    ```shell
-    $ <copy>oractl version</copy>
+      ```shell
+         $ <copy>oractl version</copy>
        _   _           __    _    ___
       / \ |_)  _.  _. (_    /  |   |
       \_/ |_) (_| (_| __)   \_ |_ _|_
-      Application Version: 0.3.1
-      :: Spring Boot (v3.0.0) ::
+      ===================================================================
+      Application Name: Oracle Backend Platform :: Command Line Interface
+      Application Version: (1.2.0)
+      :: Spring Boot (v3.3.0) ::
 
+      Ask for help:
+         - Slack: https://oracledevs.slack.com/archives/C06L9CDGR6Z
+         - email: obaas_ww@oracle.com
 
-      Build Version: 0.3.1
-     ```
+      Build Version: 1.2.0
+      ```
 
-## Task 6: Install **kubectl** and the OCI CLI
+## Task 5: Install **kubectl** and the OCI CLI
 
 In later labs, you will look various resources in the Kubernetes cluster and access some of them using port forwarding (tunneling).  To do this, you will need to install **kubectl** on your machine, and since Oracle Container Engine for Kubernetes uses token based authentication for **kubectl** access, you will also need to install the OCI CLI so that **kubectl** can obtain the necessary token.
 
@@ -242,7 +212,7 @@ In later labs, you will look various resources in the Kubernetes cluster and acc
     }
     ```
 
-## Task 7: Configure **kubectl** to access your Kubernetes cluster
+## Task 6: Configure **kubectl** to access your Kubernetes cluster
 
 At the end of the previous lab, during the verification of the installation, you looked at the end of the apply log and copied a command to obtain a Kubernetes configuration file to access your cluster.  In that lab, you used OCI CLoud Shell to confirm you could access the cluster.  Now, you need to configure similar access from your own development machine.   You can run that same command on your local machine, we recommend that you choose a different location for the file, so it does not overwrite or interfere with any other Kubernetes configuration file you might already have on your machine.
 
@@ -274,7 +244,7 @@ At the end of the previous lab, during the verification of the installation, you
 
    Your output will be slightly different, but you should see one pod listed in the output.  This is enough to confirm that you have correctly configured access to the Kubernetes cluster.
 
-## Task 8: Install **SQLcl**
+## Task 7: Install **SQLcl**
 
 1. (Optional) Install SQLcl
 
@@ -286,7 +256,7 @@ At the end of the previous lab, during the verification of the installation, you
       <copy>export PATH=/path/to/sqlcl:$PATH</copy>
       ```
 
-## Task 9: Getting Database Access
+## Task 8: Getting Database Access
 
 The Oracle Backend for Spring Boot and Microservices includes an Oracle Database. An instance of an Oracle Autonomous Database (Shared) is created during installation.
 
@@ -384,29 +354,11 @@ To access the database from a local machine you need to download the wallet and 
 
     You can now close the connection or leave it open as you are going to need it in later Labs.
 
-## (Optional) Task 10: Install Flutter
-
-If you plan to complete the Mobile App Development lab, you will need to install Flutter.  This is not required if you are only going to complete the Spring Boot labs.
-
-1. Install Flutter
-
-   Visit the [Flutter installation page](https://docs.flutter.dev/get-started/install) and click on your platform.  Follow the instructions to download and install the Flutter SDK, and run Flutter Doctor to identify and resolve any issues.
-
-   Make sure you also install the Visual Studio extension.
-
-2. (Optional) Install Android Studio or XCode
-
-   The CloudBank sample application that you will extend in the last lab can run on Android or iOS devices, or just in a web browser on your computer.  If you want to run it in a web browser, nothing more is needed.
-
-   If you prefer to run the application in a device emulator (or on a real device) you will need to install Android Studio, or XCode.  Follow the instructions on the Flutter installation page (the same page you just used to install the Flutter SDK) to install your chosen IDE and emulator.
-
-   If you are installing Android Studio or XCode for the first time, you should also follow the instructions to create a device emulator instance.
-
-## (Optional) Task 11: Oracle Backend for Spring Boot and Microservices VS Code plugin
+## (Optional) Task 9: Oracle Backend for Spring Boot and Microservices VS Code plugin
 
 If you plan to do the optional part of Lab. 5, you need to install in VS Code the Oracle Backend for Spring Boot and Microservices VS Code plugin. It is an extension to browse and deploy applications on the Oracle Backend for Spring Boot and Microservices platform. This plugin allows to inspect the content of an Oracle Backend for Spring Boot and Microservices deployment, in terms of applications, services and related configurations.
 
-1. Download the plug-in from [here](https://github.com/oracle/microservices-datadriven/releases/tag/OBAAS-1.1.3).
+1. Download the plug-in from [here](https://github.com/oracle/microservices-datadriven/releases/tag/OBAAS-1.2.0).
 
 2. On the VS Code right menu bar, click on **Extensions** item:
 
@@ -431,10 +383,9 @@ If you plan to do the optional part of Lab. 5, you need to install in VS Code th
 ## Learn More
 
 * [Oracle Backend for Spring Boot and Microservices](https://bit.ly/oraclespringboot)
-* [Oracle Backend for Parse Platform](https://oracle.github.io/microservices-datadriven/mbaas/)
 
 ## Acknowledgements
 
 * **Author** - Mark Nelson, Andy Tael, Developer Evangelist, Oracle Database
 * **Contributors** - [](var:contributors)
-* **Last Updated By/Date** - Andy Tael, March 2024
+* **Last Updated By/Date** - Andy Tael, July 2024

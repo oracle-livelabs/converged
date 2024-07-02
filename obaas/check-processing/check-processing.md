@@ -237,8 +237,8 @@ Starting with the account service that you built in the previous lab, you will t
     \_/ |_) (_| (_| __)   \_ |_ _|_
     ========================================================================================
       Application Name: Oracle Backend Platform :: Command Line Interface
-      Application Version: (1.1.3)
-      :: Spring Boot (v3.2.1) :: 
+      Application Version: (1.2.0)
+      :: Spring Boot (v3.3.0) ::
       
       Ask for help:
       - Slack: https://oracledevs.slack.com/archives/C03ALDSV272 
@@ -384,7 +384,7 @@ Next, you will create the "Test Runner" microservice which you will use to simul
 
   ![Maven Project](images/maven-project.png " ")
 
-  Specify `3.2.1` as the Spring Boot version.
+  Specify `3.3.1` as the Spring Boot version.
 
   ![Spring Boot Version](images/spring-boot-version.png " ")
 
@@ -400,7 +400,7 @@ Next, you will create the "Test Runner" microservice which you will use to simul
 
   ![Packaging Type](images/packaging-type.png " ")
 
-  Select Java version `17`.
+  Select Java version `21`.
 
   ![Java Version](images/java-version.png " ")
 
@@ -627,8 +627,8 @@ Next, you will create the "Test Runner" microservice which you will use to simul
     \_/ |_) (_| (_| __)   \_ |_ _|_
     ========================================================================================
       Application Name: Oracle Backend Platform :: Command Line Interface
-      Application Version: (1.1.3)
-      :: Spring Boot (v3.2.1) ::
+      Application Version: (1.2.0)
+      :: Spring Boot (v3.3.0) ::
 
       Ask for help:
       - Slack: https://oracledevs.slack.com/archives/C03ALDSV272
@@ -760,7 +760,7 @@ Next, you will create the "Check Processing" microservice which you will receive
 
   ![Maven Project](images/maven-project.png " ")
 
-  Specify `3.2.1` as the Spring Boot version.
+  Specify `3.3.1` as the Spring Boot version.
 
   ![Spring Boot Version](images/spring-boot-version.png " ")
 
@@ -776,7 +776,7 @@ Next, you will create the "Check Processing" microservice which you will receive
 
   ![Packaging Type](images/packaging-type.png " ")
 
-  Select Java version `17`.
+  Select Java version `21`.
 
   ![Java Version](images/java-version.png " ")
 
@@ -1159,8 +1159,8 @@ Next, you will create the "Check Processing" microservice which you will receive
     \_/ |_) (_| (_| __)   \_ |_ _|_
     ========================================================================================
       Application Name: Oracle Backend Platform :: Command Line Interface
-      Application Version: (1.1.3)
-      :: Spring Boot (v3.2.1) ::
+      Application Version: (1.2.0)
+      :: Spring Boot (v3.3.0) ::
 
       Ask for help:
       - Slack: https://oracledevs.slack.com/archives/C03ALDSV272
@@ -1319,7 +1319,6 @@ Now you can test the full end-to-end flow for the Check Processing scenario.
 ## Learn More
 
 * [Oracle Backend for Spring Boot and Microservices](https://bit.ly/oraclespringboot)
-* [Oracle Backend for Parse Platform](https://oracle.github.io/microservices-datadriven/mbaas/)
 * [Kubernetes](https://kubernetes.io/docs/home/)
 * [Apache APISIX](https://apisix.apache.org)
 * [Oracle Cloud Infrastructure](https://docs.oracle.com/en-us/iaas/Content/home.htm)
@@ -1329,4 +1328,4 @@ Now you can test the full end-to-end flow for the Check Processing scenario.
 
 * **Author** - Mark Nelson, Developer Evangelist, Oracle Database
 * **Contributors** - [](var:contributors)
-* **Last Updated By/Date** - Andy Tael, March 2024
+* **Last Updated By/Date** - Andy Tael, July 2024

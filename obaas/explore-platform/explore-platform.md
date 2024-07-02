@@ -2,7 +2,7 @@
 
 ## Introduction
 
-This lab walks you through various features of Oracle Backend for Spring Boot and Microservices, including Parse Platform, and shows you how to use them.
+This lab walks you through various features of Oracle Backend for Spring Boot and Microservices, and shows you how to use them.
 
 Estimated Time: 20 minutes
 
@@ -89,8 +89,6 @@ Oracle Backend for Spring Boot and Microservices includes a number of platform s
       * `open-telemetry` contains the Open Telemetry Collector which is used to collect distributed tracing information for your services
       * `oracle-database-operator-system` contains the Oracle Database Operator for Kubernetes which can be used to manage Oracle Databases in Kubernetes environments
       * `otmm` contains Oracle Transaction Manager for Microservices which is used to manage transactions across services
-      * `parse-dashboard` contains the Parse Dashboard
-      * `parse` contains the Parse Server
       * `prometheus` contains Prometheus which collects metrics about your services and makes the available to Grafana for alerting and dashboards
       * `vault` contains HashiCorp Vault which can be used to store secret or sensitive information for services, like credentials for example
 
@@ -213,7 +211,7 @@ Oracle Backend for Spring Boot and Microservices includes an Oracle Autonomous D
 
    ![Details of Oracle Autonomous Database instance](images/obaas-adb-2.png " ")
 
-   You can manage scaling from here by clicking on the **Manage scaling** button which will open this form where you can adjust the OCPU and storage for the Autonomous Database instance.  
+   You can manage scaling from here by clicking on the **Manage resource allocation** button which will open this form where you can adjust the ECPU and storage for the Autonomous Database instance.  
 
    ![Manage scaling](images/obaas-adb-2a.png " ")
 
@@ -419,10 +417,9 @@ Jaeger provides a way to view the distributed tracing information that is automa
 ## Learn More
 
 * [Oracle Backend for Spring Boot and Microservices](https://oracle.github.io/microservices-datadriven/spring/)
-* [Oracle Backend for Parse Platform](https://oracle.github.io/microservices-datadriven/mbaas/)
 
 ## Acknowledgements
 
 * **Author** - Mark Nelson, Andy Tael, Developer Evangelist, Oracle Database
 * **Contributors** - [](var:contributors)
-* **Last Updated By/Date** - Andy Tael, May 2024
+* **Last Updated By/Date** - Andy Tael, July 2024

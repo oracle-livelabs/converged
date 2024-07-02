@@ -63,7 +63,7 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
 
 1. Choose Java Version
 
-   Next, you will be asked what version of Java to use. Select **17** from the list of options.  Technically you could use an earlier version of Java with Spring Boot 2.7.x, however the lab instructions assume you are using Java 17, so it is better to choose that to avoid issues during this lab.  Note that Spring Boot 3.0 requires Java 17 as the minimum level.
+   Next, you will be asked what version of Java to use. Select **21** from the list of options.
 
    ![Specify Java version](images/obaas-spring-init-7.png " ")
 
@@ -1019,8 +1019,8 @@ If you would like to learn more about endpoints and implement the remainder of t
     \_/ |_) (_| (_| __)   \_ |_ _|_
     ========================================================================================
       Application Name: Oracle Backend Platform :: Command Line Interface
-      Application Version: (1.1.3)
-      :: Spring Boot (v3.2.1) ::
+      Application Version: (1.2.0)
+      :: Spring Boot (v3.3.0) ::
 
       Ask for help:
       - Slack: https://oracledevs.slack.com/archives/C03ALDSV272
@@ -1198,7 +1198,6 @@ Now that the account service is deployed, you need to expose it through the API 
 ## Learn More
 
 * [Oracle Backend for Spring Boot and Microservices](https://bit.ly/oraclespringboot)
-* [Oracle Backend for Parse Platform](https://oracle.github.io/microservices-datadriven/mbaas/)
 * [Kubernetes](https://kubernetes.io/docs/home/)
 * [Apache APISIX](https://apisix.apache.org)
 * [Oracle Cloud Infrastructure](https://docs.oracle.com/en-us/iaas/Content/home.htm)
@@ -1207,4 +1206,4 @@ Now that the account service is deployed, you need to expose it through the API 
 
 * **Author** - Andy Tael, Mark Nelson, Developer Evangelists, Oracle Database
 * **Contributors** - [](var:contributors)
-* **Last Updated By/Date** - Andy Tael, March 2024
+* **Last Updated By/Date** - Andy Tael, July 2024
