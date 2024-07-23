@@ -453,18 +453,11 @@ In this task you will create a new APEX app for analytics purpouse based on an e
 
 You may now proceed to the next lab.
 
-
 ## Learn More
 
-* Ask for help and connect with developers on the [Oracle DB Microservices Slack Channel](https://bit.ly/oracle-database-microservices-slack)  
-Search for and join the `oracle-db-microservices` channel.
-
+* [Oracle Database](https://bit.ly/mswsdatabase)
 
 ## Acknowledgements
-* **Author** - Paul Parkinson, Developer Evangelist;
-               Richard Exley, Consulting Member of Technical Staff, Oracle MAA and Exadata;
-               Corrado De Bari, Developer Evangelist
-* **Adapted for Cloud by** - Nenad Jovicic, Enterprise Strategist, North America Technology Enterprise Architect Solution Engineering Team
-* **Documentation** - Lisa Jamen, User Assistance Developer - Helidon
-* **Contributors** - Jaden McElvey, Technical Lead - Oracle LiveLabs Intern
-* **Last Updated By/Date** - Kamryn Vinson, June 2022
+* **Authors** - Paul Parkinson, Architect and Developer Advocate
+* **Last Updated By/Date** - Paul Parkinson, 2024
+

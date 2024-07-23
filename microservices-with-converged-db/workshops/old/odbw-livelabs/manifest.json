@@ -2,22 +2,23 @@
   "workshoptitle": "Simplify Microservices with Converged Oracle Database",
   "help": "livelabs-help-db_us@oracle.com",
 	"tutorials": [
-      {
+     {
         "title": "Introduction",
-        "filename": "../../intro/intro.md",
-        "type": "odbw"
-      },
-      {
+        "type": "odbw",
+        "filename": "../../intro/intro.md"
+     },
+     {
         "title": "Get Started",
+        "description": "Login to Oracle Cloud",
         "filename": "https://oracle-livelabs.github.io/common/labs/cloud-login/cloud-login-livelabs2.md"
       },
       {
         "title": "Lab 1: Setup",
-        "filename": "../../setup/setup.md"
+        "filename": "../../setup/setup-gb.md"
       },
       {
         "title": "Lab 2: Data-Centric Microservices Walkthrough with Helidon MP",
-        "filename": "../../walkthrough-helidon/walkthrough-helidon.md"
+        "filename": "../../walkthrough-microservices/walkthrough-microservices.md"
       },
       {
         "title": "Lab 3: Polyglot Microservices",
@@ -32,7 +33,7 @@
         "filename": "../../observability/observability.md"
       },
       {
-        "title": "Lab 6: Create an APEX App to View and Update Data",
+        "title": "Lab 6: Create an APEX App to View and Update the Data",
         "filename": "../../apex/apex.md"
       },
       {
@@ -40,13 +41,9 @@
         "filename": "../../transactional/transactional.md"
       },
       {
-        "title": "Lab 8: Tear Down",
-        "filename": "../../teardown/teardown.md"
-      },
-      {
         "title": "Need Help?",
-        "description": "Solutions to Common Problems and Directions for Receiving Live Help",
-        "filename":"https://oracle-livelabs.github.io/common/labs/need-help/need-help-freetier.md"
+        "description": "Solutions to Common Problems and Directions for Rreceiving Live Help",
+        "filename":"https://oracle-livelabs.github.io/common/labs/need-help/need-help-livelabs.md"
       }
     ]
 }

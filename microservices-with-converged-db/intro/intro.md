@@ -10,7 +10,7 @@ Estimated Workshop Time: 75 minutes
 
 ### About Product/Technology
 
-Helidon microservices with Javascript front-end will be deployed on Oracle Cloud Infrastructure Kubernetes cluster (OKE) and access pluggable Oracle Autonomous Transaction Processing databases. REST and messaging are being used for communication 
+Backend microservices and a Javascript front-end will be deployed on Oracle Cloud Infrastructure Kubernetes cluster (OKE) and access pluggable Oracle Autonomous Transaction Processing databases. REST and messaging are being used for communication 
 
 ![Microservices Architecture](./images/architecture.png " ")
 
@@ -26,18 +26,10 @@ If you would like to watch us do the workshop, click [here](https://youtu.be/yLB
 
  - An Oracle Cloud Account - Please view this workshop's LiveLabs landing page to see which environments are supported.
 
-## Want to Learn More?
+## Learn More
 
-* Ask for help and connect with developers on the [Oracle DB Microservices Slack Channel](https://bit.ly/oracle-database-microservices-slack) 
-Search for and join the `oracle-db-microservices` channel.  
-
-* [Multitenant Database–Oracle 19c](https://www.oracle.com/database/technologies/multitenant.html)
-* [Oracle Advanced Queuing](https://docs.oracle.com/en/database/oracle/oracle-database/19/adque/aq-introduction.html)
-* [Microservices Architecture with the Oracle Database](https://www.oracle.com/technetwork/database/availability/trn5515-microserviceswithoracle-5187372.pdf)
-* [https://developer.oracle.com/](https://developer.oracle.com/)
+* [Oracle Database](https://bit.ly/mswsdatabase)
 
 ## Acknowledgements
-* **Authors** - Paul Parkinson, Developer Evangelist; Richard Exley, Consulting Member of Technical Staff, Oracle MAA and Exadata, Rena Granat, Consulting Member of Technical Staff, Oracle MAA and Exadata
-* **Adapted for Cloud by** -  Nenad Jovicic, Enterprise Strategist, North America Technology Enterprise Architect Solution Engineering Team
-* **Contributors** - Jaden McElvey, Technical Lead - Oracle LiveLabs Intern
+* **Authors** - Paul Parkinson, Architect and Developer Advocate
 * **Last Updated By/Date** - Paul Parkinson, 2024

@@ -17,7 +17,7 @@
       },
       {
         "title": "Lab 2: Data-Centric Microservices Walkthrough with Helidon MP",
-        "filename": "../../walkthrough-helidon/walkthrough-helidon.md"
+        "filename": "../../walkthrough-microservices/walkthrough-microservices.md"
       },
       {
         "title": "Lab 3: Polyglot Microservices",
@@ -38,6 +38,10 @@
       {
         "title": "Lab 7: Transactional Tests: Compare MongoDB, Postgres, and Kafka to Oracle DB with TEQ/AQ",
         "filename": "../../transactional/transactional.md"
+      },
+      {
+        "title": "Lab 8: Build a retro video game using Unity, Kubernetes, and Oracle Database",
+        "filename": "../../unitygame/unitygame.md"
       },
       {
         "title": "Need Help?",
