@@ -4,26 +4,15 @@
 
 The illustration below shows four microservices: Order, Inventory, Delivery, Supplier, and the infrastructure required to run them.
 
-![Microservices Architecture](images/architecture.png " ")
-
-For more information on microservices visit http://developer.oracle.com/microservices
-
-In this workshop, you'll switch the Inventory microservice to a Python, Node.js, .NET, Go, Spring Boot or Java Helidon SE implementation while retaining the same application functionality.
-
-Estimated Time: 10 minutes
-
-The following video provides a quick walk-through of how to switch the Inventory microservice to Python while retaining the same application functionality.
-
-[](youtube:zltpjX721PA)
 
 ### Objectives
 
--   Undeploy the existing Java Helidon MP Inventory microservice
--   Deploy an alternate implementation of the Inventory microservice and test the application functionality
+-   Clone the `Pods of Kon` open source game repos
+-   Follow the instructions in the repos to build and deploy the Unity frontend, Kubernetes backend, and Oracle Database
 
 ### Prerequisites
 
-This lab assumes you have already completed the earlier labs.
+This lab assumes you have already completed the setup lab.
 
 
 ## Task 1: Make a Clone of the Pods Of Kon git repos
