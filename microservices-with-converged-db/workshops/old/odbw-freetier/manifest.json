@@ -4,19 +4,20 @@
 	"tutorials": [
       {
         "title": "Introduction",
-        "filename": "../../intro/intro.md"
+        "filename": "../../intro/intro.md",
+        "type": "odbw"
       },
       {
         "title": "Get Started",
-        "filename": "https://oracle-livelabs.github.io/common/labs/cloud-login/cloud-login.md"
+        "filename": "https://oracle-livelabs.github.io/common/labs/cloud-login/cloud-login-livelabs2.md"
       },
       {
         "title": "Lab 1: Setup",
         "filename": "../../setup/setup.md"
       },
       {
-        "title": "Lab 2: Data-Centric Microservices Walkthrough with Helidon MP",
-        "filename": "../../walkthrough-helidon/walkthrough-helidon.md"
+        "title": "Lab 2: Data-Centric Microservices Walkthrough",
+        "filename": "../../walkthrough-microservices/walkthrough-microservices.md"
       },
       {
         "title": "Lab 3: Polyglot Microservices",
@@ -43,8 +44,9 @@
         "filename": "../../teardown/teardown.md"
       },
       {
-        "title": "Oracle CloudWorld 2022 - Get Help",
-        "filename": "https://oracle-livelabs.github.io/common/support/ocwsupportlab/ocwsupportlab.md"
+        "title": "Need Help?",
+        "description": "Solutions to Common Problems and Directions for Receiving Live Help",
+        "filename":"https://oracle-livelabs.github.io/common/labs/need-help/need-help-freetier.md"
       }
     ]
 }

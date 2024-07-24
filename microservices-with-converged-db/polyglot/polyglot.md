@@ -125,12 +125,9 @@ You may now proceed to the next lab.
 
 ## Learn More
 
-* Ask for help and connect with developers on the [Oracle DB Microservices Slack Channel](https://bit.ly/oracle-database-microservices-slack)   
-Search for and join the `oracle-db-microservices` channel.
+* [Oracle Database](https://bit.ly/mswsdatabase)
 
 ## Acknowledgements
-* **Authors** - Richard Exley, Maximum Availability Architecture; Curtis Dinkel, Maximum Availability Architecture; Rena Granat, Maximum Availability Architecture; Paul Parkinson, Developer Evangelist; Mayank Tayal, Developer Advocate
-* **Adapted for Cloud by** -  Nenad Jovicic, Enterprise Strategist, North America Technology Enterprise Architect Solution Engineering Team
-* **Documentation** - Lisa Jamen, User Assistance Developer - Helidon
-* **Contributors** - Jaden McElvey, Technical Lead - Oracle LiveLabs Intern
-* **Last Updated By/Date** - Irina Granat, March 2022
+* **Authors** - Paul Parkinson, Architect and Developer Advocate
+* **Last Updated By/Date** - Paul Parkinson, 2024
+
