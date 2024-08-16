@@ -337,23 +337,23 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
 
   To add Spring Data JPA and the Oracle Database drivers to your project, open the Maven POM (`pom.xml`) and add these extra dependencies for Spring Data JPA, Oracle Spring Boot Starters for Oracle Database UCP (Universal Connection Pool) and Wallet:
 
-    ```xml
-    <copy>
-    <dependency>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-data-jpa</artifactId>
-    </dependency>
-    <dependency>
-        <groupId>com.oracle.database.spring</groupId>
-        <artifactId>oracle-spring-boot-starter-ucp</artifactId>
-        <version>23.4.0</version>
-    </dependency>
-        <dependency>
-        <groupId>com.oracle.database.spring</groupId>
-        <artifactId>oracle-spring-boot-starter-wallet</artifactId>
-        <version>23.4.0</version>
-    </dependency></copy>
-    ```
+  ```xml
+  <copy>
+  <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-data-jpa</artifactId>
+  </dependency>
+  <dependency>
+      <groupId>com.oracle.database.spring</groupId>
+      <artifactId>oracle-spring-boot-starter-ucp</artifactId>
+      <version>23.4.0</version>
+  </dependency>
+      <dependency>
+      <groupId>com.oracle.database.spring</groupId>
+      <artifactId>oracle-spring-boot-starter-wallet</artifactId>
+      <version>23.4.0</version>
+  </dependency></copy>
+  ```
 
   Visual Studio code will display a notification in the bottom right corner and ask if it should update the project based on the change you just made.  You should select **Yes** or **Always** to this notification.  Doing so will ensure that the auto-completion will have access to the classes in the new dependency that you just added.
 
@@ -409,7 +409,7 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
               initial-pool-size: 15
               min-pool-size: 10
               max-pool-size: 30
-        ```
+      ```
 
       These parameters will be used by Spring Data JPA to automatically configure the data source and inject it into your application.  This configuration uses [Oracle Universal Connection Pool](https://docs.oracle.com/en/database/oracle/oracle-database/21/jjucp/index.html) to improve performance and better utilize system resources.  The settings in the `spring.jpa` section tell Spring Data JPA to use Oracle SQL syntax, and to show the SQL statements in the log, which is useful during development when you may wish to see what statements are being executed as your endpoints are called.
 
@@ -516,11 +516,6 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
 
     @Column(name = "CUSTOMER_ID")
     private String accountCustomerId;
-
-    @SuppressWarnings("deprecation")
-    @Generated(GenerationTime.INSERT)
-    @Column(name = "ACCOUNT_OPENED_DATE", updatable = false, insertable = false)
-    private Date accountOpenedDate;
 
     @Column(name = "ACCOUNT_OTHER_DETAILS")
     private String accountOtherDetails;
