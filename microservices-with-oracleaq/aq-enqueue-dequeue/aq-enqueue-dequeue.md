@@ -141,4 +141,4 @@ You may now **proceed to the next lab.**
 
 - **Author** - Mayank Tayal, Developer Advocate
 - **Contributors** - Shivani Karnewar, Senior Member Technical Staff; Andy Tael, Developer Evangelist
-- **Last Updated By/Date** - ANdy Tael, August 2024
+- **Last Updated By/Date** - Andy Tael, August 2024
