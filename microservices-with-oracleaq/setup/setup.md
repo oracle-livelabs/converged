@@ -50,11 +50,19 @@ It may be necessary to delete some resources to make space to run the workshop. 
 
 Cloud Shell is a small virtual machine running a "bash" shell which you access through the Oracle Cloud Console. Cloud Shell comes with a pre-authenticated command line interface in the tenancy region. It also provides up-to-date tools and utilities.
 
+> **Note:** Cloud Shell uses *websockets* to communicate between your browser and the service. If your browser has websockets disabled or uses a corporate proxy that has websockets disabled you will see an error message ("An unexpected error occurred") when attempting to start Cloud Shell from the console. You also can change the browser cookies settings for a specific site to allow the traffic from *.oracle.com
+
 1. Click the Cloud Shell icon in the top-right corner of the Console.
 
-  ![OCI Cloud Shell Opening](images/open-cloud-shell.png " ")
+    ![OCI Cloud Shell Opening](images/open-cloud-shell.png " ")
 
-> **Note:** Cloud Shell uses *websockets* to communicate between your browser and the service. If your browser has websockets disabled or uses a corporate proxy that has websockets disabled you will see an error message ("An unexpected error occurred") when attempting to start Cloud Shell from the console. You also can change the browser cookies settings for a specific site to allow the traffic from *.oracle.com
+1. Change the architecture to be x86_64. This is **very important** as the Live Lab doesn't work on the ARM architecture
+
+    Click on the Actions icon in the top-left corner of the Console and select Architecture.
+
+    ![OCI Cloud Shell Opening](images/architecture.png " ")
+
+    Select x86_64 in the dialog box. Cloud Shell will now restart.
 
 ## Task 5: Make a Clone of the Workshop Setup Script and Source Code
 
@@ -108,5 +116,5 @@ Once the setup has been completed you are ready to **proceed to the next lab.**
 ## Acknowledgements
 
 - **Author** - Mayank Tayal, Developer Advocate
-- **Contributors** - Sanjay Goil, VP Microservices and Oracle Database; Paul Parkinson, Developer Evangelist; Paulo Simoes, Developer Evangelist; Richard Exley, Maximum Availability Architecture; Shivani Karnewar, Senior Member Technical Staff
-- **Last Updated By/Date** - Mayank Tayal, February 2022
+- **Contributors** - Sanjay Goil, VP Microservices and Oracle Database; Andy Tael, Developer Evangelist; Paul Parkinson, Developer Evangelist; Paulo Simoes, Developer Evangelist; Richard Exley, Maximum Availability Architecture; Shivani Karnewar, Senior Member Technical Staff
+- **Last Updated By/Date** - Andy Tael, August 2024
