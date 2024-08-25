@@ -20,7 +20,7 @@ Oracle Database, including Oracle Autonomous Database, provides native support f
 
 To add spatial capability to a table, we can add and populate a column of type SDO_GEOMETRY and then create a spatial index. In the case of large tables, it would be preferable to enable spatial capability without having to create a new column. Fortunately, Spatial is a first-class feature of Oracle Database and, as such, is able to leverage many powerful mainstream Oracle features. One such feature is **[function-based indexes](https://docs.oracle.com/en/database/oracle/oracle-database/19/cncpt/indexes-and-index-organized-tables.html#GUID-9AD7651D-0F0D-4FC6-A984-5845F0224EE6)**, which allows creating an index on the result of a SQL function. This is perfect for Spatial: we create a function that accepts coordinates and returns SDO\_GEOMETRY, and then create a spatial index on the output of that function. Using a function-based spatial index, our table is enabled for spatial analysis without the need to add a geometry column.
 
-For a hands-on general introduction, you are encouraged to review **[Introduction to Oracle Spatial Workshop] (https://apexapps.oracle.com/pls/apex/dbpm/r/livelabs/view-workshop?wid=736)**
+For a hands-on general introduction, you are encouraged to review **[Introduction to Oracle Spatial Workshop] (https://livelabs.oracle.com/pls/apex/dbpm/r/livelabs/view-workshop?wid=736)**
 
 
 ### Objectives

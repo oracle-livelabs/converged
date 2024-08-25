@@ -19,7 +19,7 @@ Watch the video below for an overview of the Load ADB and Start Application lab
 - Lab: Setup Compute and ADB
 
 ## Task 1: Create Oracle Wallet
-There are multiple ways to create an Oracle Wallet for ADB.  We will be using Oracle Cloud Shell as this is not the focus of this workshop.  To learn more about Oracle Wallets and use the interface to create one, please refer to the lab in this workshop: [Analyzing Your Data with ADB - Lab 6](https://apexapps.oracle.com/pls/apex/dbpm/r/livelabs/view-workshop?p180_id=553)
+There are multiple ways to create an Oracle Wallet for ADB.  We will be using Oracle Cloud Shell as this is not the focus of this workshop.  To learn more about Oracle Wallets and use the interface to create one, please refer to the lab in this workshop: [Analyzing Your Data with ADB - Lab 6](https://livelabs.oracle.com/pls/apex/dbpm/r/livelabs/view-workshop?p180_id=553)
 
 1.  Before starting this section make sure you have exited out of your compute instance and are back in your cloudshell home.  
 
@@ -58,7 +58,7 @@ There are multiple ways to create an Oracle Wallet for ADB.  We will be using Or
       ![](./images/converged-wallet.png " ")
 
 ## Task 2: Create Auth Token
-There are multiple ways to create an Oracle Wallet for ADB.  We will be using Oracle Cloud Shell as this is not the focus of this workshop.  To learn more about Oracle Wallets and use the interface to create one, please refer to the lab in this workshop: [Analyzing Your Data with ADB - Lab 6](https://apexapps.oracle.com/pls/apex/dbpm/r/livelabs/view-workshop?p180_id=553)
+There are multiple ways to create an Oracle Wallet for ADB.  We will be using Oracle Cloud Shell as this is not the focus of this workshop.  To learn more about Oracle Wallets and use the interface to create one, please refer to the lab in this workshop: [Analyzing Your Data with ADB - Lab 6](https://livelabs.oracle.com/pls/apex/dbpm/r/livelabs/view-workshop?p180_id=553)
 
 1.  Click on the person icon in the upper right corner.
 2.  Select **User Settings**

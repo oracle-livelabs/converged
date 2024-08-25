@@ -4,7 +4,7 @@
 
 This lab will show you how to monitor, from the security point of view, the ADB-S behind ORDS server with a private endpoint, to audit through the dashboard threats like, for example, failures in users logon. This just a basic employment of Data Safe, which allows administrators to make self-assessments on DBs registered, on-premises and Cloud, detect wrong configurations, and many other tasks. This is a beginner tutorial to show step-by-step how to implement the private endpoint access at an ADS-S in a private subnet, and leverage the pre-defined policies, such as the Logon Failures, that could be a sign of suspicious activity on DB.
 
-For an in-depth approach to Data Safe, please refer to the LiveLab: [Get Started with Oracle Data Safe Fundamentals](https://apexapps.oracle.com/pls/apex/dbpm/r/livelabs/view-workshop?wid=598), which explores all the service functionalities.
+For an in-depth approach to Data Safe, please refer to the LiveLab: [Get Started with Oracle Data Safe Fundamentals](https://livelabs.oracle.com/pls/apex/dbpm/r/livelabs/view-workshop?wid=598), which explores all the service functionalities.
 
 Estimated Time: 20 minutes
 
@@ -207,7 +207,7 @@ Once the setup and testing of access have been completed you are ready to **Proc
 
 * Ask for help and connect with developers on the [Oracle DB Microservices Slack Channel](https://bit.ly/oracle-database-microservices-slack)  
 Search for and join the `oracle-db-microservices` channel.
-* LiveLab: [Get Started with Oracle Data Safe Fundamentals](https://apexapps.oracle.com/pls/apex/dbpm/r/livelabs/view-workshop?wid=598)
+* LiveLab: [Get Started with Oracle Data Safe Fundamentals](https://livelabs.oracle.com/pls/apex/dbpm/r/livelabs/view-workshop?wid=598)
 
 ## Acknowledgements
 

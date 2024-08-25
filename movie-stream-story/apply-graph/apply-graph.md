@@ -442,7 +442,7 @@ PgxGraph cpGraph = session.getGraph("MOVIE_RECOMMENDATIONS");
 
 ## Learn more
 
-* [LiveLabs](https://apexapps.oracle.com/pls/apex/dbpm/r/livelabs/home) (search for graph)
+* [LiveLabs](https://livelabs.oracle.com/pls/apex/dbpm/r/livelabs/home) (search for graph)
 * [Documentation](https://docs.oracle.com/en/cloud/paas/autonomous-database/graph-studio.html)
 
 ## Acknowledgements
