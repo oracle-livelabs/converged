@@ -15,8 +15,8 @@
         "filename": "../../setup/setup.md"
       },
       {
-        "title": "Lab 2: Data-centric microservices walkthrough with Helidon MP",
-        "filename": "../../walkthrough-helidon/walkthrough-helidon.md",
+        "title": "Lab 2: Data-centric microservices walkthrough",
+        "filename": "../../walkthrough-microservices/walkthrough-microservices.md",
         "type": "event-freetier"
       },
       {

@@ -2,7 +2,7 @@
 
 ## Introduction
 
-This lab will give an understanding of Advanced Queues creation using different payloads, enqueue AQ, dequque AQ, and cleanups.
+This lab will give an understanding of Advanced Queues creation using different payloads, enqueue AQ, dequeue AQ, and cleanups.
 
 - Estimated Time: 10 minutes
 
@@ -140,5 +140,5 @@ You may now **proceed to the next lab.**
 ## Acknowledgements
 
 - **Author** - Mayank Tayal, Developer Advocate
-- **Contributors** - Shivani Karnewar, Senior Member Technical Staff
-- **Last Updated By/Date** - Mayank Tayal, March 2023
+- **Contributors** - Shivani Karnewar, Senior Member Technical Staff; Andy Tael, Developer Evangelist
+- **Last Updated By/Date** - Andy Tael, August 2024

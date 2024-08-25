@@ -1,5 +1,5 @@
 {
-    "workshoptitle": "CloudBank - Building an App with Spring Boot and Mobile APIs with Oracle Database and Kubernetes",
+    "workshoptitle": "CloudBank - Building an App with Spring Boot, Oracle Database and Kubernetes",
     "variables": ["../../variables/variables.json"],
     "help": "obaas_ww@oracle.com",
     "tutorials": [
@@ -47,11 +47,7 @@
             "filename": "../../explore-platform/explore-platform.md"
         },
         {
-            "title": "Lab 9: Extend the Mobile Application",
-            "filename": "../../extend-mobile-app/extend-mobile-app.md"
-        },
-        {
-            "title": "Lab 10: Clean Up",
+            "title": "Lab 9: Clean Up",
             "filename": "../../cleanup/cleanup.md"
         },
         {

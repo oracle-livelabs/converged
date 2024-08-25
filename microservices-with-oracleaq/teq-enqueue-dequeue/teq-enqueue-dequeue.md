@@ -56,7 +56,7 @@ Transactional Event Queues(TxEventQ) samples to create queues using different pa
 
 ## Task 3: Dequeue in TxEventQ
 
-1. Below are the code samples to dequque TxEventQ
+1. Below are the code samples to dequeue TxEventQ
 
     ![dequeueTEQ](./images/dequeue-teq.png " ")
 
@@ -105,5 +105,5 @@ Transactional Event Queues(TxEventQ) samples to create queues using different pa
 ## Acknowledgements
 
 - **Author** - Mayank Tayal, Developer Advocate
-- **Contributors** - Shivani Karnewar, Senior Member Technical Staff
-- **Last Updated By/Date** - Mayank Tayal, March 2023
+- **Contributors** - Shivani Karnewar, Senior Member Technical Staff; Andy Tael  Developer Evangelist
+- **Last Updated By/Date** - Andy Tael, August 2024

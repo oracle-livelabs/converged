@@ -55,13 +55,9 @@ You will use the orchestration approach in this lab.
 
 ### The Cloud Cash Transfer Saga
 
-In this lab you will implement a saga that will manage transferring funds from one user to another.  The CloudBank mobile application will have a feature called "Cloud Cash" that allows users to instantly transfer funds to anyone.  They will do this by choosing a source account and entering the email address of the person they wish to send funds to, and the amount.
-
-![Cloud Cash screen](images/obaas-flutter-cloud-cash-screen-design.png)
+In this lab you will implement a saga that will manage transferring funds from one user to another.
 
 When the user submits their request, a microservice will pick up the request and invoke the **Transfer** service (which you will write in this lab) to process the transfer.
-
-A Cloud Cash Payment Request Processor service (which you installed in the **Deploy the full CloudBank application** lab) will look up the target customer using the provided email address and invoke the Transfer server that you will write in this lab, which will perform a withdrawal and a deposit.  Your Transfer service will need to coordinate these actions to make sure they all occur, and to perform compensation if there is a problem.
 
 ## Task 2: Learn about Long Running Actions
 
@@ -111,7 +107,7 @@ You will update the Account service that you built in the previous lab to add so
       <dependency>
         <groupId>com.oracle.microtx.lra</groupId>
         <artifactId>microtx-lra-spring-boot-starter</artifactId>
-        <version>23.4.1</version>
+        <version>23.4.2</version>
       </dependency>
       </copy>
       ```
@@ -274,7 +270,7 @@ The Deposit service will process deposits into bank accounts.  In this task, you
 
 1. Create the LRA complete endpoint
 
-  Each LRA participant needs a "complete" endpoint.  This `completeWork` method implements that endpoint, as declared by the `@Complete` annotation. Note that this responds to the HTTP PUT method and extracts the `lraId` from an HTTP header as in the previous method.
+  Each LRA participant needs a "complete" endpoint.  This `completeWork` method implements that endpoint, as declared by the `@Complete` annotation. Note that this response to the HTTP PUT method and extracts the `lraId` from an HTTP header as in the previous method.
 
     ```java
     <copy>
@@ -295,7 +291,7 @@ The Deposit service will process deposits into bank accounts.  In this task, you
 
 1. Create the LRA compensate endpoint
 
-  Next, you need a compensate endpoint.  This `compensateWork` method is similar to the previous methods and is marked with the `@Compensate` annotation to mark it as the compensation handler for this participant. Note that this responds to the HTTP PUT method and extracts the `lraId` from an HTTP header as in the previous method.
+  Next, you need a compensation endpoint.  This `compensateWork` method is similar to the previous methods and is marked with the `@Compensate` annotation to mark it as the compensation handler for this participant. Note that this response to the HTTP PUT method and extracts the `lraId` from an HTTP header as in the previous method.
 
     ```java
     <copy>
@@ -359,7 +355,7 @@ The Deposit service will process deposits into bank accounts.  In this task, you
 
 ## Task 5: Create an Account/Transfer Data Access Object
 
-The Data Access Object pattern is considered a best practice and it allows separation of business logic from the persistence layer. In this task, you will create an Account Data Access Object (DAO) that hides the complexity of the persistence layer logic from the business layer services. Additionally, it establishes methods that can be reused by each business layer service that needs to operate on accounts - in this lab there will be two such services - deposit and withdraw.
+The Data Access Object pattern is considered a best practice, and it allows separation of business logic from the persistence layer. In this task, you will create an Account Data Access Object (DAO) that hides the complexity of the persistence layer logic from the business layer services. Additionally, it establishes methods that can be reused by each business layer service that needs to operate on accounts - in this lab there will be two such services - deposit and withdraw.
 
 1. Create the DAO class
 
@@ -628,7 +624,7 @@ The deposit service will be responsible for depositing funds into accounts. It w
 
 1. Implement the **complete** method
 
-  This method should update the LRA status to **completing**, update the account balance, change the bank transaction (journal entry) status from pending to completed and the set the LRA status to **completed**.  Here is the code for this method:
+  This method should update the LRA status to **completing**, update the account balance, change the bank transaction (journal entry) status from pending to completed and the set the LRA status too **completed**.  Here is the code for this method:
 
     ```java
     <copy>
@@ -661,7 +657,7 @@ The deposit service will be responsible for depositing funds into accounts. It w
 
 1. Implement the **compensate** method
 
-  This method should update both the deposit record in the journal and the LRA status to **compensated**.  Here is the code for this method:
+  This method should update both the deposit record in the journal and the LRA status too **compensated**.  Here is the code for this method:
 
     ```java
     <copy>
@@ -727,7 +723,7 @@ The deposit service will be responsible for depositing funds into accounts. It w
 
 Next, you need to implement the withdraw service, which will be the second participant in the transfer LRA.
 
-1. Implement the withdraw service
+1. Implement the **withdraw** service
 
   Create a new Java file called `WithdrawService.java` in `src/main/java/com/example/accounts/services`. This service is very similar to the deposit service, and no new concepts are introduced here. Here is the code for this service:
 
@@ -874,7 +870,7 @@ Now, you will create another new Spring Boot microservice application and implem
 
 1. Create a new Java Project for the `transfer` service.
 
-  In the Explorer of VS Code open `Java Project` and click the the **plus** sign to add a Java Project to your workspace.
+  In the Explorer of VS Code open `Java Project` and click the **plus** sign to add a Java Project to your workspace.
 
   ![Add Java Project](images/add_java_project.png " ")
 
@@ -886,7 +882,7 @@ Now, you will create another new Spring Boot microservice application and implem
 
   ![Maven Project](images/maven-project.png " ")
 
-  Specify `3.2.1` as the Spring Boot version.
+  Specify `3.3.1` as the Spring Boot version.
 
   ![Spring Boot Version](images/spring-boot-version.png " ")
 
@@ -902,7 +898,7 @@ Now, you will create another new Spring Boot microservice application and implem
 
   ![Packaging Type](images/packaging-type.png " ")
 
-  Select Java version `17`.
+  Select Java version `21`.
 
   ![Java Version](images/java-version.png " ")
 
@@ -931,7 +927,7 @@ Now, you will create another new Spring Boot microservice application and implem
     <dependency>
       <groupId>com.oracle.microtx.lra</groupId>
       <artifactId>microtx-lra-spring-boot-starter</artifactId>
-      <version>23.4.1</version>
+      <version>23.4.2</version>
     </dependency>
     <dependency>
       <groupId>org.projectlombok</groupId>
@@ -1246,7 +1242,7 @@ Now, you will create another new Spring Boot microservice application and implem
 
 ## Task 9: Deploy the Account and Transfer services to the backend
 
-The services are now completed and you are ready to deploy them to the Oracle Backend for Spring Boot and Microservices.
+The services are now completed, and you are ready to deploy them to the Oracle Backend for Spring Boot and Microservices.
 
 > **Note**: You already created the Kubernetes secrets necessary for the account service to access the Oracle Autonomous Database in a previous lab, and the `transfer` service does not need access to the database. You also created the journal table that is needed by the update account application in the previous lab.
 
@@ -1289,8 +1285,8 @@ The services are now completed and you are ready to deploy them to the Oracle Ba
     \_/ |_) (_| (_| __)   \_ |_ _|_
     ========================================================================================
       Application Name: Oracle Backend Platform :: Command Line Interface
-      Application Version: (1.1.1)
-      :: Spring Boot (v3.2.1) ::
+      Application Version: (1.2.0)
+      :: Spring Boot (v3.3.0) ::
 
       Ask for help:
       - Slack: https://oracledevs.slack.com/archives/C03ALDSV272
@@ -1325,7 +1321,7 @@ The services are now completed and you are ready to deploy them to the Oracle Ba
     oractl:>
     ```
 
-   Run this command to to deploy the transfer service, make sure you provide the correct path to your JAR files.
+   Run this command to deploy the transfer service, make sure you provide the correct path to your JAR files.
 
     ```shell
     oractl:> <copy>deploy --app-name application --service-name transfer --artifact-path /path/to/transfer-0.0.1-SNAPSHOT.jar --image-version 0.0.1</copy>
@@ -1345,7 +1341,7 @@ Now you can test your LRA to verify it performs correctly under various circumst
 
   Since the transfer service is not exposed outside the Kubernetes cluster, you will need to start a **kubectl** port forwarding tunnel to access its endpoints.
 
-  > **Note**: If you prefer, you can create a route in the APISIX API Gateway to expose the service.  The service will normally only be invoked from within the cluster, so you did not create a route for it.  However, you have learned how to create routes, so you may do that if you prefer.
+    > **Note**: If you prefer, you can create a route in the APISIX API Gateway to expose the service.  The service will normally only be invoked from within the cluster, so you did not create a route for it.  However, you have learned how to create routes, so you may do that if you prefer.
 
     Run this command to start the tunnel:
 
@@ -1470,7 +1466,6 @@ In this lab you have learned about the Saga pattern by implementing an account t
 ## Learn More
 
 * [Oracle Backend for Spring Boot and Microservices](https://bit.ly/oraclespringboot)
-* [Oracle Backend for Parse Platform](https://oracle.github.io/microservices-datadriven/mbaas/)
 * [Oracle Transaction Manager for Microservices](https://www.oracle.com/database/transaction-manager-for-microservices/)
 * [Saga pattern](https://microservices.io/patterns/data/saga.html)
 * [Long Running Action](https://download.eclipse.org/microprofile/microprofile-lra-1.0-M1/microprofile-lra-spec.html)
@@ -1479,4 +1474,4 @@ In this lab you have learned about the Saga pattern by implementing an account t
 
 * **Author** - Paul Parkinson, Mark Nelson, Andy Tael, Developer Evangelists, Oracle Database
 * **Contributors** - [](var:contributors)
-* **Last Updated By/Date** - Andy Tael, February 2024
+* **Last Updated By/Date** - Andy Tael, July 2024

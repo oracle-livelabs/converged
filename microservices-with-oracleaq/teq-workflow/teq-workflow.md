@@ -20,7 +20,7 @@ This Lab will help you understand OTP workflow (one-time-password)/ Second-Facto
 
 1. Below are the code samples to create required queues
 
-    ![createWoekflow queues](./images/workflow-create-teq.png " ")
+    ![createWorkflow queues](./images/workflow-create-teq.png " ")
 
 2. Execute the following sequence of commands into cloud shell:
 
@@ -64,9 +64,9 @@ Below are the code samples to create the workflow
 
       - Message(OrderId, username, 9707 , deliveryLocation, "PENDING")
 
-## Task 4: OTP verfication
+## Task 4: OTP verification
 
-- **Application verfication for OTP is successful:**
+- **Application verification for OTP is successful:**
 
     1. Application updates DELIVERY STATUS as "DELIVERED" in the exiting record.
 
@@ -143,5 +143,5 @@ You may now **proceed to the next lab.**
 ## Acknowledgements
 
 - **Author** - Mayank Tayal, Developer Advocate
-- **Contributors** - Shivani Karnewar, Senior Member Technical Staff
-- **Last Updated By/Date** - Mayank Tayal, March 2023
+- **Contributors** - Shivani Karnewar, Senior Member Technical Staff; Andy Tael, Developer Evangelist
+- **Last Updated By/Date** - Andy Tael, August 2024

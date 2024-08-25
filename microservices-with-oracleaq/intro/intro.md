@@ -63,5 +63,5 @@ You may now **proceed to the next lab.**
 ## Acknowledgements
 
 - **Author** - Mayank Tayal, Developer Advocate
-- **Contributors** - Sanjay Goil, VP Microservices and Oracle Database
-- **Last Updated By/Date** - Mayank Tayal, March 2023
+- **Contributors** - Sanjay Goil, VP Microservices and Oracle Database; Andy Tael, Developer Evangelist
+- **Last Updated By/Date** - Andy Tael, August 2024

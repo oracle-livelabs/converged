@@ -2,7 +2,7 @@
 
 ## Introduction
 
-This lab walks you through the steps to build Spring Boot microservices that use Java Message Service (JMS) to send and receive asynchronous messages using Transactional Event Queues in the Oracle Database.  This service will also use service discovery to lookup and use the previously built Account service. In this lab, we will extend the Account microservice built in the previous lab, build a new "Check Processing" microservice and another "Test Runner" microservice to help with testing.
+This lab walks you through the steps to build Spring Boot microservices that use Java Message Service (JMS) to send and receive asynchronous messages using Transactional Event Queues in the Oracle Database.  This service will also use service discovery (OpenFeign) to look up and use the previously built Account service. In this lab, we will extend the Account microservice built in the previous lab, build a new "Check Processing" microservice and another "Test Runner" microservice to help with testing.
 
 Estimated Time: 20 minutes
 
@@ -39,14 +39,14 @@ Later, imagine that the deposit envelop arrives at a back office check processin
 You will implement this using three microservices:
 
 * The Account service you created in the previous lab will have the endpoints to manipulate journal entries
-* A new "Check Processing" service will listen for messages and process them by calling calling the appropriate endpoints on the Account service
+* A new "Check Processing" service will listen for messages and process them by calling the appropriate endpoints on the Account service
 * A "Test Runner" service will simulate the ATM and the back office and allow you to send the "deposit" and "clearance" messages to test your other services
 
 ![The Check service](images/check-service.png " ")
 
 ## Task 2: Update the Account service to add the Journal
 
-Starting with the account service that you built in the previous lab, you will the the JPA model and repository for the journal and some new endpoints.
+Starting with the account service that you built in the previous lab, you will the JPA model and repository for the journal and some new endpoints.
 
 1. Create the Journal model
 
@@ -144,7 +144,7 @@ Starting with the account service that you built in the previous lab, you will t
     }</copy>
     ```
 
-1. Add new method to post entries to the journal
+1. Add new method to POST entries to the journal
 
   Add a new HTTP POST endpoint in the `AccountController.java` class. The method accepts a journal entry in the request body and saves it into the database. Your new method should look like this:
 
@@ -220,7 +220,7 @@ Starting with the account service that you built in the previous lab, you will t
 
 1. Prepare the backend for deployment
 
-  The Oracle Backend for Spring Boot and Microservices admin service is not exposed outside of the Kubernetes cluster by default. Oracle recommends using a **kubectl** port forwarding tunnel to establish a secure connection to the admin service.
+  The Oracle Backend for Spring Boot and Microservices admin service is not exposed outside the Kubernetes cluster by default. Oracle recommends using a **kubectl** port forwarding tunnel to establish a secure connection to the admin service.
 
   Start a tunnel (unless you already have the tunnel running from previous labs) using this command:
 
@@ -237,8 +237,8 @@ Starting with the account service that you built in the previous lab, you will t
     \_/ |_) (_| (_| __)   \_ |_ _|_
     ========================================================================================
       Application Name: Oracle Backend Platform :: Command Line Interface
-      Application Version: (1.1.1)
-      :: Spring Boot (v3.2.1) :: 
+      Application Version: (1.2.0)
+      :: Spring Boot (v3.3.0) ::
       
       Ask for help:
       - Slack: https://oracledevs.slack.com/archives/C03ALDSV272 
@@ -336,7 +336,7 @@ Starting with the account service that you built in the previous lab, you will t
     commit;</copy>
     ```
 
-  Now connect as the `account` user and create the queues by executing these statements (replace `[TNS-ENTRY]` with your environment information). You can get the TNS Entries by executing `SHOW TNS` in the the sql shell:
+  Now connect as the `account` user and create the queues by executing these statements (replace `[TNS-ENTRY]` with your environment information). You can get the TNS Entries by executing `SHOW TNS` in the sql shell:
 
     ```sql
     connect account/Welcome1234##@[TNS-ENTRY];
@@ -372,7 +372,7 @@ Next, you will create the "Test Runner" microservice which you will use to simul
 
 1. Create a new Java Project for the `transfer` service.
 
-  In the Explorer of VS Code open `Java Project` and click the the **plus** sign to add a Java Project to your workspace.
+  In the Explorer of VS Code open `Java Project` and click the **plus** sign to add a Java Project to your workspace.
 
   ![Add Java Project](images/add_java_project.png " ")
 
@@ -384,7 +384,7 @@ Next, you will create the "Test Runner" microservice which you will use to simul
 
   ![Maven Project](images/maven-project.png " ")
 
-  Specify `3.2.1` as the Spring Boot version.
+  Specify `3.3.1` as the Spring Boot version.
 
   ![Spring Boot Version](images/spring-boot-version.png " ")
 
@@ -394,13 +394,13 @@ Next, you will create the "Test Runner" microservice which you will use to simul
 
   Enter `testrunner` as the Artifact Id.
 
-  ![Artifact Id](images//artifact-id-testrunner.png " ")
+  ![Artifact Id](images/artifact-id-testrunner.png " ")
 
   Use `JAR` as the Packaging Type.
 
   ![Packaging Type](images/packaging-type.png " ")
 
-  Select Java version `17`.
+  Select Java version `21`.
 
   ![Java Version](images/java-version.png " ")
 
@@ -436,6 +436,7 @@ Next, you will create the "Test Runner" microservice which you will use to simul
         <artifactId>oracle-spring-boot-starter-wallet</artifactId>
         <type>pom</type>
         <version>23.4.0</version>
+      </dependency>
       <dependency>
         <groupId>org.projectlombok</groupId>
         <artifactId>lombok</artifactId>
@@ -461,13 +462,13 @@ Next, you will create the "Test Runner" microservice which you will use to simul
 
 1. Create the main Spring Application class
 
-  In the `testrunner` directory, open the Java Java file called `TestrunnerApplication.java` and add this content. This is a standard Spring Boot main class, notice the `@SpringBootApplication` annotation on the class.  It also has the `@EnableJms` annotation which tells Spring Boot to enable JMS functionality in this application. The `main` method is a normal Spring Boot main method:
+  In the `testrunner` directory, open the Java file called `TestrunnerApplication.java` and add this content. This is a standard Spring Boot main class, notice the `@SpringBootApplication` annotation on the class.  It also has the `@EnableJms` annotation which tells Spring Boot to enable JMS functionality in this application. The `main` method is a normal Spring Boot main method:
 
     ```java
     <copy>
     package com.example.testrunner;
 
-    import javax.jms.ConnectionFactory;
+    import jakarta.jms.ConnectionFactory;
 
     import org.springframework.boot.SpringApplication;
     import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -603,7 +604,7 @@ Next, you will create the "Test Runner" microservice which you will use to simul
 
 1. Prepare the backend for deployment
 
-  The Oracle Backend for Spring Boot and Microservices admin service is not exposed outside of the Kubernetes cluster by default. Oracle recommends using a **kubectl** port forwarding tunnel to establish a secure connection to the admin service.
+  The Oracle Backend for Spring Boot and Microservices admin service is not exposed outside the Kubernetes cluster by default. Oracle recommends using a **kubectl** port forwarding tunnel to establish a secure connection to the admin service.
 
     Start a tunnel using this command in a new terminal window:
 
@@ -626,8 +627,8 @@ Next, you will create the "Test Runner" microservice which you will use to simul
     \_/ |_) (_| (_| __)   \_ |_ _|_
     ========================================================================================
       Application Name: Oracle Backend Platform :: Command Line Interface
-      Application Version: (1.1.1)
-      :: Spring Boot (v3.2.1) ::
+      Application Version: (1.2.0)
+      :: Spring Boot (v3.3.0) ::
 
       Ask for help:
       - Slack: https://oracledevs.slack.com/archives/C03ALDSV272
@@ -688,13 +689,13 @@ Next, you will create the "Test Runner" microservice which you will use to simul
   The Test Runner service is not exposed outside your Kubernetes cluster, so you must create a port-forwarding tunnel to access it. Create a tunnel using this command:
 
     ```shell
-    $ <copy>kubectl -n application port-forward svc/testrunner 8080</copy>
+    $ <copy>kubectl -n application port-forward svc/testrunner 8084:8080</copy>
     ```
 
   Call the deposit endpoint to send a deposit notification using this command:
 
     ```shell
-    $ <copy>curl -i -X POST -H 'Content-Type: application/json' -d '{"accountId": 2, "amount": 200}' http://localhost:8080/api/v1/testrunner/deposit</copy>
+    $ <copy>curl -i -X POST -H 'Content-Type: application/json' -d '{"accountId": 2, "amount": 200}' http://localhost:8084/api/v1/testrunner/deposit</copy>
     HTTP/1.1 201
     Date: Wed, 31 May 2023 15:11:55 GMT
     Content-Type: application/json
@@ -707,7 +708,7 @@ Next, you will create the "Test Runner" microservice which you will use to simul
   Call the clear endpoint to send a clearance notification using this command. Note that you can use any `journalId` since there is nothing receiving and processing these messages yet:
 
     ```shell
-    $ <copy>curl -i -X POST -H 'Content-Type: application/json' -d '{"journalId": 4}' http://localhost:8080/api/v1/testrunner/clear</copy>
+    $ <copy>curl -i -X POST -H 'Content-Type: application/json' -d '{"journalId": 4}' http://localhost:8084/api/v1/testrunner/clear</copy>
     HTTP/1.1 201
     Date: Wed, 31 May 2023 15:12:54 GMT
     Content-Type: application/json
@@ -747,7 +748,7 @@ Next, you will create the "Check Processing" microservice which you will receive
 
 1. Create a new Java Project for the `checks` service.
 
-  In the Explorer of VS Code open `Java Project` and click the the **plus** sign to add a Java Project to your workspace.
+  In the Explorer of VS Code open `Java Project` and click the **plus** sign to add a Java Project to your workspace.
 
   ![Add Java Project](images/add_java_project.png " ")
 
@@ -759,7 +760,7 @@ Next, you will create the "Check Processing" microservice which you will receive
 
   ![Maven Project](images/maven-project.png " ")
 
-  Specify `3.2.1` as the Spring Boot version.
+  Specify `3.3.1` as the Spring Boot version.
 
   ![Spring Boot Version](images/spring-boot-version.png " ")
 
@@ -775,7 +776,7 @@ Next, you will create the "Check Processing" microservice which you will receive
 
   ![Packaging Type](images/packaging-type.png " ")
 
-  Select Java version `17`.
+  Select Java version `21`.
 
   ![Java Version](images/java-version.png " ")
 
@@ -816,7 +817,7 @@ Next, you will create the "Check Processing" microservice which you will receive
 
 1. Create the Spring Boot application YAML file
 
-  In the `checks` project, rename the file called `application.properties` to `application.yaml` located in the `src/main/resources`. This will be the Spring Boot application configuration file. Add the following the following content:
+  In the `checks` project, rename the file called `application.properties` to `application.yaml` located in the `src/main/resources`. This will be the Spring Boot application configuration file. Add the following content:
 
     ```yaml
     <copy>spring:
@@ -960,7 +961,7 @@ Next, you will create the "Check Processing" microservice which you will receive
 1. Create the OpenFeign clients
 
   > **OpenFeign**
-  > In this step you will use OpenFeign to create a client.  OpenFeign allows you to lookup an instance of a service from the Spring Eureka Service Registry using its key/identifier, and will create a client for you to call endpoints on that service.  It also provides client-side load balancing.  This allows you to easily create REST clients without needing to know the address of the service or how many instances are running.
+  > In this step you will use OpenFeign to create a client.  OpenFeign allows you to look up an instance of a service from the Spring Eureka Service Registry using its key/identifier, and will create a client for you to call endpoints on that service.  It also provides client-side load balancing.  This allows you to easily create REST clients without needing to know the address of the service or how many instances are running.
 
   Create a directory called `src/main/java/com/example/checks/clients` and in this directory create a new Java interface called `AccountClient.java` to define the OpenFeign client for the account service. Here is the content:
 
@@ -1052,9 +1053,9 @@ Next, you will create the "Check Processing" microservice which you will receive
 
 1. Create the Check Receiver controller
 
-  This controller will receive messages on the `deposits` JMS queue and process them by calling the `journal` method in the `AccountService` that you just created, which will make a REST POST to the Account service, which in turn will write the journal entry into the accounts database.
+  This controller will receive messages on the `deposits` JMS queue and process them by calling the `journal` method in the `AccountService` that you just created, which will make a REST POST to the Account service, which in turn will write the journal entry into the accounts' database.
 
-  Create a directory called `src/main/java/com/example/checks/controller` and in that directory, create a new Java class called `CheckReceiver.java` with the following content.  You will need to inject an instance of the `AccountService` (in this example the constructor is provided so you can compare to the annotation used previously). Implement a method to receive and process the messages. To receive messages from the queues, use the `JmsListener` annotation and provide the queue and factory names. This method should call the `journal` method on the `AccountService` and pass through the necessary data.  Also, notice that you need to add the `Component` annotation to the class so that Spring Boot will load an instance of it into the application:
+  Create a directory called `src/main/java/com/example/checks/controller` and in that directory, create a new Java class called `CheckReceiver.java` with the following content.  You will need to inject an instance of the `AccountService` (in this example the constructor is provided, so you can compare to the annotation used previously). Implement a method to receive and process the messages. To receive messages from the queues, use the `JmsListener` annotation and provide the queue and factory names. This method should call the `journal` method on the `AccountService` and pass through the necessary data.  Also, notice that you need to add the `Component` annotation to the class so that Spring Boot will load an instance of it into the application:
 
     ```java
     <copy>package com.example.checks.controller;
@@ -1135,7 +1136,7 @@ Next, you will create the "Check Processing" microservice which you will receive
 
 1. Prepare the backend for deployment
 
-  The Oracle Backend for Spring Boot and Microservices admin service is not exposed outside of the Kubernetes cluster by default. Oracle recommends using a **kubectl** port forwarding tunnel to establish a secure connection to the admin service.
+  The Oracle Backend for Spring Boot and Microservices admin service is not exposed outside the Kubernetes cluster by default. Oracle recommends using a **kubectl** port forwarding tunnel to establish a secure connection to the admin service.
 
   Start a tunnel using this command in a new terminal window:
 
@@ -1158,8 +1159,8 @@ Next, you will create the "Check Processing" microservice which you will receive
     \_/ |_) (_| (_| __)   \_ |_ _|_
     ========================================================================================
       Application Name: Oracle Backend Platform :: Command Line Interface
-      Application Version: (1.1.1)
-      :: Spring Boot (v3.2.1) ::
+      Application Version: (1.2.0)
+      :: Spring Boot (v3.3.0) ::
 
       Ask for help:
       - Slack: https://oracledevs.slack.com/archives/C03ALDSV272
@@ -1188,7 +1189,7 @@ Next, you will create the "Check Processing" microservice which you will receive
 
 1. Deploy the Check service
 
-  You will now deploy your Check service to the Oracle Backend for Spring Boot and Microservicesusing the CLI. Run this command to deploy your service, make sure you provide the correct path to your JAR file. **Note** that this command may take 1-3 minutes to complete:
+  You will now deploy your Check service to the Oracle Backend for Spring Boot and Microservices using the CLI. Run this command to deploy your service, make sure you provide the correct path to your JAR file. **Note** that this command may take 1-3 minutes to complete:
 
     ```shell
     oractl:> <copy>deploy --app-name application --service-name checks --artifact-path /path/to/checks-0.0.1-SNAPSHOT.jar --image-version 0.0.1</copy>
@@ -1222,13 +1223,13 @@ Now you can test the full end-to-end flow for the Check Processing scenario.
   The Test Runner service is not exposed outside your Kubernetes cluster, so you must create a port-forwarding tunnel to access it.  Create a tunnel using this command:
 
     ```shell
-    $ <copy>kubectl -n application port-forward svc/testrunner 8080</copy>
+    $ <copy>kubectl -n application port-forward svc/testrunner 8084:8080</copy>
     ```
 
    Simulate a check being deposited at the ATM using the Test Runner service:
 
     ```shell
-    $ <copy>curl -i -X POST -H 'Content-Type: application/json' -d '{"accountId": 2, "amount": 256}' http://localhost:8080/api/v1/testrunner/deposit</copy>
+    $ <copy>curl -i -X POST -H 'Content-Type: application/json' -d '{"accountId": 2, "amount": 256}' http://localhost:8084/api/v1/testrunner/deposit</copy>
     HTTP/1.1 201
     Date: Wed, 31 May 2023 15:11:55 GMT
     Content-Type: application/json
@@ -1277,7 +1278,7 @@ Now you can test the full end-to-end flow for the Check Processing scenario.
   Using the `journalId` you received in the output of the previous command (in this example it is `6`), update and then run this command to simulate the Back Office clearing that check:
 
     ```shell
-    $ <copy>curl -i -X POST -H 'Content-Type: application/json' -d '{"journalId": 6}' http://localhost:8080/api/v1/testrunner/clear</copy>
+    $ <copy>curl -i -X POST -H 'Content-Type: application/json' -d '{"journalId": 6}' http://localhost:8084/api/v1/testrunner/clear</copy>
     HTTP/1.1 201
     Date: Wed, 31 May 2023 15:12:54 GMT
     Content-Type: application/json
@@ -1318,7 +1319,6 @@ Now you can test the full end-to-end flow for the Check Processing scenario.
 ## Learn More
 
 * [Oracle Backend for Spring Boot and Microservices](https://bit.ly/oraclespringboot)
-* [Oracle Backend for Parse Platform](https://oracle.github.io/microservices-datadriven/mbaas/)
 * [Kubernetes](https://kubernetes.io/docs/home/)
 * [Apache APISIX](https://apisix.apache.org)
 * [Oracle Cloud Infrastructure](https://docs.oracle.com/en-us/iaas/Content/home.htm)
@@ -1328,4 +1328,4 @@ Now you can test the full end-to-end flow for the Check Processing scenario.
 
 * **Author** - Mark Nelson, Developer Evangelist, Oracle Database
 * **Contributors** - [](var:contributors)
-* **Last Updated By/Date** - Andy Tael, February 2024
+* **Last Updated By/Date** - Andy Tael, July 2024

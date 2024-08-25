@@ -15,8 +15,8 @@
         "filename": "../../setup/setup.md"
       },
       {
-        "title": "Lab 2: Data-Centric Microservices Walkthrough with Helidon MP",
-        "filename": "../../walkthrough-helidon/walkthrough-helidon.md"
+        "title": "Lab 2: Data-Centric Microservices Walkthrough",
+        "filename": "../../walkthrough-microservices/walkthrough-microservices.md"
       },
       {
         "title": "Lab 3: Polyglot Microservices",
@@ -39,7 +39,11 @@
         "filename": "../../transactional/transactional.md"
       },
       {
-        "title": "Lab 8: Tear Down",
+        "title": "Lab 8: Build a video game using Unity, Kubernetes, and Oracle Database",
+        "filename": "../../unitygame/unitygame.md"
+      },
+      {
+        "title": "Lab 9: Tear Down",
         "filename": "../../teardown/teardown.md"
       },
       {

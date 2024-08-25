@@ -2,7 +2,7 @@
 
 ## Introduction
 
-Now that you know how to build a Spring Boot microservice and deploy it to the Oracle Backend for Spring Boot and Microservices, this lab will guide you through deploying all of the CloudBank services and exploring the runtime and management capabilities of the platform. **NOTE:** The full CloudBank leverages more features than you have built so far such as monitoring, tracing etc. You will see those features in the lab "Explore The Backend Platform".
+Now that you know how to build a Spring Boot microservice and deploy it to the Oracle Backend for Spring Boot and Microservices, this lab will guide you through deploying all the CloudBank services and exploring the runtime and management capabilities of the platform. **NOTE:** The full CloudBank leverages more features than you have built so far such as monitoring, tracing etc. You will see those features in the lab "Explore The Backend Platform".
 
 Estimated Lab Time: 30 minutes
 
@@ -14,7 +14,7 @@ Quick walk through on how to deploy full CloudBank application.
 
 In this lab, you will:
 
-* Deploy the full CloudBank sample application into your Oracle Backend for Spring Boot and Microservices Microservices instance
+* Deploy the full CloudBank sample application into your Oracle Backend for Spring Boot and Microservices instance
 
 ### Prerequisites
 
@@ -33,7 +33,7 @@ Download a copy of the CloudBank sample application.
     Create a local clone of the CloudBank source repository using this command.
 
     ```shell
-    <copy>git clone -b OBAAS-1.1.3 https://github.com/oracle/microservices-datadriven.git</copy>
+    <copy>git clone -b OBAAS-1.2.0 https://github.com/oracle/microservices-datadriven.git</copy>
     ```
 
     > **Note**: If you do not have **git** installed on your machine, you can download a zip file of the source code from [GitHub](https://github.com/oracle/microservices-datadriven) and unzip it on your machine instead.
@@ -89,7 +89,7 @@ Download a copy of the CloudBank sample application.
 
 1. Start a tunnel to the backend service.
 
-    The Oracle Backend for Spring Boot and Microservices admin service is not exposed outside of the Kubernetes cluster by default. Use kubectl to start a port forwarding tunnel to establish a secure connection to the admin service.
+    The Oracle Backend for Spring Boot and Microservices admin service is not exposed outside the Kubernetes cluster by default. Use kubectl to start a port forwarding tunnel to establish a secure connection to the admin service.
 
     Start a tunnel using this command:
 
@@ -110,8 +110,8 @@ Download a copy of the CloudBank sample application.
     \_/ |_) (_| (_| __)   \_ |_ _|_
     ========================================================================================
       Application Name: Oracle Backend Platform :: Command Line Interface
-      Application Version: (1.1.1)
-      :: Spring Boot (v3.2.1) ::
+      Application Version: (1.2.0)
+      :: Spring Boot (v3.3.0) ::
 
       Ask for help:
       - Slack: https://oracledevs.slack.com/archives/C03ALDSV272
@@ -153,12 +153,12 @@ Download a copy of the CloudBank sample application.
     * Create the microservices deployment descriptor (k8s) with the resources supplied
     * Applies the k8s deployment and create k8s object service to microservice
 
-    The services are using [Liquibase](https://www.liquibase.org/). Liquibase is an open-source database schema change management solution which enables you to manage revisions of your database changes easily. When the service get's deployed the `tables` and sample `data` will be created and inserted by Liquibase. The SQL executed can be found in the source code directories of CloudBank.
+    The services are using [Liquibase](https://www.liquibase.org/). Liquibase is an open-source database schema change management solution which enables you to manage revisions of your database changes easily. When the service gets deployed the `tables` and sample `data` will be created and inserted by Liquibase. The SQL executed can be found in the source code directories of CloudBank.
 
     Run the following command to deploy CloudBank. When asked for `Database/Service Password:` enter the password `Welcome1234##`. You need to do this multiple times. **NOTE:** The deployment of CloudBank will take a few minutes.
 
     ```text
-    oractl:>script --file deploy-cmds/deploy-cb.txt
+    oractl:>script --file deploy-cmds/deploy-cb-java21.txt
     ```
 
     The output should look similar to this:
@@ -235,7 +235,7 @@ To be able to access the CLoudBank services from the public internet we need exp
 1. Create tunnel to APISIX
 
     ```shell
-    kubectl port-forward -n apisix svc/apisix-admin 9180
+    <copy>kubectl port-forward -n apisix svc/apisix-admin 9180</copy>
     ```
 
 1. Create the routes
@@ -243,7 +243,7 @@ To be able to access the CLoudBank services from the public internet we need exp
     In the `root` directory run the following command. *NOTE*, you must add your API-KEY to the command:
 
     ```shell
-    (cd apisix-routes; source ./create-all-routes.sh <YOUR-API-KEY>)
+    <copy>(cd apisix-routes; source ./create-all-routes.sh <YOUR-API-KEY>)</copy>
     ```
 
     The script will create the following routes:
@@ -263,7 +263,7 @@ To be able to access the CLoudBank services from the public internet we need exp
         Retrieve the password for the APISIX dashboard using this command:
 
         ```shell
-        kubectl get secret apisix-dashboard -n apisix -o jsonpath='{.data.conf\.yaml}' | base64 --decode</copy>
+        <copy>kubectl get secret apisix-dashboard -n apisix -o jsonpath='{.data.conf\.yaml}' | base64 --decode</copy>
         ```
 
     1. Start the tunnel in a new terminal window using this command.
@@ -597,7 +597,6 @@ This concludes the lab *Deploy the full CloudBank Application* using the `oractl
 ## Learn More
 
 * [Oracle Backend for Spring Boot and Microservices](https://bit.ly/oraclespringboot)
-* [Oracle Backend for Parse Platform](https://oracle.github.io/microservices-datadriven/mbaas/)
 * [Kubernetes](https://kubernetes.io/docs/home/)
 * [Apache APISIX](https://apisix.apache.org)
 * [Oracle Cloud Infrastructure](https://docs.oracle.com/en-us/iaas/Content/home.htm)
@@ -606,4 +605,4 @@ This concludes the lab *Deploy the full CloudBank Application* using the `oractl
 
 * **Author** - Andy Tael, Corrado De Bari, Mark Nelson, Developer Evangelists, Oracle Database
 * **Contributors** - [](var:contributors)
-* **Last Updated By/Date** - Andy Tael, February 2024
+* **Last Updated By/Date** - Andy Tael, July 2024

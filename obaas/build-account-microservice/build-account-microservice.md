@@ -2,7 +2,7 @@
 
 ## Introduction
 
-This lab walks you through the steps to build a Spring Boot microservice from scratch, and to deploy it into the  and Microservices.  In this lab, we will build the "Account" microservice.  In the next lab, the remaining Cloud Bank microservices will be provided for you.
+This lab walks you through the steps to build a Spring Boot microservice from scratch, and to deploy it into the Oracle Backend for SpringBoot and Microservices.  In this lab, we will build the "Account" microservice.  In the next lab, the remaining Cloud Bank microservices will be provided for you.
 
 Estimated Time: 20 minutes
 
@@ -63,7 +63,7 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
 
 1. Choose Java Version
 
-   Next, you will be asked what version of Java to use. Select **17** from the list of options.  Technically you could use an earlier version of Java with Spring Boot 2.7.x, however the lab instructions assume you are using Java 17, so it is better to choose that to avoid issues during this lab.  Note that Spring Boot 3.0 requires Java 17 as the minimum level.
+   Next, you will be asked what version of Java to use. Select **21** from the list of options.
 
    ![Specify Java version](images/obaas-spring-init-7.png " ")
 
@@ -211,7 +211,7 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
 
 ## Task 3: Prepare objects in the Oracle Database
 
-1. Get the the database user `ADMIN` password
+1. Get the database user `ADMIN` password
 
     The ADMIN password can be retrieved from a k8s secret using this command. Replace the **DBNAME** with the name of your database. Save the password as it will be needed in later steps.
 
@@ -274,7 +274,7 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
     CBANKDB_TPURGENT
     ```
 
-    Connect to the database using the `ADMIN` user, the password you retrieved earlier ans the TNS name `DBNAME_tp`.
+    Connect to the database using the `ADMIN` user, the password you retrieved earlier and the TNS name `DBNAME_tp`.
 
     ```sql
     SQL> <copy>connect ADMIN/your-ADMIN-password@your-TNS-entry</copy>
@@ -337,23 +337,23 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
 
   To add Spring Data JPA and the Oracle Database drivers to your project, open the Maven POM (`pom.xml`) and add these extra dependencies for Spring Data JPA, Oracle Spring Boot Starters for Oracle Database UCP (Universal Connection Pool) and Wallet:
 
-    ```xml
-    <copy>
-    <dependency>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-data-jpa</artifactId>
-    </dependency>
-    <dependency>
-        <groupId>com.oracle.database.spring</groupId>
-        <artifactId>oracle-spring-boot-starter-ucp</artifactId>
-        <version>23.4.0</version>
-    </dependency>
-        <dependency>
-        <groupId>com.oracle.database.spring</groupId>
-        <artifactId>oracle-spring-boot-starter-wallet</artifactId>
-        <version>23.4.0</version>
-    </dependency></copy>
-    ```
+  ```xml
+  <copy>
+  <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-data-jpa</artifactId>
+  </dependency>
+  <dependency>
+      <groupId>com.oracle.database.spring</groupId>
+      <artifactId>oracle-spring-boot-starter-ucp</artifactId>
+      <version>23.4.0</version>
+  </dependency>
+      <dependency>
+      <groupId>com.oracle.database.spring</groupId>
+      <artifactId>oracle-spring-boot-starter-wallet</artifactId>
+      <version>23.4.0</version>
+  </dependency></copy>
+  ```
 
   Visual Studio code will display a notification in the bottom right corner and ask if it should update the project based on the change you just made.  You should select **Yes** or **Always** to this notification.  Doing so will ensure that the auto-completion will have access to the classes in the new dependency that you just added.
 
@@ -409,7 +409,7 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
               initial-pool-size: 15
               min-pool-size: 10
               max-pool-size: 30
-        ```
+      ```
 
       These parameters will be used by Spring Data JPA to automatically configure the data source and inject it into your application.  This configuration uses [Oracle Universal Connection Pool](https://docs.oracle.com/en/database/oracle/oracle-database/21/jjucp/index.html) to improve performance and better utilize system resources.  The settings in the `spring.jpa` section tell Spring Data JPA to use Oracle SQL syntax, and to show the SQL statements in the log, which is useful during development when you may wish to see what statements are being executed as your endpoints are called.
 
@@ -516,11 +516,6 @@ Create a project to hold your Account service.  In this lab, you will use the Sp
 
     @Column(name = "CUSTOMER_ID")
     private String accountCustomerId;
-
-    @SuppressWarnings("deprecation")
-    @Generated(GenerationTime.INSERT)
-    @Column(name = "ACCOUNT_OPENED_DATE", updatable = false, insertable = false)
-    private Date accountOpenedDate;
 
     @Column(name = "ACCOUNT_OTHER_DETAILS")
     private String accountOtherDetails;
@@ -935,7 +930,7 @@ If you would like to learn more about endpoints and implement the remainder of t
     </copy>
     ```
 
-    Add the the dependency management to the Maven POM file:
+    Add the dependency management to the Maven POM file:
 
     ```xml
     <copy>
@@ -996,7 +991,7 @@ If you would like to learn more about endpoints and implement the remainder of t
 
 1. Prepare the backend for deployment
 
-    The Oracle Backend for Spring Boot and Microservices admin service is not exposed outside of the Kubernetes cluster by default. Oracle recommends using a **kubectl** port forwarding tunnel to establish a secure connection to the admin service.
+    The Oracle Backend for Spring Boot and Microservices admin service is not exposed outside the Kubernetes cluster by default. Oracle recommends using a **kubectl** port forwarding tunnel to establish a secure connection to the admin service.
 
     Start a tunnel using this command in a new terminal window:
 
@@ -1019,8 +1014,8 @@ If you would like to learn more about endpoints and implement the remainder of t
     \_/ |_) (_| (_| __)   \_ |_ _|_
     ========================================================================================
       Application Name: Oracle Backend Platform :: Command Line Interface
-      Application Version: (1.1.1)
-      :: Spring Boot (v3.2.1) ::
+      Application Version: (1.2.0)
+      :: Spring Boot (v3.3.0) ::
 
       Ask for help:
       - Slack: https://oracledevs.slack.com/archives/C03ALDSV272
@@ -1065,7 +1060,7 @@ If you would like to learn more about endpoints and implement the remainder of t
     oractl:>
     ```
 
-    > What happens when you use the Oracle Backend for Spring Boot and Microservices CLI (*oractl*) **deploy** command? When you run the deploy command, the Oracle Backend for Spring Boot and Microservices CLI does several things for you:
+    > What happens when you use the Oracle Backend for Spring Boot and Microservices CLI (*oractl*) **deploy** command? When you run the **deploy** command, the Oracle Backend for Spring Boot and Microservices CLI does several things for you:
 
     * Uploads the JAR file to server side
     * Builds a container image and push it to the OCI Registry
@@ -1094,7 +1089,7 @@ If you would like to learn more about endpoints and implement the remainder of t
 
 1. Check the Eureka Server
 
-    Create a tunnel to the Eureka server so you can verify the `ACCOUNTS` application has registered with the server.
+    Create a tunnel to the Eureka server, so you can verify the `ACCOUNTS` application has registered with the server.
 
     ```shell
     $ <copy>kubectl -n eureka port-forward svc/eureka 8761</copy>
@@ -1118,7 +1113,7 @@ Now that the account service is deployed, you need to expose it through the API 
 
 1. Access the APISIX Dashboard
 
-    The APISIX Dashboard isn't exposed outside of the cluster. You need to start a tunnel to be able to access APISIX Dashboard. Start the tunnel using this command in a new terminal window:
+    The APISIX Dashboard isn't exposed outside the cluster. You need to start a tunnel to be able to access APISIX Dashboard. Start the tunnel using this command in a new terminal window:
 
     ```shell
     $ <copy>kubectl -n apisix port-forward svc/apisix-dashboard 8090:80</copy>
@@ -1198,7 +1193,6 @@ Now that the account service is deployed, you need to expose it through the API 
 ## Learn More
 
 * [Oracle Backend for Spring Boot and Microservices](https://bit.ly/oraclespringboot)
-* [Oracle Backend for Parse Platform](https://oracle.github.io/microservices-datadriven/mbaas/)
 * [Kubernetes](https://kubernetes.io/docs/home/)
 * [Apache APISIX](https://apisix.apache.org)
 * [Oracle Cloud Infrastructure](https://docs.oracle.com/en-us/iaas/Content/home.htm)
@@ -1207,4 +1201,4 @@ Now that the account service is deployed, you need to expose it through the API 
 
 * **Author** - Andy Tael, Mark Nelson, Developer Evangelists, Oracle Database
 * **Contributors** - [](var:contributors)
-* **Last Updated By/Date** - Andy Tael, December 2023
+* **Last Updated By/Date** - Andy Tael, July 2024
