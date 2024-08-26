@@ -3,7 +3,7 @@ The Oracle Database converges support for multiple data models and workloads int
 
 
 ## Workshops
-- [JSON](https://apexapps.oracle.com/pls/apex/dbpm/r/livelabs/view-workshop?p180_id=613)
+- [JSON](https://livelabs.oracle.com/pls/apex/dbpm/r/livelabs/view-workshop?p180_id=613)
 
 
 ## Product Pages
