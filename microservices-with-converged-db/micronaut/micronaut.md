@@ -116,7 +116,7 @@ This lab assumes you have:
     ![graalvm java 22](images/graalvm-java-22.png)  
    
 
-5. Build the project.
+4. Build the project.
    
    Run the commands below to build the project as required. Note that this is not using the GraalVM plugin yet but just a plain old Java build.
 
@@ -128,8 +128,46 @@ This lab assumes you have:
     ```  
    Provided that everything is correct, the project will be built successfully as expected.
 
-   ![project build success](images/project-build-success.png)
+   ![project build success](images/project-build-success.png)  
 
+
+## Task 3: Provision an Oracle Autonomous Database instance with Terraform
+
+1. Now let's provision the ADB DB instance with Terraform. Navigate to the directory with the Terraform scripts located under `$HOME//micronaut-graalvm-oracledb/micronaut-guide/src/terraform/adb-standard` where you will find the related Terraform (*.tf) files.
+
+   You must modify the `variables.tf` file to reflect your choices. Note that you have to replace the placeholders `<YOUR_COMPARTMENT_OCID>, <YOUR_DB_ADMIN_PW> and <YOUR_EMAIL_ADDRESS>` with your custom values.
+
+   So, you must edit the files to provide the 3 (three) minimum required inputs as usual: [OCI Compartment](https://docs.oracle.com/en-us/iaas/Content/Identity/Tasks/managingcompartments.htm), Oracle DB ADMIN’s (defined by you), and your email address. Make sure the [password](https://docs.oracle.com/en/database/oracle/oracle-database/23/rilin/requirements-for-database-passwords.html) has at least 12 characters and follow Oracle’s requirements for DB passwords. Otherwise, an error related to your listener will happen during the instance provisioning process.
+
+   ![adb provisioning terraform](images/adb-provisioning-terraform.png)  
+
+   Save the files, as you will run the Terraform scripts to provision the database on the next step.
+
+2. Initialize Terraform by running the commands below:
+
+    ```
+    <copy>
+    cd $HOME//micronaut-graalvm-oracledb/micronaut-guide/src/terraform/adb-standard         
+    terraform init
+    terraform plan
+    terraform apply
+    </copy>
+    ```  
+    You will receive the usual notification from the Oracle Cloud as soon as your database instance is provisioned successfully.
+
+   ![adb atp provisioned](images/adb-atp-provisioned.png)  
+
+3. Using the OCI Console, navigate to the Oracle Autonomous Database ATP instance you just created, copy its OCID as shown below, and save it. You will need it to configure the database connection in the application.properties file.
+
+   ![adb atp ocid](images/adb-atp-ocid.png)  
+
+   Next, adjust the command below, and run it to generate the required database wallet as required.
+
+    ```
+    <copy>
+    oci db autonomous-database generate-wallet --autonomous-database-id ocid1.autonomousdatabase.oc1..xxxx --file /path/to/download/wallet.zip --password "your_wallet_password"    
+    </copy>
+    ```
 
 ## Task 4: Configure Micronaut Data with your Oracle ADB instance details
 
@@ -149,10 +187,22 @@ This lab assumes you have:
     datasources.default.password=<YOUR_PASSWORD>
     datasources.default.walletPassword=<YOUR_WALLET_PASSWORD>
 
-    oci.config.profile=DEFAULT
+    # use these properties if running from OCI Console with Cloud Shell (https://rb.gy/64ebxw)
+    # technical reference at https://micronaut-projects.github.io/micronaut-oracle-cloud/snapshot/guide/
+    oci.fingerprint=<FINGERPRINT_VALUE>
+    # example private key file path + file extension pattern
+    # oci.private-key-file=file:/home/juarez/pk.pem
+    oci.private-key-file=file:<ABSOLUTE_KEY_FILE_PATH><FILE_NAME.pem>
+    oci.region=<REGION>
+    oci.tenant-id=<OCI_TENANCY_OCID>
+    oci.user-id=<OCI_USER_OCID>
+
+    # uncomment if not using oci console with cloud shell
+    # oci.config.profile=DEFAULT    
     </copy>
     ```  
-
+    Please check [Required Keys and OCIDs](https://docs.oracle.com/en-us/iaas/Content/API/Concepts/apisigningkey.htm) if you need an introduction to [OCI Identity and Access Management (IAM)](https://docs.oracle.com/en-us/iaas/Content/Identity/home.htm) concerning the OCI properties above.
+    
     Adjust it to reflect your Oracle ADB instance details, that is, replace the placeholders shown above with your actual (custom) values as required.
 
     ```
@@ -181,19 +231,27 @@ This lab assumes you have:
     ```  
     The Micronaut application will be launched and after a few seconds, you will be able to access it. Note that this time we’re just running a Java application with Maven and the JVM JIT compiler (C2).
 
-    Interestingly, you will be able to see the records that were inserted by the `DataPopulator.java` class as a startup process, as we defined it.
+    Besides, note that you will be able to see the records that were inserted by the `DataPopulator.java` class as a startup process, as we defined it.
 
-   ![database dml queries](images/database-dml-queries.png)  
+   ![micronaut data cloud shell](images/micronaut-data-cloud-shell.png)  
 
-   Now you can use curl to send a HTTP GET request to the URL http://localhost:8080/things/
+   Now you can use curl to send a HTTP GET request to the URL http://[HOST_ID]:8080/things/
+
+   As you're running from Cloud Shell, open another browser tab and start another Cloud Shell session,
+   then use the `curl` command with a HTTP GET request below:
 
     ```
     <copy>
-    curl -X GET "http://localhost:8080/things"    
+    curl -X GET "http://[HOST_ID]:8080/things"    
     </copy>
     ``` 
+   
+   You will see JSON returned as a HTTP response. 
+   
+   ![http get request cloud shell](images/http-get-request-cloud-shell.png)
 
-   You will see JSON returned as a HTTP response. Now we can proceed to work with GraalVM and generate our native executable!
+   Now we can proceed to work with GraalVM and generate our native executable!
+
 
 ## Task 6: Native image with GraalVM
 
@@ -207,17 +265,25 @@ This lab assumes you have:
     ``` 
     The native compilation process will start and take a few minutes to complete. Meanwhile, you might want to read about Native Image.
 
-   ![graalvm native executable](images/graalvm-native-executable-gen.png) 
+   ![graalvm native executable generation](images/graalvm-native-executable-gen.png) 
 
     After reading about Native Image, you can now understand that the process is quite elaborate, with many steps and verifications to be performed. The screenshot below provides a glimpse of it.
 
-2. After a while, you will see another message with a confirmation that your native executable file has been generated. The last step is to find and run the native executable file and execute it, so you can just navigate to the /target directory to find the native executable of your application, so you can run it.
+2. After a while, you will see another message with a confirmation that your native executable file has been generated. 
+
+   ![graalvm native executable created](images/graalvm-native-executable-created.png) 
+
+3. The last step is to find and run the native executable file and execute it, so you can just navigate to the /target directory to find the native executable of your application, so you can run it.
     
     ```
     <copy>
-    cd $HOME/micronaut-graalvm-oracledb/micronaut-guide/target    
+    cd $HOME/micronaut-graalvm-oracledb/micronaut-guide/target   
+    ./micronaut-guide 
     </copy>
     ``` 
+
+   ![graalvm native executable](images/graalvm-native-executable.png)     
+    
     You will notice that it has a faster startup time, among many things. 
     We will leave such exploration as a gift for you and an exercise so you can proceed to learn more about combining all these fantastic technologies — GraalVM, Micronaut Data, and the Oracle Autonomous Database.
 
