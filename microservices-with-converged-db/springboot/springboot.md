@@ -1,4 +1,4 @@
-# Develop with Oracle Database 23ai and GraalVM using Micronaut
+# Develop with Oracle Database 23ai and GraalVM using Spring Boot
 
 ## Introduction
 
