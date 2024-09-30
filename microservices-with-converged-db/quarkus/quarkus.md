@@ -1,14 +1,14 @@
-# Develop with Oracle Database 23ai and GraalVM using Spring Boot
+# Develop with Oracle Database 23ai and GraalVM using Quarkus
 
 ## Introduction
 
-This lab walks you through the steps to develop with Oracle Database 23ai and GraalVM using Spring Boot
+This lab walks you through the steps to develop with Oracle Database 23ai and GraalVM using Quarkus
 Estimated Time: 30 minutes
 
 ### Objectives
 
 In this lab, you will:
-- Develop with Oracle Database 23ai and GraalVM using Spring Boot
+- Develop with Oracle Database 23ai and GraalVM using Quarkus
 
 ### Prerequisites
 
