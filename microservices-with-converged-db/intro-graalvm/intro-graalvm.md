@@ -2,9 +2,7 @@
 
 ## About this Workshop
 
-[](youtube:v0nYRueADbo)
-
-This workshop will help you understand the technical capabilities 
+This workshop will help you understand more about developing with GraalVM and Oracle Database
 
 Estimated Workshop Time: 30 minutes
 
@@ -20,7 +18,7 @@ GraalVM is an advanced JDK with ahead-of-time Native Image compilation...
 
 ### Prerequisites
 
-- An Oracle Cloud Account - Please view this workshop's LiveLabs landing page to see which environments are supported.
+- An Oracle Cloud Account - Please view this workshop's LiveLabs landing page.
 
 ## Learn More
 

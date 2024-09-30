@@ -4,6 +4,10 @@
 
 This lab walks you through the steps to develop with Oracle Database 23ai and GraalVM using Helidon.
 
+Helidon is a cloud-native, open‑source set of Java libraries for writing microservices that run on a fast web core powered by Java virtual threads.
+
+Helidon also supports MicroProfile, a platform definition that uses Java EE and Jakarta EE technologies.
+
 Estimated Time: 30 minutes
 
 ### Objectives
@@ -24,10 +28,9 @@ This lab assumes you have:
 
     ```
     <copy>   
-    git clone 
+    git clone https://github.com/paulparkinson/microservices-datadriven-devrel.git
     </copy>
     ```
-
 
 
 ## Task 2: Build and run
@@ -40,7 +43,7 @@ This lab assumes you have:
    ```properties
    javax.sql.DataSource.example.connectionFactoryClassName=oracle.jdbc.pool.OracleDataSource
    javax.sql.DataSource.example.URL=jdbc:oracle:thin:@<tnsServiceName>?TNS_ADMIN=/path/to/wallet
-   javax.sql.DataSource.example.user=<user>
+   javax.sql.DataSource.example.user=ADMIN
    javax.sql.DataSource.example.password=<password>
    ```
 

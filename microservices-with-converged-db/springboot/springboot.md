@@ -27,7 +27,6 @@ This lab assumes you have:
     ```
 
 
-
 ## Task 2: Build and run
 
 1. To ensure that the sample application is configured to talk to the
@@ -38,10 +37,11 @@ This lab assumes you have:
    ```properties
    javax.sql.DataSource.example.connectionFactoryClassName=oracle.jdbc.pool.OracleDataSource
    javax.sql.DataSource.example.URL=jdbc:oracle:thin:@<tnsServiceName>?TNS_ADMIN=/path/to/wallet
-   javax.sql.DataSource.example.user=<user>
+   javax.sql.DataSource.example.user=ADMIN
    javax.sql.DataSource.example.password=<password>
    ```
 
+   *Note that the values of the password and path to wallet are those that were collected during setup.
 
 2. Build and run
 
@@ -52,7 +52,7 @@ This lab assumes you have:
     ```  
 
 
-3. Build and run native image
+3. Now build and run the native image. This will take some time (up to 10 minutes)
 
     ```
     <copy>   
