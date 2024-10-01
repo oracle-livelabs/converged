@@ -53,11 +53,7 @@ Your own Oracle Cloud Infrastructure compartment for running this workshop has b
 
 ## Task 3: Download the wallet of your pre-provisioned ATP instance 
 
-   1. Copy the compartment-id and database name from the workshop reservation page described in the "Get Started" lab and issue the following command in the Cloud Shell using those values.
-
-      oci db autonomous-database list --compartment-id <your-compartment-ocid> --display-name "<ATP_NAME>"
-
-   2. This command should return the ocid of the database which you can use, along with an arbitrary `wallet-password` to run the following command to download the database wallet to the file location provided.
+   1. Copy the database ocid from the workshop reservation page described in the "Get Started" lab and issue the following command in the Cloud Shell. Use the ocid as the `autonomous-database-id` and arbitrary values for the `file` and (wallet) `password`.
 
       oci db autonomous-database generate-wallet --autonomous-database-id <ATP_OCID> --file ~/myatpwallet.zip --password <wallet-password>
 
