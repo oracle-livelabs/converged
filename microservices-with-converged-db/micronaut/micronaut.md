@@ -145,45 +145,8 @@ This lab assumes you have:
    ![project build success](images/project-build-success.png)  
 
 
-## Task 3: Provision an Oracle Autonomous Database instance with Terraform
 
-1. Now let's provision the ADB DB instance with Terraform. Navigate to the directory with the Terraform scripts located under `$HOME//micronaut-graalvm-oracledb/micronaut-guide/src/terraform/adb-standard` where you will find the related Terraform (*.tf) files.
-
-   You must modify the `variables.tf` file to reflect your choices. Note that you have to replace the placeholders `<YOUR_COMPARTMENT_OCID>, <YOUR_DB_ADMIN_PW> and <YOUR_EMAIL_ADDRESS>` with your custom values.
-
-   So, you must edit the files to provide the 3 (three) minimum required inputs as usual: [OCI Compartment](https://docs.oracle.com/en-us/iaas/Content/Identity/Tasks/managingcompartments.htm), Oracle DB ADMIN’s (defined by you), and your email address. Make sure the [password](https://docs.oracle.com/en/database/oracle/oracle-database/23/rilin/requirements-for-database-passwords.html) has at least 12 characters and follow Oracle’s requirements for DB passwords. Otherwise, an error related to your listener will happen during the instance provisioning process.
-
-   ![adb provisioning terraform](images/adb-provisioning-terraform.png)  
-
-   Save the files, as you will run the Terraform scripts to provision the database on the next step.
-
-2. Initialize Terraform by running the commands below:
-
-    ```
-    <copy>
-    cd $HOME//micronaut-graalvm-oracledb/micronaut-guide/src/terraform/adb-standard         
-    terraform init
-    terraform plan
-    terraform apply
-    </copy>
-    ```  
-    You will receive the usual notification from the Oracle Cloud as soon as your database instance is provisioned successfully.
-
-   ![adb atp provisioned](images/adb-atp-provisioned.png)  
-
-3. Using the OCI Console, navigate to the Oracle Autonomous Database ATP instance you just created, copy its OCID as shown below, and save it. You will need it to configure the database connection in the application.properties file.
-
-   ![adb atp ocid](images/adb-atp-ocid.png)  
-
-   Next, adjust the command below, and run it to generate the required database wallet as required.
-
-    ```
-    <copy>
-    oci db autonomous-database generate-wallet --autonomous-database-id ocid1.autonomousdatabase.oc1..xxxx --file /path/to/download/wallet.zip --password "your_wallet_password"  
-    </copy>
-    ```
-
-## Task 4: Configure Micronaut Data with your Oracle ADB instance details
+## Task 3: Configure Micronaut Data with your Oracle ADB instance details
 
 1. We’ll use an application properties file. Below is an example with the relevant details you must provide. Navigate to your `application.properties` file under `$HOME//micronaut-graalvm-oracledb/micronaut-guide/src/main/resources`:  
 
@@ -232,7 +195,7 @@ This lab assumes you have:
 
    ![sql script flyway](images/sql-script-flyway.png)  
 
-## Task 5: A first run with VS Code only and the JIT (C2) compiler
+## Task 4: A first run with VS Code only and the JIT (C2) compiler
 
 1. The Micronaut application is now finished and ready to be executed. So, you can compile, build, and run it with Maven from the command-line.
 
@@ -267,7 +230,7 @@ This lab assumes you have:
    Now we can proceed to work with GraalVM and generate our native executable!
 
 
-## Task 6: Native image with GraalVM
+## Task 5: Native image with GraalVM
 
 1. Now, we’ll be able to use GraalVM to create a native executable for our application. Run the following commands:
 
