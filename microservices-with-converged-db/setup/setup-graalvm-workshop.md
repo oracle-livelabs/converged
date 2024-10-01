@@ -51,13 +51,28 @@ Your own Oracle Cloud Infrastructure compartment for running this workshop has b
 
       >**Note**: Cloud Shell uses websockets to communicate between your browser and the service. If your browser has websockets disabled or uses a corporate proxy that has websockets disabled you will see an error message ("An unexpected error occurred") when attempting to start Cloud Shell from the console. You also can change the browser cookies settings for a specific site to allow the traffic from *.oracle.com
 
-## Task 3: Download the wallet of your pre-provisioned ATP instance 
+## Task 3: Download the wallet of your pre-provisioned ATP instance (used to make connections in the Java/GraalVM app)
 
-   1. Copy the database ocid from the workshop reservation page described in the "Get Started" lab and issue the following command in the Cloud Shell. Use the ocid as the `autonomous-database-id` and arbitrary values for the `file` and (wallet) `password`.
+   1. Create a directory to hold the wallet files... 
 
-      oci db autonomous-database generate-wallet --autonomous-database-id <ATP_OCID> --file ~/myatpwallet.zip --password <wallet-password>
+    ```
+    <copy>
+    mkdir ~/myatpwallet
+    </copy>
+    ```
 
-   2. Finally, unzip it the wallet file to a directory such as ~/myatpwallet (this wallet/directory will be used to make connections in the Java/GraalVM app)
+
+   2. Copy the database ocid from the workshop reservation page described in the "Get Started" lab and issue the following command in the Cloud Shell. Use the ocid as the `autonomous-database-id` and arbitrary values for the `file` and (wallet) `password`.
+
+      oci db autonomous-database generate-wallet --autonomous-database-id <ATP_OCID> --file ~/myatpwallet/myatpwallet.zip --password <wallet-password>
+
+   3. Finally, unzip it the wallet file to a directory such as...
+
+    ```
+    <copy>
+    cd ~/myatpwallet ; unzip myatpwallet.zip ; cd ~
+    </copy>
+    ```
 
    > **Note:** Cloud Shell sessions have a maximum length of 24 hours, and time out after 20 minutes of inactivity.
 
