@@ -116,7 +116,7 @@ This lab assumes you have:
     ![graalvm java 22](images/graalvm-java-22.png)  
    
 
-5. Build the project.
+4. Build the project.
    
    Run the commands below to build the project as required. Note that this is not using the GraalVM plugin yet but just a plain old Java build.
 
@@ -128,10 +128,10 @@ This lab assumes you have:
     ```  
    Provided that everything is correct, the project will be built successfully as expected.
 
-   ![project build success](images/project-build-success.png)
+   ![project build success](images/project-build-success.png)  
 
 
-## Task 4: Configure Micronaut Data with your Oracle ADB instance details
+## Task 3: Configure Micronaut Data with your Oracle ADB instance details
 
 1. We’ll use an application properties file. Below is an example with the relevant details you must provide. Navigate to your `application.properties` file under `$HOME//micronaut-graalvm-oracledb/micronaut-guide/src/main/resources`:  
 
@@ -149,10 +149,22 @@ This lab assumes you have:
     datasources.default.password=<YOUR_PASSWORD>
     datasources.default.walletPassword=<YOUR_WALLET_PASSWORD>
 
-    oci.config.profile=DEFAULT
+    # use these properties if running from OCI Console with Cloud Shell (https://rb.gy/64ebxw)
+    # technical reference at https://micronaut-projects.github.io/micronaut-oracle-cloud/snapshot/guide/
+    oci.fingerprint=<FINGERPRINT_VALUE>
+    # example private key file path + file extension pattern
+    # oci.private-key-file=file:/home/juarez/pk.pem
+    oci.private-key-file=file:<ABSOLUTE_KEY_FILE_PATH><FILE_NAME.pem>
+    oci.region=<REGION>
+    oci.tenant-id=<OCI_TENANCY_OCID>
+    oci.user-id=<OCI_USER_OCID>
+
+    # uncomment if not using oci console with cloud shell
+    # oci.config.profile=DEFAULT    
     </copy>
     ```  
-
+    Please check [Required Keys and OCIDs](https://docs.oracle.com/en-us/iaas/Content/API/Concepts/apisigningkey.htm) if you need an introduction to [OCI Identity and Access Management (IAM)](https://docs.oracle.com/en-us/iaas/Content/Identity/home.htm) concerning the OCI properties above.
+    
     Adjust it to reflect your Oracle ADB instance details, that is, replace the placeholders shown above with your actual (custom) values as required.
 
     ```
@@ -168,7 +180,7 @@ This lab assumes you have:
 
    ![sql script flyway](images/sql-script-flyway.png)  
 
-## Task 5: A first run with VS Code only and the JIT (C2) compiler
+## Task 4: A first run with VS Code only and the JIT (C2) compiler
 
 1. The Micronaut application is now finished and ready to be executed. So, you can compile, build, and run it with Maven from the command-line.
 
@@ -181,21 +193,29 @@ This lab assumes you have:
     ```  
     The Micronaut application will be launched and after a few seconds, you will be able to access it. Note that this time we’re just running a Java application with Maven and the JVM JIT compiler (C2).
 
-    Interestingly, you will be able to see the records that were inserted by the `DataPopulator.java` class as a startup process, as we defined it.
+    Besides, note that you will be able to see the records that were inserted by the `DataPopulator.java` class as a startup process, as we defined it.
 
-   ![database dml queries](images/database-dml-queries.png)  
+   ![micronaut data cloud shell](images/micronaut-data-cloud-shell.png)  
 
-   Now you can use curl to send a HTTP GET request to the URL http://localhost:8080/things/
+   Now you can use curl to send a HTTP GET request to the URL http://[HOST_ID]:8080/things/
+
+   As you're running from Cloud Shell, open another browser tab and start another Cloud Shell session,
+   then use the `curl` command with a HTTP GET request below:
 
     ```
     <copy>
-    curl -X GET "http://localhost:8080/things"    
+    curl -X GET "http://[HOST_ID]:8080/things"    
     </copy>
     ``` 
+   
+   You will see JSON returned as a HTTP response. 
+   
+   ![http get request cloud shell](images/http-get-request-cloud-shell.png)
 
-   You will see JSON returned as a HTTP response. Now we can proceed to work with GraalVM and generate our native executable!
+   Now we can proceed to work with GraalVM and generate our native executable!
 
-## Task 6: Native image with GraalVM
+
+## Task 5: Native image with GraalVM
 
 1. Now, we’ll be able to use GraalVM to create a native executable for our application. Run the following commands:
 
@@ -207,17 +227,25 @@ This lab assumes you have:
     ``` 
     The native compilation process will start and take a few minutes to complete. Meanwhile, you might want to read about Native Image.
 
-   ![graalvm native executable](images/graalvm-native-executable-gen.png) 
+   ![graalvm native executable generation](images/graalvm-native-executable-gen.png) 
 
     After reading about Native Image, you can now understand that the process is quite elaborate, with many steps and verifications to be performed. The screenshot below provides a glimpse of it.
 
-2. After a while, you will see another message with a confirmation that your native executable file has been generated. The last step is to find and run the native executable file and execute it, so you can just navigate to the /target directory to find the native executable of your application, so you can run it.
+2. After a while, you will see another message with a confirmation that your native executable file has been generated. 
+
+   ![graalvm native executable created](images/graalvm-native-executable-created.png) 
+
+3. The last step is to find and run the native executable file and execute it, so you can just navigate to the /target directory to find the native executable of your application, so you can run it.
     
     ```
     <copy>
-    cd $HOME/micronaut-graalvm-oracledb/micronaut-guide/target    
+    cd $HOME/micronaut-graalvm-oracledb/micronaut-guide/target   
+    ./micronaut-guide 
     </copy>
     ``` 
+
+   ![graalvm native executable](images/graalvm-native-executable.png)     
+    
     You will notice that it has a faster startup time, among many things. 
     We will leave such exploration as a gift for you and an exercise so you can proceed to learn more about combining all these fantastic technologies — GraalVM, Micronaut Data, and the Oracle Autonomous Database.
 

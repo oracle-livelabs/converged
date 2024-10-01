@@ -11,7 +11,33 @@ Estimates Time: 20 minutes
 * Clone the setup and microservices code
 * Execute setup
 
-## Task 1: Select Your Compartment
+
+## Task 1: Launch the Cloud Shell
+
+Cloud Shell is a small virtual machine running a "bash" shell which you access through the Oracle Cloud Console. Cloud Shell comes with a pre-authenticated command line interface connected to the tenancy. It also provides up-to-date tools and utilities.
+
+   1. Click the Cloud Shell icon in the top-right corner of the Console.
+
+      ![Open Cloud Shell](images/open-cloud-shell.png " ")
+
+      >**Note**: Cloud Shell uses websockets to communicate between your browser and the service. If your browser has websockets disabled or uses a corporate proxy that has websockets disabled you will see an error message ("An unexpected error occurred") when attempting to start Cloud Shell from the console. You also can change the browser cookies settings for a specific site to allow the traffic from *.oracle.com
+
+## Task 2: Download the wallet of your pre-provisioned ATP instance 
+
+   1. Copy the compartment-id and database name from the workshop reservation page described in the "Get Started" lab and issue the following command in the Cloud Shell using those values.
+
+      oci db autonomous-database list --compartment-id <your-compartment-ocid> --display-name "<ATP_NAME>"
+
+   2. This command should return the ocid of the database which you can use, along with an arbitrary `wallet-password` to run the following command to download the database wallet to the file location provided.
+
+      oci db autonomous-database generate-wallet --autonomous-database-id <ATP_OCID> --file ~/myatpwallet.zip --password <wallet-password>
+
+   2. Finally, unzip it the wallet file to a directory such as ~/myatpwallet (this wallet/directory will be used to make connections in the Java/GraalVM app)
+
+   > **Note:** Cloud Shell sessions have a maximum length of 24 hours, and time out after 20 minutes of inactivity.
+
+
+## Task 3: Exploore the ATP instance in OCI Console (Optional)
 
 Your own Oracle Cloud Infrastructure compartment for running this workshop has been assigned to you. The name of the compartment appears on the Launch page.
 
@@ -19,7 +45,7 @@ Your own Oracle Cloud Infrastructure compartment for running this workshop has b
 
    ![Copy Comp Name](images/copy-comp-name.png " ")
 
-2. Select the navigation menu from the top left corner of the Oracle Cloud Console and navigate to the Instances page in the Compute section.
+2. Select the navigation menu from the top left corner of the Oracle Cloud Console and navigate to the ATP page in the Oracle Database section.
 
    ![Select component instances](images/select-compute-instances.png " ")
 
@@ -33,33 +59,8 @@ Your own Oracle Cloud Infrastructure compartment for running this workshop has b
 
    ![Enter correct component name](images/correct-comp-name.png " ")
 
-## Task 2: Launch the Cloud Shell
+5. Select your database from the list and explore!
 
-Cloud Shell is a small virtual machine running a "bash" shell which you access through the Oracle Cloud Console. Cloud Shell comes with a pre-authenticated command line interface connected to the tenancy. It also provides up-to-date tools and utilities.
-
-1. Click the Cloud Shell icon in the top-right corner of the Console.
-
-   ![Open Cloud Shell](images/open-cloud-shell.png " ")
-
-   >**Note**: Cloud Shell uses websockets to communicate between your browser and the service. If your browser has websockets disabled or uses a corporate proxy that has websockets disabled you will see an error message ("An unexpected error occurred") when attempting to start Cloud Shell from the console. You also can change the browser cookies settings for a specific site to allow the traffic from *.oracle.com
-
-## Task 3: Locate the pre-provisioned ATP instance and download the wallet from it.
-
-1. Using the OCI Console, navigate to the Oracle Autonomous Database ATP instance you just created, copy its OCID as shown below, and save it. You will need it to configure the database connection in the application.properties file.
-
-   ![adb atp ocid](../micronaut/images/adb-atp-ocid.png)
-
-   Next, click the Database connection button highlighted in the screenshot below.
-
-   ![adb atp wallet credentials](../micronaut/images/adb-atp-wallet-credentials.png)
-
-   Finally, specify a password for your wallet, provide it again to reconfirm it, and click the Download button.
-
-   ![adb wallet password](../micronaut/images/adb-wallet-password.png)
-
-   Save your wallet file to your preferred local directory - an example file name is Wallet_MICRONAUTDEMO.zip. Next, use a utility such as `scp` to upload it to a directory under your $HOME directory in Cloud Shell, then unzip it.
-
-   > **Note:** Cloud Shell sessions have a maximum length of 24 hours, and time out after 20 minutes of inactivity.
 
 You may now proceed to the next lab.
 
