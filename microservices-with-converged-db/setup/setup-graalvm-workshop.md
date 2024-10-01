@@ -72,7 +72,11 @@ Your own Oracle Cloud Infrastructure compartment for running this workshop has b
 
    2. Copy the database ocid from the workshop reservation page described in the "Get Started" lab and issue the following command in the Cloud Shell. Use the ocid as the `autonomous-database-id` and arbitrary values for the `file` and (wallet) `password`.
 
-      oci db autonomous-database generate-wallet --autonomous-database-id <ATP_OCID> --file ~/myatpwallet/myatpwallet.zip --password <wallet-password>
+          ```
+    <copy>
+    oci db autonomous-database generate-wallet --autonomous-database-id <ATP_OCID> --file ~/myatpwallet/myatpwallet.zip --password <wallet-password>
+    </copy>
+    ```
 
    3. Finally, unzip it the wallet file to a directory such as...
 
