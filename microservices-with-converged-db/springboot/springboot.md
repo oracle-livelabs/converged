@@ -33,7 +33,6 @@ This lab assumes you have:
     </copy>
     ```
 
-
 ## Task 2: Build and run
 
 1. To ensure that the sample application is configured to talk to the
