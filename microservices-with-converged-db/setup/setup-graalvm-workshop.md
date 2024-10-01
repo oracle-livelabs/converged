@@ -49,6 +49,14 @@ Your own Oracle Cloud Infrastructure compartment for running this workshop has b
 
       ![Open Cloud Shell](images/open-cloud-shell.png =50%x*)
 
+   3. Make sure you're using X86_64 as your target architecture. Click Actions, then click Architecture.
+
+      ![Cloud Shell Architecture](../setup/images/cloud-shell-architecture.png "cloud shell architecture")
+
+   4. Select the *X86_64* radio button, then click the *Confirm* button if it was not already selected as the default architecture.
+
+      ![Cloud Shell Confirmation](../setup/images/cloud-shell-confirmation.png "cloud shell confirmation")
+
       >**Note**: Cloud Shell uses websockets to communicate between your browser and the service. If your browser has websockets disabled or uses a corporate proxy that has websockets disabled you will see an error message ("An unexpected error occurred") when attempting to start Cloud Shell from the console. You also can change the browser cookies settings for a specific site to allow the traffic from *.oracle.com
 
 ## Task 3: Download the wallet of your pre-provisioned ATP instance (used to make connections in the Java/GraalVM app)

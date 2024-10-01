@@ -28,21 +28,11 @@ This lab assumes you have:
 
 ## Task 1: Download and install the Micronaut CLI
 
-1. The Cloud Shell is a small virtual machine running a Bash shell which you access through the OCI Console. It comes with a pre-authenticated CLI pre-installed and configured so you can immediately start working in your tenancy without spending time on installation and configuration!
+1. Open Cloud Shell and make sure you're using X86_64 as your target architecture as was done during the setup lab
 
-   Click the Cloud Shell icon in the top-right corner of the Console.
+    ![Cloud Shell Architecture](../setup/images/cloud-shell-architecture.png "cloud shell architecture")
 
-   ![Cloud Shell Icon](images/open-cloud-shell.png "cloud shell icon")
-
-2. Make sure you're using X86_64 as your target architecture. Click Actions, then click Architecture.
-
-    ![Cloud Shell Architecture](images/cloud-shell-architecture.png "cloud shell architecture")
-
-3. Select the *X86_64* radio button, then click the *Confirm* button if it was not already selected as the default architecture.
-
-    ![Cloud Shell Confirmation](images/cloud-shell-confirmation.png "cloud shell confirmation")
-
-4. To install the Micronaut CLI on Linux, you can use SDKMAN!. Open a terminal and run:
+2. To install the Micronaut CLI on Linux, you can use SDKMAN!. Open a terminal and run:
 
     ```
     <copy>   
@@ -195,7 +185,7 @@ This lab assumes you have:
 
    ![sql script flyway](images/sql-script-flyway.png)  
 
-## Task 4: A first run with VS Code only and the JIT (C2) compiler
+## Task 4: A first run with Java
 
 1. The Micronaut application is now finished and ready to be executed. So, you can compile, build, and run it with Maven from the command-line.
 
