@@ -178,7 +178,7 @@ This lab assumes you have:
 
     Nevertheless, the related SQL script can be found under the `$HOME//micronaut-graalvm-oracledb/micronaut-guide/src/main/resources/db/migration` directory, as shown below.
 
-   ![sql script flyway](images/sql-script-flyway.png)  
+   ![sql script flyway](images/sql-script-flyway.png =50%x*)  
 
 ## Task 4: A first run with VS Code only and the JIT (C2) compiler
 

@@ -18,7 +18,7 @@ Cloud Shell is a small virtual machine running a "bash" shell which you access t
 
    1. Click the Cloud Shell icon in the top-right corner of the Console.
 
-      ![Open Cloud Shell](images/open-cloud-shell.png " ")
+      ![Open Cloud Shell](images/open-cloud-shell.png =50%x*)
 
       >**Note**: Cloud Shell uses websockets to communicate between your browser and the service. If your browser has websockets disabled or uses a corporate proxy that has websockets disabled you will see an error message ("An unexpected error occurred") when attempting to start Cloud Shell from the console. You also can change the browser cookies settings for a specific site to allow the traffic from *.oracle.com
 
