@@ -21,9 +21,9 @@ Your own Oracle Cloud Infrastructure compartment for running this workshop has b
 
    ![Copy Comp Name](images/copy-comp-name.png " ")
 
-2. Select the navigation menu from the top left corner of the Oracle Cloud Console and navigate to the ATP page in the Oracle Database section.
+2. Select the navigation menu from the top left corner of the Oracle Cloud Console and navigate to "Oracle Database" and then, on the right, click "Autonomous Transaction Processing" (ATP) .
 
-   ![Select component instances](images/select-compute-instances.png " ")
+   ![Select component instances](images/oracledatabase-ociconsole.png " ")
 
 3. Search for compartment using the compartment name from step#1 in the "Compartment" field under "List Scope".
 
@@ -35,7 +35,7 @@ Your own Oracle Cloud Infrastructure compartment for running this workshop has b
 
    ![Enter correct component name](images/correct-comp-name.png " ")
 
-5. Select your database from the list and explore!
+5. Select your pre-provisioned database from the list and explore!
 
 
 
@@ -43,7 +43,9 @@ Your own Oracle Cloud Infrastructure compartment for running this workshop has b
 
    Cloud Shell is a small virtual machine running a "bash" shell which you access through the Oracle Cloud Console. Cloud Shell comes with a pre-authenticated command line interface connected to the tenancy. It also provides up-to-date tools and utilities.
 
-   1. Click the Cloud Shell icon in the top-right corner of the Console.
+   1. Verify you are in the correct compartment (this was done as part of Task 1).
+
+   2. Click the Cloud Shell icon in the top-right corner of the Console.
 
       ![Open Cloud Shell](images/open-cloud-shell.png =50%x*)
 
