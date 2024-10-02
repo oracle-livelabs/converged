@@ -22,11 +22,25 @@ This lab assumes you have:
 - Provisioned environment with Git and Maven (Cloud Shell).
 
 
-## Task 1: Cd to project dir and build the project
+## Task 1: Install GraalVM 22 and dd to project dir
 
 1. Open Cloud Shell and make sure you're using X86_64 as your target architecture as was done during the setup lab
 
 2. Cd to the following directory of the repos you cloned during setup. For example, if you cloned to your user's $HOME directory:
+
+    ```
+    <copy>   
+    sdk list java
+    sdk install java 22.0.2-graal
+    sdk use java 22.0.2-graal
+    sdk current
+    csruntimectl java list
+    csruntimectl java set graalvmjdk-17
+    </copy>
+    ```   
+
+
+3. Cd to the following directory of the repos you cloned during setup. For example, if you cloned to your user's $HOME directory:
 
     ```
     <copy>   
@@ -44,7 +58,7 @@ This lab assumes you have:
 
    ```properties
    javax.sql.DataSource.example.connectionFactoryClassName=oracle.jdbc.pool.OracleDataSource
-   javax.sql.DataSource.example.URL=jdbc:oracle:thin:@<tnsServiceName>?TNS_ADMIN=/path/to/wallet
+   javax.sql.DataSource.example.URL=jdbc:oracle:thin:@<tnsServiceName>_high?TNS_ADMIN=/home/<myhomedir>/myatpwallet
    javax.sql.DataSource.example.user=ADMIN
    javax.sql.DataSource.example.password=<password>
    ```
