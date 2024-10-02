@@ -72,7 +72,10 @@ This lab assumes you have:
     ```  
 
 
+Congratulations on connecting your Quarkus app to Oracle Autonomous Database!
+Please explore the source code, configuration, and Oracle Database features to learn more about how to enhance this application.
 
 ## Acknowledgements
-* **Author** - Paul Parkinson, Architect and Developer Advocate; Juarez Barbosa, Sr. Principal Java Developer Evangelist, Java Database Access
+* **Author** - Paul Parkinson, Architect and Developer Advocate; Arjav Desai, Helidon Developer
 * **Last Updated By/Date** - Paul Parkinson, 2024
+

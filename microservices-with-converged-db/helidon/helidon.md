@@ -106,7 +106,9 @@ This lab assumes you have:
     curl http://localhost:8080/tables
     </copy>
     ```  
-    
+
+Congratulations on connecting your Helidon app to Oracle Autonomous Database!
+Please explore the source code, configuration, and Oracle Database features to learn more about how to enhance this application.
 
 ## Acknowledgements
 * **Author** - Paul Parkinson, Architect and Developer Advocate; Arjav Desai, Helidon Developer 
