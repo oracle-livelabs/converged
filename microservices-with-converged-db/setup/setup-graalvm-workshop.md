@@ -88,6 +88,17 @@ Your own Oracle Cloud Infrastructure compartment for running this workshop has b
 
    > **Note:** Cloud Shell sessions have a maximum length of 24 hours, and time out after 20 minutes of inactivity.
 
+## Task 4: Clone the GitHub source code repos
+
+1. Clone the src...
+
+    ```
+    <copy>
+    git clone 
+    </copy>
+    ```
+
+
 
 You may now proceed to the next lab.
 

@@ -40,11 +40,10 @@ This lab assumes you have:
 
 
    ```java
-       ods.setURL("jdbc:oracle:thin:@${ATP Name}_high?TNS_ADMIN=/home/${MY_HOME_DIR}/myatpwallet");
-       ods.setURL("jdbc:oracle:thin:@ATP110167_high?TNS_ADMIN=/home/LL110167_U/myatpwallet");
-       ods.setUser("ADMIN");
-       ods.setPassword("82#38ykOqMULVE2#");
-       ods.setPassword("[ATP Admin Password]");
+        //notice the servicename suffix appended, which can be _high, _low, ...
+		ods.setURL("jdbc:oracle:thin:@${ATP Name}_high?TNS_ADMIN=/home/${MY_HOME_DIR}/myatpwallet");
+        ods.setUser("ADMIN");
+        ods.setPassword("[ATP Admin Password]");
    ```
 
    *Again note that the values of the password and path to wallet are those that were collected during setup.
@@ -65,7 +64,7 @@ This lab assumes you have:
     mvn -Pnative package
     </copy>
     ```  
-
+    This will take a bit of time to complete. On the order of 10 or 15 minutes.  When complete, run the native image generated...
 
     ```
     <copy>   
