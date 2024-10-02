@@ -22,12 +22,13 @@ This lab assumes you have:
 - Provisioned environment with Git and Maven (Cloud Shell).
 
 
-## Task 1: Install GraalVM 22 and dd to project dir
+## Task 1: Install GraalVM 22 and cd to project dir
 
 1. Open Cloud Shell and make sure you're using X86_64 as your target architecture as was done during the setup lab
 
-2. Cd to the following directory of the repos you cloned during setup. For example, if you cloned to your user's $HOME directory:
-
+  
+2. Execute the following to install and use GraalVM 22
+3
     ```
     <copy>   
     sdk list java
@@ -38,7 +39,7 @@ This lab assumes you have:
     csruntimectl java set graalvmjdk-17
     </copy>
     ```   
-
+   **NOTE: You must restart the cloud shell for this to take effect.
 
 3. Cd to the following directory of the repos you cloned during setup. For example, if you cloned to your user's $HOME directory:
 
@@ -46,15 +47,13 @@ This lab assumes you have:
     <copy>   
     cd $HOME/microservices-datadriven/graalvm-nativeimage/helidon
     </copy>
-    ```   
+    ``` 
 
 
 ## Task 2: Build and run
 
-1. To ensure that the sample application is configured to talk to the
-   Oracle ATP database running in OCI, verify that the
-   following lines (among others) are set to correct values in
-   `src/main/resources/META-INF/microprofile-config.properties`:
+1. Edit (using `vi` or similar tool) `src/main/resources/META-INF/microprofile-config.properties` to provide appropriate values for URL, user, and password such as the following.
+   Replace values with those found in the workshop `Reservation Information` page and the explicit (eg don't use "~") home directory path as appropriate...
 
    ```properties
    javax.sql.DataSource.example.connectionFactoryClassName=oracle.jdbc.pool.OracleDataSource
@@ -64,7 +63,7 @@ This lab assumes you have:
    ```
 
 
-2. Build and run
+2. Build and run with Java command
 
     ```
     <copy>   
@@ -72,9 +71,18 @@ This lab assumes you have:
     </copy>
     ```  
     
+   Open a second OCI console and Cloud Shell and find out the hostname.
+
     ```
     <copy>   
-    curl http://localhost:8080/tables
+     echo $HOSTNAME
+    </copy>
+    ```  
+  
+   Then use that hostname to issue this curl command against the application
+    ```
+    <copy>   
+    curl http://<HOSTNAME>:8080/tables
     </copy>
     ```  
     

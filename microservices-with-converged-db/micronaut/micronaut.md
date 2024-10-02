@@ -85,7 +85,7 @@ This lab assumes you have:
 
     ```
     <copy>   
-    cd ./micronaut-guide/src/maven_upgrade
+    cd ./src/maven_upgrade
     chmod +x *.sh
     ./maven-upgrade.sh
     </copy>
@@ -136,7 +136,7 @@ This lab assumes you have:
 
 ## Task 3: Configure Micronaut Data with your Oracle ADB instance details
 
-1. We’ll use an application properties file. Below is an example with the relevant details you must provide. Navigate to your `application.properties` file under `$HOME//micronaut-graalvm-oracledb/micronaut-guide/src/main/resources`:  
+1.  Edit (using `vi` or similar tool) the `application.properties` file under `$HOME//micronaut-graalvm-oracledb/micronaut-guide/src/main/resources`:  
 
     ```
     <copy>

@@ -30,8 +30,8 @@ This lab assumes you have:
 
 ## Task 2: Build and run
 
-1. Edit src/main/java/com/oracle/jdbc/graalvm/GraalVMNativeImageJDBCDriver.java to include appropriate values for URL, user, and password such as the following. 
-   Replace values with those found in the workshop `Reservation Information` page and the explicit home directory path as appropriate...
+1. Edit (using `vi` or similar tool) src/main/java/com/oracle/jdbc/graalvm/GraalVMNativeImageJDBCDriver.java to provide appropriate values for URL, user, and password such as the following. 
+   Replace values with those found in the workshop `Reservation Information` page and the explicit (eg don't use "~") home directory path as appropriate...
 
 
    ```java
