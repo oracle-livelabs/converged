@@ -21,9 +21,9 @@ Your own Oracle Cloud Infrastructure compartment for running this workshop has b
 
    ![Copy Comp Name](images/copy-comp-name.png " ")
 
-2. Select the navigation menu from the top left corner of the Oracle Cloud Console and navigate to the ATP page in the Oracle Database section.
+2. Select the navigation menu from the top left corner of the Oracle Cloud Console and navigate to "Oracle Database" and then, on the right, click "Autonomous Transaction Processing" (ATP) .
 
-   ![Select component instances](images/select-compute-instances.png " ")
+   ![Select component instances](images/oracledatabase-ociconsole.png " ")
 
 3. Search for compartment using the compartment name from step#1 in the "Compartment" field under "List Scope".
 
@@ -35,7 +35,7 @@ Your own Oracle Cloud Infrastructure compartment for running this workshop has b
 
    ![Enter correct component name](images/correct-comp-name.png " ")
 
-5. Select your database from the list and explore!
+5. Select your pre-provisioned database from the list and explore!
 
 
 
@@ -43,25 +43,61 @@ Your own Oracle Cloud Infrastructure compartment for running this workshop has b
 
    Cloud Shell is a small virtual machine running a "bash" shell which you access through the Oracle Cloud Console. Cloud Shell comes with a pre-authenticated command line interface connected to the tenancy. It also provides up-to-date tools and utilities.
 
-   1. Click the Cloud Shell icon in the top-right corner of the Console.
+   1. Verify you are in the correct compartment (this was done as part of Task 1).
+
+   2. Click the Cloud Shell icon in the top-right corner of the Console.
 
       ![Open Cloud Shell](images/open-cloud-shell.png =50%x*)
 
+   3. Make sure you're using X86_64 as your target architecture. Click Actions, then click Architecture.
+
+      ![Cloud Shell Architecture](../setup/images/cloud-shell-architecture.png "cloud shell architecture")
+
+   4. Select the *X86_64* radio button, then click the *Confirm* button if it was not already selected as the default architecture.
+
+      ![Cloud Shell Confirmation](../setup/images/cloud-shell-confirmation.png "cloud shell confirmation")
+
       >**Note**: Cloud Shell uses websockets to communicate between your browser and the service. If your browser has websockets disabled or uses a corporate proxy that has websockets disabled you will see an error message ("An unexpected error occurred") when attempting to start Cloud Shell from the console. You also can change the browser cookies settings for a specific site to allow the traffic from *.oracle.com
 
-## Task 3: Download the wallet of your pre-provisioned ATP instance 
+## Task 3: Download the wallet of your pre-provisioned ATP instance (used to make connections in the Java/GraalVM app)
 
-   1. Copy the compartment-id and database name from the workshop reservation page described in the "Get Started" lab and issue the following command in the Cloud Shell using those values.
+   1. Create a directory to hold the wallet files... 
 
-      oci db autonomous-database list --compartment-id <your-compartment-ocid> --display-name "<ATP_NAME>"
+    ```
+    <copy>
+    mkdir ~/myatpwallet
+    </copy>
+    ```
 
-   2. This command should return the ocid of the database which you can use, along with an arbitrary `wallet-password` to run the following command to download the database wallet to the file location provided.
 
-      oci db autonomous-database generate-wallet --autonomous-database-id <ATP_OCID> --file ~/myatpwallet.zip --password <wallet-password>
+   2. Copy the database ocid from the workshop reservation page described in the "Get Started" lab and issue the following command in the Cloud Shell. Use the ocid as the `autonomous-database-id` and arbitrary values for the `file` and (wallet) `password`.
 
-   2. Finally, unzip it the wallet file to a directory such as ~/myatpwallet (this wallet/directory will be used to make connections in the Java/GraalVM app)
+          ```
+    <copy>
+    oci db autonomous-database generate-wallet --autonomous-database-id <ATP_OCID> --file ~/myatpwallet/myatpwallet.zip --password <wallet-password>
+    </copy>
+    ```
+
+   3. Finally, unzip it the wallet file to a directory such as...
+
+    ```
+    <copy>
+    cd ~/myatpwallet ; unzip myatpwallet.zip ; cd ~
+    </copy>
+    ```
 
    > **Note:** Cloud Shell sessions have a maximum length of 24 hours, and time out after 20 minutes of inactivity.
+
+## Task 4: Clone the GitHub source code repos
+
+1. Clone the src...
+
+    ```
+    <copy>
+    git clone https://github.com/oracle-devrel/microservices-datadriven.git
+    </copy>
+    ```
+
 
 
 You may now proceed to the next lab.

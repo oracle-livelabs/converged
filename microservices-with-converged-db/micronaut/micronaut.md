@@ -28,7 +28,11 @@ This lab assumes you have:
 
 ## Task 1: Download and install the Micronaut CLI
 
-1. To install the Micronaut CLI on Linux, you can use SDKMAN!. Open a terminal and run:
+1. Open Cloud Shell and make sure you're using X86_64 as your target architecture as was done during the setup lab
+
+    ![Cloud Shell Architecture](../setup/images/cloud-shell-architecture.png "cloud shell architecture")
+
+2. To install the Micronaut CLI on Linux, you can use SDKMAN!. Open a terminal and run:
 
     ```
     <copy>   
@@ -52,15 +56,13 @@ This lab assumes you have:
     You should see `Micronaut Version: 4.6.2` as the installed Micronaut CLI version.
 
 
-## Task 2: Clone and build the project
+## Task 2: Cd to project dir and build the project
 
-1. Create a new directory of your choice, then clone the workshop code into it. As an example, the new directory below will be created at the root of your user's $HOME directory:
+1. Cd to the following directory of the repos you cloned during setup. For example, if you cloned to your user's $HOME directory:
 
     ```
     <copy>   
-    mkdir micronaut-graalvm-oracledb
-    cd micronaut-graalvm-oracledb    
-    git clone https://github.com/juarezjuniorgithub/micronaut-guide.git
+    cd $HOME/microservices-datadriven/graalvm-nativeimage/micronaut
     </copy>
     ```   
 
@@ -103,7 +105,7 @@ This lab assumes you have:
     sdk use java 22.0.2-graal
     </copy>
     ```  
-   You have to end your current Cloud Shell session, and start a new session to have it reflected after running the commands above. Then, run the commands below to confirm Java 22 as your current version.
+   **Note: You must end your current Cloud Shell session, and start a new session to have it reflected after running the commands above. You can do this by selecting `Actions` in the upper left of the Cloud Shell and `Restart`. Then, run the commands below to confirm Java 22 as your current version.
 
     ```
     <copy>
@@ -129,6 +131,7 @@ This lab assumes you have:
    Provided that everything is correct, the project will be built successfully as expected.
 
    ![project build success](images/project-build-success.png)  
+
 
 
 ## Task 3: Configure Micronaut Data with your Oracle ADB instance details
@@ -178,9 +181,9 @@ This lab assumes you have:
 
     Nevertheless, the related SQL script can be found under the `$HOME//micronaut-graalvm-oracledb/micronaut-guide/src/main/resources/db/migration` directory, as shown below.
 
-   ![sql script flyway](images/sql-script-flyway.png =50%x*)  
+   ![sql script flyway](images/sql-script-flyway.png)  
 
-## Task 4: A first run with VS Code only and the JIT (C2) compiler
+## Task 4: A first run with Java
 
 1. The Micronaut application is now finished and ready to be executed. So, you can compile, build, and run it with Maven from the command-line.
 
