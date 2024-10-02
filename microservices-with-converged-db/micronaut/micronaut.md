@@ -56,15 +56,13 @@ This lab assumes you have:
     You should see `Micronaut Version: 4.6.2` as the installed Micronaut CLI version.
 
 
-## Task 2: Clone and build the project
+## Task 2: Cd to project dir and build the project
 
-1. Create a new directory of your choice, then clone the workshop code into it. As an example, the new directory below will be created at the root of your user's $HOME directory:
+1. Cd to the following directory of the repos you cloned during setup. For example, if you cloned to your user's $HOME directory:
 
     ```
     <copy>   
-    mkdir micronaut-graalvm-oracledb
-    cd micronaut-graalvm-oracledb    
-    git clone https://github.com/juarezjuniorgithub/micronaut-guide.git
+    cd $HOME/microservices-datadriven/graalvm-nativeimage/micronaut
     </copy>
     ```   
 

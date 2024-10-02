@@ -22,15 +22,17 @@ This lab assumes you have:
 - Provisioned environment with Git and Maven (Cloud Shell).
 
 
-## Task 1: Clone the repos
+## Task 1: Cd to project dir and build the project
 
-1. Clone the following repos:
+1. Open Cloud Shell and make sure you're using X86_64 as your target architecture as was done during the setup lab
+
+2. Cd to the following directory of the repos you cloned during setup. For example, if you cloned to your user's $HOME directory:
 
     ```
     <copy>   
-    git clone https://github.com/paulparkinson/microservices-datadriven-devrel.git
+    cd $HOME/microservices-datadriven/graalvm-nativeimage/helidon
     </copy>
-    ```
+    ```   
 
 
 ## Task 2: Build and run

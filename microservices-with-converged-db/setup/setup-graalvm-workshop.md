@@ -94,7 +94,7 @@ Your own Oracle Cloud Infrastructure compartment for running this workshop has b
 
     ```
     <copy>
-    git clone 
+    git clone https://github.com/oracle-devrel/microservices-datadriven.git
     </copy>
     ```
 
