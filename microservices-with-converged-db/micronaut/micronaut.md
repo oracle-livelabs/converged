@@ -64,31 +64,12 @@ This lab assumes you have:
 
 2. You must switch to GraalVM Java version 22 using SDKMAN!:
 
-    ```
-    <copy>   
-    csruntimectl java set graalvmjdk-17
-    </copy>
-    ```  
     
     If everything goes well, you will see confirmation messages as shown below.
 
     ![java graalvm 17](images/java-graalvm-17.png)
 
 
-3. Next, upgrade Maven:
-
-    Micronaut 4.6.2 requires Maven version 3.6.3. Run the command below to upgrade your Maven version accordingly:
-
-    ```
-    <copy>   
-    cd ./src/maven_upgrade
-    chmod +x *.sh
-    ./maven-upgrade.sh
-    </copy>
-    ```  
-    Once again, if everything goes well, you will see the related upgrade messages as shown below.
-
-    ![maven upgrade](images/maven-upgrade.png)  
 
 4. Build the project.
 

@@ -90,13 +90,30 @@ Your own Oracle Cloud Infrastructure compartment for running this workshop has b
 
 ## Task 4: Clone the GitHub source code repos
 
-1. Clone the src...
+1. Clone the src and cd into directory...
 
     ```
     <copy>
-    git clone https://github.com/paulparkinson/microservices-datadriven-devrel.git
+    git clone https://github.com/paulparkinson/microservices-datadriven-devrel.git microservices-datadriven
+    cd microservices-datadriven/graalvm-nativeimage
     </copy>
     ```
+
+
+## Task 5: Upgrade Maven:
+
+    Run the command below to upgrade your Maven version accordingly:
+
+    ```
+    <copy>   
+    chmod +x *.sh
+    ./maven-upgrade.sh
+    export PATH=$HOME/microservices-datadrive/graalvm-nativeimage/apache-maven-3.9.8/bin/mvn:$PATH
+    </copy>
+    ```  
+    Once again, if everything goes well, you will see the related upgrade messages as shown below.
+
+    ![maven upgrade](../setup/images/maven-upgrade.png)  
 
 
 ## Task 5: Install SDKMAN! and GraalVM 22
@@ -116,6 +133,7 @@ Your own Oracle Cloud Infrastructure compartment for running this workshop has b
 
     ```
     <copy>   
+    csruntimectl java set graalvmjdk-17
     sdk install java 22.0.2-graal
     sdk use java 22.0.2-graal
     sdk current
