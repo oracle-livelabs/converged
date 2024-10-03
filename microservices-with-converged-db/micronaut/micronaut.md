@@ -30,14 +30,10 @@ This lab assumes you have:
 
 1. Open Cloud Shell and make sure you're using X86_64 as your target architecture as was done during the setup lab
 
-    ![Cloud Shell Architecture](../setup/images/cloud-shell-architecture.png "cloud shell architecture")
-
-2. To install the Micronaut CLI on Linux, you can use SDKMAN!. Open a terminal and run:
+2. To install the Micronaut CLI on Linux, open a terminal and run:
 
     ```
     <copy>   
-    curl -s https://get.sdkman.io | bash
-    source "$HOME/.sdkman/bin/sdkman-init.sh" 
     sdk install micronaut  
     </copy>
     ```

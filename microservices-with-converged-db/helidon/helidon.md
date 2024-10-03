@@ -22,26 +22,11 @@ This lab assumes you have:
 - Provisioned environment with Git and Maven (Cloud Shell).
 
 
-## Task 1: Install GraalVM 22 and cd to project dir
+## Task 1: Cd to project dir
 
 1. Open Cloud Shell and make sure you're using X86_64 as your target architecture as was done during the setup lab
 
-  
-2. Execute the following to install and use GraalVM 22
-3
-    ```
-    <copy>   
-    sdk list java
-    sdk install java 22.0.2-graal
-    sdk use java 22.0.2-graal
-    sdk current
-    csruntimectl java list
-    csruntimectl java set graalvmjdk-17
-    </copy>
-    ```   
-   **NOTE: You must restart the cloud shell for this to take effect.
-
-3. Cd to the following directory of the repos you cloned during setup. For example, if you cloned to your user's $HOME directory:
+2. Cd to the following directory of the repos you cloned during setup. For example, if you cloned to your user's $HOME directory:
 
     ```
     <copy>   
@@ -91,7 +76,7 @@ This lab assumes you have:
 
     ```
     <copy>   
-    mvn -Pnative-image install -DskipTests
+    mvn -Pnative-image install -DskipTests -H:AdditionalSecurityProviders
     </copy>
     ```  
     
@@ -103,7 +88,7 @@ This lab assumes you have:
     
     ```
     <copy>   
-    curl http://localhost:8080/tables
+    curl http://<HOSTNAME>:8080/tables
     </copy>
     ```  
 

@@ -72,7 +72,7 @@ Your own Oracle Cloud Infrastructure compartment for running this workshop has b
 
    2. Copy the database ocid from the workshop reservation page described in the "Get Started" lab and issue the following command in the Cloud Shell. Use the ocid as the `autonomous-database-id` and arbitrary values for the `file` and (wallet) `password`.
 
-          ```
+    ```
     <copy>
     oci db autonomous-database generate-wallet --autonomous-database-id <ATP_OCID> --file ~/myatpwallet/myatpwallet.zip --password <wallet-password>
     </copy>
@@ -94,9 +94,36 @@ Your own Oracle Cloud Infrastructure compartment for running this workshop has b
 
     ```
     <copy>
-    git clone https://github.com/oracle-devrel/microservices-datadriven.git
+    git clone https://github.com/paulparkinson/microservices-datadriven-devrel.git
     </copy>
     ```
+
+
+## Task 5: Install SDKMAN! and GraalVM 22
+
+1. Install SDKMAN! 
+
+
+    ```
+    <copy>   
+    curl -s https://get.sdkman.io | bash
+    source "$HOME/.sdkman/bin/sdkman-init.sh" 
+    </copy>
+    ```
+
+
+2. Execute the following to install and use GraalVM 22
+
+    ```
+    <copy>   
+    sdk list java
+    sdk install java 22.0.2-graal
+    sdk use java 22.0.2-graal
+    sdk current
+    </copy>
+    ```   
+   
+3. IMPORTANT: Restart the cloud shell for this to take effect.
 
 
 
