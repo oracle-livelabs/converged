@@ -108,7 +108,7 @@ Your own Oracle Cloud Infrastructure compartment for running this workshop has b
     <copy>   
     chmod +x *.sh
     ./maven-upgrade.sh
-    export PATH=$HOME/microservices-datadrive/graalvm-nativeimage/apache-maven-3.9.8/bin/mvn:$PATH
+    export PATH=$HOME/mvn-upgrade/apache-maven-3.9.8/bin:$PATH
     </copy>
     ```  
     Once again, if everything goes well, you will see the related upgrade messages as shown below.

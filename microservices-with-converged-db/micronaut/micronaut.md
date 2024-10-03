@@ -82,7 +82,7 @@ This lab assumes you have:
     sdk use java 22.0.2-graal
     </copy>
     ```  
-   **Note: You must end your current Cloud Shell session, and start a new session to have it reflected after running the commands above. You can do this by selecting `Actions` in the upper left of the Cloud Shell and `Restart`. Then, run the commands below to confirm Java 22 as your current version.
+   **Note: You must end your curre3nt Cloud Shell session, and start a new session to have it reflected after running the commands above. You can do this by selecting `Actions` in the upper left of the Cloud Shell and `Restart`. Then, run the commands below to confirm Java 22 as your current version.
 
     ```
     <copy>
