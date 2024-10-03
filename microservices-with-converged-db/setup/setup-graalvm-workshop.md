@@ -109,7 +109,8 @@ Your own Oracle Cloud Infrastructure compartment for running this workshop has b
     <copy>   
     chmod +x *.sh
     ./maven-upgrade.sh
-    export PATH=$HOME/mvn-upgrade/apache-maven-3.9.8/bin:$PATH
+    echo 'export PATH=$HOME/mvn-upgrade/apache-maven-3.9.8/bin:$PATH' >> ~/.bashrc
+
     </copy>
     ```  
 
