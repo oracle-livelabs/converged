@@ -116,7 +116,6 @@ Your own Oracle Cloud Infrastructure compartment for running this workshop has b
 
     ```
     <copy>   
-    sdk list java
     sdk install java 22.0.2-graal
     sdk use java 22.0.2-graal
     sdk current
