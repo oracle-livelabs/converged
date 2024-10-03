@@ -52,66 +52,8 @@ This lab assumes you have:
     You should see `Micronaut Version: 4.6.2` as the installed Micronaut CLI version.
 
 
-## Task 2: Cd to project dir and build the project
 
-1. Cd to the following directory of the repos you cloned during setup. For example, if you cloned to your user's $HOME directory:
-
-    ```
-    <copy>   
-    cd $HOME/microservices-datadriven/graalvm-nativeimage/micronaut
-    </copy>
-    ```   
-
-2. You must switch to GraalVM Java version 22 using SDKMAN!:
-
-    
-    If everything goes well, you will see confirmation messages as shown below.
-
-    ![java graalvm 17](images/java-graalvm-17.png)
-
-
-
-4. Build the project.
-
-   Now you have to navigate back to the root directory of your project where the Maven build file (pom.xml) is located, then use SDKMAN! to switch to GraalVM Java version 22:
-
-    ```
-    <copy>
-    cd $HOME/micronaut-graalvm-oracledb/micronaut-guide         
-    sdk install java 22.0.2-graal
-    sdk use java 22.0.2-graal
-    </copy>
-    ```  
-   **Note: You must end your curre3nt Cloud Shell session, and start a new session to have it reflected after running the commands above. You can do this by selecting `Actions` in the upper left of the Cloud Shell and `Restart`. Then, run the commands below to confirm Java 22 as your current version.
-
-    ```
-    <copy>
-    cd $HOME/micronaut-graalvm-oracledb/micronaut-guide         
-    sdk current 
-    java -version
-    </copy>
-    ```  
-
-    ![graalvm java 22](images/graalvm-java-22.png)  
-   
-
-4. Build the project.
-   
-   Run the commands below to build the project as required. Note that this is not using the GraalVM plugin yet but just a plain old Java build.
-
-    ```
-    <copy>
-    cd $HOME/micronaut-graalvm-oracledb/micronaut-guide          
-    $HOME/mvn-upgrade/apache-maven-3.9.8/bin/mvn clean package -DskipTests
-    </copy>
-    ```  
-   Provided that everything is correct, the project will be built successfully as expected.
-
-   ![project build success](images/project-build-success.png)  
-
-
-
-## Task 3: Configure Micronaut Data with your Oracle ADB instance details
+## Task 2: Configure Micronaut Data with your Oracle ADB instance details
 
 1.  Edit (using `vi` or similar tool) the `application.properties` file under `$HOME//micronaut-graalvm-oracledb/micronaut-guide/src/main/resources`:  
 
@@ -160,13 +102,13 @@ This lab assumes you have:
 
    ![sql script flyway](images/sql-script-flyway.png)  
 
-## Task 4: A first run with Java
+## Task 3: Build and run with Java
 
 1. The Micronaut application is now finished and ready to be executed. So, you can compile, build, and run it with Maven from the command-line.
 
     ```
     <copy>
-    cd $HOME/micronaut-graalvm-oracledb/micronaut-guide          
+    cd $HOME/microservices-datadriven/graalvm-nativeimage/micronaut         
     $HOME/mvn-upgrade/apache-maven-3.9.8/bin/mvn clean package -DskipTests
     $HOME/mvn-upgrade/apache-maven-3.9.8/bin/mvn mn:run
     </copy>
@@ -195,7 +137,7 @@ This lab assumes you have:
    Now we can proceed to work with GraalVM and generate our native executable!
 
 
-## Task 5: Native image with GraalVM
+## Task 4: Native image with GraalVM
 
 1. Now, we’ll be able to use GraalVM to create a native executable for our application. Run the following commands:
 

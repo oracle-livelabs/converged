@@ -90,7 +90,7 @@ Your own Oracle Cloud Infrastructure compartment for running this workshop has b
 
 ## Task 4: Clone the GitHub source code repos
 
-1. Clone the src and cd into directory...
+1. Clone the src and cd into directory... Note that the rest of the documentation assumes this repos has been cloned to the $HOME directory
 
     ```
     <copy>
