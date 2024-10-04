@@ -55,7 +55,7 @@ This lab assumes you have:
     </copy>
     ```  
 
-   ![springboot connecton success](../setup/images/springboot-connectonsuccess.png "springboot connecton success")
+   ![springboot connecton success](../images/springboot-connectonsuccess.png "springboot connecton success")
    
 
 3. Now build and run the native image. This will take some time (up to 10 minutes)
