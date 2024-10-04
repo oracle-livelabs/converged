@@ -70,7 +70,8 @@ Your own Oracle Cloud Infrastructure compartment for running this workshop has b
     ```
 
 
-   2. Copy the database ocid from the workshop reservation page described in the "Get Started" lab and issue the following command in the Cloud Shell. Use the ocid as the `autonomous-database-id` and arbitrary values for the `file` and (wallet) `password`.
+   2. Copy the database ocid from the workshop reservation page described in the "Get Started" lab and issue the following command in the Cloud Shell. 
+      Provide the ocid for the `autonomous-database-id` value and an arbitrary wallet-password (such as "Welcome12345"). You can leave the default file path.
 
     ```
     <copy>
