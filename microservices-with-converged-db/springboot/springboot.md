@@ -40,7 +40,7 @@ This lab assumes you have:
     ```   
    
     ```properties
-      url: jdbc:oracle:thin:@<tnsServiceName>_high?TNS_ADMIN=/home/<myhomedir>/myatpwallet
+      url: url: jdbc:oracle:thin:@<ATP Name>_high?TNS_ADMIN=/home/<myhomedir>/myatpwallet
       username: ADMIN
       password: <password>
     ```
@@ -55,6 +55,8 @@ This lab assumes you have:
     </copy>
     ```  
 
+   ![springboot connecton success](../setup/images/springboot-connectonsuccess.png "springboot connecton success")
+   
 
 3. Now build and run the native image. This will take some time (up to 10 minutes)
 
@@ -63,11 +65,11 @@ This lab assumes you have:
     mvn clean -Pnative native:compile -DskipTests
     </copy>
     ```  
-    This will take a bit of time to complete. On the order of 10 or 15 minutes.  When complete, run the native image generated...
+     When complete, run the native image generated...
 
     ```
     <copy>   
-    target/graalvm-springboot
+    target/springboot-graalvm
     </copy>
     ```  
 

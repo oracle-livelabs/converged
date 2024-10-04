@@ -70,30 +70,13 @@ This lab assumes you have:
     curl http://<HOSTNAME>:8080/tables
     </copy>
     ```  
-    
 
-3. Build and run native image
-
-    ```
-    <copy>   
-    mvn -Pnative-image install -DskipTests -H:AdditionalSecurityProviders
-    </copy>
-    ```  
-    
-    ```
-    <copy>   
-    ./com-oracle-helidon-datasource
-    </copy>
-    ```  
-    
-    ```
-    <copy>   
-    curl http://<HOSTNAME>:8080/tables
-    </copy>
-    ```  
 
 Congratulations on connecting your Helidon app to Oracle Autonomous Database!
-Please explore the source code, configuration, and Oracle Database features to learn more about how to enhance this application.
+
+You can learn more about Helidon and native image builds at http://helidon.io (in order to build and run with `mvn -Pnative-image install -DskipTests -H:AdditionalSecurityProviders` etc.)
+
+Please try it out in your favorite development environment and explore the source code, configuration, and Oracle Database features to learn more about how to enhance this application.
 
 ## Acknowledgements
 * **Author** - Paul Parkinson, Architect and Developer Advocate; Arjav Desai, Helidon Developer 

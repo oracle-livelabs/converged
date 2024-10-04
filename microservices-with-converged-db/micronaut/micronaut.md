@@ -70,7 +70,7 @@ This lab assumes you have:
 
 ## Task 3: Build and run with Java
 
-1. The Micronaut application is now finished and ready to be executed. So, you can compile, build, and run it with Maven from the command-line.
+1. Build and run the following and notice the `Hello World!` output after startup, indicating a connection has been made to the ATP instance.
 
     ```
     <copy>
@@ -79,64 +79,13 @@ This lab assumes you have:
     mvn mn:run
    
     </copy>
-    ```  
-    The Micronaut application will be launched and after a few seconds, you will be able to access it. Note that this time we’re just running a Java application with Maven and the JVM JIT compiler (C2).
-
-    Besides, note that you will be able to see the records that were inserted by the `DataPopulator.java` class as a startup process, as we defined it.
-
-   ![micronaut data cloud shell](images/micronaut-data-cloud-shell.png)  
-
-   Now you can use curl to send a HTTP GET request to the URL http://[HOST_ID]:8080/things/
-
-   As you're running from Cloud Shell, open another browser tab and start another Cloud Shell session,
-   then use the `curl` command with a HTTP GET request below:
-
     ```
-    <copy>
-    curl -X GET "http://[HOST_ID]:8080/things"    
-    </copy>
-    ``` 
-   
-   You will see JSON returned as a HTTP response. 
-   
-   ![http get request cloud shell](images/http-get-request-cloud-shell.png)
 
-   Now we can proceed to work with GraalVM and generate our native executable!
+Congratulations on connecting your Micronaut app to Oracle Autonomous Database!
 
+You can learn more about Micronaut and native image builds at https://micronaut.io/ (in order to build and run with `mvn package -DskipTests -Dpackaging=native-images` etc.)
 
-## Task 4: Native image with GraalVM
-
-1. Now, we’ll be able to use GraalVM to create a native executable for our application. Run the following commands:
-
-    ```
-    <copy>      
-    mvn package -DskipTests -Dpackaging=native-image   
-    
-    </copy>
-    ``` 
-    The native compilation process will start and take a few minutes to complete. Meanwhile, you might want to read about Native Image.
-
-   ![graalvm native executable generation](images/graalvm-native-executable-gen.png) 
-
-    After reading about Native Image, you can now understand that the process is quite elaborate, with many steps and verifications to be performed. The screenshot below provides a glimpse of it.
-
-2. After a while, you will see another message with a confirmation that your native executable file has been generated. 
-
-   ![graalvm native executable created](images/graalvm-native-executable-created.png) 
-
-3. The last step is to find and run the native executable file and execute it, so you can just navigate to the /target directory to find the native executable of your application, so you can run it.
-    
-    ```
-    <copy>
-    cd $HOME/micronaut-graalvm-oracledb/micronaut-guide/target   
-    ./micronaut-guide 
-    </copy>
-    ``` 
-
-   ![graalvm native executable](images/graalvm-native-executable.png)     
-    
-    You will notice that it has a faster startup time, among many things. 
-    We will leave such exploration as a gift for you and an exercise so you can proceed to learn more about combining all these fantastic technologies — GraalVM, Micronaut Data, and the Oracle Autonomous Database.
+Please try it out in your favorite development environment and explore the source code, configuration, and Oracle Database features to learn more about how to enhance this application.
 
 ## Acknowledgements
 * **Author** - Paul Parkinson, Architect and Developer Advocate; Juarez Barbosa, Sr. Principal Java Developer Evangelist, Java Database Access
