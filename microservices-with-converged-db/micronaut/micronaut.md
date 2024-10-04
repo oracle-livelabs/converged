@@ -109,8 +109,9 @@ This lab assumes you have:
     ```
     <copy>
     cd $HOME/microservices-datadriven/graalvm-nativeimage/micronaut         
-    $HOME/mvn-upgrade/apache-maven-3.9.8/bin/mvn clean package -DskipTests
-    $HOME/mvn-upgrade/apache-maven-3.9.8/bin/mvn mn:run
+    mvn clean package -DskipTests
+    mvn mn:run
+   
     </copy>
     ```  
     The Micronaut application will be launched and after a few seconds, you will be able to access it. Note that this time we’re just running a Java application with Maven and the JVM JIT compiler (C2).
@@ -142,9 +143,9 @@ This lab assumes you have:
 1. Now, we’ll be able to use GraalVM to create a native executable for our application. Run the following commands:
 
     ```
-    <copy>
-    cd $HOME/micronaut-graalvm-oracledb/micronaut-guide          
-    $HOME/mvn-upgrade/apache-maven-3.9.8/bin/mvn package -DskipTests -Dpackaging=native-image    
+    <copy>      
+    mvn package -DskipTests -Dpackaging=native-image   
+    
     </copy>
     ``` 
     The native compilation process will start and take a few minutes to complete. Meanwhile, you might want to read about Native Image.
