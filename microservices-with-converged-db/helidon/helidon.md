@@ -75,7 +75,12 @@ This lab assumes you have:
     curl http://<HOSTNAME>:8080/tables
     </copy>
     ```  
+   
+   Notice the connection made on the server...
+   ![helidon-connection](../images/helidon-connection.png)
 
+   And the response from the curl request listing tablenames...
+   ![helidon-response](../images/helidon-response.png)
 
 Congratulations on connecting your Helidon app to Oracle Autonomous Database!
 

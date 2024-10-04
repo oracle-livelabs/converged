@@ -56,6 +56,7 @@ This lab assumes you have:
     ```  
 
    ![springboot connection success](../images/springboot-connectonsuccess.png)
+
    
 
 3. Now build and run the native image. This will take some time (up to 10 minutes)
