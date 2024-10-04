@@ -26,7 +26,19 @@ This lab assumes you have:
 - Provisioned environment with Git and Maven (Cloud Shell).
 
 
-## Task 1: Download and install the Micronaut CLI
+## Task 1: Cd to project dir and build the project
+
+1. Open Cloud Shell and make sure you're using X86_64 as your target architecture as was done during the setup lab
+
+2. Cd to the following directory of the repos you cloned during setup. For example, if you cloned to your user's $HOME directory:
+
+    ```
+    <copy>   
+    cd $HOME/microservices-datadriven/graalvm-nativeimage/micronaut
+    </copy>
+    ``` 
+
+## Task 2: Download and install the Micronaut CLI
 
 1. Open Cloud Shell and make sure you're using X86_64 as your target architecture as was done during the setup lab
 
@@ -53,20 +65,24 @@ This lab assumes you have:
 
 
 
-## Task 2: Configure Micronaut Data with your Oracle ADB instance details
+## Task 3: Configure Micronaut Data with your Oracle ADB instance details
 
-1.  Edit (using `vi` or similar tool) the `application.properties` file under `$HOME//micronaut-graalvm-oracledb/micronaut-guide/src/main/resources`:  
-
+1.  Edit (using `vi` or similar tool) `src/main/resources/META-INF/microprofile-config.properties` to provide appropriate values for URL, user, and password such as the following.
+    Replace values with those found in the workshop `Reservation Information` page and the explicit (eg don't use "~") home directory path as appropriate...
     ```
-    <copy>
-    datasources.default.username=ADMIN
-    datasources.default.password=<password>
-    datasources.default.URL=jdbc:oracle:thin:@<tnsServiceName>_high?TNS_ADMIN=/home/<myhomedir>/myatpwallet
-    datasources.default.walletPassword=<YOUR_WALLET_PASSWORD>
+    <copy>   
+    vi src/main/resources/application.properties
     </copy>
-    ```  
+   ```
+   
+   ```properties
+     datasources.default.username=ADMIN
+     datasources.default.password=<password>
+     datasources.default.URL=jdbc:oracle:thin:@<tnsServiceName>_high?TNS_ADMIN=/home/<myhomedir>/myatpwallet
+     datasources.default.walletPassword=<YOUR_WALLET_PASSWORD>
+   ```  
     
-    *Again note that the values of the password and path to wallet are those that were collected during setup.
+   *Again note that the values of the password and path to wallet are those that were collected during setup.
 
 ## Task 3: Build and run with Java
 
@@ -74,7 +90,6 @@ This lab assumes you have:
 
     ```
     <copy>
-    cd $HOME/microservices-datadriven/graalvm-nativeimage/micronaut         
     mvn clean package -DskipTests
     mvn mn:run
    
