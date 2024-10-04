@@ -77,10 +77,10 @@ This lab assumes you have:
     ```  
    
    Notice the connection made on the server...
-   ![helidon-connection](../images/helidon-connection.png)
+   ![helidon-connection](images/helidon-connection.png)
 
    And the response from the curl request listing tablenames...
-   ![helidon-response](../images/helidon-response.png)
+   ![helidon-response](images/helidon-response.png)
 
 Congratulations on connecting your Helidon app to Oracle Autonomous Database!
 

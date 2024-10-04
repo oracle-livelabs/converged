@@ -55,7 +55,7 @@ This lab assumes you have:
     </copy>
     ```  
 
-   ![springboot connection success](../images/springboot-connectonsuccess.png)
+   ![springboot connection success](images/springboot-connectonsuccess.png)
 
    
 
