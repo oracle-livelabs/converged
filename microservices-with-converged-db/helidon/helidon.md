@@ -39,7 +39,12 @@ This lab assumes you have:
 
 1. Edit (using `vi` or similar tool) `src/main/resources/META-INF/microprofile-config.properties` to provide appropriate values for URL, user, and password such as the following.
    Replace values with those found in the workshop `Reservation Information` page and the explicit (eg don't use "~") home directory path as appropriate...
-
+    ```
+    <copy>   
+    vi src/main/resources/META-INF/microprofile-config.properties
+    </copy>
+   ``` 
+   
    ```properties
    javax.sql.DataSource.example.connectionFactoryClassName=oracle.jdbc.pool.OracleDataSource
    javax.sql.DataSource.example.URL=jdbc:oracle:thin:@<tnsServiceName>_high?TNS_ADMIN=/home/<myhomedir>/myatpwallet
