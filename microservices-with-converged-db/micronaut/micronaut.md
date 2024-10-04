@@ -59,30 +59,10 @@ This lab assumes you have:
 
     ```
     <copy>
-    micronaut.application.name=micronautguide
-
-    flyway.datasources.default.enabled=true
-    flyway.datasources.default.baseline-on-migrate=true
-    flyway.datasources.default.baseline-version=1.0.0
-
-    datasources.default.dialect=ORACLE
-    datasources.default.ocid=<YOUR_DB_OCID>
-    datasources.default.username=<YOUR_DB_ADMIN_USERNAME>
-    datasources.default.password=<YOUR_PASSWORD>
+    datasources.default.username=ADMIN
+    datasources.default.password=<password>
+    datasources.default.URL=jdbc:oracle:thin:@<tnsServiceName>_high?TNS_ADMIN=/home/<myhomedir>/myatpwallet
     datasources.default.walletPassword=<YOUR_WALLET_PASSWORD>
-
-    # use these properties if running from OCI Console with Cloud Shell (https://rb.gy/64ebxw)
-    # technical reference at https://micronaut-projects.github.io/micronaut-oracle-cloud/snapshot/guide/
-    oci.fingerprint=<FINGERPRINT_VALUE>
-    # example private key file path + file extension pattern
-    # oci.private-key-file=file:/home/juarez/pk.pem
-    oci.private-key-file=file:<ABSOLUTE_KEY_FILE_PATH><FILE_NAME.pem>
-    oci.region=<REGION>
-    oci.tenant-id=<OCI_TENANCY_OCID>
-    oci.user-id=<OCI_USER_OCID>
-
-    # uncomment if not using oci console with cloud shell
-    # oci.config.profile=DEFAULT    
     </copy>
     ```  
     Please check [Required Keys and OCIDs](https://docs.oracle.com/en-us/iaas/Content/API/Concepts/apisigningkey.htm) if you need an introduction to [OCI Identity and Access Management (IAM)](https://docs.oracle.com/en-us/iaas/Content/Identity/home.htm) concerning the OCI properties above.
