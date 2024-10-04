@@ -65,22 +65,8 @@ This lab assumes you have:
     datasources.default.walletPassword=<YOUR_WALLET_PASSWORD>
     </copy>
     ```  
-    Please check [Required Keys and OCIDs](https://docs.oracle.com/en-us/iaas/Content/API/Concepts/apisigningkey.htm) if you need an introduction to [OCI Identity and Access Management (IAM)](https://docs.oracle.com/en-us/iaas/Content/Identity/home.htm) concerning the OCI properties above.
     
-    Adjust it to reflect your Oracle ADB instance details, that is, replace the placeholders shown above with your actual (custom) values as required.
-
-    ```
-    <copy>
-    cd $HOME//micronaut-graalvm-oracledb/micronaut-guide/src/main/resources         
-    vi application.properties    
-    </copy>
-    ```  
-
-    At last, note that the above file uses [Micronaut Flyway](https://micronaut-projects.github.io/micronaut-flyway/latest/guide/) to populate the target database table for you, so you do not have to execute any SQL statements at all, it will automatically do it to add the sample data for you.
-
-    Nevertheless, the related SQL script can be found under the `$HOME//micronaut-graalvm-oracledb/micronaut-guide/src/main/resources/db/migration` directory, as shown below.
-
-   ![sql script flyway](images/sql-script-flyway.png)  
+    *Again note that the values of the password and path to wallet are those that were collected during setup.
 
 ## Task 3: Build and run with Java
 

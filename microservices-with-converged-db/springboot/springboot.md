@@ -26,19 +26,24 @@ This lab assumes you have:
     <copy>   
     cd $HOME/microservices-datadriven/graalvm-nativeimage/springboot
     </copy>
-    ```   
+    ``` 
+
 
 ## Task 2: Build and run
 
 1. Edit (using `vi` or similar tool) `src/main/resources/application.yaml` to provide appropriate values for URL, user, and password such as the following.
    Replace values with those found in the workshop `Reservation Information` page and the explicit (eg don't use "~") home directory path as appropriate...
-
-   ```properties
-    datasource:
+    ```
+    <copy>   
+    vi src/main/resources/application.yaml
+    </copy>
+    ```   
+   
+    ```properties
       url: jdbc:oracle:thin:@<tnsServiceName>_high?TNS_ADMIN=/home/<myhomedir>/myatpwallet
       username: ADMIN
       password: <password>
-   ```
+    ```
 
    *Again note that the values of the password and path to wallet are those that were collected during setup.
 
@@ -46,7 +51,7 @@ This lab assumes you have:
 
     ```
     <copy>   
-    mvn clean package exec:java -Dexec.mainClass="com.oracle.jdbc.graalvm.GraalVMNativeImageJDBCDriver"
+    mvn clean package 
     </copy>
     ```  
 
