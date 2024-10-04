@@ -22,7 +22,7 @@ This lab assumes you have:
 - Provisioned environment with Git and Maven (Cloud Shell).
 
 
-## Task 1: Install GraalVM 22 and dd to project dir
+## Task 1: Cd to project dir
 
 1. Open Cloud Shell and make sure you're using X86_64 as your target architecture as was done during the setup lab
 
@@ -30,32 +30,21 @@ This lab assumes you have:
 
     ```
     <copy>   
-    sdk list java
-    sdk install java 22.0.2-graal
-    sdk use java 22.0.2-graal
-    sdk current
-    csruntimectl java list
-    csruntimectl java set graalvmjdk-17
-    </copy>
-    ```   
-
-
-3. Cd to the following directory of the repos you cloned during setup. For example, if you cloned to your user's $HOME directory:
-
-    ```
-    <copy>   
     cd $HOME/microservices-datadriven/graalvm-nativeimage/helidon
     </copy>
-    ```   
+    ``` 
 
 
 ## Task 2: Build and run
 
-1. To ensure that the sample application is configured to talk to the
-   Oracle ATP database running in OCI, verify that the
-   following lines (among others) are set to correct values in
-   `src/main/resources/META-INF/microprofile-config.properties`:
-
+1. Edit (using `vi` or similar tool) `src/main/resources/META-INF/microprofile-config.properties` to provide appropriate values for URL, user, and password such as the following.
+   Replace values with those found in the workshop `Reservation Information` page and the explicit (eg don't use "~") home directory path as appropriate...
+    ```
+    <copy>   
+    vi src/main/resources/META-INF/microprofile-config.properties
+    </copy>
+   ``` 
+   
    ```properties
    javax.sql.DataSource.example.connectionFactoryClassName=oracle.jdbc.pool.OracleDataSource
    javax.sql.DataSource.example.URL=jdbc:oracle:thin:@<tnsServiceName>_high?TNS_ADMIN=/home/<myhomedir>/myatpwallet
@@ -64,7 +53,7 @@ This lab assumes you have:
    ```
 
 
-2. Build and run
+2. Build and run with Java command
 
     ```
     <copy>   
@@ -72,33 +61,32 @@ This lab assumes you have:
     </copy>
     ```  
     
-    ```
-    <copy>   
-    curl http://localhost:8080/tables
-    </copy>
-    ```  
-    
-
-3. Build and run native image
+   Open a second OCI console and Cloud Shell and find out the hostname.
 
     ```
     <copy>   
-    mvn -Pnative-image install -DskipTests
+     echo $HOSTNAME
     </copy>
     ```  
-    
+  
+   Then use that hostname to issue this curl command against the application
     ```
     <copy>   
-    ./com-oracle-helidon-datasource
+    curl http://<HOSTNAME>:8080/tables
     </copy>
     ```  
-    
-    ```
-    <copy>   
-    curl http://localhost:8080/tables
-    </copy>
-    ```  
-    
+   
+   Notice the connection made on the server...
+   ![helidon-connection](images/helidon-connection.png)
+
+   And the response from the curl request listing tablenames...
+   ![helidon-response](images/helidon-response.png)
+
+Congratulations on connecting your Helidon app to Oracle Autonomous Database!
+
+You can learn more about Helidon and native image builds at http://helidon.io (in order to build and run with `mvn -Pnative-image install -DskipTests -H:AdditionalSecurityProviders` etc.)
+
+Please try it out in your favorite development environment and explore the source code, configuration, and Oracle Database features to learn more about how to enhance this application.
 
 ## Acknowledgements
 * **Author** - Paul Parkinson, Architect and Developer Advocate; Arjav Desai, Helidon Developer 

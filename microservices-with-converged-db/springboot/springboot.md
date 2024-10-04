@@ -26,20 +26,24 @@ This lab assumes you have:
     <copy>   
     cd $HOME/microservices-datadriven/graalvm-nativeimage/springboot
     </copy>
-    ```   
+    ``` 
+
 
 ## Task 2: Build and run
 
-1. Edit src/main/java/com/oracle/jdbc/graalvm/GraalVMNativeImageJDBCDriver.java to include appropriate values for URL, user, and password such as the following. 
-   Replace values with those found in the workshop `Reservation Information` page and the explicit home directory path as appropriate...
-
-
-   ```java
-        //notice the servicename suffix appended, which can be _high, _low, ...
-		ods.setURL("jdbc:oracle:thin:@${ATP Name}_high?TNS_ADMIN=/home/${MY_HOME_DIR}/myatpwallet");
-        ods.setUser("ADMIN");
-        ods.setPassword("[ATP Admin Password]");
-   ```
+1. Edit (using `vi` or similar tool) `src/main/resources/application.yaml` to provide appropriate values for URL, user, and password such as the following.
+   Replace values with those found in the workshop `Reservation Information` page and the explicit (eg don't use "~") home directory path as appropriate...
+    ```
+    <copy>   
+    vi src/main/resources/application.yaml
+    </copy>
+    ```   
+   
+    ```properties
+      url: url: jdbc:oracle:thin:@<ATP Name>_high?TNS_ADMIN=/home/<myhomedir>/myatpwallet
+      username: ADMIN
+      password: <password>
+    ```
 
    *Again note that the values of the password and path to wallet are those that were collected during setup.
 
@@ -47,28 +51,32 @@ This lab assumes you have:
 
     ```
     <copy>   
-    mvn clean package exec:java -Dexec.mainClass="com.oracle.jdbc.graalvm.GraalVMNativeImageJDBCDriver"
+    mvn clean package 
     </copy>
     ```  
 
+   ![springboot connection success](images/springboot-connectonsuccess.png)
+
+   
 
 3. Now build and run the native image. This will take some time (up to 10 minutes)
 
     ```
     <copy>   
-    mvn -Pnative package
+    mvn clean -Pnative native:compile -DskipTests
     </copy>
     ```  
-    This will take a bit of time to complete. On the order of 10 or 15 minutes.  When complete, run the native image generated...
+     When complete, run the native image generated...
 
     ```
     <copy>   
-    target/jdbc-driver-graalvm-nativeimage
+    target/springboot-graalvm
     </copy>
     ```  
 
-
+Congratulations on connecting your Spring Boot app to Oracle Autonomous Database!
+Please explore the source code, configuration, and Oracle Database features to learn more about how to enhance this application.
 
 ## Acknowledgements
-* **Author** - Paul Parkinson, Architect and Developer Advocate; Juarez Barbosa, Sr. Principal Java Developer Evangelist, Java Database Access
+* **Author** - Paul Parkinson, Architect and Developer Advocate
 * **Last Updated By/Date** - Paul Parkinson, 2024
