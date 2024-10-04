@@ -96,6 +96,9 @@ This lab assumes you have:
     </copy>
     ```
 
+   ![micronaut connection success](images/micronaut-conn-success.png)
+
+
 Congratulations on connecting your Micronaut app to Oracle Autonomous Database!
 
 You can learn more about Micronaut and native image builds at https://micronaut.io/ (in order to build and run with `mvn package -DskipTests -Dpackaging=native-images` etc.)
