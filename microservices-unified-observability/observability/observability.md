@@ -4,7 +4,7 @@
 
 This lab will show you how to view and correlate metrics, logs, and tracing of application and data tiers in a single Grafana dashboard.
 
-Please see the  [Unified Observability in Grafana with converged Oracle Database Workshop](http://bit.ly/unifiedobservability) 
+Please see the  Unified Observability in Grafana with converged Oracle Database Workshop
 for an more in-depth look at this topic including details of the metrics, logs, and tracing exporters.
 
 Estimated Time: 25 minutes
@@ -189,7 +189,7 @@ Watch the video below for a quick walk through of the lab.
 
       ![Import](images/importsidemenu.png " ")
 
-     Copy the contents of the [GrabDish Dashboard JSON](https://raw.githubusercontent.com/oracle/microservices-datadriven/main/grabdish/observability/dashboards/grabdish-dashboard.json)
+     Copy the contents of the [GrabDish Dashboard JSON](https://github.com/oracle-devrel/microservices-datadriven/blob/main/grabdish/observability/dashboards/grabdish-dashboard.json)
 
      Paste the contents in the `Import via panel json` text field and click the `Load` button
       ![Import via panel json](images/jsondashboardupload.png " ")
@@ -285,7 +285,7 @@ You may now proceed to the next lab.
 
 ## Learn More
 
-* Ask for help and connect with developers on the [Oracle DB Microservices Slack Channel](https://bit.ly/oracle-db-microservices-help-slack)   
+* [Oracle Database](https://www.oracle.com/database)
 
 ## Acknowledgements
 * **Author** - Paul Parkinson, Architect and Developer Advocate;

@@ -379,7 +379,7 @@ To connect to an  'Oracle Autonomous Transaction Processing database you need th
 
 3. Look for the inject portion. The `@Inject` has the data source under `@Named` as “orderpdb” which was mentioned in the `microprofile-config.properties` file.
 
-    ```
+    ```java
     @Inject
     @Named("orderpdb")
     PoolDataSource atpOrderPdb;

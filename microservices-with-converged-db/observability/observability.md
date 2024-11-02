@@ -4,7 +4,7 @@
 
 This lab will show you how to view metrics, etc. in a Grafana console.
 
-Please see the  [Unified Observability in Grafana with converged Oracle Database Workshop](http://bit.ly/unifiedobservability) 
+Please see the  Unified Observability in Grafana with converged Oracle Database Workshop
 for an more in-depth look at this topic including details of the metrics, logs, and tracing exporters.
 and correlattion of them across application and data tiers in a single Grafana dashboard.
 
@@ -70,7 +70,7 @@ You will see some warning messages related to configmaps not existing as this is
 
       ![Import](images/importsidemenu.png " ")
 
-     Copy the contents of the [GrabDish Dashboard JSON](https://raw.githubusercontent.com/oracle/microservices-datadriven/main/grabdish/observability/dashboards/grabdish-dashboard.json)
+     Copy the contents of the [GrabDish Dashboard JSON](https://github.com/oracle-devrel/microservices-datadriven/blob/main/grabdish/observability/dashboards/grabdish-dashboard.json)
 
      Paste the contents in the `Import via panel json` text field and click the `Load` button
       ![Import via panel json](images/jsondashboardupload.png " ")
@@ -92,7 +92,7 @@ You will see some warning messages related to configmaps not existing as this is
     - Metrics about the kubernetes microservice runtime (CPU load, etc.)
     - Metrics about the kubernetes microservice specific to that microservice (`PlaceOrder Count`, etc.)
   
-    Again, please see the  [Unified Observability in Grafana with converged Oracle Database Workshop](http://bit.ly/unifiedobservability) 
+    Again, please see the Unified Observability in Grafana with converged Oracle Database Workshop
 for an more in-depth look at this topic including details of the metrics, logs, and tracing exporters, including info for panels with...
 
     - Metrics about the PDB used by the microservice (open sessions, etc.)

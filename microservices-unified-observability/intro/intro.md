@@ -33,7 +33,7 @@ As shown in the diagram above, the following popular CNCF and open source techno
  - Examples using additional microservice frameworks and polyglot implementations such as Spring Boot, Micronaut, Quarkus, .NET, JavaScript, Python, Go, etc. 
  - More details on usage and use cases.
 
-The "GrabDish" application and related infrastructure used in the [Simplify Microservices with converged Oracle Database Workshop](http://bit.ly/simplifymicroservices) and shown below will be reused for this workshop, however, the focus will be on observability. 
+The "GrabDish" application and related infrastructure used in the Simplify Microservices with converged Oracle Database Workshop and shown below will be reused for this workshop, however, the focus will be on observability. 
 
 We encourage you to check out the other workshop if you are interested in learning more about the technical capabilities inside and outside the Oracle converged database to support scalable data and event-driven microservices architectures, polyglot microservices, data and transaction patterns, etc.
 
@@ -44,13 +44,7 @@ You may now **proceed to the next lab.**.
 
 ## Learn More
 
-* Ask for help and connect with developers on the [Oracle DB Microservices Slack Channel](https://bit.ly/oracle-db-microservices-help-slack)
-
-* [Observability Exporters](https://github.com/oracle/oracle-db-appdev-monitoring)
-* [Multitenant Database–Oracle 19c](https://www.oracle.com/database/technologies/multitenant.html)
-* [Oracle Advanced Queuing](https://docs.oracle.com/en/database/oracle/oracle-database/19/adque/aq-introduction.html)
-* [Microservices Architecture with the Oracle Database](https://www.oracle.com/technetwork/database/availability/trn5515-microserviceswithoracle-5187372.pdf)
-* [https://developer.oracle.com/](https://developer.oracle.com/)
+* [Oracle Database](https://www.oracle.com/database)
 
 ## Acknowledgements
 * **Author** - Paul Parkinson, Architect and Developer Advocate;

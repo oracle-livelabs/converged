@@ -115,11 +115,9 @@ Cloud Shell is a small virtual machine running a "bash" shell which you access t
 
 2. The setup will ask you to confirm that there are no other un-terminated OKE clusters exist in your tenancy.
 
-    ```
-	<copy>
-	You are limited to only one OKE cluster in this tenancy. This workshop will create one additional OKE cluster and so any other OKE clusters must be terminated.
-	Please confirm that no other un-terminated OKE clusters exist in this tenancy and then hit [RETURN]?
-	</copy>
+    ```text
+	  You are limited to only one OKE cluster in this tenancy. This workshop will create one additional OKE cluster and so any other OKE clusters must be terminated.
+	  Please confirm that no other un-terminated OKE clusters exist in this tenancy and then hit [RETURN]?
 	```
     To confirm that there are no other un-terminated OKE clusters, click the Navigation Menu in the upper left of Oracle Cloud Console, navigate to Developer Services and click on Kubernetes Clusters (OKE).
 
