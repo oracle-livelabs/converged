@@ -80,8 +80,8 @@ You may now **proceed to the next lab.**.
 
 ## Learn More
 
-* Ask for help and connect with developers on the [Oracle DB Microservices Slack Channel](https://bit.ly/oracle-db-microservices-help-slack)   
-
+* [Oracle Database](https://www.oracle.com/database)
+* 
 ## Acknowledgements
 * **Author** - Paul Parkinson, Architect and Developer Advocate;
-* **Last Updated By/Date** - Paul Parkinson, June 2022
+* **Last Updated By/Date** - Paul Parkinson, 2024
