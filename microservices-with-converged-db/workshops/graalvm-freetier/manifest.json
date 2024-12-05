@@ -21,11 +21,11 @@
     },
     {
       "title": "Lab 2: Configure, build and run an application that uses Oracle Database 23ai and GraalVM using Helidon",
-      "filename": "../../micronaut/micronaut.md"
+      "filename": "../../helidon/helidon.md",
     },
     {
       "title": "Lab 2: Configure, build and run an application that uses Oracle Database 23ai and GraalVM using Micronaut",
-      "filename": "../../helidon/helidon.md"
+      "filename": "../../micronaut/micronaut.md"
     },
     {
       "title": "Lab 2: Configure, build and run an application that uses Oracle Database 23ai and GraalVM using Quarkus",
