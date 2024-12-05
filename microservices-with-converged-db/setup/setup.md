@@ -50,26 +50,7 @@ If, however, you have already used up some quota on your tenancy, perhaps while 
 
   It may be necessary to delete some resources to make space to run the workshop. Once you have enough space you may proceed to the next step.
 
-
-## Task 3: Launch Cloud Shell
-
-Cloud Shell is a small virtual machine running a "bash" shell which you access through the Oracle Cloud Console. Cloud Shell comes with a pre-authenticated command line interface in the tenancy region. It also provides up-to-date tools and utilities.
-
-1. Click the Cloud Shell icon in the top-right corner of the Console.
-
-  ![Oracle Cloud Infrastructure Cloud Shell Opening](images/open-cloud-shell.png " ")
-
-  Select the x86 architecture for the shell by going to the upper left of the shell and clicking `Architecture`
-
-  ![Oracle Cloud Infrastructure Cloud Shell Opening](images/cloudshellselectarchitecture.png " ")
-
-  Then select the x86 architecture for the shell and restart.
-
-  ![Oracle Cloud Infrastructure Cloud Shell Opening](images/cloudshellarchitecture-confirmandrestart.png " ")
-
-  > **Note:** Cloud Shell uses websockets to communicate between your browser and the service. If your browser has websockets disabled or uses a corporate proxy that has websockets disabled you will see an error message ("An unexpected error occurred") when attempting to start Cloud Shell from the console. You also can change the browser cookies settings for a specific site to allow the traffic from *.oracle.com
-
-## Task 4: If necessary, create a compartment and OKE Kubernetes cluster. Then insure the Kubernetes config for the cluster is setup in (Cloud) Shell properly.
+## Task 3: If necessary, create a compartment and OKE Kubernetes cluster. Then insure the Kubernetes config for the cluster is setup in (Cloud) Shell properly.
 
 You will need to create a compartment unless you have one that you will use already.
 
@@ -105,8 +86,26 @@ The workshop is meant to run on any Kubernetes cluster on any cloud.
    ![k8s cluster creating](images/k8sclustercreating.png " ")
 8. You can conduct the rest of the setup for the workshop in parallel. Check back to see when the Kubernetes cluster is provisioned and ready as you will issue the `state_set_done K8S_THREAD` command for setup to continue.  More on this in the following tasks... 
 
+## Task 4: Launch Cloud Shell
 
-## Task 5: Back in the Cloud Shell, Create a Folder to Contain the Workshop Code And Clone the Source Code
+Cloud Shell is a small virtual machine running a "bash" shell which you access through the Oracle Cloud Console. Cloud Shell comes with a pre-authenticated command line interface in the tenancy region. It also provides up-to-date tools and utilities.
+
+1. Click the Cloud Shell icon in the top-right corner of the Console.
+
+![Oracle Cloud Infrastructure Cloud Shell Opening](images/open-cloud-shell.png " ")
+
+Select the x86 architecture for the shell by going to the upper left of the shell and clicking `Architecture`
+
+![Oracle Cloud Infrastructure Cloud Shell Opening](images/cloudshellselectarchitecture.png " ")
+
+Then select the x86 architecture for the shell and restart.
+
+![Oracle Cloud Infrastructure Cloud Shell Opening](images/cloudshellarchitecture-confirmandrestart.png " ")
+
+> **Note:** Cloud Shell uses websockets to communicate between your browser and the service. If your browser has websockets disabled or uses a corporate proxy that has websockets disabled you will see an error message ("An unexpected error occurred") when attempting to start Cloud Shell from the console. You also can change the browser cookies settings for a specific site to allow the traffic from *.oracle.com
+
+
+## Task 5: Create a Folder to Contain the Workshop Code And Clone the Source Code
 
 1. (Re)open Cloud Shell terminal and create a directory to contain the workshop code. The directory name is used to create a compartment of the same name in your tenancy. The directory name must have between 1 and 13 characters, contain only letters or numbers, and start with a letter. Make sure that a compartment of the same name does not already exist in your tenancy or the setup will fail. For example:
 
@@ -146,8 +145,18 @@ As mentioned in the earlier task, the workshop is meant to run on any Kubernetes
 ![access your cluster button](images/accessyourclusterbutton.png " ")
 ![access your cluster cloudshell](images/accessyourclustercloudshell.png " ")
 3. Back in the Cloud Shell, paste the command you just copied. This will add an entry in your ~/.kube/config file so you can access the cluster.
-4. Test it by running `kubectl get pods --all-namespaces`. You should see a list of pods.
-5. Once verified, run the following command in the Cloud Shell: `state_set_done K8S_THREAD` .  This will let the setup know the Kubernetes cluster is ready and the setup can proceed.
+4. Test it by running the following kubectl in the terminal. You should see a list of pods.
+```
+<copy>
+kubectl get pods --all-namespaces
+</copy>
+```
+5. Once verified, run the following state_set_done command in the Cloud Shell.  This will let the setup know the Kubernetes cluster is ready and the setup can proceed.
+```
+<copy>
+state_set_done K8S_THREAD
+</copy>
+```
 6. *If you are running Task 7 setup in parallel you can run the command in a separate/second Cloud Shell or you can stop (eg ctrl+C) the setup , run the `state_set_done` command, and then run `setup` to continue.
 
 ## Task 7: Start the Setup
