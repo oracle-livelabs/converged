@@ -21,7 +21,7 @@
     },
     {
       "title": "Lab 2: Configure, build and run an application that uses Oracle Database 23ai and GraalVM using Helidon",
-      "filename": "../../helidon/helidon.md",
+      "filename": "../../helidon/helidon.md"
     },
     {
       "title": "Lab 2: Configure, build and run an application that uses Oracle Database 23ai and GraalVM using Micronaut",
