@@ -8,7 +8,7 @@ Estimates Time: 20 minutes
 
 ### Objectives
 
-* Select the correct compartment and view Oracle Autonomous Database (ATP) screen
+* Obtain wallet either via OCI CLI command or by downloading from OCI console.
 * Start Cloud Shell
 * Download wallet for ATP instance
 
