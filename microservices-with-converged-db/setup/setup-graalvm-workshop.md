@@ -2,48 +2,42 @@
 
 ## Introduction
 
-In this lab, we will select
+In this lab, we will do the basic setup required for GraalVM Native Image. 
+Once done, you can select the lab of the Java platform you'd like to develop and test on.
 
 Estimates Time: 20 minutes
 
 ### Objectives
 
+* Create an Oracle Autonomous Database (23ai). Note https://www.oracle.com/database/free/
 * Obtain wallet either via OCI CLI command or by downloading from OCI console.
-* Start Cloud Shell
+* Start Cloud Shell or Terminal
 * Download wallet for ATP instance
 
 
-## Task 1: Select the correct compartment and view Oracle Autonomous Database (ATP) screen in OCI console
+## Task 1: Decide whether to use Oracle Autonomous Database on Oracle Cloud Infrastructure (OCI) or using container image.
 
-Your own Oracle Cloud Infrastructure compartment for running this workshop has been assigned to you. The name of the compartment appears on the Launch page.
+- If you would like to use a container image, please refer to documentation and setup steps here: https://www.oracle.com/database/free/
+- If you would like to use Oracle Autonomous Database on OCI/cloud, continue to follow the tasks below.
 
-1. Copy the compartment name (not OCID) from the workshop reservation page.
+## Task 2: Create an Oracle Autonomous Database (ATP) in OCI console 
 
-   ![Copy Comp Name](images/copy-comp-name.png " ")
+Obtain a free OCI Cloud instance if you have not already and open the console page: https://cloud.oracle.com
 
-2. Select the navigation menu from the top left corner of the Oracle Cloud Console and navigate to "Oracle Database" and then, on the right, click "Autonomous Transaction Processing" (ATP) .
+Get the ATP_OCID and also download the wallet zip from the console. 
 
-   ![Select component instances](images/oracledatabase-ociconsole.png " ")
+In the next task, you will see how you can use an OCI CLI command to download the wallet by providing the ATP_OCID.
 
-3. Search for compartment using the compartment name from step#1 in the "Compartment" field under "List Scope".
-
-   ![Enter component name](images/enter-comp-name.png " ")
-
-4. Select your compartment name from the drop down list.
-
-   ![Enter component name](images/select-comp-name.png " ")
-
-   ![Enter correct component name](images/correct-comp-name.png " ")
-
-5. Select your pre-provisioned database from the list and explore!
+If you would prefer to user your own terminal and/or not use the OCI CLI, you can simply download the wallet from the console.
 
 
-
-## Task 2: Launch the Cloud Shell
+## Task 3: Launch the Cloud Shell or other terminal and download the wallet
 
    Cloud Shell is a small virtual machine running a "bash" shell which you access through the Oracle Cloud Console. Cloud Shell comes with a pre-authenticated command line interface connected to the tenancy. It also provides up-to-date tools and utilities.
 
-   1. Verify you are in the correct compartment (this was done as part of Task 1).
+   Depending on the framework, application, and your personal preference, you may want to use your own terminal in which case you can skip to step 5. 
+
+   1. Verify you are in the correct region and compartment.
 
    2. Click the Cloud Shell icon in the top-right corner of the Console.
 
@@ -57,11 +51,9 @@ Your own Oracle Cloud Infrastructure compartment for running this workshop has b
 
       ![Cloud Shell Confirmation](../setup/images/cloud-shell-confirmation.png "cloud shell confirmation")
 
-      >**Note**: Cloud Shell uses websockets to communicate between your browser and the service. If your browser has websockets disabled or uses a corporate proxy that has websockets disabled you will see an error message ("An unexpected error occurred") when attempting to start Cloud Shell from the console. You also can change the browser cookies settings for a specific site to allow the traffic from *.oracle.com
-
-## Task 3: Download the wallet of your pre-provisioned ATP instance (used to make connections in the Java/GraalVM app)
-
-   1. Create a directory to hold the wallet files... 
+      > **Note:** Cloud Shell sessions have a maximum length of 24 hours, and time out after 20 minutes of inactivity.
+      
+   5. Create a directory to hold the wallet files... 
 
     ```
     <copy>
@@ -70,7 +62,7 @@ Your own Oracle Cloud Infrastructure compartment for running this workshop has b
     ```
 
 
-   2. Copy the database ocid from the workshop reservation page described in the "Get Started" lab and issue the following command in the Cloud Shell. 
+   6. Copy the database ocid from the workshop reservation page described in the "Get Started" lab and issue the following command in the Cloud Shell. 
       Provide the ocid for the `autonomous-database-id` value and an arbitrary wallet-password (such as "Welcome12345"). You can leave the default file path.
 
     ```
@@ -79,7 +71,7 @@ Your own Oracle Cloud Infrastructure compartment for running this workshop has b
     </copy>
     ```
 
-   3. Finally, unzip it the wallet file to a directory such as...
+   7. Finally, unzip it the wallet file to a directory such as...
 
     ```
     <copy>
@@ -87,15 +79,13 @@ Your own Oracle Cloud Infrastructure compartment for running this workshop has b
     </copy>
     ```
 
-   > **Note:** Cloud Shell sessions have a maximum length of 24 hours, and time out after 20 minutes of inactivity.
-
 ## Task 4: Clone the GitHub source code repos
 
 1. Clone the src and cd into directory... Note that the rest of the documentation assumes this repos has been cloned to the $HOME directory
 
     ```
     <copy>
-    git clone https://github.com/paulparkinson/microservices-datadriven-devrel.git microservices-datadriven
+    git clone https://github.com/paulparkinson/microservices-datadriven-devrel.git microservices-datadriven ; 
     cd microservices-datadriven/graalvm-nativeimage
    
     </copy>
@@ -104,7 +94,7 @@ Your own Oracle Cloud Infrastructure compartment for running this workshop has b
 
 ## Task 5: Upgrade Maven:
 
-1. Run the command below to upgrade your Maven version accordingly:
+1. Insure you have maven installed and a recent version. 3.9.8 was used in this workshop which can be installed by Run the command below to upgrade your Maven version accordingly:
 
     ```
     <copy>   
@@ -119,7 +109,7 @@ Your own Oracle Cloud Infrastructure compartment for running this workshop has b
     ![maven upgrade](../setup/images/maven-upgrade.png)  
 
 
-## Task 5: Install SDKMAN! and GraalVM 22
+## Task 5: Install SDKMAN! use it to install GraalVM 
 
 1. Install SDKMAN! 
 
@@ -132,19 +122,15 @@ Your own Oracle Cloud Infrastructure compartment for running this workshop has b
     ```
 
 
-2. Execute the following to install and use GraalVM 22
+2. We use GraalVM 21.0.5 in this workshop which can be installed by running the following
 
     ```
     <copy>   
-    csruntimectl java set graalvmjdk-17
-    sdk install java 22.0.2-graal
-    sdk use java 22.0.2-graal
+    sdk install java 21.0.5-graal
+    sdk use java 21.0.5-graal
     sdk current
     </copy>
-    ```   
-   
-3. IMPORTANT: Restart the cloud shell for this to take effect.
-
+    ```
 
 
 You may now proceed to the next lab.

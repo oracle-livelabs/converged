@@ -2,7 +2,7 @@
 
 ## Introduction
 
-This lab walks you through the steps to develop with Oracle Database 23ai and GraalVM using Micronaut.
+This lab walks you through the steps to develop with Oracle Autonomous Database and GraalVM using Micronaut.
 
 Micronaut is an open-source JVM-based framework for building Java microservices. It is designed to avoid reflection, thus reducing memory consumption and improving start times. Features are pre-computed at compile time with Ahead of Time (AOT) compilation instead of doing so at runtime as with other Java frameworks.
 
@@ -13,7 +13,7 @@ Micronaut Data JDBC is a Micronaut extension, part of the Micronaut Data project
 At last but not least, GraalVM is a high-performance Java runtime that provides significant improvements in application performance and efficiency by integrating a state-of-the-art just-in-time (JIT) compiler and an ahead-of-time (AOT) compiler as well, being a great complement to Micronaut.
 It allows developers to compile Java applications into native executables, resulting in faster startup times and lower memory utilization. This makes it an ideal choice for modern, cloud-native applications.
 
-Estimated Time: 30 minutes
+Estimated Time: 10 minutes
 
 ### Objectives
 
@@ -38,34 +38,7 @@ This lab assumes you have:
     </copy>
     ``` 
 
-## Task 2: Download and install the Micronaut CLI
-
-1. Open Cloud Shell and make sure you're using X86_64 as your target architecture as was done during the setup lab
-
-2. To install the Micronaut CLI on Linux, open a terminal and run:
-
-    ```
-    <copy>   
-    sdk install micronaut  
-    </copy>
-    ```
-
-    If everything goes well, you will see confirmation messages as shown below.
-
-    ![micronaut cli](images/micronaut-cli.png)
-
-    You can now verify your instalation and the installed Micronaut CLI version:
-
-    ```
-    <copy>   
-    mn --version    
-    </copy>
-    ```    
-    You should see `Micronaut Version: 4.6.2` as the installed Micronaut CLI version.
-
-
-
-## Task 3: Configure Micronaut Data with your Oracle ADB instance details
+## Task 2: Configure Micronaut Data with your Oracle ADB instance details
 
 1.  Edit (using `vi` or similar tool) `src/main/resources/META-INF/microprofile-config.properties` to provide appropriate values for URL, user, and password such as the following.
     Replace values with those found in the workshop `Reservation Information` page and the explicit (eg don't use "~") home directory path as appropriate...
@@ -86,7 +59,7 @@ This lab assumes you have:
 
 ## Task 3: Build and run with Java
 
-1. Build and run the following and notice the `Hello World!` output after startup, indicating a connection has been made to the ATP instance.
+1. Build and run the following and notice the connection object output after startup, indicating a connection has been made to the ATP instance.
 
     ```
     <copy>
@@ -96,12 +69,26 @@ This lab assumes you have:
     </copy>
     ```
 
+## Task 4: Build and run Native Image
+
+1. Now Build the same application into a native image and run it to see the same behavior/output but with faster startup, etc.
+
+    ```
+    <copy>
+    mvn package -DskipTests -Dpackaging=native-image ;
+    ./target/micronaut-graalvm
+    </copy>
+    ```
+
+
    ![micronaut connection success](images/micronaut-conn-success.png)
+ 
+2. ![micronaut connection success](images/micronautstartup.png)
 
 
 Congratulations on connecting your Micronaut app to Oracle Autonomous Database!
 
-You can learn more about Micronaut and native image builds at https://micronaut.io/ (in order to build and run with `mvn package -DskipTests -Dpackaging=native-image` etc.)
+You can learn more about Micronaut and native image builds at https://micronaut.io/ 
 
 Please try it out in your favorite development environment and explore the source code, configuration, and Oracle Database features to learn more about how to enhance this application.
 
