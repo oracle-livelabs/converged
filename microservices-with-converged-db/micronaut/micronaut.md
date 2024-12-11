@@ -1,17 +1,10 @@
-# Develop with Oracle Database 23ai and GraalVM using Micronaut
+# Develop a Micronaut GraalVM Native Image app that connects to Oracle Autonomous Database
 
 ## Introduction
 
 This lab walks you through the steps to develop with Oracle Autonomous Database and GraalVM using Micronaut.
 
 Micronaut is an open-source JVM-based framework for building Java microservices. It is designed to avoid reflection, thus reducing memory consumption and improving start times. Features are pre-computed at compile time with Ahead of Time (AOT) compilation instead of doing so at runtime as with other Java frameworks.
-
-Micronaut Data is a database access toolkit that uses Ahead of Time (AOT) compilation to pre-compute queries for repository interfaces. A thin, lightweight runtime layer executes those queries. That’s a killer feature if positioned in combination with GraalVM!
-
-Micronaut Data JDBC is a Micronaut extension, part of the Micronaut Data project, which comprises other options like Reactive, JPA, and so on. However, Micronaut Data JDBC focuses on data access and persistence using the Java Database Connectivity (JDBC) API.
-
-At last but not least, GraalVM is a high-performance Java runtime that provides significant improvements in application performance and efficiency by integrating a state-of-the-art just-in-time (JIT) compiler and an ahead-of-time (AOT) compiler as well, being a great complement to Micronaut.
-It allows developers to compile Java applications into native executables, resulting in faster startup times and lower memory utilization. This makes it an ideal choice for modern, cloud-native applications.
 
 Estimated Time: 10 minutes
 
@@ -22,15 +15,12 @@ In this lab, you will:
 
 ### Prerequisites
 
-This lab assumes you have:
-- Provisioned environment with Git and Maven (Cloud Shell).
+This lab assumes you have completed the setup lab
 
 
 ## Task 1: Cd to project dir and build the project
 
-1. Open Cloud Shell and make sure you're using X86_64 as your target architecture as was done during the setup lab
-
-2. Cd to the following directory of the repos you cloned during setup. For example, if you cloned to your user's $HOME directory:
+1. Cd to the following directory of the repos you cloned during setup. For example:
 
     ```
     <copy>   
@@ -68,6 +58,9 @@ This lab assumes you have:
    
     </copy>
     ```
+   ![micronaut connection success](images/micronautstartup.png)
+
+[//]: # (   ![micronaut connection success]&#40;images/micronaut-conn-success.png&#41;)
 
 ## Task 4: Build and run Native Image
 
@@ -79,12 +72,6 @@ This lab assumes you have:
     ./target/micronaut-graalvm
     </copy>
     ```
-
-
-   ![micronaut connection success](images/micronaut-conn-success.png)
- 
-2. ![micronaut connection success](images/micronautstartup.png)
-
 
 Congratulations on connecting your Micronaut app to Oracle Autonomous Database!
 

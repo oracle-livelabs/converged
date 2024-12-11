@@ -2,7 +2,9 @@
 
 ## About this Workshop
 
-This workshop will help you understand more about developing with GraalVM and Oracle Database
+This workshop will show you how to develop, configure, build, and run GraalVM Native Images that securely connect and an Oracle Database of your choice (including Autonmous Database)
+
+We will learn how to do this using the popular Java platforms Spring Boot, Helidon, Micronaut, and Quarkus
 
 Estimated Workshop Time: 30 minutes
 
@@ -14,7 +16,7 @@ GraalVM is an advanced JDK with ahead-of-time Native Image compilation...
 
 ### Objectives
 
-- Learn how to develop and connect to Oracle Database using GraalVM and popular Java framework(s).
+- Learn how to develop and connect to Oracle Database using GraalVM Native Image(s) and popular Java framework(s).
 
 ### Prerequisites
 

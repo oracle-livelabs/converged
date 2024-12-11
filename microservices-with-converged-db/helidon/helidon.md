@@ -1,4 +1,4 @@
-# Develop with Oracle Database 23ai and GraalVM using Helidon
+# Develop a Helidon GraalVM Native Image app that connects to Oracle Autonomous Database
 
 ## Introduction
 
@@ -8,25 +8,22 @@ Helidon is a cloud-native, open‑source set of Java libraries for writing micro
 
 Helidon also supports MicroProfile, a platform definition that uses Java EE and Jakarta EE technologies.
 
-Estimated Time: 30 minutes
+Estimated Time: 10 minutes
 
 ### Objectives
 
 In this lab, you will:
-- Develop with Oracle Database 23ai and GraalVM using Helidon
+- Develop a Helidon GraalVM Native Image app that connects to Oracle Autonomous Database
 
 
 ### Prerequisites
 
-This lab assumes you have:
-- Provisioned environment with Git and Maven (Cloud Shell).
+This lab assumes you have completed the setup lab.
 
 
 ## Task 1: Cd to project dir
 
-1. Open Cloud Shell and make sure you're using X86_64 as your target architecture as was done during the setup lab
-
-2. Cd to the following directory of the repos you cloned during setup. For example, if you cloned to your user's $HOME directory:
+1. Cd to the following directory of the repos you cloned during setup. For example:
 
     ```
     <copy>   
@@ -59,17 +56,9 @@ This lab assumes you have:
     <copy>   
     mvn package ; java -jar target/com-oracle-helidon-datasource.jar
     </copy>
-    ```  
-    
-   Open a second OCI console and Cloud Shell and find out the hostname.
-
     ```
-    <copy>   
-     echo $HOSTNAME
-    </copy>
-    ```  
   
-   Then use that hostname to issue this curl command against the application
+   Issue this curl command against the application
     ```
     <copy>   
     curl http://localhost:8080/tables

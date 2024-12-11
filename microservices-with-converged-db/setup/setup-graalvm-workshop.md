@@ -5,7 +5,7 @@
 In this lab, we will do the basic setup required for GraalVM Native Image. 
 Once done, you can select the lab of the Java platform you'd like to develop and test on.
 
-Estimates Time: 20 minutes
+Estimates Time: 10 minutes
 
 ### Objectives
 

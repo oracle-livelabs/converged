@@ -1,5 +1,5 @@
 {
-  "workshoptitle": "Develop with Oracle Database 23ai and GraalVM using Quarkus",
+  "workshoptitle": "Develop with Oracle Autonomous Database and GraalVM Native Image using Spring Boot, Micronaut, Helidon, and (coming soon) Quarkus",
   "help": "livelabs-help-db_us@oracle.com",
   "tutorials": [
     {
@@ -16,19 +16,19 @@
       "filename": "../../setup/setup-graalvm-workshop.md"
     },
     {
-      "title": "Lab 2: Configure, build and run an application that uses Oracle Database 23ai and GraalVM using Spring Boot",
+      "title": "Lab 2: Develop a Spring Boot GraalVM Native Image app that connects to Oracle Autonomous Database",
       "filename": "../../springboot/springboot.md"
     },
     {
-      "title": "Lab 3: Configure, build and run an application that uses Oracle Database 23ai and GraalVM using Helidon",
+      "title": "Lab 3: Develop a Helidon GraalVM Native Image app that connects to Oracle Autonomous Database",
       "filename": "../../helidon/helidon.md"
     },
     {
-      "title": "Lab 4: Configure, build and run an application that uses Oracle Database 23ai and GraalVM using Micronaut",
+      "title": "Lab 4: Develop a Micronaut GraalVM Native Image app that connects to Oracle Autonomous Database",
       "filename": "../../micronaut/micronaut.md"
     },
     {
-      "title": "Lab 5: Configure, build and run an application that uses Oracle Database 23ai and GraalVM using Quarkus",
+      "title": "Lab 5: (coming soon) Develop a Quarkus GraalVM Native Image app that connects to Oracle Autonomous Database",
       "filename": "../../quarkus/quarkus.md"
     },
     {
