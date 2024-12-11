@@ -20,58 +20,33 @@ Estimates Time: 20 minutes
 - If you would like to use a container image, please refer to documentation and setup steps here: https://www.oracle.com/database/free/
 - If you would like to use Oracle Autonomous Database on OCI/cloud, continue to follow the tasks below.
 
-## Task 2: Create an Oracle Autonomous Database (ATP) in OCI console 
+## Task 2: Create an Oracle Autonomous Database (ATP) and download the wallet
 
-Obtain a free OCI Cloud instance if you have not already and open the console page: https://cloud.oracle.com
+If you have a database instance already, you may skip this task.
 
-Get the ATP_OCID and also download the wallet zip from the console. 
-
-In the next task, you will see how you can use an OCI CLI command to download the wallet by providing the ATP_OCID.
-
-If you would prefer to user your own terminal and/or not use the OCI CLI, you can simply download the wallet from the console.
-
-
-## Task 3: Launch the Cloud Shell or other terminal and download the wallet
-
-   Cloud Shell is a small virtual machine running a "bash" shell which you access through the Oracle Cloud Console. Cloud Shell comes with a pre-authenticated command line interface connected to the tenancy. It also provides up-to-date tools and utilities.
-
-   Depending on the framework, application, and your personal preference, you may want to use your own terminal in which case you can skip to step 5. 
-
-   1. Verify you are in the correct region and compartment.
-
-   2. Click the Cloud Shell icon in the top-right corner of the Console.
-
-      ![Open Cloud Shell](images/open-cloud-shell.png =50%x*)
-
-   3. Make sure you're using X86_64 as your target architecture. Click Actions, then click Architecture.
-
-      ![Cloud Shell Architecture](../setup/images/cloud-shell-architecture.png "cloud shell architecture")
-
-   4. Select the *X86_64* radio button, then click the *Confirm* button if it was not already selected as the default architecture.
-
-      ![Cloud Shell Confirmation](../setup/images/cloud-shell-confirmation.png "cloud shell confirmation")
-
-      > **Note:** Cloud Shell sessions have a maximum length of 24 hours, and time out after 20 minutes of inactivity.
-      
-   5. Create a directory to hold the wallet files... 
-
-    ```
-    <copy>
-    mkdir ~/myatpwallet
-    </copy>
-    ```
-
-
-   6. Copy the database ocid from the workshop reservation page described in the "Get Started" lab and issue the following command in the Cloud Shell. 
-      Provide the ocid for the `autonomous-database-id` value and an arbitrary wallet-password (such as "Welcome12345"). You can leave the default file path.
-
+1. From the OCI console select `Oracle Database` and then `Autonmous Transaction Processing`.
+   ![select database](./images/databasesetup1.png " ")
+2. Click the `Create Autonomous Database` button.
+   ![select create button](./images/databasesetup2.png " ")
+3. Select the appropriate compartment to place the database in and provide a database name (any name will suffice).
+   ![select compartment](./images/databasesetup4.png " ")
+4. Provide a password for the `ADMIN` user.
+   ![provide password](./images/databasesetup5.png " ")
+5. Click the `Create Autonomous Database` button.
+   ![select create](./images/databasesetup6.png " " )
+6. The database will begin provisioning. Notice the `Database actions` button.
+   ![notice actions](./images/databasesetup7.png " ")
+7. Click the `Database Connections` button and download the instance wallet.  You will be asked to provide a wallet password - this is not the same thing as a database user password and will not be used in this workshop but is required for download.
+   ![click actions](./images/databasesetup9.png " ")
+8. As an option to downloading via the console as mentioned in step 7, if you have the OCI CLI installed, you can copy the database ocid (which can be found in the console) and use the following command to download
+ 
     ```
     <copy>
     oci db autonomous-database generate-wallet --autonomous-database-id <ATP_OCID> --file ~/myatpwallet/myatpwallet.zip --password <wallet-password>
     </copy>
     ```
 
-   7. Finally, unzip it the wallet file to a directory such as...
+9. Finally, unzip the wallet file to a directory and not the directory location as you will need it later.
 
     ```
     <copy>
@@ -79,22 +54,22 @@ If you would prefer to user your own terminal and/or not use the OCI CLI, you ca
     </copy>
     ```
 
-## Task 4: Clone the GitHub source code repos
+## Task 3: Clone the GitHub source code repos
 
-1. Clone the src and cd into directory... Note that the rest of the documentation assumes this repos has been cloned to the $HOME directory
+1. Clone the src and cd into directory... 
 
     ```
     <copy>
-    git clone https://github.com/paulparkinson/microservices-datadriven-devrel.git microservices-datadriven ; 
+    git clone https://github.com/oracle-devrel/microservices-datadriven.git  ; 
     cd microservices-datadriven/graalvm-nativeimage
    
     </copy>
     ```
 
 
-## Task 5: Upgrade Maven:
+## Task 4: Install/Upgrade Maven if necessary
 
-1. Insure you have maven installed and a recent version. 3.9.8 was used in this workshop which can be installed by Run the command below to upgrade your Maven version accordingly:
+1. Insure you have maven installed and a recent version. 3.9.8 was used in this workshop which can be installed by running the convenience script below:
 
     ```
     <copy>   
@@ -109,7 +84,7 @@ If you would prefer to user your own terminal and/or not use the OCI CLI, you ca
     ![maven upgrade](../setup/images/maven-upgrade.png)  
 
 
-## Task 5: Install SDKMAN! use it to install GraalVM 
+## Task 5: Install SDKMAN! and use it to install GraalVM 
 
 1. Install SDKMAN! 
 
@@ -122,12 +97,12 @@ If you would prefer to user your own terminal and/or not use the OCI CLI, you ca
     ```
 
 
-2. We use GraalVM 21.0.5 in this workshop which can be installed by running the following
+2. We use GraalVM version 21.0.3-graal in this workshop which can be installed by running the following
 
     ```
     <copy>   
-    sdk install java 21.0.5-graal
-    sdk use java 21.0.5-graal
+    sdk install java 21.0.3-graal
+    sdk use java 21.0.3-graal
     sdk current
     </copy>
     ```
