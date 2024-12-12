@@ -37,7 +37,6 @@ This lab assumes you have completed the setup lab
     vi src/main/resources/application.properties
     </copy>
     ```
-
    
     ```
     <copy>
