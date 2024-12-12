@@ -36,14 +36,17 @@ This lab assumes you have completed the setup lab
     <copy>   
     vi src/main/resources/application.properties
     </copy>
-   ```
+    ```
+
    
-   ```properties
+    ```
+    <copy>
      datasources.default.username=ADMIN
      datasources.default.password=<password>
      datasources.default.URL=jdbc:oracle:thin:@<tnsServiceName>_high?TNS_ADMIN=/home/<myhomedir>/myatpwallet
      datasources.default.walletPassword=<YOUR_WALLET_PASSWORD>
-   ```  
+    </copy>
+    ```  
     
    *Again note that the values of the password and path to wallet are those that were collected during setup.
 
@@ -58,7 +61,7 @@ This lab assumes you have completed the setup lab
    
     </copy>
     ```
-   ![micronaut connection success](images/micronautstartup.png)
+   ![micronaut startup connection success](images/micronautstartup.png)
 
 [//]: # (   ![micronaut connection success]&#40;images/micronaut-conn-success.png&#41;)
 

@@ -12,11 +12,9 @@ In this lab, you will:
 
 ### Prerequisites
 
-This lab assumes you have:
-- Completed the setup lab.
+This lab assumes you have completed the setup lab.
 
-
-This lab is currently be written. 
+## Task 1: This lab is currently be written. 
 
 ## Acknowledgements
 * **Author** - Paul Parkinson, Architect and Developer Advocate
