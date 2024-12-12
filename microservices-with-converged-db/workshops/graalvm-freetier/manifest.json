@@ -26,10 +26,10 @@
       "title": "Lab 4: Develop a Micronaut GraalVM Native Image app that connects to Oracle Autonomous Database",
       "filename": "../../micronaut/micronaut.md"
     },
-    {
-      "title": "Lab 5: (coming soon) Develop a Quarkus GraalVM Native Image app that connects to Oracle Autonomous Database",
-      "filename": "../../quarkus/quarkus.md"
-    },
+//    {
+//      "title": "Lab 5: (coming soon) Develop a Quarkus GraalVM Native Image app that connects to Oracle Autonomous Database",
+//      "filename": "../../quarkus/quarkus.md"
+//    },
     {
       "title": "Need Help?",
       "description": "Solutions to Common Problems and Directions for Receiving Live Help",
