@@ -1,5 +1,5 @@
 {
-  "workshoptitle": "Develop a Video Game Using Kubernetes, Open Source, and Oracle Database 23ai",
+  "workshoptitle": "Develop Video Games Using Cloud Native, Kubernetes, Open Source, and Oracle Database 23ai",
   "help": "livelabs-help-db_us@oracle.com",
 	"tutorials": [
       {
@@ -11,24 +11,24 @@
         "filename": "https://oracle-livelabs.github.io/common/labs/cloud-login/pre-register-free-tier-account.md"
       },
       {
-        "title": "Lab 1: Setup",
-        "filename": "../../setup/setup.md"
-      },
-      {
-        "title": "Lab 2: Data-Centric Microservices Walkthrough",
-        "filename": "../../walkthrough-microservices/walkthrough-microservices.md"
-      },
-      {
-        "title": "Lab 3: Polyglot Microservices",
+        "title": "Lab 1: Play The Game",
         "filename": "../../polyglot/polyglot.md"
       },
       {
-        "title": "Lab 4: Observability",
-        "filename": "../../observability/observability.md"
+        "title": "Lab 2: Setup Infra: Database, Kubernetes, ...",
+        "filename": "../../setup/setup.md"
       },
       {
-        "title": "Lab 5: Build a video game using Unity, Kubernetes, and Oracle Database",
+        "title": "Lab 3: Polyglot Kubernetes Microservices BackEnd Walkthrough",
+        "filename": "../../game-backend-walkthrough/game-backend-walkthrough.md"
+      },
+      {
+        "title": "Lab 4: Unity, Unreal, Godot, and WASM FrontEnd Walkthrough",
         "filename": "../../unitygame/unitygame.md"
+      },
+      {
+        "title": "Lab 5: Add OpenTelemetry Observability of the game",
+        "filename": "../../observability/observability.md"
       },
       {
         "title": "Lab 6: Tear Down",
