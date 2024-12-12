@@ -1,4 +1,4 @@
-# Develop with Oracle Database 23ai and GraalVM using Spring Boot
+# Develop a Spring Boot GraalVM Native Image app that connects to Oracle Autonomous Database
 
 ## Introduction
 
@@ -8,19 +8,16 @@ Estimated Time: 30 minutes
 ### Objectives
 
 In this lab, you will:
-- Develop with Oracle Database 23ai and GraalVM using Spring Boot
+- Develop a Spring Boot GraalVM Native Image app that connects to Oracle Autonomous Database
 
 ### Prerequisites
 
-This lab assumes you have:
-- Provisioned environment with Git and Maven (Cloud Shell).
+This lab assumes you have completed the setup lab.
 
 
 ## Task 1: Cd to project dir and build the project
 
-1. Open Cloud Shell and make sure you're using X86_64 as your target architecture as was done during the setup lab
-
-2. Cd to the following directory of the repos you cloned during setup. For example, if you cloned to your user's $HOME directory:
+1. Cd to the following directory of the repos you cloned during setup. For example:
 
     ```
     <copy>   
@@ -78,5 +75,5 @@ Congratulations on connecting your Spring Boot app to Oracle Autonomous Database
 Please explore the source code, configuration, and Oracle Database features to learn more about how to enhance this application.
 
 ## Acknowledgements
-* **Author** - Paul Parkinson, Architect and Developer Advocate
+* **Author** - Paul Parkinson, Architect and Developer Advocate, Andy Tael, Developer Advocate
 * **Last Updated By/Date** - Paul Parkinson, 2024
