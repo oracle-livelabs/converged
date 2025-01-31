@@ -8,24 +8,24 @@
       },
       {
         "title": "Getting started",
-        "filename": "https://oracle-livelabs.github.io/common/labs/cloud-login/event-register-free-tier-account.md"
-      },
-      {
-        "title": "Lab 1: Workshop setup",
         "filename": "../../setup/setup.md"
       },
       {
-        "title": "Lab 2: Build Spring Boot microservices with Apache Kafka",
-        "filename": "../../deploy-and-test-kafka/deploy-and-test-kafka.md"
+        "title": "Lab 1: Core Concepts",
+        "filename": "../../core-concepts/core-concepts.md"
       },
       {
-        "title": "Lab 3: Build Spring Boot microservices with Oracle Transactional Event Queues",
-        "filename": "../../deploy-and-test-txeventq/deploy-and-test-txeventq.md"
+        "title": "Lab 2: Queue Management",
+        "filename": "../../queue-management/queue-management.md"
       },
       {
-        "title": "Lab 4: Setup the connection between Kafka and Oracle Transactional Event Queues",
-        "filename": "../../kafka-connect-txeventq/kafka-connect-txeventq.md"
-      },      
+        "title": "Lab 3: Messaging",
+        "filename": "../../messaging/messaging.md"
+      },
+      {
+        "title": "Lab 4: Additional Features",
+        "filename": "../../additional-features/additional-features.md"
+      },
       {
         "title": "Lab 5: Tear down",
         "filename": "../../teardown/teardown.md"
