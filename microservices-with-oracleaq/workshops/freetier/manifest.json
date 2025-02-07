@@ -7,27 +7,27 @@
         "filename": "../../intro/intro.md"
       },
       {
-        "title": "Getting started",
+        "title": "Get Started",
+        "filename": "https://oracle-livelabs.github.io/common/labs/cloud-login/pre-register-free-tier-account.md"
+      },
+      {
+        "title": "Setup",
         "filename": "../../setup/setup.md"
       },
       {
-        "title": "Lab 1: Core Concepts",
-        "filename": "../../core-concepts/core-concepts.md"
-      },
-      {
-        "title": "Lab 2: Queue Management",
+        "title": "Lab 1: Queue Management",
         "filename": "../../queue-management/queue-management.md"
       },
       {
-        "title": "Lab 3: Messaging",
+        "title": "Lab 2: Messaging",
         "filename": "../../messaging/messaging.md"
       },
       {
-        "title": "Lab 4: Additional Features",
+        "title": "Lab 3: Additional Features",
         "filename": "../../additional-features/additional-features.md"
       },
       {
-        "title": "Lab 5: Tear down",
+        "title": "Lab 4: Tear down",
         "filename": "../../teardown/teardown.md"
       },
       {
