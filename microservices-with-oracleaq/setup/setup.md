@@ -1,120 +1,65 @@
-# Set up the environment
+# Workshop setup
 
 ## Introduction
 
-In this tutorial, you'll provision and set up the resources to execute workshop in your tenancy.  
+In this lab, you'll set up the resources to run the workshop on your local development machine.
 
-Estimated Time: 15 minutes
+Estimated Time: 5 minutes
 
 ### Objectives
 
-- Clone the workshop repository.
-- Execute environment setup.
+- Start an Oracle Database Free Container
 
 ### Prerequisites
 
-An Oracle Cloud paid account or free trial. To sign up for a trial account with $300 in credits for 30 days, click [Sign Up](http://oracle.com/cloud/free).
+- This lab requires access to development machine with at least 8 GB of RAM, 2 CPUs, and a docker compatible container runtime. 
 
-## Task 1: Log in to the Oracle Cloud Console and Launch the Cloud Shell
+## **Task 1:** Pull the Oracle Database Free Container Image
 
-If you haven't already, sign in to your account.
+```bash
+docker pull gvenzl/oracle-free:23.6-slim-faststart
+```
 
-## Task 2: Select the Home Region
+## **Task 2:** Run the Oracle Database Free Container Instance
 
-Be sure to select the **home region** of your tenancy. Setup will only work in the home region.
+The following docker command starts a `oracledb` container, forwarding port `1521` to the container's database port, `1521`. Before running this command, replace `<YOUR ORACLE ADMIN PASSWORD>` with a secure password of your choice.
 
-  ![Oracle Cloud Infrastructure Home Region](images/home-region.png " ")
+```bash
+docker run --name oracledb -d -p 1521:1521 \
+  -e ORACLE_PASSWORD=<YOUR ORACLE ADMIN PASSWORD> \
+  gvenzl/oracle-free:23.6-slim-faststart
+```
 
-## Task 3: Check Your Tenancy Service Limits
+## **Task 3:** Log in to the Oracle Database Container
 
-If you have a **fresh** free trial account with credits then you can be sure that you have enough quota and you can proceed to the next step.
+The following command opens a bash shell on the `oracledb` container.
 
-If, however, you have already used up some quota on your tenancy, perhaps while completing other workshops, there may be insufficient quota left to run this workshop. The most likely quota limits you may reach are summarized in the following table.
+```bash
+docker exec -it oracledb bash
+```
 
-| Service          | Scope  | Resource                                             | Available | Free Account Limit |
-|------------------|:------:|------------------------------------------------------|:---------:|:------------------:|
-| Database         | Region | Autonomous Transaction Processing Total Storage (TB) | **1**     | 2                  |
-|                  | Region | Autonomous Transaction Processing OCPU Count         | **2**     | 8                  |
+From the container's bash shell, you may run commands like `sqlplus`.
 
-Quota usage and limits can be check through the console: **Limits, Quotas and Usage** in the **Governance & Administration** section , For example:
+```bash
+$ sqlplus / as sysdba
 
-  ![OCI Service Limit Example](images/service-limit-example.png " ")
+SQL*Plus: Release 23.0.0.0.0 - for Oracle Cloud and Engineered Systems on Fri Jan 31 21:20:31 2025
+Version 23.6.0.24.10
 
-The Tenancy Explorer is used to locate existing resources: **Governance & Administration** --> **Governance** --> **Tenancy Explorer**. Use the "Show resources in subcompartments" feature to locate all the resources in your tenancy:
+Copyright (c) 1982, 2024, Oracle.  All rights reserved.
 
-  ![OCI Show Subcompartments](images/show-subcompartments.png " ")
 
-It may be necessary to delete some resources to make space to run the workshop. Once you have enough space you may proceed to the next step.
+Connected to:
+Oracle Database 23ai Free Release 23.0.0.0.0 - Develop, Learn, and Run for Free
+Version 23.6.0.24.10
 
-## Task 4: Launch Cloud Shell
+SQL>
+```
 
-Cloud Shell is a small virtual machine running a "bash" shell which you access through the Oracle Cloud Console. Cloud Shell comes with a pre-authenticated command line interface in the tenancy region. It also provides up-to-date tools and utilities.
-
-> **Note:** Cloud Shell uses *websockets* to communicate between your browser and the service. If your browser has websockets disabled or uses a corporate proxy that has websockets disabled you will see an error message ("An unexpected error occurred") when attempting to start Cloud Shell from the console. You also can change the browser cookies settings for a specific site to allow the traffic from *.oracle.com
-
-1. Click the Cloud Shell icon in the top-right corner of the Console.
-
-    ![OCI Cloud Shell Opening](images/open-cloud-shell.png " ")
-
-1. Change the architecture to be x86_64. This is **very important** as the Live Lab doesn't work on the ARM architecture
-
-    Click on the Actions icon in the top-left corner of the Console and select Architecture.
-
-    ![OCI Cloud Shell Opening](images/architecture.png " ")
-
-    Select x86_64 in the dialog box. Cloud Shell will now restart.
-
-## Task 5: Make a Clone of the Workshop Setup Script and Source Code
-
-To work with the application code, you need to make a clone from the GitHub repository.  
-
-1. Execute the following sequence of commands into cloud shell:
-
-    ```bash
-    <copy>
-    git clone https://github.com/oracle/microservices-datadriven.git
-    cp -r ./microservices-datadriven/workshops/oracleAQ $HOME;     
-    rm -r -f microservices-datadriven; 
-    cd oracleAQ;
-    </copy>
-    ```
-
-2. You should now see the directory `oracleAQ` in the directory that you clone.
-
-## Task 6: Start the Setup
-
-1. Execute the below command into cloud shell to start the setup.
-  
-    ```bash
-    <copy>
-    source setup.sh
-    </copy>
-    ```
-  
-2. Enter the password to be used for database connection and wait for the ATP provisioning when you will see the message: **"Action completed. Waiting until the resource has entered state: ('AVAILABLE',)".**
-
-3. The setup process will typically take around 5 minutes to complete.
-
-> **Note:** Cloud shell may disconnect after a period of inactivity. If that happens, you can reconnect and then re-run the above command to resume the setup.
-
-## Task 7: Complete the Setup
-
-Once the majority of the setup has been completed the setup will periodically provide a summary of the setup status. Once everything has been completed you will see the message: **SETUP COMPLETED**.
-
-1. If any of the background setup jobs are still running you can monitor their progress with the following command into cloud shell.
-
-    ```bash
-    <copy>
-    ps -ef | grep "$ORACLEAQ_HOME" | grep -v grep
-    </copy>
-    ```
-
-> **Note:**  Cloud Shell sessions have a maximum length of 24 hours, and time out after 20 minutes of inactivity.
-
-Once the setup has been completed you are ready to **proceed to the next lab.**
+You may now **proceed to the next lab**
 
 ## Acknowledgements
 
-- **Author** - Mayank Tayal, Developer Advocate
-- **Contributors** - Sanjay Goil, VP Microservices and Oracle Database; Andy Tael, Developer Evangelist; Paul Parkinson, Developer Evangelist; Paulo Simoes, Developer Evangelist; Richard Exley, Maximum Availability Architecture; Shivani Karnewar, Senior Member Technical Staff
-- **Last Updated By/Date** - Andy Tael, August 2024
+- **Authors** - Anders Swanson, Developer Evangelist;
+- **Contributors** - 
+- **Last Updated By/Date** - Anders Swanson, Feb 2024

@@ -1,5 +1,5 @@
 {
-  "workshoptitle": "Get started with Oracle AQ and Oracle TEQ events and messaging",
+  "workshoptitle": "Getting Started With Oracle Database Transactional Event Queues",
   "help": "livelabs-help-db_us@oracle.com",
 	"tutorials": [
       {
@@ -7,28 +7,28 @@
         "filename": "../../intro/intro.md"
       },
       {
-        "title": "Get started",
-        "filename": "https://oracle-livelabs.github.io/common/labs/cloud-login/pre-register-free-tier-account.md"
-      },
-      {
-        "title": "Lab 1: Set up the environment",
+        "title": "Getting started",
         "filename": "../../setup/setup.md"
       },
       {
-        "title": "Lab 2: Understand AQ- Enqueue/Dequeue",
-        "filename": "../../aq-enqueue-dequeue/aq-enqueue-dequeue.md"
+        "title": "Lab 1: Core Concepts",
+        "filename": "../../core-concepts/core-concepts.md"
       },
       {
-        "title": "Lab 3: Use workflow with AQ (Second-factor Authentication)",
-        "filename": "../../aq-workflow/aq-workflow.md"
+        "title": "Lab 2: Queue Management",
+        "filename": "../../queue-management/queue-management.md"
       },
       {
-        "title": "Lab 4: Understand TEQ- Enqueue/Dequeue",
-        "filename": "../../teq-enqueue-dequeue/teq-enqueue-dequeue.md"
+        "title": "Lab 3: Messaging",
+        "filename": "../../messaging/messaging.md"
       },
       {
-        "title": "Lab 5: Use workflow with TEQ (Second-factor Authentication)",
-        "filename": "../../teq-workflow/teq-workflow.md"
+        "title": "Lab 4: Additional Features",
+        "filename": "../../additional-features/additional-features.md"
+      },
+      {
+        "title": "Lab 5: Tear down",
+        "filename": "../../teardown/teardown.md"
       },
       {
         "title": "Need Help?",
