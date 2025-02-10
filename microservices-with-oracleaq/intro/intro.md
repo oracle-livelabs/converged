@@ -23,6 +23,8 @@ Once you complete your setup, the next lab will cover:
 * Creating and starting Transactional Event Queues
 * Queue payload types
 
+The following labs will cover enqueue and dequeue operations with queues, and additional messaging features of Transactional Event Queues.
+
 ### Prerequisites
 
 * An Oracle Cloud Account - Please view this workshop's LiveLabs landing page to see which environments are supported
