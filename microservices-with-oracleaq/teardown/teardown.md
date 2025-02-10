@@ -2,7 +2,7 @@
 
 ## Introduction
 
-In this lab, we will tear down the resources created on your development machine.
+In this lab, we will tear down the resources used in the workshop.
 
 Estimated Time: 5 minutes
 
@@ -16,11 +16,7 @@ Estimated Time: 5 minutes
 
 ## **Task 1:** Delete the Workshop Resources
 
-The following command stops the `oracledb` container, and then deletes it from your container runtime.
-
-```bash
-docker stop oracledb && docker rm oracledb
-```
+TBD
 
 ## Acknowledgements
 
