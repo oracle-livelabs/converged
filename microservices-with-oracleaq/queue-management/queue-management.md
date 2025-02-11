@@ -2,19 +2,18 @@
 
 ## Introduction
 
-This lab provides hands-on experience with the management of Transactional Event Queues (TxEventQ). Participants will gain practical knowledge of the necessary database permissions, the steps to create, start, and stop queues, and how to interact with these queues using different programming languages and APIs.
+This lab provides hands-on experience with the management of Transactional Event Queues (TxEventQ). Participants will gain practical knowledge of the necessary database permissions, the steps to manage queues using the PL/SQL API for TxEventQ.
 
-Moreover, we will go into advanced subjects and explain what is referred to as "queue" vs "topic" in today's IT world and cover an extended list of options for creating TxEventQ.
+We'll also dive into the differences between "topics" and "queues" in today's IT world and cover an extended list of options for managing TxEventQ.
 
-Estimated Time: 30 minutes
+Estimated Time: 10 minutes
 
 ### Objectives
 
-- Go over database permissions required for queue management
-- Create and configure Transactional Event Queues
+- Understand database permissions required for TxEventQ users
 - Start, stop, and manage queues
-- Create topics and queues
-- Create transactional event queues with message payload types
+- Creating topics vs. creating queues
+- Learn the different message payload types used when creating queues
 
 ### Prerequisites
 
@@ -23,12 +22,17 @@ Estimated Time: 30 minutes
 
 ## **Task 1:** Database Permissions for Transactional Event Queues
 
-For the management of queues using Transactional Event Queue APIs in PL/SQL, the following permissions are recommended for users managing queues:
+The following permissions are recommended for PL/SQL TxEventQ users, granting access to the necessary database packages. Ensure tablespace is granted as appropriate for your TxEventQ user.
 
 ```sql
 -- Grant tablespace as appropriate to your TxEventQ user
 grant resource, connect to testuser;
+grant aq_user_role to testuser;
+grant execute on dbms_aq to testuser;
 grant execute on dbms_aqadm to testuser;
+grant execute on dbms_aqin to testuser;
+grant execute on dbms_aqjms to testuser;
+grant execute on dbms_teqk to testuser;
 ```
 
 ## **Task 2:** Creating, Starting, and Stopping Queues
@@ -37,16 +41,16 @@ This task involves managing TxEventQ with the DBMS_AQADM SQL package.
 
 The [`DBMS_AQADM` SQL package](https://docs.oracle.com/en/database/oracle/oracle-database/23/arpls/DBMS_AQADM.html) provides procedures for the management of Transactional Event Queues.
 
-A queue can be created using the [`DBMS_AQADM.CREATE_TRANSACTIONAL_EVENT_QUEUE` procedure](https://docs.oracle.com/en/database/oracle/oracle-database/23/arpls/DBMS_AQADM.html#GUID-6841A667-1021-4E5C-8567-F71913AA4773). Queues must be started with the [`DBMS_AQADM.START_QUEUE` procedure](https://docs.oracle.com/en/database/oracle/oracle-database/23/arpls/DBMS_AQADM.html#GUID-EED83332-40B1-4B0A-9E50-AC006A1A0615) before they can be used for enqueue and dequeue.
+A queue can be created using the [`DBMS_AQADM.CREATE_TRANSACTIONAL_EVENT_QUEUE` procedure](https://docs.oracle.com/en/database/oracle/oracle-database/23/arpls/DBMS_AQADM.html#GUID-6841A667-1021-4E5C-8567-F71913AA4773). Queues must be started with the [`DBMS_AQADM.START_QUEUE` procedure](https://docs.oracle.com/en/database/oracle/oracle-database/23/arpls/DBMS_AQADM.html#GUID-EED83332-40B1-4B0A-9E50-AC006A1A0615) after creation, but before they are used for messaging.
 
-Below is an example of creating and starting a simple queue using DBMS_AQADM procedures with default options.
+Run the following SQL statement to create and start a queue named `my_queue` using the default DBMS_AQADM options:
 
 ```sql
 begin
     -- create the Transactional Event Queue
     dbms_aqadm.create_transactional_event_queue(
         queue_name         => 'my_queue',
-        -- when multiple_consumers is true, this will create a pub/sub "topic" - the default is false, it would create point-to-point "queue"
+        -- when multiple_consumers is true, this will create a pub/sub "topic" - the default is false, it will create point-to-point "queue"
         multiple_consumers => false
     );
 
@@ -58,29 +62,15 @@ end;
 /
 ```
 
-Use the [`DBMS_AQADM.ALTER_TRANSACTIONAL_EVENT_QUEUE` procedure](https://docs.oracle.com/en/database/oracle/oracle-database/23/arpls/DBMS_AQADM.html#GUID-260ED3E1-9959-4033-8B00-FD911424DFBB) to modify an existing queue. This procedure can be used to change queue retries, comment the queue, modify queue properties, and change the queue's replication mode.
+The [`DBMS_AQADM.ALTER_TRANSACTIONAL_EVENT_QUEUE` procedure](https://docs.oracle.com/en/database/oracle/oracle-database/23/arpls/DBMS_AQADM.html#GUID-260ED3E1-9959-4033-8B00-FD911424DFBB) is used to modify an existing queue. This procedure can configure settings like queue retries, queue comments, and other properties after creation.
 
-The following SQL script adds a comment to an existing queue.
+Run the following SQL script to add a comment to the `my_queue` queue.
 
 ```sql
 begin
     dbms_aqadm.alter_transactional_event_queue(
         queue_name => 'my_queue',
         comment    => 'for testing purposes'
-    );
-end;
-/
-```
-
-Use the [`DBMS_AQADM.STOP_QUEUE` procedure](https://docs.oracle.com/en/database/oracle/oracle-database/23/arpls/DBMS_AQADM.html#GUID-14EADFE9-D7C3-472D-895D-861BB5570EED) to stop a queue. A queue must be stopped before it can be dropped using the [`DBMS_AQADM.DROP_TRANSACTIONAL_EVENT_QUEUE` procedure](https://docs.oracle.com/en/database/oracle/oracle-database/23/arpls/DBMS_AQADM.html#GUID-99A161DB-85C7-439A-A85C-A7BEEBD0288F).
-
-```sql
-begin
-    dbms_aqadm.stop_queue(
-        queue_name => 'my_queue'
-    );
-    dbms_aqadm.drop_transactional_event_queue(
-        queue_name => 'my_queue'
     );
 end;
 /
@@ -94,15 +84,30 @@ select * from user_queues;
 
 You should see queue data similar to the following, for the queues available on your specific database schema.
 
-| NAME             | QUEUE_TABLE      | QID  | QUEUE_TYPE     | MAX_RETRIES | RETRY_DELAY | ENQUEUE_ENABLED | DEQUEUE_ENABLED | RETENTION | USER_COMMENT | NETWORK_NAME | SHARDED | QUEUE_CATEGORY           | RECIPIENTS |
-|------------------|------------------|------|---------------|-------------|-------------|-----------------|-----------------|-----------|--------------|--------------|---------|-------------------------|------------|
-| JSON_QUEUE       | JSON_QUEUE       | 72604 | NORMAL_QUEUE   | 5           | 0           | YES             | YES             | 0         | null         | null         | TRUE    | Transactional Event Queue | SINGLE    |
-| CUSTOM_TYPE_QUEUE| CUSTOM_TYPE_QUEUE| 72535 | NORMAL_QUEUE   | 5           | 0           | YES             | YES             | 0         | null         | null         | TRUE    | Transactional Event Queue | SINGLE    |
-| MY_QUEUE         | MY_QUEUE         | 73283 | NORMAL_QUEUE   | 5           | 0           | YES             | YES             | 0         | null         | null         | TRUE    | Transactional Event Queue | SINGLE    |
+| NAME             | QUEUE_TABLE      | QID  | QUEUE_TYPE     | MAX_RETRIES | RETRY_DELAY | ENQUEUE_ENABLED | DEQUEUE_ENABLED | RETENTION | USER_COMMENT         | NETWORK_NAME | SHARDED | QUEUE_CATEGORY           | RECIPIENTS |
+|------------------|------------------|------|---------------|-------------|-------------|-----------------|-----------------|-----------|----------------------|--------------|---------|-------------------------|------------|
+| MY_QUEUE         | MY_QUEUE         | 73283 | NORMAL_QUEUE   | 5           | 0           | YES             | YES             | 0         | for testing purposes | null         | TRUE    | Transactional Event Queue | SINGLE    |
+
+
+The [`DBMS_AQADM.STOP_QUEUE` procedure](https://docs.oracle.com/en/database/oracle/oracle-database/23/arpls/DBMS_AQADM.html#GUID-14EADFE9-D7C3-472D-895D-861BB5570EED) is used to stop a queue. After a queue is stopped, it can be dropped using the [`DBMS_AQADM.DROP_TRANSACTIONAL_EVENT_QUEUE` procedure](https://docs.oracle.com/en/database/oracle/oracle-database/23/arpls/DBMS_AQADM.html#GUID-99A161DB-85C7-439A-A85C-A7BEEBD0288F).
+
+Run the following SQL statement to stop the `my_queue` queue, and drop it from the database.
+
+```sql
+begin
+    dbms_aqadm.stop_queue(
+        queue_name => 'my_queue'
+    );
+    dbms_aqadm.drop_transactional_event_queue(
+        queue_name => 'my_queue'
+    );
+end;
+/
+```
 
 ## **Task 3:** Creating Topics and Queues
 
-This task involves diving deep into topics vs. queues in today's IT world and arguments that can be used when creating TxEventQ for advanced use cases with the DBMS_AQADM SQL package.
+This task involves dives into topics vs. queues in today's IT world and covers the parameters used when managing TxEventQ with the DBMS_AQADM SQL package.
 
 ### Topics vs. Queues in Today’s IT World
 
@@ -120,7 +125,7 @@ A queue follows a point-to-point messaging model, where each message is consumed
 
 #### What is a Topic?
 
-A topic follows a publish-subscribe (pub/sub) model, where each message can be broadcast to multiple subscribers. Unlike queues, topics do not remove messages upon consumption—they are retained for a specified duration, allowing multiple consumers to process the same message independently.
+A topic follows a publish-subscribe (pub/sub) model, where each message can be broadcast to multiple subscribers. Unlike queues, topics do not remove messages upon consumption—messages are retained for a specified duration, allowing multiple consumers to process the same message independently.
 
 ##### Use Cases for Topics
 
@@ -149,7 +154,7 @@ Here is the list of arguments that can be used with the [`DBMS_AQADM.CREATE_TRAN
 | **queue_payload_type** | Specifies the type of payload the queue can handle. Options include `RAW`, `JSON`, `DBMS_AQADM.JMS_TYPE`, or an object type. Default is `DBMS_AQADM.JMS_TYPE`. See [DBMS_AQ Data Types](https://docs.oracle.com/en/database/oracle/oracle-database/23/arpls/DBMS_AQ.html#GUID-56E78CA6-3EB0-44C9-AEB7-F13A5A077D73). |
 | **queue_properties** | Defines additional queue properties such as queue type (Normal or Exception Queue), retry delay, retention time, sort list, and cache hints. See [QUEUE_PROPS_T Type](https://docs.oracle.com/en/database/oracle/oracle-database/23/arpls/advanced-queuing-AQ-types.html#GUID-E3F15E41-1365-42C3-8B47-CA3C1E805B77) for more information. |
 
-#### Create a Topic
+#### Create a Topic using the JSON payload type
 
 ```sql
 begin
@@ -157,13 +162,13 @@ begin
             queue_name         => 'my_topic',
             queue_payload_type => 'JSON',
             multiple_consumers => true,
-            comment            => 'my txeventq topic'
+            comment            => 'my TxEventQ topic'
     );
 end;
 /
 ```
 
-#### Create a Queue
+#### Create a Queue using the JSON payload type
 
 ```sql
 begin
@@ -171,7 +176,7 @@ begin
             queue_name         => 'my_queue',
             queue_payload_type => 'JSON',
             multiple_consumers => false,
-            comment            => 'my txeventq queue'
+            comment            => 'my TxEventQ queue'
     );
 end;
 /
@@ -197,7 +202,7 @@ The following script creates and starts a Transactional Event Queue using `DBMS_
 -- Create a Transactional Event Queue
 begin
     dbms_aqadm.create_transactional_event_queue(
-            queue_name         => 'my_queue',
+            queue_name         => 'jms_queue_example',
             -- Payload can be RAW, JSON, DBMS_AQADM.JMS_TYPE, or an object type.
             -- Default is DBMS_AQADM.JMS_TYPE.
             queue_payload_type => DBMS_AQADM.JMS_TYPE,
@@ -206,7 +211,7 @@ begin
 
     -- Start the queue
     dbms_aqadm.start_queue(
-            queue_name         => 'my_queue'
+            queue_name         => 'jms_queue_example'
     );
 end;
 /
@@ -223,12 +228,12 @@ The following SQL script creates a Transactional Event Queue using the RAW paylo
 ```sql
 begin
   dbms_aqadm.create_transactional_event_queue(
-    queue_name => 'raw_queue',
+    queue_name => 'raw_queue_example',
     queue_payload_type => 'RAW'
   );
   
   dbms_aqadm.start_queue(
-    queue_name => 'raw_queue'
+    queue_name => 'raw_queue_example'
   );
 end;
 /
@@ -243,12 +248,12 @@ The following SQL script creates a Transactional Event Queue using the JSON payl
 ```sql
 begin
   dbms_aqadm.create_transactional_event_queue(
-    queue_name => 'json_queue',
+    queue_name => 'json_queue_example',
     queue_payload_type => 'JSON'
   );
   
   dbms_aqadm.start_queue(
-    queue_name => 'json_queue'
+    queue_name => 'json_queue_example'
   );
 end;
 /

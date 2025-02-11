@@ -2,9 +2,9 @@
 
 ## Introduction
 
-In this lab, we'll use the Transactional Event Queues PL/SQL API to explore additional messaging features like expiry, delay, and priority. 
+In this lab, we'll use the PL/SQL API for Transactional Event Queues to explore additional messaging features like expiry, delay, and priority. 
 
-Estimated Time: 5 minutes
+Estimated Time: 10 minutes
 
 ### Objectives
 
@@ -25,9 +25,9 @@ This lab assumes you have:
 
 When enqueuing a message, an expiry time may be specified using the expiration attribute of the [message_properties object](https://docs.oracle.com/en/database/oracle/oracle-database/23/arpls/advanced-queuing-AQ-types.html#GUID-7232160F-22CF-4DF7-BAAF-96EDCC5CB452).
 
-Configuring a message's expiring sets the number of seconds for which a message is may be dequeued. Messages older than their expiration time are automatically moved to an **exception queue**. The exception queue contains any expired or failed messages, and uses the same backing database table as the main queue.
+Configuring a message's expiring sets the number of seconds for which a message may be dequeued. Messages older than their expiration time are automatically moved to an **exception queue**. The exception queue contains any expired or failed messages, and uses the same backing database table as the main queue.
 
-The following SQL statement creates a queue named `lab_queue`, and an association exception queue named `lab_queue_eq`. Any expired or failed messages enqueued to the `lab_queue` queue will be moved to the `lab_queue_eq` queue. Run this statement to create the queue and exception queue:
+The following SQL statement creates a queue named `lab_queue`, and an associated exception queue named `lab_queue_eq`. Any expired or failed messages enqueued to the `lab_queue` queue will be moved to the `lab_queue_eq` queue. Run this statement to create the queue and exception queue:
 
 ```sql
 begin
@@ -113,7 +113,7 @@ select msgid, delivery_time from lab_queue
 where delivery_time is not null;
 ```
 
-Because the message is delayed, a dequeue will result in the `ORA-25228: timeout or end-of-fetch during message dequeue from <SCHEMA>.<QUEUE NAME>` error. The following SQL statement attempts a dequeue, and then encounters this error if no other messages are present in the queue:
+Because the message is delayed, the queue should effectively be empty from the a consumer's perspective. a dequeue will result in the . The following SQL statement attempts a dequeue and will encounter the `ORA-25228: timeout or end-of-fetch during message dequeue from <SCHEMA>.<QUEUE NAME>` error if no other messages are present in the queue:
 
 ```sql
 declare
@@ -141,10 +141,10 @@ end;
 
 ## **Task 3:** Enqueue a message with priority
 
-When enqueuing a message, you can specify its priority using the priority attribute of the message_properties object. This attribute allows you to control the order in which messages are dequeued. The lower a message’s priority number, the higher the message’s precedence for consumers.
+When enqueuing a message, you can specify its priority using the priority attribute of the `message_properties` object. The priority attribute allows you to control the order in which messages are dequeued. The lower a message’s priority number, the higher the message’s precedence for consumers.
 
 When enqueuing prioritized messages, the `PRIORITY`
-column in the queue table will be populated with the priority number.
+column in the queue table will be populated with the priority number. The default priority, if not specified, is `4`.
 
 ```sql
 declare
@@ -169,7 +169,7 @@ end;
 /
 ```
 
-Messages may also be queried by their priority. The following SQL statement retrieves any messages with `priority = 1`:
+Messages may be queried by their priority. The following SQL statement retrieves any messages with `priority = 1`:
 
 ```sql
 select msgid, enqueue_time, priority from lab_queue
@@ -182,4 +182,4 @@ You may now **proceed to the next lab**
 
 - **Authors** - Anders Swanson, Developer Evangelist;
 - **Contributors** - Anders Swanson, Developer Evangelist;
-- **Last Updated By/Date** - Anders Swanson, Feb 2024
+- **Last Updated By/Date** - Anders Swanson, Feb 2025

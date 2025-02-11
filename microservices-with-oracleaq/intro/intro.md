@@ -2,26 +2,30 @@
 
 ## About this Workshop
 
-This workshop is designed to help you get started with [Oracle Database Transactional Event Queues (TxEventQ)](https://www.oracle.com/database/advanced-queuing/), a messaging platform designed for application workflows, microservices, and event-driven architectures that runs within Oracle Database.
+This workshop is designed to help you get started with [Oracle Database Transactional Event Queues (TxEventQ)](https://www.oracle.com/database/advanced-queuing/), a messaging platform designed for event-driven architectures and microservice communication that runs within Oracle Database.
 
-Estimated Workshop Time: 30 minutes
+TxEventQ includes APIs in numerous languages and protocols, including PL/SQL, Java, REST, and many others. The focus of this workshop will be using the PL/SQL API to manage and work with TxEventQ in common application scenarios.
+
+Estimated Workshop Time: 45 minutes
 
 ![TxEventQ Application Events](images/microservice-events.png " ")
 
 ### About Product/Technology
 
-* [Oracle Database Transactional Event Queues (TxEventQ)](https://docs.oracle.com/en/database/oracle/oracle-database/23/adque/aq-introduction.html) is a high-throughput, reliable messaging in event-driven microservices and workflow applications that runs within Oracle Database. TxEventQ supports multiple publishers and consumers, exactly-once message delivery, transactional messaging, and robust event streaming capabilities.
+[Oracle Database Transactional Event Queues (TxEventQ)](https://docs.oracle.com/en/database/oracle/oracle-database/23/adque/aq-introduction.html) is a high-throughput, reliable messaging service that runs within Oracle Database. TxEventQ supports multiple producers and consumers, exactly-once messaging, transactional messaging, and robust event streaming capabilities.
+
+![TxEventQ Logo](images/txeventq-logo.png " ")
 
 ### Objectives
 
-In this workshop, you will gain first-hand experience of how Oracle Database can be used as event streaming system.
+In this workshop, you will gain first-hand experience of how Oracle Database can be used as event streaming system using the PL/SQL API of TxEventQ.
 
 Once you complete your setup, the next lab will cover:
 
-* The [DBMS_AQADM PL/SQL package](https://docs.oracle.com/en/database/oracle/oracle-database/23/arpls/DBMS_AQADM.html), which provides procedures to manage Transactional Event Queues
-* Database permissions for users of Transactional Event Queues
+* The [DBMS_AQADM PL/SQL package](https://docs.oracle.com/en/database/oracle/oracle-database/23/arpls/DBMS_AQADM.html), which provides procedures to manage TxEventQ, including queue creation
+* Necessary database permissions for TxEventQ users
 * Creating and starting Transactional Event Queues
-* Queue payload types
+* Understanding queue message payload types
 
 The following labs will cover enqueue and dequeue operations with queues, and additional messaging features of Transactional Event Queues.
 
@@ -43,6 +47,6 @@ You may now **proceed to the next lab**
 
 ## Acknowledgements
 
-* **Authors** - Anders Swanson, Developer Evangelist;
-* **Contributors** - 
-* **Last Updated By/Date** - Anders Swanson, Feb 2024
+* **Authors** - Anders Swanson, Developer Evangelist
+* **Contributors** - Anders Swanson, Developer Evangelist
+* **Last Updated By/Date** - Anders Swanson, Feb 2025
