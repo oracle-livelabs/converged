@@ -263,7 +263,7 @@ end;
 
 For structured, complex messages, you may choose to set the payload type as a custom object type that was defined using `create type`. Object types must be accessible from the queue/topic, and the structure of each message must exactly match the payload type.
 
-The following PL/SQL statement defines a custom object type, and then creates a Transactional Event Queue using that type.
+First, define a custom object type `my_message`:
 
 ```sql
 -- Define the payload type
@@ -272,7 +272,11 @@ create type my_message as object (
   subject varchar2(100),
   body    varchar2(2000)
 );
+```
 
+Then, create a Transactional Event Queue using `my_message` as the payload type:
+
+```sql
 -- Create and start a queue using the custom payload type
 begin
     dbms_aqadm.create_transactional_event_queue(
