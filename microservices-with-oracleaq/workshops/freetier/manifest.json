@@ -1,5 +1,9 @@
 {
   "workshoptitle": "Getting Started With Oracle Database Transactional Event Queues",
+  "include": {
+    "adb-goto-service-body.md":"https://oracle-livelabs.github.io/common/building-blocks/tasks/adb/goto-service-body.md",
+    "adb-provision-body.md":"https://oracle-livelabs.github.io/common/building-blocks/tasks/adb/provision-body.md"
+  },
   "help": "livelabs-help-db_us@oracle.com",
 	"tutorials": [
       {
@@ -7,28 +11,35 @@
         "filename": "../../intro/intro.md"
       },
       {
-        "title": "Get Started",
-        "filename": "https://oracle-livelabs.github.io/common/labs/cloud-login/pre-register-free-tier-account.md"
+        "title": "Get started",
+        "description": "Login to the Oracle Cloud",
+        "filename": "https://oracle-livelabs.github.io/common/labs/cloud-login/cloud-login-livelabs2.md"
       },
       {
-        "title": "Setup",
-        "filename": "../../setup/setup.md"
+        "title": "Lab 1: Provision Autonomous Database",
+        "description": "Provision a new Autonomous Database instance",
+        "filename": "https://oracle-livelabs.github.io/common/building-blocks/blocks/adb/provision/provision-console.md"
       },
       {
-        "title": "Lab 1: Queue Management",
+        "title": "Lab 2: Connect to ADB with SQL Worksheet",
+        "description": " SQL Worksheet",
+        "filename": "https://oracle-livelabs.github.io/common/labs/sqldevweb-login/sqldevweb-login.md"
+      },
+      {
+        "title": "Lab 3: Queue Management",
         "filename": "../../queue-management/queue-management.md"
       },
       {
-        "title": "Lab 2: Messaging",
+        "title": "Lab 4: Messaging",
         "filename": "../../messaging/messaging.md"
       },
       {
-        "title": "Lab 3: Additional Features",
+        "title": "Lab 5: Additional Features",
         "filename": "../../additional-features/additional-features.md"
       },
       {
-        "title": "Lab 4: Tear down",
-        "filename": "../../teardown/teardown.md"
+        "title": "Lab 6 (Optional): Cleanup Oracle Autonomous Database",
+        "filename":"https://oracle-livelabs.github.io/common/labs/terminate-adb/terminate-adb.md"
       },
       {
         "title": "Need Help?",
