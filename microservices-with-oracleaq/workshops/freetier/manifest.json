@@ -13,7 +13,7 @@
       {
         "title": "Get started",
         "description": "Login to the Oracle Cloud",
-        "filename": "https://oracle-livelabs.github.io/common/labs/cloud-login/cloud-login-livelabs2.md"
+        "filename": "https://oracle-livelabs.github.io/common/labs/cloud-login/cloud-login.md"
       },
       {
         "title": "Lab 1: Provision Autonomous Database",
