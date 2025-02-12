@@ -66,6 +66,12 @@ end;
 /
 ```
 
+Run the following queue to verify the message was enqueued successfully to the `json_queue` queue, viewing the JSON message ID and user data:
+
+```sql
+select msgid, user_data from json_queue;
+```
+
 Next, we'll dequeue the message using the [dbms_aq.dequeue procedure](https://docs.oracle.com/en/database/oracle/oracle-database/21/arpls/DBMS_AQ.html#GUID-E262FFC1-2B21-425A-914C-B58238198455). The [dequeue options type](https://docs.oracle.com/en/database/oracle/oracle-database/21/arpls/advanced-queuing-AQ-types.html#GUID-DB3EC41E-02A4-4975-A685-438DD7BCBE0C) can be used to customize the dequeue. In this case, we set the dequeue to consume the first message, with no wait.
 
 Run the following PL/SQL statement to dequeue the message and print it to the console:

@@ -44,7 +44,7 @@ begin
 end;
 ```
 
-Next, enqueue a message to the queue with a 5-second expiration:
+Next, enqueue a message to the queue with a 30-second expiration:
 
 ```sql
 declare
@@ -56,7 +56,7 @@ begin
     message := sys.aq$_jms_text_message.construct();
     message.set_text('this is my message');
 
-    message_properties.expiration := 5; -- message expires in 5 seconds
+    message_properties.expiration := 30; -- message expires in 30 seconds
     dbms_aq.enqueue(
         queue_name => 'lab_queue',
         enqueue_options => enqueue_options,
@@ -69,12 +69,20 @@ end;
 /
 ```
 
-After the enqueue, wait at least 5 seconds and query the messages in the exception queue. The expired message should be present in the exception queue:
+If we immediately query expired messages, the message should not appear:
 
 ```sql
 -- The exception queue uses the same backing table as the main queue
-select * from lab_queue
-where expiration < systimestamp - interval '5' second;
+select msgid, enqueue_time, expiration, userdata_raw from lab_queue
+where expiration < systimestamp - interval '30' second;
+```
+
+After at least 60 seconds, querying expired messages shows the enqueued message:
+
+```sql
+-- The exception queue uses the same backing table as the main queue
+select msgid, enqueue_time, expiration, userdata_raw from lab_queue
+where expiration < systimestamp - interval '30' second;
 ```
 
 ## **Task 2:** Enqueue a message with delay

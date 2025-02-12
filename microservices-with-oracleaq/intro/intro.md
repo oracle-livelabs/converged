@@ -6,7 +6,7 @@ This workshop is designed to help you get started with [Oracle Database Transact
 
 TxEventQ includes APIs in numerous languages and protocols, including PL/SQL, Java, REST, and many others. The focus of this workshop will be using the PL/SQL API to manage and work with TxEventQ in common application scenarios.
 
-Estimated Workshop Time: 45 minutes
+Estimated Workshop Time: 40 minutes
 
 ![TxEventQ Application Events](images/microservice-events.png " ")
 
