@@ -26,7 +26,7 @@ This task demonstrates how to enqueue and dequeue JSON messages to from queue a 
 
 First, we'll create a queue using the JSON payload type, which will be used use to send and receive JSON messages.
 
-Run the following SQL statement to create and start the queue:
+Run the following PL/SQL statement to create and start the queue:
 
 ```sql
 begin
@@ -43,7 +43,7 @@ end;
 
 Next, we'll enqueue a JSON message to the queue using the [dbms_aq.enqueue procedure](https://docs.oracle.com/en/database/oracle/oracle-database/21/arpls/DBMS_AQ.html#GUID-E262FFC1-2B21-425A-914C-B58238198455). Note the presence of the [enqueue options](https://docs.oracle.com/en/database/oracle/oracle-database/21/arpls/advanced-queuing-AQ-types.html#GUID-E6AFAEEA-3ADE-48B1-A636-A3F8C22DF995) and [message properties](https://docs.oracle.com/en/database/oracle/oracle-database/21/arpls/advanced-queuing-AQ-types.html#GUID-7232160F-22CF-4DF7-BAAF-96EDCC5CB452). These types may be used to customize the enqueue behavior. A message ID handle is passed to the enqueue call, and is populated on a successful enqueue.
 
-Run the following SQL statement to enqueue a JSON message to the `json_queue` queue:
+Run the following PL/SQL statement to enqueue a JSON message to the `json_queue` queue:
 
 ```sql
 declare
@@ -68,7 +68,7 @@ end;
 
 Next, we'll dequeue the message using the [dbms_aq.dequeue procedure](https://docs.oracle.com/en/database/oracle/oracle-database/21/arpls/DBMS_AQ.html#GUID-E262FFC1-2B21-425A-914C-B58238198455). The [dequeue options type](https://docs.oracle.com/en/database/oracle/oracle-database/21/arpls/advanced-queuing-AQ-types.html#GUID-DB3EC41E-02A4-4975-A685-438DD7BCBE0C) can be used to customize the dequeue. In this case, we set the dequeue to consume the first message, with no wait.
 
-Run the following SQL statement to dequeue the message and print it to the console:
+Run the following PL/SQL statement to dequeue the message and print it to the console:
 
 ```sql
 declare
@@ -140,7 +140,7 @@ end;
 
 Now, we'll dequeue the JMS message using the [dbms_aq.dequeue procedure](https://docs.oracle.com/en/database/oracle/oracle-database/21/arpls/DBMS_AQ.html#GUID-E262FFC1-2B21-425A-914C-B58238198455). This is similar to the JSON dequeue, except we use [sys.aq$_jms_text_message type](https://docs.oracle.com/en/database/oracle/oracle-database/23/arpls/JMS-Types.html#GUID-A4482CE1-7DCA-4457-ADFE-9FA1C841AABF) to retrieve the message type. 
 
-Run the following SQL statement to dequeue the message and print it to the console:
+Run the following PL/SQL statement to dequeue the message and print it to the console:
 
 ```sql
 declare
@@ -195,7 +195,7 @@ create table orders
 
 Next, we enqueue a JSON order. The JSON order is parsed and inserted into the `orders` table as part of the enqueue's database transaction.
 
-Run the following SQL statement to enqueue a message and insert a record into the `orders` table as part of the same transaction:
+Run the following PL/SQL statement to enqueue a message and insert a record into the `orders` table as part of the same transaction:
 
 ```sql
 declare

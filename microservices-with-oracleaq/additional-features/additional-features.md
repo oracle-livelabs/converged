@@ -27,7 +27,7 @@ When enqueuing a message, an expiry time may be specified using the expiration a
 
 Configuring a message's expiring sets the number of seconds for which a message may be dequeued. Messages older than their expiration time are automatically moved to an **exception queue**. The exception queue contains any expired or failed messages, and uses the same backing database table as the main queue.
 
-The following SQL statement creates a queue named `lab_queue`, and an associated exception queue named `lab_queue_eq`. Any expired or failed messages enqueued to the `lab_queue` queue will be moved to the `lab_queue_eq` queue. Run this statement to create the queue and exception queue:
+The following PL/SQL statement creates a queue named `lab_queue`, and an associated exception queue named `lab_queue_eq`. Any expired or failed messages enqueued to the `lab_queue` queue will be moved to the `lab_queue_eq` queue. Run this statement to create the queue and exception queue:
 
 ```sql
 begin
@@ -81,7 +81,7 @@ where expiration < systimestamp - interval '5' second;
 
 When enqueuing a message, you can specify a delay (in seconds) before the message becomes available for dequeue. Message delay allows you to schedule messages to be available for consumers after a specified time, and is configured using the delay attribute of the message_properties object.
 
-The following SQL statement enqueues a message with a 7-day delay, meaning it will not be available to consumers until 7 days have passed.
+The following PL/SQL statement enqueues a message with a 7-day delay, meaning it will not be available to consumers until 7 days have passed.
 
 ```sql
 declare
@@ -106,7 +106,7 @@ end;
 /
 ```
 
-When delayed messages the `DELIVERY_TIME` column is configured with the date the message is available for consumers. The following SQL statement queries the previously enqueued message, showing the delivery time.
+When delayed messages the `DELIVERY_TIME` column is configured with the date the message is available for consumers. The following PL/SQL statement queries the previously enqueued message, showing the delivery time.
 
 ```sql
 select msgid, delivery_time from lab_queue

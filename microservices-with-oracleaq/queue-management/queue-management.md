@@ -37,13 +37,13 @@ grant execute on dbms_teqk to testuser;
 
 ## **Task 2:** Creating, Starting, and Stopping Queues
 
-This task involves managing TxEventQ with the DBMS_AQADM SQL package.
+This task involves managing TxEventQ with the DBMS_AQADM PL/SQL package.
 
-The [`DBMS_AQADM` SQL package](https://docs.oracle.com/en/database/oracle/oracle-database/23/arpls/DBMS_AQADM.html) provides procedures for the management of Transactional Event Queues.
+The [`DBMS_AQADM` PL/SQL package](https://docs.oracle.com/en/database/oracle/oracle-database/23/arpls/DBMS_AQADM.html) provides procedures for the management of Transactional Event Queues.
 
 A queue can be created using the [`DBMS_AQADM.CREATE_TRANSACTIONAL_EVENT_QUEUE` procedure](https://docs.oracle.com/en/database/oracle/oracle-database/23/arpls/DBMS_AQADM.html#GUID-6841A667-1021-4E5C-8567-F71913AA4773). Queues must be started with the [`DBMS_AQADM.START_QUEUE` procedure](https://docs.oracle.com/en/database/oracle/oracle-database/23/arpls/DBMS_AQADM.html#GUID-EED83332-40B1-4B0A-9E50-AC006A1A0615) after creation, but before they are used for messaging.
 
-Run the following SQL statement to create and start a queue named `my_queue` using the default DBMS_AQADM options:
+Run the following PL/SQL statement to create and start a queue named `my_queue` using the default DBMS_AQADM options:
 
 ```sql
 begin
@@ -64,7 +64,7 @@ end;
 
 The [`DBMS_AQADM.ALTER_TRANSACTIONAL_EVENT_QUEUE` procedure](https://docs.oracle.com/en/database/oracle/oracle-database/23/arpls/DBMS_AQADM.html#GUID-260ED3E1-9959-4033-8B00-FD911424DFBB) is used to modify an existing queue. This procedure can configure settings like queue retries, queue comments, and other properties after creation.
 
-Run the following SQL script to add a comment to the `my_queue` queue.
+Run the following PL/SQL statement to add a comment to the `my_queue` queue.
 
 ```sql
 begin
@@ -91,7 +91,7 @@ You should see queue data similar to the following, for the queues available on 
 
 The [`DBMS_AQADM.STOP_QUEUE` procedure](https://docs.oracle.com/en/database/oracle/oracle-database/23/arpls/DBMS_AQADM.html#GUID-14EADFE9-D7C3-472D-895D-861BB5570EED) is used to stop a queue. After a queue is stopped, it can be dropped using the [`DBMS_AQADM.DROP_TRANSACTIONAL_EVENT_QUEUE` procedure](https://docs.oracle.com/en/database/oracle/oracle-database/23/arpls/DBMS_AQADM.html#GUID-99A161DB-85C7-439A-A85C-A7BEEBD0288F).
 
-Run the following SQL statement to stop the `my_queue` queue, and drop it from the database.
+Run the following PL/SQL statement to stop the `my_queue` queue, and drop it from the database.
 
 ```sql
 begin
@@ -223,7 +223,7 @@ When using the RAW type, the Transactional Event Queue backing table will be cre
 
 RAW payloads are suitable for unstructured binary data that do not fit into predefined schemas, or for simple, lightweight messages. While RAW payloads offer flexibility and efficiency, they may require additional application-level processing to interpret the binary data.
 
-The following SQL script creates a Transactional Event Queue using the RAW payload type.
+The following PL/SQL statement creates a Transactional Event Queue using the RAW payload type.
 
 ```sql
 begin
@@ -243,7 +243,7 @@ end;
 
 The JSON payload type stores the JSON message data in a post-parse binary format, allowing fast access to nested JSON values. It's recommended to use the JSON payload type if you're working with document data or other unstructured JSON.
 
-The following SQL script creates a Transactional Event Queue using the JSON payload type.
+The following PL/SQL statement creates a Transactional Event Queue using the JSON payload type.
 
 ```sql
 begin
@@ -263,7 +263,7 @@ end;
 
 For structured, complex messages, you may choose to set the payload type as a custom object type that was defined using `create type`. Object types must be accessible from the queue/topic, and the structure of each message must exactly match the payload type.
 
-The following SQL script defines a custom object type, and then creates a Transactional Event Queue using that type.
+The following PL/SQL statement defines a custom object type, and then creates a Transactional Event Queue using that type.
 
 ```sql
 -- Define the payload type
