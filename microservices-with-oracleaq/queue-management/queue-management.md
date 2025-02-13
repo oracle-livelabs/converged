@@ -35,13 +35,11 @@ grant execute on dbms_aqjms to testuser;
 grant execute on dbms_teqk to testuser;
 ```
 
-Details on permissions:
-
 - `dbms_aq`: See [DBMS_AQ Security Model](https://docs.oracle.com/en/database/oracle/oracle-database/23/arpls/DBMS_AQ.html#GUID-EA27B877-CA19-4B66-9293-AE4AD28B9BB3) for more information.
 - `dbms_aqadm`: See [DBMS_AQADM Security Model](https://docs.oracle.com/en/database/oracle/oracle-database/23/arpls/DBMS_AQADM.html#GUID-4C5364E5-DD93-4E56-9587-65EE5D0FB324) for more information.
 - `dbms_aqin`: See [DBMS_AQIN Security Model](https://docs.oracle.com/en/database/oracle/oracle-database/23/arpls/DBMS_AQIN.html#GUID-4DBA97E2-601E-47CE-8D21-776243782CFA) for more information.
 
-## **Task 2:** Creating, Starting, and Stopping Queues
+## **Task 2:** Create, Start, and Stop Queues
 
 This task involves managing TxEventQ with the DBMS_AQADM PL/SQL package.
 

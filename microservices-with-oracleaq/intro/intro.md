@@ -24,7 +24,7 @@ Once you complete your setup, the next lab will cover:
 
 * The [DBMS_AQADM PL/SQL package](https://docs.oracle.com/en/database/oracle/oracle-database/23/arpls/DBMS_AQADM.html), which provides procedures to manage TxEventQ, including queue creation
 * Necessary database permissions for TxEventQ users
-* Creating and starting Transactional Event Queues
+* Create and start Transactional Event Queues
 * Understanding queue message payload types
 
 The following labs will cover enqueue and dequeue operations with queues, and additional messaging features of Transactional Event Queues.

@@ -30,6 +30,7 @@ Configuring a message's expiring sets the number of seconds for which a message 
 The following PL/SQL statement creates a queue named `lab_queue`, and an associated exception queue named `lab_queue_eq`. Any expired or failed messages enqueued to the `lab_queue` queue will be moved to the `lab_queue_eq` queue. Run this statement to create the queue and exception queue:
 
 ```sql
+<copy>
 begin
     dbms_aqadm.create_transactional_event_queue(
             queue_name         => 'lab_queue'
@@ -42,11 +43,13 @@ begin
         exception_queue_name => 'lab_queue_eq'
     );
 end;
+</copy>
 ```
 
 Next, enqueue a message to the queue with a 30-second expiration:
 
 ```sql
+<copy>
 declare
     enqueue_options dbms_aq.enqueue_options_t;
     message_properties dbms_aq.message_properties_t;
@@ -67,22 +70,27 @@ begin
     commit;
 end;
 /
+</copy>
 ```
 
 If we immediately query expired messages, the message should not appear:
 
 ```sql
+<copy>
 -- The exception queue uses the same backing table as the main queue
 select msgid, enqueue_time, expiration, userdata_raw from lab_queue
 where expiration < systimestamp - interval '30' second;
+</copy>
 ```
 
 After at least 60 seconds, querying expired messages shows the enqueued message:
 
 ```sql
+<copy>
 -- The exception queue uses the same backing table as the main queue
 select msgid, enqueue_time, expiration, userdata_raw from lab_queue
 where expiration < systimestamp - interval '30' second;
+</copy>
 ```
 
 ## **Task 2:** Enqueue a message with delay
@@ -92,6 +100,7 @@ When enqueuing a message, you can specify a delay (in seconds) before the messag
 The following PL/SQL statement enqueues a message with a 7-day delay, meaning it will not be available to consumers until 7 days have passed.
 
 ```sql
+<copy>
 declare
     enqueue_options dbms_aq.enqueue_options_t;
     message_properties dbms_aq.message_properties_t;
@@ -112,18 +121,22 @@ begin
     commit;
 end;
 /
+</copy>
 ```
 
 When delayed messages the `DELIVERY_TIME` column is configured with the date the message is available for consumers. The following PL/SQL statement queries the previously enqueued message, showing the delivery time.
 
 ```sql
+<copy>
 select msgid, delivery_time from lab_queue
 where delivery_time is not null;
+</copy>
 ```
 
 Because the message is delayed, the queue should effectively be empty from the a consumer's perspective. a dequeue will result in the . The following SQL statement attempts a dequeue and will encounter the `ORA-25228: timeout or end-of-fetch during message dequeue from <SCHEMA>.<QUEUE NAME>` error if no other messages are present in the queue:
 
 ```sql
+<copy>
 declare
     dequeue_options dbms_aq.dequeue_options_t;
     message_properties dbms_aq.message_properties_t;
@@ -145,6 +158,7 @@ exception
     when others then
         dbms_output.put_line('failed to dequeue message: ' || sqlerrm);
 end;
+</copy>
 ```
 
 ## **Task 3:** Enqueue a message with priority
@@ -155,6 +169,7 @@ When enqueuing prioritized messages, the `PRIORITY`
 column in the queue table will be populated with the priority number. The default priority, if not specified, is `4`.
 
 ```sql
+<copy>
 declare
     enqueue_options dbms_aq.enqueue_options_t;
     message_properties dbms_aq.message_properties_t;
@@ -175,13 +190,16 @@ begin
     commit;
 end;
 /
+</copy>
 ```
 
 Messages may be queried by their priority. The following SQL statement retrieves any messages with `priority = 1`:
 
 ```sql
+<copy>
 select msgid, enqueue_time, priority from lab_queue
 where priority = 1;
+</copy>
 ```
 
 You may now **proceed to the next lab**
