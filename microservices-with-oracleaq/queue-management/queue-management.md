@@ -25,6 +25,7 @@ Estimated Time: 10 minutes
 The following permissions are recommended for PL/SQL TxEventQ users, granting access to the necessary database packages. Ensure tablespace is granted as appropriate for your TxEventQ user.
 
 ```sql
+<copy>
 -- Grant tablespace as appropriate to your TxEventQ user
 grant resource, connect to testuser;
 grant aq_user_role to testuser;
@@ -33,6 +34,7 @@ grant execute on dbms_aqadm to testuser;
 grant execute on dbms_aqin to testuser;
 grant execute on dbms_aqjms to testuser;
 grant execute on dbms_teqk to testuser;
+</copy>
 ```
 
 - `dbms_aq`: See [DBMS_AQ Security Model](https://docs.oracle.com/en/database/oracle/oracle-database/23/arpls/DBMS_AQ.html#GUID-EA27B877-CA19-4B66-9293-AE4AD28B9BB3) for more information.
@@ -50,6 +52,7 @@ A queue can be created using the [`DBMS_AQADM.CREATE_TRANSACTIONAL_EVENT_QUEUE` 
 Run the following PL/SQL statement to create and start a queue named `my_queue` using the default DBMS_AQADM options:
 
 ```sql
+<copy>
 begin
     -- create the Transactional Event Queue
     dbms_aqadm.create_transactional_event_queue(
@@ -64,6 +67,7 @@ begin
     );
 end;
 /
+</copy>
 ```
 
 The [`DBMS_AQADM.ALTER_TRANSACTIONAL_EVENT_QUEUE` procedure](https://docs.oracle.com/en/database/oracle/oracle-database/23/arpls/DBMS_AQADM.html#GUID-260ED3E1-9959-4033-8B00-FD911424DFBB) is used to modify an existing queue. This procedure can configure settings like queue retries, queue comments, and other properties after creation.
@@ -71,6 +75,7 @@ The [`DBMS_AQADM.ALTER_TRANSACTIONAL_EVENT_QUEUE` procedure](https://docs.oracle
 Run the following PL/SQL statement to add a comment to the `my_queue` queue.
 
 ```sql
+<copy>
 begin
     dbms_aqadm.alter_transactional_event_queue(
         queue_name => 'my_queue',
@@ -78,12 +83,15 @@ begin
     );
 end;
 /
+</copy>
 ```
 
 To view the current queues in the user schema, query the `user_queues` table.
 
 ```sql
+<copy>
 select * from user_queues;
+</copy>
 ```
 
 You should see queue data similar to the following, for the queues available on your specific database schema.
@@ -98,6 +106,7 @@ The [`DBMS_AQADM.STOP_QUEUE` procedure](https://docs.oracle.com/en/database/orac
 Run the following PL/SQL statement to stop the `my_queue` queue, and drop it from the database.
 
 ```sql
+<copy>
 begin
     dbms_aqadm.stop_queue(
         queue_name => 'my_queue'
@@ -107,6 +116,7 @@ begin
     );
 end;
 /
+</copy>
 ```
 
 ## **Task 3:** Creating Topics and Queues
@@ -161,6 +171,7 @@ Here is the list of arguments that can be used with the [`DBMS_AQADM.CREATE_TRAN
 #### Create a Topic using the JSON payload type
 
 ```sql
+<copy>
 begin
     dbms_aqadm.create_transactional_event_queue(
             queue_name         => 'my_topic',
@@ -170,11 +181,13 @@ begin
     );
 end;
 /
+</copy>
 ```
 
 #### Create a Queue using the JSON payload type
 
 ```sql
+<copy>
 begin
     dbms_aqadm.create_transactional_event_queue(
             queue_name         => 'my_queue',
@@ -184,6 +197,7 @@ begin
     );
 end;
 /
+</copy>
 ```
 
 ## **Task 4:** Create Transactional Event Queues with Message Payload Types
@@ -203,6 +217,7 @@ The JMS (Java Message Service) payload type is ideal for applications using JMS,
 The following script creates and starts a Transactional Event Queue using `DBMS_AQADM.JMS_TYPE` as the payload type, which is the default payload type.
 
 ```sql
+<copy>
 -- Create a Transactional Event Queue
 begin
     dbms_aqadm.create_transactional_event_queue(
@@ -219,6 +234,7 @@ begin
     );
 end;
 /
+</copy>
 ```
 
 ### Raw
@@ -230,6 +246,7 @@ RAW payloads are suitable for unstructured binary data that do not fit into pred
 The following PL/SQL statement creates a Transactional Event Queue using the RAW payload type.
 
 ```sql
+<copy>
 begin
   dbms_aqadm.create_transactional_event_queue(
     queue_name => 'raw_queue_example',
@@ -241,6 +258,7 @@ begin
   );
 end;
 /
+</copy>
 ```
 
 ### JSON
@@ -250,6 +268,7 @@ The JSON payload type stores the JSON message data in a post-parse binary format
 The following PL/SQL statement creates a Transactional Event Queue using the JSON payload type.
 
 ```sql
+<copy>
 begin
   dbms_aqadm.create_transactional_event_queue(
     queue_name => 'json_queue_example',
@@ -261,6 +280,7 @@ begin
   );
 end;
 /
+</copy>
 ```
 
 ### Object
@@ -270,17 +290,20 @@ For structured, complex messages, you may choose to set the payload type as a cu
 First, define a custom object type `my_message`:
 
 ```sql
+<copy>
 -- Define the payload type
 create type my_message as object (
   id number,
   subject varchar2(100),
   body    varchar2(2000)
 );
+</copy>
 ```
 
 Then, create a Transactional Event Queue using `my_message` as the payload type:
 
 ```sql
+<copy>
 -- Create and start a queue using the custom payload type
 begin
     dbms_aqadm.create_transactional_event_queue(
@@ -294,6 +317,7 @@ begin
     );
 end;
 /
+</copy>
 ```
 
 You may now **proceed to the next lab**
