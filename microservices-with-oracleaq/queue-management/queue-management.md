@@ -24,18 +24,31 @@ Estimated Time: 10 minutes
 
 The following permissions are recommended for PL/SQL TxEventQ users, granting access to the necessary database packages. Ensure tablespace is granted as appropriate for your TxEventQ user.
 
+Note: If you are already familiar with these permissions and prefer to run the labs as an Admin without creating a new user, you can skip Task 1 and proceed directly to Task 2.
+
+Execute the following statement to create a new user account.
+
+```sql
+  CREATE USER txeventq_test_user IDENTIFIED BY "Livelabs1234#";
+```
+
+Execute following statment to grant required permissions to the user.
+
 ```sql
 <copy>
 -- Grant tablespace as appropriate to your TxEventQ user
-grant resource, connect to testuser;
-grant aq_user_role to testuser;
-grant execute on dbms_aq to testuser;
-grant execute on dbms_aqadm to testuser;
-grant execute on dbms_aqin to testuser;
-grant execute on dbms_aqjms to testuser;
-grant execute on dbms_teqk to testuser;
+  GRANT RESOURCE, CONNECT TO txeventq_test_user;
+  GRANT aq_user_role TO txeventq_test_user;
+  GRANT EXECUTE ON dbms_aq TO txeventq_test_user;
+  GRANT EXECUTE ON dbms_aqadm TO txeventq_test_user;
+  GRANT EXECUTE ON dbms_aqin TO txeventq_test_user;
+  GRANT EXECUTE ON dbms_aqjms TO txeventq_test_user;
 </copy>
 ```
+
+Refresh the page and, from the navigator section in the top left corner, switch your user from ADMIN to TXEVENTQ_TEST_USER as illustrated below:
+
+![alt text](change-user.png)
 
 - `dbms_aq`: See [DBMS_AQ Security Model](https://docs.oracle.com/en/database/oracle/oracle-database/23/arpls/DBMS_AQ.html#GUID-EA27B877-CA19-4B66-9293-AE4AD28B9BB3) for more information.
 - `dbms_aqadm`: See [DBMS_AQADM Security Model](https://docs.oracle.com/en/database/oracle/oracle-database/23/arpls/DBMS_AQADM.html#GUID-4C5364E5-DD93-4E56-9587-65EE5D0FB324) for more information.
@@ -91,6 +104,7 @@ To view the current queues in the user schema, query the `user_queues` table.
 ```sql
 <copy>
 select * from user_queues;
+/
 </copy>
 ```
 
@@ -179,6 +193,10 @@ begin
             multiple_consumers => true,
             comment            => 'my TxEventQ topic'
     );
+
+    dbms_aqadm.start_queue(
+      queue_name => 'my_topic'
+    );
 end;
 /
 </copy>
@@ -194,6 +212,10 @@ begin
             queue_payload_type => 'JSON',
             multiple_consumers => false,
             comment            => 'my TxEventQ queue'
+    );
+
+    dbms_aqadm.start_queue(
+      queue_name => 'my_queue'
     );
 end;
 /
