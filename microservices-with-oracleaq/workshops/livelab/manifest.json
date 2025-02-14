@@ -16,19 +16,23 @@
       "filename": "https://oracle-livelabs.github.io/common/labs/cloud-login/cloud-login-livelabs2.md"
     },
     {
-      "title": "Lab 1: Queue Management",
+      "title": "Lab 1: Log in to SQL Worksheet",
+      "filename": "../../setup/setup-sql-worksheet.md"
+    },
+    {
+      "title": "Lab 2: Queue Management",
       "filename": "../../queue-management/queue-management.md"
     },
     {
-      "title": "Lab 2: Messaging",
+      "title": "Lab 3: Messaging",
       "filename": "../../messaging/messaging.md"
     },
     {
-      "title": "Lab 3: Additional Features",
+      "title": "Lab 4: Additional Features",
       "filename": "../../additional-features/additional-features.md"
     },
     {
-      "title": "Lab 4 (Optional): Cleanup Oracle Autonomous Database",
+      "title": "Lab 5 (Optional): Cleanup Oracle Autonomous Database",
       "filename":"https://oracle-livelabs.github.io/common/labs/terminate-adb/terminate-adb.md"
     },
     {
