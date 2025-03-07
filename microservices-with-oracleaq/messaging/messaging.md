@@ -22,7 +22,7 @@ This lab assumes you have:
 
 ## **Task 1:** Enqueue and dequeue JSON messages
 
-This task demonstrates how to enqueue and dequeue JSON messages to from queue a queue using the JSON payload type and the PL/SQL API.
+This task demonstrates how to enqueue and dequeue JSON messages to and from a queue using the JSON payload type and the PL/SQL API.
 
 First, we'll create a queue using the JSON payload type, which will be used use to send and receive JSON messages.
 
@@ -111,7 +111,7 @@ end;
 
 ## **Task 2:** Enqueue and dequeue JMS messages
 
-This task demonstrates how to enqueue and dequeue JMS messages to from queue a queue using the JMS payload type and the PL/SQL API.
+This task demonstrates how to enqueue and dequeue JMS messages to and from a queue using the JMS payload type and the PL/SQL API.
 
 First, we'll create a queue using the JMS payload type, which we'll use to send and receive messages. Note that JMS is the default payload type if not specified using the `queue_payload_type` parameter.
 
@@ -156,7 +156,7 @@ end;
 </copy>
 ```
 
-Now, we'll dequeue the JMS message using the [dbms_aq.dequeue procedure](https://docs.oracle.com/en/database/oracle/oracle-database/21/arpls/DBMS_AQ.html#GUID-E262FFC1-2B21-425A-914C-B58238198455). This is similar to the JSON dequeue, except we use [sys.aq$_jms_text_message type](https://docs.oracle.com/en/database/oracle/oracle-database/23/arpls/JMS-Types.html#GUID-A4482CE1-7DCA-4457-ADFE-9FA1C841AABF) to retrieve the message type. 
+Now, we'll dequeue the JMS message using the [`dbms_aq.dequeue procedure`](https://docs.oracle.com/en/database/oracle/oracle-database/21/arpls/DBMS_AQ.html#GUID-E262FFC1-2B21-425A-914C-B58238198455). This is similar to the JSON dequeue, except we use [`sys.aq$_jms_text_message type`](https://docs.oracle.com/en/database/oracle/oracle-database/23/arpls/JMS-Types.html#GUID-A4482CE1-7DCA-4457-ADFE-9FA1C841AABF) to retrieve the message type. 
 
 Run the following PL/SQL statement to dequeue the message and print it to the console:
 

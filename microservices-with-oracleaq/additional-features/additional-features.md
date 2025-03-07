@@ -25,7 +25,7 @@ This lab assumes you have:
 
 When enqueuing a message, an expiry time may be specified using the expiration attribute of the [message_properties object](https://docs.oracle.com/en/database/oracle/oracle-database/23/arpls/advanced-queuing-AQ-types.html#GUID-7232160F-22CF-4DF7-BAAF-96EDCC5CB452).
 
-Configuring a message's expiring sets the number of seconds for which a message may be dequeued. Messages older than their expiration time are automatically moved to an **exception queue**. The exception queue contains any expired or failed messages, and uses the same backing database table as the main queue.
+Configuring a message's expiration sets the number of seconds for which a message may be dequeued. Messages older than their expiration time are automatically moved to an **exception queue**. The exception queue contains any expired or failed messages, and uses the same backing database table as the main queue.
 
 The following PL/SQL statement creates a queue named `lab_queue`, and an associated exception queue named `lab_queue_eq`. Any expired or failed messages enqueued to the `lab_queue` queue will be moved to the `lab_queue_eq` queue. Run this statement to create the queue and exception queue:
 
