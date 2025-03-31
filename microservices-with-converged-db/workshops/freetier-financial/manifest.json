@@ -31,6 +31,14 @@
         "filename": "../../observability/observability.md"
       },
       {
+        "title": "Lab 6: Vector (Bank Of America use case)",
+        "filename": "../../observability/observability.md"
+      },
+      {
+        "title": "Lab 7: Bank APIs (real customer)",
+        "filename": "../../observability/observability.md"
+      },
+      {
         "title": "Lab 9: Tear Down",
         "filename": "../../teardown/teardown.md"
       },
