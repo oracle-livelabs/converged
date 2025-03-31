@@ -32,11 +32,12 @@ Execute the following statement to create a new user account.
   CREATE USER txeventq_test_user IDENTIFIED BY "Livelabs1234#";
 ```
 
-Execute following statment to grant required permissions to the user.
+Execute following statement to grant required permissions to the user.
 
 ```sql
 <copy>
--- Grant tablespace as appropriate to your TxEventQ user
+  -- Grant tablespace as appropriate to your TxEventQ user
+  -- GRANT UNLIMITED TABLESPACE TO txeventq_test_user;    
   GRANT RESOURCE, CONNECT TO txeventq_test_user;
   GRANT aq_user_role TO txeventq_test_user;
   GRANT EXECUTE ON dbms_aq TO txeventq_test_user;
@@ -46,13 +47,13 @@ Execute following statment to grant required permissions to the user.
 </copy>
 ```
 
-Refresh the page and, from the navigator section in the top left corner, switch your user from ADMIN to TXEVENTQ_TEST_USER as illustrated below:
+Refresh the page and, from the navigator section in the top left corner, switch your user from ADMIN to `TXEVENTQ_TEST_USER` as illustrated below:
 
 ![alt text](change-user.png)
 
-- `dbms_aq`: See [DBMS_AQ Security Model](https://docs.oracle.com/en/database/oracle/oracle-database/23/arpls/DBMS_AQ.html#GUID-EA27B877-CA19-4B66-9293-AE4AD28B9BB3) for more information.
-- `dbms_aqadm`: See [DBMS_AQADM Security Model](https://docs.oracle.com/en/database/oracle/oracle-database/23/arpls/DBMS_AQADM.html#GUID-4C5364E5-DD93-4E56-9587-65EE5D0FB324) for more information.
-- `dbms_aqin`: See [DBMS_AQIN Security Model](https://docs.oracle.com/en/database/oracle/oracle-database/23/arpls/DBMS_AQIN.html#GUID-4DBA97E2-601E-47CE-8D21-776243782CFA) for more information.
+- `dbms_aq`: The `DBMS_AQ` package provides the PL/SQL interface message management within the Oracle database. See [`DBMS_AQ` Security Model](https://docs.oracle.com/en/database/oracle/oracle-database/23/arpls/DBMS_AQ.html#GUID-EA27B877-CA19-4B66-9293-AE4AD28B9BB3) for more information.
+- `dbms_aqadm`: The `DBMS_AQADM` package provides PL/SQL procedures for administering  queues, subscribers, propagation, and security privileges. See [DBMS_AQADM Security Model](https://docs.oracle.com/en/database/oracle/oracle-database/23/arpls/DBMS_AQADM.html#GUID-4C5364E5-DD93-4E56-9587-65EE5D0FB324) for more information.
+- `dbms_aqin`: The `DBMS_AQIN` package is essential for secure access to Oracle JMS interfaces, requiring EXECUTE privilege for users of Oracle JMS. See [DBMS_AQIN Security Model](https://docs.oracle.com/en/database/oracle/oracle-database/23/arpls/DBMS_AQIN.html#GUID-4DBA97E2-601E-47CE-8D21-776243782CFA) for more information.
 
 ## **Task 2:** Create, Start, and Stop Queues
 
@@ -173,14 +174,14 @@ Here is the list of arguments that can be used with the [`DBMS_AQADM.CREATE_TRAN
 
 #### Optional Parameters
 
-| Parameter         | Description |
-|------------------|-------------|
-| **storage_clause** | Defines storage settings for the queue table. It can include parameters such as PCTFREE, PCTUSED, INITRANS, MAXTRANS, TABLESPACE, LOB, and a table storage clause. If not specified, the default user tablespace is used. See [storage_clause](https://docs.oracle.com/en/database/oracle/oracle-database/23/arpls/DBMS_AQADM.html#GUID-93B0FF90-5045-4437-A9C4-B7541BEBE573) for more information. |
-| **multiple_consumers** | Determines whether a queue can have multiple consumers per message. Default is `FALSE` (single consumer per message). Set to `TRUE` for multiple consumers. Publish/Subscribe model ("Topic") vs. Point-to-Point model ("Queue"). |
-| **max_retries** | Limits the number of retry attempts for dequeuing a message after failure. The maximum value is 2³¹ - 1. If the limit is exceeded, the message is purged from the queue. |
-| **comment** | A user-specified description of the queue table, added to the queue catalog. |
-| **queue_payload_type** | Specifies the type of payload the queue can handle. Options include `RAW`, `JSON`, `DBMS_AQADM.JMS_TYPE`, or an object type. Default is `DBMS_AQADM.JMS_TYPE`. See [DBMS_AQ Data Types](https://docs.oracle.com/en/database/oracle/oracle-database/23/arpls/DBMS_AQ.html#GUID-56E78CA6-3EB0-44C9-AEB7-F13A5A077D73). |
-| **queue_properties** | Defines additional queue properties such as queue type (Normal or Exception Queue), retry delay, retention time, sort list, and cache hints. See [QUEUE_PROPS_T Type](https://docs.oracle.com/en/database/oracle/oracle-database/23/arpls/advanced-queuing-AQ-types.html#GUID-E3F15E41-1365-42C3-8B47-CA3C1E805B77) for more information. |
+| Parameter                | Description                                                                                                                                                                                                                                                                                                                                                                                         |
+|--------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **storage_clause**       | Defines storage settings for the queue table. It can include parameters such as PCTFREE, PCTUSED, INITRANS, MAXTRANS, TABLESPACE, LOB, and a table storage clause. If not specified, the default user tablespace is used. See [storage_clause](https://docs.oracle.com/en/database/oracle/oracle-database/23/arpls/DBMS_AQADM.html#GUID-93B0FF90-5045-4437-A9C4-B7541BEBE573) for more information. |
+| **multiple_consumers**   | Determines whether a queue can have multiple consumers per message. Default is `FALSE` (single consumer per message). Set to `TRUE` for multiple consumers. Publish/Subscribe model ("Topic") vs. Point-to-Point model ("Queue").                                                                                                                                                                   |
+| **max_retries**          | Limits the number of retry attempts for dequeuing a message after failure. The maximum value is 2³¹ - 1. If the limit is exceeded, the message is purged from the queue.                                                                                                                                                                                                                            |
+| **comment**              | A user-specified description of the queue table, added to the queue catalog.                                                                                                                                                                                                                                                                                                                        |
+| **queue\_payload\_type** | Specifies the payload type the queue can handle. Options include `RAW`, `JSON`, `DBMS_AQADM.JMS_TYPE`, or an object type. Default is `DBMS_AQADM.JMS_TYPE`. See [DBMS_AQ Data Types](https://docs.oracle.com/en/database/oracle/oracle-database/23/arpls/DBMS_AQ.html#GUID-56E78CA6-3EB0-44C9-AEB7-F13A5A077D73).                                                                                   |
+| **queue_properties**     | Defines additional queue properties such as queue type (Normal or Exception Queue), retry delay, retention time, sort list, and cache hints. See [QUEUE_PROPS_T Type](https://docs.oracle.com/en/database/oracle/oracle-database/23/arpls/advanced-queuing-AQ-types.html#GUID-E3F15E41-1365-42C3-8B47-CA3C1E805B77) for more information.                                                           |
 
 #### Create a Topic using the JSON payload type
 
@@ -232,7 +233,7 @@ Understanding these payload types is crucial for designing efficient and effecti
 > 
 > **ORA-25207: enqueue failed, queue <schema>.<queue> is disabled from enqueueing**
 
-### DBMS_AQADM.JMS_TYPE
+### `DBMS_AQADM.JMS_TYPE`
 
 The JMS (Java Message Service) payload type is ideal for applications using JMS, as it provides a highly scalable API for asynchronous messaging.
 
