@@ -1,0 +1,43 @@
+{
+  "workshoptitle": "Simplify Financial Solutions Development with Oracle Database",
+  "help": "livelabs-help-db_us@oracle.com",
+	"tutorials": [
+      {
+        "title": "Introduction",
+        "filename": "../../intro/intro.md"
+      },
+      {
+        "title": "Get Started",
+        "filename": "https://oracle-livelabs.github.io/common/labs/cloud-login/pre-register-free-tier-account.md"
+      },
+      {
+        "title": "Lab 1: Setup",
+        "filename": "../../setup/setup.md"
+      },
+      {
+        "title": "Lab 2: Bank Transfer",
+        "filename": "../../walkthrough-microservices/walkthrough-microservices.md"
+      },
+      {
+        "title": "Lab 3: Stock Trade",
+        "filename": "../../polyglot/polyglot.md"
+      },
+      {
+        "title": "Lab 4: Mortgage",
+        "filename": "../../scaling/scaling.md"
+      },
+      {
+        "title": "Lab 5: Fraud",
+        "filename": "../../observability/observability.md"
+      },
+      {
+        "title": "Lab 9: Tear Down",
+        "filename": "../../teardown/teardown.md"
+      },
+      {
+        "title": "Need Help?",
+        "description": "Solutions to Common Problems and Directions for Receiving Live Help",
+        "filename":"https://oracle-livelabs.github.io/common/labs/need-help/need-help-freetier.md"
+      }
+    ]
+}
