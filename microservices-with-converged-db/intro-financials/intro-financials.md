@@ -31,8 +31,8 @@ If you would like to watch us do the workshop, click [here](https://youtu.be/yLB
 - 5 Withdraw Cash from ATM - Rust or C++
 - 6 Depositing Check at ATM - Rust or C++
 - 7 Mobile Check Deposit - OCI Vision/document
-- 8 Purchasing an item from in-person/online retailer using a debit/credit card
-- 9 Generating Bank Statement - TBD
+- 8 Purchasing an item from in-person/online retailer using a debit/credit card - MongoDB relational duality
+- 9 Generating Bank Statement - relational duality
 - 10 Apply for a Credit card - TBD
 - 11 Approval/Rejection for Credit card or Manual Review process for on-hold transactions
 - 12 Fraud alerts on credit card purchase - OML
@@ -42,6 +42,9 @@ If you would like to watch us do the workshop, click [here](https://youtu.be/yLB
 - 16 Transaction search & internal knowledge repository FAQs - Vector
 - 17 Use Case X1 - distributed db - BoA, Amex
 - 28 Use Case X2 - TrueCache - NYSE
+- 17 Portfolio analysis (across accounts) - Data imports/exports, external tables, etc. - Kafka, Apache Flink, Iceberg Shows advantage of unified view and cross-platform data accessibility
+- 18 FinTech APIs ORDS OpenAPI Simple, “current loan interest rate” type API call.  Perhaps exposed in API Gateway at some point.
+
 
 
 ### Prerequisites
