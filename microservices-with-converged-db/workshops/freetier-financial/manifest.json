@@ -16,43 +16,43 @@
       },
       {
         "title": "Lab 2: 3 Transfer money from an external to internal bank account" ,
-        "filename": "../../walkthrough-microservices/walkthrough-microservices.md"
+        "filename": "../../financial-banktransfer/financial-banktransfer.md"
       },
       {
         "title": "Lab 3: Stock Trade",
-        "filename": "../../polyglot/polyglot.md"
+        "filename": "../../financial-banktransfer/financial-banktransfer.md"
       },
       {
         "title": "Lab 4: Mortgage",
-        "filename": "../../scaling/scaling.md"
+        "filename": "../../financial-banktransfer/financial-banktransfer.md"
       },
       {
         "title": "Lab 5: Fraud",
-        "filename": "../../observability/observability.md"
+        "filename": "../../financial-banktransfer/financial-banktransfer.md"
       },
       {
         "title": "Lab 6: Vector PDF search (BOfA)",
-        "filename": "../../observability/observability.md"
+        "filename": "../../financial-banktransfer/financial-banktransfer.md"
       },
       {
         "title": "Lab 7: Bank APIs (real customer)",
-        "filename": "../../observability/observability.md"
+        "filename": "../../financial-banktransfer/financial-banktransfer.md"
       },
       {
         "title": "Lab 8: Scaling and Sizing Recommender: MongoDB",
-        "filename": "../../observability/observability.md"
+        "filename": "../../financial-banktransfer/financial-banktransfer.md"
       },
       {
         "title": "Lab 9: Scaling and Sizing Recommender: Kafka",
-        "filename": "../../observability/observability.md"
+        "filename": "../../financial-banktransfer/financial-banktransfer.md"
       },
       {
         "title": "Lab 10: Migration Guid For MongoDB",
-        "filename": "../../observability/observability.md"
+        "filename": "../../financial-banktransfer/financial-banktransfer.md"
       },
       {
         "title": "Lab 11: Migration Guid For Kafka",
-        "filename": "../../observability/observability.md"
+        "filename": "../../financial-banktransfer/financial-banktransfer.md"
       },
 
 
