@@ -10,7 +10,7 @@ Estimated Workshop Time: 75 minutes
 
 ### About Product/Technology
 
-Backend microservices and a Javascript front-end will be deployed on Oracle Cloud Infrastructure Kubernetes cluster (OKE) and access pluggable Oracle Autonomous Transaction Processing databases. REST and messaging are being used for communication 
+Backend microservices and a React Javascript front-end will be deployed on Oracle Cloud Infrastructure Kubernetes cluster (OKE) and access pluggable Oracle Autonomous Transaction Processing databases. REST and messaging are being used for communication 
 
 ![Microservices Architecture](./images/architecture.png " ")
 
