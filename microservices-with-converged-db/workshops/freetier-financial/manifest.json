@@ -1,5 +1,5 @@
 {
-  "workshoptitle": "Simplify Financial Solutions Development with Oracle Database",
+  "workshoptitle": "Develop with Oracle AI and Database Services: Financials (Cloud Native Version)",
   "help": "livelabs-help-db_us@oracle.com",
 	"tutorials": [
       {
@@ -15,7 +15,7 @@
         "filename": "../../setup/setup.md"
       },
       {
-        "title": "Lab 2: Bank Transfer",
+        "title": "Lab 2: Bank Transfer (MicroTx, University of Naples and Shinhan Securities)",
         "filename": "../../walkthrough-microservices/walkthrough-microservices.md"
       },
       {
