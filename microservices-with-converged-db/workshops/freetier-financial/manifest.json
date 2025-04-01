@@ -15,7 +15,7 @@
         "filename": "../../setup/setup.md"
       },
       {
-        "title": "Lab 2: Bank Transfer (MicroTx, University of Naples and Shinhan Securities)",
+        "title": "Lab 2: 3 Transfer money from an external to internal bank account" ,
         "filename": "../../walkthrough-microservices/walkthrough-microservices.md"
       },
       {
@@ -38,6 +38,9 @@
         "title": "Lab 7: Bank APIs (real customer)",
         "filename": "../../observability/observability.md"
       },
+
+
+
       {
         "title": "Lab 9: Tear Down",
         "filename": "../../teardown/teardown.md"

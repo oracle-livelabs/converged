@@ -19,8 +19,30 @@ If you would like to watch us do the workshop, click [here](https://youtu.be/yLB
 
 ### Objectives
 
-- Learn about Oracle Database unique ability to provide native support for modern data types, key data center components, and the latest development paradigms like Spatial data for location awareness, JSON for document stores, IoT for device integration, in-memory technologies and many more. 
-- Learn about microservices architecture major tiers - the application tier, the messaging tier, and the database tier - to bring agility, horizontal scale, and robustness to enterprise applications. 
+| Financial Process | Oracle feature used | Company  using      |---------------------|
+|-------------------|---------------------|---------------------|---------------------|
+| Header            | Title               | ------------------- |---------------------|
+
+- Learn about microservices, Kubernetes, and Cloud Native using Java, Python, JavaScript, .NET, Go, Rust, and PL/SQL, and Rest
+- 1 Create/Update profile - TBD
+- 2 Create a bank Account - TBD
+- 3 Transfer money from an external to internal bank account - MicroTx - University of Naples and Shinhan Securities
+- 4 Transfer funds to internal bank accounts - Kafka vs TxEventQ using Spring Boot
+- 5 Withdraw Cash from ATM - Rust or C++
+- 6 Depositing Check at ATM - Rust or C++
+- 7 Mobile Check Deposit - OCI Vision/document
+- 8 Purchasing an item from in-person/online retailer using a debit/credit card
+- 9 Generating Bank Statement - TBD
+- 10 Apply for a Credit card - TBD
+- 11 Approval/Rejection for Credit card or Manual Review process for on-hold transactions
+- 12 Fraud alerts on credit card purchase - OML
+- 13 Money Laundering & Money Mules - Graph
+- 14 Alerts on suspected transactions 
+- 15 Analytics on spend by category - Flink Iceberg
+- 16 Transaction search & internal knowledge repository FAQs - Vector
+- 17 Use Case X1 - distributed db - BoA, Amex
+- 28 Use Case X2 - TrueCache - NYSE
+
 
 ### Prerequisites
 
