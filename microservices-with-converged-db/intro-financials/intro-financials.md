@@ -19,32 +19,31 @@ If you would like to watch us do the workshop, click [here](https://youtu.be/yLB
 
 ### Objectives
 
-| Financial Process | Oracle feature used | Company  using      |---------------------|
-|-------------------|---------------------|---------------------|---------------------|
-| Header            | Title               | ------------------- |---------------------|
+| Number | Financial Process                                                                    | Oracle feature used                                   | Company using                        | Other Notes                                                            |
+|--------|--------------------------------------------------------------------------------------|-------------------------------------------------------|--------------------------------------|------------------------------------------------------------------------|
+| 1      | Create/Update profile                                                                | TBD                                                   | ABC company                          | this is a combination of OAuth and simple table of account profiles    |
+| 2      | Create a bank Account                                                                | TBD                                                   |                                      |                                                                        |
+| 3      | Transfer money from an external to internal bank account                             | MicroTx                                               | University of Naples and Shinhan Securities |                                                                        |
+| 4      | Transfer funds to internal bank accounts                                             | Kafka vs TxEventQ using Spring Boot                   |                                      |                                                                        |
+| 5      | Withdraw Cash from ATM                                                               | Rust or C++                                           |                                      |                                                                        |
+| 6      | Depositing Check at ATM                                                              | Rust or C++                                           |                                      |                                                                        |
+| 7      | Mobile Check Deposit                                                                 | OCI Vision/document                                   |                                      |                                                                        |
+| 8      | Purchasing an item from retailer using a debit/credit card                           | MongoDB relational duality                           |                                      |                                                                        |
+| 9      | Generating Bank Statement                                                            | relational duality                                    |                                      |                                                                        |
+| 10     | Apply for a Credit card                                                              | TBD                                                   |                                      |                                                                        |
+| 11     | Approval/Rejection for Credit card or Manual Review process for on-hold transactions |                                                   |                                      |                                                                        |
+| 12     | Fraud alerts on credit card purchase                                                 | OML                                                   |                                      |                                                                        |
+| 13     | Money Laundering & Money Mules                                                       | Graph                                                 |                                      |                                                                        |
+| 14     | Alerts on suspected transactions                                                     |                                                       |                                      |                                                                        |
+| 15     | Analytics on spend by category                                                       | Flink Iceberg                                         |                                      |                                                                        |
+| 16     | Transaction search & internal knowledge repository FAQs                              | Vector                                                |                                      |                                                                        |
+| 17     | Use Case X1                                                                          | distributed db                                        | BoA, Amex                          |                                                                        |
+| 28     | Use Case X2                                                                          | TrueCache                                             | NYSE                                 |                                                                        |
+| 17     | Portfolio analysis (across accounts)                                                 | Data imports/exports, external tables, etc.           | Kafka, Apache Flink, Iceberg         | Shows advantage of unified view and cross-platform data accessibility  |
+| 18     | FinTech APIs ORDS OpenAPI                                                            | Simple, “current loan interest rate” type API call    |                                      | Perhaps exposed in API Gateway at some point.                          |
+
 
 - Learn about microservices, Kubernetes, and Cloud Native using Java, Python, JavaScript, .NET, Go, Rust, and PL/SQL, and Rest
-- 1 Create/Update profile - TBD
-- 2 Create a bank Account - TBD
-- 3 Transfer money from an external to internal bank account - MicroTx - University of Naples and Shinhan Securities
-- 4 Transfer funds to internal bank accounts - Kafka vs TxEventQ using Spring Boot
-- 5 Withdraw Cash from ATM - Rust or C++
-- 6 Depositing Check at ATM - Rust or C++
-- 7 Mobile Check Deposit - OCI Vision/document
-- 8 Purchasing an item from in-person/online retailer using a debit/credit card - MongoDB relational duality
-- 9 Generating Bank Statement - relational duality
-- 10 Apply for a Credit card - TBD
-- 11 Approval/Rejection for Credit card or Manual Review process for on-hold transactions
-- 12 Fraud alerts on credit card purchase - OML
-- 13 Money Laundering & Money Mules - Graph
-- 14 Alerts on suspected transactions 
-- 15 Analytics on spend by category - Flink Iceberg
-- 16 Transaction search & internal knowledge repository FAQs - Vector
-- 17 Use Case X1 - distributed db - BoA, Amex
-- 28 Use Case X2 - TrueCache - NYSE
-- 17 Portfolio analysis (across accounts) - Data imports/exports, external tables, etc. - Kafka, Apache Flink, Iceberg Shows advantage of unified view and cross-platform data accessibility
-- 18 FinTech APIs ORDS OpenAPI Simple, “current loan interest rate” type API call.  Perhaps exposed in API Gateway at some point.
-
 
 
 ### Prerequisites

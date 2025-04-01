@@ -38,11 +38,27 @@
         "title": "Lab 7: Bank APIs (real customer)",
         "filename": "../../observability/observability.md"
       },
+      {
+        "title": "Lab 8: Scaling and Sizing Recommender: MongoDB",
+        "filename": "../../observability/observability.md"
+      },
+      {
+        "title": "Lab 9: Scaling and Sizing Recommender: Kafka",
+        "filename": "../../observability/observability.md"
+      },
+      {
+        "title": "Lab 10: Migration Guid For MongoDB",
+        "filename": "../../observability/observability.md"
+      },
+      {
+        "title": "Lab 11: Migration Guid For Kafka",
+        "filename": "../../observability/observability.md"
+      },
 
 
 
       {
-        "title": "Lab 9: Tear Down",
+        "title": "Lab 10: Tear Down",
         "filename": "../../teardown/teardown.md"
       },
       {
