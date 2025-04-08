@@ -35,7 +35,7 @@ Kafka vs TxEventQ (and TxEventQ with Kafka API)
 
 1. Instructions on bootstrap.properties
 
-## Scaling and Performance - new
+## Scaling, Sizing, and Performance - new
 
 1) TxEventQ  - Responsys Emulated Scalability/Stress Testing Benchmarking - 19c | 70-Q | Single Consumer Qs
    A) Our OCI/On-prem RAC Cluster
