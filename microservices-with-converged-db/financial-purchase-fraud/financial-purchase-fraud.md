@@ -1,4 +1,4 @@
-# External bank transfer
+# Transfer money to internal and brokerage accounts
 
 ## Introduction
 
@@ -15,8 +15,7 @@ Process:
 
 ### Product Management And Other Contacts - new
 
-- Todd Little
-- Brijesh 
+- Nithin Thekkupadam Narayanan
 
 ### Prerequisites
 

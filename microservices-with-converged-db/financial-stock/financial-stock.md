@@ -1,4 +1,4 @@
-# External bank transfer
+# Stock Ticker and Purchase
 
 ## Introduction
 
@@ -11,12 +11,11 @@ Process:
 
 ### Customer References - new
 
-- Responsys, FSGBU
+- NYSE
 
 ### Product Management And Other Contacts - new
 
-- Todd Little
-- Brijesh 
+- ilam siva, Sambit Panda, Vivek Vishwanathan
 
 ### Prerequisites
 

@@ -1,4 +1,4 @@
-# External bank transfer
+# Purchase from retailer using credit card
 
 ## Introduction
 
@@ -15,8 +15,7 @@ Process:
 
 ### Product Management And Other Contacts - new
 
-- Todd Little
-- Brijesh 
+- Nithin Thekkupadam Narayanan
 
 ### Prerequisites
 

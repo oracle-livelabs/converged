@@ -16,7 +16,7 @@
       },
       {
         "title": "Lab 2: Create/Update profile and bank account (use frontend)" ,
-        "filename": "../../financial-banktransfer/financial-banktransfer.md"
+        "filename": "../../financial-profile-and-account/financial-profile-and-account.md"
       },
       {
         "title": "Lab 3: External bank transfer",
@@ -24,58 +24,46 @@
       },
       {
         "title": "Lab 4: Transfer to internal and brokerage accounts",
-        "filename": "../../financial-banktransfer/financial-banktransfer.md"
+        "filename": "../../financial-brokerage-transfer/financial-brokerage-transfer.md"
       },
       {
-        "title": "Lab 5: Deposit/Withdraw Cash from ATM",
-        "filename": "../../financial-banktransfer/financial-banktransfer.md"
+        "title": "Lab 5: Deposit/withdraw cash from ATM",
+        "filename": "../../financial-atm/financial-atm.md"
       },
       {
-        "title": "Lab 6: Mobile Check Deposit",
-        "filename": "../../financial-banktransfer/financial-banktransfer.md"
+        "title": "Lab 6: Mobile check deposit",
+        "filename": "../../financial-mobile-check/financial-mobile-check.md"
       },
       {
         "title": "Lab 7: Purchase from retailer using credit card",
-        "filename": "../../financial-banktransfer/financial-banktransfer.md"
+        "filename": "../../financial-creditcard-purchase/financial-creditcard-purchase.md"
       },
       {
-        "title": "Lab 8: Generating Bank Statement",
-        "filename": "../../financial-banktransfer/financial-banktransfer.md"
+        "title": "Lab 8: Bank Account Statement and Portfolio Analysis",
+        "filename": "../../financial-reporting/financial-reporting.md"
       },
       {
         "title": "Lab 9: Fraud alerts on credit card purchase",
-        "filename": "../../financial-banktransfer/financial-banktransfer.md"
+        "filename": "../../financial-fraud-alerts/financial-fraud-alerts.md"
       },
       {
         "title": "Lab 10: Money Laundering",
-        "filename": "../../financial-banktransfer/financial-banktransfer.md"
+        "filename": "../../financial-laundering/financial-laundering.md"
       },
       {
-        "title": "Lab 11: Alerts on suspected transactions",
-        "filename": "../../financial-banktransfer/financial-banktransfer.md"
+        "title": "Lab 11: Financial PDF/doc search",
+        "filename": "../../financial-vector/financial-vector.md"
       },
       {
-        "title": "Lab 12: Analytics on spend by categor",
-        "filename": "../../financial-banktransfer/financial-banktransfer.md"
+        "title": "Lab 13: Stock Ticker and Purchase",
+        "filename": "../../financial-stock/financial-stock.md"
       },
       {
-        "title": "Lab 13: Financial PDF/doc search",
-        "filename": "../../financial-banktransfer/financial-banktransfer.md"
+        "title": "Lab 14: FinTech/Bank APIs",
+        "filename": "../../financial-api/financial-api.md"
       },
       {
-        "title": "Lab 14: Stock Ticker and Purchase",
-        "filename": "../../financial-banktransfer/financial-banktransfer.md"
-      },
-      {
-        "title": "Lab 15: Portfolio Analysis/Report",
-        "filename": "../../financial-banktransfer/financial-banktransfer.md"
-      },
-      {
-        "title": "Lab 16: FinTech/Bank APIs",
-        "filename": "../../financial-banktransfer/financial-banktransfer.md"
-      },
-      {
-        "title": "Lab 18: Tear Down",
+        "title": "Lab 15: Tear Down",
         "filename": "../../teardown/teardown.md"
       },
       {

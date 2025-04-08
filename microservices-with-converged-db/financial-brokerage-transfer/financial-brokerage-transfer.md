@@ -1,4 +1,4 @@
-# External bank transfer
+# Transfer to internal and brokerage accounts
 
 ## Introduction
 
@@ -11,12 +11,11 @@ Process:
 
 ### Customer References - new
 
-- Responsys, FSGBU
+- 
 
 ### Product Management And Other Contacts - new
 
-- Todd Little
-- Brijesh 
+- 
 
 ### Prerequisites
 

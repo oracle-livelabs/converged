@@ -1,4 +1,4 @@
-# External bank transfer
+# Create/Update profile and bank account (use frontend)
 
 ## Introduction
 
@@ -15,8 +15,7 @@ Process:
 
 ### Product Management And Other Contacts - new
 
-- Todd Little
-- Brijesh 
+- Nithin Thekkupadam Narayanan
 
 ### Prerequisites
 
