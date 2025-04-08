@@ -26,7 +26,7 @@ If you would like to watch us do the workshop, click [here](https://youtu.be/yLB
 | Lab | Financial Process                           | Oracle and other tech used                                   | Company using                                  | 
 |-----|---------------------------------------------|--------------------------------------------------------------|------------------------------------------------|
 | 1   | Create/Update profile                       | React, Spring Boot, OTel, Vault (*these are used throughout) | LOLC                                           |                                                    
-| 2   | Create a bank Account                       | Relational, DataGuard                                        |                                                |
+| 2   | Create a bank Account                       | Relational, Application Continuity, DataGuard                |                                                |
 | 3   | External bank transfer                      | MicroTx, Lock-free reservations, Spring Boot                 | Early Warning, U of Naples, Shinhan Securities | 
 | 4   | Transfer to internal and brokerage accounts | Kafka vs TxEventQ using Spring Boot                          | Responsys, FSGBU                               |
 | 5   | Withdraw Cash from ATM                      | Rust or C++ (polyglot)                                       | Chris to provide                               |
@@ -36,11 +36,11 @@ If you would like to watch us do the workshop, click [here](https://youtu.be/yLB
 | 9   | Generate Bank Statement                     | relational duality                                           | ANZ Bank                                       |
 | 10  | Fraud alerts on credit card purchase        | OML, Graph                                                   | Caixabank                                      |
 | 11  | Money Laundering & Money Mules              | Graph                                                        | PaySafe, Garanti Bank,Mercardolibre            |
-| 12  | Alerts on suspected transactions            | Grafana                                                      |                                                |
-| 13  | Analytics on spend by category              | Flink Iceberg                                                |                                                |
+| 12  | Alerts on suspected transactions            | Knative Eventing, CloudEvents, Spatial                       |                                                |
+| 13  | Analytics on spend by category              | Grafana, OpenTelemetry                                       |                                                |
 | 14  | Financial PDF/doc search                    | Vector                                                       |                                                |
 | 15  | Stock Ticker and Stock Purchases            | TrueCache                                                    | NYSE                                           |
-| 16  | Portfolio analysis (across accounts)        | (O)Kafka, Apache Flink, Iceberg Data import, etc.            | Bankinter                                      |
+| 16  | Portfolio analysis (across accounts)        | Kafka, Apache Flink, Iceberg Data import, etc.               | Bankinter                                      |
 | 17  | FinTech APIs ORDS OpenAPI                   | ORDS OpenAPI                                                 | Financiera Maestra, Bank of India              |
 
 
