@@ -5,12 +5,6 @@
 Process:
 
 
-Customer References: , others
-
-"A Scalable Solution for a Payment Processing Application
-"Confronted with surging transaction volumes and the pressing need for real-time processing, a global paymentprocessing leader embarked on a transformative journey. Their quest led them to Oracle Globally Distributed
-Database’s Raft Replication Configuration, an architecture designed to meet the most demanding requirements.
-
 ### Objectives
 
 -  Understand 

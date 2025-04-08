@@ -39,7 +39,7 @@ If you would like to watch us do the workshop, click [here](https://youtu.be/yLB
 | 12  | Alerts on suspected transactions            | Knative Eventing, CloudEvents, Spatial                       |                                                |
 | 13  | Analytics on spend by category              | Grafana, OpenTelemetry                                       |                                                |
 | 14  | Financial PDF/doc search                    | Vector                                                       |                                                |
-| 15  | Stock Ticker and Stock Purchases            | TrueCache                                                    | NYSE                                           |
+| 15  | Stock Ticker and Stock Purchases            | TrueCache, lock-free reservations, priority txs,session-less | NYSE                                           |
 | 16  | Portfolio analysis (across accounts)        | Kafka, Apache Flink, Iceberg Data import, etc.               | Bankinter                                      |
 | 17  | FinTech APIs ORDS OpenAPI                   | ORDS OpenAPI                                                 | Financiera Maestra, Bank of India              |
 
