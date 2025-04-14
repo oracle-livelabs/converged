@@ -11,59 +11,59 @@
         "filename": "https://oracle-livelabs.github.io/common/labs/cloud-login/pre-register-free-tier-account.md"
       },
       {
-        "title": "Lab 1: Setup (Database, Kubernetes, ...)",
+        "title": "Lab 1: Setup (Database, Kubernetes, Security, ...)",
         "filename": "../../financial-setup/financial-setup.md"
       },
       {
-        "title": "Lab 2: Create/Update profile and bank account (use frontend)" ,
+        "title": "Lab 2: Create/Update profile and bank account (React, Spring Boot)" ,
         "filename": "../../financial-profile-and-account/financial-profile-and-account.md"
       },
       {
-        "title": "Lab 3: External bank transfer",
+        "title": "Lab 3: External bank transfer (MicroTx, Lock-free reservations)",
         "filename": "../../financial-banktransfer/financial-banktransfer.md"
       },
       {
-        "title": "Lab 4: Transfer to internal and brokerage accounts",
+        "title": "Lab 4: Transfer to internal and brokerage accounts (Kafka vs TxEventQ)",
         "filename": "../../financial-brokerage-transfer/financial-brokerage-transfer.md"
       },
       {
-        "title": "Lab 5: Deposit/withdraw cash from ATM",
+        "title": "Lab 5: Deposit/withdraw cash from ATM (Rust/C++ and WASM (polyglot))",
         "filename": "../../financial-atm/financial-atm.md"
       },
       {
-        "title": "Lab 6: Mobile check deposit",
+        "title": "Lab 6: Mobile check deposit (OCI Vision/document with Oracle Database)",
         "filename": "../../financial-mobile-check/financial-mobile-check.md"
       },
       {
-        "title": "Lab 7: Purchase from retailer using credit card",
+        "title": "Lab 7: Purchase from retailer using credit card (MongoDB and relational duality, distributed database)",
         "filename": "../../financial-creditcard-purchase/financial-creditcard-purchase.md"
       },
       {
-        "title": "Lab 8: Bank Account Statement and Portfolio Analysis",
+        "title": "Lab 8: Bank Account Statement and Portfolio Analysis (Apache Flink, Iceberg)",
         "filename": "../../financial-reporting/financial-reporting.md"
       },
       {
-        "title": "Lab 9: Fraud alerts on credit card purchase",
+        "title": "Lab 9: Fraud alerts on credit card purchase (OML, Graph, Knative Eventing, CloudEvents, Spatial)",
         "filename": "../../financial-fraud-alerts/financial-fraud-alerts.md"
       },
       {
-        "title": "Lab 10: Money Laundering",
+        "title": "Lab 10: Money Laundering (Graph)",
         "filename": "../../financial-laundering/financial-laundering.md"
       },
       {
-        "title": "Lab 11: Financial PDF/doc search",
+        "title": "Lab 11: Financial PDF/doc search (Vector Search, RAG)",
         "filename": "../../financial-vector/financial-vector.md"
       },
       {
-        "title": "Lab 13: Stock Ticker and Purchase",
+        "title": "Lab 12: Stock Ticker and Purchase (TrueCache, priority transactions, session-less transactions)",
         "filename": "../../financial-stock/financial-stock.md"
       },
       {
-        "title": "Lab 14: FinTech/Bank APIs",
+        "title": "Lab 13: FinTech/Bank APIs (ORDS OpenAPI)",
         "filename": "../../financial-api/financial-api.md"
       },
       {
-        "title": "Lab 15: Tear Down",
+        "title": "Lab 14: Tear Down",
         "filename": "../../teardown/teardown.md"
       },
       {

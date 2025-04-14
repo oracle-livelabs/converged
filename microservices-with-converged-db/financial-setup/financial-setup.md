@@ -304,7 +304,7 @@ The setup will provision the following resources in your tenancy:
 
 
 
-## Scaling, Sizing, and Performance
+###  Scaling, Sizing, and Performance
 
 
 
@@ -314,7 +314,7 @@ The setup will provision the following resources in your tenancy:
 1. Start an external load balancer for the order service.
 
     ```
-    <copy>cd $GRABDISH_HOME/order-helidon; kubectl create -f ext-order-ingress.yaml -n msdataworkshop</copy>
+    <copy>cd $WORKSHOP_HOME/financial-service; kubectl create -f ext-order-ingress.yaml -n msdataworkshop</copy>
     ```
 
    Check the ext-order LoadBalancer service and make note of the external IP address. This may take a few minutes to start.
@@ -332,7 +332,7 @@ The setup will provision the following resources in your tenancy:
     ```
 
 <if type="multicloud-freetier">
-+ `export LB=$(kubectl get gateway msdataworkshop-order-helidon-appconf-gw -n msdataworkshop -o jsonpath='{.spec.servers[0].hosts[0]}')`
++ `export LB=$(kubectl get gateway msdataworkshop-financial-service-appconf-gw -n msdataworkshop -o jsonpath='{.spec.servers[0].hosts[0]}')`
 </if>
 
 2. Install a load testing tool.
@@ -340,7 +340,7 @@ The setup will provision the following resources in your tenancy:
    You can use any web load testing tool to drive load. Here is an example of how to install the k6 tool ((licensed under AGPL v3). Or, you can use artillery and the script for that is also provided below. To see the scaling impacts we prefer doing this lab with k6.
 
    ```
-   <copy>cd $GRABDISH_HOME/k6; wget https://github.com/loadimpact/k6/releases/download/v0.27.0/k6-v0.27.0-linux64.tar.gz; tar -xzf k6-v0.27.0-linux64.tar.gz; ln k6-v0.27.0-linux64/k6 k6</copy>
+   <copy>cd $WORKSHOP_HOME/k6; wget https://github.com/loadimpact/k6/releases/download/v0.27.0/k6-v0.27.0-linux64.tar.gz; tar -xzf k6-v0.27.0-linux64.tar.gz; ln k6-v0.27.0-linux64/k6 k6</copy>
    ```
 
    ![Install K6](images/install-k6.png " ")
@@ -348,7 +348,7 @@ The setup will provision the following resources in your tenancy:
    (Alternatively) To install artillery:
 
    ```
-   <copy>cd $GRABDISH_HOME/artillery; npm install artillery@1.6</copy>
+   <copy>cd $WORKSHOP_HOME/artillery; npm install artillery@1.6</copy>
    ```
 
 ## Task 2: Load Test and Scale the Application Tier
@@ -358,7 +358,7 @@ The setup will provision the following resources in your tenancy:
     Here is an example using k6:
 
     ```
-    <copy>cd $GRABDISH_HOME/k6; ./test.sh</copy>
+    <copy>cd $WORKSHOP_HOME/k6; ./test.sh</copy>
     ```
 
     Note the request rate. This is the number of http requests per second that were processed.
@@ -368,13 +368,13 @@ The setup will provision the following resources in your tenancy:
     (Or) Using artillery:
 
     ```
-    <copy>cd $GRABDISH_HOME/artillery; ./test.sh</copy>
+    <copy>cd $WORKSHOP_HOME/artillery; ./test.sh</copy>
     ```
 
 2. Scale to **2 service replicas**.
 
     ```
-    <copy>kubectl scale deployment.apps/order-helidon --replicas=2 -n msdataworkshop</copy>
+    <copy>kubectl scale deployment.apps/financial-service --replicas=2 -n msdataworkshop</copy>
     ```
 
    List the running pods.
@@ -383,7 +383,7 @@ The setup will provision the following resources in your tenancy:
     <copy>pods</copy>
     ```
 
-   Note there are now two order-helidon replicas. Keep polling until both replicas are ready.
+   Note there are now two financial-service replicas. Keep polling until both replicas are ready.
 
    ![Two Replicas](images/2replicas.png " ")
 
@@ -392,7 +392,7 @@ The setup will provision the following resources in your tenancy:
    For example:
 
     ```
-    <copy>cd $GRABDISH_HOME/k6; ./test.sh</copy>
+    <copy>cd $WORKSHOP_HOME/k6; ./test.sh</copy>
     ```
 
    Note the average response time for the requests. Throughput has increased and response time has returned to normal.
@@ -402,13 +402,13 @@ The setup will provision the following resources in your tenancy:
    (Or) Using artillery:
 
     ```
-    <copy>cd $GRABDISH_HOME/artillery; ./test.sh</copy>
+    <copy>cd $WORKSHOP_HOME/artillery; ./test.sh</copy>
     ```
 
 4. Scale to **3 Replicas**.
 
     ```
-    <copy>kubectl scale deployment.apps/order-helidon --replicas=3 -n msdataworkshop</copy>
+    <copy>kubectl scale deployment.apps/financial-service --replicas=3 -n msdataworkshop</copy>
     ```
 
    List the running pods.
@@ -417,7 +417,7 @@ The setup will provision the following resources in your tenancy:
     <copy>pods</copy>
     ```
 
-   Note there are now three order-helidon replicas. Keep polling until all replicas are ready.
+   Note there are now three financial-service replicas. Keep polling until all replicas are ready.
 
    ![Three Replicas](images/3replicas.png " ")
 
@@ -425,7 +425,7 @@ The setup will provision the following resources in your tenancy:
 
    For example:
     ```
-    <copy>cd $GRABDISH_HOME/k6; ./test.sh</copy>
+    <copy>cd $WORKSHOP_HOME/k6; ./test.sh</copy>
     ```
 
    Note the median response time for the requests and the request rate. Note how the response time is still degraded and the request rate has not improved significantly.
@@ -435,7 +435,7 @@ The setup will provision the following resources in your tenancy:
    (Or) Using artillery:
 
     ```
-    <copy>cd $GRABDISH_HOME/artillery; ./test.sh</copy>
+    <copy>cd $WORKSHOP_HOME/artillery; ./test.sh</copy>
     ```
 
 ## Task 3: Load Test and Scale the Database Tier
@@ -459,7 +459,7 @@ The setup will provision the following resources in your tenancy:
    For example:
 
     ```
-    <copy>cd $GRABDISH_HOME/k6; ./test.sh</copy>
+    <copy>cd $WORKSHOP_HOME/k6; ./test.sh</copy>
     ```
 
    Note the request rate.  Throughput has increased.
@@ -469,7 +469,7 @@ The setup will provision the following resources in your tenancy:
    (Or) Using artillery:
 
     ```
-    <copy>cd $GRABDISH_HOME/artillery; ./test.sh</copy>
+    <copy>cd $WORKSHOP_HOME/artillery; ./test.sh</copy>
     ```
 
 ## Task 4: Scale Down the Application and Database Tiers
@@ -484,10 +484,10 @@ The setup will provision the following resources in your tenancy:
 
    ![Update OCPU Field](images/manage-scaling2.png " ")
 
-3. Scale the order-helidon service back to **1 replica**.
+3. Scale the financial-service service back to **1 replica**.
 
     ```
-    <copy>kubectl scale deployment.apps/order-helidon --replicas=1 -n msdataworkshop</copy>
+    <copy>kubectl scale deployment.apps/financial-service --replicas=1 -n msdataworkshop</copy>
     ```
 
 
