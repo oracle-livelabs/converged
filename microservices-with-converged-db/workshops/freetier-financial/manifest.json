@@ -27,7 +27,7 @@
         "filename": "../../financial-brokerage-transfer/financial-brokerage-transfer.md"
       },
       {
-        "title": "Lab 5: Deposit/withdraw cash from ATM (Rust/C++ and WASM (polyglot))",
+        "title": "Lab 5: Deposit/withdraw cash from ATM (.NET, Go, C++, Rust and WASM (polyglot))",
         "filename": "../../financial-atm/financial-atm.md"
       },
       {
@@ -63,7 +63,11 @@
         "filename": "../../financial-api/financial-api.md"
       },
       {
-        "title": "Lab 14: Tear Down",
+        "title": "Lab 14: \"Speak with your (financial) data\" (Select AI, Vector Search (AI Explorer for Apps), Speech AI)",
+        "filename": "../../financial-speak-with-data/financial-speak-with-data.md"
+      },
+      {
+        "title": "Lab 15: Tear Down",
         "filename": "../../teardown/teardown.md"
       },
       {
