@@ -41,7 +41,12 @@ See table below for labs and corresponding technology used.
 
 
 
-
+BaA and Amex distributed db as described in https://www.oracle.com/a/ocom/docs/database/fintech-transformation-with-globally-distributed-database.pdf
+@pchandir
+,
+@sdwivedi
+, and
+@smbharga
 
 ### Prerequisites
 
