@@ -11,7 +11,7 @@
         "filename": "https://oracle-livelabs.github.io/common/labs/cloud-login/pre-register-free-tier-account.md"
       },
       {
-        "title": "Lab 1: Setup (Database, Kubernetes, Security, ...)",
+        "title": "Lab 1: Setup (Database, Kubernetes, Observability/Otel, Security, ...)",
         "filename": "../../financial-setup/financial-setup.md"
       },
       {

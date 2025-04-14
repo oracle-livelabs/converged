@@ -50,7 +50,7 @@ If, however, you have already used up some quota on your tenancy, perhaps while 
 
   It may be necessary to delete some resources to make space to run the workshop. Once you have enough space you may proceed to the next step.
 
-## Task 3: If necessary, create a compartment and OKE Kubernetes cluster. Then insure the Kubernetes config for the cluster is setup in (Cloud) Shell properly.
+## Task 3: Bring or create a Kubernetes cluster. 
 
 You will need to create a compartment unless you have one that you will use already.
 
