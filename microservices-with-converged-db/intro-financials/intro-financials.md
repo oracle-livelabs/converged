@@ -11,7 +11,7 @@ Estimated Workshop Time: 180 minutes
 ### About Product/Technology
 
 See table below for labs and corresponding technology used.
-NOTE: More financial personas will be added (analyst vs customer vs ....)
+NOTE: More financial personas will be added (analyst vs customer vs data scientist vs (perhaps rename knowledge officer)....)
 
 ![Microservices Architecture](./images/architecture.png " ")
 
