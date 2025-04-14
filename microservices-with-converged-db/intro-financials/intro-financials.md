@@ -11,6 +11,7 @@ Estimated Workshop Time: 180 minutes
 ### About Product/Technology
 
 See table below for labs and corresponding technology used.
+NOTE: More financial personas will be added (analyst vs customer vs ....)
 
 ![Microservices Architecture](./images/architecture.png " ")
 
