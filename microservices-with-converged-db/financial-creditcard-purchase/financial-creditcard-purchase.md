@@ -9,13 +9,13 @@ Process:
 
 -  Understand 
 
-### Customer References - new
+### Customer References 
 
-- Responsys, FSGBU
+- AMEX, Bank Of America
 
-### Product Management And Other Contacts - new
+### Product Management And Other Contacts
 
-- Nithin Thekkupadam Narayanan
+- Shefali Bhargava, Pankaj Chandiramani, Shailesh Dwivedi 
 
 ### Prerequisites
 
