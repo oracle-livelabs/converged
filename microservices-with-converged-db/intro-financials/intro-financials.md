@@ -2,8 +2,6 @@
 
 ## About this Workshop
 
-[](youtube:v0nYRueADbo)
-
 This workshop will help you understand the technical capabilities of the Oracle Database in the Cloud Native / Open Source Space, focusing on financial verticals
 
 Estimated Workshop Time: 180 minutes
@@ -24,22 +22,22 @@ NOTE: More financial personas will be added (analyst vs customer vs data scienti
 - Learn about microservices, Kubernetes, and Cloud Native using Java, Python, JavaScript, .NET, Go, Rust, and PL/SQL, and Rest
 - Learn about Oracle features in depth and how the facilitate financial sector (eg https://www.oracle.com/a/ocom/docs/database/fintech-transformation-with-globally-distributed-database.pdf)
 
-| Lab | Financial Process                             | Oracle and other tech used                                                | Company using                                  | % complete |
-|-----|-----------------------------------------------|---------------------------------------------------------------------------|------------------------------------------------|------------|
-| 1   | Infra Setup                                   | Kubernetes, Oracle Database, Vault, Observability/Otel                    | LOLC                                           | 90%        |
-| 2   | Create profile and bank account               | React, Spring Boot, JPA                                                   |                                                | 90%        |
-| 3   | External bank transfer                        | MicroTx, Lock-free reservations, Spring Boot                              | Early Warning, U of Naples, Shinhan Securities | 60%        |
-| 4   | Transfer to internal and brokerage accounts   | Kafka vs TxEventQ using Spring Boot                                       | Responsys, FSGBU                               | 90%        |
-| 5   | Withdraw/Deposit Cash from ATM                | Rust or C++ (polyglot)                                                    |                                                | 10%        |
-| 6   | Mobile Check Deposit                          | OCI Vision/document                                                       |                                                | 10%        |
-| 7   | Purchase from retailer using credit card      | MongoDB relational duality, distributed db                                | Santander, ANZ Bank, Amex, BoA                 | 20%        |
-| 8   | Bank Account Statement and Portfolio Analysis | Kafka, Apache Flink, Iceberg, Data import, Redash/Metabase/Superset, etc. | ANZ Bank, Bankinter                            | 20%        |
-| 9   | Fraud alerts on credit card purchases         | OML, Graph, Knative Eventing, CloudEvents, Spatial                        | Caixabank                                      | 60%        |
-| 10  | Money Laundering                              | Graph                                                                     | PaySafe, Garanti Bank, Mercardolibre           | 8%         |
-| 11  | Financial PDF/doc search                      | Vector Search, RAG                                                        | recent customer reference just announced       | 70%        |
-| 12  | Stock Ticker and Stock Purchases              | TrueCache, lock-free reservations, priority txs, session-less             | NYSE                                           | 20%        |
-| 13  | FinTech APIs ORDS OpenAPI                     | ORDS OpenAPI                                                              | Financiera Maestra, Bank of India              | 80%        |
-| 13  | "Speak with your (financial) data"            | Select AI, Vector Search (AI Explorer for Apps), Speech AI                |                                                | 80%        |
+| Lab | Financial Process                             | Oracle and other tech used                                           | Company using                                  | % complete/ETA |
+|-----|-----------------------------------------------|----------------------------------------------------------------------|------------------------------------------------|----------------|
+| 1   | Infra Setup                                   | Kubernetes, Oracle Database, Vault, Observability/Otel               | LOLC                                           | 90% 4/14       |
+| 2   | Create profile and bank account               | React, Spring Boot, JPA                                              |                                                | 90% 4/19       |
+| 3   | External bank transfer                        | MicroTx, Lock-free reservations, Spring Boot                         | Early Warning, U of Naples, Shinhan Securities | 60% 4/17       |
+| 4   | Transfer to internal and brokerage accounts   | Kafka vs TxEventQ using Spring Boot                                  | Responsys, FSGBU                               | 90% 4/20       |
+| 5   | Withdraw/Deposit Cash from ATM                | Polyglot                                                             |                                                | 10% 4/21       |
+| 6   | Mobile Check Deposit                          | OCI Vision/document                                                  |                                                | 10% 4/22       |
+| 7   | Purchase from retailer using credit card      | MongoDB relational duality, distributed db                           | Santander, ANZ Bank, Amex, BoA                 | 20% 4/23       |
+| 8   | Bank Account Statement and Portfolio Analysis | Kafka, Flink, Iceberg, Data import, Redash/Metabase/Superset, etc.   | ANZ Bank, Bankinter                            | 20% 4/23       |
+| 9   | Fraud alerts on credit card purchases         | OML, Graph, Knative Eventing, CloudEvents, Spatial                   | Caixabank                                      | 60% 4/23       |
+| 10  | Money Laundering                              | Graph                                                                | PaySafe, Garanti Bank, Mercardolibre           | 8% 4/19        |
+| 11  | Financial PDF/doc search                      | Vector Search, RAG                                                   | recent customer reference just announced       | 70% 4/23       |
+| 12  | Stock Ticker and Stock Purchases              | TrueCache, lock-free reservations, priority txs, session-less        | NYSE                                           | 20% 4/18       |
+| 13  | FinTech APIs ORDS OpenAPI                     | ORDS OpenAPI                                                         | Financiera Maestra, Bank of India              | 80% 4/16       |
+| 13  | "Speak with your (financial) data"            | Select AI, Vector Search (AI Explorer for Apps), Speech AI           |                                                | 80% 4/15       |
 
 
 

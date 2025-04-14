@@ -2,16 +2,16 @@
 
 ## Introduction
 
-Process: External bank transfer
+Process:
 
 
 ### Objectives
 
-- Understand MicroTx, Lock-free reservations, Spring Boot, and Oracle Backend As A Service
-
+-  Understand
+   https://pandhariwal.github.io/blockchain-table-new/workshops/tenancy/?lab=introduction
 ### Customer References - new
 
-- Early Warning, University of Naples
+- Early Warning, U of Naples, Shinhan Securities
 
 ### Product Management And Other Contacts - new
 

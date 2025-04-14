@@ -13,9 +13,9 @@ Process:
 
 - 
 
-### Product Management And Other Contacts - new
+### Product Management And Other Contacts
 
-- 
+- Amit Ke
 
 ### Prerequisites
 

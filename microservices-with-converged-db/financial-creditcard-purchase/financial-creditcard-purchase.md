@@ -15,7 +15,9 @@ Process:
 
 ### Product Management And Other Contacts
 
-- Shefali Bhargava, Pankaj Chandiramani, Shailesh Dwivedi 
+- Globally Distributed Database: Shefali Bhargava, Pankaj Chandiramani, Shailesh Dwivedi 
+- MongoDB API: Hermann Baer
+- ORDS: Josh Spiegel, Jeff Smith
 
 ### Prerequisites
 
@@ -25,12 +27,11 @@ This lab assumes you have already completed the earlier labs.
 
 1. setup...
 
-## Low-level side by side comparison with alternative - new
+## Migration from MongoDB to Oracle Database (accessing with MongoDB API and/or SQL)
 
-Kafka vs TxEventQ (and TxEventQ with Kafka API)
-
-![Mongo & Postgress & Kafka to Oracle](images/mongopostgreskafka_vs_OracleAQ.png " ")
-
+Josh Spiegel: "The Mongo API process itself tends to be lightweight
+So deploying it in the application tier (like on the compute nodes that run the application logic) is a simple solution
+But you can also put a dedicated cluster behind a load balancer."
 
 ## Learn More
 
