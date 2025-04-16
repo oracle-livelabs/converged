@@ -328,10 +328,9 @@ You may now **proceed to the next lab.**
 ## Learn More
 
 * [Develop Applications with XA](http://docs.oracle.com/en/database/oracle/transaction-manager-for-microservices/23.4.1/tmmdg/develop-xa-applications.html#GUID-D9681E76-3F37-4AC0-8914-F27B030A93F5)
-* [Develop Applications with XA](http://docs.oracle.com/en/database/oracle/transaction-manager-for-microservices/23.4.1/tmmdg/develop-xa-applications.html#GUID-D9681E76-3F37-4AC0-8914-F27B030A93F5)
-* [Develop Applications with XA](http://docs.oracle.com/en/database/oracle/transaction-manager-for-microservices/23.4.1/tmmdg/develop-xa-applications.html#GUID-D9681E76-3F37-4AC0-8914-F27B030A93F5)
-* [Develop Applications with XA](http://docs.oracle.com/en/database/oracle/transaction-manager-for-microservices/23.4.1/tmmdg/develop-xa-applications.html#GUID-D9681E76-3F37-4AC0-8914-F27B030A93F5)
-
+* [Maintain data consistency across microservices using Oracle MicroTx](https://apexapps.oracle.com/pls/apex/r/dbpm/livelabs/run-workshop?p210_wid=3445)
+* [Ensure data consistency in distributed transactions across ORDS applications using MicroTx](https://apexapps.oracle.com/pls/apex/r/dbpm/livelabs/view-workshop?wid=3886)
+* [Simplify distributed transactions with Oracle MicroTx to prevent inconsistent data and financial losses](https://apexapps.oracle.com/pls/apex/r/dbpm/livelabs/view-workshop?wid=3725)
 
 ## Acknowledgements
 * **Authors** - Paul Parkinson, Architect and Developer Advocate
