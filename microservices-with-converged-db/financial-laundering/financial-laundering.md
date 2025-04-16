@@ -7,21 +7,39 @@ Process:
 
 ### Objectives
 
--  Understand 
+Benefits of front end in React, because its popular, etc.
+Why built in react
+why/how it ties into everything else, "we didnt pick because"
+remember sales will explain to developer
 
-### Customer References - new
+- In this lab we look closer at identifying money laundering use Graph and Spatial in the Oracle database.  Customer such as x, y, and z use such techniques.
+- A p
+
+Internal, what sales should say and how to without looking stupid
+key things to say from paul brain to sales, sand what questions encountered
+
+ask how they want it , long vides, short, ...
+
+### Customer References
 
 - 
 
-### Product Management And Other Contacts - new
+### Product Management And Other Contacts
 
-- Melli, David Lap
+- Melliyal Annamalai
+- David Lapp
+- 
 
 ### Prerequisites
 
 This lab assumes you have already completed the earlier labs.
 
-## Task 1: setup .....
+## Task 1: First we setup the models
+
+1. setup...
+
+
+## Task 2: We then
 
 1. setup...
 
