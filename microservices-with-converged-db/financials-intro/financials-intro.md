@@ -70,28 +70,6 @@ NOTE: More financial personas will be added (analyst vs customer vs data scienti
 
 
 
-
-
-Oracle Sharding: Hyperscale Globally Distributed Database
-https://apexapps.oracle.com/pls/apex/r/dbpm/livelabs/run-workshop?p210_wid=866
-
-Oracle Globally Distributed Database with RAFT
-https://apexapps.oracle.com/pls/apex/r/dbpm/livelabs/run-workshop?p210_wid=835
-
-Oracle Sharding Quick Start
-https://apexapps.oracle.com/pls/apex/r/dbpm/livelabs/run-workshop?p210_wid=854
-
-https://docs.oracle.com/en/database/oracle/backend-for-microservices-and-ai/index.html
-https://oracle.github.io/microservices-datadriven/spring/
-https://oracle.github.io/microservices-datadriven/cloudbank/devenv/oractl/index.html
-
-
-BaA and Amex distributed db as described in https://www.oracle.com/a/ocom/docs/database/fintech-transformation-with-globally-distributed-database.pdf
-
-apache arabac datatype, python numpy, 0 cost converstion , so readonly into dataframes parquay delta lake - chris jones blog on medium 
-
-
-
 ### Prerequisites
 
  - An Oracle Cloud Account - Please view this workshop's LiveLabs landing page to see which environments are supported.

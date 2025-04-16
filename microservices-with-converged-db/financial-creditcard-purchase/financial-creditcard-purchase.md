@@ -38,6 +38,16 @@ But you can also put a dedicated cluster behind a load balancer."
 * [Oracle Database](https://bit.ly/mswsdatabase)
 * [Fintech Transformation with globally distributed database](https://www.oracle.com/a/ocom/docs/database/fintech-transformation-with-globally-distributed-database.pdf)
 
+
+Oracle Sharding: Hyperscale Globally Distributed Database
+https://apexapps.oracle.com/pls/apex/r/dbpm/livelabs/run-workshop?p210_wid=866
+
+Oracle Globally Distributed Database with RAFT
+https://apexapps.oracle.com/pls/apex/r/dbpm/livelabs/run-workshop?p210_wid=835
+
+Oracle Sharding Quick Start
+https://apexapps.oracle.com/pls/apex/r/dbpm/livelabs/run-workshop?p210_wid=854
+
 ## Acknowledgements
 * **Authors** - Paul Parkinson, Architect and Developer Advocate
 * **Last Updated By/Date** - Paul Parkinson, 2025
