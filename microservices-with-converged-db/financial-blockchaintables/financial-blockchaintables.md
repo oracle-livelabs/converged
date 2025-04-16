@@ -9,7 +9,7 @@ Process:
 
 -  Understand
    https://pandhariwal.github.io/blockchain-table-new/workshops/tenancy/?lab=introduction
-### Customer References - new
+### Customer References
 
 - Early Warning, U of Naples, Shinhan Securities
 

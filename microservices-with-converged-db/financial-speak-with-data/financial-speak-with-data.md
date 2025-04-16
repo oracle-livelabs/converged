@@ -9,7 +9,7 @@ Process:
 
 -  Understand 
 
-### Customer References - new
+### Customer References
 
 - Responsys, FSGBU
 
@@ -25,17 +25,17 @@ This lab assumes you have already completed the earlier labs.
 
 1. setup...
 
-## Low-level side by side comparison with alternative - new
+## Low-level side by side comparison with alternative
 
 Kafka vs TxEventQ (and TxEventQ with Kafka API)
 
 ![Mongo & Postgress & Kafka to Oracle](images/mongopostgreskafka_vs_OracleAQ.png " ")
 
-## Migration - new
+## Migration
 
 1. Instructions on bootstrap.properties
 
-## Scaling, Sizing, and Performance - new
+## Scaling, Sizing, and Performance
 
 1) TxEventQ  - Responsys Emulated Scalability/Stress Testing Benchmarking - 19c | 70-Q | Single Consumer Qs
    A) Our OCI/On-prem RAC Cluster

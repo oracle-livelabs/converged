@@ -9,7 +9,7 @@ Process: External bank transfer
 
 - Understand MicroTx, Lock-free reservations, Spring Boot, and Oracle Backend As A Service
 
-### Customer References - new
+### Customer References
 
 - Early Warning, University of Naples
 

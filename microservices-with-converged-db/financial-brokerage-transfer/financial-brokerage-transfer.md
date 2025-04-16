@@ -9,13 +9,16 @@ Process:
 
 -  Understand 
 
-### Customer References - new
+### Customer References
 
-- 
+- Responsys, FSGBU
 
 ### Product Management And Other Contacts
 
-- Amit Ke
+- Nithin Thekkupadam Narayanan
+- Anders Swanson
+- Ishan Chokshi
+- Amit Ketkar
 
 ### Prerequisites
 
@@ -25,17 +28,17 @@ This lab assumes you have already completed the earlier labs.
 
 1. setup...
 
-## Low-level side by side comparison with alternative - new
+## Low-level side by side comparison with alternative
 
 Kafka vs TxEventQ (and TxEventQ with Kafka API)
 
 ![Mongo & Postgress & Kafka to Oracle](images/mongopostgreskafka_vs_OracleAQ.png " ")
 
-## Migration - new
+## Migration
 
-1. Instructions on bootstrap.properties
+   [Migrate Apache Kafka applications to Oracle Database blog by Anders Swanson](https://www.linkedin.com/pulse/migrate-apache-kafka-applications-oracledatabase-anders-swanson-fd6vc)
 
-## Scaling, Sizing, and Performance - new
+## Scaling, Sizing, and Performance
 
 1) TxEventQ  - Responsys Emulated Scalability/Stress Testing Benchmarking - 19c | 70-Q | Single Consumer Qs
    A) Our OCI/On-prem RAC Cluster

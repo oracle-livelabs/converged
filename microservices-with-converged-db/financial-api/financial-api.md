@@ -9,7 +9,7 @@ Process:
 
 -  Understand 
 
-### Customer References - new
+### Customer References
 
 - 
 

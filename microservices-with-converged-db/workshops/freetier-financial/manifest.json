@@ -19,11 +19,11 @@
         "filename": "../../financial-profile-and-account/financial-profile-and-account.md"
       },
       {
-        "title": "Lab 3: External bank transfer (MicroTx, Lock-free reservations)",
+        "title": "Lab 3: Transfer to external bank (MicroTx, Lock-free reservations)",
         "filename": "../../financial-banktransfer/financial-banktransfer.md"
       },
       {
-        "title": "Lab 4: Transfer to internal and brokerage accounts (Kafka vs TxEventQ)",
+        "title": "Lab 4: Transfer to brokerage accounts (Kafka vs TxEventQ)",
         "filename": "../../financial-brokerage-transfer/financial-brokerage-transfer.md"
       },
       {
