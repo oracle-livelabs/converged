@@ -16,7 +16,7 @@ Each lab contains
 - Scaling, Sizing, and Performance
 
 
-Estimated Workshop Time: Each lab ranges from 30 to 120 minutes and most are modular and do not depend on other labs. Entire workshop takes ~5 hours.
+Estimated Workshop Time: Each lab ranges from 30 to 120 minutes and most do not depend on other labs. Entire workshop takes ~5 hours.
 
 ### About Product/Technology
 
