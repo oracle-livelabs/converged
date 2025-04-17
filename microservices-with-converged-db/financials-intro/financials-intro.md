@@ -11,7 +11,7 @@ Each lab contains
 - Customer References
 - Product Management And Other Contacts
 - Prerequisites
-- Low/code-level side by side comparison with alternatives
+- Low-level/code-level side by side comparison with alternatives
 - Migration
 - Scaling, Sizing, and Performance
 
