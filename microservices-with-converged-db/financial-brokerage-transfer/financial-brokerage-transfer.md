@@ -11,7 +11,7 @@ Process:
 
 ### Customer References
 
-- Responsys, FSGBU
+- FSGBU
 
 ### Product Management And Other Contacts
 
@@ -74,6 +74,7 @@ You may now proceed to the next lab.
 
 * [Oracle Database](https://bit.ly/mswsdatabase)
 * [Workshop: Getting Started With Oracle Database Transactional Event Queues (TxEventQ)](https://apexapps.oracle.com/pls/apex/r/dbpm/livelabs/view-workshop?wid=1016)
+* Python, ADT payload forTxEventQ
 
 ## Acknowledgements
 * **Authors** - Paul Parkinson, Architect and Developer Advocate

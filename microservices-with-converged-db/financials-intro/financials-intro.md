@@ -49,10 +49,10 @@ NOTE: More financial personas will be added (analyst vs customer vs data scienti
     </tr>
   </thead>
   <tbody>
-    <tr style="background-color: #fff3cd;"><td>1</td><td>Infra Setup</td><td>Kubernetes, Oracle Database, Observability/Otel, Backend for MS and AI</td><td>LOLC</td><td>90% 4/14</td></tr>
+    <tr style="background-color: #fff3cd;"><td>1</td><td>Infra Setup</td><td>Kubernetes, Oracle Database, Observability/Otel, Backend for MS and AI</td><td>LOLC</td><td>100% 4/14</td></tr>
     <tr style="background-color: #fff3cd;"><td>2</td><td>Create profile and bank account</td><td>React, Spring Boot, JPA     based on documents</td><td></td><td>90% 4/19</td></tr>
     <tr style="background-color: #fff3cd;"><td>3</td><td>External bank transfer</td><td>MicroTx, Lock-free reservations, Spring Boot</td><td>Early Warning, U of Naples, Shinhan Securities</td><td>60% 4/17</td></tr>
-    <tr style="background-color: #fff3cd;"><td>4</td><td>Transfer to internal and brokerage accounts</td><td>Kafka vs TxEventQ using Spring Boot- Python, ADT TxEventQ</td><td>Responsys, FSGBU</td><td>90% 4/20</td></tr>
+    <tr style="background-color: #fff3cd;"><td>4</td><td>Transfer to internal and brokerage accounts</td><td>Kafka vs TxEventQ using Spring Boot</td><td>Responsys, FSGBU</td><td>90% 4/20</td></tr>
     <tr style="background-color: #f8d7da;"><td>5</td><td>Withdraw/Deposit Cash from ATM</td><td>Polyglot</td><td></td><td>30% 4/21</td></tr>
     <tr style="background-color: #f8d7da;"><td>6</td><td>Mobile Check Deposit</td><td>OCI Vision/document</td><td></td><td>10% 4/22</td></tr>
     <tr style="background-color: #fff3cd;"><td>7</td><td>Purchase from retailer using credit card</td><td>MongoDB relational duality, distributed db (GDB)</td><td>Santander, ANZ Bank, Amex, BoA</td><td>30% 4/23</td></tr>
