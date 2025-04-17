@@ -14,7 +14,7 @@ Each lab contains
 - Low-level, code-level side by side comparison with alternatives
 - Migration
 - Scaling, Sizing, and Performance
-
+- Walk-through script and video
 
 Estimated Workshop Time: Each lab ranges from 30 to 120 minutes and most do not depend on other labs. Entire workshop takes ~5 hours.
 
