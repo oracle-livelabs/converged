@@ -3,6 +3,11 @@
 ## Introduction
 
 Process:
+Fraud detection is inherently event-driven: each transaction is an event.
+Knative Eventing provides a scalable, serverless way to route those events.
+CloudEvents provides a standardized event format, enabling portability across services and clouds.
+Enables real-time, loosely-coupled, and resilient fraud detection flows.
+Great fit for microservices that need to respond to events without being tightly integrated.
 
 
 ### Objectives
