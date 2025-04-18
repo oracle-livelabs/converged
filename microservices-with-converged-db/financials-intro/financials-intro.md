@@ -59,7 +59,7 @@ NOTE: More financial personas will be added (analyst vs customer vs data scienti
     <tr style="background-color: #fff3cd;"><td>8</td><td>Bank Account Statement and Portfolio Analysis</td><td>Kafka, Flink, Iceberg, Data import, Redash/Metabase/Superset, etc.</td><td>ANZ Bank, Bankinter</td><td>20% 4/23</td></tr>
     <tr style="background-color: #d4edda;"><td>9</td><td>Fraud alerts on credit card purchases</td><td>OML, Graph, Knative Eventing, CloudEvents, Spatial</td><td>Caixabank</td><td>60% 4/23</td></tr>
     <tr style="background-color: #f8d7da;"><td>10</td><td>Money Laundering</td><td>Graph</td><td>PaySafe, Garanti Bank, Mercardolibre</td><td>80% 4/19</td></tr>
-    <tr style="background-color: #fff3cd;"><td>11</td><td>Financial PDF/doc search, live contracts</td><td>Vector Search, RAG, MCP and AI Agents (onedrive source, ...)</td><td>recent customer reference just announced</td><td>50% 4/23</td></tr>
+    <tr style="background-color: #fff3cd;"><td>11</td><td>Financial PDF/doc search, live contracts</td><td>Vector Search, RAG, MCP and AI Agents</td><td>recent customer reference just announced</td><td>50% 4/23</td></tr>
     <tr style="background-color: #fff3cd;"><td>12</td><td>Stock Ticker and Stock Purchases</td><td>TrueCache, priority txs</td><td>NYSE</td><td>50% 4/19</td></tr>
     <tr style="background-color: #fff3cd;"><td>13</td><td>FinTech APIs ORDS OpenAPI</td><td>ORDS OpenAPI</td><td>Financiera Maestra, Bank of India</td><td>✅</td></tr>
     <tr style="background-color: #fff3cd;"><td>14</td><td>"Speak with your financial data"</td><td>Select AI, Vector Search (AI Explorer for Apps), Speech AI</td><td></td><td>80% 4/18</td></tr>
