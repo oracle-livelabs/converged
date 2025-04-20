@@ -65,7 +65,7 @@ NOTE: More financial personas will be added (analyst vs customer vs data scienti
     <tr style="background-color: #fff3cd;"><td>14</td><td>"Speak with your financial data"</td><td>Select AI, Vector Search (AI Explorer for Apps), Speech AI</td><td></td><td>80% 4/18</td></tr>
     <tr style="background-color: #d4edda;"><td>15</td><td>personal investment, wealth advisement</td><td></td><td>Merrill Lynch</td><td>5% 4/30</td></tr>
     <tr style="background-color: #d4edda;"><td>16</td><td>Insurance premium leakage</td><td>ML</td><td></td><td>5% 4/30</td></tr>
-    <tr style="background-color: #fff3cd;"><td>16</td><td>Security: DataSafe, SQL Firewall, ...</td><td>ML</td><td></td><td>5% 4/30</td></tr>
+    <tr style="background-color: #fff3cd;"><td>16</td><td>Security: DataSafe, SQL Firewall, masking (Nasdaq prod to non-prod), ...</td><td>ML</td><td></td><td>5% 4/30</td></tr>
   </tbody>
 </table>
 
