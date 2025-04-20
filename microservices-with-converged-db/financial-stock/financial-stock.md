@@ -37,6 +37,7 @@ You may now proceed to the next lab.
 
 * [Oracle Database](https://bit.ly/mswsdatabase)
 * [Oracle True Cache on OraTech YouTube](https://www.youtube.com/watch?v=ecxflHglhJo)
+* https://dineshbandelkar.com/oracle-23ai-true-cache/
 
 ## Acknowledgements
 * **Authors** - Paul Parkinson, Architect and Developer Advocate

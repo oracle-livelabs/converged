@@ -7,18 +7,7 @@ Process:
 
 ### Objectives
 
-Benefits of front end in React, because its popular, etc.
-Why built in react
-why/how it ties into everything else, "we didnt pick because"
-remember sales will explain to developer
 
-- In this lab we look closer at identifying money laundering use Graph and Spatial in the Oracle database.  Customer such as x, y, and z use such techniques.
-- A p
-
-Internal, what sales should say and how to without looking stupid
-key things to say from paul brain to sales, sand what questions encountered
-
-ask how they want it , long vides, short, ...
 
 ### Customer References
 
@@ -50,6 +39,7 @@ You may now proceed to the next lab.
 ## Learn More
 
 * [Oracle Database](https://bit.ly/mswsdatabase)
+* [Graph Studio: Find Circular Payment Chains with Graph Queries in Autonomous Database]https://livelabs.oracle.com/pls/apex/r/dbpm/livelabs/run-workshop?p210_wid=770)
 * [Paysafe Case Study Using Oracle Graph and Spatial](https://www.oracle.com/a/ocom/docs/paysafe-case-study.pdf)
 
 ## Acknowledgements
