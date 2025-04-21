@@ -48,14 +48,14 @@ NOTE: More financial personas will be added (analyst vs customer vs data scienti
       <th>% complete/ETA</th>
   </thead>
   <tbody>
-    <tr style="background-color: #fff3cd;"><td>1</td><td>Infra Setup</td><td>Kubernetes, Oracle Database, Observability/Otel, Backend for MS and AI</td><td>LOLC</td><td>✅</td></tr>
-    <tr style="background-color: #fff3cd;"><td>13</td><td>FinTech APIs ORDS OpenAPI</td><td>ORDS OpenAPI</td><td>Financiera Maestra, Bank of India</td><td>✅</td></tr>
-    <tr style="background-color: #fff3cd;"><td>2</td><td>Create profile and bank account</td><td>React, Spring Boot, JPA     based on documents</td><td></td><td>90% 4/19</td></tr>
-    <tr style="background-color: #fff3cd;"><td>3</td><td>External bank transfer</td><td>MicroTx, Lock-free reservations, Spring Boot</td><td>Early Warning, U of Naples, Shinhan Securities</td><td>80% 4/18</td></tr>
-    <tr style="background-color: #d4edda;"><td>9</td><td>Fraud alerts on credit card purchases</td><td>OML, Graph, Knative Eventing, CloudEvents, Spatial</td><td>Caixabank</td><td>60% 4/23</td></tr>
-    <tr style="background-color: #fff3cd;"><td>4</td><td>Transfer to brokerage accounts</td><td>Kafka vs TxEventQ using Spring Boot</td><td>Responsys, FSGBU</td><td>90% 4/20</td></tr>
-    <tr style="background-color: #fff3cd;"><td>12</td><td>Stock Ticker and Stock Purchases</td><td>TrueCache, priority txs</td><td>NYSE</td><td>50% 4/19</td></tr>
-    <tr style="background-color: #d4edda;"><td>15</td><td>Personal investment, Wealth advisement</td><td></td><td>Merrill Lynch</td><td>10% 4/30</td></tr>
+    <tr style="background-color: #d4edda;"><td>1</td><td>Infra Setup</td><td>Kubernetes, Oracle Database, Observability/Otel, Backend for MS and AI</td><td>LOLC</td><td>✅</td></tr>
+    <tr style="background-color: #d4edda;"><td>2</td><td>FinTech APIs ORDS OpenAPI</td><td>ORDS OpenAPI</td><td>Financiera Maestra, Bank of India</td><td>✅</td></tr>
+    <tr style="background-color: #d4edda;"><td>3</td><td>Create profile and bank account</td><td>React, Spring Boot, JPA     based on documents</td><td></td><td>90% 4/19</td></tr>
+    <tr style="background-color: #d4edda;"><td>4</td><td>External bank transfer</td><td>MicroTx, Lock-free reservations, Spring Boot</td><td>Early Warning, U of Naples, Shinhan Securities</td><td>80% 4/18</td></tr>
+    <tr style="background-color: #d4edda;"><td>5</td><td>Fraud alerts on credit card purchases</td><td>OML, Graph, Knative Eventing, CloudEvents, Spatial</td><td>Caixabank</td><td>60% 4/23</td></tr>
+    <tr style="background-color: #d4edda;"><td>6</td><td>Transfer to brokerage accounts</td><td>Kafka vs TxEventQ using Spring Boot</td><td>Responsys, FSGBU</td><td>90% 4/20</td></tr>
+    <tr style="background-color: #d4edda;"><td>7</td><td>Stock Ticker and Stock Purchases</td><td>TrueCache, priority txs</td><td>NYSE</td><td>50% 4/19</td></tr>
+    <tr style="background-color: #d4edda;"><td>8</td><td>Personal investment, Wealth advisement</td><td></td><td>Merrill Lynch</td><td>10% 4/30</td></tr>
   </tbody>
 </table>
 
