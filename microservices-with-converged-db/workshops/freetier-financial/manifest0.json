@@ -19,28 +19,48 @@
         "filename": "../../financial-api/financial-api.md"
       },
       {
-        "title": "Lab 2: Manage profile and view portfolio report (MERN stack)" ,
+        "title": "Lab 2: Create/Update profile and bank account (MERN stack)" ,
         "filename": "../../financial-profile-and-account/financial-profile-and-account.md"
       },
       {
-        "title": "Lab 3: Transfer to external bank (MicroTx Saga, Lock-free reservations)",
+        "title": "Lab 3: Transfer to external bank (MicroTx Saga, Lock-free reservations, )",
         "filename": "../../financial-banktransfer/financial-banktransfer.md"
-      },
-      {
-        "title": "Lab 10: Money Laundering (Graph)",
-        "filename": "../../financial-laundering/financial-laundering.md"
       },
       {
         "title": "Lab 4: Transfer to brokerage accounts (Kafka vs TxEventQ)",
         "filename": "../../financial-brokerage-transfer/financial-brokerage-transfer.md"
       },
       {
-        "title": "Lab 5: Stock Ticker and Purchase (TrueCache)",
-        "filename": "../../financial-stock/financial-stock.md"
+        "title": "Lab 5: Deposit/withdraw cash from ATM (.NET, Go, C++, Rust and WASM (polyglot))",
+        "filename": "../../financial-atm/financial-atm.md"
       },
       {
-        "title": "Lab 11: Personal investment, Wealth advisement (Vector Search, AI Agents, MCP)",
+        "title": "Lab 6: Mobile check deposit (OCI Vision/document with Oracle Database)",
+        "filename": "../../financial-mobile-check/financial-mobile-check.md"
+      },
+      {
+        "title": "Lab 7: Purchase from retailer using credit card (MongoDB and relational duality, distributed database)",
+        "filename": "../../financial-creditcard-purchase/financial-creditcard-purchase.md"
+      },
+      {
+        "title": "Lab 8: Bank Account Statement and Portfolio Analysis (Apache Flink, Iceberg)",
         "filename": "../../financial-reporting/financial-reporting.md"
+      },
+      {
+        "title": "Lab 9: Fraud alerts on credit card purchase (OML, Graph, Knative Eventing, CloudEvents, Spatial)",
+        "filename": "../../financial-fraud-alerts/financial-fraud-alerts.md"
+      },
+      {
+        "title": "Lab 10: Money Laundering (Graph)",
+        "filename": "../../financial-laundering/financial-laundering.md"
+      },
+      {
+        "title": "Lab 11: Financial PDF/doc search (Vector Search, RAG)",
+        "filename": "../../financial-vector/financial-vector.md"
+      },
+      {
+        "title": "Lab 12: Stock Ticker and Purchase (TrueCache)",
+        "filename": "../../financial-stock/financial-stock.md"
       },
       {
         "title": "Lab 14: \"Speak with your (financial) data\" (Select AI, Vector Search (AI Explorer for Apps), Speech AI)",

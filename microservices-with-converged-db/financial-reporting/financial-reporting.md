@@ -70,6 +70,7 @@ You may now proceed to the next lab.
 
 * [Oracle Database](https://bit.ly/mswsdatabase)
 * https://www.oracle.com/artificial-intelligence/build-multiagent-rag-solutionon-oci/ https://github.com/oracle-devrel/devrel-labs/tree/update/agentic_rag
+* https://blogs.oracle.com/developers/post/agentic-rag-enterprisescale-multiagent-ai-system-on-oracle-cloud-infrastructure
 * [python-oracledb 3.0 Data Frames — a new way to query data](https://medium.com/oracledevs/python-oracledb-3-0-data-frames-a-new-way-to-query-data-4139418bef82)
 * [Writing to Parquet and Delta Lake files from Oracle Database using Python](https://levelup.gitconnected.com/writing-to-parquet-and-delta-lake-files-from-oracle-database-using-python-5f7382bfcdc6)
 
