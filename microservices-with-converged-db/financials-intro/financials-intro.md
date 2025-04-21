@@ -63,9 +63,10 @@ NOTE: More financial personas will be added (analyst vs customer vs data scienti
     <tr style="background-color: #fff3cd;"><td>12</td><td>Stock Ticker and Stock Purchases</td><td>TrueCache, priority txs</td><td>NYSE</td><td>50% 4/19</td></tr>
     <tr style="background-color: #fff3cd;"><td>13</td><td>FinTech APIs ORDS OpenAPI</td><td>ORDS OpenAPI</td><td>Financiera Maestra, Bank of India</td><td>✅</td></tr>
     <tr style="background-color: #fff3cd;"><td>14</td><td>"Speak with your financial data"</td><td>Select AI, Vector Search (AI Explorer for Apps), Speech AI</td><td></td><td>80% 4/18</td></tr>
-    <tr style="background-color: #d4edda;"><td>15</td><td>personal investment, wealth advisement</td><td></td><td>Merrill Lynch</td><td>5% 4/30</td></tr>
+    <tr style="background-color: #d4edda;"><td>15</td><td>Personal investment, Wealth advisement</td><td></td><td>Merrill Lynch</td><td>10% 4/30</td></tr>
     <tr style="background-color: #d4edda;"><td>16</td><td>Insurance premium leakage</td><td>ML</td><td></td><td>5% 4/30</td></tr>
-    <tr style="background-color: #fff3cd;"><td>16</td><td>Security: DataSafe, SQL Firewall, masking (Nasdaq prod to non-prod), ...</td><td>ML</td><td></td><td>5% 4/30</td></tr>
+    <tr style="background-color: #fff3cd;"><td>16</td><td>Security: DataSafe, SQL Firewall, masking (Nasdaq prod to non-prod), <br>Get Started with Oracle Data Safe Fundamentals: https://livelabs.oracle.com/pls/apex/r/dbpm/livelabs/run-workshop?p210_wid=598
+</td><td>ML</td><td></td><td>5% 4/30</td></tr>
   </tbody>
 </table>
 

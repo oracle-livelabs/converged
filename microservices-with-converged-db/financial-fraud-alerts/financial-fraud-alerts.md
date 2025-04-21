@@ -20,7 +20,7 @@ Great fit for microservices that need to respond to events without being tightly
 
 ### Product Management And Other Contacts - new
 
-- 
+- Spatial: David Lapp
 
 ### Prerequisites
 
@@ -31,7 +31,9 @@ This lab assumes you have already completed the earlier labs.
 1. setup...
 
 
+## Low-level side by side comparison with alternative
 
+https://carto.com/solutions/spatial-data-science
 
 You may now proceed to the next lab.
 
