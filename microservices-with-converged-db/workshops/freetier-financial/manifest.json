@@ -19,7 +19,7 @@
         "filename": "../../financial-api/financial-api.md"
       },
       {
-        "title": "Lab 2: Manage profile and view portfolio report (MERN stack)" ,
+        "title": "Lab 2: Account Management (MERN stack)" ,
         "filename": "../../financial-profile-and-account/financial-profile-and-account.md"
       },
       {
@@ -28,7 +28,7 @@
       },
       {
         "title": "Lab 10: Money Laundering (Graph)",
-        "filename": "../../financial-laundering/financial-laundering.md"
+        "filename": "../../financial-fraud-alerts/financial-fraud-alerts.md"
       },
       {
         "title": "Lab 4: Transfer to brokerage accounts (Kafka vs TxEventQ)",

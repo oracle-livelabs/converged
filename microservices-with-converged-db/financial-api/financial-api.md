@@ -4,6 +4,8 @@
 
 This lab will allow you to create an ORDS endpoint to expose financial data and processes via Rest APIs
 
+
+
 ### Objectives
 
 -  Understand ORDS and how it can be used to easily publish financial data and process API
@@ -29,9 +31,21 @@ ORDS: Jeff Smith
 
 ### Prerequisites
 
-This lab only requires 
+This lab only requires that you have an Oracle Autonomous Database
 
 ## Task 1: Enable ORDS Rest endpoint via console or with PL/SQL
+
+1. s*etup...*
+
+
+
+## Task 2: Access ORDS Rest endpoint
+
+1. s*etup...*
+
+
+
+## Task 3: Create ORDS handlers and expose stored procedures (processes)
 
 1. s*etup...*
 
