@@ -15,35 +15,43 @@
         "filename": "../../financial-setup/financial-setup.md"
       },
       {
-        "title": "Lab 2: FinTech/Bank APIs (ORDS OpenAPI)",
+        "title": "Lab 2: Publish financial APIS (ORDS, OpenAPI)",
         "filename": "../../financial-api/financial-api.md"
       },
       {
-        "title": "Lab 3: Account Management (MERN stack)" ,
+        "title": "Lab 3: Create and view accounts (MongoDB/MERN stack)" ,
         "filename": "../../financial-profile-and-account/financial-profile-and-account.md"
       },
       {
-        "title": "Lab 3: Transfer to external bank (MicroTx Saga, Lock-free reservations)",
+        "title": "Lab 4: Deposit/withdraw money (ATM) (Polyglot)",
+        "filename": "../../financial-polyglot/financial-polyglot.md"
+      },
+      {
+        "title": "Lab 5: Transfer to external bank (MicroTx, Lock-free reservations)",
         "filename": "../../financial-banktransfer/financial-banktransfer.md"
       },
       {
-        "title": "Lab 10: Money Laundering (Graph)",
+        "title": "Lab 6: Make purchases and detect fraud (Globally Distributed DB, OML, Spatial)",
+        "filename": "../../financial-creditcard-purchase/financial-creditcard-purchase.md"
+      },
+      {
+        "title": "Lab 7: Detetc money Laundering (Graph)",
         "filename": "../../financial-fraud-alerts/financial-fraud-alerts.md"
       },
       {
-        "title": "Lab 4: Transfer to brokerage accounts (Kafka vs TxEventQ)",
+        "title": "Lab 8: Transfer to brokerage accounts (Kafka and TxEventQ)",
         "filename": "../../financial-brokerage-transfer/financial-brokerage-transfer.md"
       },
       {
-        "title": "Lab 5: Stock Ticker and Purchase (TrueCache)",
+        "title": "Lab 9: View stock ticker and buy/sell stock (TrueCache)",
         "filename": "../../financial-stock/financial-stock.md"
       },
       {
-        "title": "Lab 11: Personal investment, Wealth advisement (Vector Search, AI Agents, MCP)",
+        "title": "Lab 10: Get personal financial insights (Vector Search, AI Agents and MCP)",
         "filename": "../../financial-reporting/financial-reporting.md"
       },
       {
-        "title": "Lab 14: \"Speak with your (financial) data\" (Select AI, Vector Search (AI Explorer for Apps), Speech AI)",
+        "title": "Lab 11: \"Speak with your financial data\" (NL2SQL, Vector Search, Speech AI)",
         "filename": "../../financial-speak-with-data/financial-speak-with-data.md"
       },
       {
