@@ -1,4 +1,4 @@
-# Purchase from retailer using credit card
+# Purchase using credit card and detect suspicious transactions
 
 ## Introduction
 
@@ -8,11 +8,11 @@
 
 ### Objectives
 
--  Understand 
+-  Understand concepts of Globally Distribute Database, OML, and Spatial in the context of a final
 
 ### Customer References 
 
-- AMEX, Bank Of America
+- AMEX
 
 ### Product Management And Other Contacts
 
@@ -28,11 +28,6 @@ This lab assumes you have already completed the earlier labs.
 
 1. setup...
 
-## Migration from MongoDB to Oracle Database (accessing with MongoDB API and/or SQL)
-
-Josh Spiegel: "The Mongo API process itself tends to be lightweight
-So deploying it in the application tier (like on the compute nodes that run the application logic) is a simple solution
-But you can also put a dedicated cluster behind a load balancer."
 
 ## Learn More
 
@@ -53,6 +48,9 @@ https://apexapps.oracle.com/pls/apex/r/dbpm/livelabs/view-workshop?wid=3772
 
 Oracle Globally Distributed Database supports RAFT Replication in Oracle Database 23ai
 https://blogs.oracle.com/database/post/raft-replication-in-distributed-23c
+
+Pinpoint suspicious financial transactions with Oracle Spatial and Python
+https://oracle-livelabs.github.io/spatial-graph/spatial-python/workshops/pinpoint-fraud/sandbox/index.html
 
 ## Acknowledgements
 * **Authors** - Paul Parkinson, Architect and Developer Advocate
