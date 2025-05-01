@@ -11,7 +11,7 @@
         "filename": "https://oracle-livelabs.github.io/common/labs/cloud-login/pre-register-free-tier-account.md"
       },
       {
-        "title": "Lab 1: Setup (Database, Kubernetes, Observability/Otel, Security, Backend for MS and AI...)",
+        "title": "Lab 1: Setup (Database, Kubernetes, Observability)",
         "filename": "../../financial-setup/financial-setup.md"
       },
       {
@@ -55,7 +55,7 @@
         "filename": "../../financial-speak-with-data/financial-speak-with-data.md"
       },
       {
-        "title": "Lab 14: Tear Down",
+        "title": "Lab 12: Tear Down",
         "filename": "../../teardown/teardown.md"
       },
       {

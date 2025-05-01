@@ -27,16 +27,8 @@ NOTE: More financial personas will be added (analyst vs customer vs data scienti
 
 ### Objectives
 
-- Learn about Oracle features in depth and how they facilitate various financial sectors
+- Learn about Oracle Database and AI features in depth and how they facilitate various financial sectors
 - Learn how to develop, migrate, scale, etc. financial solutions using Oracle Database 
-
-
-<div style="margin-bottom: 1em;">
-  <strong>Priority:</strong>
-  <span style="display:inline-block; width:16px; height:16px; background-color:#d4edda; border:1px solid #ccc; margin-right:5px;"></span> Highest
-  <span style="display:inline-block; width:16px; height:16px; background-color:#fff3cd; border:1px solid #ccc; margin:0 5px 0 15px;"></span> Mid
-  <span style="display:inline-block; width:16px; height:16px; background-color:#f8d7da; border:1px solid #ccc; margin:0 5px 0 15px;"></span> Lower
-</div>
 
 <table>
   <thead>
@@ -44,18 +36,19 @@ NOTE: More financial personas will be added (analyst vs customer vs data scienti
       <th>Lab</th>
       <th>Financial Process</th>
       <th>Oracle and other tech used</th>
-      <th>Company using</th>
-      <th>% complete/ETA</th>
+      <th>Reference</th>
   </thead>
   <tbody>
-    <tr style="background-color: #d4edda;"><td>1</td><td>Infra Setup</td><td>Kubernetes, Oracle Database, Observability/Otel, Backend for MS and AI</td><td>LOLC</td><td>✅</td></tr>
-    <tr style="background-color: #d4edda;"><td>2</td><td>FinTech APIs ORDS OpenAPI</td><td>ORDS OpenAPI</td><td>Financiera Maestra, Bank of India</td><td>✅</td></tr>
-    <tr style="background-color: #d4edda;"><td>3</td><td>Create profile and bank account</td><td>React, Spring Boot, JPA     based on documents</td><td></td><td>90% 4/19</td></tr>
-    <tr style="background-color: #d4edda;"><td>4</td><td>External bank transfer</td><td>MicroTx, Lock-free reservations, Spring Boot</td><td>Early Warning, U of Naples, Shinhan Securities</td><td>80% 4/18</td></tr>
-    <tr style="background-color: #d4edda;"><td>5</td><td>Fraud alerts on credit card purchases</td><td>OML, Graph, Knative Eventing, CloudEvents, Spatial</td><td>Caixabank</td><td>60% 4/23</td></tr>
-    <tr style="background-color: #d4edda;"><td>6</td><td>Transfer to brokerage accounts</td><td>Kafka vs TxEventQ, Polyglot</td><td>FSGBU</td><td>90% 4/20</td></tr>
-    <tr style="background-color: #d4edda;"><td>7</td><td>Stock Ticker and Stock Purchases</td><td>TrueCache, priority txs</td><td>NYSE</td><td>50% 4/19</td></tr>
-    <tr style="background-color: #d4edda;"><td>8</td><td>Personal investment, Wealth advisement</td><td></td><td>Merrill Lynch</td><td>10% 4/30</td></tr>
+    <tr style="background-color: #d4edda;"><td>1</td><td>Infra Setup</td><td>Kubernetes, Oracle Database, Observability</td><td>LOLC</td></tr>
+    <tr style="background-color: #d4edda;"><td>2</td><td>Publish financial APIS</td><td>ORDS, OpenAPI</td><td>Financiera Maestra, Bank of India</td></tr>
+    <tr style="background-color: #d4edda;"><td>3</td><td>Create and view accounts</td><td>MongoDB/MERN stack</td><td></td></tr>
+    <tr style="background-color: #d4edda;"><td>3</td><td>Create and view accounts</td><td>MongoDB/MERN stack</td><td></td></tr>
+    <tr style="background-color: #d4edda;"><td>4</td><td>Deposit/withdraw money (ATM)</td><td>Polyglot</td><td>Polyglot</td></tr>
+    <tr style="background-color: #d4edda;"><td>5</td><td>Make purchases and detect fraud</td><td>Globally Distributed DB, OML, Spatial</td><td>MicroTx, AMEX</td></tr>
+    <tr style="background-color: #d4edda;"><td>5</td><td>Fraud alerts on credit card purchases</td><td>G</td><td>Caixabank</td></tr>
+    <tr style="background-color: #d4edda;"><td>6</td><td>Transfer to brokerage accounts</td><td>Kafka vs TxEventQ, Polyglot</td><td>FSGBU</td></tr>
+    <tr style="background-color: #d4edda;"><td>7</td><td>Stock Ticker and Stock Purchases</td><td>TrueCache, priority txs</td><td>NYSE</td></tr>
+    <tr style="background-color: #d4edda;"><td>8</td><td>Personal investment, Wealth advisement</td><td></td><td>DMCC</td></tr>
   </tbody>
 </table>
 
@@ -63,7 +56,8 @@ NOTE: More financial personas will be added (analyst vs customer vs data scienti
 
 ### Prerequisites
 
- - An OCI Account and sufficient compute whether on-prem on any cloud... ("sufficient" is dependent on which labs are conducted and so varies)
+ - There a multiple environments that can be used for this workshops and each lab has different requirements, with most module to the point where they can be run independently of others. See individual lab pages for instructions.
+ - An OCI Account and/or sufficient compute whether on-prem on any cloud is required ("sufficient" is dependent on which labs are conducted and so varies)
 
 ## Learn More
 
