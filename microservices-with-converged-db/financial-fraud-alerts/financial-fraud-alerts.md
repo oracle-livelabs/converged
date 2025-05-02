@@ -18,7 +18,7 @@ Great fit for microservices that need to respond to events without being tightly
 
 - 
 
-### Product Management And Other Contacts - new
+### Product Management And Other Contacts
 
 - Spatial: David Lapp
 

@@ -27,7 +27,7 @@ NOTE: More financial personas will be added (analyst vs customer vs data scienti
 
 ### Objectives
 
-- Learn about Oracle Database and AI features in depth and how they facilitate various financial sectors
+- Learn about Oracle Database and AI features in depth and how they facilitate various financial services
 - Learn how to develop, migrate, scale, etc. financial solutions using Oracle Database 
 
 <table>

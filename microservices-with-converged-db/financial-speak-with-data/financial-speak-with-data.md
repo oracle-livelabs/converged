@@ -13,7 +13,7 @@ Process:
 
 - Responsys, FSGBU
 
-### Product Management And Other Contacts - new
+### Product Management And Other Contacts
 
 - Nithin Thekkupadam Narayanan
 

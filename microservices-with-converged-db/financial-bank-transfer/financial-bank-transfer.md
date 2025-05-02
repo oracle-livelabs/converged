@@ -13,7 +13,7 @@ Process: External bank transfer
 
 - Early Warning, University of Naples
 
-### Product Management And Other Contacts - new
+### Product Management And Other Contacts
 
 - Todd Little
 - Brijesh 
