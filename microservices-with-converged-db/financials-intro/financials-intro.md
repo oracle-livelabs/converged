@@ -31,28 +31,7 @@ See application scr below for labs and corresponding technology used.
 - Learn about Oracle Database and AI features in depth and how they facilitate various financial services
 - Learn how to develop, migrate, scale, etc. financial solutions using Oracle Database
 
-<table>
-  <thead>
-    <tr>
-      <th>Lab</th>
-      <th>Financial Process</th>
-      <th>Oracle and other tech used</th>
-      <th>Reference</th>
-  </thead>
-  <tbody>
-    <tr style="background-color: #d4edda;"><td>1</td><td>Infra Setup</td><td>Kubernetes, Oracle Database, Observability</td><td>LOLC</td></tr>
-    <tr style="background-color: #d4edda;"><td>2</td><td>Publish financial APIS</td><td>ORDS, OpenAPI</td><td>Financiera Maestra, Bank of India</td></tr>
-    <tr style="background-color: #d4edda;"><td>3</td><td>Create and view accounts</td><td>MongoDB/MERN stack</td><td></td></tr>
-    <tr style="background-color: #d4edda;"><td>3</td><td>Create and view accounts</td><td>MongoDB/MERN stack</td><td></td></tr>
-    <tr style="background-color: #d4edda;"><td>4</td><td>Deposit/withdraw money (ATM)</td><td>Polyglot</td><td>Polyglot</td></tr>
-    <tr style="background-color: #d4edda;"><td>5</td><td>Make purchases and detect fraud</td><td>Globally Distributed DB, OML, Spatial</td><td>MicroTx, AMEX</td></tr>
-    <tr style="background-color: #d4edda;"><td>5</td><td>Fraud alerts on credit card purchases</td><td>G</td><td>Caixabank</td></tr>
-    <tr style="background-color: #d4edda;"><td>6</td><td>Transfer to brokerage accounts</td><td>Kafka vs TxEventQ, Polyglot</td><td>FSGBU</td></tr>
-    <tr style="background-color: #d4edda;"><td>7</td><td>Stock Ticker and Stock Purchases</td><td>TrueCache, priority txs</td><td>NYSE</td></tr>
-    <tr style="background-color: #d4edda;"><td>8</td><td>Personal investment, Wealth advisement</td><td></td><td>DMCC</td></tr>
-  </tbody>
-</table>
-
+![Financial Application Architecture](./images/appscreenshot.png " ")
 
 
 ### Prerequisites
