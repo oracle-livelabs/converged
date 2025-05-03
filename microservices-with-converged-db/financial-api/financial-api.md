@@ -2,32 +2,27 @@
 
 ## Introduction
 
-This lab will allow you to create an ORDS endpoint to expose financial data and processes via Rest APIs
-
-
-
-### Objectives
-
--  Understand ORDS and how it can be used to easily publish financial data and process API
-
-### Persona
-
-Financial Analyst
-
-### Process
-
+Financial Process:
 Access/use financial data or processes from APIs
 Display the largest changes in portfolio
 
-### Developer Notes
+Tech Used:
+ORDS
 
+Reference:
+Sphere
+
+Developer Notes:
 Use Oracle Rest Data Services (ORDS) to expose APIs for data and processes
 Automatic OpenAPI is generated for seamless integration
 Expose data or processes in the database with a couple clicks or lines of code
 
-### Contacts
-
+Contacts:
 ORDS: Jeff Smith
+
+### Objectives
+
+-  Understand ORDS and how it can be used to easily publish financial data and process API
 
 ### Prerequisites
 

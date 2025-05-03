@@ -2,37 +2,40 @@
 
 ## Introduction
 
-MongoDB is a popular, open-source NoSQL database that stores data in a flexible, JSON-like format, making it ideal for handling large, unstructured, or semi-structured data.
+Create and view accounts
+MongoDB/MERN stack
+Decimal Point Analytics (DPA)
 
-The Oracle Database MongoDB API translates MongoDB client requests into SQL statements that are run by Oracle Database, allowing developers to easily use MongoDB clients with Oracle Database. 
+Financial Process:
+Create and query all accounts
 
+Developer Notes:
+Use Oracle Database MongoDB adapter to insert accounts using MongoDB application/MERN stack
+Query the accounts using relational/SQL commands from a Java/Spring Boot stack
+This is possible due to the JSON Duality feature
+
+Contacts:
+MongoDB Adapter and JSON Duality: Julian Dontcheff, Beda Hammerschmidt
 
 ### Objectives
 
--  Understand 
+-  Understand MongoDB adapter/MERN stack and JSON Duality and how it can be used in financial applications and analytics
 
-### Customer References
-
-- Responsys, FSGBU
-
-### Product Management And Other Contacts
-
-- Julian Dontcheff, Beda Hammerschmidt
 
 ### Prerequisites
 
 None.
 
-## Task 1: Create 
+## Task 1: Create/enable Oracle Database with MongoDB Adapter
 
-1. setup...
+1. Simply follow the directions here and use the MongoDB URL as you would any other in your MongoDB application
 
-The Oracle Database MongoDB API works best with release 22.3 or later of Oracle REST Data Services (ORDS)
+https://docs.oracle.com/en/cloud/paas/autonomous-database/serverless/adbsb/mongo-using-oracle-database-api-mongodb.html
 
 
 ## Migration
 
-Marco MongoDB migrator...
+Marco MongoDB migrator here...
 
 ## Scaling, Sizing, and Performance
 

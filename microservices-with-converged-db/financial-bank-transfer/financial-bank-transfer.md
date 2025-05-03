@@ -2,21 +2,25 @@
 
 ## Introduction
 
-Process: External bank transfer
+Financial Process:
+Transfer funds between banks
+
+Tech Used:
+MicroTx, Lock-free reservations
+
+Reference:
+University of Naples
+
+Developers:
+The only database that provides auto-compensating sagas (microservice transactions) and highest throughput for hotspots/fields
+Simplified development (~80% less code)
 
 
 ### Objectives
 
 - Understand MicroTx, Lock-free reservations, Spring Boot, and Oracle Backend As A Service
 
-### Customer References
 
-- Early Warning, University of Naples
-
-### Product Management And Other Contacts
-
-- Todd Little
-- Brijesh 
 
 ### Prerequisites
 
