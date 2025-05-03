@@ -2,14 +2,10 @@
 
 ## Introduction
 
-In this lab, we will provision and setup the resources to execute microservices in your tenancy.  
+In this lab, we will provision and database and cloud native tech (in particular Kubernetes)
 
 Estimated Time: 25 minutes
 
-Watch the video below for a quick walk through of the lab.
-** Note the steps to create or use your own Kubernetes cluster may very and so the documentation should be followed.
-
-[](youtube:KB9q2ADkjBc) 
 
 ### Objectives
 
