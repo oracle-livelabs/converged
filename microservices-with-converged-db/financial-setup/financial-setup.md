@@ -22,10 +22,13 @@ NOTE: Currently True Cache is not supported on autonomous database and so labs t
 
 1. This a convenient option to provision an Oracle Autonomous Database and Kubernetes with a number of preconfigured components for microservices, etc.  
     Follow the directions found here: https://docs.oracle.com/en/database/oracle/backend-for-microservices-and-ai/index.html
+    
+    You can also use a resource manager stack to setup Oracle Backend for Microservices and AI but accessing OCI Marketplace
 
 ## Task 2: If you have not done so, create an Oracle Database
 
 1. See https://www.oracle.com/database/free/
+2. All features and products in the labs can run on ADB (Autonomous Database) except for the True Cache 
 
 ## Task 3: If you have not done so, create Kubernetes cluster 
 
@@ -33,34 +36,15 @@ NOTE: Currently True Cache is not supported on autonomous database and so labs t
 
 
 
-###  Scaling, Sizing, and Performance
+#  Scaling, Sizing, and Performance
 
+** Note that these scaling and scaling, sizing, and performance procedures can be run for any lab and product as so the generic "financial-service" term is used throughout this doc.
 
-## Task 1: Install a Load Testing Tool and Start an External Load Balancer for the Order Service
+## Task 1: Install a Load Testing Tool and Expose an Endpoint for Testing
 
-1. Start an external load balancer for the order service.
+1. Expose and endpoint to test the financial-service.
 
-    ```
-    <copy>cd $WORKSHOP_HOME/financial-service; kubectl create -f ext-order-ingress.yaml -n msdataworkshop</copy>
-    ```
-
-   Check the ext-order LoadBalancer service and make note of the external IP address. This may take a few minutes to start.
-
-    ```
-    <copy>services</copy>
-    ```
-
-   ![LoadBalancer Service](images/ingress-nginx-loadbalancer-externalip.png " ")
-
-   Set the LB environment variable to the external IP address of the ingress-nginx-controller service. Replace 123.123.123.123 in the following command with the external IP address.
-
-    ```
-    <copy>export LB='123.123.123.123'</copy>
-    ```
-
-<if type="multicloud-freetier">
-+ `export LB=$(kubectl get gateway msdataworkshop-financial-service-appconf-gw -n msdataworkshop -o jsonpath='{.spec.servers[0].hosts[0]}')`
-</if>
+    This is the endpoint that will receive stress loading, etc., whatever it may be.
 
 2. Install a load testing tool.
 
@@ -98,7 +82,7 @@ NOTE: Currently True Cache is not supported on autonomous database and so labs t
     <copy>cd $WORKSHOP_HOME/artillery; ./test.sh</copy>
     ```
 
-2. Scale to **2 service replicas**.
+2. Scale the financial-service to **2 service replicas**.
 
     ```
     <copy>kubectl scale deployment.apps/financial-service --replicas=2 -n msdataworkshop</copy>
@@ -167,11 +151,11 @@ NOTE: Currently True Cache is not supported on autonomous database and so labs t
 
 ## Task 3: Load Test and Scale the Database Tier
 
-1. To scale the Order DB Autonomous Transaction Processing database to **2 OCPUs**, click the navigation icon in the top-left corner of the Console and go to Autonomous Transaction Processing.
+1. To scale the Autonomous Database to **2 OCPUs**, click the navigation icon in the top-left corner of the Console and go to Autonomous Transaction Processing.
 
    ![Navigate to Autonomous Transaction Processing page](https://oracle-livelabs.github.io/common/images/console/database-atp.png " ")
 
-2. Select DB1, the database that contains the order schema, click **Manage Scaling**. Enter 2 in the OCPU field. Click **Apply**.
+2. Select the database and click **Manage Scaling**. Enter 2 in the OCPU field. Click **Apply**.
 
    ![More Actions](images/ScaleTo2dbocpuScreen.png " ")
 
@@ -201,7 +185,7 @@ NOTE: Currently True Cache is not supported on autonomous database and so labs t
 
 ## Task 4: Scale Down the Application and Database Tiers
 
-1. To scale the Order database down to **1 OCPUs**, click the hamburger icon in the top-left corner of the Console and go to Autonomous Transaction Processing.
+1. To scale the database down to **1 OCPUs**, click the hamburger icon in the top-left corner of the Console and go to Autonomous Transaction Processing.
 
    ![](https://oracle-livelabs.github.io/common/images/console/database-atp.png " ")
 
