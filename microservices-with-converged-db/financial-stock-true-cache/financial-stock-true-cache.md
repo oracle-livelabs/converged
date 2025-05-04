@@ -12,11 +12,13 @@
 
 This lab assumes you have already completed the earlier labs.
 
-## Task 1: Create and visualize a graph of transactions
+## Task 1: Setup True Cache and try various applications such as a stocker ticker
 
 1. Follow [Improve application performance with True Cache workshop](https://apexapps.oracle.com/pls/apex/r/dbpm/livelabs/view-workshop?wid=3933)
 
-2. Understand True Cache 
+2. Understand True Cache by studying the [User Guide](https://docs.oracle.com/en/database/oracle/oracle-database/23/odbtc/overview-true-cache-configuration.html)
+
+3. Follow the steps in the README.md in `financial/stock-ticker-true-cache` directory of the Github repos
 
 
 You may now proceed to the next lab.
