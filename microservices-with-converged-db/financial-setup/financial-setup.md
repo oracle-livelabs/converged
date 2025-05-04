@@ -21,6 +21,8 @@ NOTE: Currently True Cache is not supported on autonomous database and so labs t
     
     You can also use a resource manager stack to setup Oracle Backend for Microservices and AI but accessing OCI Marketplace
 
+    You can then visualize observability using the directions found at https://oracle.github.io/microservices-datadriven/spring/observability/metrics/
+
 ## Task 2: If you have not done so, create an Oracle Database
 
 1. See https://www.oracle.com/database/free/
