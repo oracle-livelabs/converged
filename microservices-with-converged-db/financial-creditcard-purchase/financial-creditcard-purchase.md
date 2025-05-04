@@ -3,12 +3,13 @@
 ## Introduction
 
 
-![Global Distributed Database RAFT Replication](../images/gdb-arch.avif " ")
+![Global Distributed Database RAFT Replication](./images/gdb-arch.avif " ")
+
 
 
 ### Objectives
 
--  Understand concepts of Globally Distribute Database, OML, and Spatial in the context of a final
+-  Understand concepts of Globally Distribute Database, OML, and Spatial in the context of credit card purchases and fraud detection
 
 ### Customer References 
 
@@ -24,9 +25,32 @@
 
 This lab assumes you have already completed the earlier labs.
 
-## Task 1: setup .....
+## Task 1: Create a Globally Distributed Database
 
-1. setup...
+1. GDB can be deployed on Kubernetes, Terraform, or with Docker.
+    The documentation found here: https://docs.oracle.com/en/database/oracle/oracle-database/23/shard/gdd-oracle-cloud-infrastructure.html
+
+## Task 2: Run the application
+
+1. Follow the steps in the README.md in `financial/cc-purchase-globally-distributed-database` directory of the Github repos
+
+
+# Migration
+
+Migration from an existing non-distributed database to a distributed database consists of two phases: schema migration and data migration. 
+Oracle Globally Distributed Database provides guidelines for migrating your existing database schema and data to a distributed database.
+[See this doc for details](https://docs.oracle.com/en/database/oracle/oracle-database/23/shard/migration1.html)
+
+
+
+# Scaling, Sizing, and Performance
+
+![Global Distributed Database RAFT Replication](./images/GloballyDistributedDatabaseMAA.png " ")
+
+
+
+[See Section 2.1.5 of this documentation for details](https://docs.oracle.com/en/database/oracle/oracle-database/23/odbtc/overview-true-cache-configuration.html)
+
 
 
 ## Learn More

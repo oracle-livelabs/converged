@@ -32,6 +32,10 @@ None.
 
 https://docs.oracle.com/en/cloud/paas/autonomous-database/serverless/adbsb/mongo-using-oracle-database-api-mongodb.html
 
+## Task 2: Run the application
+
+1. Follow the steps in the README.md in `financial/bank-account-management-mergn` directory of the Github repos
+
 
 ## Migration
 
@@ -39,7 +43,10 @@ Marco MongoDB migrator here...
 
 ## Scaling, Sizing, and Performance
 
+See the following blogs for details...
+
 https://blogs.oracle.com/datawarehousing/post/oracle-database-api-for-mongodb-best-practices
+
 https://juliandontcheff.wordpress.com/2024/07/04/the-json-to-duality-migrator-in-oracle-database-23ai/
 
 
