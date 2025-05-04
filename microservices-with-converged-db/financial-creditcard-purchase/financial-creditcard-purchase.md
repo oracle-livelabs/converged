@@ -3,23 +3,13 @@
 ## Introduction
 
 
-![Global Distributed Database RAFT Replication](./images/gdb-arch.avif " ")
+![Fin](./images/gdb-oml-spatial.png " ")
 
 
 
 ### Objectives
 
 -  Understand concepts of Globally Distribute Database, OML, and Spatial in the context of credit card purchases and fraud detection
-
-### Customer References 
-
-- AMEX
-
-### Product Management And Other Contacts
-
-- Globally Distributed Database: Shefali Bhargava, Pankaj Chandiramani, Shailesh Dwivedi 
-- MongoDB API: Julian Dontcheff, Hermann Baer
-- ORDS: Josh Spiegel, Jeff Smith
 
 ### Prerequisites
 
@@ -46,7 +36,6 @@ Oracle Globally Distributed Database provides guidelines for migrating your exis
 # Scaling, Sizing, and Performance
 
 ![Global Distributed Database RAFT Replication](./images/GloballyDistributedDatabaseMAA.png " ")
-
 
 
 [See Section 2.1.5 of this documentation for details](https://docs.oracle.com/en/database/oracle/oracle-database/23/odbtc/overview-true-cache-configuration.html)

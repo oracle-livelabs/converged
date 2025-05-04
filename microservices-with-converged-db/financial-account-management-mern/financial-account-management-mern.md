@@ -2,20 +2,8 @@
 
 ## Introduction
 
-Create and view accounts
-MongoDB/MERN stack
-Decimal Point Analytics (DPA)
+![Financial Application Architecture](./images/accounts-mern.png " ")
 
-Financial Process:
-Create and query all accounts
-
-Developer Notes:
-Use Oracle Database MongoDB adapter to insert accounts using MongoDB application/MERN stack
-Query the accounts using relational/SQL commands from a Java/Spring Boot stack
-This is possible due to the JSON Duality feature
-
-Contacts:
-MongoDB Adapter and JSON Duality: Julian Dontcheff, Beda Hammerschmidt
 
 ### Objectives
 

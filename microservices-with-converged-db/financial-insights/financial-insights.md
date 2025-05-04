@@ -2,11 +2,15 @@
 
 ## Introduction
 
-Goal: Generate a basic PDF report analyzing Oracle's recent stock data for a generic institutional client.
 
+![Financial Application Architecture](./images/personalinvestments.png " ")
 
+<br />
 
 ![Financial Application Architecture](./images/portfolioanalsysis-wealthadvisor.png " ")
+
+Goal: Generate a basic PDF report analyzing Oracle's recent stock data for a generic institutional client.
+
 
 Flow:
 

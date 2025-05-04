@@ -2,23 +2,8 @@
 
 ## Introduction
 
-Financial Process:
-Access/use financial data or processes from APIs
-Display the largest changes in portfolio
+![Financial Application Architecture](./images/ords.png " ")
 
-Tech Used:
-ORDS
-
-Reference:
-Sphere
-
-Developer Notes:
-Use Oracle Rest Data Services (ORDS) to expose APIs for data and processes
-Automatic OpenAPI is generated for seamless integration
-Expose data or processes in the database with a couple clicks or lines of code
-
-Contacts:
-ORDS: Jeff Smith
 
 ### Objectives
 

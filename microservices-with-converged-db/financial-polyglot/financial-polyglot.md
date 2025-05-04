@@ -2,21 +2,7 @@
 
 ## Introduction
 
-Financial Process:
-Deposit/withdraw money (ATM)
-
-Tech Used:
-Polyglot
-
-Reference:
-Java, JS, Python, .NET, Go, Rust customers
-
-Developer Notes:
-Polyglot implementation: Java, JS, Python, .NET, Go, Rust
-
-Contacts:
-Java: Kuassi Mensah, JavaScript: Sharad Chandran R, Python: Veronica Dumitriu, .NET: Alex Key, All C-based (JS, Python, Go, tec.): Christopher Jones</li>
-
+![Financial Application Architecture](./images/polyglot.png " ")
 
 ### Objectives
 
@@ -27,10 +13,13 @@ Java: Kuassi Mensah, JavaScript: Sharad Chandran R, Python: Veronica Dumitriu, .
 
 This lab assumes you have already completed the earlier labs.
 
-## Task 1: Analyze source, build, and run
+## Task 1: Review source code
 
-1. See source code under `financial/atm-polyglot`
+1. See source code under `financial/atm-polyglot` directory of the Github repos
 
+## Task 2: Run the application
+
+1. Follow the steps in the README.md in the same source directory
 
 You may now proceed to the next lab.
 

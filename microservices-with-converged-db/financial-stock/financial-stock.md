@@ -2,33 +2,21 @@
 
 ## Introduction
 
-Process:
-
+![Financial Application Architecture](./images/truecache-ticker.png " ")
 
 ### Objectives
 
--  Understand 
-
-### Customer References
-
-- NYSE
-
-### Product Management And Other Contacts
-
-- ilam siva, Sambit Panda, Vivek Vishwanathan
+-  Understand True Cache and how to use it to create a sample financial service (stock ticker)
 
 ### Prerequisites
 
 This lab assumes you have already completed the earlier labs.
 
-## Task 1: setup .....
+## Task 1: Create and visualize a graph of transactions
 
-1. setup...
+1. Follow [Improve application performance with True Cache workshop](https://apexapps.oracle.com/pls/apex/r/dbpm/livelabs/view-workshop?wid=3933)
 
-## Low-level side by side comparison with alternative
-
-True Cache vs Redis
-
+2. Understand True Cache 
 
 
 You may now proceed to the next lab.

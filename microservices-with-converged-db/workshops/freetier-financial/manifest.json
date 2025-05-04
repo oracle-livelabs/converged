@@ -20,7 +20,7 @@
       },
       {
         "title": "Lab 3: Create and view accounts (MongoDB/MERN stack)" ,
-        "filename": "../../account-management-mern/account-management-mern.md"
+        "filename": "../../financial-account-management-mern/financial-account-management-mern.md"
       },
       {
         "title": "Lab 4: Deposit/withdraw money (ATM) (Polyglot)",
@@ -28,7 +28,7 @@
       },
       {
         "title": "Lab 5: Transfer to external bank (MicroTx, Lock-free reservations)",
-        "filename": "../../financial-banktransfer/financial-banktransfer.md"
+        "filename": "../../financial-bank-transfer/financial-bank-transfer.md"
       },
       {
         "title": "Lab 6: Make purchases and detect fraud (Globally Distributed DB, OML, Spatial)",

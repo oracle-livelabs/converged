@@ -2,24 +2,13 @@
 
 ## Introduction
 
-Financial Process:
-Transfer funds between banks
 
-Tech Used:
-MicroTx, Lock-free reservations
-
-Reference:
-University of Naples
-
-Developers:
-The only database that provides auto-compensating sagas (microservice transactions) and highest throughput for hotspots/fields
-Simplified development (~80% less code)
+![Financial Application Architecture](./images/microtx-lockfree.png " ")
 
 
 ### Objectives
 
 - Understand MicroTx, Lock-free reservations, Spring Boot, and Oracle Backend As A Service
-
 
 
 ### Prerequisites

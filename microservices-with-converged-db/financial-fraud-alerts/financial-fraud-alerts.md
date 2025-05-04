@@ -2,46 +2,24 @@
 
 ## Introduction
 
-Process:
-Fraud detection is inherently event-driven: each transaction is an event.
-Knative Eventing provides a scalable, serverless way to route those events.
-CloudEvents provides a standardized event format, enabling portability across services and clouds.
-Enables real-time, loosely-coupled, and resilient fraud detection flows.
-Great fit for microservices that need to respond to events without being tightly integrated.
-
-
-### Objectives
-
--  Understand 
-
-### Customer References
-
-- 
-
-### Product Management And Other Contacts
-
-- Spatial: David Lapp
+![Financial Application Architecture](./images/graph.png " ")
 
 ### Prerequisites
 
 This lab assumes you have already completed the earlier labs.
 
-## Task 1: setup .....
+## Task 1: Create and visualize a graph of transactions
 
-1. setup...
+1. Follow [Graph Studio: Find Circular Payment Chains with Graph Queries in Autonomous Database workshop](https://apexapps.oracle.com/pls/apex/r/dbpm/livelabs/run-workshop?p210_wid=770)
 
-
-## Low-level side by side comparison with alternative
-
-https://carto.com/solutions/spatial-data-science
+2. Understand SQL for Graph
 
 You may now proceed to the next lab.
 
 ## Learn More
 
 * [Oracle Database](https://bit.ly/mswsdatabase)
-* [Pinpoint suspicious financial transactions with Oracle Spatial and Python](https://livelabs.oracle.com/pls/apex/r/dbpm/livelabs/view-workshop?wid=3683)
-* [Paysafe Case Study Using Oracle Graph and Spatial](https://www.oracle.com/a/ocom/docs/paysafe-case-study.pdf)
+* [Certegy fights payment fraud with Oracle Cloud](https://www.oracle.com/customers/certegy/)
 
 ## Acknowledgements
 * **Authors** - Paul Parkinson, Architect and Developer Advocate
