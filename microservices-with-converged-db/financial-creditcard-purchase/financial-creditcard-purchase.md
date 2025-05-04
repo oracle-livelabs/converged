@@ -1,4 +1,4 @@
-# Purchase using credit card and detect suspicious transactions
+# Make purchases and visualize fraud
 
 ## Introduction
 

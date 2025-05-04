@@ -44,7 +44,7 @@ You may now proceed to the next lab.
 ## Learn More
 
 * [Oracle Database](https://bit.ly/mswsdatabase)
-* [Workshop: Getting Started With Oracle Database Transactional Event Queues (TxEventQ)](https://apexapps.oracle.com/pls/apex/r/dbpm/livelabs/view-workshop?wid=1016)
+* [SQL Meets JSON in Oracle Database: Unify Data with Duality Views, JSON Collections & MongoDB API workshop](https://livelabs.oracle.com/pls/apex/dbpm/r/livelabs/view-workshop?wid=4168)
 
 ## Acknowledgements
 * **Authors** - Paul Parkinson, Architect and Developer Advocate

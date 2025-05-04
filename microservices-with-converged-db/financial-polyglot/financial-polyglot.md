@@ -26,6 +26,7 @@ You may now proceed to the next lab.
 ## Learn More
 
 * [Oracle Database](https://bit.ly/mswsdatabase)
+* [Prevent and Detect Fraud with Immutable and Blockchain Tables on Oracle Autonomous Database workshop](https://livelabs.oracle.com/pls/apex/dbpm/r/livelabs/view-workshop?wid=4142)
 
 ## Acknowledgements
 * **Authors** - Paul Parkinson, Architect and Developer Advocate
