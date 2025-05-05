@@ -36,7 +36,7 @@ NOTE: Currently True Cache is not supported on autonomous database and so labs t
 
 #  Scaling, Sizing, and Performance
 
-** Note that these scaling and scaling, sizing, and performance procedures can be run for any lab and product as so the generic "financial-service" term is used throughout this doc.
+** Note that these scaling and scaling, sizing, and performance procedures can be run for any lab and product and so the generic "financial-service" term is used throughout this doc.
 
 ## Task 1: Install a Load Testing Tool and Expose an Endpoint for Testing
 
