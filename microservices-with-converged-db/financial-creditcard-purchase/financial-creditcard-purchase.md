@@ -51,19 +51,10 @@ Oracle Globally Distributed Database provides guidelines for migrating your exis
 * [Deploy an Oracle Globally Distributed Database on Kubernetes](https://docs.oracle.com/en/database/oracle/oracle-database/23/shard/deploy-sharded-database-kubernetes.html)
 * [Oracle Sharding Quick Start workshop](https://apexapps.oracle.com/pls/apex/r/dbpm/livelabs/run-workshop?p210_wid=854)
 * [Oracle Sharding: Hyperscale Globally Distributed Database workshop](https://apexapps.oracle.com/pls/apex/r/dbpm/livelabs/run-workshop?p210_wid=866)
-* 
-
-Oracle Globally Distributed Database with RAFT workshop
-https://apexapps.oracle.com/pls/apex/r/dbpm/livelabs/run-workshop?p210_wid=835
-
-Use Raft Replication with Distributed Database for Resilient Never-Down Apps workshop
-https://apexapps.oracle.com/pls/apex/r/dbpm/livelabs/view-workshop?wid=3772
-
-Oracle Globally Distributed Database supports RAFT Replication in Oracle Database 23ai blog
-https://blogs.oracle.com/database/post/raft-replication-in-distributed-23c
-
-Pinpoint suspicious financial transactions with Oracle Spatial and Python workshop
-https://oracle-livelabs.github.io/spatial-graph/spatial-python/workshops/pinpoint-fraud/sandbox/index.html
+* [Oracle Globally Distributed Database with RAFT workshop](https://apexapps.oracle.com/pls/apex/r/dbpm/livelabs/run-workshop?p210_wid=835)
+* [Use Raft Replication with Distributed Database for Resilient Never-Down Apps workshop](https://apexapps.oracle.com/pls/apex/r/dbpm/livelabs/view-workshop?wid=3772)
+* [Oracle Globally Distributed Database supports RAFT Replication in Oracle Database 23ai blog](https://blogs.oracle.com/database/post/raft-replication-in-distributed-23c)
+* [Pinpoint suspicious financial transactions with Oracle Spatial and Python workshop](https://oracle-livelabs.github.io/spatial-graph/spatial-python/workshops/pinpoint-fraud/sandbox/index.html)
 
 ## Acknowledgements
 * **Authors** - Paul Parkinson, Architect and Developer Advocate
