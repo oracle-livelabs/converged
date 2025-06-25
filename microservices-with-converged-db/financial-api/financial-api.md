@@ -7,16 +7,21 @@
 
 ### Objectives
 
--  Understand ORDS and how it can be used to easily publish financial data and process API
+-  Understand ORDS and how it can be used to easily publish financial data and process APIs
 
 ### Prerequisites
 
 This lab only requires that you have an Oracle Autonomous Database
 
-## Task 1: Enable ORDS Rest endpoint via console or with PL/SQL, expose tables and other objects, add Rest URL to application
+## Task 1: Follow the Readme
 
+Follow the readme at [this location](https://github.com/paulparkinson/oracle-ai-for-sustainable-dev/tree/main/financial/graph-circular-payments).
 
-[](youtube:8Tgmy74A4Bg)
+## Video Tutorial
+
+[![Watch the tutorial](https://img.youtube.com/vi/-o16D-Sq-mU/maxresdefault.jpg)](https://www.youtube.com/watch?v=-o16D-Sq-mU)
+
+*Click the image above to watch the tutorial video*
 
 
 # Scaling, Sizing, and Performance

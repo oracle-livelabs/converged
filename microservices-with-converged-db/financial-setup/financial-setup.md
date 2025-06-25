@@ -34,10 +34,6 @@ NOTE: Currently True Cache is not supported on Autonomous Database and so the la
 
 2. All features and products in the labs can run on ADB (Autonomous Database) except for the True Cache 
 
-## Task 3: If you have not done so, create Kubernetes cluster 
-
-1. Whether it is Oracle OKE cluster, or another cloud vendor's Kubernetes, on-prem, on laptop installed via Kind, etc. as long as kubectl commands can be executed against it.
-
 
 
 #  Scaling, Sizing, and Performance
