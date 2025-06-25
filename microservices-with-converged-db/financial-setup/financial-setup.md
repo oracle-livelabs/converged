@@ -14,7 +14,7 @@ Estimated Time: 25 minutes
 
 NOTE: The workshop can be run either in Kubernetes or standalone and each lab (app task/screen) can be run independently of any others (ie it is modular)
 
-## Task 1: Optionally create a Kubernetes cluster or bring your own (the Oracle Backend for Microservices and AI is a convenient way to do this)
+## Task 1: Optionally, if you do not have one, create a Kubernetes cluster (the Oracle Backend for Microservices and AI is a convenient way to do this)
 
 1. Whether it is an Oracle OKE cluster, or another cloud vendor's Kubernetes, on-prem, on laptop installed via Kind, etc. as long as kubectl commands can be executed against it.
 
@@ -26,7 +26,7 @@ NOTE: The workshop can be run either in Kubernetes or standalone and each lab (a
     You can then visualize observability using the directions found at https://oracle.github.io/microservices-datadriven/spring/observability/metrics/
 
 
-## Task 2: If you have not done so, create an Oracle Database
+## Task 2: If you do not have one, create an Oracle Database
 
 NOTE: Currently True Cache is not supported on Autonomous Database and so the lab that uses True Cache will require appropriate standalone database setup.
 
