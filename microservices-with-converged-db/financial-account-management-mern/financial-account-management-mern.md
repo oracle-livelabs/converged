@@ -12,9 +12,11 @@
 
 ### Prerequisites
 
-None.
+This lab only requires that you have an Oracle Autonomous Database
 
-## Task 1: Create/enable Oracle Database with MongoDB Adapter
+## Task 1: Follow the Readme
+
+Follow the readme at [this location](https://github.com/paulparkinson/oracle-ai-for-sustainable-dev/tree/main/financial/graph-circular-payments).
 
 1. Simply follow the directions here and use the MongoDB URL as you would any other in your MongoDB application
 
@@ -27,7 +29,10 @@ https://docs.oracle.com/en/cloud/paas/autonomous-database/serverless/adbsb/mongo
 
 ## Migration
 
-Marco MongoDB migrator here...
+MongoDB Migrator will be published soon.
+
+Also see Goldengate, MongoDB migration material.
+
 
 ## Scaling, Sizing, and Performance
 

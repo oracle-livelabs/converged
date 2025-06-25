@@ -10,17 +10,17 @@
 
 ### Prerequisites
 
-This lab assumes you have already completed the earlier labs.
+This lab only requires that you have completed the setup lab.
 
-## Task 1: setup .....
+## Task 1: Follow the Readme
 
-## Task 1: Review source code
+Follow the readme at [this location](https://github.com/paulparkinson/oracle-ai-for-sustainable-dev/tree/main/financial/graph-circular-payments).
 
-1. See source code under `financial/brokerage-transfer-kafka` directory of the Github repos
+## Video Tutorial
 
-## Task 2: Run the application
+[![Watch the tutorial](https://img.youtube.com/vi/-o16D-Sq-mU/maxresdefault.jpg)](https://www.youtube.com/watch?v=-o16D-Sq-mU)
 
-1. Follow the steps in the README.md in the same source directory
+*Click the image above to watch the tutorial video*
 
 ## Low-level side by side comparison with alternative
 

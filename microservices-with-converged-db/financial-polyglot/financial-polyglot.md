@@ -11,15 +11,12 @@
 
 ### Prerequisites
 
-This lab assumes you have already completed the earlier labs.
+This lab only requires that you have completed the setup lab.
 
-## Task 1: Review source code
+## Task 1: Follow the Readme
 
-1. See source code under `financial/atm-polyglot` directory of the Github repos
+Follow the readme at [this location](https://github.com/paulparkinson/oracle-ai-for-sustainable-dev/tree/main/financial/graph-circular-payments).
 
-## Task 2: Run the application
-
-1. Follow the steps in the README.md in the same source directory
 
 You may now proceed to the next lab.
 

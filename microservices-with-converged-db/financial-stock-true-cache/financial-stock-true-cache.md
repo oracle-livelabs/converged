@@ -10,7 +10,19 @@
 
 ### Prerequisites
 
-This lab assumes you have already completed the earlier labs.
+This lab only requires that you have completed the setup lab.
+
+## Task 1: Follow the Readme
+
+Follow the readme at [this location](https://github.com/paulparkinson/oracle-ai-for-sustainable-dev/tree/main/financial/graph-circular-payments).
+
+## Video Tutorial
+
+[![Watch the tutorial](https://img.youtube.com/vi/-o16D-Sq-mU/maxresdefault.jpg)](https://www.youtube.com/watch?v=-o16D-Sq-mU)
+
+*Click the image above to watch the tutorial video*
+
+
 
 ## Task 1: Setup True Cache and try various applications such as a stocker ticker
 

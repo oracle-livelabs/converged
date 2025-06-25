@@ -11,7 +11,7 @@
 
 ### Prerequisites
 
-This lab only requires that you have an Oracle Autonomous Database
+This lab only requires that you have completed the setup lab.
 
 ## Task 1: Follow the Readme
 

@@ -10,12 +10,13 @@
 ### Objectives
 
 -  Understand concepts of Globally Distribute Database, OML, and Spatial in the context of credit card purchases and fraud detection
-
 ### Prerequisites
 
-This lab assumes you have already completed the earlier labs.
+This lab only requires that you have completed the setup lab.
 
-## Task 1: Create a Globally Distributed Database
+## Task 1: Follow the Readme
+
+Follow the readme at [this location](https://github.com/paulparkinson/oracle-ai-for-sustainable-dev/tree/main/financial/graph-circular-payments).
 
 1. GDB can be deployed on Kubernetes, Terraform, or with Docker.
     The documentation found here: https://docs.oracle.com/en/database/oracle/oracle-database/23/shard/gdd-oracle-cloud-infrastructure.html
