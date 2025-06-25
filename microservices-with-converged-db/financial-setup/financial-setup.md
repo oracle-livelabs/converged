@@ -12,20 +12,26 @@ Estimated Time: 25 minutes
 * Setup Oracle Database, Kubernetes, etc.
 
 
-NOTE: Currently True Cache is not supported on autonomous database and so labs that use True Cache will require appropriate database.
+NOTE: The workshop can be run either in Kubernetes or standalone and each lab (app task/screen) can be run independently of any others (ie it is modular)
 
-## Task 1: Optionally setup Oracle Backend for Microservices and AI
+## Task 1: Optionally create a Kubernetes cluster or bring your own (the Oracle Backend for Microservices and AI is a convenient way to do this)
 
-1. This a convenient option to provision an Oracle Autonomous Database and Kubernetes with a number of preconfigured components for microservices, etc.  
+1. Whether it is an Oracle OKE cluster, or another cloud vendor's Kubernetes, on-prem, on laptop installed via Kind, etc. as long as kubectl commands can be executed against it.
+
+2. Another option is to use the Oracle Backend for Microservices and AI which provisions an Oracle Autonomous Database and Kubernetes with a number of preconfigured components for microservices, etc.  
     Follow the directions found here: https://docs.oracle.com/en/database/oracle/backend-for-microservices-and-ai/index.html
     
     You can also use a resource manager stack to setup Oracle Backend for Microservices and AI but accessing OCI Marketplace
 
     You can then visualize observability using the directions found at https://oracle.github.io/microservices-datadriven/spring/observability/metrics/
 
+
 ## Task 2: If you have not done so, create an Oracle Database
 
+NOTE: Currently True Cache is not supported on Autonomous Database and so the lab that uses True Cache will require appropriate standalone database setup.
+
 1. See https://www.oracle.com/database/free/
+
 2. All features and products in the labs can run on ADB (Autonomous Database) except for the True Cache 
 
 ## Task 3: If you have not done so, create Kubernetes cluster 
