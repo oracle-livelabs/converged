@@ -35,6 +35,36 @@ NOTE: Currently True Cache is not supported on Autonomous Database and so the la
 2. All features and products in the labs can run on ADB (Autonomous Database) except for the True Cache 
 
 
+## Task 3: Configure a Container Registry
+
+1. The setup scripts require a DOCKER_REGISTRY variable to be set. This is the container registry where the images will be pushed. For example, if you are using Oracle Container Registry, set it to `eu-frankfurt-1.ocir.io/mytenancyOCIRnamespace/financial`. If you are using Docker Hub, set it to `docker.io/<your-docker-username>`.
+Set the `DOCKER_REGISTRY` variable in your terminal:
+
+   ```
+   <copy>export DOCKER_REGISTRY=container-registry.oracle.com</copy>
+   ```
+
+## Task 4: Configure Kubernetes Namespace, Ingress, and Secrets
+
+1. Create a Kubernetes namespace for the workshop:
+
+   ```
+   <copy>kubectl create namespace financial</copy>
+   ```
+
+2. Create a Kubernetes secret for the database connection string. Replace `<your-db-connection-string>` with your actual database connection string:
+
+   ```
+   <copy>kubectl create secret generic db-connection-string --from-literal=connection-string='<your-db-connection-string>' -n financial</copy>
+   ```
+
+3. Create a Kubernetes ingress resource to expose the application by running the following command:
+
+   ```
+   <copy>kubectl apply -f k8s/ingress.yaml </copy>
+   ```
+
+
 
 #  Scaling, Sizing, and Performance
 
