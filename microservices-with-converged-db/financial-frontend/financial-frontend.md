@@ -1,4 +1,4 @@
-# Mobile check deposit
+# React Frontend Service
 
 ## Introduction
 
@@ -11,24 +11,25 @@
 
 ### Prerequisites
 
-This lab only requires that you have completed the setup lab.
+This lab only requires that you have completed the setup lab and can actually be .
 
-## Task 1: INsurce you have NPM installed
+## Task 1: Insure you have NPM installed
 
 Ensure you have Node Package Manager (npm) installed. You can check this by running:
 
-```bash npm -v
+```
+bash npm -v
 ```
 If you do not have npm installed, you can install it by following the instructions at [Node.js Download](https://nodejs.org/en/download/).
 
 
 ## Task 2: Run the React Frontend locally
 
-1.  Navigate to the `financial-frontend` directory and run `npm start` to start the React application.
+1.  Navigate to the `<repos-root>/financial/` directory and run `npm start` to start the React application.
 
-```bash cd $WORKSHOP_HOME/react-frontend
-
-```bash npm start
+```
+bash cd $WORKSHOP_HOME/react-frontend
+npm start
 ```
 
 This will start the React application on your local machine, typically accessible at `http://localhost:3000`.
