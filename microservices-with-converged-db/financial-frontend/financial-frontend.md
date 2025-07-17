@@ -25,10 +25,10 @@ If you do not have npm installed, you can install it by following the instructio
 
 ## Task 2: Run the React Frontend locally
 
-1.  Navigate to the `<repos-root>/financial/` directory and run `npm start` to start the React application.
+1.  Navigate to the `<REPOS_ROOT_DIR>/financial/react-frontend` directory and run `npm start` to start the React application.
 
 ```
-bash cd $WORKSHOP_HOME/react-frontend
+cd <REPOS_ROOT_DIR>/financial/react-frontend
 npm start
 ```
 
