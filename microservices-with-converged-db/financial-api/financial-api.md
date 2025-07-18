@@ -2,12 +2,9 @@
 
 ## Introduction
 
-![Financial Application Architecture](./images/ords.png " ")
+<iframe width="560" height="315" src="https://www.youtube.com/embed/qHVYXagpAC0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
-
-[![Watch the tutorial](https://img.youtube.com/vi/qHVYXagpAC0/maxresdefault.jpg)](https://www.youtube.com/watch?v=qHVYXagpAC0)
-
-*Click the image above to watch the tutorial video*
+*Watch the tutorial video above*
 
 
 ### Objectives
