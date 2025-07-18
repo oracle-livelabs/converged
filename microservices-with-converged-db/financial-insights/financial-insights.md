@@ -59,7 +59,7 @@ Follow the readme at [this location](https://github.com/paulparkinson/oracle-ai-
 
 ## Video Tutorial
 
-[![Watch the tutorial](https://img.youtube.com/vi/-o16D-Sq-mU/maxresdefault.jpg)](https://www.youtube.com/watch?v=-o16D-Sq-mU)
+[![Watch the tutorial](https://img.youtube.com/vi/qHVYXagpAC0/maxresdefault.jpg)](https://www.youtube.com/watch?v=qHVYXagpAC0)
 
 *Click the image above to watch the tutorial video*
 
