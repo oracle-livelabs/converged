@@ -4,9 +4,17 @@
 
 
 
-<iframe width="800" height="450" src="https://www.youtube.com/embed/qHVYXagpAC0?start=546" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+<iframe   src="https://www.youtube.com/embed/qHVYXagpAC0?start=546" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 *Watch the tutorial video above*
+
+This lab demonstrates credit card purchase processing and fraud detection using Oracle's Globally Distributed Database, Oracle Machine Learning (OML), and spatial capabilities. The application showcases real-time anomaly detection based on geographic transaction patterns.
+
+In this interactive demonstration, you can select an account on a map powered by the open-source OpenStreetMap library. By right-clicking on two locations and submitting a purchase, the system evaluates the spatial distance between transactions. When locations are geographically close, no anomaly is detected and the transaction proceeds normally. However, when locations are far apart, the spatial calculation determines the distance is suspicious and flags the transaction as a potential fraud case.
+
+The application architecture highlights the simplicity of Oracle's globally distributed database implementation. Developers have two options for data distribution: automatic sharding management by setting the `useShardingDriverConnection` parameter to true, or custom key-based sharding using account IDs. This flexibility allows applications to scale globally while maintaining transactional consistency.
+
+Additionally, the integration with Jupyter notebooks running directly in Oracle Machine Learning (OML) provides a powerful analytics environment. These notebooks execute within the database using OML4Py libraries, allowing data scientists to perform advanced analytics and machine learning operations that are immediately reflected in the main application. This seamless integration between the transaction processing application and the analytical notebook environment demonstrates how Oracle's converged database platform supports both operational and analytical workloads in a unified architecture.
 
 ### Objectives
 

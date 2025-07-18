@@ -7,6 +7,14 @@
 
 *Watch the tutorial video above*
 
+This lab focuses on money laundering detection using Oracle Database's graph capabilities. The application demonstrates how to identify suspicious circular payment patterns that may indicate money laundering activities through an intuitive visual interface.
+
+The demonstration allows you to generate transactions dynamically and observe them rendered in real-time using the open-source Cytoscape library. As transactions accumulate over time, the graph visualization reveals circular patterns in the money flow - a key indicator of potential money laundering schemes. These circular patterns become apparent as the application processes more transactions, making it easy to spot suspicious activities that would be difficult to detect in traditional tabular data views.
+
+The application showcases the simplicity of creating graph visualizations with Oracle Database. The Cytoscape integration provides powerful graph plotting capabilities for edges and nodes, while the underlying Oracle Graph database handles complex relationship queries efficiently. Developers can leverage multiple programming languages including SQL, Java, and PGX (Parallel Graph AnalytiX) to work with graph data, providing flexibility in how they implement graph analytics.
+
+For deeper analysis, users can access the developer interface and navigate to Graph Studio, where they can explore various graph analysis prompts and execute sophisticated graph queries. This integration demonstrates how Oracle's converged database platform seamlessly combines transactional processing with advanced graph analytics, enabling financial institutions to detect complex fraud patterns without requiring separate specialized systems.
+
 ### Prerequisites
 
 This lab only requires that you have completed the setup lab.

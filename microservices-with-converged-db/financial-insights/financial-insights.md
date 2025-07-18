@@ -45,6 +45,17 @@ Agents and their Roles:
 <iframe width="800" height="450" src="https://www.youtube.com/embed/qHVYXagpAC0?start=933" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 *Watch the tutorial video above*
+
+This lab demonstrates personal financial insights generation using Oracle Database Vector Search, AI agents, and Model Context Protocol (MCP). The application provides intelligent financial advisory services by leveraging multiple AI agents working together to analyze your financial situation.
+
+The system allows you to ask questions about your financial situation, with the default query being "advise as to my financial situation." Behind the scenes, multiple specialized AI agents collaborate to provide comprehensive analysis: a planning agent acts as an investment assistant, research agents gather information from various sources, reasoning agents draw clear conclusions, and synthesis agents produce the final recommendations in various formats including text responses, PDF reports, APIs, and Jupyter notebooks.
+
+The research agents are particularly sophisticated, gathering information from three distinct sources to provide well-rounded financial advice. First, they perform vector searches on compliance documents that have been vectorized as PDFs, ensuring regulatory compliance in all recommendations. Second, they access private financial data stored directly in your database - this includes all the transaction history you've generated throughout the other application modules, such as stock purchases, real estate investments from the Kafka examples, and other financial activities. Finally, they connect to an MCP server that streams real-time financial market information.
+
+This multi-source approach creates a comprehensive view of your financial situation by combining regulatory guidelines, your personal transaction history, and current market conditions. The AI agents can then provide personalized investment advice that considers your actual spending patterns, investment preferences (such as your technology stock purchases), and real estate holdings, all while ensuring compliance with financial regulations.
+
+The backend architecture demonstrates how Oracle's converged database platform seamlessly integrates vector search capabilities for unstructured document analysis with traditional transactional data, creating a unified foundation for AI-powered financial advisory services.
+
 ### Objectives
 
 -  Understand AI Agents, MCP, and Oracle Database 23ai Vector Search, etc. capabilities
