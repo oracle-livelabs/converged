@@ -25,11 +25,9 @@ The demonstration effectively illustrates how Oracle's True Cache provides a tra
 
 This lab only requires that you have completed the setup lab.
 
-## Task 1: Follow the Readme
+## Task 1: Setup True Cache and try various applications such as a stocker ticker
 
 Follow the readme at [this location](https://github.com/paulparkinson/oracle-ai-for-sustainable-dev/tree/main/financial/graph-circular-payments).
-
-## Task 1: Setup True Cache and try various applications such as a stocker ticker
 
 1. Follow [Improve application performance with True Cache workshop](https://apexapps.oracle.com/pls/apex/r/dbpm/livelabs/view-workshop?wid=3933)
 
