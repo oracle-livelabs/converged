@@ -3,7 +3,7 @@
 ## Introduction
 
 
-<iframe width="1200" height="1000"  src="https://www.youtube.com/embed/qHVYXagpAC0?start=1089" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+[](youtube:qHVYXagpAC0?start=1089)
 
 *Watch the tutorial video above*
 
@@ -21,7 +21,7 @@ This application represents part of an interactive AI holograms exhibit showcase
 
 This lab only requires that you have completed the setup lab.
 
-## Task 1: Follow the Readme
+## Task 1: Build and deploy the service
 
 Follow the readme at [this location](https://github.com/paulparkinson/oracle-ai-for-sustainable-dev/tree/main/financial/graph-circular-payments).
 

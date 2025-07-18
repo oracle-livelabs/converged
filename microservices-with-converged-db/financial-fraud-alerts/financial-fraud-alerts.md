@@ -3,7 +3,7 @@
 ## Introduction
 
 
-<iframe width="800" height="450" src="https://www.youtube.com/embed/qHVYXagpAC0?start=703" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+[](youtube:qHVYXagpAC0?start=703)
 
 *Watch the tutorial video above*
 
@@ -19,7 +19,7 @@ For deeper analysis, users can access the developer interface and navigate to Gr
 
 This lab only requires that you have completed the setup lab.
 
-## Task 1: Follow the Readme
+## Task 1: Build and deploy the service
 
 Follow the readme at [this location](https://github.com/paulparkinson/oracle-ai-for-sustainable-dev/tree/main/financial/graph-circular-payments).
 

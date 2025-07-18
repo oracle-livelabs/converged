@@ -4,7 +4,7 @@
 
 
 
-<iframe   src="https://www.youtube.com/embed/qHVYXagpAC0?start=546" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+[](youtube:qHVYXagpAC0?start=546)
 
 *Watch the tutorial video above*
 
@@ -23,7 +23,7 @@ Additionally, the integration with Jupyter notebooks running directly in Oracle 
 
 This lab only requires that you have completed the setup lab.
 
-## Task 1: Follow the Readme
+## Task 1: Build and deploy the service
 
 Follow the readme at [this location](https://github.com/paulparkinson/oracle-ai-for-sustainable-dev/tree/main/financial/graph-circular-payments).
 

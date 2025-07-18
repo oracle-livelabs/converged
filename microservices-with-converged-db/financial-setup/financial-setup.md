@@ -6,7 +6,7 @@ In this lab, we will provision and database and cloud native tech (in particular
 
 Estimated Time: 25 minutes
 
-<iframe width="900" height="600" src="https://www.youtube.com/embed/qHVYXagpAC0?start=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+[](youtube:qHVYXagpAC0?start=0)
 
 *Watch the tutorial video above*
 
