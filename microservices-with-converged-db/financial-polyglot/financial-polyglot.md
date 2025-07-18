@@ -6,6 +6,20 @@
 <iframe width="800" height="450" src="https://www.youtube.com/embed/qHVYXagpAC0?start=444" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 *Watch the tutorial video above*
+
+This lab demonstrates Oracle Database's comprehensive language support, showcasing how developers can interact with the database using any programming language of their choice. The lab provides a simple but powerful example of mobile check deposit functionality that can be implemented across multiple programming languages.
+
+The application shows how you can perform database operations such as inserts and updates of account values using your preferred programming language, whether it's Java, Python, Node.js, Go, or others. This flexibility allows development teams to work with familiar languages while leveraging Oracle Database's enterprise features.
+
+Key features demonstrated:
+- Multi-language database connectivity
+- Consistent API across different programming languages
+- Mobile banking functionality simulation
+- Account value updates and transactions
+- Language-agnostic database operations
+
+The code snippets demonstrate how the same database operations can be implemented across different languages, showing Oracle's commitment to supporting diverse development ecosystems and allowing teams to choose the best tools for their specific needs.
+
 ### Objectives
 
 -  Understand how to make basic connection and operations for any language you are working with.
@@ -30,4 +44,3 @@ You may now proceed to the next lab.
 ## Acknowledgements
 * **Authors** - Paul Parkinson, Architect and Developer Advocate
 * **Last Updated By/Date** - Paul Parkinson, 2025
-

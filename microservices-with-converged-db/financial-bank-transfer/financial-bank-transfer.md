@@ -13,6 +13,22 @@ The following is the MicroTx architecture.
 
 *Watch the tutorial video above*
 
+This lab demonstrates external bank transfer functionality using Oracle MicroTx and the lock-free reservations feature. The application showcases how these powerful technologies simplify complex financial transaction scenarios that typically require extensive custom coding.
+
+In traditional systems, developers must write complex compensation logic to handle journal entries and maintain consistency during transactions involving multiple microservices. This lab shows how Oracle's lock-free reservations mechanism dramatically simplifies this process through automatic compensation.
+
+The application implements a saga transaction pattern where you can initiate crashes to observe the resilient behavior. You'll see the stark contrast between manual error-prone coding approaches and Oracle's automated compensation data types that handle failure scenarios seamlessly.
+
+Key features demonstrated:
+- Oracle MicroTx for distributed transaction management
+- Lock-free reservations for improved performance
+- Automatic compensation logic handling
+- Saga transaction patterns
+- Crash recovery and consistency maintenance
+- Simplified developer experience for complex transactions
+
+The code examples show how minimal configuration replaces hundreds of lines of custom compensation code, reducing both development time and the potential for bugs in critical financial operations.
+
 ### Objectives
 
 - Understand MicroTx, Lock-free reservations, Spring Boot, and Oracle Backend As A Service

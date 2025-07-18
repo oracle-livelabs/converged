@@ -6,6 +6,19 @@
 
 *Watch the tutorial video above*
 
+This lab showcases account creation and management using the MongoDB MERN stack (MongoDB, Express, React, Node.js) with Oracle's JSON Duality feature. The application demonstrates how you can seamlessly access Oracle Database using the MongoDB API, providing flexibility for developers familiar with MongoDB while leveraging Oracle's enterprise capabilities.
+
+The lab features a React frontend with Express and Node.js backend, where you can create and query financial accounts using either MongoDB query syntax or SQL. This dual-API approach allows developers to choose their preferred method while working against the same Oracle Database.
+
+Key features demonstrated:
+- MongoDB API compatibility with Oracle Database
+- JSON Duality for flexible data access
+- MERN stack architecture with Oracle backend
+- Interchangeable SQL and MongoDB query methods
+- Real-time account creation and retrieval
+
+The interactive code examples show how the same database operations can be performed using either MongoDB query language or SQL, with identical results. This demonstrates Oracle's commitment to supporting diverse development preferences while maintaining data consistency and enterprise features.
+
 ### Objectives
 
 -  Understand MongoDB adapter/MERN stack and JSON Duality and how it can be used in financial applications and analytics

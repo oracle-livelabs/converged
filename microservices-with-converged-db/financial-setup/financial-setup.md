@@ -10,6 +10,21 @@ Estimated Time: 25 minutes
 
 *Watch the tutorial video above*
 
+This comprehensive financial services workshop is designed for developers who want to explore Oracle database technologies in a practical, hands-on environment. Each lab represents a specific financial business process or task, demonstrating how Oracle and open-source technologies work together to solve real-world challenges.
+
+The workshop follows a modular microservices architecture, allowing you to run individual labs independently or combine them for a complete experience. Each lab can be executed standalone after completing the initial setup, making it easy to focus on specific technologies or business processes that interest you most.
+
+The setup process involves creating an Oracle database (either Autonomous Database on the cloud or containerized versions) and can be deployed on Kubernetes or as standalone services. This flexibility ensures the workshop can adapt to your preferred development environment.
+
+Each lab includes developer-focused features such as:
+- Walkthrough videos and detailed code examples
+- Links to corresponding workshops and GitHub repositories  
+- Backend development tools integration (Grafana, Jupyter, Graph Studio)
+- Interactive code snippets that demonstrate key concepts
+- Real-world customer references using similar technologies
+
+The architecture showcases both Oracle and open-source cloud-native technologies, including Kubernetes, various programming languages, and modern development frameworks. All labs share a common database schema and entity model, demonstrating the converged advantages of Oracle Database while maintaining modularity.
+
 ### Objectives
 
 * Setup Oracle Database, Kubernetes, etc.
