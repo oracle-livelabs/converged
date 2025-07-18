@@ -3,14 +3,15 @@
 ## Introduction
 
 
-![Financial Application Architecture](./images/microtx-lockfree.png " ")
 
 
 This lab will demonstrate how to use MicroTx, Lock-free reservations, and Spring Boot to build a financial application that can handle bank transfers between accounts with auto-compensating sagas.
 The following is the MicroTx architecture.
 
-![Financial Application Architecture](./images/microtx-architecture.avif " ")
 
+<iframe width="800" height="450" src="https://www.youtube.com/embed/qHVYXagpAC0?start=466" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
+*Watch the tutorial video above*
 
 ### Objectives
 
@@ -40,4 +41,3 @@ You may now **proceed to the next lab.**
 ## Acknowledgements
 * **Authors** - Paul Parkinson, Architect and Developer Advocate
 * **Last Updated By/Date** - Paul Parkinson, 2025
-

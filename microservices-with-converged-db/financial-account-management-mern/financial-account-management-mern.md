@@ -2,8 +2,9 @@
 
 ## Introduction
 
-![Financial Application Architecture](./images/accounts-mern.png " ")
+<iframe width="800" height="450" src="https://www.youtube.com/embed/qHVYXagpAC0?start=371" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
+*Watch the tutorial video above*
 
 ### Objectives
 
@@ -58,4 +59,3 @@ You may now proceed to the next lab.
 ## Acknowledgements
 * **Authors** - Paul Parkinson, Architect and Developer Advocate
 * **Last Updated By/Date** - Paul Parkinson, 2025
-

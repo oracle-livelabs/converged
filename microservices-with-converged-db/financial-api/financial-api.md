@@ -2,10 +2,9 @@
 
 ## Introduction
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/qHVYXagpAC0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+<iframe width="800" height="450" src="https://www.youtube.com/embed/qHVYXagpAC0?start=327" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 *Watch the tutorial video above*
-
 
 ### Objectives
 

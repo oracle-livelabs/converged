@@ -6,6 +6,9 @@ In this lab, we will provision and database and cloud native tech (in particular
 
 Estimated Time: 25 minutes
 
+<iframe width="800" height="450" src="https://www.youtube.com/embed/qHVYXagpAC0?start=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
+*Watch the tutorial video above*
 
 ### Objectives
 
@@ -244,5 +247,3 @@ https://oracle.github.io/microservices-datadriven/cloudbank/devenv/oractl/index.
 ## Acknowledgements
 * **Authors** - Paul Parkinson, Architect and Developer Advocate
 * **Last Updated By/Date** - Paul Parkinson, 2024
-
-

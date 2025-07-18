@@ -3,11 +3,9 @@
 ## Introduction
 
 
-![Financial Application Architecture](./images/personalinvestments.png " ")
 
 <br />
 
-![Financial Application Architecture](./images/portfolioanalsysis-wealthadvisor.png " ")
 
 Goal: Generate a basic PDF report analyzing Oracle's recent stock data for a generic institutional client.
 
@@ -44,6 +42,9 @@ Agents and their Roles:
 - Client Communication Agent: Save the generated PDF as the final deliverable.
 
 
+<iframe width="800" height="450" src="https://www.youtube.com/embed/qHVYXagpAC0?start=933" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
+*Watch the tutorial video above*
 ### Objectives
 
 -  Understand AI Agents, MCP, and Oracle Database 23ai Vector Search, etc. capabilities

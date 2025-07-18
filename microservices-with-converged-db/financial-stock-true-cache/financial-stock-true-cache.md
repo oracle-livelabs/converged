@@ -2,7 +2,10 @@
 
 ## Introduction
 
-![Financial Application Architecture](./images/truecache-ticker.png " ")
+
+<iframe width="800" height="450" src="https://www.youtube.com/embed/qHVYXagpAC0?start=895" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
+*Watch the tutorial video above*
 
 ### Objectives
 
@@ -15,14 +18,6 @@ This lab only requires that you have completed the setup lab.
 ## Task 1: Follow the Readme
 
 Follow the readme at [this location](https://github.com/paulparkinson/oracle-ai-for-sustainable-dev/tree/main/financial/graph-circular-payments).
-
-## Video Tutorial
-
-[![Watch the tutorial](https://img.youtube.com/vi/qHVYXagpAC0/maxresdefault.jpg)](https://www.youtube.com/watch?v=qHVYXagpAC0)
-
-*Click the image above to watch the tutorial video*
-
-
 
 ## Task 1: Setup True Cache and try various applications such as a stocker ticker
 

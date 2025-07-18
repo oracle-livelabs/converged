@@ -2,8 +2,10 @@
 
 ## Introduction
 
-![Financial Application Architecture](./images/polyglot.png " ")
 
+<iframe width="800" height="450" src="https://www.youtube.com/embed/qHVYXagpAC0?start=444" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
+*Watch the tutorial video above*
 ### Objectives
 
 -  Understand how to make basic connection and operations for any language you are working with.
