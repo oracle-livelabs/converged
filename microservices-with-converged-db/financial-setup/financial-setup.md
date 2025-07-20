@@ -32,7 +32,20 @@ The architecture showcases both Oracle and open-source cloud-native technologies
 
 NOTE: The workshop can be run either in Kubernetes or standalone and each lab (app task/screen) can be run independently of any others (ie it is modular)
 
-## Task 1: Optionally, if you do not have one, create a Kubernetes cluster (the Oracle Backend for Microservices and AI is a convenient way to do this)
+## Task 1: Make a Clone of the Workshop Setup Script and Source Code
+
+1. To work with the application code, you need to make a clone from the GitHub repository using the following command.  
+
+     ```
+     <copy>
+     git clone https://github.com/paulparkinson/oracle-ai-for-sustainable-dev.git
+     </copy>
+     ```
+
+     You should now see the directory `microservices-datadriven` in the current directory.
+
+
+## Task 2: Optionally, if you do not have one, create a Kubernetes cluster (the Oracle Backend for Microservices and AI is a convenient way to do this)
 
 1. Whether it is an Oracle OKE cluster, or another cloud vendor's Kubernetes, on-prem, on laptop installed via Kind, etc. as long as kubectl commands can be executed against it.
 
@@ -44,16 +57,18 @@ NOTE: The workshop can be run either in Kubernetes or standalone and each lab (a
     You can then visualize observability using the directions found at https://oracle.github.io/microservices-datadriven/spring/observability/metrics/
 
 
-## Task 2: If you do not have one, create an Oracle Database
+## Task 3: If you do not have one, create an Oracle Database
 
 NOTE: Currently True Cache is not supported on Autonomous Database and so the lab that uses True Cache will require appropriate standalone database setup.
+
+NOTE: Basic Autonomous Database is used for all labs except for the two which involve True Cache (which is not yet supported on ADB) and Globally Distributed Database (which requires additional/appropriate) and so if you wish to do those labs you will need to setup the appropriate database.
 
 1. See https://www.oracle.com/database/free/
 
 2. All features and products in the labs can run on ADB (Autonomous Database) except for the True Cache 
 
 
-## Task 3: Configure a Container Registry
+## Task 4: Configure a Container Registry
 
 1. The setup scripts require a DOCKER_REGISTRY variable to be set. This is the container registry where the images will be pushed. For example, if you are using Oracle Container Registry, set it to `eu-frankfurt-1.ocir.io/mytenancyOCIRnamespace/financial`. If you are using Docker Hub, set it to `docker.io/<your-docker-username>`.
 Set the `DOCKER_REGISTRY` variable in your terminal:
@@ -62,7 +77,7 @@ Set the `DOCKER_REGISTRY` variable in your terminal:
    <copy>export DOCKER_REGISTRY=container-registry.oracle.com</copy>
    ```
 
-## Task 4: Configure Kubernetes Namespace, Ingress, and Secrets
+## Task 5: Configure Kubernetes Namespace, Ingress, and Secrets
 
 1. Create a Kubernetes namespace for the workshop:
 
