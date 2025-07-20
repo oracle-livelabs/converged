@@ -30,7 +30,7 @@ This lab only requires that you have an Oracle Autonomous Database
 
 ## Task 1: Build and deploy the service
 
-Follow the readme at [this location](https://github.com/paulparkinson/oracle-ai-for-sustainable-dev/tree/main/financial/graph-circular-payments).
+Run `./build_and_deploy.sh` at [this location](https://github.com/paulparkinson/oracle-ai-for-sustainable-dev/tree/main/financial/graph-circular-payments).
 
 1. Simply follow the directions here and use the MongoDB URL as you would any other in your MongoDB application
 

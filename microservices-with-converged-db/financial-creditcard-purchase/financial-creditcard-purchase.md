@@ -25,7 +25,7 @@ This lab only requires that you have completed the setup lab.
 
 ## Task 1: Build and deploy the service
 
-Follow the readme at [this location](https://github.com/paulparkinson/oracle-ai-for-sustainable-dev/tree/main/financial/graph-circular-payments).
+Run `./build_and_deploy.sh` at [this location](https://github.com/paulparkinson/oracle-ai-for-sustainable-dev/tree/main/financial/graph-circular-payments).
 
 1. GDB can be deployed on Kubernetes, Terraform, or with Docker.
     The documentation found here: https://docs.oracle.com/en/database/oracle/oracle-database/23/shard/gdd-oracle-cloud-infrastructure.html

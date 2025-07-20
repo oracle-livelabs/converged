@@ -23,7 +23,7 @@ This lab only requires that you have completed the setup lab.
 
 ## Task 1: Build and deploy the service
 
-Follow the readme at [this location](https://github.com/paulparkinson/oracle-ai-for-sustainable-dev/tree/main/financial/graph-circular-payments).
+Run `./build_and_deploy.sh` at [this location](https://github.com/paulparkinson/oracle-ai-for-sustainable-dev/tree/main/financial/graph-circular-payments).
 
 1. Follow the steps found here on the AI Hub here: https://www.oracle.com/artificial-intelligence/speak-with-ai-about-data-using-real-time/
 

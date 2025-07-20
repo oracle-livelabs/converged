@@ -21,7 +21,7 @@ This lab only requires that you have completed the setup lab.
 
 ## Task 1: Build and deploy the service
 
-Follow the readme at [this location](https://github.com/paulparkinson/oracle-ai-for-sustainable-dev/tree/main/financial/graph-circular-payments).
+Run `./build_and_deploy.sh` at [this location](https://github.com/paulparkinson/oracle-ai-for-sustainable-dev/tree/main/financial/graph-circular-payments).
 
 1. Follow [Graph Studio: Find Circular Payment Chains with Graph Queries in Autonomous Database workshop](https://apexapps.oracle.com/pls/apex/r/dbpm/livelabs/run-workshop?p210_wid=770)
 
