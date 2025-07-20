@@ -25,7 +25,9 @@ This lab only requires that you have completed the setup lab.
 
 Run `./build_and_deploy.sh` at [this location](https://github.com/paulparkinson/oracle-ai-for-sustainable-dev/tree/main/financial/graph-circular-payments).
 
-1. Follow the steps found here on the AI Hub here: https://www.oracle.com/artificial-intelligence/speak-with-ai-about-data-using-real-time/
+1. Follow the steps found on the AI Hub here: https://www.oracle.com/artificial-intelligence/speak-with-ai-about-data-using-real-time/
+
+2. If you would like to further enhance the demo to use the Unreal MetaHuman interface, follow the steps found here: https://www.linkedin.com/pulse/interactive-ai-holograms-develop-digital-double-oracle-paul-parkinson-zdpjf
 
 You may now proceed to the next lab.
 

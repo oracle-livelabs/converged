@@ -11,14 +11,13 @@ Each lab contains
 - Introduction
 - Objectives
 - Customer References
-- Product Management And Other Contacts
 - Prerequisites
 - Low-level, code-level side by side comparison with alternatives
 - Migration
 - Scaling, Sizing, and Performance
 - Walk-through script and video
 
-Estimated Workshop Time: Each lab ranges from 30 to 120 minutes and most do not depend on other labs. Entire workshop takes ~5 hours.
+Estimated Workshop Time: After the initial setup of Oracle database(s) and Kubernetes (if Kubernetes is used), each lab ranges from 15 to 30 minutes and none of the labs depend on any of the others. Entire workshop takes ~5 hours.
 
 ### About Product/Technology
 
