@@ -31,8 +31,10 @@ See application scr below for labs and corresponding technology used.
 - Learn about Oracle Database and AI features in depth and how they facilitate various financial services
 - Learn how to develop, migrate, scale, etc. financial solutions using Oracle Database
 
-![Financial Application Architecture](./images/appscreenshot.png " ")
 
+[](youtube:qHVYXagpAC0?start=466)
+
+*The entire walkthrough video can be viewd above*
 
 ### Prerequisites
 
