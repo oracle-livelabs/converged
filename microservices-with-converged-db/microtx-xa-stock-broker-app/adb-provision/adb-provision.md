@@ -299,7 +299,7 @@ Repeat tasks 1, 2, 3, and 4 to create another ATP-S instance for the Stock Broke
 
     ![Specify database instance configuration](./images/create-dept2-atp.png " ")
 
-2. After creating the database, repeat [Task 3](#Task3:DownloadtheWalletFiles) to download the wallet file. Copy the contents of the unzipped wallet file to the `/home/oracle/microtx/otmm-22.3.2/samples/xa/java/bankapp/StockBroker/Database_Wallet` folder. This file contains the source code for the Stock Broker service.
+2. After creating the database, repeat [Task 3](#Task3:DownloadtheWalletFiles) to download the wallet file. Copy the contents of the unzipped wallet file to the `/home/oracle/microtx/otmm-23.4.1/samples/xa/java/bankapp/StockBroker/Database_Wallet` folder. This file contains the source code for the Stock Broker service.
 
 3. Connect to the database using SQL Worksheet. Repeat [Task 4](#Task4:ConnectwithSQLWorksheet) to connect to the ATP database that you have created for the Stock Broker service using SQL Worksheet.
 
