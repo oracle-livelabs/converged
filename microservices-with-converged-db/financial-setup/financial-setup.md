@@ -182,7 +182,7 @@ Set the `DOCKER_REGISTRY` variable in your terminal:
 4. Scale to **3 Replicas**.
 
     ```
-    <copy>kubectl scale deployment.apps/financial-service --replicas=3 -n msdataworkshop</copy>
+    <copy>kubectl scale deployment.apps/financial-service --replicas=3 -n financial</copy>
     ```
 
    List the running pods.
