@@ -153,7 +153,7 @@ To download client credentials from the Oracle Cloud Infrastructure Console:
     </copy>
     ```
 
-8. Extract the wallet files to the `/home/oracle/microtx/otmm-22.3.2/samples/xa/java/bankapp/CoreBanking/Database_Wallet` and `/home/oracle/microtx/otmm-22.3.2/samples/xa/java/bankapp/BranchBanking/Database_Wallet` folders. This folder contains the source code for the Core Banking and Branch Banking services respectively.
+8. Extract the wallet files to the `/home/oracle/microtx/otmm-23.4.1/samples/xa/java/bankapp/CoreBanking/Database_Wallet` and `/home/oracle/microtx/otmm-23.4.1/samples/xa/java/bankapp/BranchBanking/Database_Wallet` folders. This folder contains the source code for the Core Banking and Branch Banking services respectively.
 
 ## Task 4: Connect with SQL Worksheet
 
