@@ -442,7 +442,7 @@ The sample application files also contain the `values.yaml` file. This is the ma
 
 To provide the details of the ATP-S database instances in the `values.yaml` file:
 
-1. Open the `values.yaml` file, which is in the `/home/oracle/microtx/otmm-22.3.2/samples/xa/java/bankapp/Helmcharts/bankapp` folder.
+1. Open the `values.yaml` file, which is in the `/home/oracle/microtx/otmm-23.4.1/samples/xa/java/bankapp/Helmcharts/bankapp` folder.
 
 2. Provide values for the following fields under `CoreBanking` and `ArizonaBranchBank` in the `values.yaml` file. Since Core Banking and Branch Banking services use the same ATP-S database instance, enter the same values under `CoreBanking` and `ArizonaBranchBank`.
 
