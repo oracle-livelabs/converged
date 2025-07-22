@@ -261,7 +261,7 @@ Set the `DOCKER_REGISTRY` variable in your terminal:
 3. Scale the financial-service service back to **1 replica**.
 
     ```
-    <copy>kubectl scale deployment.apps/financial-service --replicas=1 -n msdataworkshop</copy>
+    <copy>kubectl scale deployment.apps/financial-service --replicas=1 -n financial</copy>
     ```
 
 
