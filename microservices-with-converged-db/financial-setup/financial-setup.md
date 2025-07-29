@@ -220,13 +220,13 @@ Set the `DOCKER_REGISTRY` variable in your terminal:
 
 2. Select the database and click **Manage Scaling**. Enter 2 in the OCPU field. Click **Apply**.
 
-   ![More Actions](images/ScaleTo2dbocpuScreen.png " ")
+   ![More Actions](images/scaleto2dbocpuscreen.png " ")
 
    ![Update OCPU Field](images/manage-scaling.png " ")
 
 3. Wait until the scaling has completed (Lifecycle State: Available).
 
-   ![Scale To 2 DB OCPU Screen3](images/ScaleTo2dbocpuScreen3.png " ")
+   ![Scale To 2 DB OCPU Screen3](images/scaleto2dbocpuscreen3.png " ")
 
 4. Execute the load test again.
 
@@ -254,7 +254,7 @@ Set the `DOCKER_REGISTRY` variable in your terminal:
 
 2. Click **Manage Scaling** and enter 1 in the OCPU field. Click **Apply**.
 
-   ![Navigate to Scale Up/Down](images/ScaleTo2dbocpuScreen1.png " ")
+   ![Navigate to Scale Up/Down](images/scaleto2dbocpuscreen1.png " ")
 
    ![Update OCPU Field](images/manage-scaling2.png " ")
 
