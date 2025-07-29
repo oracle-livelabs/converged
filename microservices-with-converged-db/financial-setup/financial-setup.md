@@ -148,7 +148,7 @@ Set the `DOCKER_REGISTRY` variable in your terminal:
 2. Scale the financial-service to **2 service replicas**.
 
     ```
-    <copy>kubectl scale deployment.apps/financial-service --replicas=2 -n msdataworkshop</copy>
+    <copy>kubectl scale deployment.apps/financial-service --replicas=2 -n financial</copy>
     ```
 
    List the running pods.
@@ -182,7 +182,7 @@ Set the `DOCKER_REGISTRY` variable in your terminal:
 4. Scale to **3 Replicas**.
 
     ```
-    <copy>kubectl scale deployment.apps/financial-service --replicas=3 -n msdataworkshop</copy>
+    <copy>kubectl scale deployment.apps/financial-service --replicas=3 -n financial</copy>
     ```
 
    List the running pods.
@@ -261,7 +261,7 @@ Set the `DOCKER_REGISTRY` variable in your terminal:
 3. Scale the financial-service service back to **1 replica**.
 
     ```
-    <copy>kubectl scale deployment.apps/financial-service --replicas=1 -n msdataworkshop</copy>
+    <copy>kubectl scale deployment.apps/financial-service --replicas=1 -n financial</copy>
     ```
 
 
