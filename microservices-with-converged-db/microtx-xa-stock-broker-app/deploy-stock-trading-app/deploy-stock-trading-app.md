@@ -399,7 +399,7 @@ The Bank and Stock-Trading Application console uses Keycloak to authenticate use
 
 14. Click **Save**.
 
-## Task 3: Provide Access Details in the values.yaml File
+## Task 5: Provide Access Details in the values.yaml File
 
 The folder that contains the Bank and Stock-Trading application code also contains the `values.yaml` file. This is the manifest file, which contains the deployment configuration details for the Bank and Stock-Trading application. Edit the `values.yaml` file to provide the URL to access Keycloak and other access details.
 
