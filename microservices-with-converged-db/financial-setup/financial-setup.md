@@ -114,7 +114,7 @@ Set the `DOCKER_REGISTRY` variable in your terminal:
    You can use any web load testing tool to drive load. Here is an example of how to install the k6 tool ((licensed under AGPL v3). Or, you can use artillery and the script for that is also provided below. To see the scaling impacts we prefer doing this lab with k6.
 
    ```
-   <copy>cd $WORKSHOP_HOME/k6; wget https://github.com/loadimpact/k6/releases/download/v0.27.0/k6-v0.27.0-linux64.tar.gz; tar -xzf k6-v0.27.0-linux64.tar.gz; ln k6-v0.27.0-linux64/k6 k6</copy>
+   <copy>cd <REPOS_ROOT>/k6; wget https://github.com/loadimpact/k6/releases/download/v0.27.0/k6-v0.27.0-linux64.tar.gz; tar -xzf k6-v0.27.0-linux64.tar.gz; ln k6-v0.27.0-linux64/k6 k6</copy>
    ```
 
    ![Install K6](images/install-k6.png " ")
@@ -122,7 +122,7 @@ Set the `DOCKER_REGISTRY` variable in your terminal:
    (Alternatively) To install artillery:
 
    ```
-   <copy>cd $WORKSHOP_HOME/artillery; npm install artillery@1.6</copy>
+   <copy>cd <REPOS_ROOT>/artillery; npm install artillery@1.6</copy>
    ```
 
 ## Task 2: Load Test and Scale the Application Tier
@@ -132,7 +132,7 @@ Set the `DOCKER_REGISTRY` variable in your terminal:
     Here is an example using k6:
 
     ```
-    <copy>cd $WORKSHOP_HOME/k6; ./test.sh</copy>
+    <copy>cd <REPOS_ROOT>/k6; ./test.sh</copy>
     ```
 
     Note the request rate. This is the number of http requests per second that were processed.
@@ -142,7 +142,7 @@ Set the `DOCKER_REGISTRY` variable in your terminal:
     (Or) Using artillery:
 
     ```
-    <copy>cd $WORKSHOP_HOME/artillery; ./test.sh</copy>
+    <copy>cd <REPOS_ROOT>/artillery; ./test.sh</copy>
     ```
 
 2. Scale the financial-service to **2 service replicas**.
@@ -166,7 +166,7 @@ Set the `DOCKER_REGISTRY` variable in your terminal:
    For example:
 
     ```
-    <copy>cd $WORKSHOP_HOME/k6; ./test.sh</copy>
+    <copy>cd <REPOS_ROOT>/k6; ./test.sh</copy>
     ```
 
    Note the average response time for the requests. Throughput has increased and response time has returned to normal.
@@ -176,7 +176,7 @@ Set the `DOCKER_REGISTRY` variable in your terminal:
    (Or) Using artillery:
 
     ```
-    <copy>cd $WORKSHOP_HOME/artillery; ./test.sh</copy>
+    <copy>cd <REPOS_ROOT>/artillery; ./test.sh</copy>
     ```
 
 4. Scale to **3 Replicas**.
@@ -199,7 +199,7 @@ Set the `DOCKER_REGISTRY` variable in your terminal:
 
    For example:
     ```
-    <copy>cd $WORKSHOP_HOME/k6; ./test.sh</copy>
+    <copy>cd <REPOS_ROOT>/k6; ./test.sh</copy>
     ```
 
    Note the median response time for the requests and the request rate. Note how the response time is still degraded and the request rate has not improved significantly.
@@ -209,7 +209,7 @@ Set the `DOCKER_REGISTRY` variable in your terminal:
    (Or) Using artillery:
 
     ```
-    <copy>cd $WORKSHOP_HOME/artillery; ./test.sh</copy>
+    <copy>cd <REPOS_ROOT>/artillery; ./test.sh</copy>
     ```
 
 ## Task 3: Load Test and Scale the Database Tier
@@ -233,7 +233,7 @@ Set the `DOCKER_REGISTRY` variable in your terminal:
    For example:
 
     ```
-    <copy>cd $WORKSHOP_HOME/k6; ./test.sh</copy>
+    <copy>cd <REPOS_ROOT>/k6; ./test.sh</copy>
     ```
 
    Note the request rate.  Throughput has increased.
@@ -243,7 +243,7 @@ Set the `DOCKER_REGISTRY` variable in your terminal:
    (Or) Using artillery:
 
     ```
-    <copy>cd $WORKSHOP_HOME/artillery; ./test.sh</copy>
+    <copy>cd <REPOS_ROOT>/artillery; ./test.sh</copy>
     ```
 
 ## Task 4: Scale Down the Application and Database Tiers
