@@ -1,0 +1,55 @@
+{
+  "workshoptitle": "Simplify Microservices with Converged Oracle Database",
+  "help": "livelabs-help-db_us@oracle.com",
+	"tutorials": [
+      {
+        "title": "Introduction",
+        "filename": "../../intro/intro.md"
+      },
+      {
+        "title": "Get Started",
+        "filename": "https://oracle-livelabs.github.io/common/labs/cloud-login/pre-register-free-tier-account.md"
+      },
+      {
+        "title": "Lab 1: Setup",
+        "filename": "../../setup/setup.md"
+      },
+      {
+        "title": "Lab 2: Data-Centric Microservices Walkthrough",
+        "filename": "../../walkthrough-microservices/walkthrough-microservices.md"
+      },
+      {
+        "title": "Lab 3: Polyglot Microservices",
+        "filename": "../../polyglot/polyglot.md"
+      },
+      {
+        "title": "Lab 4: Scaling",
+        "filename": "../../scaling/scaling.md"
+      },
+      {
+        "title": "Lab 5: Observability",
+        "filename": "../../observability/observability.md"
+      },
+      {
+        "title": "Lab 6: Create an APEX App to View and Update Data",
+        "filename": "../../apex/apex.md"
+      },
+      {
+        "title": "Lab 7: Transactional Tests: Compare MongoDB, Postgres, and Kafka to Oracle DB with TEQ/AQ",
+        "filename": "../../transactional/transactional.md"
+      },
+      {
+        "title": "Lab 8: Build a video game using Unity, Kubernetes, and Oracle Database",
+        "filename": "../../unitygame/unitygame.md"
+      },
+      {
+        "title": "Lab 9: Tear Down",
+        "filename": "../../teardown/teardown.md"
+      },
+      {
+        "title": "Need Help?",
+        "description": "Solutions to Common Problems and Directions for Receiving Live Help",
+        "filename":"https://oracle-livelabs.github.io/common/labs/need-help/need-help-freetier.md"
+      }
+    ]
+}
