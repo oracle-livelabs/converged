@@ -11,7 +11,7 @@ This lab demonstrates high-performance stock trading using Oracle True Cache in 
 
 The key advantage of True Cache is that applications can continue using standard SQL without requiring changes to use alternative APIs like Redis. This approach allows developers to maintain familiar database patterns while gaining the performance benefits of in-memory caching. The stock ticker demonstrates this seamlessly - stock values are retrieved using regular SQL queries, but True Cache accelerates these operations behind the scenes.
 
-In this interactive demonstration, you can observe real-time stock price updates in the ticker display. When you initiate buy or sell transactions for stocks, the values are immediately updated and reflected across the application. The True Cache layer ensures that frequently accessed stock data is served from memory while maintaining data consistency with the underlying database.
+In this interactive demonstration, you can observe real-time stock price updates in the ticker display. When you initiate buy or sell transactions for stocks, the values are immediately updated and reflected across the application. The True Cache layer enables frequently accessed stock data to be served from memory while maintaining data consistency with the underlying database.
 
 This setup eliminates the complexity typically associated with cache invalidation and synchronization issues that plague traditional cache-aside patterns. True Cache automatically handles cache coherency, ensuring that all users see consistent stock prices even during high-frequency trading scenarios.
 

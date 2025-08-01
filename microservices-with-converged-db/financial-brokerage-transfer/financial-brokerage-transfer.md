@@ -13,11 +13,11 @@ The demonstration involves two microservices - an order service and an inventory
 
 A key feature of this demonstration is the crash scenario testing. You can intentionally trigger crashes at specific points in the transaction flow, such as after inventory is checked in the inventory service but before the inventory status message is sent back to the order service. This reveals critical differences between the two approaches:
 
-With traditional Kafka and PostgreSQL implementations, crashes can result in duplicate messages that require additional custom code to handle properly. Developers must write extensive error-handling logic to ensure message delivery guarantees and prevent data inconsistencies.
+With traditional Kafka and PostgreSQL implementations, crashes can result in duplicate messages that require additional custom code to handle properly. Developers must write extensive error-handling logic to provide reliable message delivery and prevent data inconsistencies.
 
-However, with Oracle's TxEventQ, even though the application continues to use the standard Kafka API, the transactional nature of the underlying event queue system automatically handles these crash scenarios. No additional coding is required to manage duplicate messages or ensure consistency, as the database's ACID properties extend to the messaging layer.
+However, with Oracle's TxEventQ, even though the application continues to use the standard Kafka API, the transactional nature of the underlying event queue system automatically handles these crash scenarios. No additional coding is required to manage duplicate messages or provide consistency, as the database's ACID properties extend to the messaging layer.
 
-This demonstration highlights how Oracle's converged architecture simplifies microservices development by providing reliable messaging capabilities with database-level consistency guarantees, reducing the complexity and potential for errors in distributed financial applications.
+This demonstration highlights how Oracle's converged architecture simplifies microservices development by providing reliable messaging capabilities with database-level consistency, reducing the complexity and potential for errors in distributed financial applications.
 
 ### Objectives
 

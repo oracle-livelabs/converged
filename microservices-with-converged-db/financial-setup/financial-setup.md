@@ -14,7 +14,7 @@ This comprehensive financial services workshop is designed for developers who wa
 
 The workshop follows a modular microservices architecture, allowing you to run individual labs independently or combine them for a complete experience. Each lab can be executed standalone after completing the initial setup, making it easy to focus on specific technologies or business processes that interest you most.
 
-The setup process involves creating an Oracle database (either Autonomous Database on the cloud or containerized versions) and can be deployed on Kubernetes or as standalone services. This flexibility ensures the workshop can adapt to your preferred development environment.
+The setup process involves creating an Oracle database (either Autonomous Database on the cloud or containerized versions) and can be deployed on Kubernetes or as standalone services. This flexibility makes it so the workshop can adapt to your preferred development environment.
 
 Each lab includes developer-focused features such as:
 - Walkthrough videos and detailed code examples
@@ -42,7 +42,7 @@ NOTE: The workshop can be run either in Kubernetes or standalone and each lab (a
      </copy>
      ```
 
-     You should now see the directory `microservices-datadriven` in the current directory.
+     You should now see the directory `oracle-ai-for-sustainable-dev` in the current directory. we will refer to this directory as `<REPOS_ROOT>` in the rest of this document.
 
 
 ## Task 2: Optionally, if you do not have one, create a Kubernetes cluster (the Oracle Backend for Microservices and AI is a convenient way to do this)
@@ -77,7 +77,23 @@ Set the `DOCKER_REGISTRY` variable in your terminal:
    <copy>export DOCKER_REGISTRY=container-registry.oracle.com</copy>
    ```
 
-## Task 5: Configure Kubernetes Namespace, Ingress, and Secrets
+## Task 5: Populate the .env file with the required variables
+
+1. Make a copy of the `.env.example` file and name it `.env`. This file contains environment variables that will be used by the application. You can use the following command to copy the file:
+
+   ```
+   <copy>cp <REPOS_ROOT>/.env.example <REPOS_ROOT>/.env</copy>
+   ```
+
+2. Provide appropriate values for the following variables in the `.env` file:
+
+   - `DOCKER_REGISTRY`: The container registry where the images will be pushed (as set in Task 4).
+   - `DB_CONNECTION_STRING`: The connection string for your Oracle Database. For example, if you are using Autonomous Database, it might look like `jdbc:oracle:thin:@//<db-hostname>:<port>/<service-name>`.
+   - `DB_USER`: The username for your Oracle Database.
+   - `DB_PASSWORD`: The password for your Oracle Database user.
+   - `K8S_NAMESPACE`: The Kubernetes namespace where the application will be deployed (e.g., `financial`).
+
+## Task 6: Configure Kubernetes Namespace, Ingress, and Secrets
 
 1. Create a Kubernetes namespace for the workshop:
 
