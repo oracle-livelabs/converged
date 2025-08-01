@@ -13,7 +13,7 @@
 
 This lab only requires that you have completed the setup lab and can actually be .
 
-## Task 1: Insure you have NPM installed
+## Task 1: Verify you have NPM installed
 
 Ensure you have Node Package Manager (npm) installed. You can check this by running:
 

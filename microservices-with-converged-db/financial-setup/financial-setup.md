@@ -14,7 +14,7 @@ This comprehensive financial services workshop is designed for developers who wa
 
 The workshop follows a modular microservices architecture, allowing you to run individual labs independently or combine them for a complete experience. Each lab can be executed standalone after completing the initial setup, making it easy to focus on specific technologies or business processes that interest you most.
 
-The setup process involves creating an Oracle database (either Autonomous Database on the cloud or containerized versions) and can be deployed on Kubernetes or as standalone services. This flexibility ensures the workshop can adapt to your preferred development environment.
+The setup process involves creating an Oracle database (either Autonomous Database on the cloud or containerized versions) and can be deployed on Kubernetes or as standalone services. This flexibility makes it so the workshop can adapt to your preferred development environment.
 
 Each lab includes developer-focused features such as:
 - Walkthrough videos and detailed code examples
