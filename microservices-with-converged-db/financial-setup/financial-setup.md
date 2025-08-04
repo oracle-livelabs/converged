@@ -44,38 +44,40 @@ NOTE: The workshop can be run either in Kubernetes or standalone and each lab (a
 
      You should now see the directory `oracle-ai-for-sustainable-dev` in the current directory. we will refer to this directory as `<REPOS_ROOT>` in the rest of this document.
 
+     You can now proceed to either Task 2 or Task 3 depending on the option you prefer.
 
-## Task 2: Optionally, if you do not have one, create a Kubernetes cluster (the Oracle Backend for Microservices and AI is a convenient way to do this)
 
-1. Whether it is an Oracle OKE cluster, or another cloud vendor's Kubernetes, on-prem, on laptop installed via Kind, etc. as long as kubectl commands can be executed against it.
+## Task 2 (Option 1: Use Oracle Backend for Microservices and AI to create/configure a Kubernetes cluster, Oracle Database, OraOperator, Container Registry, and Observability)
 
-2. Another option is to use the Oracle Backend for Microservices and AI which provisions an Oracle Autonomous Database and Kubernetes with a number of preconfigured components for microservices, etc.  
+1. A convenient approach to setting up Kubernetes, an Oracle Database, OraOperator (the Oracle Kubernetes operator), Container Registry, Observability, and optionally the AI Optimizer, is to use install the Oracle Backend for Microservices and AI...  
     Follow the directions found here: https://docs.oracle.com/en/database/oracle/backend-for-microservices-and-ai/index.html
     
-    You can also use a resource manager stack to setup Oracle Backend for Microservices and AI but accessing OCI Marketplace
+    You can also use a resource manager stack to setup Oracle Backend for Microservices and AI by accessing OCI Marketplace
 
     You can then visualize observability using the directions found at https://oracle.github.io/microservices-datadriven/spring/observability/metrics/
 
 
-## Task 3: If you do not have one, create an Oracle Database
-
-NOTE: Currently True Cache is not supported on Autonomous Database and so the lab that uses True Cache will require appropriate standalone database setup.
-
-NOTE: Basic Autonomous Database is used for all labs except for the two which involve True Cache (which is not yet supported on ADB) and Globally Distributed Database (which requires additional/appropriate) and so if you wish to do those labs you will need to setup the appropriate database.
-
-1. See https://www.oracle.com/database/free/
-
-2. All features and products in the labs can run on ADB (Autonomous Database) except for the True Cache 
 
 
-## Task 4: Configure a Container Registry
+## Task 3 (Option 2: Setup Kubernetes, Oracle Database, OraOperator, Container Registry, and Observability manually)
 
-1. The setup scripts require a DOCKER_REGISTRY variable to be set. This is the container registry where the images will be pushed. For example, if you are using Oracle Container Registry, set it to `eu-frankfurt-1.ocir.io/mytenancyOCIRnamespace/financial`. If you are using Docker Hub, set it to `docker.io/<your-docker-username>`.
-Set the `DOCKER_REGISTRY` variable in your terminal:
+1. Create Kubernetes instance: Whether it is an Oracle OKE cluster, or another cloud vendor's Kubernetes, on-prem, on laptop installed via Kind, etc. as long as kubectl commands can be executed against it.
+
+2. Create and/or bind to an Oracle Autonomous Database and enable observability using the OraOperator (Oracle Kubernetes Operator): Follow the directions here: https://github.com/oracle/oracle-database-operator
+
+3. Create an image/container repos such as OCIR or ghcr.io: This is the container registry where the microservice, etc. images will be pushed. The location of this repos must be exported as the DOCKER_REGISTRY variable and should be written in the  `<REPOS_ROOT>/.env` file (more on this in Task 5). 
+   For example, if you are using Oracle Container Registry, set it to `eu-frankfurt-1.ocir.io/mytenancyOCIRnamespace/financial`. If you are using Docker Hub, set it to `docker.io/<your-docker-username>`.
+   Set the `DOCKER_REGISTRY` variable in your terminal:
 
    ```
    <copy>export DOCKER_REGISTRY=container-registry.oracle.com</copy>
    ```
+
+## Task 4 (optional): Configure True Cache and/or Globally Distributed Database
+
+1. Configure True Cache is not supported on Autonomous Database and so the lab that uses True Cache will require appropriate standalone database setup. You can follow any available documentation to do this.
+
+2. Similarly, Globally Distributed Database requires a special configuration beyond that of the basic Autonomous Database Service setup done in Task 1/2  .  You can follow any available documentation to do this.
 
 ## Task 5: Populate the .env file with the required variables
 
@@ -88,7 +90,7 @@ Set the `DOCKER_REGISTRY` variable in your terminal:
 2. Provide appropriate values for the following variables in the `.env` file:
 
    - `DOCKER_REGISTRY`: The container registry where the images will be pushed (as set in Task 4).
-   - `DB_CONNECTION_STRING`: The connection string for your Oracle Database. For example, if you are using Autonomous Database, it might look like `jdbc:oracle:thin:@//<db-hostname>:<port>/<service-name>`.
+   - `DB_CONNECTION_STRING`: The connection string for your Oracle Database. 
    - `DB_USER`: The username for your Oracle Database.
    - `DB_PASSWORD`: The password for your Oracle Database user.
    - `K8S_NAMESPACE`: The Kubernetes namespace where the application will be deployed (e.g., `financial`).

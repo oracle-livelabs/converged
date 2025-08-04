@@ -19,54 +19,6 @@
         "filename": "../../financial-frontend/financial-frontend.md"
       },
       {
-        "title": "Lab 3: Publish financial APIS (ORDS, OpenAPI)",
-        "filename": "../../financial-api/financial-api.md"
-      },
-      {
-        "title": "Lab 4: Create and view accounts (MongoDB/MERN stack)" ,
-        "filename": "../../financial-account-management-mern/financial-account-management-mern.md"
-      },
-      {
-        "title": "Lab 5: ATM (Polyglot)", ,
-        "filename": "https://github.com/oracle-livelabs/converged/blob/main/microservices-with-converged-db/financial-polyglot/financial-polyglot.md"
-      },
-      {
-        "title": "Lab 6: Deposit/withdraw money (ATM) (Polyglot)",
-        "filename": "../../financial-polyglot/financial-polyglot.md"
-      },
-      {
-        "title": "Lab 7: Transfer to external bank (MicroTx, Lock-free reservations)",
-        "filename": "../../financial-bank-transfer/financial-bank-transfer.md"
-      },
-      {
-        "title": "Lab 8: Make purchases and visualize fraud (Globally Distributed DB, OML, Spatial)",
-        "filename": "../../financial-creditcard-purchase/financial-creditcard-purchase.md"
-      },
-      {
-        "title": "Lab 9: Detect money Laundering (Graph)",
-        "filename": "../../financial-fraud-alerts/financial-fraud-alerts.md"
-      },
-      {
-        "title": "Lab 10: Transfer to brokerage accounts (Kafka and TxEventQ)",
-        "filename": "../../financial-brokerage-transfer/financial-brokerage-transfer.md"
-      },
-      {
-        "title": "Lab 11: View stock ticker and buy/sell stock (TrueCache)",
-        "filename": "../../financial-stock-true-cache/financial-stock-true-cache.md"
-      },
-      {
-        "title": "Lab 12: Get personal financial insights (Vector Search, AI Agents and MCP)",
-        "filename": "../../financial-insights/financial-insights.md"
-      },
-      {
-        "title": "Lab 13: Speak with your financial data (NL2SQL, Vector Search, Speech AI)",
-        "filename": "../../financial-speak-with-data/financial-speak-with-data.md"
-      },
-      {
-        "title": "Lab 14: Tear Down",
-        "filename": "../../financial-teardown/financial-teardown.md"
-      },
-      {
         "title": "Need Help?",
         "description": "Solutions to Common Problems and Directions for Receiving Live Help",
         "filename":"https://oracle-livelabs.github.io/common/labs/need-help/need-help-freetier.md"
