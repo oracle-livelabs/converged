@@ -2,7 +2,7 @@
 
 ## Introduction
 
-[](youtube:qHVYXagpAC0?start=327)
+[](youtube:qHVYXagpAC0)
 
 *Watch the tutorial video above (starts at 5:27 mark)*
 
