@@ -47,7 +47,7 @@ NOTE: The workshop can be run either in Kubernetes or standalone and each lab (a
      You can now proceed to either Task 2 or Task 3 depending on the option you prefer.
 
 
-## Task 2 (Option 1: Use Oracle Backend for Microservices and AI to create/configure a Kubernetes cluster, Oracle Database, OraOperator, Container Registry, and Observability
+## Task 2 (Option 1: Use Oracle Backend for Microservices and AI to create/configure a Kubernetes cluster, Oracle Database, OraOperator, Container Registry, and Observability)
 
 1. A convenient approach to setting up Kubernetes, an Oracle Database, OraOperator (the Oracle Kubernetes operator), Container Registry, Observability, and optionally the AI Optimizer, is to use install the Oracle Backend for Microservices and AI...  
     Follow the directions found here: https://docs.oracle.com/en/database/oracle/backend-for-microservices-and-ai/index.html
@@ -59,7 +59,7 @@ NOTE: The workshop can be run either in Kubernetes or standalone and each lab (a
 
 
 
-## Task 3 (Option 2: If you do not have one, create an Oracle Database
+## Task 3 (Option 2: Setup Kubernetes, Oracle Database, OraOperator, Container Registry, and Observability manually)
 
 1. Create Kubernetes instance: Whether it is an Oracle OKE cluster, or another cloud vendor's Kubernetes, on-prem, on laptop installed via Kind, etc. as long as kubectl commands can be executed against it.
 
