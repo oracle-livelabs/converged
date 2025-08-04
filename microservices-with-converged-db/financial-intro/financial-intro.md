@@ -2,6 +2,7 @@
 
 ## About this Workshop
 
+
 Audience: This workshop is meant for both specialists in line of business for financial verticals as well as developers, and also to connect the two.  
 For example, the labs of the workshop are named by the financial process with additional information on tech involved, developer notes, etc..
 
@@ -31,13 +32,13 @@ See application scr below for labs and corresponding technology used.
 - Learn how to develop, migrate, scale, etc. financial solutions using Oracle Database
 
 
-[](youtube:qHVYXagpAC0?start=466)
+[](youtube:qHVYXagpAC0)
 
-*The entire walkthrough video can be viewd above*
+*The entire walkthrough video can be viewed above*
 
 ### Prerequisites
 
- - As mentioned, there a multiple environments that can be used for this workshops and each lab has different requirements, with most module to the point where they can be run independently of others. See individual lab pages for instructions.
+ - As mentioned, there are multiple environments that can be used for this workshop and each lab has different requirements, with most modular to the point where they can be run independently of others. See individual lab pages for instructions.
  - Cloud (any cloud) compute instances and/or sufficient local compute. "sufficient" is dependent on which labs are conducted and so varies)
 
 ## Learn More

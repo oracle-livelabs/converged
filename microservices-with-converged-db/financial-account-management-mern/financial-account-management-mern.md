@@ -2,9 +2,9 @@
 
 ## Introduction
 
-[](youtube:qHVYXagpAC0?start=371)
+[](youtube:qHVYXagpAC0)
 
-*Watch the tutorial video above*
+*Watch the tutorial video above (starts at 6:11 mark)**
 
 This lab showcases account creation and management using the MongoDB MERN stack (MongoDB, Express, React, Node.js) with Oracle's JSON Duality feature. The application demonstrates how you can seamlessly access Oracle Database using the MongoDB API, providing flexibility for developers familiar with MongoDB while leveraging Oracle's enterprise capabilities.
 

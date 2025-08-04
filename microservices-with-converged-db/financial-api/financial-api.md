@@ -2,9 +2,9 @@
 
 ## Introduction
 
-[](youtube:qHVYXagpAC0?start=327)
+[](youtube:qHVYXagpAC0)
 
-*Watch the tutorial video above*
+*Watch the tutorial video above (starts at 5:27 mark)*
 
 This lab demonstrates how to publish financial APIs using Oracle REST Data Services (ORDS) and OpenAPI. ORDS is particularly popular in the financial industry for quickly exposing database objects and processes as REST APIs without complex coding.
 
