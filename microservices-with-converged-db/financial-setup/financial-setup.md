@@ -6,9 +6,9 @@ In this lab, we will provision and database and cloud native tech (in particular
 
 Estimated Time: 25 minutes
 
-[](youtube:qHVYXagpAC0?start=0)
+[](youtube:qHVYXagpAC0)
 
-*Watch the tutorial video above*
+*Watch the tutorial video above  (starts at 2:49 mark)*
 
 This comprehensive financial services workshop is designed for developers who want to explore Oracle database technologies in a practical, hands-on environment. Each lab represents a specific financial business process or task, demonstrating how Oracle and open-source technologies work together to solve real-world challenges.
 
