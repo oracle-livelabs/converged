@@ -2,7 +2,6 @@
 
 ## About this Workshop
 
-[](youtube:qHVYXagpAC0)
 
 Audience: This workshop is meant for both specialists in line of business for financial verticals as well as developers, and also to connect the two.  
 For example, the labs of the workshop are named by the financial process with additional information on tech involved, developer notes, etc..
@@ -33,7 +32,7 @@ See application scr below for labs and corresponding technology used.
 - Learn how to develop, migrate, scale, etc. financial solutions using Oracle Database
 
 
-[](youtube:qHVYXagpAC0?start=466)
+[](youtube:qHVYXagpAC0)
 
 *The entire walkthrough video can be viewed above*
 
