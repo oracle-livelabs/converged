@@ -33,7 +33,7 @@ This lab only requires that you have an Oracle Autonomous Database
 
 1. If you have not already done so, create an Oracle Database and obtain the MongoDB URL that points to the Oracle Database API for MongoDB. The directions for obtaining it can be found here:
    https://docs.oracle.com/en/cloud/paas/autonomous-database/serverless/adbsb/mongo-using-oracle-database-api-mongodb.html
-2. Run the admin.sql, financial.sql, and mongodb-jsonduality.sql scripts located in the `financial/sq;` directory.
+2. Run the admin.sql, financial.sql, and mongodb-jsonduality.sql scripts located in the `financial/sql` directory.
 
 
 ## Task 2: Option 1, Run Locally
