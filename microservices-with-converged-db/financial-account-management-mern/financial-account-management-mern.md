@@ -28,17 +28,32 @@ The interactive code examples show how the same database operations can be perfo
 
 This lab only requires that you have an Oracle Autonomous Database
 
-## Task 1: Build and deploy the service
 
-Run `./build_and_deploy.sh` at [this location](https://github.com/paulparkinson/oracle-ai-for-sustainable-dev/tree/main/financial/graph-circular-payments).
+## Task 1: Database Setup
 
-1. Simply follow the directions here and use the MongoDB URL as you would any other in your MongoDB application
+1. If you have not already done so, create an Oracle Database and obtain the MongoDB URL that points to the Oracle Database API for MongoDB. The directions for obtaining it can be found here:
+   https://docs.oracle.com/en/cloud/paas/autonomous-database/serverless/adbsb/mongo-using-oracle-database-api-mongodb.html
+2. Run the admin.sql, financial.sql, and mongodb-jsonduality.sql scripts located in the `financial/sql` directory.
 
-https://docs.oracle.com/en/cloud/paas/autonomous-database/serverless/adbsb/mongo-using-oracle-database-api-mongodb.html
 
-## Task 2: Run the application
+## Task 2: Option 1, Run Locally
 
-1. Follow the steps in the README.md in `financial/bank-account-management-mergn` directory of the Github repos
+1. If you have not already done so, create a copy of the `financial\.env.example` file in the repos (eg `.env`)
+2. Update the `.env` file with your Oracle Autonomous Database details for `username`, `password`, and `host`, `url`
+3. Source the `.env` file, e.g. `source .env`
+4. cd to the `mongodb-mern-bank-account/springboot-relational-stack` directory
+5. Run `.build_and_run_local.sh`
+6. Open a browser and navigate to `http://localhost:8080` . Try to access http://localhost:8080/accounts/accounts to see all accounts in JSON format.
+7. If you have installed the React frontend, you should be able to access this page from there as well. You can override the `REACT_APP_MERN_SQL_ORACLE_SERVICE_URL` variable in the `.env` file if needed.
+8. cd to the `mongodb-mern-bank-account/mern-stack` directory
+9. Update the `.env` file with your Oracle Autonomous Database details for `MONGODB_URL` (obtained during the setup task earlier). Notice the need for escaped characters when doing the password, e.g. `@` becomes `%40`. An example is shown in the `.env.example` file.
+10. Run `.build_and_run_local.sh`
+11. Open a browser and navigate to `http://localhost:5001` . Try to access http://localhost:5001/api/accounts to see all accounts in JSON format.
+12. If you have installed the React frontend, you should be able to access this page from there as well. You can override the `REACT_APP_MERN_MONGODB_JSONDUALITY_ORACLE_SERVICE_URL` variable in the `.env` file if needed.
+
+## Task 3: Option 2, Run On Kubernetes
+
+1. Run `./build_and_deploy.sh` at [this location](https://github.com/paulparkinson/oracle-ai-for-sustainable-dev/tree/main/financial/graph-circular-payments).
 
 
 ## Migration

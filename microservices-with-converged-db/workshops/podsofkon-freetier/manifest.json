@@ -1,38 +1,14 @@
 {
-  "workshoptitle": "Develop Video Games Using Cloud Native, Kubernetes, Open Source, and Oracle Database 23ai",
+  "workshoptitle": "Develop Video Games Using Cloud Native, Kubernetes, Open Source, and Oracle Database",
   "help": "livelabs-help-db_us@oracle.com",
 	"tutorials": [
       {
         "title": "Introduction",
-        "filename": "../../intro-pok/intro-pok.md"
+        "filename": "../../intro-games/intro-games.md"
       },
       {
         "title": "Get Started",
         "filename": "https://oracle-livelabs.github.io/common/labs/cloud-login/pre-register-free-tier-account.md"
-      },
-      {
-        "title": "Lab 1: Play The Game",
-        "filename": "../../polyglot/polyglot.md"
-      },
-      {
-        "title": "Lab 2: Setup Infra: Database, Kubernetes, ...",
-        "filename": "../../setup/setup.md"
-      },
-      {
-        "title": "Lab 3: Polyglot Kubernetes Microservices BackEnd Walkthrough",
-        "filename": "../../game-backend-walkthrough/game-backend-walkthrough.md"
-      },
-      {
-        "title": "Lab 4: Unity, Unreal, Godot, and WASM FrontEnd Walkthrough",
-        "filename": "../../unitygame/unitygame.md"
-      },
-      {
-        "title": "Lab 5: Add OpenTelemetry Observability of the game",
-        "filename": "../../observability/observability.md"
-      },
-      {
-        "title": "Lab 6: Tear Down",
-        "filename": "../../teardown/teardown.md"
       },
       {
         "title": "Need Help?",
