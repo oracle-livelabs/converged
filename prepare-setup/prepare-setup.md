@@ -17,25 +17,25 @@ This lab assumes you have:
 1.  Click on the link below to download the Resource Manager zip file you need to build your environment:
 
 <if type="modernize">
-    - [cvgdb-mkplc-modernize.zip](https://objectstorage.us-ashburn-1.oraclecloud.com/p/xBVHfPMqJXoE6K-e1xR_8wRkhSsLfm-WHzDDyk66Nqi60MTz-IQog1mzu-tIFQiI/n/c4u02/b/hosted_workshops/o/stacks/cvgdb-mkplc-modernize.zip)
+    - [cvgdb-mkplc-modernize.zip](https://c4u02.objectstorage.us-ashburn-1.oci.customer-oci.com/p/tfC_fKB7HB5Wo1pvpYu1fHifVw-E7MZruSx9l5J6ebjhGZOwsFawUiJlJhzgR7Hy/n/c4u02/b/hosted_workshops/o/stacks/cvgdb-mkplc-modernize.zip)
 </if>
 <if type="modernize-coherence">
-    - [cvgdb-mkplc-modernize-coherence.zip](https://objectstorage.us-ashburn-1.oraclecloud.com/p/IdaKhqVfQWFPygcM39qupjAdzUV-cn1hwAlenS6xxNUDuQygR9yDuwe3DgBbXUSK/n/c4u02/b/hosted_workshops/o/stacks/cvgdb-mkplc-modernize-coherence.zip)
+    - [cvgdb-mkplc-modernize-coherence.zip](https://c4u02.objectstorage.us-ashburn-1.oci.customer-oci.com/p/tfC_fKB7HB5Wo1pvpYu1fHifVw-E7MZruSx9l5J6ebjhGZOwsFawUiJlJhzgR7Hy/n/c4u02/b/hosted_workshops/o/stacks/cvgdb-mkplc-modernize-coherence.zip)
 </if>
 <if type="modernize-helidon">
-    - [cvgdb-mkplc-modernize-helidon.zip](https://objectstorage.us-ashburn-1.oraclecloud.com/p/W_fB-NuyMLp1RZAtbaCKsA3s2y-SkS5DBMIkNTUIIvUvGa09sNTyKigyO2TInX7S/n/c4u02/b/hosted_workshops/o/stacks/cvgdb-mkplc-modernize-helidon.zip)
+    - [cvgdb-mkplc-modernize-helidon.zip](https://c4u02.objectstorage.us-ashburn-1.oci.customer-oci.com/p/tfC_fKB7HB5Wo1pvpYu1fHifVw-E7MZruSx9l5J6ebjhGZOwsFawUiJlJhzgR7Hy/n/c4u02/b/hosted_workshops/o/stacks/cvgdb-mkplc-modernize-helidon.zip)
 </if>
 <if type="on-premises">
-    - [cvgdb-mkplc-on-premises.zip](https://objectstorage.us-ashburn-1.oraclecloud.com/p/U5e61NYK9vz-WCQWnV-vKaXLfrIuuB-uaG3eE36H2hX3lviHw8CKAxBhEKzrRpA_/n/c4u02/b/hosted_workshops/o/stacks/cvgdb-mkplc-on-premises.zip)
+    - [cvgdb-mkplc-on-premises.zip](https://c4u02.objectstorage.us-ashburn-1.oci.customer-oci.com/p/tfC_fKB7HB5Wo1pvpYu1fHifVw-E7MZruSx9l5J6ebjhGZOwsFawUiJlJhzgR7Hy/n/c4u02/b/hosted_workshops/o/stacks/cvgdb-mkplc-on-premises.zip)
 </if>
 <if type="with-ml">
-    - [cvgdb-mkplc-with-ml.zip](https://objectstorage.us-ashburn-1.oraclecloud.com/p/jnn8XeLNIli0IJvHnf9Olg624ysQefA3AqM1J4GNDjhxzQjmhFrfLL7MdGOa0-tF/n/c4u02/b/hosted_workshops/o/stacks/cvgdb-mkplc-with-ml.zip)
+    - [cvgdb-mkplc-with-ml.zip](https://c4u02.objectstorage.us-ashburn-1.oci.customer-oci.com/p/tfC_fKB7HB5Wo1pvpYu1fHifVw-E7MZruSx9l5J6ebjhGZOwsFawUiJlJhzgR7Hy/n/c4u02/b/hosted_workshops/o/stacks/cvgdb-mkplc-with-ml.zip)
 </if>
 <if type="with-oas">
-    - [cvgdb-mkplc-with-oas.zip](https://objectstorage.us-ashburn-1.oraclecloud.com/p/NW10k42LvJ1aUuy4L5ZTEeuN4J2so6UeMN56VK468t3s5zpMAJrREKJZAeTlbztr/n/c4u02/b/hosted_workshops/o/stacks/cvgdb-mkplc-with-oas.zip)
+    - [cvgdb-mkplc-with-oas.zip](https://c4u02.objectstorage.us-ashburn-1.oci.customer-oci.com/p/tfC_fKB7HB5Wo1pvpYu1fHifVw-E7MZruSx9l5J6ebjhGZOwsFawUiJlJhzgR7Hy/n/c4u02/b/hosted_workshops/o/stacks/cvgdb-mkplc-with-oas.zip)
 </if>
 <if type="with-wls">
-    - [cvgdb-mkplc-with-wls.zip](https://objectstorage.us-ashburn-1.oraclecloud.com/p/jASmvjzWmFsN9DK7igzPPFircJXfLIIACbYzxYHVq_QJmqXjehcKD-WlwNixOomS/n/c4u02/b/hosted_workshops/o/stacks/cvgdb-mkplc-with-wls.zip)
+    - [cvgdb-mkplc-with-wls.zip](https://c4u02.objectstorage.us-ashburn-1.oci.customer-oci.com/p/tfC_fKB7HB5Wo1pvpYu1fHifVw-E7MZruSx9l5J6ebjhGZOwsFawUiJlJhzgR7Hy/n/c4u02/b/hosted_workshops/o/stacks/cvgdb-mkplc-with-wls.zip)
 </if>
 
 2.  Save in your downloads folder.
