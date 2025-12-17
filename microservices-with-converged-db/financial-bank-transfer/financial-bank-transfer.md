@@ -47,7 +47,7 @@ You may now **proceed to the next lab.**
 ## Learn More
 * [Developing Event-Driven, Auto-Compensating Saga Transactions For Microservices](https://dzone.com/articles/developing-saga-transactions-for-microservices)
 * [Source repos](https://github.com/paulparkinson/saga-examples)
-* [Lock-Free Reservation Capability with Oracle Database 23ai](https://blogs.oracle.com/dbstorage/post/new-lockfree-reservation-capability-with-oracle-database-23ai)
+* [Lock-Free Reservation Capability with Oracle AI Database 26ai](https://blogs.oracle.com/dbstorage/post/new-lockfree-reservation-capability-with-oracle-database-26ai)
 * https://docs.oracle.com/en/database/oracle/transaction-manager-for-microservices/24.4/tmmdg/configure-values-yaml-file.html
 * [Develop Applications with XA](http://docs.oracle.com/en/database/oracle/transaction-manager-for-microservices/23.4.1/tmmdg/develop-xa-applications.html#GUID-D9681E76-3F37-4AC0-8914-F27B030A93F5)
 * [Maintain data consistency across microservices using Oracle MicroTx](https://apexapps.oracle.com/pls/apex/r/dbpm/livelabs/run-workshop?p210_wid=3445)

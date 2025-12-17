@@ -69,7 +69,7 @@ See the following blogs for details...
 
 https://blogs.oracle.com/datawarehousing/post/oracle-database-api-for-mongodb-best-practices
 
-https://juliandontcheff.wordpress.com/2024/07/04/the-json-to-duality-migrator-in-oracle-database-23ai/
+https://juliandontcheff.wordpress.com/2024/07/04/the-json-to-duality-migrator-in-oracle-database-26ai/
 
 
 You may now proceed to the next lab.

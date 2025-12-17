@@ -1,5 +1,5 @@
 {
-  "workshoptitle": "Develop with Oracle Database 23ai and GraalVM using Spring Boot",
+  "workshoptitle": "Develop with Oracle AI Database 26ai and GraalVM using Spring Boot",
   "help": "livelabs-help-db_us@oracle.com",
   "tutorials": [
     {
@@ -16,7 +16,7 @@
       "filename": "../../setup/setup-graalvm-workshop.md"
     },
     {
-      "title": "Lab 2: Configure, build and run an application that uses Oracle Database 23ai and GraalVM using Spring Boot",
+      "title": "Lab 2: Configure, build and run an application that uses Oracle AI Database 26ai and GraalVM using Spring Boot",
       "filename": "../../springboot/springboot.md"
     },
     {

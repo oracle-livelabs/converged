@@ -11,7 +11,7 @@ Estimated Time: 10 minutes
 ### Objectives
 
 In this lab, you will:
-- Develop with Oracle Database 23ai and GraalVM using Spring Boot
+- Develop with Oracle AI Database 26ai and GraalVM using Spring Boot
 
 ### Prerequisites
 

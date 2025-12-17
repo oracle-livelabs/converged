@@ -2,7 +2,7 @@
 
 ## Introduction
 
-This lab walks you through the steps to develop with Oracle Database 23ai and GraalVM using Helidon.
+This lab walks you through the steps to develop with Oracle AI Database 26ai and GraalVM using Helidon.
 
 Helidon is a cloud-native, open‑source set of Java libraries for writing microservices that run on a fast web core powered by Java virtual threads.
 
