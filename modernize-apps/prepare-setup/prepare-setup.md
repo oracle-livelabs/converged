@@ -18,7 +18,7 @@ This lab assumes you have:
 
 1.  Click on the link below to download the Resource Manager zip file you need to build your environment.
 
-    - [cvgdb-mkplc-modernize-helidon.zip](https://objectstorage.us-ashburn-1.oraclecloud.com/p/W_fB-NuyMLp1RZAtbaCKsA3s2y-SkS5DBMIkNTUIIvUvGa09sNTyKigyO2TInX7S/n/c4u02/b/hosted_workshops/o/stacks/cvgdb-mkplc-modernize-helidon.zip)
+    - [cvgdb-mkplc-modernize-helidon.zip](https://c4u02.objectstorage.us-ashburn-1.oci.customer-oci.com/p/tfC_fKB7HB5Wo1pvpYu1fHifVw-E7MZruSx9l5J6ebjhGZOwsFawUiJlJhzgR7Hy/n/c4u02/b/hosted_workshops/o/stacks/cvgdb-mkplc-modernize-helidon.zip)
 
 2.  Save in your downloads folder.
 

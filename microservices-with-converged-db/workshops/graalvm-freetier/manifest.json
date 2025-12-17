@@ -1,0 +1,35 @@
+{
+  "workshoptitle": "Develop with Oracle Autonomous Database and GraalVM Native Image using Spring Boot, Micronaut, Helidon, and (coming soon) Quarkus",
+  "help": "livelabs-help-db_us@oracle.com",
+  "tutorials": [
+    {
+      "title": "Introduction",
+      "filename": "../../intro-graalvm/intro-graalvm.md"
+    },
+    {
+      "title": "Get Started",
+      "filename": "https://oracle-livelabs.github.io/common/labs/cloud-login/pre-register-free-tier-account.md"
+    },
+    {
+      "title": "Lab 1: Setup",
+      "filename": "../../setup/setup-graalvm-workshop.md"
+    },
+    {
+      "title": "Lab 2: Develop a Spring Boot GraalVM Native Image app that connects to Oracle Autonomous Database",
+      "filename": "../../springboot/springboot.md"
+    },
+    {
+      "title": "Lab 3: Develop a Helidon GraalVM Native Image app that connects to Oracle Autonomous Database",
+      "filename": "../../helidon/helidon.md"
+    },
+    {
+      "title": "Lab 4: Develop a Micronaut GraalVM Native Image app that connects to Oracle Autonomous Database",
+      "filename": "../../micronaut/micronaut.md"
+    },
+    {
+      "title": "Need Help?",
+      "description": "Solutions to Common Problems and Directions for Receiving Live Help",
+      "filename":"https://oracle-livelabs.github.io/common/labs/need-help/need-help-freetier.md"
+    }
+  ]
+}
