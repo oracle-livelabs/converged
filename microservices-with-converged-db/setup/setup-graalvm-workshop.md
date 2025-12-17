@@ -9,7 +9,7 @@ Estimates Time: 10 minutes
 
 ### Objectives
 
-* Create an Oracle Autonomous Database (23ai). Note https://www.oracle.com/database/free/
+* Create an Oracle Autonomous Database (26ai). Note https://www.oracle.com/database/free/
 * Obtain wallet either via OCI CLI command or by downloading from OCI console.
 * Start Cloud Shell or Terminal
 * Download wallet for ATP instance

@@ -1,14 +1,14 @@
-# (coming soon) Develop with Oracle Database 23ai and GraalVM using Quarkus
+# (coming soon) Develop with Oracle AI Database 26ai and GraalVM using Quarkus
 
 ## Introduction
 
-This lab walks you through the steps to develop with Oracle Autonomous Database 23ai and GraalVM using Quarkus
+This lab walks you through the steps to develop with Oracle Autonomous Database 26ai and GraalVM using Quarkus
 Estimated Time: 10 minutes
 
 ### Objectives
 
 In this lab, you will:
-- Develop with Oracle Autonomous Database 23ai and GraalVM using Quarkus
+- Develop with Oracle Autonomous Database 26ai and GraalVM using Quarkus
 
 ### Prerequisites
 

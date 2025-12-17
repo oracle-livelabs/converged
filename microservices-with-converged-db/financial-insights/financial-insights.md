@@ -58,7 +58,7 @@ The backend architecture demonstrates how Oracle's converged database platform s
 
 ### Objectives
 
--  Understand AI Agents, MCP, and Oracle Database 23ai Vector Search, etc. capabilities
+-  Understand AI Agents, MCP, and Oracle AI Database 26ai Vector Search, etc. capabilities
 
 
 ### Prerequisites

@@ -1,5 +1,5 @@
 {
-  "workshoptitle": "Develop with Oracle Database 23ai and GraalVM using Quarkus",
+  "workshoptitle": "Develop with Oracle AI Database 26ai and GraalVM using Quarkus",
   "help": "livelabs-help-db_us@oracle.com",
   "tutorials": [
     {
@@ -16,7 +16,7 @@
       "filename": "../../setup/setup-graalvm-workshop.md"
     },
     {
-      "title": "Lab 2: Configure, build and run an application that uses Oracle Database 23ai and GraalVM using Quarkus",
+      "title": "Lab 2: Configure, build and run an application that uses Oracle AI Database 26ai and GraalVM using Quarkus",
       "filename": "../../quarkus/quarkus.md"
     },
     {

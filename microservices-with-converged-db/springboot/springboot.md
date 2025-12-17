@@ -2,7 +2,7 @@
 
 ## Introduction
 
-This lab walks you through the steps to develop with Oracle Database 23ai and GraalVM using Spring Boot
+This lab walks you through the steps to develop with Oracle AI Database 26ai and GraalVM using Spring Boot
 Estimated Time: 30 minutes
 
 ### Objectives
