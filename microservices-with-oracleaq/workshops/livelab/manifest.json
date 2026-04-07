@@ -1,8 +1,8 @@
 {
   "workshoptitle": "Basics of Oracle Database Transactional Event Queues",
   "include": {
-    "adb-goto-service-body.md":"https://oracle-livelabs.github.io/common/building-blocks/tasks/adb/goto-service-body.md",
-    "adb-provision-body.md":"https://oracle-livelabs.github.io/common/building-blocks/tasks/adb/provision-body.md"
+    "adb-goto-service-body.md":"https://livelabs.oracle.com/cdn/common/building-blocks/tasks/adb/goto-service-body.md",
+    "adb-provision-body.md":"https://livelabs.oracle.com/cdn/common/building-blocks/tasks/adb/provision-body.md"
   },
   "help": "livelabs-help-db_us@oracle.com",
   "tutorials": [
@@ -13,7 +13,7 @@
     {
       "title": "Get started",
       "description": "Login to the Oracle Cloud",
-      "filename": "https://oracle-livelabs.github.io/common/labs/cloud-login/cloud-login-livelabs2.md"
+      "filename": "https://livelabs.oracle.com/cdn/common/labs/cloud-login/cloud-login-livelabs2.md"
     },
     {
       "title": "Lab 1: Log in to SQL Worksheet",
@@ -33,12 +33,12 @@
     },
     {
       "title": "Lab 5 (Optional): Cleanup Oracle Autonomous Database",
-      "filename":"https://oracle-livelabs.github.io/common/labs/terminate-adb/terminate-adb.md"
+      "filename":"https://livelabs.oracle.com/cdn/common/labs/terminate-adb/terminate-adb.md"
     },
     {
       "title": "Need Help?",
       "description": "Solutions to Common Problems and Directions for Receiving Live Help",
-      "filename":"https://oracle-livelabs.github.io/common/labs/need-help/need-help-freetier.md"
+      "filename":"https://livelabs.oracle.com/cdn/common/labs/need-help/need-help-freetier.md"
     }
   ]
 }
